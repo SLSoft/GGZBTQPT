@@ -1,0 +1,68 @@
+﻿USE [GGZBTQPTDB]
+GO
+
+/****** Object:  Table [dbo].[DB_YYZCPT_YWXTGL]    Script Date: 09/25/2012 10:12:29 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DB_YYZCPT_YWXTGL](
+	[xh] [int] IDENTITY(1,1) NOT NULL,
+	[bm] [uniqueidentifier] NOT NULL,
+	[mc] [nvarchar](max) NULL,
+	[px] [nvarchar](max) NULL,
+	[cjsj] [datetime] NULL,
+	[gxsj] [datetime] NULL,
+	[czr] [uniqueidentifier] NULL,
+	[yxbs] [bit] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[xh] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[DB_YYZCPT_NWYHGL]    Script Date: 09/25/2012 10:12:29 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DB_YYZCPT_NWYHGL](
+	[xh] [int] IDENTITY(1,1) NOT NULL,
+	[bm] [uniqueidentifier] NOT NULL,
+	[mc] [nvarchar](max) NULL,
+	[dlm] [nvarchar](max) NULL,
+	[mm] [nvarchar](max) NULL,
+	[sj] [nvarchar](max) NULL,
+	[px] [int] NULL,
+	[cjsj] [datetime] NULL,
+	[gxsj] [datetime] NULL,
+	[czr] [uniqueidentifier] NULL,
+	[yxbs] [bit] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[bm] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[DB_YYZCPT_GNGL]    Script Date: 09/25/2012 10:12:29 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DB_YYZCPT_GNGL](
+	[xh] [int] IDENTITY(1,1) NOT NULL,
+	[bm] [uniqueidentifier] NOT NULL,
+	[mc] [nvarchar](max) NULL,
+	[dz] [nvarchar](max) NULL,
+	[fbm] [nvarchar](max) NULL,
+	[xtbm] [uniqueidentifier] NOT NULL,
+	[cjsj] [datetime] NULL,
+	[gxsj] [datetime] NULL,
+	[czr] [uniqueidentifier] NULL,
+	[yxbs] [bit] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[bm] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO

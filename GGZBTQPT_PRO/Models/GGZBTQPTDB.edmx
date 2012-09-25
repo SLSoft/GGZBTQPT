@@ -1,0 +1,1138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GGZBTQPTDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="GGZBTQPTDBModelStoreContainer">
+          <EntitySet Name="DB_JRJG_JGJBXX" EntityType="GGZBTQPTDBModel.Store.DB_JRJG_JGJBXX" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DB_JRJG_JGLXRXX" EntityType="GGZBTQPTDBModel.Store.DB_JRJG_JGLXRXX" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DB_JRJG_JRCPJBXX" EntityType="GGZBTQPTDBModel.Store.DB_JRJG_JRCPJBXX" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DB_QYCYZ_CYZJBXX" EntityType="GGZBTQPTDBModel.Store.DB_QYCYZ_CYZJBXX" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DB_QYCYZ_QYCPXX" EntityType="GGZBTQPTDBModel.Store.DB_QYCYZ_QYCPXX" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DB_QYCYZ_QYCWGK" EntityType="GGZBTQPTDBModel.Store.DB_QYCYZ_QYCWGK" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DB_QYCYZ_QYGZ" EntityType="GGZBTQPTDBModel.Store.DB_QYCYZ_QYGZ" store:Type="Tables" store:Schema="dbo" store:Name="DB_QYCYZ_QYGZ">
+            <DefiningQuery>SELECT 
+      [DB_QYCYZ_QYGZ].[cpbm] AS [cpbm], 
+      [DB_QYCYZ_QYGZ].[qybm] AS [qybm], 
+      [DB_QYCYZ_QYGZ].[gzqybm] AS [gzqybm], 
+      [DB_QYCYZ_QYGZ].[scsj] AS [scsj], 
+      [DB_QYCYZ_QYGZ].[yxbs] AS [yxbs], 
+      [DB_QYCYZ_QYGZ].[czr] AS [czr], 
+      [DB_QYCYZ_QYGZ].[cjsj] AS [cjsj], 
+      [DB_QYCYZ_QYGZ].[gxsj] AS [gxsj]
+      FROM [dbo].[DB_QYCYZ_QYGZ] AS [DB_QYCYZ_QYGZ]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="DB_QYCYZ_QYJBXX" EntityType="GGZBTQPTDBModel.Store.DB_QYCYZ_QYJBXX" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DB_QYCYZ_QYSC" EntityType="GGZBTQPTDBModel.Store.DB_QYCYZ_QYSC" store:Type="Tables" store:Schema="dbo" store:Name="DB_QYCYZ_QYSC">
+            <DefiningQuery>SELECT 
+      [DB_QYCYZ_QYSC].[cpbm] AS [cpbm], 
+      [DB_QYCYZ_QYSC].[qybm] AS [qybm], 
+      [DB_QYCYZ_QYSC].[gzqybm] AS [gzqybm], 
+      [DB_QYCYZ_QYSC].[scsj] AS [scsj], 
+      [DB_QYCYZ_QYSC].[yxbs] AS [yxbs], 
+      [DB_QYCYZ_QYSC].[czr] AS [czr], 
+      [DB_QYCYZ_QYSC].[cjsj] AS [cjsj], 
+      [DB_QYCYZ_QYSC].[gxsj] AS [gxsj]
+      FROM [dbo].[DB_QYCYZ_QYSC] AS [DB_QYCYZ_QYSC]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="DB_TRZXM_RZXMGGXX" EntityType="GGZBTQPTDBModel.Store.DB_TRZXM_RZXMGGXX" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DB_TRZXM_TZYXXX" EntityType="GGZBTQPTDBModel.Store.DB_TRZXM_TZYXXX" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DB_TRZXM_XMRZLRZXX" EntityType="GGZBTQPTDBModel.Store.DB_TRZXM_XMRZLRZXX" store:Type="Tables" store:Schema="dbo" store:Name="DB_TRZXM_XMRZLRZXX">
+            <DefiningQuery>SELECT 
+      [DB_TRZXM_XMRZLRZXX].[xh] AS [xh], 
+      [DB_TRZXM_XMRZLRZXX].[rzxxbn] AS [rzxxbn], 
+      [DB_TRZXM_XMRZLRZXX].[xmbm] AS [xmbm], 
+      [DB_TRZXM_XMRZLRZXX].[rzje] AS [rzje], 
+      [DB_TRZXM_XMRZLRZXX].[rzfs] AS [rzfs], 
+      [DB_TRZXM_XMRZLRZXX].[xmztz] AS [xmztz], 
+      [DB_TRZXM_XMRZLRZXX].[yjhbl] AS [yjhbl], 
+      [DB_TRZXM_XMRZLRZXX].[xmjd] AS [xmjd], 
+      [DB_TRZXM_XMRZLRZXX].[xmpgjz] AS [xmpgjz], 
+      [DB_TRZXM_XMRZLRZXX].[dbsm] AS [dbsm], 
+      [DB_TRZXM_XMRZLRZXX].[dzyw] AS [dzyw], 
+      [DB_TRZXM_XMRZLRZXX].[hzfyq] AS [hzfyq], 
+      [DB_TRZXM_XMRZLRZXX].[yxbs] AS [yxbs], 
+      [DB_TRZXM_XMRZLRZXX].[czr] AS [czr], 
+      [DB_TRZXM_XMRZLRZXX].[cjsj] AS [cjsj], 
+      [DB_TRZXM_XMRZLRZXX].[gxsj] AS [gxsj]
+      FROM [dbo].[DB_TRZXM_XMRZLRZXX] AS [DB_TRZXM_XMRZLRZXX]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="DB_TRZXM_ZCJYLRZXX" EntityType="GGZBTQPTDBModel.Store.DB_TRZXM_ZCJYLRZXX" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DB_YYZCPT_GNGL" EntityType="GGZBTQPTDBModel.Store.DB_YYZCPT_GNGL" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DB_YYZCPT_NWYHGL" EntityType="GGZBTQPTDBModel.Store.DB_YYZCPT_NWYHGL" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DB_YYZCPT_YWXTGL" EntityType="GGZBTQPTDBModel.Store.DB_YYZCPT_YWXTGL" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="DB_JRJG_JGJBXX">
+          <Key>
+            <PropertyRef Name="xh" />
+          </Key>
+          <Property Name="xh" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="jgbm" Type="nvarchar" MaxLength="64" />
+          <Property Name="jgmc" Type="nvarchar" MaxLength="100" />
+          <Property Name="jglb" Type="int" />
+          <Property Name="clsj" Type="datetime" />
+          <Property Name="xxdz" Type="nvarchar" MaxLength="100" />
+          <Property Name="zczb" Type="money" />
+          <Property Name="zcsf" Type="int" />
+          <Property Name="zccs" Type="int" />
+          <Property Name="zcqy" Type="int" />
+          <Property Name="lxdh" Type="nvarchar" MaxLength="30" />
+          <Property Name="jgfunr" Type="nvarchar" MaxLength="1000" />
+          <Property Name="jgjj" Type="nvarchar" MaxLength="2000" />
+          <Property Name="yxbs" Type="bit" />
+          <Property Name="czr" Type="nvarchar" MaxLength="64" />
+          <Property Name="cjsj" Type="datetime" />
+          <Property Name="gxsj" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DB_JRJG_JGLXRXX">
+          <Key>
+            <PropertyRef Name="xh" />
+          </Key>
+          <Property Name="xh" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="lxrbm" Type="nvarchar" MaxLength="64" />
+          <Property Name="jgbm" Type="nvarchar" MaxLength="64" />
+          <Property Name="xm" Type="nvarchar" MaxLength="20" />
+          <Property Name="zgyw" Type="nvarchar" MaxLength="200" />
+          <Property Name="gddh" Type="nvarchar" MaxLength="30" />
+          <Property Name="yddh" Type="nvarchar" MaxLength="30" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="bz" Type="nvarchar" MaxLength="500" />
+          <Property Name="yxbs" Type="bit" />
+          <Property Name="czr" Type="nvarchar" MaxLength="64" />
+          <Property Name="cjsj" Type="datetime" />
+          <Property Name="gxsj" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DB_JRJG_JRCPJBXX">
+          <Key>
+            <PropertyRef Name="xh" />
+          </Key>
+          <Property Name="xh" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="cpbm" Type="nvarchar" MaxLength="64" />
+          <Property Name="cpmc" Type="nvarchar" MaxLength="200" />
+          <Property Name="jgbm" Type="nvarchar" MaxLength="64" />
+          <Property Name="zgrzed" Type="money" />
+          <Property Name="rzqx" Type="int" />
+          <Property Name="llv" Type="float" />
+          <Property Name="sykh" Type="int" />
+          <Property Name="cpys" Type="nvarchar" MaxLength="500" />
+          <Property Name="hkfs" Type="nvarchar" MaxLength="500" />
+          <Property Name="sqtj" Type="nvarchar" MaxLength="500" />
+          <Property Name="lxr" Type="nvarchar" MaxLength="20" />
+          <Property Name="lxrbmzw" Type="nvarchar" MaxLength="50" />
+          <Property Name="lxrgddh" Type="nvarchar" MaxLength="30" />
+          <Property Name="lxryddh" Type="nvarchar" MaxLength="30" />
+          <Property Name="cz" Type="nvarchar" MaxLength="30" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="qq" Type="nvarchar" MaxLength="20" />
+          <Property Name="lxrgkfs" Type="char" MaxLength="1" />
+          <Property Name="yxbs" Type="bit" />
+          <Property Name="czr" Type="nvarchar" MaxLength="64" />
+          <Property Name="cjsj" Type="datetime" />
+          <Property Name="gxsj" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DB_QYCYZ_CYZJBXX">
+          <Key>
+            <PropertyRef Name="xh" />
+          </Key>
+          <Property Name="xh" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="hybm" Type="nvarchar" MaxLength="64" />
+          <Property Name="cyzbm" Type="varchar" MaxLength="50" />
+          <Property Name="xm" Type="nvarchar" MaxLength="20" />
+          <Property Name="jg" Type="nvarchar" MaxLength="20" />
+          <Property Name="zjlx" Type="int" />
+          <Property Name="zjhm" Type="nvarchar" MaxLength="30" />
+          <Property Name="xb" Type="char" MaxLength="1" />
+          <Property Name="csrq" Type="datetime" />
+          <Property Name="byyx" Type="nvarchar" MaxLength="100" />
+          <Property Name="sxzy" Type="nvarchar" MaxLength="100" />
+          <Property Name="xl" Type="int" />
+          <Property Name="xw" Type="int" />
+          <Property Name="zc" Type="int" />
+          <Property Name="zcdj" Type="int" />
+          <Property Name="jtzz" Type="nvarchar" MaxLength="100" />
+          <Property Name="gddh" Type="nvarchar" MaxLength="30" />
+          <Property Name="yddh" Type="nvarchar" MaxLength="30" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="msn" Type="nvarchar" MaxLength="30" />
+          <Property Name="qq" Type="nvarchar" MaxLength="20" />
+          <Property Name="jyjl" Type="nvarchar" MaxLength="2000" />
+          <Property Name="gzjl" Type="nvarchar" MaxLength="2000" />
+          <Property Name="bz" Type="nvarchar" MaxLength="2000" />
+          <Property Name="yxbs" Type="bit" />
+          <Property Name="czr" Type="nvarchar" MaxLength="64" />
+          <Property Name="cjsj" Type="datetime" />
+          <Property Name="gxsj" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DB_QYCYZ_QYCPXX">
+          <Key>
+            <PropertyRef Name="cpbm" />
+          </Key>
+          <Property Name="cpbm" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="qycpbm" Type="nvarchar" MaxLength="64" />
+          <Property Name="qybm" Type="nvarchar" MaxLength="64" />
+          <Property Name="cpmc" Type="nvarchar" MaxLength="100" />
+          <Property Name="xszsr" Type="money" />
+          <Property Name="cpjs" Type="text" />
+          <Property Name="xxgkfs" Type="char" MaxLength="1" />
+          <Property Name="yxbs" Type="bit" />
+          <Property Name="czr" Type="nvarchar" MaxLength="64" />
+          <Property Name="cjsj" Type="datetime" />
+          <Property Name="gxsj" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DB_QYCYZ_QYCWGK">
+          <Key>
+            <PropertyRef Name="xh" />
+          </Key>
+          <Property Name="xh" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="qycpbm" Type="nvarchar" MaxLength="64" />
+          <Property Name="qybm" Type="nvarchar" MaxLength="64" />
+          <Property Name="qyzzc" Type="money" />
+          <Property Name="nd" Type="varchar" MaxLength="10" />
+          <Property Name="ywzsr" Type="money" />
+          <Property Name="xxgkfs" Type="char" MaxLength="1" />
+          <Property Name="yxbs" Type="bit" />
+          <Property Name="czr" Type="nvarchar" MaxLength="64" />
+          <Property Name="cjsj" Type="datetime" />
+          <Property Name="gxsj" Type="datetime" />
+        </EntityType>
+        <!--生成过程中发现错误:
+      警告 6002: 表/视图“GGZBTQPTDB.dbo.DB_QYCYZ_QYGZ”未定义主键。已推断出该键，并将定义创建为只读的表/视图。
+      -->
+        <EntityType Name="DB_QYCYZ_QYGZ">
+          <Key>
+            <PropertyRef Name="cpbm" />
+          </Key>
+          <Property Name="cpbm" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="qybm" Type="nvarchar" MaxLength="64" />
+          <Property Name="gzqybm" Type="nvarchar" MaxLength="64" />
+          <Property Name="scsj" Type="datetime" />
+          <Property Name="yxbs" Type="bit" />
+          <Property Name="czr" Type="nvarchar" MaxLength="64" />
+          <Property Name="cjsj" Type="datetime" />
+          <Property Name="gxsj" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DB_QYCYZ_QYJBXX">
+          <Key>
+            <PropertyRef Name="xh" />
+          </Key>
+          <Property Name="xh" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="hybm" Type="nvarchar" MaxLength="64" />
+          <Property Name="qybm" Type="nvarchar" MaxLength="64" />
+          <Property Name="qymc" Type="nvarchar" MaxLength="200" />
+          <Property Name="jgdm" Type="nvarchar" MaxLength="20" />
+          <Property Name="clsj" Type="datetime" />
+          <Property Name="qyxz" Type="int" />
+          <Property Name="zcsf" Type="int" />
+          <Property Name="zccs" Type="int" />
+          <Property Name="zcqy" Type="int" />
+          <Property Name="zczj" Type="money" />
+          <Property Name="sshy" Type="int" />
+          <Property Name="fzjd" Type="int" />
+          <Property Name="frdb" Type="nvarchar" MaxLength="20" />
+          <Property Name="ygzrs" Type="int" />
+          <Property Name="qywz" Type="nvarchar" MaxLength="100" />
+          <Property Name="qylogo" Type="image" />
+          <Property Name="jyfw" Type="nvarchar" MaxLength="1000" />
+          <Property Name="bz" Type="text" />
+          <Property Name="lxr" Type="nvarchar" MaxLength="20" />
+          <Property Name="lxrbmzw" Type="nvarchar" MaxLength="50" />
+          <Property Name="lxrgddh" Type="nvarchar" MaxLength="30" />
+          <Property Name="lxryddh" Type="nvarchar" MaxLength="30" />
+          <Property Name="cz" Type="nvarchar" MaxLength="30" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="qq" Type="nvarchar" MaxLength="20" />
+          <Property Name="lxrgkfs" Type="char" MaxLength="1" />
+          <Property Name="yxbs" Type="bit" />
+          <Property Name="czr" Type="nvarchar" MaxLength="64" />
+          <Property Name="cjsj" Type="datetime" />
+          <Property Name="gxsj" Type="datetime" />
+        </EntityType>
+        <!--生成过程中发现错误:
+      警告 6002: 表/视图“GGZBTQPTDB.dbo.DB_QYCYZ_QYSC”未定义主键。已推断出该键，并将定义创建为只读的表/视图。
+      -->
+        <EntityType Name="DB_QYCYZ_QYSC">
+          <Key>
+            <PropertyRef Name="cpbm" />
+          </Key>
+          <Property Name="cpbm" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="qybm" Type="nvarchar" MaxLength="64" />
+          <Property Name="gzqybm" Type="nvarchar" MaxLength="64" />
+          <Property Name="scsj" Type="datetime" />
+          <Property Name="yxbs" Type="bit" />
+          <Property Name="czr" Type="nvarchar" MaxLength="64" />
+          <Property Name="cjsj" Type="datetime" />
+          <Property Name="gxsj" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DB_TRZXM_RZXMGGXX">
+          <Key>
+            <PropertyRef Name="xh" />
+          </Key>
+          <Property Name="xh" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="xmbm" Type="nvarchar" MaxLength="64" />
+          <Property Name="hybm" Type="nvarchar" MaxLength="64" />
+          <Property Name="xmmc" Type="nvarchar" MaxLength="200" />
+          <Property Name="sssf" Type="int" />
+          <Property Name="sscs" Type="int" />
+          <Property Name="ssqy" Type="int" />
+          <Property Name="sshy" Type="int" />
+          <Property Name="yxq" Type="datetime" />
+          <Property Name="gjc" Type="nvarchar" MaxLength="200" />
+          <Property Name="xmjs" Type="text" />
+          <Property Name="xmlb" Type="int" />
+          <Property Name="fbzt" Type="char" MaxLength="1" />
+          <Property Name="tjsm" Type="datetime" />
+          <Property Name="fbsj" Type="datetime" />
+          <Property Name="lxr" Type="nvarchar" MaxLength="20" />
+          <Property Name="lxrbmzw" Type="nvarchar" MaxLength="50" />
+          <Property Name="lxrgddh" Type="nvarchar" MaxLength="30" />
+          <Property Name="lxryddh" Type="nvarchar" MaxLength="30" />
+          <Property Name="cz" Type="nvarchar" MaxLength="30" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="qq" Type="nvarchar" MaxLength="20" />
+          <Property Name="lxrgkfs" Type="char" MaxLength="1" />
+          <Property Name="yxbs" Type="bit" />
+          <Property Name="czr" Type="nvarchar" MaxLength="64" />
+          <Property Name="cjsj" Type="datetime" />
+          <Property Name="gxsj" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DB_TRZXM_TZYXXX">
+          <Key>
+            <PropertyRef Name="xh" />
+          </Key>
+          <Property Name="xh" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="tzyxbm" Type="nvarchar" MaxLength="64" />
+          <Property Name="hybm" Type="nvarchar" MaxLength="64" />
+          <Property Name="xmmc" Type="nvarchar" MaxLength="200" />
+          <Property Name="sssf" Type="int" />
+          <Property Name="sscs" Type="int" />
+          <Property Name="ssqy" Type="int" />
+          <Property Name="sshy" Type="int" />
+          <Property Name="yxq" Type="datetime" />
+          <Property Name="gjc" Type="nvarchar" MaxLength="200" />
+          <Property Name="xmjs" Type="text" />
+          <Property Name="lxr" Type="nvarchar" MaxLength="20" />
+          <Property Name="lxrbmzw" Type="nvarchar" MaxLength="50" />
+          <Property Name="lxrgddh" Type="nvarchar" MaxLength="30" />
+          <Property Name="lxryddh" Type="nvarchar" MaxLength="30" />
+          <Property Name="cz" Type="nvarchar" MaxLength="30" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="qq" Type="nvarchar" MaxLength="20" />
+          <Property Name="lxrgkfs" Type="char" MaxLength="1" />
+          <Property Name="ktzje" Type="money" />
+          <Property Name="qstzje" Type="money" />
+          <Property Name="yxhy" Type="nvarchar" MaxLength="1000" />
+          <Property Name="tzdq" Type="nvarchar" MaxLength="1000" />
+          <Property Name="yqhbl" Type="float" />
+          <Property Name="hzfs" Type="int" />
+          <Property Name="tzqx" Type="nvarchar" MaxLength="20" />
+          <Property Name="hzfyq" Type="nvarchar" MaxLength="1000" />
+          <Property Name="yxbs" Type="bit" />
+          <Property Name="czr" Type="nvarchar" MaxLength="64" />
+          <Property Name="cjsj" Type="datetime" />
+          <Property Name="gxsj" Type="datetime" />
+        </EntityType>
+        <!--生成过程中发现错误:
+      警告 6002: 表/视图“GGZBTQPTDB.dbo.DB_TRZXM_XMRZLRZXX”未定义主键。已推断出该键，并将定义创建为只读的表/视图。
+      -->
+        <EntityType Name="DB_TRZXM_XMRZLRZXX">
+          <Key>
+            <PropertyRef Name="xh" />
+          </Key>
+          <Property Name="xh" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="rzxxbn" Type="nvarchar" MaxLength="64" />
+          <Property Name="xmbm" Type="nvarchar" MaxLength="64" />
+          <Property Name="rzje" Type="money" />
+          <Property Name="rzfs" Type="int" />
+          <Property Name="xmztz" Type="money" />
+          <Property Name="yjhbl" Type="float" />
+          <Property Name="xmjd" Type="int" />
+          <Property Name="xmpgjz" Type="money" />
+          <Property Name="dbsm" Type="nvarchar" MaxLength="500" />
+          <Property Name="dzyw" Type="nvarchar" MaxLength="200" />
+          <Property Name="hzfyq" Type="nvarchar" MaxLength="1000" />
+          <Property Name="yxbs" Type="bit" />
+          <Property Name="czr" Type="nvarchar" MaxLength="64" />
+          <Property Name="cjsj" Type="datetime" />
+          <Property Name="gxsj" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DB_TRZXM_ZCJYLRZXX">
+          <Key>
+            <PropertyRef Name="xh" />
+          </Key>
+          <Property Name="xh" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="rzxxbn" Type="nvarchar" MaxLength="64" />
+          <Property Name="xmbm" Type="nvarchar" MaxLength="64" />
+          <Property Name="zclb" Type="int" />
+          <Property Name="zcgj" Type="money" />
+          <Property Name="sfdzy" Type="char" MaxLength="1" />
+          <Property Name="zrjg" Type="money" />
+          <Property Name="zrxs" Type="int" />
+          <Property Name="jyfs" Type="int" />
+          <Property Name="zcxq" Type="text" />
+          <Property Name="czr" Type="nvarchar" MaxLength="64" />
+          <Property Name="cjsj" Type="datetime" />
+          <Property Name="gxsj" Type="datetime" />
+          <Property Name="yxbs" Type="bit" />
+        </EntityType>
+        <EntityType Name="DB_YYZCPT_GNGL">
+          <Key>
+            <PropertyRef Name="bm" />
+          </Key>
+          <Property Name="xh" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="bm" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="mc" Type="nvarchar(max)" />
+          <Property Name="dz" Type="nvarchar(max)" />
+          <Property Name="fbm" Type="nvarchar(max)" />
+          <Property Name="xtbm" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="cjsj" Type="datetime" />
+          <Property Name="gxsj" Type="datetime" />
+          <Property Name="czr" Type="uniqueidentifier" />
+          <Property Name="yxbs" Type="bit" />
+        </EntityType>
+        <EntityType Name="DB_YYZCPT_NWYHGL">
+          <Key>
+            <PropertyRef Name="bm" />
+          </Key>
+          <Property Name="xh" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="bm" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="mc" Type="nvarchar(max)" />
+          <Property Name="dlm" Type="nvarchar(max)" />
+          <Property Name="mm" Type="nvarchar(max)" />
+          <Property Name="sj" Type="nvarchar(max)" />
+          <Property Name="px" Type="int" />
+          <Property Name="cjsj" Type="datetime" />
+          <Property Name="gxsj" Type="datetime" />
+          <Property Name="czr" Type="uniqueidentifier" />
+          <Property Name="yxbs" Type="bit" />
+        </EntityType>
+        <EntityType Name="DB_YYZCPT_YWXTGL">
+          <Key>
+            <PropertyRef Name="xh" />
+          </Key>
+          <Property Name="xh" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="bm" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="mc" Type="nvarchar(max)" />
+          <Property Name="px" Type="nvarchar(max)" />
+          <Property Name="cjsj" Type="datetime" />
+          <Property Name="gxsj" Type="datetime" />
+          <Property Name="czr" Type="uniqueidentifier" />
+          <Property Name="yxbs" Type="bit" />
+        </EntityType>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GGZBTQPTDBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="GGZBTQPTDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DB_JRJG_JGJBXX" EntityType="GGZBTQPTDBModel.DB_JRJG_JGJBXX" />
+          <EntitySet Name="DB_JRJG_JGLXRXX" EntityType="GGZBTQPTDBModel.DB_JRJG_JGLXRXX" />
+          <EntitySet Name="DB_JRJG_JRCPJBXX" EntityType="GGZBTQPTDBModel.DB_JRJG_JRCPJBXX" />
+          <EntitySet Name="DB_QYCYZ_CYZJBXX" EntityType="GGZBTQPTDBModel.DB_QYCYZ_CYZJBXX" />
+          <EntitySet Name="DB_QYCYZ_QYCPXX" EntityType="GGZBTQPTDBModel.DB_QYCYZ_QYCPXX" />
+          <EntitySet Name="DB_QYCYZ_QYCWGK" EntityType="GGZBTQPTDBModel.DB_QYCYZ_QYCWGK" />
+          <EntitySet Name="DB_QYCYZ_QYGZ" EntityType="GGZBTQPTDBModel.DB_QYCYZ_QYGZ" />
+          <EntitySet Name="DB_QYCYZ_QYJBXX" EntityType="GGZBTQPTDBModel.DB_QYCYZ_QYJBXX" />
+          <EntitySet Name="DB_QYCYZ_QYSC" EntityType="GGZBTQPTDBModel.DB_QYCYZ_QYSC" />
+          <EntitySet Name="DB_TRZXM_RZXMGGXX" EntityType="GGZBTQPTDBModel.DB_TRZXM_RZXMGGXX" />
+          <EntitySet Name="DB_TRZXM_TZYXXX" EntityType="GGZBTQPTDBModel.DB_TRZXM_TZYXXX" />
+          <EntitySet Name="DB_TRZXM_XMRZLRZXX" EntityType="GGZBTQPTDBModel.DB_TRZXM_XMRZLRZXX" />
+          <EntitySet Name="DB_TRZXM_ZCJYLRZXX" EntityType="GGZBTQPTDBModel.DB_TRZXM_ZCJYLRZXX" />
+          <EntitySet Name="DB_YYZCPT_GNGL" EntityType="GGZBTQPTDBModel.DB_YYZCPT_GNGL" />
+          <EntitySet Name="DB_YYZCPT_NWYHGL" EntityType="GGZBTQPTDBModel.DB_YYZCPT_NWYHGL" />
+          <EntitySet Name="DB_YYZCPT_YWXTGL" EntityType="GGZBTQPTDBModel.DB_YYZCPT_YWXTGL" />
+        </EntityContainer>
+        <EntityType Name="DB_JRJG_JGJBXX">
+          <Key>
+            <PropertyRef Name="xh" />
+          </Key>
+          <Property Name="xh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="jgbm" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="jgmc" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="jglb" Type="Int32" />
+          <Property Name="clsj" Type="DateTime" />
+          <Property Name="xxdz" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="zczb" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="zcsf" Type="Int32" />
+          <Property Name="zccs" Type="Int32" />
+          <Property Name="zcqy" Type="Int32" />
+          <Property Name="lxdh" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="jgfunr" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="jgjj" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+          <Property Name="yxbs" Type="Boolean" />
+          <Property Name="czr" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="cjsj" Type="DateTime" />
+          <Property Name="gxsj" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="DB_JRJG_JGLXRXX">
+          <Key>
+            <PropertyRef Name="xh" />
+          </Key>
+          <Property Name="xh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lxrbm" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="jgbm" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="xm" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="zgyw" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="gddh" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="yddh" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="email" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="bz" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="yxbs" Type="Boolean" />
+          <Property Name="czr" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="cjsj" Type="DateTime" />
+          <Property Name="gxsj" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="DB_JRJG_JRCPJBXX">
+          <Key>
+            <PropertyRef Name="xh" />
+          </Key>
+          <Property Name="xh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cpbm" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="cpmc" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="jgbm" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="zgrzed" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="rzqx" Type="Int32" />
+          <Property Name="llv" Type="Double" />
+          <Property Name="sykh" Type="Int32" />
+          <Property Name="cpys" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="hkfs" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="sqtj" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="lxr" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="lxrbmzw" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="lxrgddh" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="lxryddh" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="cz" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="email" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="qq" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="lxrgkfs" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="yxbs" Type="Boolean" />
+          <Property Name="czr" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="cjsj" Type="DateTime" />
+          <Property Name="gxsj" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="DB_QYCYZ_CYZJBXX">
+          <Key>
+            <PropertyRef Name="xh" />
+          </Key>
+          <Property Name="xh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="hybm" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="cyzbm" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="xm" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="jg" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="zjlx" Type="Int32" />
+          <Property Name="zjhm" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="xb" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="csrq" Type="DateTime" />
+          <Property Name="byyx" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="sxzy" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="xl" Type="Int32" />
+          <Property Name="xw" Type="Int32" />
+          <Property Name="zc" Type="Int32" />
+          <Property Name="zcdj" Type="Int32" />
+          <Property Name="jtzz" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="gddh" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="yddh" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="email" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="msn" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="qq" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="jyjl" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+          <Property Name="gzjl" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+          <Property Name="bz" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+          <Property Name="yxbs" Type="Boolean" />
+          <Property Name="czr" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="cjsj" Type="DateTime" />
+          <Property Name="gxsj" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="DB_QYCYZ_QYCPXX">
+          <Key>
+            <PropertyRef Name="cpbm" />
+          </Key>
+          <Property Name="cpbm" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="qycpbm" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="qybm" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="cpmc" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="xszsr" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="cpjs" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="xxgkfs" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="yxbs" Type="Boolean" />
+          <Property Name="czr" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="cjsj" Type="DateTime" />
+          <Property Name="gxsj" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="DB_QYCYZ_QYCWGK">
+          <Key>
+            <PropertyRef Name="xh" />
+          </Key>
+          <Property Name="xh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="qycpbm" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="qybm" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="qyzzc" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="nd" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="ywzsr" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="xxgkfs" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="yxbs" Type="Boolean" />
+          <Property Name="czr" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="cjsj" Type="DateTime" />
+          <Property Name="gxsj" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="DB_QYCYZ_QYGZ">
+          <Key>
+            <PropertyRef Name="cpbm" />
+          </Key>
+          <Property Name="cpbm" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="qybm" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="gzqybm" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="scsj" Type="DateTime" />
+          <Property Name="yxbs" Type="Boolean" />
+          <Property Name="czr" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="cjsj" Type="DateTime" />
+          <Property Name="gxsj" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="DB_QYCYZ_QYJBXX">
+          <Key>
+            <PropertyRef Name="xh" />
+          </Key>
+          <Property Name="xh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="hybm" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="qybm" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="qymc" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="jgdm" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="clsj" Type="DateTime" />
+          <Property Name="qyxz" Type="Int32" />
+          <Property Name="zcsf" Type="Int32" />
+          <Property Name="zccs" Type="Int32" />
+          <Property Name="zcqy" Type="Int32" />
+          <Property Name="zczj" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="sshy" Type="Int32" />
+          <Property Name="fzjd" Type="Int32" />
+          <Property Name="frdb" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="ygzrs" Type="Int32" />
+          <Property Name="qywz" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="qylogo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="jyfw" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="bz" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="lxr" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="lxrbmzw" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="lxrgddh" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="lxryddh" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="cz" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="email" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="qq" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="lxrgkfs" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="yxbs" Type="Boolean" />
+          <Property Name="czr" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="cjsj" Type="DateTime" />
+          <Property Name="gxsj" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="DB_QYCYZ_QYSC">
+          <Key>
+            <PropertyRef Name="cpbm" />
+          </Key>
+          <Property Name="cpbm" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="qybm" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="gzqybm" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="scsj" Type="DateTime" />
+          <Property Name="yxbs" Type="Boolean" />
+          <Property Name="czr" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="cjsj" Type="DateTime" />
+          <Property Name="gxsj" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="DB_TRZXM_RZXMGGXX">
+          <Key>
+            <PropertyRef Name="xh" />
+          </Key>
+          <Property Name="xh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="xmbm" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="hybm" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="xmmc" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="sssf" Type="Int32" />
+          <Property Name="sscs" Type="Int32" />
+          <Property Name="ssqy" Type="Int32" />
+          <Property Name="sshy" Type="Int32" />
+          <Property Name="yxq" Type="DateTime" />
+          <Property Name="gjc" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="xmjs" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="xmlb" Type="Int32" />
+          <Property Name="fbzt" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="tjsm" Type="DateTime" />
+          <Property Name="fbsj" Type="DateTime" />
+          <Property Name="lxr" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="lxrbmzw" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="lxrgddh" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="lxryddh" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="cz" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="email" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="qq" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="lxrgkfs" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="yxbs" Type="Boolean" />
+          <Property Name="czr" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="cjsj" Type="DateTime" />
+          <Property Name="gxsj" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="DB_TRZXM_TZYXXX">
+          <Key>
+            <PropertyRef Name="xh" />
+          </Key>
+          <Property Name="xh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tzyxbm" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="hybm" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="xmmc" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="sssf" Type="Int32" />
+          <Property Name="sscs" Type="Int32" />
+          <Property Name="ssqy" Type="Int32" />
+          <Property Name="sshy" Type="Int32" />
+          <Property Name="yxq" Type="DateTime" />
+          <Property Name="gjc" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="xmjs" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="lxr" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="lxrbmzw" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="lxrgddh" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="lxryddh" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="cz" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="email" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="qq" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="lxrgkfs" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="ktzje" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="qstzje" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="yxhy" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="tzdq" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="yqhbl" Type="Double" />
+          <Property Name="hzfs" Type="Int32" />
+          <Property Name="tzqx" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="hzfyq" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="yxbs" Type="Boolean" />
+          <Property Name="czr" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="cjsj" Type="DateTime" />
+          <Property Name="gxsj" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="DB_TRZXM_XMRZLRZXX">
+          <Key>
+            <PropertyRef Name="xh" />
+          </Key>
+          <Property Name="xh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rzxxbn" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="xmbm" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="rzje" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="rzfs" Type="Int32" />
+          <Property Name="xmztz" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="yjhbl" Type="Double" />
+          <Property Name="xmjd" Type="Int32" />
+          <Property Name="xmpgjz" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="dbsm" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="dzyw" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="hzfyq" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="yxbs" Type="Boolean" />
+          <Property Name="czr" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="cjsj" Type="DateTime" />
+          <Property Name="gxsj" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="DB_TRZXM_ZCJYLRZXX">
+          <Key>
+            <PropertyRef Name="xh" />
+          </Key>
+          <Property Name="xh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rzxxbn" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="xmbm" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="zclb" Type="Int32" />
+          <Property Name="zcgj" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="sfdzy" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="zrjg" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="zrxs" Type="Int32" />
+          <Property Name="jyfs" Type="Int32" />
+          <Property Name="zcxq" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="czr" Type="String" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="cjsj" Type="DateTime" />
+          <Property Name="gxsj" Type="DateTime" />
+          <Property Name="yxbs" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="DB_YYZCPT_GNGL">
+          <Key>
+            <PropertyRef Name="bm" />
+          </Key>
+          <Property Name="xh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bm" Type="Guid" Nullable="false" />
+          <Property Name="mc" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="dz" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="fbm" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="xtbm" Type="Guid" Nullable="false" />
+          <Property Name="cjsj" Type="DateTime" />
+          <Property Name="gxsj" Type="DateTime" />
+          <Property Name="czr" Type="Guid" />
+          <Property Name="yxbs" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="DB_YYZCPT_NWYHGL">
+          <Key>
+            <PropertyRef Name="bm" />
+          </Key>
+          <Property Name="xh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bm" Type="Guid" Nullable="false" />
+          <Property Name="mc" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="dlm" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="mm" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="sj" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="px" Type="Int32" />
+          <Property Name="cjsj" Type="DateTime" />
+          <Property Name="gxsj" Type="DateTime" />
+          <Property Name="czr" Type="Guid" />
+          <Property Name="yxbs" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="DB_YYZCPT_YWXTGL">
+          <Key>
+            <PropertyRef Name="xh" />
+          </Key>
+          <Property Name="xh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bm" Type="Guid" Nullable="false" />
+          <Property Name="mc" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="px" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="cjsj" Type="DateTime" />
+          <Property Name="gxsj" Type="DateTime" />
+          <Property Name="czr" Type="Guid" />
+          <Property Name="yxbs" Type="Boolean" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GGZBTQPTDBModelStoreContainer" CdmEntityContainer="GGZBTQPTDBEntities">
+          <EntitySetMapping Name="DB_JRJG_JGJBXX"><EntityTypeMapping TypeName="GGZBTQPTDBModel.DB_JRJG_JGJBXX"><MappingFragment StoreEntitySet="DB_JRJG_JGJBXX">
+            <ScalarProperty Name="xh" ColumnName="xh" />
+            <ScalarProperty Name="jgbm" ColumnName="jgbm" />
+            <ScalarProperty Name="jgmc" ColumnName="jgmc" />
+            <ScalarProperty Name="jglb" ColumnName="jglb" />
+            <ScalarProperty Name="clsj" ColumnName="clsj" />
+            <ScalarProperty Name="xxdz" ColumnName="xxdz" />
+            <ScalarProperty Name="zczb" ColumnName="zczb" />
+            <ScalarProperty Name="zcsf" ColumnName="zcsf" />
+            <ScalarProperty Name="zccs" ColumnName="zccs" />
+            <ScalarProperty Name="zcqy" ColumnName="zcqy" />
+            <ScalarProperty Name="lxdh" ColumnName="lxdh" />
+            <ScalarProperty Name="jgfunr" ColumnName="jgfunr" />
+            <ScalarProperty Name="jgjj" ColumnName="jgjj" />
+            <ScalarProperty Name="yxbs" ColumnName="yxbs" />
+            <ScalarProperty Name="czr" ColumnName="czr" />
+            <ScalarProperty Name="cjsj" ColumnName="cjsj" />
+            <ScalarProperty Name="gxsj" ColumnName="gxsj" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="DB_JRJG_JGLXRXX"><EntityTypeMapping TypeName="GGZBTQPTDBModel.DB_JRJG_JGLXRXX"><MappingFragment StoreEntitySet="DB_JRJG_JGLXRXX">
+            <ScalarProperty Name="xh" ColumnName="xh" />
+            <ScalarProperty Name="lxrbm" ColumnName="lxrbm" />
+            <ScalarProperty Name="jgbm" ColumnName="jgbm" />
+            <ScalarProperty Name="xm" ColumnName="xm" />
+            <ScalarProperty Name="zgyw" ColumnName="zgyw" />
+            <ScalarProperty Name="gddh" ColumnName="gddh" />
+            <ScalarProperty Name="yddh" ColumnName="yddh" />
+            <ScalarProperty Name="email" ColumnName="email" />
+            <ScalarProperty Name="bz" ColumnName="bz" />
+            <ScalarProperty Name="yxbs" ColumnName="yxbs" />
+            <ScalarProperty Name="czr" ColumnName="czr" />
+            <ScalarProperty Name="cjsj" ColumnName="cjsj" />
+            <ScalarProperty Name="gxsj" ColumnName="gxsj" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="DB_JRJG_JRCPJBXX"><EntityTypeMapping TypeName="GGZBTQPTDBModel.DB_JRJG_JRCPJBXX"><MappingFragment StoreEntitySet="DB_JRJG_JRCPJBXX">
+            <ScalarProperty Name="xh" ColumnName="xh" />
+            <ScalarProperty Name="cpbm" ColumnName="cpbm" />
+            <ScalarProperty Name="cpmc" ColumnName="cpmc" />
+            <ScalarProperty Name="jgbm" ColumnName="jgbm" />
+            <ScalarProperty Name="zgrzed" ColumnName="zgrzed" />
+            <ScalarProperty Name="rzqx" ColumnName="rzqx" />
+            <ScalarProperty Name="llv" ColumnName="llv" />
+            <ScalarProperty Name="sykh" ColumnName="sykh" />
+            <ScalarProperty Name="cpys" ColumnName="cpys" />
+            <ScalarProperty Name="hkfs" ColumnName="hkfs" />
+            <ScalarProperty Name="sqtj" ColumnName="sqtj" />
+            <ScalarProperty Name="lxr" ColumnName="lxr" />
+            <ScalarProperty Name="lxrbmzw" ColumnName="lxrbmzw" />
+            <ScalarProperty Name="lxrgddh" ColumnName="lxrgddh" />
+            <ScalarProperty Name="lxryddh" ColumnName="lxryddh" />
+            <ScalarProperty Name="cz" ColumnName="cz" />
+            <ScalarProperty Name="email" ColumnName="email" />
+            <ScalarProperty Name="qq" ColumnName="qq" />
+            <ScalarProperty Name="lxrgkfs" ColumnName="lxrgkfs" />
+            <ScalarProperty Name="yxbs" ColumnName="yxbs" />
+            <ScalarProperty Name="czr" ColumnName="czr" />
+            <ScalarProperty Name="cjsj" ColumnName="cjsj" />
+            <ScalarProperty Name="gxsj" ColumnName="gxsj" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="DB_QYCYZ_CYZJBXX"><EntityTypeMapping TypeName="GGZBTQPTDBModel.DB_QYCYZ_CYZJBXX"><MappingFragment StoreEntitySet="DB_QYCYZ_CYZJBXX">
+            <ScalarProperty Name="xh" ColumnName="xh" />
+            <ScalarProperty Name="hybm" ColumnName="hybm" />
+            <ScalarProperty Name="cyzbm" ColumnName="cyzbm" />
+            <ScalarProperty Name="xm" ColumnName="xm" />
+            <ScalarProperty Name="jg" ColumnName="jg" />
+            <ScalarProperty Name="zjlx" ColumnName="zjlx" />
+            <ScalarProperty Name="zjhm" ColumnName="zjhm" />
+            <ScalarProperty Name="xb" ColumnName="xb" />
+            <ScalarProperty Name="csrq" ColumnName="csrq" />
+            <ScalarProperty Name="byyx" ColumnName="byyx" />
+            <ScalarProperty Name="sxzy" ColumnName="sxzy" />
+            <ScalarProperty Name="xl" ColumnName="xl" />
+            <ScalarProperty Name="xw" ColumnName="xw" />
+            <ScalarProperty Name="zc" ColumnName="zc" />
+            <ScalarProperty Name="zcdj" ColumnName="zcdj" />
+            <ScalarProperty Name="jtzz" ColumnName="jtzz" />
+            <ScalarProperty Name="gddh" ColumnName="gddh" />
+            <ScalarProperty Name="yddh" ColumnName="yddh" />
+            <ScalarProperty Name="email" ColumnName="email" />
+            <ScalarProperty Name="msn" ColumnName="msn" />
+            <ScalarProperty Name="qq" ColumnName="qq" />
+            <ScalarProperty Name="jyjl" ColumnName="jyjl" />
+            <ScalarProperty Name="gzjl" ColumnName="gzjl" />
+            <ScalarProperty Name="bz" ColumnName="bz" />
+            <ScalarProperty Name="yxbs" ColumnName="yxbs" />
+            <ScalarProperty Name="czr" ColumnName="czr" />
+            <ScalarProperty Name="cjsj" ColumnName="cjsj" />
+            <ScalarProperty Name="gxsj" ColumnName="gxsj" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="DB_QYCYZ_QYCPXX"><EntityTypeMapping TypeName="GGZBTQPTDBModel.DB_QYCYZ_QYCPXX"><MappingFragment StoreEntitySet="DB_QYCYZ_QYCPXX">
+            <ScalarProperty Name="cpbm" ColumnName="cpbm" />
+            <ScalarProperty Name="qycpbm" ColumnName="qycpbm" />
+            <ScalarProperty Name="qybm" ColumnName="qybm" />
+            <ScalarProperty Name="cpmc" ColumnName="cpmc" />
+            <ScalarProperty Name="xszsr" ColumnName="xszsr" />
+            <ScalarProperty Name="cpjs" ColumnName="cpjs" />
+            <ScalarProperty Name="xxgkfs" ColumnName="xxgkfs" />
+            <ScalarProperty Name="yxbs" ColumnName="yxbs" />
+            <ScalarProperty Name="czr" ColumnName="czr" />
+            <ScalarProperty Name="cjsj" ColumnName="cjsj" />
+            <ScalarProperty Name="gxsj" ColumnName="gxsj" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="DB_QYCYZ_QYCWGK"><EntityTypeMapping TypeName="GGZBTQPTDBModel.DB_QYCYZ_QYCWGK"><MappingFragment StoreEntitySet="DB_QYCYZ_QYCWGK">
+            <ScalarProperty Name="xh" ColumnName="xh" />
+            <ScalarProperty Name="qycpbm" ColumnName="qycpbm" />
+            <ScalarProperty Name="qybm" ColumnName="qybm" />
+            <ScalarProperty Name="qyzzc" ColumnName="qyzzc" />
+            <ScalarProperty Name="nd" ColumnName="nd" />
+            <ScalarProperty Name="ywzsr" ColumnName="ywzsr" />
+            <ScalarProperty Name="xxgkfs" ColumnName="xxgkfs" />
+            <ScalarProperty Name="yxbs" ColumnName="yxbs" />
+            <ScalarProperty Name="czr" ColumnName="czr" />
+            <ScalarProperty Name="cjsj" ColumnName="cjsj" />
+            <ScalarProperty Name="gxsj" ColumnName="gxsj" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="DB_QYCYZ_QYGZ"><EntityTypeMapping TypeName="GGZBTQPTDBModel.DB_QYCYZ_QYGZ"><MappingFragment StoreEntitySet="DB_QYCYZ_QYGZ">
+            <ScalarProperty Name="cpbm" ColumnName="cpbm" />
+            <ScalarProperty Name="qybm" ColumnName="qybm" />
+            <ScalarProperty Name="gzqybm" ColumnName="gzqybm" />
+            <ScalarProperty Name="scsj" ColumnName="scsj" />
+            <ScalarProperty Name="yxbs" ColumnName="yxbs" />
+            <ScalarProperty Name="czr" ColumnName="czr" />
+            <ScalarProperty Name="cjsj" ColumnName="cjsj" />
+            <ScalarProperty Name="gxsj" ColumnName="gxsj" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="DB_QYCYZ_QYJBXX"><EntityTypeMapping TypeName="GGZBTQPTDBModel.DB_QYCYZ_QYJBXX"><MappingFragment StoreEntitySet="DB_QYCYZ_QYJBXX">
+            <ScalarProperty Name="xh" ColumnName="xh" />
+            <ScalarProperty Name="hybm" ColumnName="hybm" />
+            <ScalarProperty Name="qybm" ColumnName="qybm" />
+            <ScalarProperty Name="qymc" ColumnName="qymc" />
+            <ScalarProperty Name="jgdm" ColumnName="jgdm" />
+            <ScalarProperty Name="clsj" ColumnName="clsj" />
+            <ScalarProperty Name="qyxz" ColumnName="qyxz" />
+            <ScalarProperty Name="zcsf" ColumnName="zcsf" />
+            <ScalarProperty Name="zccs" ColumnName="zccs" />
+            <ScalarProperty Name="zcqy" ColumnName="zcqy" />
+            <ScalarProperty Name="zczj" ColumnName="zczj" />
+            <ScalarProperty Name="sshy" ColumnName="sshy" />
+            <ScalarProperty Name="fzjd" ColumnName="fzjd" />
+            <ScalarProperty Name="frdb" ColumnName="frdb" />
+            <ScalarProperty Name="ygzrs" ColumnName="ygzrs" />
+            <ScalarProperty Name="qywz" ColumnName="qywz" />
+            <ScalarProperty Name="qylogo" ColumnName="qylogo" />
+            <ScalarProperty Name="jyfw" ColumnName="jyfw" />
+            <ScalarProperty Name="bz" ColumnName="bz" />
+            <ScalarProperty Name="lxr" ColumnName="lxr" />
+            <ScalarProperty Name="lxrbmzw" ColumnName="lxrbmzw" />
+            <ScalarProperty Name="lxrgddh" ColumnName="lxrgddh" />
+            <ScalarProperty Name="lxryddh" ColumnName="lxryddh" />
+            <ScalarProperty Name="cz" ColumnName="cz" />
+            <ScalarProperty Name="email" ColumnName="email" />
+            <ScalarProperty Name="qq" ColumnName="qq" />
+            <ScalarProperty Name="lxrgkfs" ColumnName="lxrgkfs" />
+            <ScalarProperty Name="yxbs" ColumnName="yxbs" />
+            <ScalarProperty Name="czr" ColumnName="czr" />
+            <ScalarProperty Name="cjsj" ColumnName="cjsj" />
+            <ScalarProperty Name="gxsj" ColumnName="gxsj" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="DB_QYCYZ_QYSC"><EntityTypeMapping TypeName="GGZBTQPTDBModel.DB_QYCYZ_QYSC"><MappingFragment StoreEntitySet="DB_QYCYZ_QYSC">
+            <ScalarProperty Name="cpbm" ColumnName="cpbm" />
+            <ScalarProperty Name="qybm" ColumnName="qybm" />
+            <ScalarProperty Name="gzqybm" ColumnName="gzqybm" />
+            <ScalarProperty Name="scsj" ColumnName="scsj" />
+            <ScalarProperty Name="yxbs" ColumnName="yxbs" />
+            <ScalarProperty Name="czr" ColumnName="czr" />
+            <ScalarProperty Name="cjsj" ColumnName="cjsj" />
+            <ScalarProperty Name="gxsj" ColumnName="gxsj" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="DB_TRZXM_RZXMGGXX"><EntityTypeMapping TypeName="GGZBTQPTDBModel.DB_TRZXM_RZXMGGXX"><MappingFragment StoreEntitySet="DB_TRZXM_RZXMGGXX">
+            <ScalarProperty Name="xh" ColumnName="xh" />
+            <ScalarProperty Name="xmbm" ColumnName="xmbm" />
+            <ScalarProperty Name="hybm" ColumnName="hybm" />
+            <ScalarProperty Name="xmmc" ColumnName="xmmc" />
+            <ScalarProperty Name="sssf" ColumnName="sssf" />
+            <ScalarProperty Name="sscs" ColumnName="sscs" />
+            <ScalarProperty Name="ssqy" ColumnName="ssqy" />
+            <ScalarProperty Name="sshy" ColumnName="sshy" />
+            <ScalarProperty Name="yxq" ColumnName="yxq" />
+            <ScalarProperty Name="gjc" ColumnName="gjc" />
+            <ScalarProperty Name="xmjs" ColumnName="xmjs" />
+            <ScalarProperty Name="xmlb" ColumnName="xmlb" />
+            <ScalarProperty Name="fbzt" ColumnName="fbzt" />
+            <ScalarProperty Name="tjsm" ColumnName="tjsm" />
+            <ScalarProperty Name="fbsj" ColumnName="fbsj" />
+            <ScalarProperty Name="lxr" ColumnName="lxr" />
+            <ScalarProperty Name="lxrbmzw" ColumnName="lxrbmzw" />
+            <ScalarProperty Name="lxrgddh" ColumnName="lxrgddh" />
+            <ScalarProperty Name="lxryddh" ColumnName="lxryddh" />
+            <ScalarProperty Name="cz" ColumnName="cz" />
+            <ScalarProperty Name="email" ColumnName="email" />
+            <ScalarProperty Name="qq" ColumnName="qq" />
+            <ScalarProperty Name="lxrgkfs" ColumnName="lxrgkfs" />
+            <ScalarProperty Name="yxbs" ColumnName="yxbs" />
+            <ScalarProperty Name="czr" ColumnName="czr" />
+            <ScalarProperty Name="cjsj" ColumnName="cjsj" />
+            <ScalarProperty Name="gxsj" ColumnName="gxsj" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="DB_TRZXM_TZYXXX"><EntityTypeMapping TypeName="GGZBTQPTDBModel.DB_TRZXM_TZYXXX"><MappingFragment StoreEntitySet="DB_TRZXM_TZYXXX">
+            <ScalarProperty Name="xh" ColumnName="xh" />
+            <ScalarProperty Name="tzyxbm" ColumnName="tzyxbm" />
+            <ScalarProperty Name="hybm" ColumnName="hybm" />
+            <ScalarProperty Name="xmmc" ColumnName="xmmc" />
+            <ScalarProperty Name="sssf" ColumnName="sssf" />
+            <ScalarProperty Name="sscs" ColumnName="sscs" />
+            <ScalarProperty Name="ssqy" ColumnName="ssqy" />
+            <ScalarProperty Name="sshy" ColumnName="sshy" />
+            <ScalarProperty Name="yxq" ColumnName="yxq" />
+            <ScalarProperty Name="gjc" ColumnName="gjc" />
+            <ScalarProperty Name="xmjs" ColumnName="xmjs" />
+            <ScalarProperty Name="lxr" ColumnName="lxr" />
+            <ScalarProperty Name="lxrbmzw" ColumnName="lxrbmzw" />
+            <ScalarProperty Name="lxrgddh" ColumnName="lxrgddh" />
+            <ScalarProperty Name="lxryddh" ColumnName="lxryddh" />
+            <ScalarProperty Name="cz" ColumnName="cz" />
+            <ScalarProperty Name="email" ColumnName="email" />
+            <ScalarProperty Name="qq" ColumnName="qq" />
+            <ScalarProperty Name="lxrgkfs" ColumnName="lxrgkfs" />
+            <ScalarProperty Name="ktzje" ColumnName="ktzje" />
+            <ScalarProperty Name="qstzje" ColumnName="qstzje" />
+            <ScalarProperty Name="yxhy" ColumnName="yxhy" />
+            <ScalarProperty Name="tzdq" ColumnName="tzdq" />
+            <ScalarProperty Name="yqhbl" ColumnName="yqhbl" />
+            <ScalarProperty Name="hzfs" ColumnName="hzfs" />
+            <ScalarProperty Name="tzqx" ColumnName="tzqx" />
+            <ScalarProperty Name="hzfyq" ColumnName="hzfyq" />
+            <ScalarProperty Name="yxbs" ColumnName="yxbs" />
+            <ScalarProperty Name="czr" ColumnName="czr" />
+            <ScalarProperty Name="cjsj" ColumnName="cjsj" />
+            <ScalarProperty Name="gxsj" ColumnName="gxsj" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="DB_TRZXM_XMRZLRZXX"><EntityTypeMapping TypeName="GGZBTQPTDBModel.DB_TRZXM_XMRZLRZXX"><MappingFragment StoreEntitySet="DB_TRZXM_XMRZLRZXX">
+            <ScalarProperty Name="xh" ColumnName="xh" />
+            <ScalarProperty Name="rzxxbn" ColumnName="rzxxbn" />
+            <ScalarProperty Name="xmbm" ColumnName="xmbm" />
+            <ScalarProperty Name="rzje" ColumnName="rzje" />
+            <ScalarProperty Name="rzfs" ColumnName="rzfs" />
+            <ScalarProperty Name="xmztz" ColumnName="xmztz" />
+            <ScalarProperty Name="yjhbl" ColumnName="yjhbl" />
+            <ScalarProperty Name="xmjd" ColumnName="xmjd" />
+            <ScalarProperty Name="xmpgjz" ColumnName="xmpgjz" />
+            <ScalarProperty Name="dbsm" ColumnName="dbsm" />
+            <ScalarProperty Name="dzyw" ColumnName="dzyw" />
+            <ScalarProperty Name="hzfyq" ColumnName="hzfyq" />
+            <ScalarProperty Name="yxbs" ColumnName="yxbs" />
+            <ScalarProperty Name="czr" ColumnName="czr" />
+            <ScalarProperty Name="cjsj" ColumnName="cjsj" />
+            <ScalarProperty Name="gxsj" ColumnName="gxsj" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="DB_TRZXM_ZCJYLRZXX"><EntityTypeMapping TypeName="GGZBTQPTDBModel.DB_TRZXM_ZCJYLRZXX"><MappingFragment StoreEntitySet="DB_TRZXM_ZCJYLRZXX">
+            <ScalarProperty Name="xh" ColumnName="xh" />
+            <ScalarProperty Name="rzxxbn" ColumnName="rzxxbn" />
+            <ScalarProperty Name="xmbm" ColumnName="xmbm" />
+            <ScalarProperty Name="zclb" ColumnName="zclb" />
+            <ScalarProperty Name="zcgj" ColumnName="zcgj" />
+            <ScalarProperty Name="sfdzy" ColumnName="sfdzy" />
+            <ScalarProperty Name="zrjg" ColumnName="zrjg" />
+            <ScalarProperty Name="zrxs" ColumnName="zrxs" />
+            <ScalarProperty Name="jyfs" ColumnName="jyfs" />
+            <ScalarProperty Name="zcxq" ColumnName="zcxq" />
+            <ScalarProperty Name="czr" ColumnName="czr" />
+            <ScalarProperty Name="cjsj" ColumnName="cjsj" />
+            <ScalarProperty Name="gxsj" ColumnName="gxsj" />
+            <ScalarProperty Name="yxbs" ColumnName="yxbs" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="DB_YYZCPT_GNGL"><EntityTypeMapping TypeName="GGZBTQPTDBModel.DB_YYZCPT_GNGL"><MappingFragment StoreEntitySet="DB_YYZCPT_GNGL">
+            <ScalarProperty Name="xh" ColumnName="xh" />
+            <ScalarProperty Name="bm" ColumnName="bm" />
+            <ScalarProperty Name="mc" ColumnName="mc" />
+            <ScalarProperty Name="dz" ColumnName="dz" />
+            <ScalarProperty Name="fbm" ColumnName="fbm" />
+            <ScalarProperty Name="xtbm" ColumnName="xtbm" />
+            <ScalarProperty Name="cjsj" ColumnName="cjsj" />
+            <ScalarProperty Name="gxsj" ColumnName="gxsj" />
+            <ScalarProperty Name="czr" ColumnName="czr" />
+            <ScalarProperty Name="yxbs" ColumnName="yxbs" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="DB_YYZCPT_NWYHGL"><EntityTypeMapping TypeName="GGZBTQPTDBModel.DB_YYZCPT_NWYHGL"><MappingFragment StoreEntitySet="DB_YYZCPT_NWYHGL">
+            <ScalarProperty Name="xh" ColumnName="xh" />
+            <ScalarProperty Name="bm" ColumnName="bm" />
+            <ScalarProperty Name="mc" ColumnName="mc" />
+            <ScalarProperty Name="dlm" ColumnName="dlm" />
+            <ScalarProperty Name="mm" ColumnName="mm" />
+            <ScalarProperty Name="sj" ColumnName="sj" />
+            <ScalarProperty Name="px" ColumnName="px" />
+            <ScalarProperty Name="cjsj" ColumnName="cjsj" />
+            <ScalarProperty Name="gxsj" ColumnName="gxsj" />
+            <ScalarProperty Name="czr" ColumnName="czr" />
+            <ScalarProperty Name="yxbs" ColumnName="yxbs" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="DB_YYZCPT_YWXTGL"><EntityTypeMapping TypeName="GGZBTQPTDBModel.DB_YYZCPT_YWXTGL"><MappingFragment StoreEntitySet="DB_YYZCPT_YWXTGL">
+            <ScalarProperty Name="xh" ColumnName="xh" />
+            <ScalarProperty Name="bm" ColumnName="bm" />
+            <ScalarProperty Name="mc" ColumnName="mc" />
+            <ScalarProperty Name="px" ColumnName="px" />
+            <ScalarProperty Name="cjsj" ColumnName="cjsj" />
+            <ScalarProperty Name="gxsj" ColumnName="gxsj" />
+            <ScalarProperty Name="czr" ColumnName="czr" />
+            <ScalarProperty Name="yxbs" ColumnName="yxbs" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="GGZBTQPTDB">
+        <EntityTypeShape EntityType="GGZBTQPTDBModel.DB_JRJG_JGJBXX" Width="1.5" PointX="0.75" PointY="0.75" Height="4.2622688802083326" IsExpanded="true" />
+        <EntityTypeShape EntityType="GGZBTQPTDBModel.DB_JRJG_JGLXRXX" Width="1.5" PointX="2.75" PointY="0.75" Height="3.4981901041666656" IsExpanded="true" />
+        <EntityTypeShape EntityType="GGZBTQPTDBModel.DB_JRJG_JRCPJBXX" Width="1.5" PointX="4.75" PointY="0.75" Height="5.4083870442708335" IsExpanded="true" />
+        <EntityTypeShape EntityType="GGZBTQPTDBModel.DB_QYCYZ_CYZJBXX" Width="1.5" PointX="6.75" PointY="0.75" Height="6.3634855143229156" IsExpanded="true" />
+        <EntityTypeShape EntityType="GGZBTQPTDBModel.DB_QYCYZ_QYCPXX" Width="1.5" PointX="0.75" PointY="6.75" Height="3.1161507161458326" IsExpanded="true" />
+        <EntityTypeShape EntityType="GGZBTQPTDBModel.DB_QYCYZ_QYCWGK" Width="1.5" PointX="2.75" PointY="7.75" Height="3.1161507161458317" IsExpanded="true" />
+        <EntityTypeShape EntityType="GGZBTQPTDBModel.DB_QYCYZ_QYGZ" Width="1.5" PointX="8.75" PointY="0.75" Height="2.5430916341145817" IsExpanded="true" />
+        <EntityTypeShape EntityType="GGZBTQPTDBModel.DB_QYCYZ_QYJBXX" Width="1.5" PointX="8.75" PointY="4.75" Height="6.9365445963541674" IsExpanded="true" />
+        <EntityTypeShape EntityType="GGZBTQPTDBModel.DB_QYCYZ_QYSC" Width="1.5" PointX="4.75" PointY="8.75" Height="2.5430916341145817" IsExpanded="true" />
+        <EntityTypeShape EntityType="GGZBTQPTDBModel.DB_TRZXM_RZXMGGXX" Width="1.5" PointX="10.75" PointY="0.75" Height="6.1724658203125031" IsExpanded="true" />
+        <EntityTypeShape EntityType="GGZBTQPTDBModel.DB_TRZXM_TZYXXX" Width="1.5" PointX="10.75" PointY="7.75" Height="6.9365445963541674" IsExpanded="true" />
+        <EntityTypeShape EntityType="GGZBTQPTDBModel.DB_TRZXM_XMRZLRZXX" Width="1.5" PointX="0.75" PointY="11.75" Height="4.0712491861979174" IsExpanded="true" />
+        <EntityTypeShape EntityType="GGZBTQPTDBModel.DB_TRZXM_ZCJYLRZXX" Width="1.5" PointX="12.75" PointY="0.75" Height="3.6892097981770888" IsExpanded="true" />
+        <EntityTypeShape EntityType="GGZBTQPTDBModel.DB_YYZCPT_GNGL" Width="1.5" PointX="2.75" PointY="12.75" Height="2.9251310221354174" IsExpanded="true" />
+        <EntityTypeShape EntityType="GGZBTQPTDBModel.DB_YYZCPT_NWYHGL" Width="1.5" PointX="4.75" PointY="12.75" Height="3.1161507161458388" IsExpanded="true" />
+        <EntityTypeShape EntityType="GGZBTQPTDBModel.DB_YYZCPT_YWXTGL" Width="1.5" PointX="12.75" PointY="5.75" Height="2.5430916341145888" IsExpanded="true" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
