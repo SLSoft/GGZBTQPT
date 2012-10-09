@@ -1,0 +1,52 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Financing>
+
+@{
+    ViewBag.Title = "融资项目管理";
+}
+
+<h2>融资项目管理</h2>
+
+<p>
+    @Html.ActionLink("发布融资项目", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            项目名称
+        </th>
+        <th>
+            所属行业
+        </th>
+        <th>
+            有效日期
+        </th>
+        <th>
+            发布时间
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Industry)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ValidDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PublicTime)
+        </td>
+        <td>
+            @Html.ActionLink("编辑", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("详情", "Details", new { id=item.ID }) |
+            @Html.ActionLink("删除", "Del", new { id = item.ID }) |
+            <a href="Del/"@item.ID onclick='return confirm("确定要删除吗?")'>删除</a>
+        </td>
+    </tr>
+}
+
+</table>

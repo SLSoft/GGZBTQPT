@@ -22,5 +22,9 @@ namespace GGZBTQPT_PRO.Models
         public int OP { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
+
+
+        public int MemberID { get; set; }
+        public virtual T_HY_Member Member { get; set; }
     }
 }

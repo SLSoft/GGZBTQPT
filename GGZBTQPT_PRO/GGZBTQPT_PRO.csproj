@@ -102,7 +102,12 @@
     <Compile Include="Migrations\201210061022566_init.Designer.cs">
       <DependentUpon>201210061022566_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201210090714118_update-with-hongbao.cs" />
+    <Compile Include="Migrations\201210090714118_update-with-hongbao.Designer.cs">
+      <DependentUpon>201210090714118_update-with-hongbao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Mapping\T_HY_MemberMap.cs" />
     <Compile Include="Models\Mapping\T_ZC_DepartmentMap.cs" />
     <Compile Include="Models\Mapping\T_ZC_RoleMap.cs" />
     <Compile Include="Models\T_HY_Member.cs" />
@@ -840,6 +845,9 @@
     </Content>
     <EmbeddedResource Include="Migrations\201210061022566_init.resx">
       <DependentUpon>201210061022566_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201210090714118_update-with-hongbao.resx">
+      <DependentUpon>201210090714118_update-with-hongbao.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

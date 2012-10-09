@@ -28,6 +28,11 @@ namespace GGZBTQPT_PRO.Models.Mapping
 
             // Table & Column Mappings
 
+            // Foreign Key
+            this.HasRequired(t => t.Member)
+              .WithMany()
+              .HasForeignKey(a => a.MemberID)
+              .WillCascadeOnDelete(false);
         }
     }
 }

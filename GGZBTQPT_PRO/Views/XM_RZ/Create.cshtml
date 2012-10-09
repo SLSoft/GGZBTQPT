@@ -1,0 +1,151 @@
+﻿@model GGZBTQPT_PRO.Models.T_XM_Financing
+
+@{
+    ViewBag.Title = "发布融资信息";
+}
+<script type="text/javascript">
+    $(function () {
+        $("#Province").change(
+        function () {
+                var select = $(this).val();
+                $.post("XM_RZ/BindArea2/", { parentcode: select }, function (data) {
+                     $.each(data, function (i, item) {
+                    $("<option></option>").val(item["ID"]).text(item["Name"]).appendTo($("#City"));
+                    }
+                });
+            }
+        );
+    });
+</script>
+<h2>发布融资信息</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>融资信息</legend>
+        <table style="width:100%">
+            <tr>
+                <td colspan="2" style="background-color:#666666; color:#ffffff">基本信息</td>
+            </tr>
+            <tr>
+                <td style="width:120px">@Html.LabelFor(model => model.ItemName,"项目名称")</td>
+                <td>@Html.EditorFor(model => model.ItemName)
+            @Html.ValidationMessageFor(model => model.ItemName)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Province,"所属区域")</td>
+                <td>@Html.DropDownList("Province", "请选择")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Industry, "所属行业")</td>
+                <td>@Html.DropDownList("Industry", "请选择")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.ValidDate, "有效日期")</td>
+                <td>@Html.EditorFor(model => model.ValidDate)
+            @Html.ValidationMessageFor(model => model.ValidDate)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Keys, "关键词")</td>
+                <td>@Html.EditorFor(model => model.Keys)
+            @Html.ValidationMessageFor(model => model.Keys)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.ItemContent, "项目介绍")</td>
+                <td>@Html.TextAreaFor(model => model.ItemContent, new { rows = "5" })
+            @Html.ValidationMessageFor(model => model.ItemContent)</td>
+            </tr>
+        </table>
+        <table style="width:100%">
+            <tr>
+                <td colspan="4" style="background-color:#666666; color:#ffffff">融资信息</td>
+            </tr>
+            <tr>
+                <td style="width:120px">@Html.LabelFor(model => model.FinancSum, "融资金额")</td>
+                <td>@Html.EditorFor(model => model.FinancSum)
+            @Html.ValidationMessageFor(model => model.FinancSum)</td>
+                <td>@Html.LabelFor(model => model.FinancType, "融资方式")</td>
+                <td>@Html.EditorFor(model => model.FinancType)
+            @Html.ValidationMessageFor(model => model.FinancType)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.FinancCycle, "融资期限")</td>
+                <td>@Html.EditorFor(model => model.FinancCycle)
+            @Html.ValidationMessageFor(model => model.FinancCycle)</td>
+                <td>@Html.LabelFor(model => model.TotalInvestment, "项目总投资")</td>
+                <td>@Html.EditorFor(model => model.TotalInvestment)
+            @Html.ValidationMessageFor(model => model.TotalInvestment)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.ReturnRatio, "预计回报率")</td>
+                <td>@Html.EditorFor(model => model.ReturnRatio)
+            @Html.ValidationMessageFor(model => model.ReturnRatio)</td>
+                <td>@Html.LabelFor(model => model.ItemStage, "项目阶段")</td>
+                <td>@Html.EditorFor(model => model.ItemStage)
+            @Html.ValidationMessageFor(model => model.ItemStage)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.ItemValue, "项目评估价值")</td>
+                <td>@Html.EditorFor(model => model.ItemValue)
+            @Html.ValidationMessageFor(model => model.ItemValue)</td>
+                <td>@Html.LabelFor(model => model.Assure, "担保说明")</td>
+                <td>@Html.EditorFor(model => model.Assure)
+            @Html.ValidationMessageFor(model => model.Assure)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Collateral, "抵质押物")</td>
+                <td colspan="3">@Html.EditorFor(model => model.Collateral)
+            @Html.ValidationMessageFor(model => model.Collateral)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.PartnerRequirements, "合作方要求")</td>
+                <td colspan="3">@Html.EditorFor(model => model.PartnerRequirements)
+            @Html.ValidationMessageFor(model => model.PartnerRequirements)</td>
+            </tr>
+        </table>
+        <table style="width:100%">
+            <tr>
+                <td colspan="4" style="background-color:#666666; color:#ffffff">联系人信息</td>
+            </tr>
+            <tr>
+                <td style="width:120px">@Html.LabelFor(model => model.Linkman, "联系人")</td>
+                <td>@Html.EditorFor(model => model.Linkman)
+            @Html.ValidationMessageFor(model => model.Linkman)</td>
+                <td>@Html.LabelFor(model => model.Position, "部门&职务")</td>
+                <td>@Html.EditorFor(model => model.Position)
+            @Html.ValidationMessageFor(model => model.Position)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Phone, "固定电话")</td>
+                <td>@Html.EditorFor(model => model.Phone)
+            @Html.ValidationMessageFor(model => model.Phone)</td>
+                <td>@Html.LabelFor(model => model.Mobile, "移动电话")</td>
+                <td>@Html.EditorFor(model => model.Mobile)
+            @Html.ValidationMessageFor(model => model.Mobile)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Fax, "传真")</td>
+                <td>@Html.EditorFor(model => model.Fax)
+            @Html.ValidationMessageFor(model => model.Fax)</td>
+                <td>@Html.LabelFor(model => model.Email, "电子邮箱")</td>
+                <td>@Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.QQ, "QQ")</td>
+                <td colspan="3">@Html.EditorFor(model => model.QQ)
+            @Html.ValidationMessageFor(model => model.QQ)</td>
+            </tr>
+        </table>
+        <p>
+            <input type="submit" value="提交" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("返回", "Index")
+</div>

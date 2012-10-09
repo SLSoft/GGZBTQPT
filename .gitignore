@@ -1,5 +1,9 @@
 GGZBTQPT_PRO/Migrations
 obj
 bin
-GGZBTQPT_PRO.sln
-GGZBTQPT_PRO.suo
+GGZBTQPT.sln
+GGZBTQPT.suo
+GGZBTQPT_TEST
+GGZBTQPT.vsmdi
+Local.testsettings
+TraceAndTestImpact.testsettings

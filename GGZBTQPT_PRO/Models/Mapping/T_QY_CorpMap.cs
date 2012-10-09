@@ -51,6 +51,13 @@ namespace GGZBTQPT_PRO.Models.Mapping
                 .IsFixedLength()
                 .HasMaxLength(1);
 
+
+            // Foreign Key
+            this.HasRequired(t => t.Member)
+              .WithMany()
+              .HasForeignKey(a => a.MemberID)
+              .WillCascadeOnDelete(false);
+
  
         }
     }
