@@ -8,19 +8,9 @@ namespace GGZBTQPT_PRO.Models.Mapping
         public T_QY_FinancialMap()
         {
             // Primary Key
-            this.HasKey(t => t.Code);
+            this.HasKey(t => t.ID);
 
             // Properties
-            this.Property(t => t.ID)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-
-            this.Property(t => t.Code)
-                .IsRequired()
-                .HasMaxLength(64);
-
-            this.Property(t => t.CorpCode)
-                .HasMaxLength(64);
-
             this.Property(t => t.CurYear)
                 .HasMaxLength(10);
 
@@ -28,14 +18,10 @@ namespace GGZBTQPT_PRO.Models.Mapping
                 .IsFixedLength()
                 .HasMaxLength(1);
 
-            this.Property(t => t.OP)
-                .HasMaxLength(64);
-
             // Table & Column Mappings
             this.ToTable("T_QY_Financial");
             this.Property(t => t.ID).HasColumnName("ID");
-            this.Property(t => t.Code).HasColumnName("Code");
-            this.Property(t => t.CorpCode).HasColumnName("CorpCode");
+            this.Property(t => t.CorpID).HasColumnName("CorpID");
             this.Property(t => t.TotalAssets).HasColumnName("TotalAssets");
             this.Property(t => t.CurYear).HasColumnName("CurYear");
             this.Property(t => t.Revenue).HasColumnName("Revenue");

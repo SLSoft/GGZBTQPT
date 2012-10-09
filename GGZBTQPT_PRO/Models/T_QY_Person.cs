@@ -3,11 +3,10 @@ using System.Collections.Generic;
 
 namespace GGZBTQPT_PRO.Models
 {
-    public class T_QY_PersonInfo
+    public class T_QY_Person
     {
         public int ID { get; set; }
-        public string Code { get; set; }
-        public string UserCode { get; set; }
+        public int UserID { get; set; }
         public string Name { get; set; }
         public string HomeTown { get; set; }
         public Nullable<int> CardType { get; set; }
@@ -30,7 +29,7 @@ namespace GGZBTQPT_PRO.Models
         public string WorkExperience { get; set; }
         public string Remark { get; set; }
         public Nullable<bool> IsValid { get; set; }
-        public string OP { get; set; }
+        public int OP { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
     }

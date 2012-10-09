@@ -3,11 +3,10 @@ using System.Collections.Generic;
 
 namespace GGZBTQPT_PRO.Models
 {
-    public class T_JG_AgencyInfo
+    public class T_JG_Agency
     {
         public int ID { get; set; }
-        public string Code { get; set; }
-        public string UserCode { get; set; }
+        public int UserID_ { get; set; }
         public string AgencyName { get; set; }
         public Nullable<int> AgencyType { get; set; }
         public Nullable<System.DateTime> RegTime { get; set; }
@@ -20,7 +19,7 @@ namespace GGZBTQPT_PRO.Models
         public string Services { get; set; }
         public string Remark { get; set; }
         public Nullable<bool> IsValid { get; set; }
-        public string OP { get; set; }
+        public int OP { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
     }

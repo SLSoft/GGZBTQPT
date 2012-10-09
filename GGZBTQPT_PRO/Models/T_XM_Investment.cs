@@ -6,8 +6,7 @@ namespace GGZBTQPT_PRO.Models
     public class T_XM_Investment
     {
         public int ID { get; set; }
-        public string Code { get; set; }
-        public string UserCode { get; set; }
+        public int UserID { get; set; }
         public string ItemName { get; set; }
         public Nullable<int> Province { get; set; }
         public Nullable<int> City { get; set; }
@@ -33,7 +32,7 @@ namespace GGZBTQPT_PRO.Models
         public string InvestmentPeriod { get; set; }
         public string PartnerRequirements { get; set; }
         public Nullable<bool> IsValid { get; set; }
-        public string OP { get; set; }
+        public int OP { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
     }

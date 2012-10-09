@@ -11,15 +11,6 @@ namespace GGZBTQPT_PRO.Models.Mapping
             this.HasKey(t => t.ID);
 
             // Properties
-            this.Property(t => t.Code)
-                .HasMaxLength(64);
-
-            this.Property(t => t.FavoriteCode)
-                .HasMaxLength(64);
-
-            this.Property(t => t.OP)
-                .HasMaxLength(64);
-
             // Table & Column Mappings
             this.ToTable("T_HY_Favorite");
             this.Property(t => t.ID).HasColumnName("ID");

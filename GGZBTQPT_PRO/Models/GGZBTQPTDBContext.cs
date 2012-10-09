@@ -18,13 +18,13 @@ namespace GGZBTQPT_PRO.Models
 
         public DbSet<T_HY_Attention> T_HY_Attention { get; set; }
         public DbSet<T_HY_Favorite> T_HY_Favorite { get; set; }
-        public DbSet<T_JG_AgencyInfo> T_JG_AgencyInfo { get; set; }
+        public DbSet<T_JG_Agency> T_JG_AgencyInfo { get; set; }
         public DbSet<T_JG_Linkman> T_JG_Linkman { get; set; }
-        public DbSet<T_JG_ProductInfo> T_JG_ProductInfo { get; set; }
-        public DbSet<T_QY_CorpInfo> T_QY_CorpInfo { get; set; }
+        public DbSet<T_JG_Product> T_JG_ProductInfo { get; set; }
+        public DbSet<T_QY_Corp> T_QY_CorpInfo { get; set; }
         public DbSet<T_QY_Financial> T_QY_Financial { get; set; }
-        public DbSet<T_QY_PersonInfo> T_QY_PersonInfo { get; set; }
-        public DbSet<T_QY_Products> T_QY_Products { get; set; }
+        public DbSet<T_QY_Person> T_QY_PersonInfo { get; set; }
+        public DbSet<T_QY_Product> T_QY_Products { get; set; }
         public DbSet<T_XM_Financing> T_XM_Financing { get; set; }
         public DbSet<T_XM_Investment> T_XM_Investment { get; set; }
         public DbSet<T_ZC_User> T_ZC_User { get; set; }
@@ -38,13 +38,13 @@ namespace GGZBTQPT_PRO.Models
         {
             modelBuilder.Configurations.Add(new T_HY_AttentionMap());
             modelBuilder.Configurations.Add(new T_HY_FavoriteMap());
-            modelBuilder.Configurations.Add(new T_JG_AgencyInfoMap());
+            modelBuilder.Configurations.Add(new T_JG_AgencyMap());
             modelBuilder.Configurations.Add(new T_JG_LinkmanMap());
-            modelBuilder.Configurations.Add(new T_JG_ProductInfoMap());
-            modelBuilder.Configurations.Add(new T_QY_CorpInfoMap());
+            modelBuilder.Configurations.Add(new T_JG_ProductMap());
+            modelBuilder.Configurations.Add(new T_QY_CorpMap());
             modelBuilder.Configurations.Add(new T_QY_FinancialMap());
-            modelBuilder.Configurations.Add(new T_QY_PersonInfoMap());
-            modelBuilder.Configurations.Add(new T_QY_ProductsMap());
+            modelBuilder.Configurations.Add(new T_QY_PersonMap());
+            modelBuilder.Configurations.Add(new T_QY_ProductMap());
             modelBuilder.Configurations.Add(new T_XM_FinancingMap());
             modelBuilder.Configurations.Add(new T_XM_InvestmentMap());
             modelBuilder.Configurations.Add(new T_ZC_UserMap());
