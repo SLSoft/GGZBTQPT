@@ -1,0 +1,51 @@
+body {
+  background-color: #eee; }
+  body .main {
+    background-color: white;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #ddddff; }
+    body .main .content {
+      -webkit-border-radius: 5px 0 0 5px;
+      -moz-border-radius: 5px 0 0 5px;
+      border-radius: 5px 0 0 5px;
+      padding: 20px;
+      background-color: #ffffff;
+      margin-left: -30px; }
+    body .main .sidebar {
+      -webkit-border-radius: 0 5px 5px 0;
+      -moz-border-radius: 0 5px 5px 0;
+      border-radius: 0 5px 5px 0;
+      background-color: #ddddff;
+      padding: 10px;
+      margin-left: -20px; }
+  body .footer {
+    text-align: center;
+    padding-top: 10px; }
+
+.content-title {
+  border-bottom: solid 1px #ddd; }
+
+#twitter .twitter-content {
+  border-top: solid 1px #ddd;
+  padding: 10px 0; }
+
+.clear {
+  clear: both; }
+
+.alert {
+  text-align: center; }
+
+#deploy {
+  text-align: center; }
+  #deploy ul.nav-pills img {
+    margin-right: 10px; }
+  #deploy ul.nav-pills a {
+    width: 110px;
+    height: 110px;
+    border: 1px solid #eee;
+    text-align: center;
+    line-height: 100px;
+    background-color: #eee; }
+

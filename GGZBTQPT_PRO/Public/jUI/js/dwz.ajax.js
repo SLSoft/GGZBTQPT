@@ -21,7 +21,7 @@ function validateCallback(form, callback) {
 		dataType:"json",
 		cache: false,
 		success: callback || DWZ.ajaxDone,
-		error: DWZ.ajaxError
+		error: SL_DWZ.ajaxError
 	});
 	return false;
 }
@@ -136,6 +136,7 @@ function dialogAjaxDone(json){
 		$.pdialog.closeCurrent();
 	}
 }
+
 
 /**
  * 处理navTab上的查询, 会重新载入当前navTab

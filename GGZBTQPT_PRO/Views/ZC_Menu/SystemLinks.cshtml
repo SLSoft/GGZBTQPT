@@ -1,0 +1,13 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_ZC_System>
+
+
+<ul class="tree treeFolder">
+    <li><a>业务系统列表</a>
+        <ul>
+            @foreach (var system in Model)
+            {
+                <li> @Html.ActionLink(system.Name,"MenuInfo","ZC_Menu",new { system_id = system.ID},new { target = "ajax", rel = "menuInfoBox" })</li>
+            }
+        </ul>
+    </li>
+</ul>

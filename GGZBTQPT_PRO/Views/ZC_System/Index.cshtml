@@ -1,0 +1,121 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_ZC_System>
+
+@{
+    ViewBag.Title = "系统管理";
+    Layout = null;
+}
+<form id="pagerForm" method="post" action="@Url.Action("search")>
+<input type="hidden" name="pageNum" value="1" />
+<input type="hidden" name="numPerPage" value="${model.numPerPage}" />
+<input type="hidden" name="orderField" value="${param.orderField}" />
+<input type="hidden" name="orderDirection" value="${param.orderDirection}" />
+</form>
+<div class="pageHeader">
+  <form rel="pagerForm" onsubmit="return navTabSearch(this);" action="demo_page1.html" method="post">
+  <div class="searchBar">
+    <ul class="searchContent">
+      <li>
+        <label>
+          系统维护：</label>
+        <input type="text" name="keywords" />
+      </li>
+      <li>
+        <select class="combox" name="province">
+          <option value="">菜单级别</option>
+          <option value="北京">一级</option>
+          <option value="上海">二级</option>
+          <option value="天津">三级</option>
+          <option value="重庆">四级</option>
+        </select>
+      </li>
+    </ul>
+    <div class="subBar">
+      <ul>
+        <li>
+          <div class="buttonActive">
+            <div class="buttonContent">
+              <button type="submit" style="width: 50px;">
+                检索</button></div>
+          </div>
+        </li>
+        <li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>
+      </ul>
+    </div>
+  </div>
+  </form>
+</div>
+<div class="pageContent">
+  <div class="panelBar">
+    <ul class="toolBar">
+      <li><a class="add" href="/ZC_System/create" rel="create" target="dialog" width="400" height="200" title="添加新的业务系统" mask="true"><span>@Resources.Common.Add</span></a></li>
+      <li><a class="edit" href="/ZC_System/edit/{mid}" rel="edit" target="dialog" title="编辑业务系统信息" mask="true" warn="请选择一条系统数据"><span>@Resources.Common.Edit</span></a></li>
+      <li><a class="delete" href="/ZC_System/delete/{mid}" rel="delete" target="ajaxTodo" title="确定要删除吗？"  warn="请选择一条系统数据"><span>@Resources.Common.Del</span></a></li>
+      <li class="line">line</li>
+      <li><a class="icon" href="#"><span>导入EXCEL</span></a></li>
+    </ul>
+  </div>
+  <div layouth="116">
+    <table class="list" width="100%" targettype="navTab" asc="asc" desc="desc">
+      <thead>
+        <tr>
+          <th orderfield="name" class="asc">
+          
+            @Resources.T_ZC_System.name
+          </th>
+          <th >
+            @Resources.T_ZC_System.is_valid
+          </th>
+          <th>
+            @Resources.T_ZC_System.created_at
+          </th>
+          <th>
+            @Resources.T_ZC_System.updated_at
+          </th>
+          <th align="center">
+            @Resources.T_ZC_System.operate
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach (var item in Model)
+        {
+          <tr target="mid" rel=@item.ID>
+            <td>
+              @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+              @Html.DisplayFor(modelItem => item.IsValid)
+            </td>
+            <td>
+              @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+              @Html.DisplayFor(modelItem => item.UpdatedAt)
+            </td>
+            <td>
+              @Html.ActionLink("编辑", "Edit", new { id = item.ID }, new { target = "navTab" }) |
+              @Html.ActionLink("详情", "Details", new { id = item.ID }) |
+              @Html.ActionLink("删除", "Delete", new { id = item.ID }) |
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <div class="panelBar">
+    <div class="pages">
+      <span>显示</span>
+      <select name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+        <option value="20">20</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+        <option value="200">200</option>
+      </select>
+      <span>条，共23条</span>
+    </div>
+    <div class="pagination" targettype="navTab" totalcount="200" numperpage="20" pagenumshown="10" currentpage="2">
+    </div>
+  </div>
+</div>
+
+

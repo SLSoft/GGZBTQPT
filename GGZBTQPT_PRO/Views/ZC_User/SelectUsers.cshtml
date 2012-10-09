@@ -1,0 +1,63 @@
+﻿@model GGZBTQPT_PRO.ViewModels.VM_SelectUser
+@*
+@{
+    ICollection<GGZBTQPT_PRO.Models.T_ZC_Department> DepartmentModel = ViewBag.departments;
+}*@
+@helper GenerateDeparts(GGZBTQPT_PRO.Models.T_ZC_Department parent_department, ICollection<GGZBTQPT_PRO.Models.T_ZC_Department> departments)
+    { 
+   
+        foreach (var department in departments)
+        {
+
+                <ul class="tree treeFolder">
+                    <li><a>@department.FullName</a>
+                        <ul>
+                            @foreach (var user in Model.Users)
+                            {
+                                if (user.DepartmentID == department.ID)
+                                {
+                                <li>@user.Name</li>
+                                }
+                            }
+                        </ul>
+                    </li>
+                </ul>
+
+                if (departments.Where(d => d.ParentID == department.ID).Count() > 0)
+                {
+                    @GenerateDeparts(department, departments.Where(d => d.ParentID == department.ID).ToList())
+                }
+
+
+
+        }
+        
+}
+<ul class="tree treeFolder">
+    <li><a>内部平台系统用户列表</a>
+        <ul class="tree treeFolder treeCheck expand">
+            @foreach (var department in Model.Departments.Where(d => d.ParentID == 0 || d.ParentID == null))
+            {
+
+                <li><a>@department.FullName </a>
+
+                        <ul>
+                            @foreach (var user in Model.Users)
+                            {
+                                if (user.DepartmentID == department.ID)
+                                {
+                                <li>@user.Name</li>
+                                }
+                            }
+                        </ul>
+
+
+                        @GenerateDeparts(department, Model.Departments.Where(d => d.ParentID == department.ID).ToList())
+
+
+                </li>
+
+    }
+        </ul>
+    </li>
+</ul>

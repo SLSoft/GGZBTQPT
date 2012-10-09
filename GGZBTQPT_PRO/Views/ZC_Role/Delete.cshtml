@@ -1,0 +1,46 @@
+﻿@model GGZBTQPT_PRO.Models.T_ZC_Role
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Delete</title>
+</head>
+<body>
+    <h3>Are you sure you want to delete this?</h3>
+    <fieldset>
+        <legend>T_ZC_Role</legend>
+    
+        <div class="display-label">Name</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Name)
+        </div>
+    
+        <div class="display-label">IsValid</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.IsValid)
+        </div>
+    
+        <div class="display-label">CreatedAt</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.CreatedAt)
+        </div>
+    
+        <div class="display-label">UpdatedAt</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.UpdatedAt)
+        </div>
+    </fieldset>
+    @using (Html.BeginForm()) {
+        <p>
+            <input type="submit" value="Delete" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+    }
+
+</body>
+</html>

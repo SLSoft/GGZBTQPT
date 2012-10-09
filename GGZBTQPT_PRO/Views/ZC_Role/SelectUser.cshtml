@@ -1,0 +1,62 @@
+﻿@model GGZBTQPT_PRO.ViewModels.VM_SelectUser
+ 
+@helper GenerateUser(string selected_users, GGZBTQPT_PRO.Models.T_ZC_User user)
+{
+    
+        if(selected_users.IndexOf(user.ID.ToString()) > 0)
+        { 
+            <li><a tname="@user.Name" tvalue="@user.ID" checked=true >@user.Name</a></li>  
+        }
+        else
+        { 
+            <li><a tname="@user.Name" tvalue="@user.ID" >@user.Name</a></li>  
+        }
+
+    
+}
+
+@helper GenerateDeparts(GGZBTQPT_PRO.Models.T_ZC_Department parent_department, ICollection<GGZBTQPT_PRO.Models.T_ZC_Department> departments)
+    { 
+   
+        foreach (var department in departments)
+        { 
+            <ul >
+                <li><a>@department.FullName</a>
+                    <ul>
+                        @foreach (var user in Model.Users)
+                        {
+                            if (user.DepartmentID == department.ID)
+                            {
+                                @GenerateUser(ViewBag.selected_users, user)
+                            }
+                        }
+                    </ul>
+                </li>
+            </ul>
+
+            if (departments.Where(d => d.ParentID == department.ID).Count() > 0)
+            {
+                @GenerateDeparts(department, departments.Where(d => d.ParentID == department.ID).ToList())
+            }
+        }
+        
+}
+<ul class="tree treeFolder treeCheck">
+    <li><a>内部平台系统用户列表</a>
+        <ul>
+            @foreach (var department in Model.Departments.Where(d => d.ParentID == 0 || d.ParentID == null))
+            {
+
+                <li><a>@department.FullName </a>
+                    <ul>
+                        @foreach (var user in Model.Departments.Where(d => d.ID == department.ID).First().Users.ToList())
+                        {
+                            @GenerateUser(ViewBag.selected_users, user)
+                        }
+                    </ul> 
+                    @GenerateDeparts(department, Model.Departments.Where(d => d.ParentID == department.ID).ToList())
+                </li> 
+            }
+        </ul>
+    </li>
+</ul>

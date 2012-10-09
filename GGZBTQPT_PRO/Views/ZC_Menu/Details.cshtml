@@ -1,0 +1,57 @@
+﻿@model GGZBTQPT_PRO.Models.T_ZC_Menu
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Details</title>
+</head>
+<body>
+    <fieldset>
+        <legend>T_ZC_Menu</legend>
+    
+        <div class="display-label">Name</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Name)
+        </div>
+    
+        <div class="display-label">Url</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Url)
+        </div>
+    
+        <div class="display-label">Valid</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.IsValid)
+        </div>
+    
+        <div class="display-label">ParentID</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.ParentID)
+        </div>
+    
+        <div class="display-label">CreatedAt</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.CreatedAt)
+        </div>
+    
+        <div class="display-label">UpdatedAt</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.UpdatedAt)
+        </div>
+    
+        <div class="display-label">System</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.System.Name)
+        </div>
+    </fieldset>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

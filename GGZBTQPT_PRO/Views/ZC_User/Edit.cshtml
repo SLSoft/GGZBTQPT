@@ -1,0 +1,111 @@
+﻿@model GGZBTQPT_PRO.Models.T_ZC_User
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Edit</title>
+</head>
+<body>
+    @using (Html.BeginForm()) {
+        @Html.ValidationSummary(true)
+        <fieldset>
+            <legend>T_ZC_User</legend>
+    
+            @Html.HiddenFor(model => model.ID)
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Name)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.LoginName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.LoginName)
+                @Html.ValidationMessageFor(model => model.LoginName)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Password)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CellPhone)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CellPhone)
+                @Html.ValidationMessageFor(model => model.CellPhone)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.IsValid)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.IsValid)
+                @Html.ValidationMessageFor(model => model.IsValid)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CreatedAt)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CreatedAt)
+                @Html.ValidationMessageFor(model => model.CreatedAt)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.UpdatedAt)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.UpdatedAt)
+                @Html.ValidationMessageFor(model => model.UpdatedAt)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.IdCard)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.IdCard)
+                @Html.ValidationMessageFor(model => model.IdCard)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Order)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Order)
+                @Html.ValidationMessageFor(model => model.Order)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.DepartmentID, "Department")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("DepartmentID", String.Empty)
+                @Html.ValidationMessageFor(model => model.DepartmentID)
+            </div>
+    
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+        </fieldset>
+    }
+    
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</body>
+</html>

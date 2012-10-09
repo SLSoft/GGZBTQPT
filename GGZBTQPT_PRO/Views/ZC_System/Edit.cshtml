@@ -1,0 +1,48 @@
+﻿@model GGZBTQPT_PRO.Models.T_ZC_System
+@{
+    Layout = null;
+}
+<script type="text/javascript">
+    function dialogDone() {
+        $.pdialog.closeCurrent();
+        navTab.reload();
+    }
+    $.validator.unobtrusive.parse(document);
+</script>
+<div id="FormContainer" class="pageContent">
+    @using (Html.BeginForm("Edit", "ZC_System", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
+    {
+        @Html.ValidationSummary(true)
+        <div class="pageFormContent" layouth="56">
+            <p>
+                @Html.LabelFor(model => model.Name)
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </p>
+            <p>
+                @Html.LabelFor(model => model.IsValid)
+                @Html.EditorFor(model => model.IsValid)
+                @Html.ValidationMessageFor(model => model.IsValid)</p>
+
+        </div>
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">
+                                保存</button></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close">
+                                取消</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+      
+    }
+</div>

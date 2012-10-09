@@ -4,114 +4,123 @@
  */
 
 var DWZ = {
-	// sbar: show sidebar
-	keyCode: {
-		ENTER: 13, ESC: 27, END: 35, HOME: 36,
-		SHIFT: 16, TAB: 9,
-		LEFT: 37, RIGHT: 39, UP: 38, DOWN: 40,
-		DELETE: 46, BACKSPACE:8
-	},
-	pageInfo: {pageNum:"pageNum", numPerPage:"numPerPage", orderField:"orderField", orderDirection:"orderDirection"},
-	statusCode: {ok:200, error:300, timeout:301},
-	ui:{sbar:true},
-	frag:{}, //page fragment
-	_msg:{}, //alert message
-	_set:{
-		loginUrl:"", //session timeout
-		loginTitle:"", //if loginTitle open a login dialog
-		debug:false
-	},
-	msg:function(key, args){
-		var _format = function(str,args) {
-			args = args || [];
-			var result = str
-			for (var i = 0; i < args.length; i++){
-				result = result.replace(new RegExp("\\{" + i + "\\}", "g"), args[i]);
-			}
-			return result;
-		}
-		return _format(this._msg[key], args);
-	},
-	debug:function(msg){
-		if (this._set.debug) alert(msg);
-	},
-	loadLogin:function(){
-		if ($.pdialog && DWZ._set.loginTitle) {
-			$.pdialog.open(DWZ._set.loginUrl, "login", DWZ._set.loginTitle, {mask:true,width:520,height:260});
-		} else {
-			window.location = DWZ._set.loginUrl;
-		}
-	},
+    // sbar: show sidebar
+    keyCode: {
+        ENTER: 13, ESC: 27, END: 35, HOME: 36,
+        SHIFT: 16, TAB: 9,
+        LEFT: 37, RIGHT: 39, UP: 38, DOWN: 40,
+        DELETE: 46, BACKSPACE: 8
+    },
+    pageInfo: { pageNum: "pageNum", numPerPage: "numPerPage", orderField: "orderField", orderDirection: "orderDirection" },
+    statusCode: { ok: 200, error: 300, timeout: 301 },
+    ui: { sbar: true },
+    frag: {}, //page fragment
+    _msg: {}, //alert message
+    _set: {
+        loginUrl: "", //session timeout
+        loginTitle: "", //if loginTitle open a login dialog
+        debug: false
+    },
+    msg: function (key, args) {
+        var _format = function (str, args) {
+            args = args || [];
+            var result = str
+            for (var i = 0; i < args.length; i++) {
+                result = result.replace(new RegExp("\\{" + i + "\\}", "g"), args[i]);
+            }
+            return result;
+        }
+        return _format(this._msg[key], args);
+    },
+    debug: function (msg) {
+        if (this._set.debug) alert(msg);
+    },
+    loadLogin: function () {
+        if ($.pdialog && DWZ._set.loginTitle) {
+            $.pdialog.open(DWZ._set.loginUrl, "login", DWZ._set.loginTitle, { mask: true, width: 520, height: 260 });
+        } else {
+            window.location = DWZ._set.loginUrl;
+        }
+    },
 
-	jsonEval:function(data) {
-		try{
-			if ($.type(data) == 'string')
-				return eval('(' + data + ')');
-			else return data;
-		} catch (e){
-			return {};
-		}
-	},
-	ajaxError:function(xhr, ajaxOptions, thrownError){
-		if (alertMsg) {
-			alertMsg.error("<div>Http status: " + xhr.status + " " + xhr.statusText + "</div>" 
-				+ "<div>ajaxOptions: "+ajaxOptions + "</div>"
-				+ "<div>thrownError: "+thrownError + "</div>"
-				+ "<div>"+xhr.responseText+"</div>");
-		} else {
-			alert("Http status: " + xhr.status + " " + xhr.statusText + "\najaxOptions: " + ajaxOptions + "\nthrownError:"+thrownError + "\n" +xhr.responseText);
-		}
-	},
-	ajaxDone:function(json){
-		if (json.statusCode === undefined && json.message === undefined) { // for iframeCallback
-			if (alertMsg) return alertMsg.error(json);
-			else return alert(json);
-		} 
-		if(json.statusCode == DWZ.statusCode.error) {
-			if(json.message && alertMsg) alertMsg.error(json.message);
-		} else if (json.statusCode == DWZ.statusCode.timeout) {
-			if(alertMsg) alertMsg.error(json.message || DWZ.msg("sessionTimout"), {okCall:DWZ.loadLogin});
-			else DWZ.loadLogin();
-		} else {
-			if(json.message && alertMsg) alertMsg.correct(json.message);
-		};
-	},
+    jsonEval: function (data) {
+        try {
+            if ($.type(data) == 'string')
+                return eval('(' + data + ')');
+            else return data;
+        } catch (e) {
+            return {};
+        }
+    },
+    ajaxError: function (xhr, ajaxOptions, thrownError) {
+        if (ajaxOptions == "parsererror") {
+            //return $($.pdialog.getCurrent).find(".pageContent").html(xhr.responseText);
+            var _currentDialog = $.pdialog._current;
+            _currentDialog.find(".dialogContent").html(xhr.responseText);
+            $(":button.close", _currentDialog).click(function () {
+                $.pdialog.close(_currentDialog);
+            });
+            return;
+        }
+        if (alertMsg) {
+            alertMsg.error("<div>Http status: " + xhr.status + " " + xhr.statusText + "</div>"
+				+ "<div>ajaxOptions: " + ajaxOptions + "</div>"
+				+ "<div>thrownError: " + thrownError + "</div>"
+				+ "<div>" + xhr.responseText + "</div>");
+        } else {
+            alert("Http status: " + xhr.status + " " + xhr.statusText + "\najaxOptions: " + ajaxOptions + "\nthrownError:" + thrownError + "\n" + xhr.responseText);
+        }
+    },
+    ajaxDone: function (json) {
+        if (json.statusCode === undefined && json.message === undefined) { // for iframeCallback
+            if (alertMsg) return alertMsg.error(json);
+            else return alert(json);
+        }
+        if (json.statusCode == DWZ.statusCode.error) {
+            if (json.message && alertMsg) alertMsg.error(json.message);
+        } else if (json.statusCode == DWZ.statusCode.timeout) {
+            if (alertMsg) alertMsg.error(json.message || DWZ.msg("sessionTimout"), { okCall: DWZ.loadLogin });
+            else DWZ.loadLogin();
+        } else {
+            if (json.message && alertMsg) alertMsg.correct(json.message);
+        };
+    },
 
-	init:function(pageFrag, options){
-		var op = $.extend({
-				loginUrl:"login.html", loginTitle:null, callback:null, debug:false, 
-				statusCode:{}
-			}, options);
-		this._set.loginUrl = op.loginUrl;
-		this._set.loginTitle = op.loginTitle;
-		this._set.debug = op.debug;
-		$.extend(DWZ.statusCode, op.statusCode);
-		$.extend(DWZ.pageInfo, op.pageInfo);
-		
-		jQuery.ajax({
-			type:'GET',
-			url:pageFrag,
-			dataType:'xml',
-			timeout: 50000,
-			cache: false,
-			error: function(xhr){
-				alert('Error loading XML document: ' + pageFrag + "\nHttp status: " + xhr.status + " " + xhr.statusText);
-			}, 
-			success: function(xml){
-				$(xml).find("_PAGE_").each(function(){
-					var pageId = $(this).attr("id");
-					if (pageId) DWZ.frag[pageId] = $(this).text();
-				});
-				
-				$(xml).find("_MSG_").each(function(){
-					var id = $(this).attr("id");
-					if (id) DWZ._msg[id] = $(this).text();
-				});
-				
-				if (jQuery.isFunction(op.callback)) op.callback();
-			}
-		});
-	}
+    init: function (pageFrag, options) {
+        var op = $.extend({
+            loginUrl: "login.html", loginTitle: null, callback: null, debug: false,
+            statusCode: {}
+        }, options);
+        this._set.loginUrl = op.loginUrl;
+        this._set.loginTitle = op.loginTitle;
+        this._set.debug = op.debug;
+        $.extend(DWZ.statusCode, op.statusCode);
+        $.extend(DWZ.pageInfo, op.pageInfo);
+
+        jQuery.ajax({
+            type: 'GET',
+            url: pageFrag,
+            dataType: 'xml',
+            timeout: 50000,
+            cache: false,
+            error: function (xhr) {
+                alert('Error loading XML document: ' + pageFrag + "\nHttp status: " + xhr.status + " " + xhr.statusText);
+            },
+            success: function (xml) {
+                $(xml).find("_PAGE_").each(function () {
+                    var pageId = $(this).attr("id");
+                    if (pageId) DWZ.frag[pageId] = $(this).text();
+                });
+
+                $(xml).find("_MSG_").each(function () {
+                    var id = $(this).attr("id");
+                    if (id) DWZ._msg[id] = $(this).text();
+                });
+
+                if (jQuery.isFunction(op.callback)) op.callback();
+            }
+        });
+    }
 };
 
 

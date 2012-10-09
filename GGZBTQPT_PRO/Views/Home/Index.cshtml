@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div id="layout">
+  <div id="header">
+    <div class="headerNav">
+      <a class="logo2" href="#">内网logo</a>
+      <ul class="nav">
+        <li><a href="#" target="dialog" width="600">欢迎你，熊博！</a></li>
+        <li><a href="changepwd.html" target="dialog" width="600">设置</a></li>
+        <li><a href="http://weibo.com/dwzui" target="_blank">短信（10）</a></li>
+        <li><a href="login.html">注销退出</a></li>
+      </ul>
+      <ul class="themeList" id="themeList">
+        <li theme="default">
+          <div class="selected">
+            蓝色</div>
+        </li>
+        <li theme="green">
+          <div>
+            绿色</div>
+        </li>
+        <li theme="purple">
+          <div>
+            紫色</div>
+        </li>
+        <li theme="silver">
+          <div>
+            银色</div>
+        </li>
+        <li theme="azure">
+          <div>
+            天蓝</div>
+        </li>
+      </ul>
+    </div>
+    <div id="navMenu">
+    <ul>
+      <li class="selected"><a href="sidebar_1.html"><span>内部办公</span></a></li>
+      <li><a href="sidebar_2.html"><span>网站管理</span></a></li>
+      <li><a href="sidebar_1.html"><span>项目管理</span></a></li>
+      <li><a href="sidebar_2.html"><span>会员管理</span></a></li>
+      <li><a href="sidebar_1.html"><span>案例管理</span></a></li>
+      <li><a href="sidebar_2.html"><span>企业管理</span></a></li>
+      <li><a href="sidebar_2.html"><span>机构管理</span></a></li>
+      <li><a href="sidebar_2.html"><span>产品管理</span></a></li>
+    </ul>
+  </div>
+  </div>
+  
+</div>
+<div id="leftside">
+  <div id="sidebar_s">
+    <div class="collapse">
+      <div class="toggleCollapse">
+        <div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar">
+    <div class="toggleCollapse">
+      <h2>
+        功能菜单</h2>
+      <div>
+        收缩</div>
+    </div>
+    @Html.Partial("_Menu");
+  </div>
+</div>
+<div id="container">
+  <div id="navTab" class="tabsPage">
+    <div class="tabsPageHeader">
+      <div class="tabsPageHeaderContent">
+        <!-- 显示左右控制时添加 class="tabsPageHeaderMargin" -->
+        <ul class="navTab-tab">
+          <li tabid="main" class="main"><a href="javascript:;"><span><span class="home_icon">办公主页</span></span></a></li>
+        </ul>
+      </div>
+      <div class="tabsLeft">
+        left</div>
+      <!-- 禁用只需要添加一个样式 class="tabsLeft tabsLeftDisabled" -->
+      <div class="tabsRight">
+        right</div>
+      <!-- 禁用只需要添加一个样式 class="tabsRight tabsRightDisabled" -->
+      <div class="tabsMore">
+        more</div>
+    </div>
+    <ul class="tabsMoreList">
+      <li><a href="javascript:;">我的主页</a></li>
+    </ul>
+    <div class="navTab-panel tabsPageContent layoutBox">
+      <div class="page unitBox">
+        <div class="pageFormContent" layouth="80" style="margin-right: 230px">
+          @Html.Partial("_EasyPanel")
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="footer">
+  Copyright &copy; 2012 <a href="#" target="dialog">武汉神路信息咨询有限公司</a></div>
