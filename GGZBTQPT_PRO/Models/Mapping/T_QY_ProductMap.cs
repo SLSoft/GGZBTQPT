@@ -18,7 +18,9 @@ namespace GGZBTQPT_PRO.Models.Mapping
                 .IsFixedLength()
                 .HasMaxLength(1);
 
-
+            this.HasRequired(t => t.Corp)
+             .WithMany(s => s.Products)
+             .HasForeignKey(t => t.CorpID);
         }
     }
 }

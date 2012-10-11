@@ -82,6 +82,9 @@ namespace GGZBTQPT_PRO.Models.Mapping
             this.Property(t => t.TeamworkType).HasColumnName("TeamworkType");
             this.Property(t => t.InvestmentPeriod).HasColumnName("InvestmentPeriod");
             this.Property(t => t.PartnerRequirements).HasColumnName("PartnerRequirements");
+            this.Property(t => t.PublicStatus).HasColumnName("PublicStatus");
+            this.Property(t => t.SubmitTime).HasColumnName("SubmitTime");
+            this.Property(t => t.PublicTime).HasColumnName("PublicTime");
             this.Property(t => t.IsValid).HasColumnName("IsValid");
             this.Property(t => t.OP).HasColumnName("OP");
             this.Property(t => t.CreateTime).HasColumnName("CreateTime");

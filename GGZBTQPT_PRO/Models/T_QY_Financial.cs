@@ -15,5 +15,7 @@ namespace GGZBTQPT_PRO.Models
         public System.Guid OP { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
+
+        public virtual T_QY_Corp Corp { get; set; }
     }
 }

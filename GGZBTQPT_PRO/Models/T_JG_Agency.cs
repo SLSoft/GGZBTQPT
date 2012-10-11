@@ -6,7 +6,7 @@ namespace GGZBTQPT_PRO.Models
     public class T_JG_Agency
     {
         public int ID { get; set; }
-        public int UserID_ { get; set; }
+        public int UserID { get; set; }
         public string AgencyName { get; set; }
         public Nullable<int> AgencyType { get; set; }
         public Nullable<System.DateTime> RegTime { get; set; }

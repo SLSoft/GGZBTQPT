@@ -1,0 +1,160 @@
+﻿@model GGZBTQPT_PRO.Models.T_QY_Corp
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>T_QY_Corp</legend>
+
+    <div class="display-label">UserID</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserID)
+    </div>
+
+    <div class="display-label">CorpName</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CorpName)
+    </div>
+
+    <div class="display-label">CorpCode</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CorpCode)
+    </div>
+
+    <div class="display-label">RegTime</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RegTime)
+    </div>
+
+    <div class="display-label">Property</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Property)
+    </div>
+
+    <div class="display-label">Province</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Province)
+    </div>
+
+    <div class="display-label">City</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.City)
+    </div>
+
+    <div class="display-label">Region</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Region)
+    </div>
+
+    <div class="display-label">RegCapital</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RegCapital)
+    </div>
+
+    <div class="display-label">Industry</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Industry)
+    </div>
+
+    <div class="display-label">Stage</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Stage)
+    </div>
+
+    <div class="display-label">LegalPerson</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LegalPerson)
+    </div>
+
+    <div class="display-label">Employees</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Employees)
+    </div>
+
+    <div class="display-label">Website</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Website)
+    </div>
+
+    <div class="display-label">Range</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Range)
+    </div>
+
+    <div class="display-label">Remark</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Remark)
+    </div>
+
+    <div class="display-label">Linkman</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Linkman)
+    </div>
+
+    <div class="display-label">Position</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Position)
+    </div>
+
+    <div class="display-label">Phone</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Phone)
+    </div>
+
+    <div class="display-label">Mobile</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Mobile)
+    </div>
+
+    <div class="display-label">Fax</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Fax)
+    </div>
+
+    <div class="display-label">Email</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+
+    <div class="display-label">QQ</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.QQ)
+    </div>
+
+    <div class="display-label">IsPublic</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsPublic)
+    </div>
+
+    <div class="display-label">IsValid</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsValid)
+    </div>
+
+    <div class="display-label">OP</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.OP)
+    </div>
+
+    <div class="display-label">CreateTime</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreateTime)
+    </div>
+
+    <div class="display-label">UpdateTime</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpdateTime)
+    </div>
+
+    <div class="display-label">Member</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Member.LoginName)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

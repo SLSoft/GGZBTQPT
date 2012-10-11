@@ -57,8 +57,6 @@ namespace GGZBTQPT_PRO.Models.Mapping
               .WithMany()
               .HasForeignKey(a => a.MemberID)
               .WillCascadeOnDelete(false);
-
- 
         }
     }
 }

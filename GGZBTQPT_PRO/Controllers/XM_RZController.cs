@@ -18,7 +18,7 @@ namespace GGZBTQPT_PRO.Controllers
 
         public ViewResult Index()
         {
-            return View(db.T_XM_Financing.ToList());
+            return View(db.T_XM_Financing.Where(p  => p.IsValid == true).ToList());
         }
 
         //
@@ -32,13 +32,9 @@ namespace GGZBTQPT_PRO.Controllers
 
         public void BindIndustry(object select = null)
         {
-            List<SelectListItem> Industry = new List<SelectListItem>
-            {
-                new SelectListItem{Text="互联网",Value="0"},
-                new SelectListItem{Text="房地产",Value="1"}
-            };
+            List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
 
-            ViewData["Industry"] = new SelectList(Industry,"Value","Text",select);
+            ViewData["Industry"] = new SelectList(Industry,"ID","Name",select);
         }
 
         public void BindArea(object select = null)
@@ -47,7 +43,12 @@ namespace GGZBTQPT_PRO.Controllers
 
             ViewData["Province"] = new SelectList(Area, "ID", "Name", select);
         }
+        public void BindFinancType(object select = null)
+        {
+            List<T_PTF_DicDetail> FinancType = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM02")).ToList();
 
+            ViewData["FinancType"] = new SelectList(FinancType, "ID", "Name", select);
+        }
         //
         // GET: /XM_RZ/Create
 
@@ -55,6 +56,7 @@ namespace GGZBTQPT_PRO.Controllers
         {
             BindArea();
             BindIndustry();
+            BindFinancType();
             return View();
         } 
 
@@ -66,7 +68,7 @@ namespace GGZBTQPT_PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                t_xm_financing.Industry = 1;
+                t_xm_financing.IsValid = true;
                 db.T_XM_Financing.Add(t_xm_financing);
                 db.SaveChanges();
                 return RedirectToAction("Index");  
@@ -130,7 +132,8 @@ namespace GGZBTQPT_PRO.Controllers
                 if (Request.IsAjaxRequest())
                 {
                     T_XM_Financing t_xm_financing = db.T_XM_Financing.Find(id);
-                    db.T_XM_Financing.Remove(t_xm_financing);
+                    //db.T_XM_Financing.Remove(t_xm_financing);
+                    t_xm_financing.IsValid = false;
                     int result = db.SaveChanges();
                     return Content(result.ToString());
                 }

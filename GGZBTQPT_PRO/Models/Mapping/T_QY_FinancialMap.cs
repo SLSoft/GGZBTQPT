@@ -30,6 +30,10 @@ namespace GGZBTQPT_PRO.Models.Mapping
             this.Property(t => t.OP).HasColumnName("OP");
             this.Property(t => t.CreateTime).HasColumnName("CreateTime");
             this.Property(t => t.UpdateTime).HasColumnName("UpdateTime");
+
+            this.HasRequired(t => t.Corp)
+             .WithMany(s => s.Financials)
+             .HasForeignKey(t => t.CorpID);
         }
     }
 }

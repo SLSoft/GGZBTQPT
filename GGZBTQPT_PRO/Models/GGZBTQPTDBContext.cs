@@ -32,7 +32,9 @@ namespace GGZBTQPT_PRO.Models
         public DbSet<T_ZC_Menu> T_ZC_Menu { get; set; }
         public DbSet<T_ZC_Department> T_ZC_Department { get; set; }
         public DbSet<T_ZC_Role> T_ZC_Role { get; set; }
-
+        public DbSet<T_PTF_DicDetail> T_PTF_DicDetail { get; set; }
+        public DbSet<T_PTF_DicTreeDetail> T_PTF_DicTreeDetail { get; set; }
+        public DbSet<T_PTF_DicType> T_PTF_DicType { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -52,7 +54,11 @@ namespace GGZBTQPT_PRO.Models
             modelBuilder.Configurations.Add(new T_ZC_MenuMap());
             modelBuilder.Configurations.Add(new T_ZC_DepartmentMap());
             modelBuilder.Configurations.Add(new T_ZC_RoleMap());
-
+            modelBuilder.Configurations.Add(new T_PTF_DicDetailMap());
+            modelBuilder.Configurations.Add(new T_PTF_DicTreeDetailMap());
+            modelBuilder.Configurations.Add(new T_PTF_DicTypeMap());
         }
+
+        public DbSet<T_HY_Member> T_HY_Member { get; set; }
     }
 }
