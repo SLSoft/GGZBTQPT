@@ -18,14 +18,14 @@ namespace GGZBTQPT_PRO.Models.Mapping
             this.Property(t => t.CellPhone)
                 .IsRequired();
 
+
             this.Property(t => t.LoginName)
                 .IsRequired().HasMaxLength(20);
 
             this.Property(t => t.Password)
                 .IsRequired().HasMaxLength(12);
 
-       
-            // Table & Column Mappings
+
 
         }
     }

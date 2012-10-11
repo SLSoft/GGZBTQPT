@@ -58,10 +58,6 @@ namespace GGZBTQPT_PRO.Models.Mapping
                 .HasMaxLength(2000);
 
 
-            this.HasRequired(t => t.Member)
-                .WithMany()
-                .HasForeignKey(t => t.MemberID)
-                .WillCascadeOnDelete(false);
 
  
         }

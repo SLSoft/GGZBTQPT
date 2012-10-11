@@ -26,12 +26,7 @@ namespace GGZBTQPT_PRO.Models.Mapping
             this.Property(t => t.Remark)
                 .HasMaxLength(2000);
 
-            // Table & Column Mappings
 
-            this.HasRequired(t => t.Member)
-                .WithMany()
-                .HasForeignKey(t => t.MemberID)
-                .WillCascadeOnDelete(false);
         }
     }
 }

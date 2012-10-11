@@ -23,18 +23,19 @@ namespace GGZBTQPT_PRO.Models
         [Required(ErrorMessage = "必须填写手机号码")]
         public string CellPhone { get; set; }
 
+
         public int Number { get; set; } //会员编号 
 
         [Required(ErrorMessage = "必须选择会员类型")]
         public int Type { get; set; } 
 
         public int Intetral { get; set; } //会员积分
+
  
         public Boolean IsValid { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; } 
     }
-
 
 
 }
