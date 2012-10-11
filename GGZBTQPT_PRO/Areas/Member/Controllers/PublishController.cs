@@ -28,7 +28,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         /// <returns></returns>
         public ActionResult PublishedFinancials(int member_id)
         {
-            var finacials = db.T_XM_Financing.Where( f => f.UserID == member_id).ToList();
+            var finacials = db.T_XM_Financing.Where( f => f.MemberID == member_id).ToList();
             return PartialView(finacials);
         }
 
