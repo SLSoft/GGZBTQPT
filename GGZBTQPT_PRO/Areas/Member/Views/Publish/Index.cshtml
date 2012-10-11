@@ -1,0 +1,27 @@
+﻿@model GGZBTQPT_PRO.Models.T_HY_Member
+@{
+    ViewBag.Title = "我的发布";
+}
+<h3 class="content-title">
+    我的发布</h3>
+
+<ul class="nav nav-tabs">
+    <li class="active">
+        @Ajax.ActionLink("发布的项目", "PublishFinancial", "Publish", new { id = 1 }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "detail", LoadingElementId = "Loading" })
+    </li>
+    <li>
+        @Ajax.ActionLink("发布的意向", "PublishInvestment", "Publish", new { id = 1 }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "detail", LoadingElementId = "Loading" })
+    </li>
+    <li>
+        @Ajax.ActionLink("发布的产品", "PublishProject", "Publish", new { id = 1 }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "detail", LoadingElementId = "Loading" })
+    </li>
+    <li>
+        @Html.ActionLink("上传的文档", "Full", "Member")
+    </li>
+    <li>
+        @Html.ActionLink("发布的案例", "Full", "Member")
+    </li>
+</ul>
+
+
+

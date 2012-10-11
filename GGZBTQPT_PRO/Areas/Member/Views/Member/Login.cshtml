@@ -1,0 +1,19 @@
+﻿@model GGZBTQPT_PRO.Models.T_HY_Member
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+     <legend><h3>会员登录</h3></legend>
+        <div>
+            <label for="loginname">登录名:</label>
+            <input type="text" id="loginname" name="loginname" />
+        </div>
+        <div>
+            <label for="password">登录密码:</label>
+            <input type="text" id="password" name="password" />
+        </div>
+        <p> 
+            <button class="btn btn-primary" type="submit"><i class="icon-ok-circle icon-white"></i> 登录</button>
+        </p>
+    </fieldset>
+}

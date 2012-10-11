@@ -64,6 +64,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\MemberHelper.cs" />
     <Compile Include="App_GlobalResources\Common.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -85,6 +86,8 @@
       <DependentUpon>T_ZC_User.resx</DependentUpon>
     </Compile>
     <Compile Include="Areas\Member\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Member\Controllers\MemberController.cs" />
+    <Compile Include="Areas\Member\Controllers\PublishController.cs" />
     <Compile Include="Areas\Member\Controllers\SideBarController.cs" />
     <Compile Include="Areas\Member\MemberAreaRegistration.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -98,14 +101,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201210061022566_init.cs" />
-    <Compile Include="Migrations\201210061022566_init.Designer.cs">
-      <DependentUpon>201210061022566_init.cs</DependentUpon>
+    <Compile Include="Migrations\201210100759054_init.cs" />
+    <Compile Include="Migrations\201210100759054_init.Designer.cs">
+      <DependentUpon>201210100759054_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Mapping\T_HY_MemberMap.cs" />
+    <Compile Include="Models\Mapping\T_PTF_DicDetailMap.cs" />
+    <Compile Include="Models\Mapping\T_PTF_DicTreeDetailMap.cs" />
+    <Compile Include="Models\Mapping\T_PTF_DicTypeMap.cs" />
     <Compile Include="Models\Mapping\T_ZC_DepartmentMap.cs" />
     <Compile Include="Models\Mapping\T_ZC_RoleMap.cs" />
     <Compile Include="Models\T_HY_Member.cs" />
+    <Compile Include="Models\T_PTF_DicDetail.cs" />
+    <Compile Include="Models\T_PTF_DicTreeDetail.cs" />
+    <Compile Include="Models\T_PTF_DicType.cs" />
     <Compile Include="Models\T_ZC_Department.cs" />
     <Compile Include="Models\GGZBTQPTDBContext.cs" />
     <Compile Include="Models\Mapping\T_HY_AttentionMap.cs" />
@@ -146,7 +156,7 @@
     <Compile Include="ViewModels\ViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\css\Member.css">
+    <Content Include="Areas\Member\Content\css\Member.css">
       <DependentUpon>member.scss</DependentUpon>
     </Content>
     <Content Include="Content\images\member\user.jpg" />
@@ -763,7 +773,25 @@
     <Content Include="Areas\Member\Views\Home\Index.cshtml" />
     <Content Include="Areas\Member\Views\Shared\_SideBar.cshtml" />
     <Content Include="Areas\Member\Views\Shared\_Header.cshtml" />
-    <None Include="Content\css\member.scss" />
+    <Content Include="Areas\Member\Views\Member\Index.cshtml" />
+    <Content Include="Areas\Member\Views\Member\Details.cshtml" />
+    <Content Include="Areas\Member\Views\Member\Create.cshtml" />
+    <Content Include="Areas\Member\Views\Member\Edit.cshtml" />
+    <Content Include="Areas\Member\Views\Member\Delete.cshtml" />
+    <Content Include="Areas\Member\Views\Member\Full.cshtml" />
+    <Content Include="Areas\Member\Views\Member\Config.cshtml" />
+    <Content Include="Areas\Member\Views\SideBar\MemberBrief.cshtml" />
+    <Content Include="App_Code\MemberHelper.cshtml" />
+    <Content Include="Areas\Member\Views\SideBar\TheLastestFinancials.cshtml" />
+    <Content Include="Areas\Member\Views\SideBar\TheLastestInvestMents.cshtml" />
+    <Content Include="Areas\Member\Views\SideBar\TheLastestProducts.cshtml" />
+    <Content Include="Areas\Member\Views\Member\Login.cshtml" />
+    <Content Include="Areas\Member\Views\Publish\Index.cshtml" />
+    <None Include="Areas\Member\Content\css\member.scss" />
+    <Content Include="Areas\Member\Views\Publish\PublishedFinancials.cshtml" />
+    <Content Include="Areas\Member\Views\Home\Header.cshtml" />
+    <Content Include="Areas\Member\Views\Publish\PublishedInvestments.cshtml" />
+    <Content Include="Areas\Member\Views\Publish\PublishedProducts.cshtml" />
     <None Include="Public\jUI\bin\gzjs.bat" />
     <None Include="Public\jUI\themes\azure\images\grid\Thumbs.db" />
     <None Include="Public\jUI\themes\azure\images\layout\Thumbs.db" />
@@ -814,7 +842,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Member\Content\images\" />
+    <Folder Include="Areas\Member\Content\js\" />
     <Folder Include="Areas\Member\Models\" />
+    <Folder Include="Content\css\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\Common.resx">
@@ -838,8 +869,8 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>T_ZC_User.Designer.cs</LastGenOutput>
     </Content>
-    <EmbeddedResource Include="Migrations\201210061022566_init.resx">
-      <DependentUpon>201210061022566_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201210100759054_init.resx">
+      <DependentUpon>201210100759054_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

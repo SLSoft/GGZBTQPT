@@ -20,11 +20,11 @@ namespace GGZBTQPT_PRO.Models
         public DbSet<T_HY_Favorite> T_HY_Favorite { get; set; }
         public DbSet<T_JG_Agency> T_JG_AgencyInfo { get; set; }
         public DbSet<T_JG_Linkman> T_JG_Linkman { get; set; }
-        public DbSet<T_JG_Product> T_JG_ProductInfo { get; set; }
+        public DbSet<T_JG_Product> T_JG_Product { get; set; }
         public DbSet<T_QY_Corp> T_QY_CorpInfo { get; set; }
         public DbSet<T_QY_Financial> T_QY_Financial { get; set; }
         public DbSet<T_QY_Person> T_QY_PersonInfo { get; set; }
-        public DbSet<T_QY_Product> T_QY_Products { get; set; }
+        public DbSet<T_QY_Product> T_QY_Product { get; set; }
         public DbSet<T_XM_Financing> T_XM_Financing { get; set; }
         public DbSet<T_XM_Investment> T_XM_Investment { get; set; }
         public DbSet<T_ZC_User> T_ZC_User { get; set; }
@@ -54,5 +54,7 @@ namespace GGZBTQPT_PRO.Models
             modelBuilder.Configurations.Add(new T_ZC_RoleMap());
 
         }
+
+        public DbSet<T_HY_Member> T_HY_Member { get; set; }
     }
 }
