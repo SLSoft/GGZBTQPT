@@ -18,8 +18,7 @@ namespace GGZBTQPT_PRO.Controllers
 
         public ViewResult Index()
         {
-            var t_qy_corpinfo = db.T_QY_CorpInfo.Include(t => t.Member);
-            return View(t_qy_corpinfo.ToList());
+            return View(db.T_QY_CorpInfo.ToList());
         }
 
         //

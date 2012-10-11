@@ -1,0 +1,66 @@
+﻿@model GGZBTQPT_PRO.Models.T_HY_Member
+
+<script type="text/javascript">
+    //发送手机验证码
+    $(document).ready(function () {
+        $("#get_verify_code").click(function () {
+
+            var requestData = { phone_number: $("#CellPhone").text() };
+            $.get("\SendVerifyCodeToPhone", requestData, function (data) {
+                if (data == "True") {
+                    alert("发送成功");
+                }
+                else {
+                    alert("发送失败，请检查手机号码!");
+                }
+            });
+            return false;
+        });
+    });
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend><h3>会员注册</h3></legend>
+        <hr />
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LoginName, "登录名")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LoginName)
+            @Html.ValidationMessageFor(model => model.LoginName)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Password, "密码")
+        </div>
+        <div class="editor-field">
+            @Html.PasswordFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CellPhone, "手机")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CellPhone)
+            @Html.ValidationMessageFor(model => model.CellPhone)
+        </div>
+        <div>
+            <a href="#" id="get_verify_code" class="btn btn-success"><i class="icon-bell icon-white"></i>获取验证码</a>
+        </div>
+        <div class="verify">
+        <label for="verify" >验证码：</label><input id="verify" name="verify" type="text" />
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Type, "会员类型")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Type)
+            @Html.ValidationMessageFor(model => model.Type)
+        </div>
+        <p> 
+            <button class="btn btn-primary" type="submit"><i class="icon-ok icon-white"></i>注册</button>
+        </p>
+    </fieldset>
+}

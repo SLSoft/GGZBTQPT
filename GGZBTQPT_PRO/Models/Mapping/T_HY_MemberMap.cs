@@ -19,22 +19,13 @@ namespace GGZBTQPT_PRO.Models.Mapping
                 .IsRequired();
 
 
-            // Foreign Key
-            this.HasRequired(t => t.Agency)
-              .WithMany()
-              .HasForeignKey(a => a.AgencyID)
-              .WillCascadeOnDelete(true);
+            this.Property(t => t.LoginName)
+                .IsRequired().HasMaxLength(20);
 
-            this.HasRequired(t => t.Corp)
-              .WithMany()
-              .HasForeignKey(a => a.CorpID)
-              .WillCascadeOnDelete(true); 
+            this.Property(t => t.Password)
+                .IsRequired().HasMaxLength(12);
 
-            this.HasRequired(t => t.Person)
-              .WithMany()
-              .HasForeignKey(a => a.PersonID)
-              .WillCascadeOnDelete(true);
-            // Table & Column Mappings
+
 
         }
     }

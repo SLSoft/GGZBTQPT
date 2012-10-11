@@ -5,8 +5,8 @@ namespace GGZBTQPT_PRO.Models
 {
     public class T_JG_Agency
     {
-        public int ID { get; set; }
-        public int UserID { get; set; }
+        public int ID { get; set; } 
+
         public string AgencyName { get; set; }
         public Nullable<int> AgencyType { get; set; }
         public Nullable<System.DateTime> RegTime { get; set; }
@@ -24,7 +24,8 @@ namespace GGZBTQPT_PRO.Models
         public Nullable<System.DateTime> UpdateTime { get; set; }
 
 
-        public int MemberID { get; set; }
-        public virtual T_HY_Member Member { get; set; }
+        public int MemberID { get; set; } 
+
+
     }
 }

@@ -18,8 +18,7 @@ namespace GGZBTQPT_PRO.Controllers
 
         public ViewResult Index()
         {
-            var t_jg_agencyinfo = db.T_JG_AgencyInfo.Include(t => t.Member);
-            return View(t_jg_agencyinfo.ToList());
+            return View(db.T_JG_AgencyInfo.ToList());
         }
 
         //

@@ -64,6 +64,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\MemberHelper.cs" />
     <Compile Include="App_GlobalResources\Common.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -162,7 +163,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\EntityFramework.dll" />
-    <Content Include="bin\EntityFramework.xml" />
     <Content Include="bin\GGZBTQPT_PRO.dll" />
     <Content Include="bin\GGZBTQPT_PRO.pdb" />
     <Content Include="Content\css\Member.css">
@@ -796,6 +796,7 @@
     <Content Include="Areas\Member\Views\Home\Index.cshtml" />
     <Content Include="Areas\Member\Views\Shared\_SideBar.cshtml" />
     <Content Include="Areas\Member\Views\Shared\_Header.cshtml" />
+    <Content Include="App_Code\MemberHelper.cshtml" />
     <None Include="ClassDiagram1.cd" />
     <None Include="Content\css\member.scss" />
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />

@@ -34,6 +34,7 @@ namespace GGZBTQPT_PRO.Models
         public Nullable<System.DateTime> UpdateTime { get; set; }
 
         public int MemberID { get; set; }
-        public virtual T_HY_Member Member { get; set; }
+
+
     }
 }

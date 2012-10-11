@@ -1,0 +1,40 @@
+﻿@model GGZBTQPT_PRO.Models.T_HY_Member
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+        @Html.HiddenFor(model => model.ID)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LoginName,"登录名")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.LoginName)
+            @Html.ValidationMessageFor(model => model.LoginName)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Password,"用户密码")
+        </div>
+        <div class="editor-field">
+            @Html.PasswordFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CellPhone,"手机号码")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CellPhone)
+            @Html.ValidationMessageFor(model => model.CellPhone)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Number,"会员编号")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Number)
+            @Html.ValidationMessageFor(model => model.Number)
+        </div>
+        <p>
+            <button class="btn btn-primary" type="submit">
+                <i class="icon-ok icon-white"></i>保存设置</button>
+        </p>
+
+}
