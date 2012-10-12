@@ -9,8 +9,8 @@ using GGZBTQPT_PRO.Models;
 
 namespace GGZBTQPT_PRO.App_Code
 {
-    public class MemberHelper
+    public class MemberHelper : Controller
     {
-        
+        private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
     }
 }

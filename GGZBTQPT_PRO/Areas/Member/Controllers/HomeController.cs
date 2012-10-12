@@ -19,12 +19,6 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         {
             return View();
         }
-
-        //public ActionResult Header()
-        //{
-        //    //var member = db.T_HY_Member.Find(Session["MemberID"]
-        //}
-
-
+ 
     }
 }

@@ -789,7 +789,6 @@
     <Content Include="Areas\Member\Views\Publish\Index.cshtml" />
     <None Include="Areas\Member\Content\css\member.scss" />
     <Content Include="Areas\Member\Views\Publish\PublishedFinancials.cshtml" />
-    <Content Include="Areas\Member\Views\Home\Header.cshtml" />
     <Content Include="Areas\Member\Views\Publish\PublishedInvestments.cshtml" />
     <Content Include="Areas\Member\Views\Publish\PublishedProducts.cshtml" />
     <None Include="Public\jUI\bin\gzjs.bat" />
