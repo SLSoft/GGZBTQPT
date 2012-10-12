@@ -18,7 +18,7 @@ namespace GGZBTQPT_PRO.Controllers
 
         public ViewResult Index()
         {
-            return View(db.T_QY_CorpInfo.ToList());
+            return View(db.T_QY_Corp.ToList());
         }
 
         //
@@ -26,15 +26,45 @@ namespace GGZBTQPT_PRO.Controllers
 
         public ViewResult Details(int id)
         {
-            T_QY_Corp t_qy_corp = db.T_QY_CorpInfo.Find(id);
+            T_QY_Corp t_qy_corp = db.T_QY_Corp.Find(id);
             return View(t_qy_corp);
         }
 
+
+        public void BindProperty(object select = null)
+        {
+            List<T_PTF_DicDetail> Property = db.T_PTF_DicDetail.Where(p => (p.DicType == "5")).ToList();
+
+            ViewData["Property"] = new SelectList(Property, "ID", "Name", select);
+        }
+        public void BindIndustry(object select = null)
+        {
+            List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
+
+            ViewData["Industry"] = new SelectList(Industry, "ID", "Name", select);
+        }
+
+        public void BindArea(object select = null)
+        {
+            List<T_PTF_DicTreeDetail> Area = db.T_PTF_DicTreeDetail.Where(p => (p.DicType == "34" && p.Depth == 1)).ToList();
+
+            ViewData["Province"] = new SelectList(Area, "ID", "Name", select);
+        }
+        public void BindStage(object select = null)
+        {
+            List<T_PTF_DicDetail> Stage = db.T_PTF_DicDetail.Where(p => (p.DicType == "QY01")).ToList();
+
+            ViewData["Stage"] = new SelectList(Stage, "ID", "Name", select);
+        }
         //
         // GET: /QY_Corp/Create
 
         public ActionResult Create()
         {
+            BindStage();
+            BindArea();
+            BindIndustry();
+            BindProperty();
             ViewBag.MemberID = new SelectList(db.T_HY_Member, "ID", "LoginName");
             return View();
         } 
@@ -47,7 +77,7 @@ namespace GGZBTQPT_PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.T_QY_CorpInfo.Add(t_qy_corp);
+                db.T_QY_Corp.Add(t_qy_corp);
                 db.SaveChanges();
                 return RedirectToAction("Index");  
             }
@@ -61,7 +91,11 @@ namespace GGZBTQPT_PRO.Controllers
  
         public ActionResult Edit(int id)
         {
-            T_QY_Corp t_qy_corp = db.T_QY_CorpInfo.Find(id);
+            T_QY_Corp t_qy_corp = db.T_QY_Corp.Find(id);
+            BindStage(t_qy_corp.Stage);
+            BindArea(t_qy_corp.Province);
+            BindIndustry(t_qy_corp.Industry);
+            BindProperty(t_qy_corp.Property);
             ViewBag.MemberID = new SelectList(db.T_HY_Member, "ID", "LoginName", t_qy_corp.MemberID);
             return View(t_qy_corp);
         }
@@ -87,7 +121,7 @@ namespace GGZBTQPT_PRO.Controllers
  
         public ActionResult Delete(int id)
         {
-            T_QY_Corp t_qy_corp = db.T_QY_CorpInfo.Find(id);
+            T_QY_Corp t_qy_corp = db.T_QY_Corp.Find(id);
             return View(t_qy_corp);
         }
 
@@ -97,8 +131,8 @@ namespace GGZBTQPT_PRO.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {            
-            T_QY_Corp t_qy_corp = db.T_QY_CorpInfo.Find(id);
-            db.T_QY_CorpInfo.Remove(t_qy_corp);
+            T_QY_Corp t_qy_corp = db.T_QY_Corp.Find(id);
+            db.T_QY_Corp.Remove(t_qy_corp);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

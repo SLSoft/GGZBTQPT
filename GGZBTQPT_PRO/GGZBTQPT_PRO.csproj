@@ -92,6 +92,7 @@
     <Compile Include="Controllers\ChildActionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JG_AgencyController.cs" />
+    <Compile Include="Controllers\JG_LinkmanController.cs" />
     <Compile Include="Controllers\QY_CorpController.cs" />
     <Compile Include="Controllers\XM_RZController.cs" />
     <Compile Include="Controllers\XM_TZController.cs" />
@@ -877,6 +878,11 @@
     <Content Include="Views\JG_Agency\Create.cshtml" />
     <Content Include="Views\JG_Agency\Edit.cshtml" />
     <Content Include="Views\JG_Agency\Delete.cshtml" />
+    <Content Include="Views\JG_Linkman\Index.cshtml" />
+    <Content Include="Views\JG_Linkman\Details.cshtml" />
+    <Content Include="Views\JG_Linkman\Create.cshtml" />
+    <Content Include="Views\JG_Linkman\Edit.cshtml" />
+    <Content Include="Views\JG_Linkman\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

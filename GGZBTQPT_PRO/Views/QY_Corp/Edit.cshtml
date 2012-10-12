@@ -6,8 +6,7 @@
 
 <h2>Edit</h2>
 
-<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
@@ -98,29 +97,34 @@
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">财务概况</td>
             </tr>
-            @foreach (var item in Model.Financials)
-            {
             <tr>
-                <td>@item.CurYear</td>
-                <td>@item.TotalAssets</td>
-                <td>@item.Revenue</td>
-                <td></td>
+                <td>企业总资产</td>
+                <td colspan="3"><input type="text" /></td>
             </tr>
-            }
+            <tr>
+                <td colspan="4">近3年主营业务收入</td>
+            </tr>
+            <tr>
+                <td>年度</td>
+                <td><input type="text" /></td>
+                <td>收入</td>
+                <td><input type="text" /></td>
+            </tr>
         </table>
         <table style="width:100%">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">主要产品介绍</td>
             </tr>
-            @foreach (var item in Model.Products)
-            {
             <tr>
-                <td>@item.ProductName</td>
-                <td>@item.SalesTotal</td>
-                <td>@item.Content</td>
-                <td></td>
+                <td>产品名称</td>
+                <td><input type="text" /></td>
+                <td>销售总收入</td>
+                <td><input type="text" /></td>
             </tr>
-            }
+            <tr>
+                <td>产品介绍</td>
+                <td colspan="3"><textarea rows="5" cols="150"></textarea></td>
+            </tr>
         </table>
 
         <p>
