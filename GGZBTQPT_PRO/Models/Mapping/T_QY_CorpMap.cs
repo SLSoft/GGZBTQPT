@@ -51,7 +51,6 @@ namespace GGZBTQPT_PRO.Models.Mapping
                 .IsFixedLength()
                 .HasMaxLength(1);
 
-
         }
     }
 }

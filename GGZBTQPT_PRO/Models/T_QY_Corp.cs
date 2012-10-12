@@ -41,6 +41,8 @@ namespace GGZBTQPT_PRO.Models
 
 
 
+        public virtual ICollection<T_QY_Financial> Financials { get; set; }
+        public virtual ICollection<T_QY_Product> Products { get; set; }
 
     }
 }

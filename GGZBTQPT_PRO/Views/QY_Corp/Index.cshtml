@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Financing>
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_QY_Corp>
 <div class="pageContent j-resizeGrid" style="border-left: 1px #B8D0D6 solid; border-right: 1px #B8D0D6 solid">
   <div class="panelBar">
     <ul class="toolBar">
@@ -14,16 +14,19 @@
       <thead>
         <tr>
             <th>
-                项目名称
+                企业名称
+            </th>
+            <th>
+                机构代码
+            </th>
+            <th>
+                成立时间
+            </th>
+            <th>
+                企业性质
             </th>
             <th>
                 所属行业
-            </th>
-            <th>
-                有效日期
-            </th>
-            <th>
-                发布时间
             </th>
             <th>操作</th>
     </tr>
@@ -32,24 +35,30 @@
         @foreach (var item in Model)
         {
             <tr target="mid" rel=@item.ID>
-                <td>
-                @Html.DisplayFor(modelItem => item.ItemName)
+            <td>
+                @Html.DisplayFor(modelItem => item.CorpName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IndustryName)
+                @Html.DisplayFor(modelItem => item.CorpCode)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ValidDate)
+                @Html.DisplayFor(modelItem => item.RegTime)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PublicTime)
+                @Html.DisplayFor(modelItem => item.Property)
             </td>
             <td>
-                @Html.ActionLink("编辑", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("详情", "Details", new { id = item.ID }) |
-                <a  name="Delete" stuid="@item.ID">删除</a>
+                @Html.DisplayFor(modelItem => item.Industry)
             </td>
-            </tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.LoginName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
         }
       </tbody>
     </table>

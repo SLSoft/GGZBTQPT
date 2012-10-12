@@ -31,11 +31,25 @@ namespace GGZBTQPT_PRO.Models
         public Nullable<int> TeamworkType { get; set; }
         public string InvestmentPeriod { get; set; }
         public string PartnerRequirements { get; set; }
+        public string PublicStatus { get; set; }
+        public Nullable<System.DateTime> SubmitTime { get; set; }
+        public Nullable<System.DateTime> PublicTime { get; set; }
         public Nullable<bool> IsValid { get; set; }
         public int OP { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
 
+
         public int MemberID { get; set; }
+
+        public string IndustryName
+        {
+            get
+            {
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                return db.T_PTF_DicDetail.Find(this.Industry).Name;
+            }
+        }
+
     }
 }

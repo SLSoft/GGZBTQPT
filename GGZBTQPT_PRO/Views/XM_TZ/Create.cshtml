@@ -13,239 +13,112 @@
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>T_XM_Investment</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.UserID)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.UserID)
-            @Html.ValidationMessageFor(model => model.UserID)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ItemName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ItemName)
-            @Html.ValidationMessageFor(model => model.ItemName)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Province)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Province)
-            @Html.ValidationMessageFor(model => model.Province)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.City)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.City)
-            @Html.ValidationMessageFor(model => model.City)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Region)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Region)
-            @Html.ValidationMessageFor(model => model.Region)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Industry)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Industry)
-            @Html.ValidationMessageFor(model => model.Industry)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ValidDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ValidDate)
-            @Html.ValidationMessageFor(model => model.ValidDate)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Keys)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Keys)
-            @Html.ValidationMessageFor(model => model.Keys)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Description)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Description)
-            @Html.ValidationMessageFor(model => model.Description)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Linkman)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Linkman)
-            @Html.ValidationMessageFor(model => model.Linkman)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Position)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Position)
-            @Html.ValidationMessageFor(model => model.Position)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Phone)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Phone)
-            @Html.ValidationMessageFor(model => model.Phone)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Mobile)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Mobile)
-            @Html.ValidationMessageFor(model => model.Mobile)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Fax)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Fax)
-            @Html.ValidationMessageFor(model => model.Fax)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Email)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Email)
-            @Html.ValidationMessageFor(model => model.Email)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.QQ)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.QQ)
-            @Html.ValidationMessageFor(model => model.QQ)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IsPublic)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.IsPublic)
-            @Html.ValidationMessageFor(model => model.IsPublic)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Investment)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Investment)
-            @Html.ValidationMessageFor(model => model.Investment)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.StartInvestment)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.StartInvestment)
-            @Html.ValidationMessageFor(model => model.StartInvestment)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AimIndustry)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.AimIndustry)
-            @Html.ValidationMessageFor(model => model.AimIndustry)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AjmArea)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.AjmArea)
-            @Html.ValidationMessageFor(model => model.AjmArea)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ReturnRatio)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ReturnRatio)
-            @Html.ValidationMessageFor(model => model.ReturnRatio)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.TeamworkType)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.TeamworkType)
-            @Html.ValidationMessageFor(model => model.TeamworkType)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.InvestmentPeriod)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.InvestmentPeriod)
-            @Html.ValidationMessageFor(model => model.InvestmentPeriod)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PartnerRequirements)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PartnerRequirements)
-            @Html.ValidationMessageFor(model => model.PartnerRequirements)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IsValid)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.IsValid)
-            @Html.ValidationMessageFor(model => model.IsValid)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.OP)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.OP)
-            @Html.ValidationMessageFor(model => model.OP)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CreateTime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CreateTime)
-            @Html.ValidationMessageFor(model => model.CreateTime)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.UpdateTime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.UpdateTime)
-            @Html.ValidationMessageFor(model => model.UpdateTime)
-        </div>
-
+        <table style="width:100%">
+            <tr>
+                <td colspan="2" style="background-color:#666666; color:#ffffff">基本信息</td>
+            </tr>
+            <tr>
+                <td style="width:120px">@Html.LabelFor(model => model.ItemName,"项目名称")</td>
+                <td>@Html.EditorFor(model => model.ItemName)
+            @Html.ValidationMessageFor(model => model.ItemName)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Province,"所属区域")</td>
+                <td>@Html.DropDownList("Province", "请选择")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Industry, "所属行业")</td>
+                <td>@Html.DropDownList("Industry", "请选择")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.ValidDate, "有效日期")</td>
+                <td>@Html.EditorFor(model => model.ValidDate)
+            @Html.ValidationMessageFor(model => model.ValidDate)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Keys, "关键词")</td>
+                <td>@Html.EditorFor(model => model.Keys)
+            @Html.ValidationMessageFor(model => model.Keys)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Description, "投资意向介绍")</td>
+                <td>@Html.TextAreaFor(model => model.Description, new { rows = "5" })
+            @Html.ValidationMessageFor(model => model.Description)</td>
+            </tr>
+        </table>
+        <table style="width:100%">
+            <tr>
+                <td colspan="4" style="background-color:#666666; color:#ffffff">融资信息</td>
+            </tr>
+            <tr>
+                <td style="width:120px">@Html.LabelFor(model => model.Investment, "可投资金额")</td>
+                <td>@Html.EditorFor(model => model.Investment)
+            @Html.ValidationMessageFor(model => model.Investment)</td>
+                <td>@Html.LabelFor(model => model.StartInvestment, "起始投资金额")</td>
+                <td>@Html.EditorFor(model => model.StartInvestment)
+            @Html.ValidationMessageFor(model => model.StartInvestment)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.AimIndustry, "意向行业")</td>
+                <td colspan="3"></td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.ReturnRatio, "预期回报率")</td>
+                <td>@Html.EditorFor(model => model.ReturnRatio)
+            @Html.ValidationMessageFor(model => model.ReturnRatio)</td>
+                <td>@Html.LabelFor(model => model.InvestmentPeriod, "投资期限")</td>
+                <td>@Html.EditorFor(model => model.InvestmentPeriod)
+            @Html.ValidationMessageFor(model => model.InvestmentPeriod)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.AjmArea, "投资地区")</td>
+                <td colspan="3"></td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.TeamworkType, "合作方式")</td>
+                <td colspan="3">@Html.EditorFor(model => model.TeamworkType)
+            @Html.ValidationMessageFor(model => model.TeamworkType)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.PartnerRequirements, "合作方要求")</td>
+                <td colspan="3">@Html.EditorFor(model => model.PartnerRequirements)
+            @Html.ValidationMessageFor(model => model.PartnerRequirements)</td>
+            </tr>
+        </table>
+        <table style="width:100%">
+            <tr>
+                <td colspan="4" style="background-color:#666666; color:#ffffff">联系人信息</td>
+            </tr>
+            <tr>
+                <td style="width:120px">@Html.LabelFor(model => model.Linkman, "联系人")</td>
+                <td>@Html.EditorFor(model => model.Linkman)
+            @Html.ValidationMessageFor(model => model.Linkman)</td>
+                <td>@Html.LabelFor(model => model.Position, "部门&职务")</td>
+                <td>@Html.EditorFor(model => model.Position)
+            @Html.ValidationMessageFor(model => model.Position)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Phone, "固定电话")</td>
+                <td>@Html.EditorFor(model => model.Phone)
+            @Html.ValidationMessageFor(model => model.Phone)</td>
+                <td>@Html.LabelFor(model => model.Mobile, "移动电话")</td>
+                <td>@Html.EditorFor(model => model.Mobile)
+            @Html.ValidationMessageFor(model => model.Mobile)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Fax, "传真")</td>
+                <td>@Html.EditorFor(model => model.Fax)
+            @Html.ValidationMessageFor(model => model.Fax)</td>
+                <td>@Html.LabelFor(model => model.Email, "电子邮箱")</td>
+                <td>@Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.QQ, "QQ")</td>
+                <td colspan="3">@Html.EditorFor(model => model.QQ)
+            @Html.ValidationMessageFor(model => model.QQ)</td>
+            </tr>
+        </table>
         <p>
             <input type="submit" value="Create" />
         </p>

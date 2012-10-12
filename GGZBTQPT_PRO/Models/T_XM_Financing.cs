@@ -5,6 +5,11 @@ namespace GGZBTQPT_PRO.Models
 {
     public class T_XM_Financing
     {
+        public T_XM_Financing()
+        {
+            
+        }
+
         public int ID { get; set; }
 
         public string ItemName { get; set; }
@@ -32,7 +37,7 @@ namespace GGZBTQPT_PRO.Models
         public Nullable<decimal> TransferPrice { get; set; }
         public Nullable<int> TransferType { get; set; }
         public Nullable<int> TransactionMode { get; set; }
-        public string Description2 { get; set; }
+        public string Description { get; set; }
         public Nullable<decimal> Investment { get; set; }
         public Nullable<int> CooperationMode { get; set; }
         public Nullable<int> BuildCycle { get; set; }
@@ -53,6 +58,17 @@ namespace GGZBTQPT_PRO.Models
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
 
+
         public int MemberID { get; set; }
+
+        public string IndustryName 
+        { 
+            get 
+            {
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                return db.T_PTF_DicDetail.Find(this.Industry).Name;
+            } 
+        }
+
     }
 }
