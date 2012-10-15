@@ -77,6 +77,11 @@ namespace GGZBTQPT_PRO.Controllers
         {
             if (ModelState.IsValid)
             {
+                t_qy_corp.IsValid = true;
+                t_qy_corp.OP = 0;
+                t_qy_corp.CreateTime = DateTime.Now;
+                t_qy_corp.UpdateTime = DateTime.Now;
+                
                 db.T_QY_Corp.Add(t_qy_corp);
                 db.SaveChanges();
                 return RedirectToAction("Index");  
@@ -109,6 +114,7 @@ namespace GGZBTQPT_PRO.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(t_qy_corp).State = EntityState.Modified;
+                t_qy_corp.UpdateTime = DateTime.Now;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

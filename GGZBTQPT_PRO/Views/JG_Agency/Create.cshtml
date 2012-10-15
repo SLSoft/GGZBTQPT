@@ -26,8 +26,7 @@
             @Html.LabelFor(model => model.AgencyType)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.AgencyType)
-            @Html.ValidationMessageFor(model => model.AgencyType)
+            @Html.DropDownList("AgencyType", "请选择")
         </div>
 
         <div class="editor-label">
@@ -58,16 +57,7 @@
             @Html.LabelFor(model => model.Province)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Province)
-            @Html.ValidationMessageFor(model => model.Province)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.City)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.City)
-            @Html.ValidationMessageFor(model => model.City)
+            @Html.DropDownList("Province", "请选择")
         </div>
 
         <div class="editor-label">
@@ -101,47 +91,6 @@
             @Html.EditorFor(model => model.Remark)
             @Html.ValidationMessageFor(model => model.Remark)
         </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IsValid)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.IsValid)
-            @Html.ValidationMessageFor(model => model.IsValid)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.OP)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.OP)
-            @Html.ValidationMessageFor(model => model.OP)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CreateTime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CreateTime)
-            @Html.ValidationMessageFor(model => model.CreateTime)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.UpdateTime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.UpdateTime)
-            @Html.ValidationMessageFor(model => model.UpdateTime)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.MemberID, "Member")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("MemberID", String.Empty)
-            @Html.ValidationMessageFor(model => model.MemberID)
-        </div>
-
         <p>
             <input type="submit" value="Create" />
         </p>

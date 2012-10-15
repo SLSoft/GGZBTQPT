@@ -11,7 +11,7 @@ namespace GGZBTQPT_PRO.Models
         public Nullable<decimal> FinancingAmount { get; set; }
         public Nullable<int> FinancingLimit { get; set; }
         public Nullable<double> InterestRate { get; set; }
-        public Nullable<int> CustomerType { get; set; }
+        public string CustomerType { get; set; }
         public string Superiority { get; set; }
         public string RepaymentType { get; set; }
         public string AppCondition { get; set; }
@@ -27,5 +27,14 @@ namespace GGZBTQPT_PRO.Models
         public int OP { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
+
+        public string AgencyName
+        {
+            get
+            {
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                return db.T_JG_Agency.Find(this.AgencyID).AgencyName;
+            }
+        }
     }
 }

@@ -21,6 +21,19 @@ namespace GGZBTQPT_PRO.Controllers
             return View(db.T_JG_Agency.ToList());
         }
 
+        public void BindAgencyType(object select = null)
+        {
+            List<T_PTF_DicDetail> AgencyType = db.T_PTF_DicDetail.Where(p => (p.DicType == "JG01" && p.IsValid == "1")).ToList();
+
+            ViewData["AgencyType"] = new SelectList(AgencyType, "ID", "Name", select);
+        }
+        public void BindArea(object select = null)
+        {
+            List<T_PTF_DicTreeDetail> Area = db.T_PTF_DicTreeDetail.Where(p => (p.DicType == "34" && p.Depth == 1)).ToList();
+
+            ViewData["Province"] = new SelectList(Area, "ID", "Name", select);
+        }
+
         //
         // GET: /JG_Agency/Details/5
 
@@ -35,6 +48,8 @@ namespace GGZBTQPT_PRO.Controllers
 
         public ActionResult Create()
         {
+            BindArea();
+            BindAgencyType();
             ViewBag.MemberID = new SelectList(db.T_HY_Member, "ID", "LoginName");
             return View();
         } 
@@ -47,6 +62,10 @@ namespace GGZBTQPT_PRO.Controllers
         {
             if (ModelState.IsValid)
             {
+                t_jg_agency.IsValid = true;
+                t_jg_agency.OP = 0;
+                t_jg_agency.CreateTime = DateTime.Now;
+                t_jg_agency.UpdateTime = DateTime.Now;
                 db.T_JG_Agency.Add(t_jg_agency);
                 db.SaveChanges();
                 return RedirectToAction("Index");  
@@ -62,6 +81,8 @@ namespace GGZBTQPT_PRO.Controllers
         public ActionResult Edit(int id)
         {
             T_JG_Agency t_jg_agency = db.T_JG_Agency.Find(id);
+            BindArea(t_jg_agency.Province);
+            BindAgencyType(t_jg_agency.AgencyType);
             ViewBag.MemberID = new SelectList(db.T_HY_Member, "ID", "LoginName", t_jg_agency.MemberID);
             return View(t_jg_agency);
         }

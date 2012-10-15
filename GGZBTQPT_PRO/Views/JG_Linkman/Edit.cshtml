@@ -12,20 +12,12 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>T_JG_Linkman</legend>
+        <legend>机构联系人</legend>
 
         @Html.HiddenFor(model => model.ID)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.AgencyID, "Agency")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("AgencyID", String.Empty)
-            @Html.ValidationMessageFor(model => model.AgencyID)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
+            @Html.LabelFor(model => model.Name,"姓名")
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Name)
@@ -33,7 +25,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Business)
+            @Html.LabelFor(model => model.Business, "负责业务")
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Business)
@@ -41,7 +33,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Phone)
+            @Html.LabelFor(model => model.Phone, "办公电话")
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Phone)
@@ -49,7 +41,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Mobile)
+            @Html.LabelFor(model => model.Mobile, "移动电话")
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Mobile)
@@ -57,7 +49,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Email)
+            @Html.LabelFor(model => model.Email, "电子邮箱")
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Email)
@@ -65,51 +57,19 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Remark)
+            @Html.LabelFor(model => model.Remark, "备注")
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Remark)
             @Html.ValidationMessageFor(model => model.Remark)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IsValid)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.IsValid)
-            @Html.ValidationMessageFor(model => model.IsValid)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.OP)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.OP)
-            @Html.ValidationMessageFor(model => model.OP)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CreateTime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CreateTime)
-            @Html.ValidationMessageFor(model => model.CreateTime)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.UpdateTime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.UpdateTime)
-            @Html.ValidationMessageFor(model => model.UpdateTime)
-        </div>
-
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="保存" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("返回", "Index")
 </div>

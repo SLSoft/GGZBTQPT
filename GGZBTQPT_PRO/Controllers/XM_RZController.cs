@@ -71,6 +71,9 @@ namespace GGZBTQPT_PRO.Controllers
             if (ModelState.IsValid)
             {
                 t_xm_financing.IsValid = true;
+                t_xm_financing.OP = 0;
+                t_xm_financing.CreateTime = DateTime.Now;
+                t_xm_financing.UpdateTime = DateTime.Now;
                 db.T_XM_Financing.Add(t_xm_financing);
                 db.SaveChanges();
                 return RedirectToAction("Index");  
@@ -99,6 +102,7 @@ namespace GGZBTQPT_PRO.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(t_xm_financing).State = EntityState.Modified;
+                t_xm_financing.UpdateTime = DateTime.Now;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

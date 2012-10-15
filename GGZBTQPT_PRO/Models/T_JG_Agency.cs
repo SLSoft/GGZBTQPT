@@ -26,6 +26,15 @@ namespace GGZBTQPT_PRO.Models
 
         public int MemberID { get; set; }
 
+        public string AgencyTypeName
+        {
+            get
+            {
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                return db.T_PTF_DicDetail.Find(this.AgencyType).Name;
+            }
+        }
+
         public virtual ICollection<T_JG_Linkman> Linkmans { get; set; }
     }
 }

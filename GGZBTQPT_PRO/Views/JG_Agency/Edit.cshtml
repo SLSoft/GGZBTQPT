@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Edit";
+    Layout = null;
 }
 
 <h2>Edit</h2>
@@ -13,7 +14,7 @@
 {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>T_JG_Agency</legend>
+        <legend>机构信息</legend>
 
         @Html.HiddenFor(model => model.ID)
 
@@ -29,8 +30,7 @@
             @Html.LabelFor(model => model.AgencyType, "机构类别")
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.AgencyType)
-            @Html.ValidationMessageFor(model => model.AgencyType)
+            @Html.DropDownList("AgencyType", "请选择")
         </div>
 
         <div class="editor-label">
@@ -61,16 +61,7 @@
             @Html.LabelFor(model => model.Province, "工商注册地")
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Province)
-            @Html.ValidationMessageFor(model => model.Province)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.City)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.City)
-            @Html.ValidationMessageFor(model => model.City)
+            @Html.DropDownList("Province", "请选择")
         </div>
 
         <div class="editor-label">
@@ -105,9 +96,9 @@
             @Html.ValidationMessageFor(model => model.Remark)
         </div>
         @{
-            if(Model.Linkmans.Count != 0)
-            {
-                var item = Model.Linkmans.First(); 
+       if (Model.Linkmans.Count != 0)
+       {
+           var item = Model.Linkmans.First(); 
                 <div class="editor-label">
                     @Html.LabelFor(model => item.Name, "联系人")
                 </div>
@@ -132,7 +123,7 @@
                 <div class="editor-field">
                     @Html.EditorFor(model => item.Mobile)
                 </div>
-            }
+       }
         }
         <p>
             <input type="submit" value="Save" />
