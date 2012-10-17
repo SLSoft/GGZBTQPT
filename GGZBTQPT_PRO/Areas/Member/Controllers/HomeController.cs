@@ -17,7 +17,25 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            if (CurrentMember() != null)
+            {
+                var member = db.T_HY_Member.Find(CurrentMember().ID);
+                return View(member);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Member");
+            }
+        }
+
+        private T_HY_Member CurrentMember()
+        {
+            if (Session["MemberID"] != null && Session["MemberID"].ToString() != "")
+            {
+                var member = db.T_HY_Member.Find(Convert.ToInt32(Session["MemberID"].ToString()));
+                return member;
+            }
+            return null;
         }
  
     }

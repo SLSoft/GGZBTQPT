@@ -18,7 +18,7 @@ namespace GGZBTQPT_PRO.Controllers
 
         public ViewResult Index()
         {
-            return View(db.T_QY_CorpInfo.ToList());
+            return View(db.T_QY_Corp.ToList());
         }
 
         //
@@ -26,7 +26,7 @@ namespace GGZBTQPT_PRO.Controllers
 
         public ViewResult Details(int id)
         {
-            T_QY_Corp t_qy_corp = db.T_QY_CorpInfo.Find(id);
+            T_QY_Corp t_qy_corp = db.T_QY_Corp.Find(id);
             return View(t_qy_corp);
         }
 
@@ -47,7 +47,7 @@ namespace GGZBTQPT_PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.T_QY_CorpInfo.Add(t_qy_corp);
+                db.T_QY_Corp.Add(t_qy_corp);
                 db.SaveChanges();
                 return RedirectToAction("Index");  
             }
@@ -61,7 +61,7 @@ namespace GGZBTQPT_PRO.Controllers
  
         public ActionResult Edit(int id)
         {
-            T_QY_Corp t_qy_corp = db.T_QY_CorpInfo.Find(id);
+            T_QY_Corp t_qy_corp = db.T_QY_Corp.Find(id);
             ViewBag.MemberID = new SelectList(db.T_HY_Member, "ID", "LoginName", t_qy_corp.MemberID);
             return View(t_qy_corp);
         }
@@ -87,7 +87,7 @@ namespace GGZBTQPT_PRO.Controllers
  
         public ActionResult Delete(int id)
         {
-            T_QY_Corp t_qy_corp = db.T_QY_CorpInfo.Find(id);
+            T_QY_Corp t_qy_corp = db.T_QY_Corp.Find(id);
             return View(t_qy_corp);
         }
 
@@ -97,8 +97,8 @@ namespace GGZBTQPT_PRO.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {            
-            T_QY_Corp t_qy_corp = db.T_QY_CorpInfo.Find(id);
-            db.T_QY_CorpInfo.Remove(t_qy_corp);
+            T_QY_Corp t_qy_corp = db.T_QY_Corp.Find(id);
+            db.T_QY_Corp.Remove(t_qy_corp);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

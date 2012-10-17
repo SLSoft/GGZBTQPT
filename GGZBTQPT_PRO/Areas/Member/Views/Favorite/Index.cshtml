@@ -1,0 +1,36 @@
+﻿@model GGZBTQPT_PRO.Models.T_HY_Member
+@{
+    ViewBag.Title = "我的收藏";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#favored li a").click(function (e) {
+            e.preventDefault();
+            $("#favored li").removeClass("active");
+            $(this).parent("li").addClass("active");
+        });
+        $("#favored li.active a").click();
+    });
+</script>
+<h3 class="content-title">
+    我的收藏</h3>
+
+<ul id="favored" class="nav nav-tabs">
+    <li class="active">
+        @Ajax.ActionLink("收藏的项目", "FavoredFinancials", "Favorite", new { member_id = Model.ID }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
+    </li>
+    <li>
+        @Ajax.ActionLink("收藏的意向", "FavoredInvestments", "Favorite", new { member_id = Model.ID }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
+    </li>
+    <li>
+        @Ajax.ActionLink("收藏的产品", "FavoredProducts", "Favorite", new { member_id = Model.ID }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
+    </li>
+</ul>
+
+<div id="details">
+
+</div>
+
+
+

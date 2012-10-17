@@ -1,24 +1,24 @@
 ﻿//判断用户的会员级别
 @helper ComputeMemberGrade(int intetral)
     {
-    switch (intetral)
+    switch (intetral / 100)
     {
 
         case 1:
     <div>
-        铜牌会员</div>
+         <span class="badge badge-info">会员级别：铜牌会员 [@intetral]</span></div>
             break;
         case 2:
     <div>
-        银牌会员</div>
+          <span class="badge badge-info">会员级别：银牌会员 [@intetral]</span></div>
             break;
         case 3:
     <div>
-        金牌会员</div> 
+         <span class="badge badge-info">会员级别：金牌会员 [@intetral]</span></div> 
             break;
         default:
     <div>
-        普通会员</div>
+         <span class="badge badge-info">会员级别：普通会员 [@intetral]</span></div>
             break;
     }
 }

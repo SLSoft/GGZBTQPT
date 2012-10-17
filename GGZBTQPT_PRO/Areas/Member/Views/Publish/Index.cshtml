@@ -2,21 +2,34 @@
 @{
     ViewBag.Title = "我的发布";
 }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#published li a").click(function (e) {
+            e.preventDefault();
+            $("#published li").removeClass("active");
+            $(this).parent("li").addClass("active");
+        });
+
+        $("#published li.active a").click();
+    });  
+</script>
 <h3 class="content-title">
     我的发布</h3>
 
-<ul class="nav nav-tabs">
+<ul id="published" class="nav nav-tabs">
     <li class="active">
-        @Ajax.ActionLink("发布的项目", "PublishFinancials", "Publish", new { id = 1 }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "detail", LoadingElementId = "Loading" })
+        @Ajax.ActionLink("发布的项目", "PublishedFinancials", "Publish", new { member_id = Model.ID }, new AjaxOptions {  HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
     </li>
     <li>
-        @Ajax.ActionLink("发布的意向", "PublishInvestments", "Publish", new { id = 1 }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "detail", LoadingElementId = "Loading" })
+        @Ajax.ActionLink("发布的意向", "PublishedInvestments", "Publish", new { member_id = Model.ID }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
     </li>
     <li>
-        @Ajax.ActionLink("发布的产品", "PublishProjects", "Publish", new { id = 1 }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "detail", LoadingElementId = "Loading" })
+        @Ajax.ActionLink("发布的产品", "PublishedProducts", "Publish", new { member_id = Model.ID }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
     </li>
     <li>
-        @Html.ActionLink("上传的文档", "Full", "Member")
+        @Html.ActionLink("上传的文档", "PublishedInvestments", "Publish", new { member_id = Model.ID }, new { data_toggle = "tab" })
+    
     </li>
     <li>
         @Html.ActionLink("发布的案例", "Full", "Member")

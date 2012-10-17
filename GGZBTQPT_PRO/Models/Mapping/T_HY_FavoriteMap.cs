@@ -10,17 +10,14 @@ namespace GGZBTQPT_PRO.Models.Mapping
             // Primary Key
             this.HasKey(t => t.ID);
 
-            // Properties
-            // Table & Column Mappings
-            this.ToTable("T_HY_Favorite");
-            this.Property(t => t.ID).HasColumnName("ID");
-            this.Property(t => t.Code).HasColumnName("Code");
-            this.Property(t => t.FavoriteCode).HasColumnName("FavoriteCode");
-            this.Property(t => t.KeepTime).HasColumnName("KeepTime");
-            this.Property(t => t.IsValid).HasColumnName("IsValid");
-            this.Property(t => t.OP).HasColumnName("OP");
-            this.Property(t => t.CreateTime).HasColumnName("CreateTime");
-            this.Property(t => t.UpdateTime).HasColumnName("UpdateTime");
+            this.HasMany(t => t.Members)
+                .WithMany(t => t.Favorites)
+                .Map(m =>
+                {
+                    m.ToTable("T_HY_MemberT_HY_Favorite");
+                    m.MapLeftKey("T_HY_Favorite_ID");
+                    m.MapRightKey("T_HY_Member_ID");
+                });
         }
     }
 }

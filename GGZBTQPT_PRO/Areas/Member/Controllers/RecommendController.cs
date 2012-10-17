@@ -9,7 +9,7 @@ using GGZBTQPT_PRO.Models;
 
 namespace GGZBTQPT_PRO.Areas.Member.Controllers
 {
-    public class PublishController : Controller
+    public class RecommendController : Controller
     {
         private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
         //
@@ -17,8 +17,8 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
 
         public ActionResult Index()
         {
-            
-            if(CurrentMember() != null)
+
+            if (CurrentMember() != null)
             {
                 var member = db.T_HY_Member.Find(CurrentMember().ID);
                 return View(member);
@@ -30,11 +30,11 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         }
 
         /// <summary>
-        /// 用户所发布的项目
+        /// 系统所推荐的项目
         /// </summary>
         /// <param name="member_id"></param>
         /// <returns></returns>
-        public ActionResult PublishedFinancials(int member_id)
+        public ActionResult RecommendFinancials(int member_id)
         {
             var member = CurrentMember();
             if (member == null)
@@ -43,22 +43,25 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             }
             try
             {
-                var finacials = db.T_XM_Financing.Where(f => f.MemberID == member.ID).ToList();
+                //*********TO-DO************//
+                //*********根据用户收藏的的内容和关注的人员进行特殊推荐*****************//
+                //目前需要完成根据项目的收藏数进行排序，以下的投资和产品同
+                var finacials = db.T_XM_Financing.ToList();
+                ViewBag.FavoredFinacials = FavoredFinancials(1);
                 return PartialView(finacials);
             }
             catch
             {
                 return PartialView();
-            } 
-
+            }
         }
 
         /// <summary>
-        /// 用户所发布的投资意向
+        /// 系统所推荐的投资意向
         /// </summary>
         /// <param name="member_id"></param>
         /// <returns></returns>
-        public ActionResult PublishedInvestments(int member_id)
+        public ActionResult RecommendInvestments(int member_id)
         {
             var member = CurrentMember();
             if (member == null)
@@ -67,21 +70,21 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             }
             try
             {
-                var finacials = db.T_XM_Investment.Where(f => f.MemberID == member.ID).ToList();
-                return PartialView(finacials);
+                var investments = db.T_XM_Investment.ToList();
+                return PartialView(investments);
             }
             catch
             {
                 return PartialView();
-            } 
+            }
         }
 
         /// <summary>
-        /// 用户所发布的金融产品
+        /// 系统所推荐的金融产品
         /// </summary>
         /// <param name="member_id"></param>
         /// <returns></returns>
-        public ActionResult PublishedProducts(int member_id)
+        public ActionResult RecommendProducts(int member_id)
         {
             var member = CurrentMember();
             if (member == null)
@@ -90,17 +93,17 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             }
             try
             {
-                var finacials = db.T_JG_Product.Where(f => f.MemberID == member.ID).ToList();
-                return PartialView(finacials);
+                var products = db.T_JG_Product.ToList();
+                return PartialView(products);
             }
             catch
             {
                 return PartialView();
-            } 
-        }
+            }
+        } 
 
 
-
+        //Helper
         private T_HY_Member CurrentMember()
         {
             if (Session["MemberID"] != null && Session["MemberID"].ToString() != "")
@@ -110,5 +113,24 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             }
             return null;
         }
+
+        /// <summary>
+        /// 读取当前用户所关注的项目的ID集合
+        /// </summary>
+        /// <returns></returns>
+        private string FavoredFinancials(int favorite_type)
+        {
+            string favored_financials = "";
+
+            List<int> financial_ids = CurrentMember().Favorites.Where(f => f.FavoriteType == favorite_type).Select(f => f.FavoriteID).ToList();
+            foreach (int finacial_id in financial_ids)
+            {
+                favored_financials += "|" + finacial_id + "|";
+            }
+            
+            return favored_financials;
+        }
+
+
     }
 }

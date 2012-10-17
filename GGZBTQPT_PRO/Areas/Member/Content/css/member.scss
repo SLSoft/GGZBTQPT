@@ -44,7 +44,7 @@ body
     margin-bottom: 20px;
 }
 
-//友邻动态
+//friends's trend
 #twitter
 {
     .twitter-content
@@ -60,7 +60,51 @@ body
     }
 }
 
-//以下是覆盖的bootstrap的默认属性
+//attentioned person
+#attentioned
+{
+    .attentioned-content
+    {
+        border-top: solid 1px #ddd;
+        padding: 10px 0;
+
+        ul
+        {
+            list-style: none;
+        }
+    }
+    .member-link 
+    {
+    }
+    .msg 
+    {
+    }
+}
+
+//sidebar
+.sidebar
+{
+    .member-info
+    {
+        margin-bottom: 30px;
+    }
+    ul 
+    {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        margin-bottom: 30px;
+
+        li
+        {
+            margin-left: 0px;
+            padding-top: 5px;
+
+
+        }
+    }
+}
+//overide bootstrap
 .clear
 {
     clear: both;

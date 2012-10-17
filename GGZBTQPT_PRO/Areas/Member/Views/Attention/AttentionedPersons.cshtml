@@ -1,0 +1,57 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_QY_Person>
+
+<div id="attentioned">
+    @foreach (var _model in Model)
+    {
+        <div class="attentioned-content row-fluid">
+            @*关注的创业者的头像和基本信息*@
+            <div class="member-link span2">
+                <img alt="友邻头像" class="img-circle" src="../../../../Content/images/member/user.jpg" />
+                <div class="contact">
+                    <ul>
+                        <li><a class="send-msg" href="#">发消息</a></li>
+                        <li><a class="send-msg" href="#">取消关注</a></li>
+                    </ul>
+                </div>
+            </div>
+            @*完整信息*@
+            <div class="person-detail span10">
+                @*可见信息*@
+                <h4>
+                    @_model.Name</h4>
+                <div class="base-detail">
+                <p>
+                    <label>毕业院校：<span>@_model.College</span></label>
+                    <label>学历：<span>@_model.Education</span></label>
+                    <label>所学专业：<span>@_model.Specialty</span></label>
+                    <label>工作经历:</label>
+                    <p>@_model.WorkExperience</p>
+                </p>
+                <p>
+                    <label>发布项目：<span>3个</span></label>
+                    <label>关注他的：<span>5个</span></label>
+                    <label>他关注的：<span>17个</span></label> 
+                </p>
+                </div>
+                @*隐私信息*@
+                <div class="privacy-detail">
+                <p><span class="label label-important">****以下信息互相关注后可见****</span></p>
+                    <span class="mobile">手机：@_model.Mobile</span><span class="phone">固定电话：@_model.Phone</span><span class="email">邮箱：@_model.Email</span>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="pagination pagination-left clear">
+        <ul>
+            <li class="disabled"><a href="#">Prev</a></li>
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">6</a></li>
+            <li><a href="#">7</a></li>
+            <li class="disabled"><a href="#">Next</a></li>
+        </ul>
+    </div>
+</div>

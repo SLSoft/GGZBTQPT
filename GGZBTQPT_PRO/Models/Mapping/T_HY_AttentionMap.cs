@@ -10,17 +10,9 @@ namespace GGZBTQPT_PRO.Models.Mapping
             // Primary Key
             this.HasKey(t => t.ID);
 
-            // Properties
-            // Table & Column Mappings
-            this.ToTable("T_HY_Attention");
-            this.Property(t => t.ID).HasColumnName("ID");
-            this.Property(t => t.UserID).HasColumnName("UserID");
-            this.Property(t => t.AttentionCode).HasColumnName("AttentionCode");
-            this.Property(t => t.KeepTime).HasColumnName("KeepTime");
-            this.Property(t => t.IsValid).HasColumnName("IsValid");
-            this.Property(t => t.OP).HasColumnName("OP");
-            this.Property(t => t.CreateTime).HasColumnName("CreateTime");
-            this.Property(t => t.UpdateTime).HasColumnName("UpdateTime");
+
+
+
         }
     }
 }

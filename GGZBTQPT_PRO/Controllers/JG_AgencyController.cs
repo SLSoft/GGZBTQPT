@@ -18,7 +18,7 @@ namespace GGZBTQPT_PRO.Controllers
 
         public ViewResult Index()
         {
-            return View(db.T_JG_AgencyInfo.ToList());
+            return View(db.T_JG_Agency.ToList());
         }
 
         //
@@ -26,7 +26,7 @@ namespace GGZBTQPT_PRO.Controllers
 
         public ViewResult Details(int id)
         {
-            T_JG_Agency t_jg_agency = db.T_JG_AgencyInfo.Find(id);
+            T_JG_Agency t_jg_agency = db.T_JG_Agency.Find(id);
             return View(t_jg_agency);
         }
 
@@ -47,7 +47,7 @@ namespace GGZBTQPT_PRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.T_JG_AgencyInfo.Add(t_jg_agency);
+                db.T_JG_Agency.Add(t_jg_agency);
                 db.SaveChanges();
                 return RedirectToAction("Index");  
             }
@@ -61,7 +61,7 @@ namespace GGZBTQPT_PRO.Controllers
  
         public ActionResult Edit(int id)
         {
-            T_JG_Agency t_jg_agency = db.T_JG_AgencyInfo.Find(id);
+            T_JG_Agency t_jg_agency = db.T_JG_Agency.Find(id);
             ViewBag.MemberID = new SelectList(db.T_HY_Member, "ID", "LoginName", t_jg_agency.MemberID);
             return View(t_jg_agency);
         }
@@ -87,7 +87,7 @@ namespace GGZBTQPT_PRO.Controllers
  
         public ActionResult Delete(int id)
         {
-            T_JG_Agency t_jg_agency = db.T_JG_AgencyInfo.Find(id);
+            T_JG_Agency t_jg_agency = db.T_JG_Agency.Find(id);
             return View(t_jg_agency);
         }
 
@@ -97,8 +97,8 @@ namespace GGZBTQPT_PRO.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {            
-            T_JG_Agency t_jg_agency = db.T_JG_AgencyInfo.Find(id);
-            db.T_JG_AgencyInfo.Remove(t_jg_agency);
+            T_JG_Agency t_jg_agency = db.T_JG_Agency.Find(id);
+            db.T_JG_Agency.Remove(t_jg_agency);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

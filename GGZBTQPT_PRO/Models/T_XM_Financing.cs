@@ -6,8 +6,7 @@ namespace GGZBTQPT_PRO.Models
     public class T_XM_Financing
     {
         public T_XM_Financing()
-        {
-            
+        { 
         }
 
         public int ID { get; set; }
@@ -68,7 +67,8 @@ namespace GGZBTQPT_PRO.Models
                 GGZBTQPTDBContext db = new GGZBTQPTDBContext();
                 return db.T_PTF_DicDetail.Find(this.Industry).Name;
             } 
-        }
+        } 
+
 
     }
 }

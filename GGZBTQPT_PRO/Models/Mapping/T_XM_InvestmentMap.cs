@@ -60,7 +60,7 @@ namespace GGZBTQPT_PRO.Models.Mapping
 
             this.ToTable("T_XM_Investment");
             this.Property(t => t.ID).HasColumnName("ID");
-            this.Property(t => t.MemberID).HasColumnName("UserID");
+            this.Property(t => t.MemberID).HasColumnName("MemberID");
             this.Property(t => t.ItemName).HasColumnName("ItemName");
             this.Property(t => t.Province).HasColumnName("Province");
             this.Property(t => t.City).HasColumnName("City");

@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Investment>
+
+
 <div>
     <h4>
-        最新发布融资意向</h4>
+        最新发布投资意向</h4>
     <ul>
         @foreach (var _model in Model)
         {
-            <li><a href="#">[@_model.ItemName]</a></li>
+            <li>@_model.ItemName</li>
         }
     </ul>
 </div>
-
-
