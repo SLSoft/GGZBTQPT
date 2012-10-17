@@ -15,6 +15,9 @@
         <legend>融资信息</legend>
 
         @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.IsValid)
+        @Html.HiddenFor(model => model.IsPublic)
+        @Html.HiddenFor(model => model.CreateTime)
 
         <table style="width:100%">
             <tr>
@@ -58,8 +61,7 @@
                 <td>@Html.EditorFor(model => model.FinancSum)
             @Html.ValidationMessageFor(model => model.FinancSum)</td>
                 <td>@Html.LabelFor(model => model.FinancType, "融资方式")</td>
-                <td>@Html.EditorFor(model => model.FinancType)
-            @Html.ValidationMessageFor(model => model.FinancType)</td>
+                <td>@Html.DropDownList("FinancType", "请选择")</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.FinancCycle, "融资期限")</td>

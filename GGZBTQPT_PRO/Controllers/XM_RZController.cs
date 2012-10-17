@@ -49,6 +49,13 @@ namespace GGZBTQPT_PRO.Controllers
 
             ViewData["FinancType"] = new SelectList(FinancType, "ID", "Name", select);
         }
+        public void BindItemStage(object select = null)
+        {
+            List<T_PTF_DicDetail> ItemStage = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM04")).ToList();
+
+            ViewData["ItemStage"] = new SelectList(ItemStage, "ID", "Name", select);
+        }
+
         
         //
         // GET: /XM_RZ/Create
@@ -90,6 +97,7 @@ namespace GGZBTQPT_PRO.Controllers
             T_XM_Financing t_xm_financing = db.T_XM_Financing.Find(id);
             BindArea(t_xm_financing.Province);
             BindIndustry(t_xm_financing.Industry);
+            BindFinancType(t_xm_financing.FinancType);
             return View(t_xm_financing);
         }
 
@@ -102,7 +110,7 @@ namespace GGZBTQPT_PRO.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(t_xm_financing).State = EntityState.Modified;
-                t_xm_financing.UpdateTime = DateTime.Now;
+                t_xm_financing.UpdateTime = DateTime.Now;     
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

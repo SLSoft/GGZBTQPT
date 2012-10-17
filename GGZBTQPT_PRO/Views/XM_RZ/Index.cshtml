@@ -2,9 +2,9 @@
 <div class="pageContent j-resizeGrid" style="border-left: 1px #B8D0D6 solid; border-right: 1px #B8D0D6 solid">
   <div class="panelBar">
     <ul class="toolBar">
-      <li><a class="add" href="/QY_Corp/create" rel="create" target="dialog" title="添加新的功能菜单" mask="true"><span>添加</span></a></li>
-      <li><a class="edit" href="/QY_Corp/edit/{mid}" rel="edit" target="dialog" title="编辑功能菜单信息" mask="true" warn="请选择一条菜单数据"><span>修改</span></a></li>
-      <li><a class="delete" href="/QY_Corp/delete/{mid}" rel="delete" target="ajaxTodo" title="确定要删除吗？"  warn="请选择一条菜单数据"><span>删除</span></a></li>
+      <li><a class="add" href="/XM_RZ/create" rel="create" target="dialog" title="添加新的功能菜单" mask="true"><span>添加</span></a></li>
+      <li><a class="edit" href="/XM_RZ/edit/{mid}" rel="edit" target="dialog" title="编辑功能菜单信息" mask="true" warn="请选择一条菜单数据"><span>修改</span></a></li>
+      <li><a class="delete" href="/XM_RZ/delete/{mid}" rel="delete" target="ajaxTodo" title="确定要删除吗？"  warn="请选择一条菜单数据"><span>删除</span></a></li>
       <li class="line">line</li>
       <li><a class="icon" href="#"><span>导入EXCEL</span></a></li>
     </ul>
@@ -23,7 +23,7 @@
                 有效日期
             </th>
             <th>
-                发布时间
+                发布状态
             </th>
             <th>操作</th>
     </tr>
@@ -42,7 +42,7 @@
                 @Html.DisplayFor(modelItem => item.ValidDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PublicTime)
+                @Html.DisplayFor(modelItem => item.IsPublic)
             </td>
             <td>
                 @Html.ActionLink("编辑", "Edit", new { id = item.ID }) |
