@@ -24,8 +24,8 @@ namespace GGZBTQPT_PRO.Models
         public Nullable<System.DateTime> UpdateTime { get; set; }
 
 
-        public int MemberID { get; set; } 
+        public int MemberID { get; set; }
 
-
+        public virtual ICollection<T_JG_Linkman> Linkmans { get; set; }
     }
 }

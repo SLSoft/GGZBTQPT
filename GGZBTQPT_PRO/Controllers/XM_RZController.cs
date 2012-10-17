@@ -49,6 +49,7 @@ namespace GGZBTQPT_PRO.Controllers
 
             ViewData["FinancType"] = new SelectList(FinancType, "ID", "Name", select);
         }
+        
         //
         // GET: /XM_RZ/Create
 
@@ -57,6 +58,7 @@ namespace GGZBTQPT_PRO.Controllers
             BindArea();
             BindIndustry();
             BindFinancType();
+
             return View();
         } 
 

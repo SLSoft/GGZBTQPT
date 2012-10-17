@@ -45,18 +45,15 @@
                 @Html.DisplayFor(modelItem => item.RegTime)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Property)
+                @Html.DisplayFor(modelItem => item.PropertyName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Industry)
+                @Html.DisplayFor(modelItem => item.IndustryName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Member.LoginName)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                @Html.ActionLink("编辑", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("查看", "Details", new { id = item.ID }) |
+                @Html.ActionLink("删除", "Delete", new { id = item.ID })
             </td>
         </tr>
         }

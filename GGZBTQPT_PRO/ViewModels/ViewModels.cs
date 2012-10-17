@@ -12,6 +12,4 @@ namespace GGZBTQPT_PRO.ViewModels
         public ICollection<T_ZC_System> Systems { get; set; }
     }
 
-
-
 }

@@ -38,11 +38,26 @@ namespace GGZBTQPT_PRO.Models
 
         public int MemberID { get; set; }
 
-
-
+        public string PropertyName
+        {
+            get
+            {
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                return db.T_PTF_DicDetail.Find(this.Property).Name;
+            }
+        }
+        public string IndustryName
+        {
+            get
+            {
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                return db.T_PTF_DicDetail.Find(this.Industry).Name;
+            }
+        }
 
         public virtual ICollection<T_QY_Financial> Financials { get; set; }
         public virtual ICollection<T_QY_Product> Products { get; set; }
+
 
     }
 }
