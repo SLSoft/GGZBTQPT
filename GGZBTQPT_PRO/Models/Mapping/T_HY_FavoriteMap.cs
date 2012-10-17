@@ -18,6 +18,11 @@ namespace GGZBTQPT_PRO.Models.Mapping
                     m.MapLeftKey("T_HY_Favorite_ID");
                     m.MapRightKey("T_HY_Member_ID");
                 });
+
+            // Foreign Key
+            this.HasRequired(t => t.Financial)
+              .WithMany(s => s.Favoites)
+              .HasForeignKey(t => t.FavoriteID);
         }
     }
 }
