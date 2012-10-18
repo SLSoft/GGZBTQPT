@@ -70,7 +70,5 @@ namespace GGZBTQPT_PRO.Models
                 return db.T_PTF_DicDetail.Find(this.Industry).Name;
             } 
         } 
-
-
     }
 }

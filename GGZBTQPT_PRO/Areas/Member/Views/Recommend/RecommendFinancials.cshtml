@@ -6,16 +6,16 @@
     {
     if (favored_finacials.IndexOf(favored_id) > 0)
     {
-        @Ajax.ActionLink("取消收藏", "UnFavored", "Favorite", new { id = favored_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "updateMsg" }) 
+        @Ajax.ActionLink("取消收藏", "UnFavored", "Favorite", new { id = favored_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" }) 
     }
     else
     {
-        @Ajax.ActionLink("收藏该项目", "Favored", "Favorite", new { type_id = 1, id = favored_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "updateMsg" })
+        @Ajax.ActionLink("收藏该项目", "Favored", "Favorite", new { type_id = 1, id = favored_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" })
     }
 }
 <script type="text/javascript">
-    function updateMsg() {
-        alert("success");
+    function notice(data) {
+        $.Member.notice(data.message);
     }
 </script>
 @*推荐的项目信息*@

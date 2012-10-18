@@ -12,6 +12,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
     public class FavoriteController : Controller
     {
         private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+        private Dictionary<string,string> notice = new Dictionary<string,string>();
         //
         // GET: /Member/Publish/
 
@@ -45,7 +46,11 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             {
                 var finacials = member.Favorites.Where(a => a.FavoriteType == 1)
                                 .Join(db.T_XM_Financing, a => a.FavoriteID, p => p.ID, 
-                                        (a, p) => new T_XM_Financing { ItemName = p.ItemName, Investment = p.Investment, TotalInvestment = p.TotalInvestment, ID = p.ID, ItemContent = p.ItemContent })
+                                    (a, p) => new T_XM_Financing {  
+                                        ItemName = p.ItemName, Investment = p.Investment, 
+                                        TotalInvestment = p.TotalInvestment, 
+                                        ID = p.ID, ItemContent = p.ItemContent, Favoites = p.Favoites 
+                                    })
                                 .ToList();
 
                 return PartialView(finacials);
@@ -72,7 +77,10 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             {
                 var investments = member.Favorites.Where(a => a.FavoriteType == 2)
                                 .Join(db.T_XM_Investment, a => a.FavoriteID, p => p.ID,
-                                        (a, p) => new T_XM_Investment { ItemName = p.ItemName, Investment = p.Investment, StartInvestment = p.StartInvestment })
+                                    (a, p) => new T_XM_Investment { 
+                                        ItemName = p.ItemName, Investment = p.Investment, 
+                                        StartInvestment = p.StartInvestment, Favoites = p.Favoites 
+                                    })
                                 .ToList();
                 return PartialView(investments);
             }
@@ -99,7 +107,10 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             {
                 var products = member.Favorites.Where(a => a.FavoriteType == 3)
                                 .Join(db.T_JG_Product, a => a.FavoriteID, p => p.ID,
-                                            (a, p) => new T_JG_Product { ProductName = p.ProductName, RepaymentType = p.RepaymentType })
+                                    (a, p) => new T_JG_Product { 
+                                        ProductName = p.ProductName, RepaymentType = p.RepaymentType, 
+                                        Favoites = p.Favoites 
+                                    })
                                 .ToList();
                 return PartialView(products);
             }
@@ -129,15 +140,15 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         [HttpPost]
         public ActionResult Favored(int type_id, int id)
         {
-            var favored_item = new T_HY_Favorite(); 
+            var favored_item = new T_HY_Favorite();
             var member = CurrentMember();
 
             favored_item.FavoriteID = id;
-            favored_item.FavoriteType = type_id; 
-            member.Favorites.Add(favored_item); 
-            db.SaveChanges();
+            favored_item.FavoriteType = type_id;
+            member.Favorites.Add(favored_item);
+            db.SaveChanges(); 
 
-            return Json(new { statusCode = "200", message = "收藏成功" }); 
+            return Json(new { statusCode = "200", message = "项目收藏成功" }); 
         }
 
         /// <summary>
@@ -149,13 +160,13 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         public ActionResult UnFavored(int id)
         {
             var favored_item = db.T_HY_Favorite.FirstOrDefault(f => f.FavoriteID == id);
-            var member = CurrentMember(); 
-        
+            var member = CurrentMember();
+
             member.Favorites.Remove(favored_item);
-            db.T_HY_Favorite.Remove(favored_item); 
+            db.T_HY_Favorite.Remove(favored_item);
             db.SaveChanges();
 
-            return Json(new { statusCode = "200", message = "取消收藏成功" }); 
+            return Json(new { statusCode = "200", message = "项目取消收藏成功" }); 
         }
 
 

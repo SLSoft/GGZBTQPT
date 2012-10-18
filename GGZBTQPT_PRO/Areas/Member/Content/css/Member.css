@@ -6,6 +6,8 @@ body {
     -moz-border-radius: 5px;
     border-radius: 5px;
     background-color: #ddddff; }
+    body .main #notice {
+      margin-bottom: 20px; }
     body .main .content {
       -webkit-border-radius: 5px 0 0 5px;
       -moz-border-radius: 5px 0 0 5px;
@@ -28,6 +30,9 @@ body {
   border-bottom: solid 1px #ddd;
   padding-bottom: 10px;
   margin-bottom: 20px; }
+
+.field-validation-error {
+  color: #FF8C05; }
 
 #twitter .twitter-content {
   border-top: solid 1px #ddd;

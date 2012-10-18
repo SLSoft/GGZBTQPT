@@ -23,6 +23,14 @@ namespace GGZBTQPT_PRO.Models.Mapping
             this.HasRequired(t => t.Financial)
               .WithMany(s => s.Favoites)
               .HasForeignKey(t => t.FavoriteID);
+
+            this.HasRequired(t => t.Investment)
+              .WithMany(s => s.Favoites)
+              .HasForeignKey(t => t.FavoriteID); 
+
+            this.HasRequired(t => t.Product)
+              .WithMany(s => s.Favoites)
+              .HasForeignKey(t => t.FavoriteID);
         }
     }
 }

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
+using GGZBTQPT_PRO.Enums;
+
 
 namespace GGZBTQPT_PRO.Areas.Member.Controllers
 { 
@@ -29,13 +31,13 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         {
             T_HY_Member t_hy_member = db.T_HY_Member.Find(id);
             return PartialView(t_hy_member);
-        }
+        } 
 
-        //
-        // GET: /Member/Member/Create
-
-        public ActionResult Create()
+        public ActionResult SignUP()
         {
+            var types = from MemberTypes type in Enum.GetValues(typeof(MemberTypes))
+                        select new { ID = (int)type, Name = type.ToString() };
+            ViewData["MemberTypes"] = new SelectList(types, "ID", "Name");
 
             return View();
         } 
@@ -44,8 +46,11 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         // POST: /Member/Member/Create
 
         [HttpPost]
-        public ActionResult Create(T_HY_Member t_hy_member)
+        public ActionResult SignUp(T_HY_Member t_hy_member)
         {
+            var types = from MemberTypes type in Enum.GetValues(typeof(MemberTypes))
+                        select new { ID = (int)type, Name = type.ToString() };
+            ViewData["MemberTypes"] = new SelectList(types, "ID", "Name");
             if (ModelState.IsValid)
             {
                 if( !VerifyCode(Request["verify"].ToString(),t_hy_member.CellPhone) )
@@ -153,7 +158,8 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
 
             if (SendMsg(verify_code, phone_number))
             {
-                Session[phone_number] = verify_code;
+                //Session[phone_number] = verify_code;
+                Session[phone_number] = "123456";
                 return true;
             }
             return false; 
@@ -180,6 +186,16 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        public JsonResult CheckLoginName(string loginname)
+        { 
+            return Json(!db.T_HY_Member.Any(m => m.LoginName == loginname), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CheckCellPhone(string cellphone)
+        {
+            return Json(!db.T_HY_Member.Any(m => m.CellPhone == cellphone), JsonRequestBehavior.AllowGet);
         }
     }
 }
