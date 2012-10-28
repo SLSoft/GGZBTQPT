@@ -18,8 +18,15 @@
     @Html.Partial("_Header")
     <div class="container">
         <div id="notice">
-@*        @if (ViewData["notice"]
-*@        </div>
+        @if (ViewData["notice"] != null && ViewData["notice"] != "")
+        {
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">
+                    ×</button>
+                <strong>@ViewData["notice"].ToString()</strong> 
+            </div>
+        }
+        </div>
         <div id="main" class="row main">
             <div class="span9">
                 <div class="content">

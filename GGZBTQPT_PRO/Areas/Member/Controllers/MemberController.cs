@@ -63,7 +63,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
                 db.T_HY_Member.Add(t_hy_member);
                 db.SaveChanges();
                 ViewData["notice"] = "注册成功，请登录!";
-                return RedirectToAction("Index","Home");  
+                return RedirectToAction("Login","Member", new { login_type="Register" });  
             }
 
             return View(t_hy_member);
@@ -124,10 +124,17 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         {
             return View();
         }
-
+ 
         //登录
-        public ActionResult Login()
-        {
+        public ActionResult Login(string login_type)
+        { 
+            if(login_type == "Register")
+            {
+                ViewData["notice"] = "注册成功，请重新登陆!";
+            }
+
+            //---------TO-DO--------------//
+            //将登陆类型编写成函数，根据不同的登陆类型，生成不同的消息信息
             return View();
         }
 
