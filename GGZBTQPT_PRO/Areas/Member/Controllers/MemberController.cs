@@ -19,9 +19,8 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         // GET: /Member/Member/
 
         public ViewResult Index()
-        {
-
-            return View();
+        { 
+            return View(); 
         }
 
         //
@@ -33,11 +32,11 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             return PartialView(t_hy_member);
         } 
 
-        public ActionResult SignUP()
+        public ActionResult SignUp()
         {
             var types = from MemberTypes type in Enum.GetValues(typeof(MemberTypes))
                         select new { ID = (int)type, Name = type.ToString() };
-            ViewData["MemberTypes"] = new SelectList(types, "ID", "Name");
+            ViewData["Type"] = new SelectList(types, "ID", "Name");
 
             return View();
         } 
@@ -50,7 +49,8 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         {
             var types = from MemberTypes type in Enum.GetValues(typeof(MemberTypes))
                         select new { ID = (int)type, Name = type.ToString() };
-            ViewData["MemberTypes"] = new SelectList(types, "ID", "Name");
+            ViewData["Type"] = new SelectList(types, "ID", "Name");
+
             if (ModelState.IsValid)
             {
                 if( !VerifyCode(Request["verify"].ToString(),t_hy_member.CellPhone) )
@@ -59,9 +59,10 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
                 } 
 
                 t_hy_member.CreatedAt = DateTime.Now;
-                t_hy_member.UpdatedAt = DateTime.Now;
+                t_hy_member.UpdatedAt = DateTime.Now; 
                 db.T_HY_Member.Add(t_hy_member);
                 db.SaveChanges();
+                ViewData["notice"] = "注册成功，请登录!";
                 return RedirectToAction("Index","Home");  
             }
 
@@ -149,7 +150,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //-----------Helper-------------------//
+        //-----------msgHelper-------------------//
 
         public bool SendVerifyCodeToPhone(string phone_number)
         {
@@ -178,16 +179,33 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         public bool SendMsg(string msg, string phone_number)
         {
             //-------TO-DO---------//
-            //添加将随机验证码发送到手机的功能
+            //实现发送短信到手机
             return true;
         }
 
-        protected override void Dispose(bool disposing)
+        //发送随机的登录密码，用于忘记密码的用户临时登录用 
+        public JsonResult SendRandomPwd(string loginname)
         {
-            db.Dispose();
-            base.Dispose(disposing);
+            Random r = new Random();
+            string random_pwd = r.Next(100000000,999999999).ToString();
+            T_HY_Member member = T_HY_Member.CurrentMemberByLoginname(loginname);
+
+            if (member == null)
+                return Json("不存在该用户!!", JsonRequestBehavior.AllowGet);
+
+            //if (SendMsg(random_pwd, member.CellPhone))
+            if (SendMsg("123456", member.CellPhone))
+            {
+                member.Password = T_HY_Member.EncryptPwd(random_pwd);
+                db.Entry(member).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json("已向该用户名所绑定的手机号发送了临时登陆密码，请及时登陆并修改密码！", JsonRequestBehavior.AllowGet);
+            }
+            return Json("发送失败!", "text/html", JsonRequestBehavior.AllowGet);
         }
 
+ 
+        //----------------登录验证-----------------//
         public JsonResult CheckLoginName(string loginname)
         { 
             return Json(!db.T_HY_Member.Any(m => m.LoginName == loginname), JsonRequestBehavior.AllowGet);
@@ -196,6 +214,12 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         public JsonResult CheckCellPhone(string cellphone)
         {
             return Json(!db.T_HY_Member.Any(m => m.CellPhone == cellphone), JsonRequestBehavior.AllowGet);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

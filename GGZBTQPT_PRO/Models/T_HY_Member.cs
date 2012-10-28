@@ -9,7 +9,8 @@ using System.ComponentModel.DataAnnotations;
 namespace GGZBTQPT_PRO.Models
 {
 
-    public  class T_HY_Member : IValidatableObject
+    //public  class T_HY_Member : IValidatableObject
+    public  class T_HY_Member 
     {
         public T_HY_Member()
         {
@@ -49,23 +50,50 @@ namespace GGZBTQPT_PRO.Models
         public virtual ICollection<T_HY_Favorite> Favorites { get; set; }//会员能够收藏多个项目、资本、服务
 
         
-        //
-        // Validate method
         
-        public IEnumerable<ValidationResult> Validate(ValidationContext validation_context)
+        // Validate method
+        // 当需要处理模型内部的一些验证逻辑的时候，可以采用下面的方式
+        //public IEnumerable<ValidationResult> Validate(ValidationContext validation_context)
+        //{
+            
+        //    using(GGZBTQPTDBContext db = new GGZBTQPTDBContext())
+        //    {
+        //        if(db.T_HY_Member.Any(m => m.LoginName == LoginName))
+        //        {
+        //            yield return new ValidationResult("登陆名重名，请尝试修改！", new [] { "LoginName" });
+        //        }
+
+        //        if(db.T_HY_Member.Any(m => m.CellPhone == CellPhone))
+        //        {
+        //            yield return new ValidationResult("该手机已经被注册，请更换手机号码！", new [] { "CellPhone" }); 
+        //        }
+        //    }
+        //}
+
+        //--------------------Helper-----------------------------//
+        public static T_HY_Member CurrentMemberByLoginname(string login_name)
         {
             using(GGZBTQPTDBContext db = new GGZBTQPTDBContext())
             {
-                if(db.T_HY_Member.First(m => m.LoginName == LoginName) != null)
+                try
                 {
-                    yield return new ValidationResult("登陆名重名，请尝试修改！", new [] { "LoginName" });
+                    var member = db.T_HY_Member.First(m => m.LoginName == login_name);
+                    return member;
                 }
-
-                if(db.T_HY_Member.First(m => m.CellPhone == CellPhone) != null)
+                catch
                 {
-                    yield return new ValidationResult("该手机已经被注册，请更换手机号码！", new [] { "CellPhone" }); 
-                }
+                    return null;
+                } 
             }
         }
+
+        public static string EncryptPwd(string password)
+        {
+            //---------TO-DO-----------------//
+            //增加密码的加密方法
+            return password;
+        }
+
+
     } 
  }
