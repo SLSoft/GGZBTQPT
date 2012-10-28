@@ -47,7 +47,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
                 //*********根据用户收藏的的内容和关注的人员进行特殊推荐*****************//
                 //目前需要完成根据项目的收藏数进行排序，以下的投资和产品同
                 var finacials = db.T_XM_Financing.ToList();
-                ViewBag.FavoredFinacials = FavoredFinancials(1);
+                ViewBag.FavoredFinacials = FavoredItems(1);
                 return PartialView(finacials);
             }
             catch
@@ -71,6 +71,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             try
             {
                 var investments = db.T_XM_Investment.ToList();
+                ViewBag.FavoredInvestments = FavoredItems(2);
                 return PartialView(investments);
             }
             catch
@@ -94,6 +95,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             try
             {
                 var products = db.T_JG_Product.ToList();
+                ViewBag.FavoredInvestments = FavoredItems(3);
                 return PartialView(products);
             }
             catch
@@ -118,17 +120,31 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         /// 读取当前用户所关注的项目的ID集合
         /// </summary>
         /// <returns></returns>
-        private string FavoredFinancials(int favorite_type)
+        private string FavoredItems(int favorite_type)
         {
-            string favored_financials = "";
+            string favored_items = "";
+            List<int?> item_ids = new List<int?>();
 
-            List<int?> financial_ids = CurrentMember().Favorites.Where(f => f.FavoriteType == favorite_type).Select(f => f.FinancialID).ToList();
-            foreach (int finacial_id in financial_ids)
+
+            switch(favorite_type)
             {
-                favored_financials += "|" + finacial_id + "|";
+                case 1:
+                    item_ids = CurrentMember().Favorites.Where(f => f.FavoriteType == favorite_type).Select(f => f.FinancialID).ToList();
+                    break;
+                case 2:
+                    item_ids = CurrentMember().Favorites.Where(f => f.FavoriteType == favorite_type).Select(f => f.InvestmentID).ToList();
+                    break;
+                case 3:
+                    item_ids = CurrentMember().Favorites.Where(f => f.FavoriteType == favorite_type).Select(f => f.ProductID).ToList();
+                    break; 
             }
-            
-            return favored_financials;
+
+            foreach (int finacial_id in item_ids)
+            {
+                favored_items += "|" + finacial_id + "|";
+            }
+
+            return favored_items;
         }
 
 
