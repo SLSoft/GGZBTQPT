@@ -45,7 +45,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             try
             {
                 var finacials = member.Favorites.Where(a => a.FavoriteType == 1)
-                                .Join(db.T_XM_Financing, a => a.FavoriteID, p => p.ID, 
+                                .Join(db.T_XM_Financing, a => a.FinancialID, p => p.ID, 
                                     (a, p) => new T_XM_Financing {  
                                         ItemName = p.ItemName, Investment = p.Investment, 
                                         TotalInvestment = p.TotalInvestment, 
@@ -76,7 +76,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             try
             {
                 var investments = member.Favorites.Where(a => a.FavoriteType == 2)
-                                .Join(db.T_XM_Investment, a => a.FavoriteID, p => p.ID,
+                                .Join(db.T_XM_Investment, a => a.FinancialID, p => p.ID,
                                     (a, p) => new T_XM_Investment { 
                                         ItemName = p.ItemName, Investment = p.Investment, 
                                         StartInvestment = p.StartInvestment, Favoites = p.Favoites 
@@ -106,7 +106,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             try
             {
                 var products = member.Favorites.Where(a => a.FavoriteType == 3)
-                                .Join(db.T_JG_Product, a => a.FavoriteID, p => p.ID,
+                                .Join(db.T_JG_Product, a => a.FinancialID, p => p.ID,
                                     (a, p) => new T_JG_Product { 
                                         ProductName = p.ProductName, RepaymentType = p.RepaymentType, 
                                         Favoites = p.Favoites 
@@ -143,7 +143,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             var favored_item = new T_HY_Favorite();
             var member = CurrentMember();
 
-            favored_item.FavoriteID = id;
+            favored_item.FinancialID = id;
             favored_item.FavoriteType = type_id;
             member.Favorites.Add(favored_item);
             db.SaveChanges(); 
@@ -159,7 +159,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         [HttpPost]
         public ActionResult UnFavored(int id)
         {
-            var favored_item = db.T_HY_Favorite.FirstOrDefault(f => f.FavoriteID == id);
+            var favored_item = db.T_HY_Favorite.FirstOrDefault(f => f.FinancialID == id);
             var member = CurrentMember();
 
             member.Favorites.Remove(favored_item);

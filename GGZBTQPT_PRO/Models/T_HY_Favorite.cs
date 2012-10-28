@@ -7,7 +7,10 @@ namespace GGZBTQPT_PRO.Models
     {
         public int ID { get; set; }
         public int FavoriteType { get; set; }//收藏类型 1代表项目 2代表投资 3代表服务
-        public int FavoriteID { get; set; }//收藏的项目的ID //下次更新应该改为FavoriteItemID
+        //public int FavoriteID { get; set; }//收藏的项目的ID //下次更新应该改为FavoriteItemID
+        public Nullable<int> FinancialID { get; set; }
+        public Nullable<int> InvestmentID { get; set; }
+        public Nullable<int> ProductID { get; set; }
 
 
         public Nullable<bool> IsValid { get; set; } 

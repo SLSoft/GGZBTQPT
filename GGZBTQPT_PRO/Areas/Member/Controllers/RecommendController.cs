@@ -122,7 +122,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         {
             string favored_financials = "";
 
-            List<int> financial_ids = CurrentMember().Favorites.Where(f => f.FavoriteType == favorite_type).Select(f => f.FavoriteID).ToList();
+            List<int?> financial_ids = CurrentMember().Favorites.Where(f => f.FavoriteType == favorite_type).Select(f => f.FinancialID).ToList();
             foreach (int finacial_id in financial_ids)
             {
                 favored_financials += "|" + finacial_id + "|";
