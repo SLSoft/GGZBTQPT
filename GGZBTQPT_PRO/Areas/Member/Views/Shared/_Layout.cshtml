@@ -1,6 +1,26 @@
 ﻿@{
     Layout = null;
 }
+
+@helper Notice()
+    {
+        if (ViewData["notice"] != null && ViewData["notice"] != "")
+        {
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">
+                ×</button>
+            <strong>@ViewData["notice"].ToString()</strong> 
+        </div>
+        }
+        if (ViewData["error"] != null && ViewData["error"] != "")
+        {
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">
+                    ×</button>
+                <strong>@ViewData["error"].ToString()</strong> 
+            </div>
+        }
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,14 +38,7 @@
     @Html.Partial("_Header")
     <div class="container">
         <div id="notice">
-        @if (ViewData["notice"] != null && ViewData["notice"] != "")
-        {
-            <div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert">
-                    ×</button>
-                <strong>@ViewData["notice"].ToString()</strong> 
-            </div>
-        }
+            @Notice()
         </div>
         <div id="main" class="row main">
             <div class="span9">

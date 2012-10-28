@@ -1,7 +1,19 @@
-﻿<fieldset>
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        $("#config li a").click(function (e) {
+            e.preventDefault();
+            $("#config li").removeClass("active");
+            $(this).parent("li").addClass("active");
+        });
+        $("#config li.active a").click();
+    });
+
+
+</script>
+<fieldset>
     <legend>个人设置</legend>
     <hr />
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs" id="config">
         <li class="active">
             @Ajax.ActionLink("基本设置", "Edit", "Member", new { id = 1 }, new AjaxOptions {  HttpMethod="GET", UpdateTargetId="detail", LoadingElementId="Loading" })
         </li>
