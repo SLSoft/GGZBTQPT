@@ -42,6 +42,8 @@ namespace GGZBTQPT_PRO.Models
 
         public int MemberID { get; set; }
 
+        public virtual ICollection<T_HY_Favorite> Favoites { get; set; }
+
         public string IndustryName
         {
             get

@@ -6,25 +6,37 @@
     {
     if (favored_finacials.IndexOf(favored_id) > 0)
     {
-        @Ajax.ActionLink("取消收藏", "UnFavored", "Favorite", new { id = favored_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "updateMsg" }) 
+        @Ajax.ActionLink("取消收藏", "UnFavored", "Favorite", new { id = favored_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" }) 
     }
     else
     {
-        @Ajax.ActionLink("收藏该项目", "Favored", "Favorite", new { type_id = 1, id = favored_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "updateMsg" })
+        @Ajax.ActionLink("收藏该项目", "Favored", "Favorite", new { type_id = 1, id = favored_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" })
     }
 }
 <script type="text/javascript">
-    function updateMsg() {
-        alert("success");
+    function notice(data) {
+        $.Member.notice(data.message);
     }
 </script>
 @*推荐的项目信息*@
 <div id="recommend">
-    <div class="row-fluid">
-        @*项目信息*@
-        @foreach (var _model in Model)
-        {
-            <div class="recommend-content ">
+    @*项目信息*@
+    @foreach (var _model in Model)
+    {    
+        <div class="row-fluid">
+            <div class="span2">
+                <div class="member-link">
+                    <img alt="友邻头像" class="img-polaroid" src="../../../../Content/images/member/user.jpg" />
+                    <div>
+                        <ul>
+                            <li><span>@_model.Member.MemberName</span></li>
+                            <li><a href="#">关注他</a> </li>
+                            <li><a href="#">发短消息</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="recommend-content span10">
                 <h4>
                     <a href="#">@_model.ItemName</a></h4>
                 @*摘要*@
@@ -33,11 +45,11 @@
                 </p>
                 @*附属信息*@
                 <div class="recommend-info">
-                    <span class="pub-time">@_model.CreateTime</span> <span class="pro-type">总投资：@_model.TotalInvestment</span> <span class="favorite"><a href="#">【10人收藏】</a></span> <span><i class="icon-heart"></i>@GenerateFavoriteLink(FavoredFinacials, @_model.ID.ToString())</span>
+                    <span class="pub-time">@_model.CreateTime</span> <span class="pro-type">总投资：@_model.TotalInvestment</span> <span class="favorite"><a href="#">【@_model.Favoites.Count() 人收藏】</a></span> <span><i class="icon-heart"></i>@GenerateFavoriteLink(FavoredFinacials, @_model.ID.ToString())</span> 
                 </div>
             </div>
+        </div>
         }
-    </div>
     <div class="pagination pagination-left clear">
         <ul>
             <li class="disabled"><a href="#">Prev</a></li>

@@ -59,8 +59,12 @@ namespace GGZBTQPT_PRO.Models
 
 
         public int MemberID { get; set; }
+        //-------TO-DO------------
+        //这里的项目应该和会员是一对多的关系，每个会员都能发布多个项目，需要增加对应的映射关系
 
-        public virtual ICollection<T_HY_Favorite> Favoites { get; set; }
+        public virtual T_HY_Member Member { get; set; }
+
+        public virtual ICollection<T_HY_Favorite> Favoites { get; set; }//每个项目都对应多个收藏
 
         public string IndustryName 
         { 
@@ -70,7 +74,5 @@ namespace GGZBTQPT_PRO.Models
                 return db.T_PTF_DicDetail.Find(this.Industry).Name;
             } 
         } 
-
-
     }
 }
