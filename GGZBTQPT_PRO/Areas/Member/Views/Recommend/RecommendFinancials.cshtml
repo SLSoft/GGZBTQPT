@@ -20,11 +20,23 @@
 </script>
 @*推荐的项目信息*@
 <div id="recommend">
-    <div class="row-fluid">
-        @*项目信息*@
-        @foreach (var _model in Model)
-        {
-            <div class="recommend-content ">
+    @*项目信息*@
+    @foreach (var _model in Model)
+    {    
+        <div class="row-fluid">
+            <div class="span2">
+                <div class="member-link">
+                    <img alt="友邻头像" class="img-polaroid" src="../../../../Content/images/member/user.jpg" />
+                    <div>
+                        <ul>
+                            <li><span>@_model.Member.MemberName</span></li>
+                            <li><a href="#">关注他</a> </li>
+                            <li><a href="#">发短消息</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="recommend-content span10">
                 <h4>
                     <a href="#">@_model.ItemName</a></h4>
                 @*摘要*@
@@ -33,15 +45,11 @@
                 </p>
                 @*附属信息*@
                 <div class="recommend-info">
-                    <span class="pub-time">@_model.CreateTime</span> 
-                    <span class="pro-type">总投资：@_model.TotalInvestment</span> 
-                    <span class="favorite"><a href="#">【@_model.Favoites.Count() 人收藏】</a></span> 
-                    <span><i class="icon-heart"></i>@GenerateFavoriteLink(FavoredFinacials, @_model.ID.ToString())</span>
-                    <span>发布人：@_model.Member.MemberName</span>
+                    <span class="pub-time">@_model.CreateTime</span> <span class="pro-type">总投资：@_model.TotalInvestment</span> <span class="favorite"><a href="#">【@_model.Favoites.Count() 人收藏】</a></span> <span><i class="icon-heart"></i>@GenerateFavoriteLink(FavoredFinacials, @_model.ID.ToString())</span> 
                 </div>
             </div>
+        </div>
         }
-    </div>
     <div class="pagination pagination-left clear">
         <ul>
             <li class="disabled"><a href="#">Prev</a></li>

@@ -38,6 +38,17 @@ body {
   border-top: solid 1px #ddd;
   padding: 10px 0; }
 
+#recommend .recommend-content {
+  border-top: solid 1px #ddd;
+  padding: 10px 0; }
+  #recommend .recommend-content ul {
+    list-style: none; }
+#recommend .member-link {
+  margin-left: 10px; }
+  #recommend .member-link img {
+    width: 80px;
+    height: 80px; }
+
 #attentioned .attentioned-content {
   border-top: solid 1px #ddd;
   padding: 10px 0; }

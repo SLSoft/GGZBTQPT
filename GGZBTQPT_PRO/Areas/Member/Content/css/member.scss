@@ -53,6 +53,7 @@ body
     color: #FF8C05;
 }
 
+
 //friends's trend
 #twitter
 {
@@ -67,6 +68,30 @@ body
     .msg 
     {
     }
+}
+//attentioned person
+#recommend
+{
+    .recommend-content
+    {
+        border-top: solid 1px #ddd;
+        padding: 10px 0;
+
+        ul
+        {
+            list-style: none;
+        }
+    }
+    .member-link 
+    {
+        margin-left:10px;
+        img
+        {
+            width: 80px;
+            height: 80px;
+        }
+    }
+
 }
 
 //attentioned person
@@ -85,9 +110,7 @@ body
     .member-link 
     {
     }
-    .msg 
-    {
-    }
+
 }
 
 //sidebar
