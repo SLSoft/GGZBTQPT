@@ -44,7 +44,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             }
             try
             {
-                var attentions = member.Attentions.Where(a => a.AttentionType == 3).ToList();
+                var attentions = member.Attentions.Where(a => a.AttentionedMemberType == 3).ToList();
                 return PartialView(attentions);
             }
             catch
@@ -67,8 +67,8 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             } 
             try
             {
-                var corps = member.Attentions.Where(a => a.AttentionType == 1)
-                                .Join(db.T_QY_Corp, a => a.AttentionedID, p => p.MemberID, (a, c) => new T_QY_Corp { CorpName = c.CorpName, Mobile = c.Mobile })
+                var corps = member.Attentions.Where(a => a.AttentionedMemberType == 1)
+                                .Join(db.T_QY_Corp, a => a.AttentionedMemberID, p => p.MemberID, (a, c) => new T_QY_Corp { CorpName = c.CorpName, Mobile = c.Mobile })
                                 .ToList();
                 return PartialView(corps);
             }
@@ -94,8 +94,8 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             {
                 //var attentions = member.Attentions.Where(a => a.AttentionType == 1 || a.AttentionType == 2).ToList(); 
 
-                var persons = member.Attentions.Where(a => a.AttentionType == 2)
-                                .Join( db.T_QY_Person, a => a.AttentionedID, p => p.MemberID, 
+                var persons = member.Attentions.Where(a => a.AttentionedMemberType == 2)
+                                .Join( db.T_QY_Person, a => a.AttentionedMemberID, p => p.MemberID, 
                                         (a,p) => new T_QY_Person { Name = p.Name, Mobile = p.Mobile, Email = p.Email, College = p.College, 
                                                                    Phone = p.Phone, WorkExperience = p.WorkExperience, Education = p.Education, Specialty = p.Specialty })
                                 .ToList();
@@ -128,8 +128,8 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         public ActionResult Attentioned(int type_id, int id)
         {
             var attentioned_item = new T_HY_Attention();
-            attentioned_item.AttentionedID = id;
-            attentioned_item.AttentionType = type_id;
+            attentioned_item.AttentionedMemberID = id;
+            attentioned_item.AttentionedMemberType = type_id;
 
             db.T_HY_Attention.Add(attentioned_item);
             db.SaveChanges();
