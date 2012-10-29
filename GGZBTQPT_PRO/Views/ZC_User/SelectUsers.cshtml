@@ -4,43 +4,36 @@
     ICollection<GGZBTQPT_PRO.Models.T_ZC_Department> DepartmentModel = ViewBag.departments;
 }*@
 @helper GenerateDeparts(GGZBTQPT_PRO.Models.T_ZC_Department parent_department, ICollection<GGZBTQPT_PRO.Models.T_ZC_Department> departments)
-    { 
-   
-        foreach (var department in departments)
-        {
-
-                <ul class="tree treeFolder">
-                    <li><a>@department.FullName</a>
-                        <ul>
-                            @foreach (var user in Model.Users)
-                            {
-                                if (user.DepartmentID == department.ID)
-                                {
-                                <li>@user.Name</li>
-                                }
-                            }
-                        </ul>
-                    </li>
+{ 
+    foreach (var department in departments)
+    {
+        <ul class="tree treeFolder">
+            <li><a>@department.FullName</a>
+                <ul>
+                    @foreach (var user in Model.Users)
+                    {
+                        if (user.DepartmentID == department.ID)
+                        {
+                        <li>@user.Name</li>
+                        }
+                    }
                 </ul>
-
-                if (departments.Where(d => d.ParentID == department.ID).Count() > 0)
-                {
-                    @GenerateDeparts(department, departments.Where(d => d.ParentID == department.ID).ToList())
-                }
-
-
-
+            </li>
+        </ul>
+        if (departments.Where(d => d.ParentID == department.ID).Count() > 0)
+        {
+            @GenerateDeparts(department, departments.Where(d => d.ParentID == department.ID).ToList())
         }
-        
+    }
 }
-<ul class="tree treeFolder">
-    <li><a>内部平台系统用户列表</a>
-        <ul class="tree treeFolder treeCheck expand">
-            @foreach (var department in Model.Departments.Where(d => d.ParentID == 0 || d.ParentID == null))
-            {
+<div class="pageContent">
+    <ul class="tree treeFolder">
+        <li><a>内部平台系统用户列表</a>
+            <ul class="tree treeFolder treeCheck expand">
+                @foreach (var department in Model.Departments.Where(d => d.ParentID == 0 || d.ParentID == null))
+                {
 
-                <li><a>@department.FullName </a>
-
+                    <li><a>@department.FullName </a>
                         <ul>
                             @foreach (var user in Model.Users)
                             {
@@ -50,14 +43,29 @@
                                 }
                             }
                         </ul>
-
-
                         @GenerateDeparts(department, Model.Departments.Where(d => d.ParentID == department.ID).ToList())
+                    </li>
 
-
-                </li>
-
-    }
+                }
+            </ul>
+        </li>
+    </ul>
+    <div class="formBar">
+        <ul>
+            <li>
+                <div class="buttonActive">
+                    <div class="buttonContent">
+                        <button type="submit">
+                            保存</button></div>
+                </div>
+            </li>
+            <li>
+                <div class="button">
+                    <div class="buttonContent">
+                        <button type="button" class="close">
+                            取消</button></div>
+                </div>
+            </li>
         </ul>
-    </li>
-</ul>
+    </div>
+</div>

@@ -1,87 +1,50 @@
 ﻿@model GGZBTQPT_PRO.Models.T_ZC_Department
-
 @{
     Layout = null;
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>Edit</title>
-</head>
-<body>
-    @using (Html.BeginForm()) {
+<div id="FormContainer" class="pageContent">
+    @using (Html.BeginForm("Edit", "ZC_Department", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
+    {
         @Html.ValidationSummary(true)
-        <fieldset>
-            <legend>T_ZC_Department</legend>
-    
-            @Html.HiddenFor(model => model.ID)
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Name)
-            </div>
-            <div class="editor-field">
+        <div class="pageFormContent" layouth="56">@Html.HiddenFor(model => model.CreatedAt)
+            <p>
+                @Html.LabelFor(model => model.ParentID, "所属部门")
+                 @Html.DropDownList("ParentID", "请选择上级部门")
+                @Html.ValidationMessageFor(model => model.ParentID)
+            </p>
+            <p>
+                @Html.LabelFor(model => model.Name, "部门名称")
                 @Html.EditorFor(model => model.Name)
                 @Html.ValidationMessageFor(model => model.Name)
-            </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.FullName)
-            </div>
-            <div class="editor-field">
+            </p>
+            <p>
+                @Html.LabelFor(model => model.FullName, "部门全称")
                 @Html.EditorFor(model => model.FullName)
                 @Html.ValidationMessageFor(model => model.FullName)
-            </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Order)
-            </div>
-            <div class="editor-field">
+            </p>
+            <p>
+                @Html.LabelFor(model => model.Order, "部门排序")
                 @Html.EditorFor(model => model.Order)
                 @Html.ValidationMessageFor(model => model.Order)
-            </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.ParentID)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.ParentID)
-                @Html.ValidationMessageFor(model => model.ParentID)
-            </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.IsValid)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.IsValid)
-                @Html.ValidationMessageFor(model => model.IsValid)
-            </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.CreatedAt)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.CreatedAt)
-                @Html.ValidationMessageFor(model => model.CreatedAt)
-            </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.UpdatedAt)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.UpdatedAt)
-                @Html.ValidationMessageFor(model => model.UpdatedAt)
-            </div>
-    
-            <p>
-                <input type="submit" value="Save" />
             </p>
-        </fieldset>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">
+                                保存</button></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close">
+                                取消</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
     }
-    
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
-</body>
-</html>
+</div>

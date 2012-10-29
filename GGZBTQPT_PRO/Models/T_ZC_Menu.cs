@@ -6,8 +6,19 @@ namespace GGZBTQPT_PRO.Models
 {
     public class T_ZC_Menu
     {
+        public T_ZC_Menu()
+        {
+            IsValid = true;
+            CreatedAt = DateTime.Now;
+            UpdatedAt = DateTime.Now;
+        }
+
         public int ID { get; set; }
+
+        [Required(ErrorMessage = "必须填写菜单名称")]
         public string Name { get; set; }
+
+
         public string Url { get; set; }
 
         public int ParentID { get; set; }

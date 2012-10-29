@@ -16,6 +16,7 @@ namespace GGZBTQPT_PRO.Models
 
         public virtual ICollection<T_HY_Member>  Members { get; set; }
 
+        public virtual T_XM_Financing Financial { get; set; }
 
         public T_HY_Favorite()
         {
