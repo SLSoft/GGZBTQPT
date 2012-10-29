@@ -54,6 +54,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
 
                 t_hy_member.CreatedAt = DateTime.Now;
                 t_hy_member.UpdatedAt = DateTime.Now; 
+                t_hy_member.MemberName = t_hy_member.LoginName;
                 db.T_HY_Member.Add(t_hy_member);
                 db.SaveChanges();
                 ViewData["notice"] = "注册成功，请登录!";
