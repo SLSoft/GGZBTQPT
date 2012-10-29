@@ -33,7 +33,11 @@
                 </p>
                 @*附属信息*@
                 <div class="recommend-info">
-                    <span class="pub-time">@_model.CreateTime</span> <span class="pro-type">总投资：@_model.TotalInvestment</span> <span class="favorite"><a href="#">【@_model.Favoites.Count() 人收藏】</a></span> <span><i class="icon-heart"></i>@GenerateFavoriteLink(FavoredFinacials, @_model.ID.ToString())</span>
+                    <span class="pub-time">@_model.CreateTime</span> 
+                    <span class="pro-type">总投资：@_model.TotalInvestment</span> 
+                    <span class="favorite"><a href="#">【@_model.Favoites.Count() 人收藏】</a></span> 
+                    <span><i class="icon-heart"></i>@GenerateFavoriteLink(FavoredFinacials, @_model.ID.ToString())</span>
+                    <span>发布人：@_model.Member.MemberName</span>
                 </div>
             </div>
         }

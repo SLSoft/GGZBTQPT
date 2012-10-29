@@ -63,7 +63,7 @@ namespace GGZBTQPT_PRO.Models.Mapping
 
             this.ToTable("T_XM_Financing");
             this.Property(t => t.ID).HasColumnName("ID");
-            this.Property(t => t.MemberID).HasColumnName("UserID");
+            this.Property(t => t.MemberID).HasColumnName("MemberID");
             this.Property(t => t.ItemName).HasColumnName("ItemName");
             this.Property(t => t.Province).HasColumnName("Province");
             this.Property(t => t.City).HasColumnName("City");
@@ -109,6 +109,12 @@ namespace GGZBTQPT_PRO.Models.Mapping
             this.Property(t => t.OP).HasColumnName("OP");
             this.Property(t => t.CreateTime).HasColumnName("CreateTime");
             this.Property(t => t.UpdateTime).HasColumnName("UpdateTime");
+
+
+            // Foreign Key
+            this.HasRequired(t => t.Member)
+              .WithMany(s => s.Financials)
+              .HasForeignKey(t => t.MemberID);
 
         }
     }
