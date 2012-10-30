@@ -14,10 +14,10 @@ namespace GGZBTQPT_PRO.Models.Mapping
             // Properties
             this.Property(t => t.ID)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            this.Property(t => t.CreatedAt)
-                .HasColumnType("datetime2");
-            this.Property(t => t.UpdatedAt)
-                .HasColumnType("datetime2");
+            //this.Property(t => t.CreatedAt)
+            //    .HasColumnType("datetime2");
+            //this.Property(t => t.UpdatedAt)
+            //    .HasColumnType("datetime2");
 
 
 

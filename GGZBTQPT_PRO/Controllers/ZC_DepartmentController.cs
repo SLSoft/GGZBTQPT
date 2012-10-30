@@ -8,95 +8,103 @@ using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 
 namespace GGZBTQPT_PRO.Controllers
-{ 
-    public class ZC_DepartmentController : Controller
+{
+    public class ZC_DepartmentController : BaseController
     {
-        private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
-
-        //
-        // GET: /ZC_Department/
-
-        public ViewResult Index()
+        public ActionResult Index(int? pageNum, int? numPerPage, string keywords)
         {
-            return View(db.T_ZC_Department.ToList());
+            int pageIndex = pageNum.HasValue ? pageNum.Value - 1 : 0;
+            int pageSize = numPerPage.HasValue && numPerPage.Value > 0 ? numPerPage.Value : 1;
+            keywords = keywords == null ? "" : keywords;
+            IList<GGZBTQPT_PRO.Models.T_ZC_Department> list = db.T_ZC_Department.Where(p => p.Name.Contains(keywords)).Where(p => p.IsValid == true).ToList();
+            ViewBag.recordCount = list.Count();
+            list = list.OrderBy(i => i.ID).Skip(pageSize * pageIndex).Take(pageSize).ToList();
+            ViewBag.numPerPage = pageSize;
+            ViewBag.pageNum = pageIndex + 1;
+            ViewBag.keywords = keywords;
+            return View(list);
         }
-
-        //
-        // GET: /ZC_Department/Details/5
-
-        public ViewResult Details(int id)
-        {
-            T_ZC_Department t_zc_department = db.T_ZC_Department.Find(id);
-            return View(t_zc_department);
-        }
-
-        //
-        // GET: /ZC_Department/Create
 
         public ActionResult Create()
         {
+            ViewBag.ParentID = new SelectList(db.T_ZC_Department.Where(p => p.IsValid == true), "ID", "Name"); 
             return View();
         } 
-
-        //
-        // POST: /ZC_Department/Create
 
         [HttpPost]
         public ActionResult Create(T_ZC_Department t_zc_department)
         {
-            if (ModelState.IsValid)
+            if (Request.IsAjaxRequest())
             {
-                db.T_ZC_Department.Add(t_zc_department);
-                db.SaveChanges();
-                return RedirectToAction("Index");  
+                if (ModelState.IsValid)
+                {
+                    t_zc_department.CreatedAt = DateTime.Now;
+                    t_zc_department.UpdatedAt = DateTime.Now;
+                    t_zc_department.IsValid = true;
+                    db.T_ZC_Department.Add(t_zc_department);
+                    int result = db.SaveChanges();
+                    if (result > 0)
+                        return ReturnJson(true, "操作成功", "", "", true, "");
+                    else
+                        return ReturnJson(false, "操作失败", "", "", false, "");
+                }
             }
-
-            return View(t_zc_department);
+            ViewBag.ParentID = new SelectList(db.T_ZC_Department.Where(p => p.IsValid == true), "ID", "Name", t_zc_department.ParentID);
+            return Json(new { });
         }
         
-        //
-        // GET: /ZC_Department/Edit/5
- 
         public ActionResult Edit(int id)
         {
             T_ZC_Department t_zc_department = db.T_ZC_Department.Find(id);
+            ViewBag.ParentID = new SelectList(db.T_ZC_Department.Where(p => p.IsValid == true), "ID", "Name", t_zc_department.ParentID); 
             return View(t_zc_department);
         }
-
-        //
-        // POST: /ZC_Department/Edit/5
 
         [HttpPost]
         public ActionResult Edit(T_ZC_Department t_zc_department)
         {
-            if (ModelState.IsValid)
+            if (Request.IsAjaxRequest())
             {
-                db.Entry(t_zc_department).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    t_zc_department.UpdatedAt = DateTime.Now;
+                    t_zc_department.IsValid = true;
+                    db.Entry(t_zc_department).State = EntityState.Modified;
+                    int result = db.SaveChanges();
+                    if (result >= 0)
+                        return ReturnJson(true, "操作成功", "", "", true, "");
+                    else
+                        return ReturnJson(false, "操作失败", "", "", false, "");
+                }
             }
-            return View(t_zc_department);
+            ViewBag.ParentID = new SelectList(db.T_ZC_Department.Where(p => p.IsValid == true), "ID", "Name", t_zc_department.ParentID);
+            return Json(new { });
         }
 
-        //
-        // GET: /ZC_Department/Delete/5
- 
-        public ActionResult Delete(int id)
-        {
-            T_ZC_Department t_zc_department = db.T_ZC_Department.Find(id);
-            return View(t_zc_department);
-        }
-
-        //
-        // POST: /ZC_Department/Delete/5
+        //public ActionResult Delete(int id)
+        //{
+        //    T_ZC_Department t_zc_department = db.T_ZC_Department.Find(id);
+        //    return View(t_zc_department);
+        //}
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {            
-            T_ZC_Department t_zc_department = db.T_ZC_Department.Find(id);
-            db.T_ZC_Department.Remove(t_zc_department);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            //T_ZC_Department t_zc_department = db.T_ZC_Department.Find(id);
+            //db.T_ZC_Department.Remove(t_zc_department);
+            //db.SaveChanges();
+            //return RedirectToAction("Index");
+            if (Request.IsAjaxRequest())
+            {
+                T_ZC_Department t_zc_department = db.T_ZC_Department.Find(id);
+                t_zc_department.IsValid = false;
+                int result = db.SaveChanges();
+                if (result > 0)
+                    return ReturnJson(true, "操作成功", "", "", false, "");
+                else
+                    return ReturnJson(false, "操作失败", "", "", false, "");
+            }
+            return Json(new { });
         }
 
         protected override void Dispose(bool disposing)

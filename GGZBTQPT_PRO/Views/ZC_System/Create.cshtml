@@ -1,22 +1,20 @@
 ﻿@model GGZBTQPT_PRO.Models.T_ZC_System
 @{
-
+    Layout = null;
 }
 <script type="text/javascript">
     $.validator.unobtrusive.parse(document);
 </script>
-<div class="pageContent" height="100px">
+<div class="pageContent">
     @using (Html.BeginForm("Create", "ZC_System", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
     {
         @Html.ValidationSummary(true)
         <div class="pageFormContent" layouth="56">
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Name)
-            </div>
-            <div class="editor-field">
+            <p>
+                @Html.LabelFor(model => model.Name, "系统名称")
                 @Html.EditorFor(model => model.Name)
                 @Html.ValidationMessageFor(model => model.Name)
-            </div>
+            </p>
         </div>
 
         <div class="formBar">

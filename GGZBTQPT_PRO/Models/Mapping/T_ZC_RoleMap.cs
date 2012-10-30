@@ -15,16 +15,8 @@ namespace GGZBTQPT_PRO.Models.Mapping
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             this.HasMany(r => r.Users)
-                .WithMany(u => u.Roles)
-                .Map(m =>
-                {
-                    m.ToTable("T_ZC_RoleT_ZC_User");
-                    m.MapLeftKey("T_ZC_Role_ID");
-                    m.MapRightKey("T_ZC_User_ID");
-                }); 
+                .WithMany(u => u.Roles);
 
-
-            // Table & Column Mappings
 
         }
     }

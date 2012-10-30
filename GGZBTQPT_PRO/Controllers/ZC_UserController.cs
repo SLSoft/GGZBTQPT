@@ -9,22 +9,14 @@ using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.ViewModels;
 
 namespace GGZBTQPT_PRO.Controllers
-{ 
-    public class ZC_UserController : Controller
+{
+    public class ZC_UserController : BaseController
     {
-        private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
-
-        //
-        // GET: /ZC_User/
-
         public ViewResult Index()
         {
             var t_zc_user = db.T_ZC_User.Include(t => t.Department);
-            return View(t_zc_user.ToList());
+            return View(t_zc_user.Where(p => p.IsValid == true).ToList());
         }
-
-        //
-        // GET: /ZC_User/Details/5
 
         public ViewResult Details(int id)
         {
@@ -32,35 +24,34 @@ namespace GGZBTQPT_PRO.Controllers
             return View(t_zc_user);
         }
 
-        //
-        // GET: /ZC_User/Create
-
         public ActionResult Create()
         {
             ViewBag.DepartmentID = new SelectList(db.T_ZC_Department, "ID", "Name");
             return View();
         } 
 
-        //
-        // POST: /ZC_User/Create
-
         [HttpPost]
         public ActionResult Create(T_ZC_User t_zc_user)
         {
-            if (ModelState.IsValid)
+            if (Request.IsAjaxRequest())
             {
-                db.T_ZC_User.Add(t_zc_user);
-                db.SaveChanges();
-                return RedirectToAction("Index");  
+                if (ModelState.IsValid)
+                {
+                    t_zc_user.CreatedAt = DateTime.Now;
+                    t_zc_user.UpdatedAt = DateTime.Now;
+                    t_zc_user.IsValid = true;
+                    db.T_ZC_User.Add(t_zc_user);
+                    int result = db.SaveChanges();
+                    if (result > 0)
+                        return ReturnJson(true, "操作成功", "", "", true, "");
+                    else
+                        return ReturnJson(false, "操作失败", "", "", false, "");
+                }
             }
-
             ViewBag.DepartmentID = new SelectList(db.T_ZC_Department, "ID", "Name", t_zc_user.DepartmentID);
-            return View(t_zc_user);
+            return Json(new { });
         }
         
-        //
-        // GET: /ZC_User/Edit/5
- 
         public ActionResult Edit(int id)
         {
             T_ZC_User t_zc_user = db.T_ZC_User.Find(id);
@@ -68,41 +59,51 @@ namespace GGZBTQPT_PRO.Controllers
             return View(t_zc_user);
         }
 
-        //
-        // POST: /ZC_User/Edit/5
-
         [HttpPost]
         public ActionResult Edit(T_ZC_User t_zc_user)
         {
-            if (ModelState.IsValid)
+            if (Request.IsAjaxRequest())
             {
-                db.Entry(t_zc_user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    t_zc_user.UpdatedAt = DateTime.Now;
+                    t_zc_user.IsValid = true;
+                    db.Entry(t_zc_user).State = EntityState.Modified;
+                    int result = db.SaveChanges();
+                    if (result >= 0)
+                        return ReturnJson(true, "操作成功", "", "", true, "");
+                    else
+                        return ReturnJson(false, "操作失败", "", "", false, "");
+                }
             }
             ViewBag.DepartmentID = new SelectList(db.T_ZC_Department, "ID", "Name", t_zc_user.DepartmentID);
-            return View(t_zc_user);
+            return Json(new { });
         }
 
-        //
-        // GET: /ZC_User/Delete/5
- 
-        public ActionResult Delete(int id)
-        {
-            T_ZC_User t_zc_user = db.T_ZC_User.Find(id);
-            return View(t_zc_user);
-        }
-
-        //
-        // POST: /ZC_User/Delete/5
+        //public ActionResult Delete(int id)
+        //{
+        //    T_ZC_User t_zc_user = db.T_ZC_User.Find(id);
+        //    return View(t_zc_user);
+        //}
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {            
-            T_ZC_User t_zc_user = db.T_ZC_User.Find(id);
-            db.T_ZC_User.Remove(t_zc_user);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            //T_ZC_User t_zc_user = db.T_ZC_User.Find(id);
+            //db.T_ZC_User.Remove(t_zc_user);
+            //db.SaveChanges();
+            //return RedirectToAction("Index");
+            if (Request.IsAjaxRequest())
+            {
+                T_ZC_User t_zc_user = db.T_ZC_User.Find(id);
+                t_zc_user.IsValid = false;
+                int result = db.SaveChanges();
+                if (result > 0)
+                    return ReturnJson(true, "操作成功", "", "", false, "");
+                else
+                    return ReturnJson(false, "操作失败", "", "", false, "");
+            }
+            return Json(new { });
         }
 
         protected override void Dispose(bool disposing)
@@ -111,23 +112,37 @@ namespace GGZBTQPT_PRO.Controllers
             base.Dispose(disposing);
         }
 
-        public PartialViewResult DepartmentLinks()
+        //public PartialViewResult UserInfo(int department_id)
+        //{
+        //    var users = db.T_ZC_User.Include("Department").Where(m => m.DepartmentID == department_id);
+        //    return PartialView(users.Where(p => p.IsValid == true));
+        //}
+
+        public PartialViewResult UserInfo(int? pageNum, int? numPerPage, int id)
         {
-            var links = db.T_ZC_Department.ToList();
-            return PartialView(links);
+            int pageIndex = pageNum.HasValue ? pageNum.Value - 1 : 0;
+            int pageSize = numPerPage.HasValue && numPerPage.Value > 0 ? numPerPage.Value : 1;
+            //IList<GGZBTQPT_PRO.Models.T_ZC_User> list = db.T_ZC_User.Include(t => t.Department).Where(p => p.IsValid == true).ToList();
+            IList<GGZBTQPT_PRO.Models.T_ZC_User> list = db.T_ZC_User.Include("Department").Where(m => m.DepartmentID == id).Where(p => p.IsValid == true).ToList();
+            ViewBag.recordCount = list.Count();
+            list = list.OrderBy(i => i.ID).Skip(pageSize * pageIndex).Take(pageSize).ToList();
+            ViewBag.numPerPage = pageSize;
+            ViewBag.pageNum = pageIndex + 1;
+            ViewBag.ID = id;
+            return PartialView(list);
         }
 
-        public PartialViewResult UserInfo(int department_id)
+        public PartialViewResult DepartmentLinks()
         {
-            var users = db.T_ZC_User.Include("Department").Where(m => m.DepartmentID == department_id);
-            return PartialView(users);
+            var links = db.T_ZC_Department.Where(p => p.IsValid == true).ToList();
+            return PartialView(links);
         }
 
         public PartialViewResult SelectUsers()
         { 
             var depart_user = new VM_SelectUser();
-            depart_user.Departments = db.T_ZC_Department.ToList();
-            depart_user.Users = db.T_ZC_User.Include("Department").ToList();
+            depart_user.Departments = db.T_ZC_Department.Where(p => p.IsValid == true).ToList();
+            depart_user.Users = db.T_ZC_User.Where(p => p.IsValid == true).Include("Department").ToList();
             return PartialView(depart_user);
         }
     }

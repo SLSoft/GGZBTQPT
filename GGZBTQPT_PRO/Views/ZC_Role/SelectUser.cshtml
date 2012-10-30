@@ -1,47 +1,63 @@
 ﻿@model GGZBTQPT_PRO.ViewModels.VM_SelectUser
- 
+@{
+    Layout = null;
+}
+<script type="text/javascript">
+    $.validator.unobtrusive.parse(document);
+    $(function () {
+//        $("a").click(function () {
+//            alert();
+//            var result = $(this).val();
+//            alert(result);
+//        });
+    });
+    function kkk() {
+        var json = arguments[0], result = "";
+        alert(json.checked);
+        $(json.items).each(function (i) {
+            //result += "<p>name:" + this.name + " value:" + this.value + " text: " + this.text + "</p>";
+            result += this.value + ",";
+        });
+        alert(result);
+    }
+</script>
 @helper GenerateUser(string selected_users, GGZBTQPT_PRO.Models.T_ZC_User user)
 {
-    
-        if(selected_users.IndexOf(user.ID.ToString()) > 0)
-        { 
-            <li><a tname="@user.Name" tvalue="@user.ID" checked=true >@user.Name</a></li>  
-        }
-        else
-        { 
-            <li><a tname="@user.Name" tvalue="@user.ID" >@user.Name</a></li>  
-        }
-
-    
-}
-
-@helper GenerateDeparts(GGZBTQPT_PRO.Models.T_ZC_Department parent_department, ICollection<GGZBTQPT_PRO.Models.T_ZC_Department> departments)
+    if(selected_users.IndexOf(user.ID.ToString()) > 0)
     { 
-   
-        foreach (var department in departments)
-        { 
-            <ul >
-                <li><a>@department.FullName</a>
-                    <ul>
-                        @foreach (var user in Model.Users)
-                        {
-                            if (user.DepartmentID == department.ID)
-                            {
-                                @GenerateUser(ViewBag.selected_users, user)
-                            }
-                        }
-                    </ul>
-                </li>
-            </ul>
-
-            if (departments.Where(d => d.ParentID == department.ID).Count() > 0)
-            {
-                @GenerateDeparts(department, departments.Where(d => d.ParentID == department.ID).ToList())
-            }
-        }
-        
+        <li><a tname="@user.Name" tvalue="@user.ID" checked=true >@user.Name</a></li>  
+    }
+    else
+    { 
+        <li><a tname="@user.Name" tvalue="@user.ID" >@user.Name</a></li>  
+    }    
 }
-<ul class="tree treeFolder treeCheck">
+@helper GenerateDeparts(GGZBTQPT_PRO.Models.T_ZC_Department parent_department, ICollection<GGZBTQPT_PRO.Models.T_ZC_Department> departments)
+{    
+    foreach (var department in departments)
+    { 
+        <ul >
+            <li><a>@department.FullName</a>
+                <ul>
+                    @foreach (var user in Model.Users)
+                    {
+                        if (user.DepartmentID == department.ID)
+                        {
+                            @GenerateUser(ViewBag.selected_users, user)
+                        }
+                    }
+                </ul>
+            </li>
+        </ul>
+
+        if (departments.Where(d => d.ParentID == department.ID).Count() > 0)
+        {
+            @GenerateDeparts(department, departments.Where(d => d.ParentID == department.ID).ToList())
+        }
+    }        
+}
+@*<div class="pageContent">*@
+<ul class="tree treeFolder treeCheck" oncheck="kkk">
     <li><a>内部平台系统用户列表</a>
         <ul>
             @foreach (var department in Model.Departments.Where(d => d.ParentID == 0 || d.ParentID == null))
@@ -60,3 +76,22 @@
         </ul>
     </li>
 </ul>
+<div class="formBar">
+    <ul>
+        <li>
+            <div class="buttonActive">
+                <div class="buttonContent">
+                    <button type="submit" onclick="kkk">
+                        保存</button></div>
+            </div>
+        </li>
+        <li>
+            <div class="button">
+                <div class="buttonContent">
+                    <button type="button" class="close">
+                        取消</button></div>
+            </div>
+        </li>
+    </ul>
+</div>
+@*</div>*@

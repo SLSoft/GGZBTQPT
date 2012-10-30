@@ -20,6 +20,7 @@ namespace GGZBTQPT_PRO.Models.Mapping
                 });
 
             // Foreign Key
+
             this.HasOptional(t => t.Financial)
               .WithMany(s => s.Favoites)
               .HasForeignKey(t => t.FinancialID);
@@ -31,6 +32,7 @@ namespace GGZBTQPT_PRO.Models.Mapping
             this.HasOptional(t => t.Product)
               .WithMany(s => s.Favoites)
               .HasForeignKey(t => t.ProductID);
+
         }
     }
 }
