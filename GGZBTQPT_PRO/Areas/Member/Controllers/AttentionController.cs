@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
+using GGZBTQPT_PRO.Enums;
 
 namespace GGZBTQPT_PRO.Areas.Member.Controllers
 {
@@ -35,7 +36,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         /// </summary>
         /// <param name="member_id"></param>
         /// <returns></returns>
-        public ActionResult AttentionedAgencies(int member_id)
+        public ActionResult AttentionedAgencies()
         {
             var member = CurrentMember();
             if (member == null)
@@ -58,7 +59,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         /// </summary>
         /// <param name="member_id"></param>
         /// <returns></returns>
-        public ActionResult AttentionedCorps(int member_id)
+        public ActionResult AttentionedCorps()
         {
             var member = CurrentMember();
             if (member == null)
@@ -67,7 +68,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             } 
             try
             {
-                var corps = member.Attentions.Where(a => a.AttentionedMemberType == 1)
+                var corps = member.Attentions.Where(a => a.AttentionedMemberType == 2)
                                 .Join(db.T_QY_Corp, a => a.AttentionedMemberID, p => p.MemberID, (a, c) => new T_QY_Corp { CorpName = c.CorpName, Mobile = c.Mobile })
                                 .ToList();
                 return PartialView(corps);
@@ -83,7 +84,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         /// </summary>
         /// <param name="member_id"></param>
         /// <returns></returns>
-        public ActionResult AttentionedPersons(int member_id)
+        public ActionResult AttentionedPersons()
         {
             var member = CurrentMember();
             if (member == null)
@@ -94,9 +95,9 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             {
                 //var attentions = member.Attentions.Where(a => a.AttentionType == 1 || a.AttentionType == 2).ToList(); 
 
-                var persons = member.Attentions.Where(a => a.AttentionedMemberType == 2)
+                var persons = member.Attentions.Where(a => a.AttentionedMemberType == 1)
                                 .Join( db.T_QY_Person, a => a.AttentionedMemberID, p => p.MemberID, 
-                                        (a,p) => new T_QY_Person { Name = p.Name, Mobile = p.Mobile, Email = p.Email, College = p.College, 
+                                        (a,p) => new T_QY_Person { MemberID = p.MemberID, Name = p.Name, Mobile = p.Mobile, Email = p.Email, College = p.College, 
                                                                    Phone = p.Phone, WorkExperience = p.WorkExperience, Education = p.Education, Specialty = p.Specialty })
                                 .ToList();
                 return PartialView(persons);
@@ -125,13 +126,13 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         /// <param name="type_id">关注的会员类别</param>
         /// <param name="id">会员ID</param>
         [HttpPost]
-        public ActionResult Attentioned(int type_id, int id)
+        public ActionResult Attentioned(int type, int id)
         {
             var attentioned_item = new T_HY_Attention();
             var member = CurrentMember();
 
             attentioned_item.AttentionedMemberID = id;
-            attentioned_item.AttentionedMemberType = type_id; 
+            attentioned_item.AttentionedMemberType = type; 
             member.Attentions.Add(attentioned_item);
             db.SaveChanges();
 
@@ -139,15 +140,15 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         }
 
         /// <summary>
-        /// 取消收藏项目、资金、服务
+        /// 取消关注的个人、企业和机构
         /// </summary>
-        /// <param name="type_id">取消收藏的类别</param>
-        /// <param name="id">项目、资金、服务ID</param>
+        /// <param name="type_id">关注的会员类别</param>
+        /// <param name="id">会员ID</param>
         [HttpPost]
         public ActionResult UnAttentioned(int id)
         {
-            var unattentioned_item = db.T_HY_Attention.Where(a => a.AttentionedMemberID == id).First();
             var member = CurrentMember();
+            var unattentioned_item = member.Attentions.First( a => a.AttentionedMemberID == id);
 
             member.Attentions.Remove(unattentioned_item);
             db.T_HY_Attention.Remove(unattentioned_item);

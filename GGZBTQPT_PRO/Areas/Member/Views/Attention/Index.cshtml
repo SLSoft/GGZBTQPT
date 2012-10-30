@@ -21,13 +21,13 @@
 
 <ul id="attentioned" class="nav nav-tabs">
     <li class="active">
-        @Ajax.ActionLink("关注的创业者", "AttentionedPersons", "Attention", new { member_id = Model.ID }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
+        @Ajax.ActionLink("关注的创业者", "AttentionedPersons", "Attention",  new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
     </li>
     <li>
-        @Ajax.ActionLink("关注的企业", "AttentionedCorps", "Attention", new { member_id = Model.ID }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
+        @Ajax.ActionLink("关注的企业", "AttentionedCorps", "Attention", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
     </li>
     <li>
-        @Ajax.ActionLink("关注的机构", "AttentionedAgencies", "Attention", new { member_id = Model.ID }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
+        @Ajax.ActionLink("关注的机构", "AttentionedAgencies", "Attention", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
     </li>
 </ul>
 

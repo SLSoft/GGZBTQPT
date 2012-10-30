@@ -6,7 +6,7 @@ namespace GGZBTQPT_PRO.Models
     public class T_QY_Person
     {
         public int ID { get; set; }
-        public int UserID { get; set; }
+
         public string Name { get; set; }
         public string HomeTown { get; set; }
         public Nullable<int> CardType { get; set; }

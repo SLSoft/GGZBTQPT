@@ -23,7 +23,7 @@
     }
     else
     {
-        @Ajax.ActionLink("关注他", "Attentioned", "Attention", new { type_id = 1, id = member_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" })
+        @Ajax.ActionLink("关注他", "Attentioned", "Attention", new { type = type_id, id = member_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" })
     }
 }
 <script type="text/javascript">

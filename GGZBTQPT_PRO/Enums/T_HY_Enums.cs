@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace GGZBTQPT_PRO.Enums
 {
     //会员类别
-    public enum MemberTypes
+    public enum MemberTypes : int
     {
         [Display(Name = "个人")]
         企业 = 1,
