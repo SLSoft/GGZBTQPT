@@ -7,11 +7,11 @@
     {
     if (favored_finacials.IndexOf(favored_id) > 0)
     {
-        @Ajax.ActionLink("取消收藏", "UnFavored", "Recommend", new { id = favored_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" }) 
+        @Ajax.ActionLink("取消收藏", "UnFavored", "Favorite", new { id = favored_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" }) 
     }
     else
     {
-        @Ajax.ActionLink("收藏该项目", "Favored", "Recommend", new { type_id = 1, id = favored_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" })
+        @Ajax.ActionLink("收藏该项目", "Favored", "Favorite", new { type_id = 1, id = favored_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" })
     }
 }
 
