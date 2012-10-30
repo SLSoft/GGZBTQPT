@@ -37,12 +37,12 @@
 <body style="margin-top: 65px;">
     @Html.Partial("_Header")
     <div class="container">
-        <div id="notice">
-            @Notice()
-        </div>
         <div id="main" class="row main">
             <div class="span9">
                 <div class="content">
+                    <div id="notice">
+                        @Notice()
+                    </div>
                     @RenderBody()
                 </div>
             </div>

@@ -132,42 +132,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             return null;
         }
 
-        /// <summary>
-        /// 收藏项目、资金、服务
-        /// </summary>
-        /// <param name="type_id">收藏的类别</param>
-        /// <param name="id">项目、资金、服务ID</param>
-        [HttpPost]
-        public ActionResult Favored(int type_id, int id)
-        {
-            var favored_item = new T_HY_Favorite();
-            var member = CurrentMember();
 
-            favored_item.FinancialID = id;
-            favored_item.FavoriteType = type_id;
-            member.Favorites.Add(favored_item);
-            db.SaveChanges(); 
-
-            return Json(new { statusCode = "200", message = "项目收藏成功" }); 
-        }
-
-        /// <summary>
-        /// 取消收藏项目、资金、服务
-        /// </summary>
-        /// <param name="type_id">取消收藏的类别</param>
-        /// <param name="id">项目、资金、服务ID</param>
-        [HttpPost]
-        public ActionResult UnFavored(int id)
-        {
-            var favored_item = db.T_HY_Favorite.FirstOrDefault(f => f.FinancialID == id);
-            var member = CurrentMember();
-
-            member.Favorites.Remove(favored_item);
-            db.T_HY_Favorite.Remove(favored_item);
-            db.SaveChanges();
-
-            return Json(new { statusCode = "200", message = "项目取消收藏成功" }); 
-        }
 
 
 
