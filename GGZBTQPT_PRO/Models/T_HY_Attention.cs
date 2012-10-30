@@ -7,7 +7,7 @@ namespace GGZBTQPT_PRO.Models
     {
         public int ID { get; set; }
         public int AttentionedMemberType { get; set; } //关注的会员类型
-        public Nullable<int> AttentionedMemberID { get; set; } //关注的会员ID
+        public int AttentionedMemberID { get; set; } //关注的会员ID
 
         public Nullable<bool> IsValid { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }

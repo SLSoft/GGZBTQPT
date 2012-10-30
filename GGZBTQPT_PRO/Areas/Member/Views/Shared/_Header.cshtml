@@ -1,10 +1,10 @@
-﻿<div class="navbar navbar-inverse navbar-fixed-top">
+﻿<div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
             <a class="brand" href="./index.html">科技金融网</a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li class="">@Html.ActionLink("个人主页", "Index", "Home")</li>
+                    <li class="">@Html.ActionLink("推荐", "Index", "Home")</li>
                     <li class="">@Html.ActionLink("我的发布", "Index", "Publish") </li>
                     <li class="">@Html.ActionLink("我的收藏", "Index", "Favorite") </li>
                     <li class="">@Html.ActionLink("我的关注", "Index", "Attention") </li>
@@ -14,9 +14,7 @@
                 </ul>
             </div>
             <div class="nav-collapse collapse pull-right">
-                <ul class="nav">
-                    <li><a href="#">消息</a></li>
-                    <li class="">@Html.ActionLink("推荐", "Index", "Recommend")</li>
+                <ul class="nav"> 
                     @MemberHelper.CheckWhetherMemberLoginIn()
                 </ul>
             </div>

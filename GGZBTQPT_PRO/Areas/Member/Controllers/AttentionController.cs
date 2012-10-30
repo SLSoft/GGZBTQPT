@@ -120,18 +120,19 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
 
 
         /// <summary>
-        /// 收藏项目、资金、服务
+        /// 关注的个人、企业和机构
         /// </summary>
-        /// <param name="type_id">收藏的类别</param>
-        /// <param name="id">项目、资金、服务ID</param>
+        /// <param name="type_id">关注的会员类别</param>
+        /// <param name="id">会员ID</param>
         [HttpPost]
         public ActionResult Attentioned(int type_id, int id)
         {
             var attentioned_item = new T_HY_Attention();
-            attentioned_item.AttentionedMemberID = id;
-            attentioned_item.AttentionedMemberType = type_id;
+            var member = CurrentMember();
 
-            db.T_HY_Attention.Add(attentioned_item);
+            attentioned_item.AttentionedMemberID = id;
+            attentioned_item.AttentionedMemberType = type_id; 
+            member.Attentions.Add(attentioned_item);
             db.SaveChanges();
 
             return Json(new { statusCode = "200", message = "关注成功" });
@@ -145,8 +146,10 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         [HttpPost]
         public ActionResult UnAttentioned(int id)
         {
-            var unattentioned_item = db.T_HY_Attention.Find(id);
+            var unattentioned_item = db.T_HY_Attention.Where(a => a.AttentionedMemberID == id).First();
+            var member = CurrentMember();
 
+            member.Attentions.Remove(unattentioned_item);
             db.T_HY_Attention.Remove(unattentioned_item);
             db.SaveChanges();
 

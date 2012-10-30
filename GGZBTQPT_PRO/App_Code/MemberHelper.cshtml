@@ -28,6 +28,15 @@
     {
     if (Session["MemberID"] != null && Session["MemberID"].ToString() != "")
     {
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-th-list"></i>信息发布<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a href="#">发布项目</a></li>
+            <li><a href="#">发布资金</a></li>
+            <li><a href="#">发布服务</a></li>
+        </ul>
+    </li>
+    <li class="divider-vertical"></li>
     <li><a href="\Member\Member\Config">设置</a></li>
     <li><a href="\Member\Member\Logout">退出</a></li>
     }

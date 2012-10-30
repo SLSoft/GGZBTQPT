@@ -48,6 +48,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
                 //目前需要完成根据项目的收藏数进行排序，以下的投资和产品同
                 var finacials = db.T_XM_Financing.ToList();
                 ViewBag.FavoredFinacials = FavoredItems(1);
+                ViewBag.AttentionedMembers = AttentionedMembers();
                 return PartialView(finacials);
             }
             catch
@@ -117,7 +118,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         }
 
         /// <summary>
-        /// 读取当前用户所关注的项目的ID集合
+        /// 读取当前用户所收藏的项目的ID集合
         /// </summary>
         /// <returns></returns>
         private string FavoredItems(int favorite_type)
@@ -147,6 +148,24 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             return favored_items;
         }
 
+        /// <summary>
+        /// 读取当前用户所关注的用户的ID集合
+        /// </summary>
+        /// <returns></returns>
+        private string AttentionedMembers()
+        {
+            string attentioned_members = "";
+            List<int> member_ids = new List<int>();
+
+            member_ids = CurrentMember().Attentions.Select(a => a.AttentionedMemberID).ToList();
+
+            foreach (int member_id in member_ids)
+            {
+                attentioned_members += "|" + member_id + "|";
+            }
+
+            return attentioned_members;
+        }
 
     }
 }
