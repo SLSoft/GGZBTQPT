@@ -40,6 +40,7 @@ namespace GGZBTQPT_PRO.Models
         {
             modelBuilder.Configurations.Add(new T_HY_AttentionMap());
             modelBuilder.Configurations.Add(new T_HY_FavoriteMap());
+            modelBuilder.Configurations.Add(new T_HY_MemberMap());
             modelBuilder.Configurations.Add(new T_JG_AgencyMap());
             modelBuilder.Configurations.Add(new T_JG_LinkmanMap());
             modelBuilder.Configurations.Add(new T_JG_ProductMap());

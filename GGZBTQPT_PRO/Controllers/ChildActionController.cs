@@ -19,7 +19,7 @@ namespace GGZBTQPT_PRO.Controllers
 
         public PartialViewResult SystemLinks()
         {
-            var links = db.T_ZC_System.ToList();
+            var links = db.T_ZC_System.Where(p => p.IsValid == true).ToList();
             return PartialView(links);
         }
 

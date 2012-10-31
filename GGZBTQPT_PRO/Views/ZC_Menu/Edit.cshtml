@@ -3,51 +3,35 @@
     Layout = null;
 }
 <script type="text/javascript">
-    function dialogDone() {
-        $.pdialog.closeCurrent();
-        navTab.reload();
-    }
     $.validator.unobtrusive.parse(document);
 </script>
 <div id="FormContainer" class="pageContent">
-    @using (Html.BeginForm("Edit", "ZC_Menu", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class="pageForm" }))
+    @using (Html.BeginForm("Edit", "ZC_Menu", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
     {
 
         @Html.ValidationSummary(true)
-        <div class="pageFormContent" layouth="56">
+        <div class="pageFormContent" layouth="56">@Html.HiddenFor(model => model.CreatedAt)
+            <p>@Html.LabelFor(model => model.SystemID, "所属系统")
+                @Html.DropDownList("SystemID", "请选择所属系统")
+                @Html.ValidationMessageFor(model => model.SystemID)
+            </p>
+            <p>@Html.LabelFor(model => model.ParentID, "上级菜单")
+                @Html.DropDownList("ParentID", "请选择上级菜单")
+                @Html.ValidationMessageFor(model => model.ParentID)
+            </p>
             <p>
-                @Html.LabelFor(model => model.Name)
+                @Html.LabelFor(model => model.Name, "菜单名称")
                 @Html.EditorFor(model => model.Name)
                 @Html.ValidationMessageFor(model => model.Name)
             </p>
             <p>
-                @Html.LabelFor(model => model.Url)
+                @Html.LabelFor(model => model.Url, "菜单路径")
                 @Html.EditorFor(model => model.Url)
-                @Html.ValidationMessageFor(model => model.Url)</p>
-            <p>
-                @Html.LabelFor(model => model.IsValid)
-                @Html.EditorFor(model => model.IsValid)
-                @Html.ValidationMessageFor(model => model.IsValid)</p>
-            <p>
-                @Html.LabelFor(model => model.ParentID)
-                @Html.EditorFor(model => model.ParentID)
-                @Html.ValidationMessageFor(model => model.ParentID)</p>
-            <p>
-                @Html.LabelFor(model => model.CreatedAt)
-                @Html.EditorFor(model => model.CreatedAt)
-                @Html.ValidationMessageFor(model => model.CreatedAt)</p>
-            <p>
-                @Html.LabelFor(model => model.UpdatedAt)
-                @Html.EditorFor(model => model.UpdatedAt)
-                @Html.ValidationMessageFor(model => model.UpdatedAt)</p>
-            <p>
-                @Html.LabelFor(model => model.SystemID, "System")
-                @Html.DropDownList("SystemID", "请选择所属系统")
-                @Html.ValidationMessageFor(model => model.SystemID)</p>
+                @Html.ValidationMessageFor(model => model.Url)
+            </p>
         </div>
-
         <div class="formBar">
-            <ul>				
+            <ul>
                 <li>
                     <div class="buttonActive">
                         <div class="buttonContent">
@@ -64,6 +48,5 @@
                 </li>
             </ul>
         </div>
-
     }
 </div>

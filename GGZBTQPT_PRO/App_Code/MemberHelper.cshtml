@@ -22,17 +22,33 @@
             break;
     }
 }
+
 //判断会员是否登陆
 @helper CheckWhetherMemberLoginIn()
     {
     if (Session["MemberID"] != null && Session["MemberID"].ToString() != "")
     {
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-th-list"></i>信息发布<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a href="#">发布项目</a></li>
+            <li><a href="#">发布资金</a></li>
+            <li><a href="#">发布服务</a></li>
+        </ul>
+    </li>
+    <li class="divider-vertical"></li>
     <li><a href="\Member\Member\Config">设置</a></li>
     <li><a href="\Member\Member\Logout">退出</a></li>
     }
     else
     {
-    <li><a href="\Member\Member\Create">注册</a></li>
+    <li><a href="\Member\Member\SignUp">注册</a></li>
     <li><a href="\Member\Member\Login">登录</a></li>
     }
+}
+
+//操作提示，用于服务器端页面跳转后的操作结果提示
+@helper Notice()
+{
+    
 }

@@ -1,8 +1,9 @@
 ﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Financing> 
 
 <script type="text/javascript">
-    function updateMsg() {
-        alert("success");
+    function notice(data) {
+        $("#favored li.active a").click();
+        $.Member.notice(data.message);
     }
 </script>
 @*收藏的项目信息*@
@@ -21,8 +22,8 @@
                 @*附属信息*@
                 <div class="recommend-info">
                     <span class="pub-time">@_model.CreateTime</span> <span class="pro-type">总投资：@_model.TotalInvestment</span> 
-                    <span class="favorite"><a href="#">【人收藏】</a></span> 
-                    <span><i class="icon-heart"></i> @Ajax.ActionLink("取消收藏", "UnFavored", "Favorite", new { id = _model.ID }, new AjaxOptions { HttpMethod = "post", OnSuccess = "updateMsg" }) </span>
+                    <span class="favorite"><a href="#">【@_model.Favoites.Count() 人收藏】</a></span> 
+                    <span><i class="icon-heart"></i> @Ajax.ActionLink("取消收藏", "UnFavored", "Favorite", new { id = _model.ID }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" }) </span>
                 </div>
             </div>
         }

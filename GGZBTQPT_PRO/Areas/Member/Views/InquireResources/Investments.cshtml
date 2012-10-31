@@ -1,0 +1,90 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Investment>
+@{
+    ViewBag.Title = "找资金";
+}
+<h3 class="content-title">
+    找资金</h3>
+<div class="inquire-conditions">
+</div>
+<div id="inquire-options" class="inquire-options well well-small">
+    <form action="InquireResources/Financials" method="get">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span2">
+                <label>
+                    资金类型：</label>
+            </div>
+            <div class="span10">
+                <input type="checkbox" value="1" title="融资项目" />
+                <input type="checkbox" value="1" title="资产交易" />
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span2">
+                <label>
+                    所属行业：</label>
+            </div>
+            <div class="span10">
+                <input type="checkbox" value="1" title="互联网" />
+                <input type="checkbox" value="1" title="房地产" />
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span2">
+                <label>
+                    资金范围：</label>
+            </div>
+            <div class="span10">
+                <input type="checkbox" value="1" title="不限" />
+                <input type="checkbox" value="1" title="1-10万" />
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <label>
+                项目名称:</label><input type="text" />
+            <input type="submit" value="查询" />
+            <input type="reset" value="重置" />
+        </div>
+        <div class="row-fluid">
+            <a href="#">发布时间</a> <a href="#">投资金额</a> <a href="#">收藏数</a>
+        </div>
+    </div>
+    </form>
+</div>
+<div id="inquire-content" class="inquire-content">
+ <div class="row-fluid">
+        @*项目信息*@
+        @foreach (var _model in Model)
+        {
+            <div class="recommend-content ">
+                <h4>
+                    <a href="#">@_model.ItemName</a></h4>
+                @*摘要*@
+                <p class="summary">
+                    @_model.Description
+                </p>
+                @*附属信息*@
+                <div class="recommend-info">
+                    <span class="pub-time">@_model.CreateTime</span> <span class="pro-type">总投资：@_model.Investment</span> 
+                    <span class="favorite"><a href="#">【@_model.Favoites.Count() 人收藏】</a></span> 
+                    <span><i class="icon-heart"></i> @Ajax.ActionLink("取消收藏", "UnFavored", "Favorite", new { id = _model.ID }, new AjaxOptions { HttpMethod = "post", OnSuccess = "updateMsg" }) </span>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="pagination pagination-left clear">
+        <ul>
+            <li class="disabled"><a href="#">Prev</a></li>
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">6</a></li>
+            <li><a href="#">7</a></li>
+            <li class="disabled"><a href="#">Next</a></li>
+        </ul>
+    </div>
+</div>

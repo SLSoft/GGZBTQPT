@@ -6,7 +6,7 @@
         <ul>
             @foreach (var system in Model)
             {
-                <li> @Html.ActionLink(system.Name,"MenuInfo","ZC_Menu",new { system_id = system.ID},new { target = "ajax", rel = "menuInfoBox" })</li>
+                <li> @Html.ActionLink(system.Name, "MenuInfo", "ZC_Menu", new { id = system.ID }, new { target = "ajax", rel = "menuInfoBox" })</li>
             }
         </ul>
     </li>

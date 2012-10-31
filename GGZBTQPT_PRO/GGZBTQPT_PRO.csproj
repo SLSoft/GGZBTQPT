@@ -89,6 +89,7 @@
     <Compile Include="Areas\Member\Controllers\SideBarController.cs" />
     <Compile Include="Areas\Member\MemberAreaRegistration.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ChildActionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JG_AgencyController.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Controllers\ZC_RoleController.cs" />
     <Compile Include="Controllers\ZC_SystemController.cs" />
     <Compile Include="Controllers\ZC_UserController.cs" />
+    <Compile Include="Enums\T_HY_Enums.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -122,6 +124,7 @@
     <Compile Include="Models\Mapping\T_ZC_DepartmentMap.cs" />
     <Compile Include="Models\Mapping\T_ZC_RoleMap.cs" />
     <Compile Include="Models\T_HY_Member.cs" />
+    <Compile Include="Models\T_HY_Message.cs" />
     <Compile Include="Models\T_PTF_DicDetail.cs" />
     <Compile Include="Models\T_PTF_DicTreeDetail.cs" />
     <Compile Include="Models\T_PTF_DicType.cs" />

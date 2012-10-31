@@ -1,87 +1,36 @@
-﻿@{
+﻿@model GGZBTQPT_PRO.Models.T_HY_Member
+
+@{
     ViewBag.Title = "会员首页";
 
 }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#recommend li a").click(function (e) {
+            e.preventDefault();
+            $("#recommend li").removeClass("active");
+            $(this).parent("li").addClass("active");
+        });
+        $("#recommend li.active a").click();
+    });
+</script> 
+
 <h3 class="content-title">
-    会员首页</h3>
-<div id="deploy">
-    <ul class="nav nav-pills pull-center">
-        <li>
-            <img alt="用户头像" src="../../../../Content/images/member/user.jpg" class="img-circle" />
-        </li>
-        <li><a href="#" title="发布项目">发布项目</a></li>
-        <li><a href="#" title="发布意向">发布意向</a></li>
-        <li><a href="#" title="发布案例">发布案例</a></li>
-        <li><a href="#" title="发布产品">发布产品</a></li>
-    </ul>
-</div>
-<div id="message" class="alert">
-    <a href="#">光谷资本</a>邀请你参加关于投融资研讨会的活动！<a href="#">点击参加</a> | <a href="#">关闭</a>
-</div>
-@*友邻动态*@
-<div id="twitter">
-    <div class="twitter-content row-fluid">
-        @*友邻头像和联系*@
-        <div class="member-link span2">
-            <img alt="友邻头像" class="img-circle" src="../../../../Content/images/member/user.jpg" />
-        </div>
-        @*友邻信息*@
-        <div class="msg span10">
-            @*摘要*@
-            <p class="summary">
-                股东邓明国、晏长富、兰剑以重庆吉力建设集团有限公司内部承包的方式独立承建黑龙江安达市卧里屯乡农贸市场钢结构项目（以下称本项目），规模17600平方米，造价2500万元，工期180天，承建利润750万元左右。本钢结构项目是安达市卧里屯乡汽车产业园（政府招商开发项目，总投资20亿元）中一个很小的部分，但本项目是整个产业园中要求最先完工的民生保障项目。我们是依托黑龙江省委有力渠道和保障有幸承建本项目）.......
-            </p>
-            @*附属信息*@
-            <div class="msg-info">
-                <span class="msg-type">优质项目分类</span><span class="favorite">收藏</span><span class="pub-time">发布时间：2012-9-13</span>
-            </div>
-        </div>
-    </div>
-    <div class="twitter-content row-fluid">
-        @*友邻头像和联系*@
-        <div class="member-link span2">
-            <img alt="友邻头像" class="img-circle" src="../../../../Content/images/member/user.jpg" />
-        </div>
-        @*友邻信息*@
-        <div class="msg span10">
-            @*摘要*@
-            <p class="summary">
-                股东邓明国、晏长富、兰剑以重庆吉力建设集团有限公司内部承包的方式独立承建黑龙江安达市卧里屯乡农贸市场钢结构项目（以下称本项目），规模17600平方米，造价2500万元，工期180天，承建利润750万元左右。本钢结构项目是安达市卧里屯乡汽车产业园（政府招商开发项目，总投资20亿元）中一个很小的部分，但本项目是整个产业园中要求最先完工的民生保障项目。我们是依托黑龙江省委有力渠道和保障有幸承建本项目）.......
-            </p>
-            @*附属信息*@
-            <div class="msg-info">
-                <span class="msg-type">优质项目分类</span><span class="favorite">收藏</span><span class="pub-time">发布时间：2012-9-13</span>
-            </div>
-        </div>
-    </div>
-    <div class="twitter-content row-fluid">
-        @*友邻头像和联系*@
-        <div class="member-link span2">
-            <img alt="友邻头像" class="img-circle" src="../../../../Content/images/member/user.jpg" />
-        </div>
-        @*友邻信息*@
-        <div class="msg span10">
-            @*摘要*@
-            <p class="summary">
-                股东邓明国、晏长富、兰剑以重庆吉力建设集团有限公司内部承包的方式独立承建黑龙江安达市卧里屯乡农贸市场钢结构项目（以下称本项目），规模17600平方米，造价2500万元，工期180天，承建利润750万元左右。本钢结构项目是安达市卧里屯乡汽车产业园（政府招商开发项目，总投资20亿元）中一个很小的部分，但本项目是整个产业园中要求最先完工的民生保障项目。我们是依托黑龙江省委有力渠道和保障有幸承建本项目）.......
-            </p>
-            @*附属信息*@
-            <div class="msg-info">
-                <span class="msg-type">优质项目分类</span><span class="favorite">收藏</span><span class="pub-time">发布时间：2012-9-13</span>
-            </div>
-        </div>
-    </div>
-    <div class="pagination pagination-left clear">
-        <ul>
-            <li class="disabled"><a href="#">Prev</a></li>
-            <li class="active"><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">6</a></li>
-            <li><a href="#">7</a></li>
-            <li class="disabled"><a href="#">Next</a></li>
-        </ul>
-    </div>
+    投融资推荐</h3>
+
+<ul id="recommend" class="nav nav-tabs">
+    <li class="active">
+        @Ajax.ActionLink("优质项目推荐", "RecommendFinancials", "Recommend", new { member_id = 1 }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
+    </li>
+    <li>
+        @Ajax.ActionLink("优质资本推荐", "RecommendInvestments", "Recommend", new { member_id = 1 }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
+    </li>
+    <li>
+        @Ajax.ActionLink("优质服务推荐", "RecommendProducts", "Recommend", new { member_id = 1 }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
+    </li>
+</ul>
+
+<div id="details">
+
 </div>

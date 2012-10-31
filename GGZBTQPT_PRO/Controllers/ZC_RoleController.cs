@@ -9,101 +9,134 @@ using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.ViewModels;
 
 namespace GGZBTQPT_PRO.Controllers
-{ 
-    public class ZC_RoleController : Controller
+{
+    public class ZC_RoleController : BaseController
     {
-        private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
-
-        //
-        // GET: /ZC_Role/
-
-        public ViewResult Index()
+        public ActionResult Index(int? pageNum, int? numPerPage, string keywords)
         {
-            return View(db.T_ZC_Role.ToList());
+            int pageIndex = pageNum.HasValue ? pageNum.Value - 1 : 0;
+            int pageSize = numPerPage.HasValue && numPerPage.Value > 0 ? numPerPage.Value : 1;
+            keywords = keywords == null ? "" : keywords;
+            IList<GGZBTQPT_PRO.Models.T_ZC_Role> list = db.T_ZC_Role.Where(p => p.Name.Contains(keywords)).Where(p => p.IsValid == true).ToList();
+            ViewBag.recordCount = list.Count();
+            list = list.OrderBy(i => i.ID).Skip(pageSize * pageIndex).Take(pageSize).ToList();
+            ViewBag.numPerPage = pageSize;
+            ViewBag.pageNum = pageIndex + 1;
+            ViewBag.keywords = keywords;
+            return View(list);
         }
-
-        //
-        // GET: /ZC_Role/Details/5
-
-        public ViewResult Details(int id)
-        {
-            T_ZC_Role t_zc_role = db.T_ZC_Role.Find(id);
-            return View(t_zc_role);
-        }
-
-        //
-        // GET: /ZC_Role/Create
 
         public ActionResult Create()
         {
             return View();
         } 
 
-        //
-        // POST: /ZC_Role/Create
-
         [HttpPost]
         public ActionResult Create(T_ZC_Role t_zc_role)
         {
-            if (ModelState.IsValid)
+            if (Request.IsAjaxRequest())
             {
-                db.T_ZC_Role.Add(t_zc_role);
-                db.SaveChanges();
-                return RedirectToAction("Index");  
+                if (ModelState.IsValid)
+                {
+                    t_zc_role.CreatedAt = DateTime.Now;
+                    t_zc_role.UpdatedAt = DateTime.Now;
+                    t_zc_role.IsValid = true;
+                    db.T_ZC_Role.Add(t_zc_role);
+                    int result = db.SaveChanges();
+                    if (result > 0)
+                        return ReturnJson(true, "操作成功", "", "", true, "");
+                    else
+                        return ReturnJson(false, "操作失败", "", "", false, "");
+                }
             }
-
-            return View(t_zc_role);
+            return Json(new { });
         }
         
-        //
-        // GET: /ZC_Role/Edit/5
- 
         public ActionResult Edit(int id)
         {
             T_ZC_Role t_zc_role = db.T_ZC_Role.Find(id);
             return View(t_zc_role);
         }
 
-        //
-        // POST: /ZC_Role/Edit/5
-
         [HttpPost]
         public ActionResult Edit(T_ZC_Role t_zc_role)
         {
-            if (ModelState.IsValid)
+            if (Request.IsAjaxRequest())
             {
-                db.Entry(t_zc_role).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    t_zc_role.UpdatedAt = DateTime.Now;
+                    t_zc_role.IsValid = true;
+                    db.Entry(t_zc_role).State = EntityState.Modified;
+                    int result = db.SaveChanges();
+                    if (result >= 0)
+                        return ReturnJson(true, "操作成功", "", "", true, "");
+                    else
+                        return ReturnJson(false, "操作失败", "", "", false, "");
+                }
             }
-            return View(t_zc_role);
+            return Json(new { });
         }
-
-        //
-        // GET: /ZC_Role/Delete/5
  
-        public ActionResult Delete(int id)
-        {
-            T_ZC_Role t_zc_role = db.T_ZC_Role.Find(id);
-            return View(t_zc_role);
-        }
-
-        //
-        // POST: /ZC_Role/Delete/5
+        //public ActionResult Delete(int id)
+        //{
+        //    T_ZC_Role t_zc_role = db.T_ZC_Role.Find(id);
+        //    return View(t_zc_role);
+        //}
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {            
-            T_ZC_Role t_zc_role = db.T_ZC_Role.Find(id);
-            db.T_ZC_Role.Remove(t_zc_role);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            //T_ZC_Role t_zc_role = db.T_ZC_Role.Find(id);
+            //db.T_ZC_Role.Remove(t_zc_role);
+            //db.SaveChanges();
+            //return RedirectToAction("Index");
+            if (Request.IsAjaxRequest())
+            {
+                T_ZC_Role t_zc_role = db.T_ZC_Role.Find(id);
+                t_zc_role.IsValid = false;
+                int result = db.SaveChanges();
+                if (result > 0)
+                    return ReturnJson(true, "操作成功", "", "", false, "");
+                else
+                    return ReturnJson(false, "操作失败", "", "", false, "");
+            }
+            return Json(new { });
         }
 
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        [HttpPost]
+        public ActionResult CheckUser(FormCollection collection, int id)
+        {
+            if (Request.IsAjaxRequest())
+            {
+                bool flag = false;
+                int result = 0;
+                T_ZC_Role role = db.T_ZC_Role.Find(id);
+                string checkIDList = (collection["ID1"] + ",").Replace("false,", "");
+                if (checkIDList.Length > 1)
+                    checkIDList = checkIDList.Remove(checkIDList.Length - 1);
+                string[] arrCheckedID = checkIDList.Split(new char[1] { ',' });
+                for (int i = 0; i < arrCheckedID.Length; i++)
+                {
+                    int userID = Int32.Parse(arrCheckedID[i]);
+                    var user_item = db.T_ZC_User.FirstOrDefault(f => f.ID == userID);
+                    role.Users.Add(user_item);
+                    result = db.SaveChanges();
+                    if (result < 0)
+                        flag = true;
+                }
+                if (!flag)
+                    return ReturnJson(true, "设置成功", "", "", false, "");
+                else
+                    return ReturnJson(false, "设置失败", "", "", false, "");
+            }
+            return Json(new { });
         }
 
         /// <summary>
@@ -113,20 +146,19 @@ namespace GGZBTQPT_PRO.Controllers
         /// <returns></returns>
         public PartialViewResult SelectUser(int id)
         {
-            string selected_users = GenerateStringFromList(db.T_ZC_Role.Where( r => r.ID == id).First().Users.ToList());
+            string selected_users = GenerateStringFromList(db.T_ZC_Role.Where(r => r.ID == id).First().Users.Where(p => p.IsValid == true).ToList());
             ViewBag.selected_users = selected_users;
 
             var select_user = new VM_SelectUser();
-            select_user.Users = db.T_ZC_User.ToList();
-            select_user.Departments = db.T_ZC_Department.ToList();
-
+            select_user.Users = db.T_ZC_User.Where(p => p.IsValid == true).ToList();
+            select_user.Departments = db.T_ZC_Department.Where(p => p.IsValid == true).ToList();
             return PartialView(select_user);
         }
 
         public string GenerateStringFromList(ICollection<T_ZC_User> users)
         {
             string select_users = "";
-            foreach( T_ZC_User user in users)
+            foreach (T_ZC_User user in users)
             {
                 select_users += user.ID + "|";
             }

@@ -1,14 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.ComponentModel.DataAnnotations;
 
 namespace GGZBTQPT_PRO.Models
 {
     public class T_ZC_Department
     {
+        public T_ZC_Department()
+        {
+            IsValid = true;
+            CreatedAt = DateTime.Now;
+            UpdatedAt = DateTime.Now;
+        }
+
         public int ID { get; set; }
+
+        [Required(ErrorMessage = "必须填写部门名称")]
         public string Name { get; set; }
+
+        [Required(ErrorMessage = "必须填写部门全称")]
         public string FullName { get; set; }
+
         public int Order { get; set; }
 
         public int ParentID { get; set; }

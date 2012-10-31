@@ -1,61 +1,40 @@
 ﻿@model GGZBTQPT_PRO.Models.T_ZC_Role
-
 @{
     Layout = null;
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>Create</title>
-</head>
-<body>
-    @using (Html.BeginForm()) {
+<script type="text/javascript">
+    $.validator.unobtrusive.parse(document);
+</script>
+<div class="pageContent">
+    @using (Html.BeginForm("Create", "ZC_Role", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
+    {
         @Html.ValidationSummary(true)
-        <fieldset>
-            <legend>T_ZC_Role</legend>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Name)
-            </div>
-            <div class="editor-field">
+        <div class="pageFormContent" layouth="56">
+            <p>
+                @Html.LabelFor(model => model.Name, "角色名称")
                 @Html.EditorFor(model => model.Name)
                 @Html.ValidationMessageFor(model => model.Name)
-            </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.IsValid)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.IsValid)
-                @Html.ValidationMessageFor(model => model.IsValid)
-            </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.CreatedAt)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.CreatedAt)
-                @Html.ValidationMessageFor(model => model.CreatedAt)
-            </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.UpdatedAt)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.UpdatedAt)
-                @Html.ValidationMessageFor(model => model.UpdatedAt)
-            </div>
-    
-            <p>
-                <input type="submit" value="Create" />
             </p>
-        </fieldset>
+        </div>
+
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">
+                                保存</button></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close">
+                                取消</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+  
     }
-    
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
-</body>
-</html>
+</div>

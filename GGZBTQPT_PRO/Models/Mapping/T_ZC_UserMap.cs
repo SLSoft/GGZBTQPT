@@ -19,18 +19,13 @@ namespace GGZBTQPT_PRO.Models.Mapping
 
             this.Property(t => t.CellPhone)
                 .IsRequired();
-
  
             // Foreign Key
             this.HasRequired(t => t.Department)
               .WithMany(d => d.Users)
               .HasForeignKey(t => t.DepartmentID)
               .WillCascadeOnDelete(false);
-
-
-
             // Table & Column Mappings
-
         }
   }
 }

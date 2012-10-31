@@ -1,91 +1,97 @@
 ﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_ZC_Menu>
+<form id="pagerForm" method="post" action="@Url.Action("MenuInfo")">
+<input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
+<input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
+<input type="hidden" name="id" value="@ViewData["ID"]"  />
+@*<input type="hidden" name="orderField" value="${param.orderField}" />
+        <input type="hidden" name="orderDirection" value="${param.orderDirection}" />*@
+</form>
 <div class="pageContent j-resizeGrid" style="border-left: 1px #B8D0D6 solid; border-right: 1px #B8D0D6 solid">
-  <div class="panelBar">
-    <ul class="toolBar">
-      <li><a class="add" href="/ZC_Menu/create" rel="create" target="dialog" title="添加新的功能菜单" mask="true"><span>添加</span></a></li>
-      <li><a class="edit" href="/ZC_Menu/edit/{mid}" rel="edit" target="dialog" title="编辑功能菜单信息" mask="true" warn="请选择一条菜单数据"><span>修改</span></a></li>
-      <li><a class="delete" href="/ZC_Menu/delete/{mid}" rel="delete" target="ajaxTodo" title="确定要删除吗？"  warn="请选择一条菜单数据"><span>删除</span></a></li>
-      <li class="line">line</li>
-      <li><a class="icon" href="#"><span>导入EXCEL</span></a></li>
-    </ul>
-  </div>
-  <div layouth="116">
-    <table class="list" width="98%" asc="asc" desc="desc">
-      <thead>
-        <tr>
-          <th>
-            功能菜单名称
-          </th>
-          <th>
-            系统地址
-          </th>
-          <th>
-            是否有效
-          </th>
-          <th>
-            父菜单编码
-          </th>
-          <th>
-            创建时间
-          </th>
-          <th>
-            更新时间
-          </th>
-          <th>
-            所属系统
-          </th>
-          <th>
-            操作
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach (var item in Model)
-        {
-          <tr target="mid" rel=@item.ID>
-            <td>
-              @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-              @Html.DisplayFor(modelItem => item.Url)
-            </td>
-            <td>
-              @Html.DisplayFor(modelItem => item.IsValid)
-            </td>
-            <td>
-              @Html.DisplayFor(modelItem => item.ParentID)
-            </td>
-            <td>
-              @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-              @Html.DisplayFor(modelItem => item.UpdatedAt)
-            </td>
-            <td>
-              @Html.DisplayFor(modelItem => item.System.Name)
-            </td>
-            <td>
-              @Html.ActionLink("编辑", "Edit", new { id = item.ID }) |
-              @Html.ActionLink("详细", "Details", new { id = item.ID }) |
-              @Html.ActionLink("删除", "Delete", new { id = item.ID })
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
-  </div>
-  <div class="panelBar">
-    <div class="pages">
-      <span>显示</span>
-      <select name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
-        <option value="20">20</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-        <option value="200">200</option>
-      </select>
-      <span>条，共23条</span>
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a class="add" href="/ZC_Menu/create" rel="create" target="dialog" title="添加新的功能菜单"
+                mask="true" width="320" height="240"><span>添加</span></a></li>
+            <li><a class="edit" href="/ZC_Menu/edit/{mid}" rel="edit" target="dialog" title="编辑功能菜单信息"
+                mask="true" warn="请选择一条菜单数据" width="320" height="240"><span>修改</span></a></li>
+            <li><a class="delete" href="/ZC_Menu/delete/{mid}" rel="delete" target="ajaxTodo"
+                title="确定要删除吗？" warn="请选择一条菜单数据"><span>删除</span></a></li>
+            <li class="line">line</li>
+            @*<li><a class="icon" href="#"><span>导入EXCEL</span></a></li>*@
+        </ul>
     </div>
-    <div class="pagination" targettype="navTab" totalcount="200" numperpage="20" pagenumshown="10" currentpage="2">
+    <div layouth="116">
+        <table class="list" width="98%" asc="asc" desc="desc">
+            <thead>
+                <tr>
+                    <th>
+                        功能菜单名称
+                    </th>
+                    <th>
+                        系统地址
+                    </th>
+                    <th>
+                        父菜单编码
+                    </th>
+                    <th>
+                        创建时间
+                    </th>
+                    <th>
+                        更新时间
+                    </th>
+                    <th>
+                        所属系统
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr target="mid" rel=@item.ID>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Url)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ParentID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedAt)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UpdatedAt)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.System.Name)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
-  </div>
+    <div class="panelBar">
+        <div class="pages">
+            <span>每页显示</span>
+            <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value,pageNum:1},'menuInfoBox')">
+                @{  
+                    int[] nums = new int[] { 5, 10, 20, 50, 100, 200 };
+                    foreach (var num in nums)
+                    {
+                        if (Int32.Parse(ViewData["numPerPage"].ToString()) == num)
+                        {  
+                    <option value="@num" selected="selected">@num</option>       
+                        }
+                        else
+                        {<option value="@num">@num</option>    }
+
+                    }  
+                }
+            </select>
+            <span>条，共 @ViewData["recordCount"] 条</span>
+        </div>
+        <div rel="menuInfoBox" class="pagination" targettype="navTab" totalcount="@ViewData["recordCount"]" numperpage="@ViewData["numPerPage"]" pagenumshown="10"  
+               currentpage="@ViewData["pageNum"]">
+        </div>
+    </div>
 </div>

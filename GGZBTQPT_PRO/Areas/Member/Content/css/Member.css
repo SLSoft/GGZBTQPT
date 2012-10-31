@@ -6,6 +6,8 @@ body {
     -moz-border-radius: 5px;
     border-radius: 5px;
     background-color: #ddddff; }
+    body .main #notice {
+      margin-bottom: 20px; }
     body .main .content {
       -webkit-border-radius: 5px 0 0 5px;
       -moz-border-radius: 5px 0 0 5px;
@@ -29,9 +31,23 @@ body {
   padding-bottom: 10px;
   margin-bottom: 20px; }
 
+.field-validation-error {
+  color: #FF8C05; }
+
 #twitter .twitter-content {
   border-top: solid 1px #ddd;
   padding: 10px 0; }
+
+#recommend .recommend-content {
+  border-top: solid 1px #ddd;
+  padding: 10px 0; }
+  #recommend .recommend-content ul {
+    list-style: none; }
+#recommend .member-link {
+  margin-left: 10px; }
+  #recommend .member-link img {
+    width: 80px;
+    height: 80px; }
 
 #attentioned .attentioned-content {
   border-top: solid 1px #ddd;

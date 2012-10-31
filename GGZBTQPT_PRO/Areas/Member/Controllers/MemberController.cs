@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
+using GGZBTQPT_PRO.Enums;
+
 
 namespace GGZBTQPT_PRO.Areas.Member.Controllers
 { 
@@ -13,74 +15,70 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
     {
         private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
 
-        //
-        // GET: /Member/Member/
-
         public ViewResult Index()
-        {
-
-            return View();
+        { 
+            return View(); 
         }
 
-        //
-        // GET: /Member/Member/Details/5
-
+ 
         public PartialViewResult Details(int id)
         {
             T_HY_Member t_hy_member = db.T_HY_Member.Find(id);
             return PartialView(t_hy_member);
-        }
+        } 
 
-        //
-        // GET: /Member/Member/Create
-
-        public ActionResult Create()
+        public ActionResult SignUp()
         {
+            var types = from MemberTypes type in Enum.GetValues(typeof(MemberTypes))
+                        select new { ID = (int)type, Name = type.ToString() };
+            ViewData["Type"] = new SelectList(types, "ID", "Name");
 
             return View();
         } 
 
-        //
-        // POST: /Member/Member/Create
 
         [HttpPost]
-        public ActionResult Create(T_HY_Member t_hy_member)
+        public ActionResult SignUp(T_HY_Member t_hy_member)
         {
+            var types = from MemberTypes type in Enum.GetValues(typeof(MemberTypes))
+                        select new { ID = (int)type, Name = type.ToString() };
+            ViewData["Type"] = new SelectList(types, "ID", "Name");
+
             if (ModelState.IsValid)
             {
                 if( !VerifyCode(Request["verify"].ToString(),t_hy_member.CellPhone) )
                 {
+                    ViewData["error"] = "验证码校验失败，请核对后重试!";
                     return View(t_hy_member);
                 } 
 
                 t_hy_member.CreatedAt = DateTime.Now;
-                t_hy_member.UpdatedAt = DateTime.Now;
+                t_hy_member.UpdatedAt = DateTime.Now; 
+                t_hy_member.MemberName = t_hy_member.LoginName;
                 db.T_HY_Member.Add(t_hy_member);
                 db.SaveChanges();
-                return RedirectToAction("Index","Home");  
+                ViewData["notice"] = "注册成功，请登录!";
+                return RedirectToAction("Login","Member", new { login_type="Register" });  
             }
 
             return View(t_hy_member);
         }
-        
-        //
-        // GET: /Member/Member/Edit/5
+
 
         public PartialViewResult Edit(int id)
-        {
-            T_HY_Member t_hy_member = db.T_HY_Member.Find(id);
-
-            return PartialView(t_hy_member);
+        { 
+            return PartialView(CurrentMember());
         }
-
-        //
-        // POST: /Member/Member/Edit/5
 
         [HttpPost]
         public ActionResult Edit(T_HY_Member t_hy_member)
         {
             if (ModelState.IsValid)
             {
+                if (!VerifyCode(Request["verify"].ToString(), t_hy_member.CellPhone))
+                {
+                    return View(t_hy_member);
+                } 
                 db.Entry(t_hy_member).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -110,7 +108,17 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             return RedirectToAction("Index");
         }
 
-
+        //
+        //------------Helper-------------------// 
+        private T_HY_Member CurrentMember()
+        {
+            if (Session["MemberID"] != null && Session["MemberID"].ToString() != "")
+            {
+                var member = db.T_HY_Member.Find(Convert.ToInt32(Session["MemberID"].ToString()));
+                return member;
+            }
+            return null;
+        }
 
         //------------ViewAction---------------//
         //个人设置
@@ -118,10 +126,17 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         {
             return View();
         }
-
+ 
         //登录
-        public ActionResult Login()
-        {
+        public ActionResult Login(string login_type)
+        { 
+            if(login_type == "Register")
+            {
+                ViewData["notice"] = "注册成功，请重新登陆!";
+            }
+
+            //---------TO-DO--------------//
+            //将登陆类型编写成函数，根据不同的登陆类型，生成不同的消息信息
             return View();
         }
 
@@ -144,7 +159,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //-----------Helper-------------------//
+        //-----------msgHelper-------------------//
 
         public bool SendVerifyCodeToPhone(string phone_number)
         {
@@ -153,7 +168,8 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
 
             if (SendMsg(verify_code, phone_number))
             {
-                Session[phone_number] = verify_code;
+                //Session[phone_number] = verify_code;
+                Session[phone_number] = "123456";
                 return true;
             }
             return false; 
@@ -162,18 +178,59 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         //根据用户提交的验证码进行身份验证
         public bool VerifyCode(string verify_code, string phone_number)
         {
-            if(Session[phone_number].ToString() == verify_code)
+            try
             {
-                return true;
+                if (Session[phone_number].ToString() == verify_code)
+                {
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch
+            {
+                return false;
+            }
         }
 
         public bool SendMsg(string msg, string phone_number)
         {
             //-------TO-DO---------//
-            //添加将随机验证码发送到手机的功能
+            //实现发送短信到手机
             return true;
+        }
+
+        //
+        //发送随机的登录密码，用于忘记密码的用户临时登录用 
+        public JsonResult SendRandomPwd(string loginname)
+        {
+            Random r = new Random();
+            string random_pwd = r.Next(100000000,999999999).ToString();
+            T_HY_Member member = T_HY_Member.CurrentMemberByLoginname(loginname);
+
+            if (member == null)
+                return Json("不存在该用户!!", JsonRequestBehavior.AllowGet);
+
+            //if (SendMsg(random_pwd, member.CellPhone))
+            if (SendMsg("123456", member.CellPhone))
+            {
+                member.Password = T_HY_Member.EncryptPwd(random_pwd);
+                db.Entry(member).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json("已向该用户名所绑定的手机号发送了临时登陆密码，请及时登陆并修改密码！", JsonRequestBehavior.AllowGet);
+            }
+            return Json("发送失败!", "text/html", JsonRequestBehavior.AllowGet);
+        }
+
+ 
+        //----------------登录验证-----------------//
+        public JsonResult CheckLoginName(string loginname)
+        { 
+            return Json(!db.T_HY_Member.Any(m => m.LoginName == loginname), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CheckCellPhone(string cellphone)
+        {
+            return Json(!db.T_HY_Member.Any(m => m.CellPhone == cellphone), JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

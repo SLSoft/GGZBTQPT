@@ -9,6 +9,11 @@ body
         border-radius: 5px;
         background-color: #ddddff;
 
+        #notice
+        {
+            margin-bottom: 20px;
+        }
+
         .content
         {
             -webkit-border-radius: 5px 0 0 5px;
@@ -43,6 +48,11 @@ body
     padding-bottom: 10px;
     margin-bottom: 20px;
 }
+.field-validation-error
+{
+    color: #FF8C05;
+}
+
 
 //friends's trend
 #twitter
@@ -58,6 +68,30 @@ body
     .msg 
     {
     }
+}
+//attentioned person
+#recommend
+{
+    .recommend-content
+    {
+        border-top: solid 1px #ddd;
+        padding: 10px 0;
+
+        ul
+        {
+            list-style: none;
+        }
+    }
+    .member-link 
+    {
+        margin-left:10px;
+        img
+        {
+            width: 80px;
+            height: 80px;
+        }
+    }
+
 }
 
 //attentioned person
@@ -76,9 +110,7 @@ body
     .member-link 
     {
     }
-    .msg 
-    {
-    }
+
 }
 
 //sidebar

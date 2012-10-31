@@ -9,15 +9,11 @@ namespace GGZBTQPT_PRO.Controllers
 {
     public class HomeController : Controller
     {
-      private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
-        //
-        // GET: /Home/
-
+        private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
         public ActionResult Index()
         {
-          var menus = db.T_ZC_Menu.ToList();
-          return View(menus);
+            var menus = db.T_ZC_Menu.Where(p => p.IsValid == true).ToList();
+            return View(menus);
         }
-
     }
 }
