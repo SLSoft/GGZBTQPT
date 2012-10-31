@@ -27,7 +27,7 @@ namespace GGZBTQPT_PRO.Controllers
         }
         public void BindAgency(object select = null)
         {
-            List<T_JG_Agency> AgencyList = db.T_JG_Agency.Where(p => p.IsValid == true).ToList();
+            List<T_JG_Agency> AgencyList = db.T_JG_Agency.ToList();
             ViewData["AgencyList"] = new SelectList(AgencyList, "ID", "AgencyName", select);
         }
         //
@@ -45,6 +45,7 @@ namespace GGZBTQPT_PRO.Controllers
         public ActionResult Create()
         {
             BindCustomerType();
+            BindAgency();
             return View();
         } 
 
@@ -75,6 +76,8 @@ namespace GGZBTQPT_PRO.Controllers
         public ActionResult Edit(int id)
         {
             T_JG_Product t_jg_product = db.T_JG_Product.Find(id);
+            BindAgency(t_jg_product.AgencyID);
+            BindCustomerType();
             return View(t_jg_product);
         }
 
@@ -82,11 +85,12 @@ namespace GGZBTQPT_PRO.Controllers
         // POST: /JG_Product/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(T_JG_Product t_jg_product)
+        public ActionResult Edit(T_JG_Product t_jg_product, FormCollection collection)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(t_jg_product).State = EntityState.Modified;
+                t_jg_product.CustomerType = collection["checkboxType"];
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -60,9 +60,10 @@ namespace GGZBTQPT_PRO.Models.Mapping
                 .HasMaxLength(1);
 
             // Table & Column Mappings
+
             this.ToTable("T_XM_Financing");
             this.Property(t => t.ID).HasColumnName("ID");
-            this.Property(t => t.UserID).HasColumnName("UserID");
+            this.Property(t => t.MemberID).HasColumnName("UserID");
             this.Property(t => t.ItemName).HasColumnName("ItemName");
             this.Property(t => t.Province).HasColumnName("Province");
             this.Property(t => t.City).HasColumnName("City");
@@ -88,7 +89,6 @@ namespace GGZBTQPT_PRO.Models.Mapping
             this.Property(t => t.TransferPrice).HasColumnName("TransferPrice");
             this.Property(t => t.TransferType).HasColumnName("TransferType");
             this.Property(t => t.TransactionMode).HasColumnName("TransactionMode");
-            this.Property(t => t.Description).HasColumnName("Description2");
             this.Property(t => t.Investment).HasColumnName("Investment");
             this.Property(t => t.CooperationMode).HasColumnName("CooperationMode");
             this.Property(t => t.BuildCycle).HasColumnName("BuildCycle");
@@ -108,6 +108,7 @@ namespace GGZBTQPT_PRO.Models.Mapping
             this.Property(t => t.OP).HasColumnName("OP");
             this.Property(t => t.CreateTime).HasColumnName("CreateTime");
             this.Property(t => t.UpdateTime).HasColumnName("UpdateTime");
+
         }
     }
 }

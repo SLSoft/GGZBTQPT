@@ -1,0 +1,75 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Financing>
+<script type="text/javascript">
+    $(function () {
+        $("#PublicState").find("option[value='"+@ViewBag.State+"']").attr("selected", true);
+    });
+</script>
+<div class="pageContent j-resizeGrid" style="border-left: 1px #B8D0D6 solid; border-right: 1px #B8D0D6 solid">
+  <div class="panelBar">
+    <ul class="toolBar">
+      <li><form action="RZCheckList" enctype="multipart/form-data" method="post">
+<select id="PublicState" name="PublicState"><option value="1">未审核</option><option value="2">已发布</option><option value="9">已驳回</option></select>
+<input type="submit" value="查询" />
+</form></li> 
+    </ul>
+  </div>
+  <div layouth="116">
+    <table class="list" width="100%" asc="asc" desc="desc">
+      <thead>
+        <tr>
+            <th>
+            项目名称
+        </th>
+        <th>
+            所属单位
+        </th>
+        <th>
+            融资金额
+        </th>
+        <th>
+            状态
+        </th>
+        <th>
+            操作
+        </th>
+    </tr>
+      </thead>
+      <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.ItemName, "Edit", new { id = item.ID }, new { target = "_blank" })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MemberID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublicText)
+                </td>
+                <td>
+                    @Html.ActionLink("通过", "RZCheck", new { id = item.ID, state = "2" }) |
+                    @Html.ActionLink("驳回", "RZCheck", new { id = item.ID, state = "9" })
+                </td>
+            </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <div class="panelBar">
+    <div class="pages">
+      <span>显示</span>
+      <select name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+        <option value="20">20</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+        <option value="200">200</option>
+      </select>
+      <span>条，共23条</span>
+    </div>
+    <div class="pagination" targettype="navTab" totalcount="200" numperpage="20" pagenumshown="10" currentpage="2">
+    </div>
+  </div>
+</div>

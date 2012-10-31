@@ -36,5 +36,8 @@ namespace GGZBTQPT_PRO.Models
                 return db.T_JG_Agency.Find(this.AgencyID).AgencyName;
             }
         }
+
+        public int MemberID { get; set; }
+
     }
 }

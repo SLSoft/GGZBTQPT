@@ -1,0 +1,36 @@
+﻿@model GGZBTQPT_PRO.Models.T_HY_Member
+
+@{
+    ViewBag.Title = "我的关注";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#attentioned li a").click(function (e) {
+            e.preventDefault();
+            $("#attentioned li").removeClass("active");
+            $(this).parent("li").addClass("active");
+        });
+
+        $("#attentioned li.active a").click();
+    });
+
+</script>
+<h3 class="content-title">
+    我的关注</h3>
+
+<ul id="attentioned" class="nav nav-tabs">
+    <li class="active">
+        @Ajax.ActionLink("关注的创业者", "AttentionedPersons", "Attention", new { member_id = Model.ID }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
+    </li>
+    <li>
+        @Ajax.ActionLink("关注的企业", "AttentionedCorps", "Attention", new { member_id = Model.ID }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
+    </li>
+    <li>
+        @Ajax.ActionLink("关注的机构", "AttentionedAgencies", "Attention", new { member_id = Model.ID }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
+    </li>
+</ul>
+
+<div id="details">
+
+</div>

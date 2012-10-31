@@ -1,31 +1,38 @@
-﻿
-
-//判断用户的会员级别
-@helper ComputeMemberGrade( int intetral )
-{
-    switch (intetral)
-	{
+﻿//判断用户的会员级别
+@helper ComputeMemberGrade(int intetral)
+    {
+    switch (intetral / 100)
+    {
 
         case 1:
-            <div>铜牌会员</div>
+    <div>
+         <span class="badge badge-info">会员级别：铜牌会员 [@intetral]</span></div>
             break;
         case 2:
-            <div>银牌会员</div>
+    <div>
+          <span class="badge badge-info">会员级别：银牌会员 [@intetral]</span></div>
             break;
         case 3:
-            <div>金牌会员</div> 
+    <div>
+         <span class="badge badge-info">会员级别：金牌会员 [@intetral]</span></div> 
             break;
-		default:
-            <div>普通会员</div>
+        default:
+    <div>
+         <span class="badge badge-info">会员级别：普通会员 [@intetral]</span></div>
             break;
-	}
+    }
 }
-
 //判断会员是否登陆
 @helper CheckWhetherMemberLoginIn()
-{
-    if(Session["MemberID"] != null && Session["MemberID"].ToString() != "")
     {
-        <li><a href="\Member\Member\Logout">退出</a></li>
+    if (Session["MemberID"] != null && Session["MemberID"].ToString() != "")
+    {
+    <li><a href="\Member\Member\Config">设置</a></li>
+    <li><a href="\Member\Member\Logout">退出</a></li>
+    }
+    else
+    {
+    <li><a href="\Member\Member\Create">注册</a></li>
+    <li><a href="\Member\Member\Login">登录</a></li>
     }
 }

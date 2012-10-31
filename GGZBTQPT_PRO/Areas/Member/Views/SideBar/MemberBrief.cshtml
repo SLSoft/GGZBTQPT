@@ -1,7 +1,16 @@
 ﻿@model GGZBTQPT_PRO.Models.T_HY_Member
-
-
 <div class="member-info">
-    @MemberHelper.ComputeMemberGrade(Model.Intetral / 100)
-    <div>会员发布信息</div>
+    @if (Model != null)
+    {
+        @Html.ActionLink("欢迎你！" + Model.LoginName, "Config", "Member")
+        @MemberHelper.ComputeMemberGrade(Model.Intetral)
+        <hr />
+        <div>
+            <h4>发布内容统计</h4>
+            <label>
+                发布项目：6条</label>
+            <label>
+                发布意向：6条</label>
+        </div>
+    }
 </div>

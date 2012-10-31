@@ -95,6 +95,7 @@
     <Compile Include="Controllers\JG_LinkmanController.cs" />
     <Compile Include="Controllers\JG_ProductController.cs" />
     <Compile Include="Controllers\QY_CorpController.cs" />
+    <Compile Include="Controllers\QY_PersonController.cs" />
     <Compile Include="Controllers\XM_RZController.cs" />
     <Compile Include="Controllers\XM_TZController.cs" />
     <Compile Include="Controllers\ZC_DepartmentController.cs" />
@@ -167,9 +168,6 @@
     <Content Include="bin\EntityFramework.dll" />
     <Content Include="bin\GGZBTQPT_PRO.dll" />
     <Content Include="bin\GGZBTQPT_PRO.pdb" />
-    <Content Include="Content\css\Member.css">
-      <DependentUpon>member.scss</DependentUpon>
-    </Content>
     <Content Include="Content\images\member\user.jpg" />
     <Content Include="Content\images\member\bg.png" />
     <Content Include="Content\js\extendDwz.js" />
@@ -799,8 +797,6 @@
     <Content Include="Areas\Member\Views\Shared\_SideBar.cshtml" />
     <Content Include="Areas\Member\Views\Shared\_Header.cshtml" />
     <Content Include="App_Code\MemberHelper.cshtml" />
-    <None Include="ClassDiagram1.cd" />
-    <None Include="Content\css\member.scss" />
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="obj\Debug\edmxResourcesToEmbed\Models\GGZBTQPT.csdl" />
@@ -889,12 +885,19 @@
     <Content Include="Views\JG_Product\Create.cshtml" />
     <Content Include="Views\JG_Product\Edit.cshtml" />
     <Content Include="Views\JG_Product\Delete.cshtml" />
+    <Content Include="Views\QY_Person\Index.cshtml" />
+    <Content Include="Views\QY_Person\Details.cshtml" />
+    <Content Include="Views\QY_Person\Create.cshtml" />
+    <Content Include="Views\QY_Person\Edit.cshtml" />
+    <Content Include="Views\QY_Person\Delete.cshtml" />
+    <Content Include="Views\XM_RZ\RZCheckList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Member\Models\" />
+    <Folder Include="Content\css\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\Common.resx">

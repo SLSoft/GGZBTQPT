@@ -1,8 +1,13 @@
-﻿
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Investment>
 <div>
-<h4>最新融资意向</h4>
-<ul>
-<li>人参茶项目寻找合作伙伴</li>
-<li>四川某品牌酒股权融资500万！急！</li>
-</ul>
+    <h4>
+        最新发布融资意向</h4>
+    <ul>
+        @foreach (var _model in Model)
+        {
+            <li><a href="#">[@_model.ItemName]</a></li>
+        }
+    </ul>
 </div>
+
+

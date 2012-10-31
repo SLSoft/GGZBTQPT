@@ -16,6 +16,6 @@ namespace GGZBTQPT_PRO.Models
         public DateTime UpdatedAt { get; set; }
 
         public int SystemID { get; set; }
-        public T_ZC_System System { get; set; }
+        public virtual T_ZC_System System { get; set; }
     }
 }

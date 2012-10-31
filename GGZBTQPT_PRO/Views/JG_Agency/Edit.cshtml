@@ -2,10 +2,9 @@
 
 @{
     ViewBag.Title = "Edit";
-    Layout = null;
 }
 
-<h2>Edit</h2>
+<h2>修改机构信息</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
@@ -13,124 +12,54 @@
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>机构信息</legend>
-
         @Html.HiddenFor(model => model.ID)
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AgencyName, "机构名称")
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.AgencyName)
-            @Html.ValidationMessageFor(model => model.AgencyName)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AgencyType, "机构类别")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("AgencyType", "请选择")
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.RegTime, "成立日期")
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.RegTime)
-            @Html.ValidationMessageFor(model => model.RegTime)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Address, "详细地址")
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Address)
-            @Html.ValidationMessageFor(model => model.Address)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.RegCapital, "注册资本")
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.RegCapital)
-            @Html.ValidationMessageFor(model => model.RegCapital)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Province, "工商注册地")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("Province", "请选择")
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Region)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Region)
-            @Html.ValidationMessageFor(model => model.Region)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Phone, "联系电话")
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Phone)
-            @Html.ValidationMessageFor(model => model.Phone)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Services, "机构服务内容")
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Services)
-            @Html.ValidationMessageFor(model => model.Services)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Remark, "机构简介")
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Remark)
-            @Html.ValidationMessageFor(model => model.Remark)
-        </div>
-        @{
-       if (Model.Linkmans.Count != 0)
-       {
-           var item = Model.Linkmans.First(); 
-                <div class="editor-label">
-                    @Html.LabelFor(model => item.Name, "联系人")
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => item.Name)
-                </div>
-                <div class="editor-label">
-                    @Html.LabelFor(model => item.Business, "职务")
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => item.Business)
-                </div>
-                <div class="editor-label">
-                    @Html.LabelFor(model => item.Phone, "办公电话")
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => item.Phone)
-                </div>
-                <div class="editor-label">
-                    @Html.LabelFor(model => item.Mobile, "移动电话")
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => item.Mobile)
-                </div>
-       }
-        }
+        @Html.HiddenFor(model => model.IsValid)
+        @Html.HiddenFor(model => model.OP)
+        @Html.HiddenFor(model => model.CreateTime)
+        @Html.HiddenFor(model => model.UpdateTime)
+        <table>
+            <tr>
+                <td>@Html.LabelFor(model => model.AgencyName, "机构名称")</td>
+                <td>@Html.EditorFor(model => model.AgencyName)@Html.EditorFor(model => model.IsIn)是否大厦入驻机构</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.AgencyType, "机构类别")</td>
+                <td>@Html.DropDownList("AgencyType", "请选择")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.RegTime, "成立日期")</td>
+                <td>@Html.EditorFor(model => model.RegTime)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Address, "详细地址")</td>
+                <td>@Html.EditorFor(model => model.Address)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.RegCapital, "注册资本")</td>
+                <td>@Html.EditorFor(model => model.RegCapital)（万元）</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Province, "工商注册地")</td>
+                <td>@Html.DropDownList("Province", "请选择")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Phone, "联系电话")</td>
+                <td>@Html.EditorFor(model => model.Phone)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Services, "机构服务内容")</td>
+                <td>@Html.TextAreaFor(model => model.Services, new { rows = "5", cols = "60" })</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Remark, "机构简介")</td>
+                <td>@Html.TextAreaFor(model => model.Remark, new { rows = "5", cols = "60" })</td>
+            </tr>
+        </table>
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="保存" />
         </p>
-    </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("返回", "Index")
 </div>

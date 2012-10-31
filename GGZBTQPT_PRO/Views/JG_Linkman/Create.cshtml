@@ -15,7 +15,7 @@
         <legend>机构联系人</legend>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
+            @Html.LabelFor(model => model.Name, "联系人")
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Name)
@@ -23,7 +23,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Business)
+            @Html.LabelFor(model => model.Business, "负责业务")
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Business)
@@ -31,7 +31,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Phone)
+            @Html.LabelFor(model => model.Phone, "办公电话")
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Phone)
@@ -39,7 +39,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Mobile)
+            @Html.LabelFor(model => model.Mobile, "移动电话")
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Mobile)
@@ -47,7 +47,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Email)
+            @Html.LabelFor(model => model.Email, "电子邮箱")
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Email)
@@ -55,7 +55,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Remark)
+            @Html.LabelFor(model => model.Remark, "备注")
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Remark)
@@ -63,11 +63,11 @@
         </div>
 
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="提交" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("首页", "Index")
+    @Html.ActionLink("返回", "Index")
 </div>

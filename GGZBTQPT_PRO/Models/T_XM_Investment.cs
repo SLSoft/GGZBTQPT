@@ -6,7 +6,7 @@ namespace GGZBTQPT_PRO.Models
     public class T_XM_Investment
     {
         public int ID { get; set; }
-        public int UserID { get; set; }
+
         public string ItemName { get; set; }
         public Nullable<int> Province { get; set; }
         public Nullable<int> City { get; set; }
@@ -39,12 +39,31 @@ namespace GGZBTQPT_PRO.Models
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
 
+
+        public int MemberID { get; set; }
+
         public string IndustryName
         {
             get
             {
                 GGZBTQPTDBContext db = new GGZBTQPTDBContext();
                 return db.T_PTF_DicDetail.Find(this.Industry).Name;
+            }
+        }
+        public string AimIndustryName
+        {
+            get
+            {
+                string result = "";
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                string[] aimInd = this.AimIndustry.Split(',');
+                foreach (string strInd in aimInd)
+                {
+                    result += db.T_PTF_DicDetail.Find(Convert.ToInt32(strInd)).Name + ',';
+                }
+                if (result.Length > 0)
+                    result = result.Substring(0, result.Length - 1);
+                return result;
             }
         }
     }

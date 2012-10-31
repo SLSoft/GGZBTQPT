@@ -3,28 +3,71 @@
 @{
     ViewBag.Title = "Create";
 }
+@helper GenerateIndustry()
+{
+    var i = 0;
+    foreach (var item in ViewData["Industry"] as SelectList)
+    {
+        if (i % 6 == 0)
+        {
+            <br />
+        }
+        <input type="checkbox" id="checkboxType" name="checkboxType" value="@item.Value" /><span>@item.Text</span>
+        i++;
+    }
+}
+@helper GenerateProvince()
+{
+    var i = 0;
+    foreach (var item in ViewData["Province"] as SelectList)
+    {
+        if (i % 6 == 0)
+        {
+            <br />
+        }
+        <input type="checkbox" id="checkboxType" name="checkboxType" value="@item.Value" /><span>@item.Text</span>
+        i++;
+    }
+}
+<script type="text/javascript">
+    $(function () {
+        $("#Province").change(function () { GetPlant() });
+    });
 
-<h2>Create</h2>
+    function GetPlant() {
+        $("#ddlCity").empty();
+        var url = "/XM_RZ/GetCity/?ParentCode=" + $("#Province").val();
+        $.getJSON(url, function (data) {
+            $.each(data, function (i, item) {
+                $("<option></option>")
+                    .val(item["Code"])
+                    .text(item["Name"])
+                    .appendTo($("#ddlCity"));
+
+            });
+        });
+    }
+</script>
+<h2>发布投资意向</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>T_XM_Investment</legend>
-        <table style="width:100%">
+        <table style="width:800px">
             <tr>
                 <td colspan="2" style="background-color:#666666; color:#ffffff">基本信息</td>
             </tr>
             <tr>
-                <td style="width:120px">@Html.LabelFor(model => model.ItemName,"项目名称")</td>
+                <td style="width:120px">@Html.LabelFor(model => model.ItemName, "投资意向标题")</td>
                 <td>@Html.EditorFor(model => model.ItemName)
             @Html.ValidationMessageFor(model => model.ItemName)</td>
             </tr>
             <tr>
-                <td>@Html.LabelFor(model => model.Province,"所属区域")</td>
-                <td>@Html.DropDownList("Province", "请选择")</td>
+                <td>@Html.LabelFor(model => model.Province, "所属区域")</td>
+                <td>@Html.DropDownList("Province", "请选择")<select id="ddlCity" name="ddlCity"><option value="-1">请选择</option></select></td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Industry, "所属行业")</td>
@@ -41,43 +84,42 @@
             @Html.ValidationMessageFor(model => model.Keys)</td>
             </tr>
             <tr>
-                <td>@Html.LabelFor(model => model.Description, "投资意向介绍")</td>
-                <td>@Html.TextAreaFor(model => model.Description, new { rows = "5" })
+                <td>@Html.LabelFor(model => model.Description, "投资意向描述")</td>
+                <td>@Html.TextAreaFor(model => model.Description, new { rows = "5", cols = "60" })
             @Html.ValidationMessageFor(model => model.Description)</td>
             </tr>
         </table>
-        <table style="width:100%">
+        <table style="width:800px">
             <tr>
-                <td colspan="4" style="background-color:#666666; color:#ffffff">融资信息</td>
+                <td colspan="4" style="background-color:#666666; color:#ffffff">投资信息</td>
             </tr>
             <tr>
                 <td style="width:120px">@Html.LabelFor(model => model.Investment, "可投资金额")</td>
-                <td>@Html.EditorFor(model => model.Investment)
+                <td>@Html.EditorFor(model => model.Investment)（万元）
             @Html.ValidationMessageFor(model => model.Investment)</td>
                 <td>@Html.LabelFor(model => model.StartInvestment, "起始投资金额")</td>
-                <td>@Html.EditorFor(model => model.StartInvestment)
+                <td>@Html.EditorFor(model => model.StartInvestment)（万元）
             @Html.ValidationMessageFor(model => model.StartInvestment)</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.AimIndustry, "意向行业")</td>
-                <td colspan="3"></td>
+                <td colspan="3">@GenerateIndustry()</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.ReturnRatio, "预期回报率")</td>
-                <td>@Html.EditorFor(model => model.ReturnRatio)
+                <td>@Html.EditorFor(model => model.ReturnRatio)（%/年）
             @Html.ValidationMessageFor(model => model.ReturnRatio)</td>
                 <td>@Html.LabelFor(model => model.InvestmentPeriod, "投资期限")</td>
-                <td>@Html.EditorFor(model => model.InvestmentPeriod)
+                <td>@Html.EditorFor(model => model.InvestmentPeriod)（月）
             @Html.ValidationMessageFor(model => model.InvestmentPeriod)</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.AjmArea, "投资地区")</td>
-                <td colspan="3"></td>
+                <td colspan="3">@GenerateProvince()</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.TeamworkType, "合作方式")</td>
-                <td colspan="3">@Html.EditorFor(model => model.TeamworkType)
-            @Html.ValidationMessageFor(model => model.TeamworkType)</td>
+                <td colspan="3">@Html.DropDownList("TeamworkType", "请选择")</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.PartnerRequirements, "合作方要求")</td>
@@ -85,7 +127,7 @@
             @Html.ValidationMessageFor(model => model.PartnerRequirements)</td>
             </tr>
         </table>
-        <table style="width:100%">
+        <table style="width:800px">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">联系人信息</td>
             </tr>
@@ -120,9 +162,8 @@
             </tr>
         </table>
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="提交" />
         </p>
-    </fieldset>
 }
 
 <div>

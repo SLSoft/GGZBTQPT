@@ -15,10 +15,18 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         //
         // GET: /Member/Publish/
 
-        public ActionResult Index(int id)
+        public ActionResult Index()
         {
-            var member = db.T_HY_Member.Find(id);
-            return View(member);
+            
+            if(CurrentMember() != null)
+            {
+                var member = db.T_HY_Member.Find(CurrentMember().ID);
+                return View(member);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Member");
+            }
         }
 
         /// <summary>
@@ -28,30 +36,79 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         /// <returns></returns>
         public ActionResult PublishedFinancials(int member_id)
         {
-            var finacials = db.T_XM_Financing.Where( f => f.UserID == member_id).ToList();
-            return PartialView(finacials);
+            var member = CurrentMember();
+            if (member == null)
+            {
+                return RedirectToAction("Login", "Member");
+            }
+            try
+            {
+                var finacials = db.T_XM_Financing.Where(f => f.MemberID == member.ID).ToList();
+                return PartialView(finacials);
+            }
+            catch
+            {
+                return PartialView();
+            } 
+
         }
 
-        ///// <summary>
-        ///// 用户所发布的投资意向
-        ///// </summary>
-        ///// <param name="member_id"></param>
-        ///// <returns></returns>
-        //public ActionResult PublishedInvestments(int member_id)
-        //{
-        //    var finacials = db.T_XM_Financing.Where( f => f.UserID == member_id).ToList();
-        //    return PartialView(finacials);
-        //}
+        /// <summary>
+        /// 用户所发布的投资意向
+        /// </summary>
+        /// <param name="member_id"></param>
+        /// <returns></returns>
+        public ActionResult PublishedInvestments(int member_id)
+        {
+            var member = CurrentMember();
+            if (member == null)
+            {
+                return RedirectToAction("Login", "Member");
+            }
+            try
+            {
+                var finacials = db.T_XM_Investment.Where(f => f.MemberID == member.ID).ToList();
+                return PartialView(finacials);
+            }
+            catch
+            {
+                return PartialView();
+            } 
+        }
 
-        ///// <summary>
-        ///// 用户所发布的金融产品
-        ///// </summary>
-        ///// <param name="member_id"></param>
-        ///// <returns></returns>
-        //public ActionResult PublishedProducts(int member_id)
-        //{
-        //    var products = db.T_JG_Product.Where( f => f. == member_id).ToList();
-        //    return PartialView(finacials);
-        //}
+        /// <summary>
+        /// 用户所发布的金融产品
+        /// </summary>
+        /// <param name="member_id"></param>
+        /// <returns></returns>
+        public ActionResult PublishedProducts(int member_id)
+        {
+            var member = CurrentMember();
+            if (member == null)
+            {
+                return RedirectToAction("Login", "Member");
+            }
+            try
+            {
+                var finacials = db.T_JG_Product.Where(f => f.MemberID == member.ID).ToList();
+                return PartialView(finacials);
+            }
+            catch
+            {
+                return PartialView();
+            } 
+        }
+
+
+
+        private T_HY_Member CurrentMember()
+        {
+            if (Session["MemberID"] != null && Session["MemberID"].ToString() != "")
+            {
+                var member = db.T_HY_Member.Find(Convert.ToInt32(Session["MemberID"].ToString()));
+                return member;
+            }
+            return null;
+        }
     }
 }

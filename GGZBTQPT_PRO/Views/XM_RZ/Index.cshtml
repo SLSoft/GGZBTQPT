@@ -17,14 +17,14 @@
                 项目名称
             </th>
             <th>
+                项目类别
+            </th>
+            <th>
                 所属行业
             </th>
             <th>
                 有效日期
-            </th>
-            <th>
-                发布状态
-            </th>
+            </th>        
             <th>操作</th>
     </tr>
       </thead>
@@ -36,13 +36,13 @@
                 @Html.DisplayFor(modelItem => item.ItemName)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.ItemText)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.IndustryName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ValidDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsPublic)
             </td>
             <td>
                 @Html.ActionLink("编辑", "Edit", new { id = item.ID }) |

@@ -41,7 +41,7 @@ namespace GGZBTQPT_PRO.Controllers
         {
             List<T_PTF_DicTreeDetail> Area = db.T_PTF_DicTreeDetail.Where(p => (p.DicType == "34" && p.Depth == 1)).ToList();
 
-            ViewData["Province"] = new SelectList(Area, "ID", "Name", select);
+            ViewData["Province"] = new SelectList(Area, "Code", "Name", select);
         }
         public void BindFinancType(object select = null)
         {
@@ -55,7 +55,24 @@ namespace GGZBTQPT_PRO.Controllers
 
             ViewData["ItemStage"] = new SelectList(ItemStage, "ID", "Name", select);
         }
+        public JsonResult GetCity(string ParentCode)
+        {
+            List<T_PTF_DicTreeDetail> City = db.T_PTF_DicTreeDetail.Where(p => (p.DicType == "34" && p.ParentCode == ParentCode)).ToList();
+            
+            return Json(City, JsonRequestBehavior.AllowGet);
+        }
+        public void BindAssetsType(object select = null)
+        {
+            List<T_PTF_DicDetail> AssetsType = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM03")).ToList();
 
+            ViewData["AssetsType"] = new SelectList(AssetsType, "ID", "Name", select);
+        }
+        public void BindTransactionMode(object select = null)
+        {
+            List<T_PTF_DicDetail> TransactionMode = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM05")).ToList();
+
+            ViewData["TransactionMode"] = new SelectList(TransactionMode, "ID", "Name", select);
+        }
         
         //
         // GET: /XM_RZ/Create
@@ -65,7 +82,9 @@ namespace GGZBTQPT_PRO.Controllers
             BindArea();
             BindIndustry();
             BindFinancType();
-
+            BindItemStage();
+            BindAssetsType();
+            BindTransactionMode();
             return View();
         } 
 
@@ -73,10 +92,15 @@ namespace GGZBTQPT_PRO.Controllers
         // POST: /XM_RZ/Create
 
         [HttpPost]
-        public ActionResult Create(T_XM_Financing t_xm_financing)
+        public ActionResult Create(T_XM_Financing t_xm_financing, FormCollection collection)
         {
             if (ModelState.IsValid)
             {
+                string checkedTransactionMode = (collection["TransactionMode"] + ",").Replace("false,", "");
+                if (checkedTransactionMode.Length > 1)
+                    checkedTransactionMode = checkedTransactionMode.Remove(checkedTransactionMode.Length - 1);
+                t_xm_financing.TransactionMode = checkedTransactionMode;
+                t_xm_financing.City = Int32.Parse(collection["ddlCity"]);
                 t_xm_financing.IsValid = true;
                 t_xm_financing.OP = 0;
                 t_xm_financing.CreateTime = DateTime.Now;
@@ -98,6 +122,9 @@ namespace GGZBTQPT_PRO.Controllers
             BindArea(t_xm_financing.Province);
             BindIndustry(t_xm_financing.Industry);
             BindFinancType(t_xm_financing.FinancType);
+            BindItemStage(t_xm_financing.ItemStage);
+            BindAssetsType(t_xm_financing.AssetsType);
+            BindTransactionMode(t_xm_financing.TransactionMode);
             return View(t_xm_financing);
         }
 
@@ -105,11 +132,16 @@ namespace GGZBTQPT_PRO.Controllers
         // POST: /XM_RZ/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(T_XM_Financing t_xm_financing)
+        public ActionResult Edit(T_XM_Financing t_xm_financing, FormCollection collection)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(t_xm_financing).State = EntityState.Modified;
+                string checkedTransactionMode = (collection["TransactionMode"] + ",").Replace("false,", "");
+                if (checkedTransactionMode.Length > 1)
+                    checkedTransactionMode = checkedTransactionMode.Remove(checkedTransactionMode.Length - 1);
+                t_xm_financing.TransactionMode = checkedTransactionMode;
+                t_xm_financing.City = Int32.Parse(collection["ddlCity"]);
                 t_xm_financing.UpdateTime = DateTime.Now;     
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -166,6 +198,27 @@ namespace GGZBTQPT_PRO.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        public ActionResult RZCheckList()
+        {
+            return View(db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == "1")).ToList());
+        }
+
+        [HttpPost]
+        public ActionResult RZCheckList(FormCollection collection)
+        {
+            string strPublicState = collection["PublicState"];
+            ViewBag.State = strPublicState;
+            return View(db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == strPublicState)).ToList());
+        }
+
+        public ActionResult RZCheck(int id, string state)
+        {
+            T_XM_Financing t_xm_financing = db.T_XM_Financing.Find(id);
+            t_xm_financing.PublicStatus = state;
+            db.SaveChanges();
+            return RedirectToAction("RZCheckList");
         }
     }
 }
