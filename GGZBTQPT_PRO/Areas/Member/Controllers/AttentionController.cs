@@ -136,7 +136,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             member.Attentions.Add(attentioned_item);
             db.SaveChanges();
 
-            return Json(new { statusCode = "200", message = "关注成功" });
+            return Json(new { statusCode = "200", message = "关注成功", type = "success" });
         }
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             db.T_HY_Attention.Remove(unattentioned_item);
             db.SaveChanges();
 
-            return Json(new { statusCode = "200", message = "取消关注成功" });
+            return Json(new { statusCode = "200", message = "取消关注成功", type = "success" });
         }
 
     }

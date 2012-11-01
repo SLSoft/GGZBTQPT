@@ -96,7 +96,7 @@
     <Compile Include="Areas\Member\Controllers\MemberController.cs" />
     <Compile Include="Areas\Member\Controllers\PublishController.cs" />
     <Compile Include="Areas\Member\Controllers\QY_CorpController.cs" />
-    <Compile Include="Areas\Member\Controllers\QY_PersonController.cs" />
+    <Compile Include="Areas\Member\Controllers\PersonController.cs" />
     <Compile Include="Areas\Member\Controllers\RecommendController.cs" />
     <Compile Include="Areas\Member\Controllers\SideBarController.cs" />
     <Compile Include="Areas\Member\MemberAreaRegistration.cs" />
@@ -196,8 +196,12 @@
     <Compile Include="ViewModels\ViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Member\Content\css\Member.css" />
-    <Content Include="Areas\Member\Content\js\Member.js" />
+    <Content Include="Areas\Member\Content\css\Member.css">
+      <DependentUpon>member.scss</DependentUpon>
+    </Content>
+    <Content Include="Areas\Member\Content\js\Member.js">
+      <DependentUpon>member.coffee</DependentUpon>
+    </Content>
     <Content Include="bin\EntityFramework.dll" />
     <Content Include="bin\GGZBTQPT_PRO.dll" />
     <Content Include="bin\GGZBTQPT_PRO.pdb" />
@@ -866,6 +870,7 @@
     <Content Include="Areas\Member\Views\SideBar\TheLastestProducts.cshtml" />
     <Content Include="Areas\Member\Views\Member\EditCorp.cshtml" />
     <Content Include="Areas\Member\Views\Member\EditPerson.cshtml" />
+    <Content Include="Areas\Member\Views\Person\Edit.cshtml" />
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="obj\Debug\edmxResourcesToEmbed\Models\GGZBTQPT.csdl" />

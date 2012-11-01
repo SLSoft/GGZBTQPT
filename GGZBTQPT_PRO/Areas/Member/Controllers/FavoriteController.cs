@@ -148,7 +148,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             member.Favorites.Add(favored_item);
             db.SaveChanges();
 
-            return Json(new { statusCode = "200", message = "项目收藏成功" });
+            return Json(new { statusCode = "200", message = "项目收藏成功", type = "success" });
         }
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             db.T_HY_Favorite.Remove(favored_item);
             db.SaveChanges();
 
-            return Json(new { statusCode = "200", message = "项目取消收藏成功" });
+            return Json(new { statusCode = "200", message = "项目取消收藏成功", type = "success" });
         }
 
 

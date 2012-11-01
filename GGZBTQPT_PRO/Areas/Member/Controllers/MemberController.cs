@@ -79,14 +79,15 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             {
                 if (!VerifyCode(Request["verify"].ToString(), t_hy_member.CellPhone))
                 {
-                    return View(t_hy_member);
+                    return Json(new { statusCode = "200", message = "验证码错误！请检查后输入", type = "error" });
                 } 
                 db.Entry(t_hy_member).State = EntityState.Modified;
+                t_hy_member.UpdatedAt = DateTime.Now; 
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json(new { statusCode = "200", message = "信息保存成功！", type = "success" });
             }
 
-            return PartialView(t_hy_member);
+            return Json(new { statusCode = "200", message = "信息保存失败！", type = "error" });
         }
 
         //
@@ -132,6 +133,8 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
                 return RedirectToAction("Index", "Home");
             }
             ViewBag.MemberType = member.Type;
+            ViewBag.MemberID = member.ID;
+            ViewBag.MemberDetailID = FindIDForDetail(member.Type);
             return View();
         }
  
@@ -300,6 +303,26 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
                 return true;
             }
             return false;
+        }
+
+        public int FindIDForDetail(int member_type)
+        {
+
+            int result = 0;
+            var member = CurrentMember();
+            switch (member_type)
+            {
+                case 1:
+                    result = db.T_QY_Person.First(p => p.MemberID == member.ID).ID;
+                    break;
+                case 2:
+                    result = db.T_QY_Corp.First(p => p.MemberID == member.ID).ID;
+                    break;
+                case 3:
+                    result = db.T_JG_Agency.First(p => p.MemberID == member.ID).ID;
+                    break;
+            }
+            return result;
         }
 
         protected override void Dispose(bool disposing)

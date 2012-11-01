@@ -3,7 +3,7 @@
   (function($) {
     return $.Member = {
       notice: function(msg) {
-        return $("<div class='alert fade in alert-success'></div>").text(msg).append("<button type='button' class='close' data-dismiss='alert'>×</button>").prependTo("#notice");
+        return $("<div class='alert fade in alert-" + msg.type + "'></div>").text(msg.message).append("<button type='button' class='close' data-dismiss='alert'>×</button>").prependTo("#notice");
       },
       sendRandomPwd: function() {
         return $("#send_random_pwd").click(function() {

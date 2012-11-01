@@ -9,7 +9,7 @@ using GGZBTQPT_PRO.Models;
 
 namespace GGZBTQPT_PRO.Areas.Member.Controllers
 { 
-    public class QY_PersonController : Controller
+    public class PersonController : Controller
     {
         private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
 
@@ -46,35 +46,6 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
 
         
         //
-        // GET: /QY_Person/Create
-
-        public ActionResult Create()
-        {
-            BindCardType(); 
-            BindEducation(); 
-            BindDegree(); 
-            BindTitles(); 
-            BindTitlesGrade();
-            return View();
-        } 
-
-        //
-        // POST: /QY_Person/Create
-
-        [HttpPost]
-        public ActionResult Create(T_QY_Person t_qy_person)
-        {
-            if (ModelState.IsValid)
-            {
-                db.T_QY_Person.Add(t_qy_person);
-                db.SaveChanges();
-                return RedirectToAction("Index");  
-            }
-
-            return View(t_qy_person);
-        }
-        
-        //
         // GET: /QY_Person/Edit/5
  
         public ActionResult Edit(int id)
@@ -85,7 +56,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             BindDegree(t_qy_person.Degree);
             BindTitles(t_qy_person.Titles);
             BindTitlesGrade(t_qy_person.TitlesGrade);
-            return View(t_qy_person);
+            return PartialView(t_qy_person);
         }
 
         //
@@ -98,31 +69,16 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             {
                 db.Entry(t_qy_person).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json(new { statusCode = "200", message = "信息保存成功！", type = "success" });
+
             }
-            return View(t_qy_person);
-        }
-
-        //
-        // GET: /QY_Person/Delete/5
- 
-        public ActionResult Delete(int id)
-        {
-            T_QY_Person t_qy_person = db.T_QY_Person.Find(id);
-            return View(t_qy_person);
-        }
-
-        //
-        // POST: /QY_Person/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {            
-            T_QY_Person t_qy_person = db.T_QY_Person.Find(id);
-            db.T_QY_Person.Remove(t_qy_person);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+            BindCardType(t_qy_person.CardType);
+            BindEducation(t_qy_person.Education);
+            BindDegree(t_qy_person.Degree);
+            BindTitles(t_qy_person.Titles);
+            BindTitlesGrade(t_qy_person.TitlesGrade);
+            return Json(new { statusCode = "200", message = "信息保存失败！", type = "error" });
+        } 
 
         protected override void Dispose(bool disposing)
         {

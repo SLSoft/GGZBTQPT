@@ -1,15 +1,40 @@
 ﻿@model GGZBTQPT_PRO.Models.T_HY_Member 
 
-@using (Html.BeginForm())
+<script type="text/javascript">
+    function notice(data) {
+        $("#config li.active a").click();
+        $.Member.notice(data);
+    }
+
+    //发送手机验证码
+    $(document).ready(function () {
+        $("#get_verify_code").click(function () {
+
+            var requestData = { phone_number: $("#CellPhone").attr("value") };
+            $.get("\SendVerifyCodeToPhone", requestData, function (data) {
+                if (data == "True") {
+                    alert("发送成功");
+                }
+                else {
+                    alert("发送失败，请检查手机号码!");
+                }
+            });
+            return false;
+        });
+    });
+</script>
+
+@using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" }))
 {
     @Html.ValidationSummary(true)
 
     @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.CreatedAt)
     <div class="editor-label">
         @Html.LabelFor(model => model.LoginName, "登录名")
     </div>
     <div class="editor-field">
-        @Html.DisplayTextFor(model => model.LoginName)
+        @Html.EditorFor(model => model.LoginName)
         @Html.ValidationMessageFor(model => model.LoginName)
     </div>
     <div class="editor-label">

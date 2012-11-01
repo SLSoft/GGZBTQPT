@@ -1,17 +1,17 @@
 ﻿
-@helper FullDetails(int member_type)
+@helper FullDetails(int member_type, int detail_id)
 {
     switch (member_type)
     {
         case 1:
-            @Ajax.ActionLink("详细设置", "Create", "QY_Person", new { area = ""}, new AjaxOptions {  HttpMethod="GET", UpdateTargetId="detail", LoadingElementId="Loading" })
-       break;
+            @Ajax.ActionLink("详细信息", "Edit", "Person", new { id = detail_id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "detail", LoadingElementId = "Loading" })
+        break;
         case 2:
-            @Ajax.ActionLink("详细设置", "Create", "QY_Corp", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "detail", LoadingElementId = "Loading" })
-       break;
+            @Ajax.ActionLink("详细设置", "Create", "QY_Corp", new { id = detail_id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "detail", LoadingElementId = "Loading" })
+        break;
         case 3:
-            @Ajax.ActionLink("详细设置", "Create", "JG_Agency", "Default", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "detail", LoadingElementId = "Loading" })
-       break;
+            @Ajax.ActionLink("详细设置", "Create", "JG_Agency", new { id = detail_id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "detail", LoadingElementId = "Loading" })
+        break;
     }
 }
 
@@ -27,15 +27,14 @@
 
 
 </script>
-<fieldset>
-    <legend>个人设置</legend>
-    <hr />
+<h3 class="content-title">
+    个人设置</h3>
     <ul class="nav nav-tabs" id="config">
         <li class="active">
-            @Ajax.ActionLink("基本设置", "Edit", "Member", new { id = 1 }, new AjaxOptions {  HttpMethod="GET", UpdateTargetId="detail", LoadingElementId="Loading" })
+            @Ajax.ActionLink("基本设置", "Edit", "Member", new { id = ViewBag.MemberID }, new AjaxOptions {  HttpMethod="GET", UpdateTargetId="detail", LoadingElementId="Loading" })
         </li>
         <li>
-            @FullDetails(ViewBag.MemberType)
+            @FullDetails(ViewBag.MemberType, ViewBag.MemberDetailID)
         </li>
     </ul> 
 
@@ -43,4 +42,4 @@
     
     
     </div>
-</fieldset>
+

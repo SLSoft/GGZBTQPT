@@ -1,8 +1,8 @@
 (($) ->
   $.Member = 
     notice: (msg)->
-        $("<div class='alert fade in alert-success'></div>")
-            .text(msg)
+        $("<div class='alert fade in alert-" + msg.type + "'></div>")
+            .text(msg.message)
             .append("<button type='button' class='close' data-dismiss='alert'>¡Á</button>")
             .prependTo("#notice")
 
