@@ -37,6 +37,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="MvcPager, Version=1.5.0.17702, Culture=neutral, PublicKeyToken=f6872c5a09aed72c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MvcPager.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -85,7 +89,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>T_ZC_User.resx</DependentUpon>
     </Compile>
+    <Compile Include="Areas\Member\Controllers\AttentionController.cs" />
+    <Compile Include="Areas\Member\Controllers\FavoriteController.cs" />
     <Compile Include="Areas\Member\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Member\Controllers\InquireResourcesController.cs" />
+    <Compile Include="Areas\Member\Controllers\MemberController.cs" />
+    <Compile Include="Areas\Member\Controllers\PublishController.cs" />
+    <Compile Include="Areas\Member\Controllers\RecommendController.cs" />
     <Compile Include="Areas\Member\Controllers\SideBarController.cs" />
     <Compile Include="Areas\Member\MemberAreaRegistration.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -108,13 +118,25 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201210090749348_init.cs" />
-    <Compile Include="Migrations\201210090749348_init.Designer.cs">
-      <DependentUpon>201210090749348_init.cs</DependentUpon>
+    <Compile Include="Migrations\201210290719115_init.cs" />
+    <Compile Include="Migrations\201210290719115_init.Designer.cs">
+      <DependentUpon>201210290719115_init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201210090813081_Add-DIC.cs" />
-    <Compile Include="Migrations\201210090813081_Add-DIC.Designer.cs">
-      <DependentUpon>201210090813081_Add-DIC.cs</DependentUpon>
+    <Compile Include="Migrations\201210290736284_add-membername-to-member.cs" />
+    <Compile Include="Migrations\201210290736284_add-membername-to-member.Designer.cs">
+      <DependentUpon>201210290736284_add-membername-to-member.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201210290748337_add-forigenkey-to-financing.cs" />
+    <Compile Include="Migrations\201210290748337_add-forigenkey-to-financing.Designer.cs">
+      <DependentUpon>201210290748337_add-forigenkey-to-financing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201210290751456_alter-columnname-from-userid-to-memberid-in-financing.cs" />
+    <Compile Include="Migrations\201210290751456_alter-columnname-from-userid-to-memberid-in-financing.Designer.cs">
+      <DependentUpon>201210290751456_alter-columnname-from-userid-to-memberid-in-financing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201210301311248_merge-with-liuyu.cs" />
+    <Compile Include="Migrations\201210301311248_merge-with-liuyu.Designer.cs">
+      <DependentUpon>201210301311248_merge-with-liuyu.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Mapping\T_HY_MemberMap.cs" />
@@ -168,6 +190,8 @@
     <Compile Include="ViewModels\ViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Member\Content\css\Member.css" />
+    <Content Include="Areas\Member\Content\js\Member.js" />
     <Content Include="bin\EntityFramework.dll" />
     <Content Include="bin\GGZBTQPT_PRO.dll" />
     <Content Include="bin\GGZBTQPT_PRO.pdb" />
@@ -800,6 +824,40 @@
     <Content Include="Areas\Member\Views\Shared\_SideBar.cshtml" />
     <Content Include="Areas\Member\Views\Shared\_Header.cshtml" />
     <Content Include="App_Code\MemberHelper.cshtml" />
+    <None Include="Areas\Member\Content\css\member.scss" />
+    <None Include="Areas\Member\Content\js\member.coffee" />
+    <Content Include="Areas\Member\Views\Attention\AttentionedAgencies.cshtml" />
+    <Content Include="Areas\Member\Views\Attention\AttentionedCorps.cshtml" />
+    <Content Include="Areas\Member\Views\Attention\AttentionedPersons.cshtml" />
+    <Content Include="Areas\Member\Views\Attention\Index.cshtml" />
+    <Content Include="Areas\Member\Views\Favorite\FavoredFinancials.cshtml" />
+    <Content Include="Areas\Member\Views\Favorite\FavoredInvestments.cshtml" />
+    <Content Include="Areas\Member\Views\Favorite\FavoredProducts.cshtml" />
+    <Content Include="Areas\Member\Views\Favorite\Index.cshtml" />
+    <Content Include="Areas\Member\Views\InquireResources\Financials.cshtml" />
+    <Content Include="Areas\Member\Views\InquireResources\Investments.cshtml" />
+    <Content Include="Areas\Member\Views\Member\Config.cshtml" />
+    <Content Include="Areas\Member\Views\Member\Delete.cshtml" />
+    <Content Include="Areas\Member\Views\Member\Details.cshtml" />
+    <Content Include="Areas\Member\Views\Member\Edit.cshtml" />
+    <Content Include="Areas\Member\Views\Member\Full.cshtml" />
+    <Content Include="Areas\Member\Views\Member\Index.cshtml" />
+    <Content Include="Areas\Member\Views\Member\Login.cshtml" />
+    <Content Include="Areas\Member\Views\Member\SignUp.cshtml" />
+    <Content Include="Areas\Member\Views\Publish\Index.cshtml" />
+    <Content Include="Areas\Member\Views\Publish\PublishedFinancials.cshtml" />
+    <Content Include="Areas\Member\Views\Publish\PublishedInvestments.cshtml" />
+    <Content Include="Areas\Member\Views\Publish\PublishedProducts.cshtml" />
+    <Content Include="Areas\Member\Views\Recommend\Index.cshtml" />
+    <Content Include="Areas\Member\Views\Recommend\RecommendFinancials.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Areas\Member\Views\Recommend\RecommendInvestments.cshtml" />
+    <Content Include="Areas\Member\Views\Recommend\RecommendProducts.cshtml" />
+    <Content Include="Areas\Member\Views\SideBar\MemberBrief.cshtml" />
+    <Content Include="Areas\Member\Views\SideBar\TheLastestFinancials.cshtml" />
+    <Content Include="Areas\Member\Views\SideBar\TheLastestInvestments.cshtml" />
+    <Content Include="Areas\Member\Views\SideBar\TheLastestProducts.cshtml" />
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="obj\Debug\edmxResourcesToEmbed\Models\GGZBTQPT.csdl" />
@@ -899,6 +957,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Member\Content\images\" />
     <Folder Include="Areas\Member\Models\" />
     <Folder Include="Content\css\" />
   </ItemGroup>
@@ -924,11 +983,20 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>T_ZC_User.Designer.cs</LastGenOutput>
     </Content>
-    <EmbeddedResource Include="Migrations\201210090749348_init.resx">
-      <DependentUpon>201210090749348_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201210290719115_init.resx">
+      <DependentUpon>201210290719115_init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201210090813081_Add-DIC.resx">
-      <DependentUpon>201210090813081_Add-DIC.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201210290736284_add-membername-to-member.resx">
+      <DependentUpon>201210290736284_add-membername-to-member.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201210290748337_add-forigenkey-to-financing.resx">
+      <DependentUpon>201210290748337_add-forigenkey-to-financing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201210290751456_alter-columnname-from-userid-to-memberid-in-financing.resx">
+      <DependentUpon>201210290751456_alter-columnname-from-userid-to-memberid-in-financing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201210301311248_merge-with-liuyu.resx">
+      <DependentUpon>201210301311248_merge-with-liuyu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="obj\Debug\GGZBTQPT_PRO.App_GlobalResources.T_ZC_System.resources" />
     <EmbeddedResource Include="obj\Debug\GGZBTQPT_PRO.Migrations.init.resources" />
