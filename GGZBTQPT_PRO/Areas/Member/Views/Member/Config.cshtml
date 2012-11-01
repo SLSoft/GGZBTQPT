@@ -1,4 +1,21 @@
-﻿<script type="text/javascript">
+﻿
+@helper FullDetails(int member_type)
+{
+    switch (member_type)
+    {
+        case 1:
+            @Ajax.ActionLink("详细设置", "Create", "QY_Person", new { area = ""}, new AjaxOptions {  HttpMethod="GET", UpdateTargetId="detail", LoadingElementId="Loading" })
+       break;
+        case 2:
+            @Ajax.ActionLink("详细设置", "Create", "QY_Corp", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "detail", LoadingElementId = "Loading" })
+       break;
+        case 3:
+            @Ajax.ActionLink("详细设置", "Create", "JG_Agency", "Default", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "detail", LoadingElementId = "Loading" })
+       break;
+    }
+}
+
+<script type="text/javascript">
     $(document).ready(function () {
         $("#config li a").click(function (e) {
             e.preventDefault();
@@ -18,7 +35,7 @@
             @Ajax.ActionLink("基本设置", "Edit", "Member", new { id = 1 }, new AjaxOptions {  HttpMethod="GET", UpdateTargetId="detail", LoadingElementId="Loading" })
         </li>
         <li>
-            @Html.ActionLink("详细信息", "Full", "Member")
+            @FullDetails(ViewBag.MemberType)
         </li>
     </ul> 
 

@@ -13,6 +13,8 @@
     {
         @Ajax.ActionLink("收藏该项目", "Favored", "Favorite", new { type_id = 1, id = favored_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" })
     }
+
+
 }
 
 @helper GenerateAttentionLink(string attentioned_members, string member_id, int type_id)

@@ -28,6 +28,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         /// 找到的项目内容
         /// </summary>
         /// <returns></returns>
+        [HttpPost]
         public ActionResult InquiredFinancials()
         {
            return View(); 

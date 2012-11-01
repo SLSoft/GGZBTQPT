@@ -57,6 +57,8 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
                 t_hy_member.MemberName = t_hy_member.LoginName;
                 db.T_HY_Member.Add(t_hy_member);
                 db.SaveChanges();
+
+                InitMemberDetail(t_hy_member.Type, t_hy_member.ID);
                 ViewData["notice"] = "注册成功，请登录!";
                 return RedirectToAction("Login","Member", new { login_type="Register" });  
             }
@@ -124,6 +126,12 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         //个人设置
         public ActionResult Config()
         {
+            var member = CurrentMember();
+            if (member == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            ViewBag.MemberType = member.Type;
             return View();
         }
  
@@ -231,6 +239,67 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         public JsonResult CheckCellPhone(string cellphone)
         {
             return Json(!db.T_HY_Member.Any(m => m.CellPhone == cellphone), JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        //
+        //----------------三类用户的信息维护-----------//
+
+        public bool InitMemberDetail(int type, int member_id)
+        {
+            bool result = false;
+            switch(type)
+            {
+                case 1:
+                    result =  InitPerson(member_id);
+                break;
+                case 2:
+                    result =  InitCorp(member_id);
+                break;
+                case 3:
+                    result = InitAgency(member_id);
+                break;
+            }
+            return result;
+        }
+        public bool InitCorp(int member_id)
+        {
+            T_QY_Corp corp = new T_QY_Corp();
+            corp.MemberID = member_id;
+            db.T_QY_Corp.Add(corp);
+
+            if (db.SaveChanges() > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool InitPerson(int member_id)
+        {
+            T_QY_Person person = new T_QY_Person();
+            person.MemberID = member_id;
+            db.T_QY_Person.Add(person);
+
+            if (db.SaveChanges() > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool InitAgency(int member_id)
+        {
+            T_JG_Agency agency = new T_JG_Agency();
+            agency.MemberID = member_id;
+            db.T_JG_Agency.Add(agency);
+
+            if (db.SaveChanges() > 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         protected override void Dispose(bool disposing)

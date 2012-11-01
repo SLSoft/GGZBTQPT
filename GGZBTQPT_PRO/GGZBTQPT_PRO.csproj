@@ -68,7 +68,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Code\MemberHelper.cs" />
     <Compile Include="App_GlobalResources\Common.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -93,8 +92,11 @@
     <Compile Include="Areas\Member\Controllers\FavoriteController.cs" />
     <Compile Include="Areas\Member\Controllers\HomeController.cs" />
     <Compile Include="Areas\Member\Controllers\InquireResourcesController.cs" />
+    <Compile Include="Areas\Member\Controllers\JG_AgencyController.cs" />
     <Compile Include="Areas\Member\Controllers\MemberController.cs" />
     <Compile Include="Areas\Member\Controllers\PublishController.cs" />
+    <Compile Include="Areas\Member\Controllers\QY_CorpController.cs" />
+    <Compile Include="Areas\Member\Controllers\QY_PersonController.cs" />
     <Compile Include="Areas\Member\Controllers\RecommendController.cs" />
     <Compile Include="Areas\Member\Controllers\SideBarController.cs" />
     <Compile Include="Areas\Member\MemberAreaRegistration.cs" />
@@ -137,6 +139,10 @@
     <Compile Include="Migrations\201210301311248_merge-with-liuyu.cs" />
     <Compile Include="Migrations\201210301311248_merge-with-liuyu.Designer.cs">
       <DependentUpon>201210301311248_merge-with-liuyu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201211010639480_with-hongbao.cs" />
+    <Compile Include="Migrations\201211010639480_with-hongbao.Designer.cs">
+      <DependentUpon>201211010639480_with-hongbao.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Mapping\T_HY_MemberMap.cs" />
@@ -858,6 +864,8 @@
     <Content Include="Areas\Member\Views\SideBar\TheLastestFinancials.cshtml" />
     <Content Include="Areas\Member\Views\SideBar\TheLastestInvestments.cshtml" />
     <Content Include="Areas\Member\Views\SideBar\TheLastestProducts.cshtml" />
+    <Content Include="Areas\Member\Views\Member\EditCorp.cshtml" />
+    <Content Include="Areas\Member\Views\Member\EditPerson.cshtml" />
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="obj\Debug\edmxResourcesToEmbed\Models\GGZBTQPT.csdl" />
@@ -997,6 +1005,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201210301311248_merge-with-liuyu.resx">
       <DependentUpon>201210301311248_merge-with-liuyu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201211010639480_with-hongbao.resx">
+      <DependentUpon>201211010639480_with-hongbao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="obj\Debug\GGZBTQPT_PRO.App_GlobalResources.T_ZC_System.resources" />
     <EmbeddedResource Include="obj\Debug\GGZBTQPT_PRO.Migrations.init.resources" />

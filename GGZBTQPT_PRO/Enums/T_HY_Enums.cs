@@ -10,9 +10,9 @@ namespace GGZBTQPT_PRO.Enums
     public enum MemberTypes : int
     {
         [Display(Name = "个人")]
-        企业 = 1,
+        个人 = 1,
         [Display(Name = "企业")]
-        个人 = 2,
+        企业 = 2,
         [Display(Name = "机构")]
         机构 = 3
 
