@@ -1,10 +1,10 @@
-﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Financing>
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_QY_Person>
 <div class="pageContent j-resizeGrid" style="border-left: 1px #B8D0D6 solid; border-right: 1px #B8D0D6 solid">
   <div class="panelBar">
     <ul class="toolBar">
-      <li><a class="add" href="/XM_RZ/create" rel="create" target="dialog" title="添加新的功能菜单" mask="true"><span>添加</span></a></li>
-      <li><a class="edit" href="/XM_RZ/edit/{mid}" rel="edit" target="dialog" title="编辑功能菜单信息" mask="true" warn="请选择一条菜单数据"><span>修改</span></a></li>
-      <li><a class="delete" href="/XM_RZ/delete/{mid}" rel="delete" target="ajaxTodo" title="确定要删除吗？"  warn="请选择一条菜单数据"><span>删除</span></a></li>
+      <li><a class="add" href="/QY_Person/create" rel="create" target="dialog" title="添加新的功能菜单" mask="true"><span>添加</span></a></li>
+      <li><a class="edit" href="/QY_Person/edit/{mid}" rel="edit" target="dialog" title="编辑功能菜单信息" mask="true" warn="请选择一条菜单数据"><span>修改</span></a></li>
+      <li><a class="delete" href="/QY_Person/delete/{mid}" rel="delete" target="ajaxTodo" title="确定要删除吗？"  warn="请选择一条菜单数据"><span>删除</span></a></li>
       <li class="line">line</li>
       <li><a class="icon" href="#"><span>导入EXCEL</span></a></li>
     </ul>
@@ -14,17 +14,17 @@
       <thead>
         <tr>
             <th>
-                项目名称
+                姓名
             </th>
             <th>
-                项目类别
+                性别
             </th>
             <th>
-                所属行业
+                出生日期
             </th>
             <th>
-                有效日期
-            </th>        
+                获得学位
+            </th>
             <th>操作</th>
     </tr>
       </thead>
@@ -33,17 +33,17 @@
         {
             <tr target="mid" rel=@item.ID>
                 <td>
-                @Html.DisplayFor(modelItem => item.ItemName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemText)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IndustryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ValidDate)
-            </td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sex)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Birth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DegreeName)
+                </td>
             <td>
                 @Html.ActionLink("编辑", "Edit", new { id = item.ID }) |
                 @Html.ActionLink("详情", "Details", new { id = item.ID }) |

@@ -3,7 +3,49 @@
 @{
     ViewBag.Title = "修改融资信息";
 }
+@helper GenerateTransactionMode(string selected_TransactionMode)
+    {
+    var i = 0;
+    foreach (var item in ViewData["TransactionMode"] as SelectList)
+    {
+        if (i % 6 == 0)
+        {
+            <br />
+        }
+        if (selected_TransactionMode != null && selected_TransactionMode.IndexOf(@item.Value) >= 0)
+        {
+            <input type="checkbox" name="TransactionMode" value="@item.Value" checked="checked" /><span>@item.Text</span>
+        }
+        else
+        {
+            <input type="checkbox" name="TransactionMode" value="@item.Value" /><span>@item.Text</span>
+        }
+        i++;
+    }
+}
+<script type="text/javascript">
+    $(function () {
+        GetPlant();
+        $("#Province").change(function () { GetPlant() });
+    });
 
+    function GetPlant() {
+        $("#ddlCity").empty();
+        var url = "/XM_RZ/GetCity/?ParentCode=" + $("#Province").val();
+        $.ajaxSettings.async = false;
+        $.getJSON(url, function (data) {
+            $.each(data, function (i, item) {
+                $("<option></option>")
+                    .val(item["Code"])
+                    .text(item["Name"])
+                    .appendTo($("#ddlCity"));
+
+            });
+        });
+        var ct = $("#City").val();
+        $("#ddlCity").find("option[value='"+ct+"']").attr("selected", true);
+    }
+</script>
 <h2>修改融资信息</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
@@ -15,19 +57,23 @@
         <legend>融资信息</legend>
 
         @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.ItemType)
+        @Html.HiddenFor(model => model.IsValid)
+        @Html.HiddenFor(model => model.IsPublic)
+        @Html.HiddenFor(model => model.CreateTime)
+        @Html.HiddenFor(model => model.City)
 
-        <table style="width:100%">
+        <table style="width:800px">
             <tr>
                 <td colspan="2" style="background-color:#666666; color:#ffffff">基本信息</td>
             </tr>
             <tr>
                 <td style="width:120px">@Html.LabelFor(model => model.ItemName,"项目名称")</td>
-                <td>@Html.EditorFor(model => model.ItemName)
-            @Html.ValidationMessageFor(model => model.ItemName)</td>
+                <td>@Html.EditorFor(model => model.ItemName)</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Province,"所属区域")</td>
-                <td>@Html.DropDownList("Province", "请选择")</td>
+                <td>@Html.DropDownList("Province", "请选择")<select id="ddlCity" name="ddlCity"><option value="请选择"></option></select></td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Industry, "所属行业")</td>
@@ -35,68 +81,122 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.ValidDate, "有效日期")</td>
-                <td>@Html.EditorFor(model => model.ValidDate)
-            @Html.ValidationMessageFor(model => model.ValidDate)</td>
+                <td>@Html.EditorFor(model => model.ValidDate)</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Keys, "关键词")</td>
-                <td>@Html.EditorFor(model => model.Keys)
-            @Html.ValidationMessageFor(model => model.Keys)</td>
+                <td>@Html.EditorFor(model => model.Keys)</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.ItemContent, "项目介绍")</td>
-                <td>@Html.TextAreaFor(model => model.ItemContent, new { rows = "5" })
-            @Html.ValidationMessageFor(model => model.ItemContent)</td>
+                <td>@Html.TextAreaFor(model => model.ItemContent, new { rows = "5", cols="60" })</td>
             </tr>
         </table>
-        <table style="width:100%">
+        @if (Model.ItemType == 1)
+        {
+        <table id="item1" style="width:800px">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">融资信息</td>
             </tr>
             <tr>
                 <td style="width:120px">@Html.LabelFor(model => model.FinancSum, "融资金额")</td>
-                <td>@Html.EditorFor(model => model.FinancSum)
-            @Html.ValidationMessageFor(model => model.FinancSum)</td>
+                <td>@Html.EditorFor(model => model.FinancSum)（万元）</td>
                 <td>@Html.LabelFor(model => model.FinancType, "融资方式")</td>
-                <td>@Html.EditorFor(model => model.FinancType)
-            @Html.ValidationMessageFor(model => model.FinancType)</td>
+                <td>@Html.DropDownList("FinancType", "请选择")</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.FinancCycle, "融资期限")</td>
-                <td>@Html.EditorFor(model => model.FinancCycle)
-            @Html.ValidationMessageFor(model => model.FinancCycle)</td>
+                <td>@Html.EditorFor(model => model.FinancCycle)（月）</td>
                 <td>@Html.LabelFor(model => model.TotalInvestment, "项目总投资")</td>
-                <td>@Html.EditorFor(model => model.TotalInvestment)
-            @Html.ValidationMessageFor(model => model.TotalInvestment)</td>
+                <td>@Html.EditorFor(model => model.TotalInvestment)（万元）</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.ReturnRatio, "预计回报率")</td>
-                <td>@Html.EditorFor(model => model.ReturnRatio)
-            @Html.ValidationMessageFor(model => model.ReturnRatio)</td>
+                <td>@Html.EditorFor(model => model.ReturnRatio)（%/年）</td>
                 <td>@Html.LabelFor(model => model.ItemStage, "项目阶段")</td>
-                <td>@Html.EditorFor(model => model.ItemStage)
-            @Html.ValidationMessageFor(model => model.ItemStage)</td>
+                <td>@Html.DropDownList("ItemStage", "请选择")</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.ItemValue, "项目评估价值")</td>
-                <td>@Html.EditorFor(model => model.ItemValue)
-            @Html.ValidationMessageFor(model => model.ItemValue)</td>
+                <td>@Html.EditorFor(model => model.ItemValue)（万元）</td>
                 <td>@Html.LabelFor(model => model.Assure, "担保说明")</td>
-                <td>@Html.EditorFor(model => model.Assure)
-            @Html.ValidationMessageFor(model => model.Assure)</td>
+                <td>@Html.EditorFor(model => model.Assure)</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Collateral, "抵质押物")</td>
-                <td colspan="3">@Html.EditorFor(model => model.Collateral)
-            @Html.ValidationMessageFor(model => model.Collateral)</td>
+                <td colspan="3">@Html.EditorFor(model => model.Collateral)</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.PartnerRequirements, "合作方要求")</td>
-                <td colspan="3">@Html.EditorFor(model => model.PartnerRequirements)
-            @Html.ValidationMessageFor(model => model.PartnerRequirements)</td>
+                <td colspan="3">@Html.EditorFor(model => model.PartnerRequirements)</td>
             </tr>
         </table>
-        <table style="width:100%">
+        }
+        @if (Model.ItemType == 2)
+        {
+        <table id="item2" style="width:800px">
+            <tr>
+                <td colspan="4" style="background-color:#666666; color:#ffffff">资产交易</td>
+            </tr>
+            <tr>
+                <td style="width:120px">@Html.LabelFor(model => model.AssetsType, "资产类别")</td>
+                <td>@Html.DropDownList("AssetsType", "请选择")</td>
+                <td>@Html.LabelFor(model => model.AssetsCost, "资产估价")</td>
+                <td>@Html.EditorFor(model => model.AssetsCost)万元</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.IsMortgage, "是否抵质押")</td>
+                <td>@Html.RadioButtonFor(model => model.IsMortgage, 1, new { @id = "radio2", @name = "IsMortgage" })是
+                    @Html.RadioButtonFor(model => model.IsMortgage, 2, new { @id = "radio1", @name = "IsMortgage" })否
+                </td>
+                <td>@Html.LabelFor(model => model.TransferPrice, "转让价格")</td>
+                <td>@Html.EditorFor(model => model.TransferPrice)万元</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.TransferType, "转让形式")</td>
+                <td>@Html.RadioButtonFor(model => model.TransferType, 1, new { @id = "radio2", @name = "TransferType" })整体
+                    @Html.RadioButtonFor(model => model.TransferType, 2, new { @id = "radio1", @name = "TransferType" })部分
+                </td>
+                <td>@Html.LabelFor(model => model.TransactionMode, "交易方式")</td>
+                <td>@GenerateTransactionMode(Model.TransactionMode)</td>
+            </tr>
+        </table>
+        }
+        @if (Model.ItemType == 3)
+        {
+        <table id="item3" style="width:800px">
+            <tr>
+                <td colspan="4" style="background-color:#666666; color:#ffffff">政府招商</td>
+            </tr>
+            <tr>
+                <td style="width:120px">@Html.LabelFor(model => model.Investment, "招商投资总额")</td>
+                <td>@Html.EditorFor(model => model.Investment)万元</td>
+                <td>@Html.LabelFor(model => model.CooperationMode, "合作方式")</td>
+                <td>@Html.EditorFor(model => model.CooperationMode)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.BuildCycle, "预计项目所用时间")</td>
+                <td>@Html.EditorFor(model => model.BuildCycle)</td>
+                <td>@Html.LabelFor(model => model.ReturnCycle, "投资回收期")</td>
+                <td>@Html.EditorFor(model => model.ReturnCycle)</td>
+            </tr>
+        </table>
+        }
+        @if (Model.ItemType == 9)
+        {
+        <table id="item4" style="width:800px">
+            <tr>
+                <td colspan="4" style="background-color:#666666; color:#ffffff">其他项目</td>
+            </tr>
+            <tr>
+                <td style="width:120px">@Html.LabelFor(model => model.OtherItemFinancSum, "融资金额")</td>
+                <td>@Html.EditorFor(model => model.OtherItemFinancSum)万元</td>
+                <td>@Html.LabelFor(model => model.OtherItemFinancSum, "融资期限")</td>
+                <td>@Html.EditorFor(model => model.OtherItemFinancSum)</td>
+            </tr>
+        </table>
+        }
+        <table style="width:800px">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">联系人信息</td>
             </tr>

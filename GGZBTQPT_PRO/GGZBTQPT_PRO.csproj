@@ -1,0 +1,966 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DF363138-4EE8-49C2-8E82-317F0D779FB4}</ProjectGuid>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GGZBTQPT_PRO</RootNamespace>
+    <AssemblyName>GGZBTQPT_PRO</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\MemberHelper.cs" />
+    <Compile Include="App_GlobalResources\Common.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Common.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\T_ZC_Department.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>T_ZC_Department.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\T_ZC_Role.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>T_ZC_Role.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\T_ZC_User.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>T_ZC_User.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Member\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Member\Controllers\SideBarController.cs" />
+    <Compile Include="Areas\Member\MemberAreaRegistration.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ChildActionController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JG_AgencyController.cs" />
+    <Compile Include="Controllers\JG_LinkmanController.cs" />
+    <Compile Include="Controllers\JG_ProductController.cs" />
+    <Compile Include="Controllers\QY_CorpController.cs" />
+    <Compile Include="Controllers\QY_PersonController.cs" />
+    <Compile Include="Controllers\XM_RZController.cs" />
+    <Compile Include="Controllers\XM_TZController.cs" />
+    <Compile Include="Controllers\ZC_DepartmentController.cs" />
+    <Compile Include="Controllers\ZC_MenuController.cs" />
+    <Compile Include="Controllers\ZC_RoleController.cs" />
+    <Compile Include="Controllers\ZC_SystemController.cs" />
+    <Compile Include="Controllers\ZC_UserController.cs" />
+    <Compile Include="Enums\T_HY_Enums.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201210090749348_init.cs" />
+    <Compile Include="Migrations\201210090749348_init.Designer.cs">
+      <DependentUpon>201210090749348_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201210090813081_Add-DIC.cs" />
+    <Compile Include="Migrations\201210090813081_Add-DIC.Designer.cs">
+      <DependentUpon>201210090813081_Add-DIC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Mapping\T_HY_MemberMap.cs" />
+    <Compile Include="Models\Mapping\T_PTF_DicDetailMap.cs" />
+    <Compile Include="Models\Mapping\T_PTF_DicTreeDetailMap.cs" />
+    <Compile Include="Models\Mapping\T_PTF_DicTypeMap.cs" />
+    <Compile Include="Models\Mapping\T_ZC_DepartmentMap.cs" />
+    <Compile Include="Models\Mapping\T_ZC_RoleMap.cs" />
+    <Compile Include="Models\T_HY_Member.cs" />
+    <Compile Include="Models\T_HY_Message.cs" />
+    <Compile Include="Models\T_PTF_DicDetail.cs" />
+    <Compile Include="Models\T_PTF_DicTreeDetail.cs" />
+    <Compile Include="Models\T_PTF_DicType.cs" />
+    <Compile Include="Models\T_ZC_Department.cs" />
+    <Compile Include="Models\GGZBTQPTDBContext.cs" />
+    <Compile Include="Models\Mapping\T_HY_AttentionMap.cs" />
+    <Compile Include="Models\Mapping\T_HY_FavoriteMap.cs" />
+    <Compile Include="Models\Mapping\T_JG_AgencyMap.cs" />
+    <Compile Include="Models\Mapping\T_JG_LinkmanMap.cs" />
+    <Compile Include="Models\Mapping\T_JG_ProductMap.cs" />
+    <Compile Include="Models\Mapping\T_QY_CorpMap.cs" />
+    <Compile Include="Models\Mapping\T_QY_FinancialMap.cs" />
+    <Compile Include="Models\Mapping\T_QY_PersonMap.cs" />
+    <Compile Include="Models\Mapping\T_QY_ProductMap.cs" />
+    <Compile Include="Models\Mapping\T_XM_FinancingMap.cs" />
+    <Compile Include="Models\Mapping\T_XM_InvestmentMap.cs" />
+    <Compile Include="Models\Mapping\T_ZC_SystemMap.cs" />
+    <Compile Include="Models\Mapping\T_ZC_UserMap.cs" />
+    <Compile Include="Models\Mapping\T_ZC_MenuMap.cs" />
+    <Compile Include="Models\T_HY_Attention.cs" />
+    <Compile Include="Models\T_HY_Favorite.cs" />
+    <Compile Include="Models\T_JG_Agency.cs" />
+    <Compile Include="Models\T_JG_Linkman.cs" />
+    <Compile Include="Models\T_JG_Product.cs" />
+    <Compile Include="Models\T_QY_Corp.cs" />
+    <Compile Include="Models\T_QY_Financial.cs" />
+    <Compile Include="Models\T_QY_Person.cs" />
+    <Compile Include="Models\T_QY_Product.cs" />
+    <Compile Include="Models\T_XM_Financing.cs" />
+    <Compile Include="Models\T_XM_Investment.cs" />
+    <Compile Include="Models\T_ZC_Role.cs" />
+    <Compile Include="Models\T_ZC_System.cs" />
+    <Compile Include="Models\T_ZC_User.cs" />
+    <Compile Include="Models\T_ZC_Menu.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="App_GlobalResources\T_ZC_System.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>T_ZC_System.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ViewModels.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\EntityFramework.dll" />
+    <Content Include="bin\GGZBTQPT_PRO.dll" />
+    <Content Include="bin\GGZBTQPT_PRO.pdb" />
+    <Content Include="Content\images\member\user.jpg" />
+    <Content Include="Content\images\member\bg.png" />
+    <Content Include="Content\js\extendDwz.js" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="obj\Debug\GGZBTQPT_PRO.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\TempPE\App_GlobalResources.Common.designer.cs.dll" />
+    <Content Include="obj\Debug\TempPE\App_GlobalResources.T_ZC_Department.Designer.cs.dll" />
+    <Content Include="obj\Debug\TempPE\App_GlobalResources.T_ZC_Role.Designer.cs.dll" />
+    <Content Include="obj\Debug\TempPE\App_GlobalResources.T_ZC_System.Designer.cs.dll" />
+    <Content Include="obj\Debug\TempPE\App_GlobalResources.T_ZC_User.Designer.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Models.GGZBTQPT.Context.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Models.GGZBTQPT.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Models.GGZBTQPT.Designer.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Models.GGZBTQPTDB.Designer.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Models.Model1.Context.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Models.Model1.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Models.YYZCPT.Designer.cs.dll" />
+    <Content Include="obj\Debug\TempPE\zh.Designer.cs.dll" />
+    <Content Include="Public\bootstrap\css\bootstrap.css" />
+    <Content Include="Public\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Public\bootstrap\img\glyphicons-halflings-white.png" />
+    <Content Include="Public\bootstrap\img\glyphicons-halflings.png" />
+    <Content Include="Public\bootstrap\js\bootstrap.js" />
+    <Content Include="Public\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Public\bootstrap\js\jquery.1.7.2.js" />
+    <Content Include="Public\jUI\bin\dwz.min.js" />
+    <Content Include="Public\jUI\bin\ESC.wsf" />
+    <Content Include="Public\jUI\bin\gzip.exe" />
+    <Content Include="Public\jUI\dwz.frag.xml" />
+    <Content Include="Public\jUI\js\dwz.accordion.js" />
+    <Content Include="Public\jUI\js\dwz.ajax.js" />
+    <Content Include="Public\jUI\js\dwz.alertMsg.js" />
+    <Content Include="Public\jUI\js\dwz.barDrag.js" />
+    <Content Include="Public\jUI\js\dwz.checkbox.js" />
+    <Content Include="Public\jUI\js\dwz.combox.js" />
+    <Content Include="Public\jUI\js\dwz.contextmenu.js" />
+    <Content Include="Public\jUI\js\dwz.core.js" />
+    <Content Include="Public\jUI\js\dwz.cssTable.js" />
+    <Content Include="Public\jUI\js\dwz.database.js" />
+    <Content Include="Public\jUI\js\dwz.datepicker.js" />
+    <Content Include="Public\jUI\js\dwz.dialog.js" />
+    <Content Include="Public\jUI\js\dwz.dialogDrag.js" />
+    <Content Include="Public\jUI\js\dwz.drag.js" />
+    <Content Include="Public\jUI\js\dwz.effects.js" />
+    <Content Include="Public\jUI\js\dwz.history.js" />
+    <Content Include="Public\jUI\js\dwz.navTab.js" />
+    <Content Include="Public\jUI\js\dwz.pagination.js" />
+    <Content Include="Public\jUI\js\dwz.panel.js" />
+    <Content Include="Public\jUI\js\dwz.regional.zh.js" />
+    <Content Include="Public\jUI\js\dwz.resize.js" />
+    <Content Include="Public\jUI\js\dwz.scrollCenter.js" />
+    <Content Include="Public\jUI\js\dwz.stable.js" />
+    <Content Include="Public\jUI\js\dwz.switchEnv.js" />
+    <Content Include="Public\jUI\js\dwz.tab.js" />
+    <Content Include="Public\jUI\js\dwz.taskBar.js" />
+    <Content Include="Public\jUI\js\dwz.theme.js" />
+    <Content Include="Public\jUI\js\dwz.tree.js" />
+    <Content Include="Public\jUI\js\dwz.ui.js" />
+    <Content Include="Public\jUI\js\dwz.util.date.js" />
+    <Content Include="Public\jUI\js\dwz.validate.method.js" />
+    <Content Include="Public\jUI\js\jquery-1.4.4.js" />
+    <Content Include="Public\jUI\js\jquery-1.4.4.min.js" />
+    <Content Include="Public\jUI\js\jquery.bgiframe.js" />
+    <Content Include="Public\jUI\js\jquery.cookie.js" />
+    <Content Include="Public\jUI\js\jquery.validate.js" />
+    <Content Include="Public\jUI\js\speedup.js" />
+    <Content Include="Public\jUI\themes\azure\images\accordion\accordion.png" />
+    <Content Include="Public\jUI\themes\azure\images\account_info_bg.png" />
+    <Content Include="Public\jUI\themes\azure\images\alert\alertpanel.png" />
+    <Content Include="Public\jUI\themes\azure\images\alert\alertpanel_icon.png" />
+    <Content Include="Public\jUI\themes\azure\images\button\button_s.png" />
+    <Content Include="Public\jUI\themes\azure\images\button\imgX.gif" />
+    <Content Include="Public\jUI\themes\azure\images\button\imgX.png" />
+    <Content Include="Public\jUI\themes\azure\images\dialog\dialogpanel.png" />
+    <Content Include="Public\jUI\themes\azure\images\dialog\dialogpanel_icon.png" />
+    <Content Include="Public\jUI\themes\azure\images\form\input_bg.png" />
+    <Content Include="Public\jUI\themes\azure\images\form\input_bt.png" />
+    <Content Include="Public\jUI\themes\azure\images\grid\grid.png" />
+    <Content Include="Public\jUI\themes\azure\images\grid\resizeCol.png" />
+    <Content Include="Public\jUI\themes\azure\images\grid\tableth.png" />
+    <Content Include="Public\jUI\themes\azure\images\header_bg.png" />
+    <Content Include="Public\jUI\themes\azure\images\icon.png" />
+    <Content Include="Public\jUI\themes\azure\images\layout\taskbar.png" />
+    <Content Include="Public\jUI\themes\azure\images\layout\taskbar_control.png" />
+    <Content Include="Public\jUI\themes\azure\images\layout\taskbar_icon.png" />
+    <Content Include="Public\jUI\themes\azure\images\layout\toggleSidebar.png" />
+    <Content Include="Public\jUI\themes\azure\images\listLine.png" />
+    <Content Include="Public\jUI\themes\azure\images\menu\menu.png" />
+    <Content Include="Public\jUI\themes\azure\images\order_down.gif" />
+    <Content Include="Public\jUI\themes\azure\images\order_up.gif" />
+    <Content Include="Public\jUI\themes\azure\images\pageHeader_bg.png" />
+    <Content Include="Public\jUI\themes\azure\images\panel\panel.png" />
+    <Content Include="Public\jUI\themes\azure\images\panel\panel_icon.png" />
+    <Content Include="Public\jUI\themes\azure\images\preview.png" />
+    <Content Include="Public\jUI\themes\azure\images\progressBar\progressBar_l.gif" />
+    <Content Include="Public\jUI\themes\azure\images\progressBar\progressBar_m.gif" />
+    <Content Include="Public\jUI\themes\azure\images\progressBar\progressBar_s.gif" />
+    <Content Include="Public\jUI\themes\azure\images\search-bg.gif" />
+    <Content Include="Public\jUI\themes\azure\images\search-bt.gif" />
+    <Content Include="Public\jUI\themes\azure\images\shadow\shadow_c_c.png" />
+    <Content Include="Public\jUI\themes\azure\images\shadow\shadow_c_l.png" />
+    <Content Include="Public\jUI\themes\azure\images\shadow\shadow_c_r.png" />
+    <Content Include="Public\jUI\themes\azure\images\shadow\shadow_f_c.png" />
+    <Content Include="Public\jUI\themes\azure\images\shadow\shadow_f_l.png" />
+    <Content Include="Public\jUI\themes\azure\images\shadow\shadow_f_r.png" />
+    <Content Include="Public\jUI\themes\azure\images\shadow\shadow_h_c.png" />
+    <Content Include="Public\jUI\themes\azure\images\shadow\shadow_h_l.png" />
+    <Content Include="Public\jUI\themes\azure\images\shadow\shadow_h_r.png" />
+    <Content Include="Public\jUI\themes\azure\images\tabs\tabscontrol.png" />
+    <Content Include="Public\jUI\themes\azure\images\tabs\tabspage.png" />
+    <Content Include="Public\jUI\themes\azure\images\tabs\tabspage_icon.png" />
+    <Content Include="Public\jUI\themes\azure\images\tabs\tabspanel.png" />
+    <Content Include="Public\jUI\themes\azure\images\tree\check.png" />
+    <Content Include="Public\jUI\themes\azure\images\tree\folder.png" />
+    <Content Include="Public\jUI\themes\azure\images\tree\tree.png" />
+    <Content Include="Public\jUI\themes\azure\style.css" />
+    <Content Include="Public\jUI\themes\css\core.css" />
+    <Content Include="Public\jUI\themes\css\ieHack.css" />
+    <Content Include="Public\jUI\themes\css\login.css" />
+    <Content Include="Public\jUI\themes\default\images\accordion\accordion.png" />
+    <Content Include="Public\jUI\themes\default\images\account_info_bg.png" />
+    <Content Include="Public\jUI\themes\default\images\alert\alertpanel.png" />
+    <Content Include="Public\jUI\themes\default\images\alert\alertpanel_icon.png" />
+    <Content Include="Public\jUI\themes\default\images\button\button_s.png" />
+    <Content Include="Public\jUI\themes\default\images\button\imgX.gif" />
+    <Content Include="Public\jUI\themes\default\images\dialog\dialogpanel.png" />
+    <Content Include="Public\jUI\themes\default\images\dialog\dialogpanel_icon.png" />
+    <Content Include="Public\jUI\themes\default\images\form\input_bg.png" />
+    <Content Include="Public\jUI\themes\default\images\form\input_bt.png" />
+    <Content Include="Public\jUI\themes\default\images\grid\grid.png" />
+    <Content Include="Public\jUI\themes\default\images\grid\resizeCol.png" />
+    <Content Include="Public\jUI\themes\default\images\grid\tableth.png" />
+    <Content Include="Public\jUI\themes\default\images\header_bg.png" />
+    <Content Include="Public\jUI\themes\default\images\icon.png" />
+    <Content Include="Public\jUI\themes\default\images\layout\taskbar.png" />
+    <Content Include="Public\jUI\themes\default\images\layout\taskbar_control.png" />
+    <Content Include="Public\jUI\themes\default\images\layout\taskbar_icon.png" />
+    <Content Include="Public\jUI\themes\default\images\layout\toggleSidebar.png" />
+    <Content Include="Public\jUI\themes\default\images\listLine.png" />
+    <Content Include="Public\jUI\themes\default\images\login_banner.jpg" />
+    <Content Include="Public\jUI\themes\default\images\login_bg.png" />
+    <Content Include="Public\jUI\themes\default\images\login_content_bg.png" />
+    <Content Include="Public\jUI\themes\default\images\login_header_bg.png" />
+    <Content Include="Public\jUI\themes\default\images\login_list.png" />
+    <Content Include="Public\jUI\themes\default\images\login_logo.gif" />
+    <Content Include="Public\jUI\themes\default\images\login_sub.png" />
+    <Content Include="Public\jUI\themes\default\images\login_title.png" />
+    <Content Include="Public\jUI\themes\default\images\logo.png" />
+    <Content Include="Public\jUI\themes\default\images\menu\menu.png" />
+    <Content Include="Public\jUI\themes\default\images\order_down.gif" />
+    <Content Include="Public\jUI\themes\default\images\order_up.gif" />
+    <Content Include="Public\jUI\themes\default\images\pageHeader_bg.png" />
+    <Content Include="Public\jUI\themes\default\images\panel\panel.png" />
+    <Content Include="Public\jUI\themes\default\images\panel\panel_icon.png" />
+    <Content Include="Public\jUI\themes\default\images\progressBar\progressBar_l.gif" />
+    <Content Include="Public\jUI\themes\default\images\progressBar\progressBar_m.gif" />
+    <Content Include="Public\jUI\themes\default\images\progressBar\progressBar_s.gif" />
+    <Content Include="Public\jUI\themes\default\images\search-bg.gif" />
+    <Content Include="Public\jUI\themes\default\images\search-bt.gif" />
+    <Content Include="Public\jUI\themes\default\images\shadow\shadow_c_c.png" />
+    <Content Include="Public\jUI\themes\default\images\shadow\shadow_c_l.png" />
+    <Content Include="Public\jUI\themes\default\images\shadow\shadow_c_r.png" />
+    <Content Include="Public\jUI\themes\default\images\shadow\shadow_f_c.png" />
+    <Content Include="Public\jUI\themes\default\images\shadow\shadow_f_l.png" />
+    <Content Include="Public\jUI\themes\default\images\shadow\shadow_f_r.png" />
+    <Content Include="Public\jUI\themes\default\images\shadow\shadow_h_c.png" />
+    <Content Include="Public\jUI\themes\default\images\shadow\shadow_h_l.png" />
+    <Content Include="Public\jUI\themes\default\images\shadow\shadow_h_r.png" />
+    <Content Include="Public\jUI\themes\default\images\tabs\tabscontrol.png" />
+    <Content Include="Public\jUI\themes\default\images\tabs\tabspage.png" />
+    <Content Include="Public\jUI\themes\default\images\tabs\tabspage_icon.png" />
+    <Content Include="Public\jUI\themes\default\images\tabs\tabspanel.png" />
+    <Content Include="Public\jUI\themes\default\images\themeButton.png" />
+    <Content Include="Public\jUI\themes\default\images\tree\check.png" />
+    <Content Include="Public\jUI\themes\default\images\tree\folder.png" />
+    <Content Include="Public\jUI\themes\default\images\tree\tree.png" />
+    <Content Include="Public\jUI\themes\default\style.css" />
+    <Content Include="Public\jUI\themes\green\images\accordion\accordion.png" />
+    <Content Include="Public\jUI\themes\green\images\account_info_bg.png" />
+    <Content Include="Public\jUI\themes\green\images\alert\alertpanel.png" />
+    <Content Include="Public\jUI\themes\green\images\alert\alertpanel_icon.png" />
+    <Content Include="Public\jUI\themes\green\images\button\button_s.png" />
+    <Content Include="Public\jUI\themes\green\images\dialog\dialogpanel.png" />
+    <Content Include="Public\jUI\themes\green\images\dialog\dialogpanel_icon.png" />
+    <Content Include="Public\jUI\themes\green\images\form\input_bg.png" />
+    <Content Include="Public\jUI\themes\green\images\form\input_bt.png" />
+    <Content Include="Public\jUI\themes\green\images\grid\grid.png" />
+    <Content Include="Public\jUI\themes\green\images\grid\resizeCol.png" />
+    <Content Include="Public\jUI\themes\green\images\grid\tableth.png" />
+    <Content Include="Public\jUI\themes\green\images\header_bg.png" />
+    <Content Include="Public\jUI\themes\green\images\layout\toggleSidebar.png" />
+    <Content Include="Public\jUI\themes\green\images\listLine.png" />
+    <Content Include="Public\jUI\themes\green\images\pageHeader_bg.png" />
+    <Content Include="Public\jUI\themes\green\images\panel\panel.png" />
+    <Content Include="Public\jUI\themes\green\images\panel\panel_icon.png" />
+    <Content Include="Public\jUI\themes\green\images\tabs\tabscontrol.png" />
+    <Content Include="Public\jUI\themes\green\images\tabs\tabspage.png" />
+    <Content Include="Public\jUI\themes\green\images\tabs\tabspage_icon.png" />
+    <Content Include="Public\jUI\themes\green\images\tabs\tabspanel.png" />
+    <Content Include="Public\jUI\themes\green\images\tree\tree.png" />
+    <Content Include="Public\jUI\themes\green\style.css" />
+    <Content Include="Public\jUI\themes\purple\images\accordion\accordion.png" />
+    <Content Include="Public\jUI\themes\purple\images\account_info_bg.png" />
+    <Content Include="Public\jUI\themes\purple\images\alert\alertpanel.png" />
+    <Content Include="Public\jUI\themes\purple\images\alert\alertpanel_icon.png" />
+    <Content Include="Public\jUI\themes\purple\images\button\button_s.png" />
+    <Content Include="Public\jUI\themes\purple\images\dialog\dialogpanel.png" />
+    <Content Include="Public\jUI\themes\purple\images\dialog\dialogpanel_icon.png" />
+    <Content Include="Public\jUI\themes\purple\images\form\input_bg.png" />
+    <Content Include="Public\jUI\themes\purple\images\form\input_bt.png" />
+    <Content Include="Public\jUI\themes\purple\images\grid\grid.png" />
+    <Content Include="Public\jUI\themes\purple\images\grid\resizeCol.png" />
+    <Content Include="Public\jUI\themes\purple\images\grid\tableth.png" />
+    <Content Include="Public\jUI\themes\purple\images\header_bg.png" />
+    <Content Include="Public\jUI\themes\purple\images\layout\taskbar.png" />
+    <Content Include="Public\jUI\themes\purple\images\layout\taskbar_control.png" />
+    <Content Include="Public\jUI\themes\purple\images\layout\taskbar_icon.png" />
+    <Content Include="Public\jUI\themes\purple\images\layout\toggleSidebar.png" />
+    <Content Include="Public\jUI\themes\purple\images\login_bg.png" />
+    <Content Include="Public\jUI\themes\purple\images\login_content_bg.png" />
+    <Content Include="Public\jUI\themes\purple\images\login_header_bg.png" />
+    <Content Include="Public\jUI\themes\purple\images\login_list.png" />
+    <Content Include="Public\jUI\themes\purple\images\menu\menu.png" />
+    <Content Include="Public\jUI\themes\purple\images\pageHeader_bg.png" />
+    <Content Include="Public\jUI\themes\purple\images\panel\panel.png" />
+    <Content Include="Public\jUI\themes\purple\images\panel\panel_icon.png" />
+    <Content Include="Public\jUI\themes\purple\images\progressBar\progressBar_l.gif" />
+    <Content Include="Public\jUI\themes\purple\images\progressBar\progressBar_m.gif" />
+    <Content Include="Public\jUI\themes\purple\images\progressBar\progressBar_s.gif" />
+    <Content Include="Public\jUI\themes\purple\images\shadow\shadow_c_c.png" />
+    <Content Include="Public\jUI\themes\purple\images\shadow\shadow_c_l.png" />
+    <Content Include="Public\jUI\themes\purple\images\shadow\shadow_c_r.png" />
+    <Content Include="Public\jUI\themes\purple\images\shadow\shadow_f_c.png" />
+    <Content Include="Public\jUI\themes\purple\images\shadow\shadow_f_l.png" />
+    <Content Include="Public\jUI\themes\purple\images\shadow\shadow_f_r.png" />
+    <Content Include="Public\jUI\themes\purple\images\shadow\shadow_h_c.png" />
+    <Content Include="Public\jUI\themes\purple\images\shadow\shadow_h_l.png" />
+    <Content Include="Public\jUI\themes\purple\images\shadow\shadow_h_r.png" />
+    <Content Include="Public\jUI\themes\purple\images\tabs\tabscontrol.png" />
+    <Content Include="Public\jUI\themes\purple\images\tabs\tabspage.png" />
+    <Content Include="Public\jUI\themes\purple\images\tabs\tabspage_icon.png" />
+    <Content Include="Public\jUI\themes\purple\images\tabs\tabspanel.png" />
+    <Content Include="Public\jUI\themes\purple\images\tree\check.png" />
+    <Content Include="Public\jUI\themes\purple\images\tree\folder.png" />
+    <Content Include="Public\jUI\themes\purple\images\tree\tree.png" />
+    <Content Include="Public\jUI\themes\purple\style.css" />
+    <Content Include="Public\jUI\themes\silver\images\accordion\accordion.png" />
+    <Content Include="Public\jUI\themes\silver\images\account_info_bg.png" />
+    <Content Include="Public\jUI\themes\silver\images\alert\alertpanel.png" />
+    <Content Include="Public\jUI\themes\silver\images\alert\alertpanel_icon.png" />
+    <Content Include="Public\jUI\themes\silver\images\button\button_s.png" />
+    <Content Include="Public\jUI\themes\silver\images\dialog\dialogpanel.png" />
+    <Content Include="Public\jUI\themes\silver\images\dialog\dialogpanel_icon.png" />
+    <Content Include="Public\jUI\themes\silver\images\form\input_bg.png" />
+    <Content Include="Public\jUI\themes\silver\images\form\input_bt.png" />
+    <Content Include="Public\jUI\themes\silver\images\grid\grid.png" />
+    <Content Include="Public\jUI\themes\silver\images\grid\resizeCol.png" />
+    <Content Include="Public\jUI\themes\silver\images\grid\tableth.png" />
+    <Content Include="Public\jUI\themes\silver\images\header_bg.png" />
+    <Content Include="Public\jUI\themes\silver\images\layout\taskbar.png" />
+    <Content Include="Public\jUI\themes\silver\images\layout\taskbar_control.png" />
+    <Content Include="Public\jUI\themes\silver\images\layout\taskbar_icon.png" />
+    <Content Include="Public\jUI\themes\silver\images\layout\toggleSidebar.png" />
+    <Content Include="Public\jUI\themes\silver\images\listLine.png" />
+    <Content Include="Public\jUI\themes\silver\images\menu\menu.png" />
+    <Content Include="Public\jUI\themes\silver\images\pageHeader_bg.png" />
+    <Content Include="Public\jUI\themes\silver\images\panel\panel.png" />
+    <Content Include="Public\jUI\themes\silver\images\panel\panel_icon.png" />
+    <Content Include="Public\jUI\themes\silver\images\progressBar\progressBar_l.gif" />
+    <Content Include="Public\jUI\themes\silver\images\progressBar\progressBar_m.gif" />
+    <Content Include="Public\jUI\themes\silver\images\progressBar\progressBar_s.gif" />
+    <Content Include="Public\jUI\themes\silver\images\shadow\shadow_c_c.png" />
+    <Content Include="Public\jUI\themes\silver\images\shadow\shadow_c_l.png" />
+    <Content Include="Public\jUI\themes\silver\images\shadow\shadow_c_r.png" />
+    <Content Include="Public\jUI\themes\silver\images\shadow\shadow_f_c.png" />
+    <Content Include="Public\jUI\themes\silver\images\shadow\shadow_f_l.png" />
+    <Content Include="Public\jUI\themes\silver\images\shadow\shadow_f_r.png" />
+    <Content Include="Public\jUI\themes\silver\images\shadow\shadow_h_c.png" />
+    <Content Include="Public\jUI\themes\silver\images\shadow\shadow_h_l.png" />
+    <Content Include="Public\jUI\themes\silver\images\shadow\shadow_h_r.png" />
+    <Content Include="Public\jUI\themes\silver\images\tabs\tabscontrol.png" />
+    <Content Include="Public\jUI\themes\silver\images\tabs\tabspage.png" />
+    <Content Include="Public\jUI\themes\silver\images\tabs\tabspage_icon.png" />
+    <Content Include="Public\jUI\themes\silver\images\tabs\tabspanel.png" />
+    <Content Include="Public\jUI\themes\silver\images\tree\check.png" />
+    <Content Include="Public\jUI\themes\silver\images\tree\folder.png" />
+    <Content Include="Public\jUI\themes\silver\images\tree\tree.png" />
+    <Content Include="Public\jUI\themes\silver\style.css" />
+    <Content Include="Public\jUI\uploadify\cancel.png" />
+    <Content Include="Public\jUI\uploadify\css\uploadify.css" />
+    <Content Include="Public\jUI\uploadify\scripts\expressInstall.swf" />
+    <Content Include="Public\jUI\uploadify\scripts\jquery.uploadify.v2.1.0.js" />
+    <Content Include="Public\jUI\uploadify\scripts\swfobject.js" />
+    <Content Include="Public\jUI\uploadify\scripts\uploadify.swf" />
+    <Content Include="Public\jUI\xheditor\xheditor-1.1.9-en.min.js" />
+    <Content Include="Public\jUI\xheditor\xheditor-1.1.9-zh-cn.min.js" />
+    <Content Include="Public\jUI\xheditor\xheditor-1.1.9-zh-tw.min.js" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\angry.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\awkward.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\bye.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\config.txt" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\crazy.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\cry.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\curse.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\cute.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\despise.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\doubt.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\envy.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\fastcry.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\knock.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\laugh.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\mad.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\ohmy.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\panic.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\proud.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\quiet.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\sad.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\shutup.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\shy.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\sleep.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\smile.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\struggle.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\titter.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\tongue.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\wail.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\default\wronged.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\alien.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\angel.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\angry.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\bandit.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\biglaugh.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\blink.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\blush.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\config.txt" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\cool.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\cry.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\depres.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\devil.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\glare.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\heart.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\joyful.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\kiss.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\laugh.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\magician.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\ninja.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\pinch.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\police.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\sad.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\sick.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\sideways.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\sleep.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\smile.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\surprised.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\tongue.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\unsure.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\w00t.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\whistling.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\wondering.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\ipb\wub.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\1.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\10.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\11.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\12.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\13.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\14.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\15.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\16.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\17.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\18.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\19.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\2.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\20.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\21.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\22.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\23.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\24.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\25.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\26.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\27.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\28.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\29.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\3.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\30.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\31.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\32.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\33.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\34.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\35.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\36.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\37.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\38.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\39.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\4.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\40.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\5.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\6.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\7.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\8.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\msn\9.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\angry.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\bad.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\blush.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\brokenheart.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\bye.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\coffee.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\config.txt" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\cool.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\cry.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\curse.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\cute.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\devil.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\envy.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\gift.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\good.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\kiss.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\laugh.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\love.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\music.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\question.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\rose.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\sad.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\shocked.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\shout.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\sick.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\sleepy.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\smile.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\soccer.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\sweat.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\tired.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\tongue.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\victory.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_emot\pidgin\wink.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_plugins\multiupload\img\add.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_plugins\multiupload\img\bg1.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_plugins\multiupload\img\bg2.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_plugins\multiupload\img\btnbg.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_plugins\multiupload\img\btnbgr.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_plugins\multiupload\img\clear.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_plugins\multiupload\img\progressbg.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_plugins\multiupload\img\start.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_plugins\multiupload\multiupload.css" />
+    <Content Include="Public\jUI\xheditor\xheditor_plugins\multiupload\multiupload.html" />
+    <Content Include="Public\jUI\xheditor\xheditor_plugins\multiupload\multiupload.js" />
+    <Content Include="Public\jUI\xheditor\xheditor_plugins\multiupload\swfupload\swfupload.js" />
+    <Content Include="Public\jUI\xheditor\xheditor_plugins\multiupload\swfupload\swfupload.swf" />
+    <Content Include="Public\jUI\xheditor\xheditor_plugins\ubb.min.js" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\default\iframe.css" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\default\img\anchor.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\default\img\close.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\default\img\flash.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\default\img\icons.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\default\img\loading.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\default\img\progress.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\default\img\progressbg.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\default\img\tag-address.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\default\img\tag-div.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\default\img\tag-h1.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\default\img\tag-h2.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\default\img\tag-h3.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\default\img\tag-h4.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\default\img\tag-h5.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\default\img\tag-h6.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\default\img\tag-p.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\default\img\tag-pre.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\default\img\waiting.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\default\img\wmp.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\default\ui.css" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\nostyle\iframe.css" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\nostyle\img\anchor.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\nostyle\img\close.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\nostyle\img\flash.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\nostyle\img\icons.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\nostyle\img\loading.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\nostyle\img\progress.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\nostyle\img\progressbg.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\nostyle\img\tag-address.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\nostyle\img\tag-div.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\nostyle\img\tag-h1.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\nostyle\img\tag-h2.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\nostyle\img\tag-h3.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\nostyle\img\tag-h4.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\nostyle\img\tag-h5.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\nostyle\img\tag-h6.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\nostyle\img\tag-p.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\nostyle\img\tag-pre.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\nostyle\img\waiting.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\nostyle\img\wmp.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\nostyle\ui.css" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007blue\iframe.css" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007blue\img\anchor.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007blue\img\buttonbg.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007blue\img\close.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007blue\img\flash.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007blue\img\icons.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007blue\img\loading.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007blue\img\progress.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007blue\img\progressbg.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007blue\img\tag-address.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007blue\img\tag-div.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007blue\img\tag-h1.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007blue\img\tag-h2.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007blue\img\tag-h3.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007blue\img\tag-h4.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007blue\img\tag-h5.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007blue\img\tag-h6.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007blue\img\tag-p.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007blue\img\tag-pre.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007blue\img\waiting.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007blue\img\wmp.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007blue\ui.css" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007silver\iframe.css" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007silver\img\anchor.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007silver\img\buttonbg.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007silver\img\close.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007silver\img\flash.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007silver\img\icons.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007silver\img\loading.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007silver\img\progress.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007silver\img\progressbg.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007silver\img\tag-address.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007silver\img\tag-div.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007silver\img\tag-h1.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007silver\img\tag-h2.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007silver\img\tag-h3.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007silver\img\tag-h4.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007silver\img\tag-h5.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007silver\img\tag-h6.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007silver\img\tag-p.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007silver\img\tag-pre.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007silver\img\waiting.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007silver\img\wmp.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\o2007silver\ui.css" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\vista\iframe.css" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\vista\img\anchor.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\vista\img\buttonbg.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\vista\img\close.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\vista\img\flash.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\vista\img\icons.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\vista\img\loading.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\vista\img\progress.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\vista\img\progressbg.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\vista\img\tag-address.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\vista\img\tag-div.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\vista\img\tag-h1.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\vista\img\tag-h2.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\vista\img\tag-h3.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\vista\img\tag-h4.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\vista\img\tag-h5.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\vista\img\tag-h6.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\vista\img\tag-p.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\vista\img\tag-pre.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\vista\img\titlebg.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\vista\img\waiting.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\vista\img\wmp.gif" />
+    <Content Include="Public\jUI\xheditor\xheditor_skin\vista\ui.css" />
+    <Content Include="Public\TXT\xiongbo.txt" />
+    <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.5.1.js" />
+    <Content Include="Scripts\jquery-1.5.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.11.js" />
+    <Content Include="Scripts\jquery-ui-1.8.11.min.js" />
+    <Content Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\modernizr-1.7.js" />
+    <Content Include="Scripts\modernizr-1.7.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\MicrosoftAjax.js" />
+    <Content Include="Scripts\MicrosoftAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Member\Views\Web.config" />
+    <Content Include="Areas\Member\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Member\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Member\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Member\Views\Shared\_SideBar.cshtml" />
+    <Content Include="Areas\Member\Views\Shared\_Header.cshtml" />
+    <Content Include="App_Code\MemberHelper.cshtml" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Debug\edmxResourcesToEmbed\Models\GGZBTQPT.csdl" />
+    <None Include="obj\Debug\edmxResourcesToEmbed\Models\GGZBTQPT.msl" />
+    <None Include="obj\Debug\edmxResourcesToEmbed\Models\GGZBTQPT.ssdl" />
+    <None Include="obj\Debug\edmxResourcesToEmbed\Models\GGZBTQPTDB.csdl" />
+    <None Include="obj\Debug\edmxResourcesToEmbed\Models\GGZBTQPTDB.msl" />
+    <None Include="obj\Debug\edmxResourcesToEmbed\Models\GGZBTQPTDB.ssdl" />
+    <None Include="obj\Debug\edmxResourcesToEmbed\Models\YYZCPT.csdl" />
+    <None Include="obj\Debug\edmxResourcesToEmbed\Models\YYZCPT.msl" />
+    <None Include="obj\Debug\edmxResourcesToEmbed\Models\YYZCPT.ssdl" />
+    <None Include="obj\Debug\GenerateResource.read.1.tlog" />
+    <None Include="obj\Debug\GenerateResource.write.1.tlog" />
+    <None Include="Public\jUI\bin\gzjs.bat" />
+    <None Include="Public\jUI\themes\azure\images\grid\Thumbs.db" />
+    <None Include="Public\jUI\themes\azure\images\layout\Thumbs.db" />
+    <None Include="Public\jUI\themes\azure\images\menu\Thumbs.db" />
+    <None Include="Public\jUI\themes\azure\images\progressBar\Thumbs.db" />
+    <None Include="Public\jUI\themes\azure\images\shadow\Thumbs.db" />
+    <None Include="Public\jUI\themes\azure\images\tabs\Thumbs.db" />
+    <None Include="Public\jUI\themes\azure\images\tree\Thumbs.db" />
+    <None Include="Public\jUI\themes\default\images\panel\Thumbs.db" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\_EasyPanel.cshtml" />
+    <Content Include="Views\Home\_Menu.cshtml" />
+    <Content Include="Views\Shared\_JUIFile.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\ZC_System\Index.cshtml" />
+    <Content Include="Views\ZC_System\Details.cshtml" />
+    <Content Include="Views\ZC_System\Create.cshtml" />
+    <Content Include="Views\ZC_System\Edit.cshtml" />
+    <Content Include="Views\ZC_System\Delete.cshtml" />
+    <Content Include="Views\ZC_Menu\Index.cshtml" />
+    <Content Include="Views\ZC_Menu\Details.cshtml" />
+    <Content Include="Views\ZC_Menu\Create.cshtml" />
+    <Content Include="Views\ZC_Menu\Edit.cshtml" />
+    <Content Include="Views\ZC_Menu\Delete.cshtml" />
+    <Content Include="Views\ZC_Menu\MenuInfo.cshtml" />
+    <Content Include="Views\ZC_Menu\SystemLinks.cshtml" />
+    <Content Include="Views\ZC_User\Index.cshtml" />
+    <Content Include="Views\ZC_User\Details.cshtml" />
+    <Content Include="Views\ZC_User\Create.cshtml" />
+    <Content Include="Views\ZC_User\Edit.cshtml" />
+    <Content Include="Views\ZC_User\Delete.cshtml" />
+    <Content Include="Views\ZC_Department\Index.cshtml" />
+    <Content Include="Views\ZC_Department\Details.cshtml" />
+    <Content Include="Views\ZC_Department\Create.cshtml" />
+    <Content Include="Views\ZC_Department\Edit.cshtml" />
+    <Content Include="Views\ZC_Department\Delete.cshtml" />
+    <Content Include="Views\ZC_Role\Index.cshtml" />
+    <Content Include="Views\ZC_Role\Details.cshtml" />
+    <Content Include="Views\ZC_Role\Create.cshtml" />
+    <Content Include="Views\ZC_Role\Edit.cshtml" />
+    <Content Include="Views\ZC_Role\Delete.cshtml" />
+    <Content Include="Views\ZC_User\UserInfo.cshtml" />
+    <Content Include="Views\ZC_User\DepartmentLinks.cshtml" />
+    <Content Include="Views\ZC_User\SelectUsers.cshtml" />
+    <Content Include="Views\ZC_Role\SelectUser.cshtml" />
+    <Content Include="Views\XM_RZ\Create.cshtml" />
+    <Content Include="Views\XM_RZ\Delete.cshtml" />
+    <Content Include="Views\XM_RZ\Details.cshtml" />
+    <Content Include="Views\XM_RZ\Edit.cshtml" />
+    <Content Include="Views\XM_RZ\Index.cshtml" />
+    <Content Include="Views\XM_TZ\Create.cshtml" />
+    <Content Include="Views\XM_TZ\Delete.cshtml" />
+    <Content Include="Views\XM_TZ\Details.cshtml" />
+    <Content Include="Views\XM_TZ\Edit.cshtml" />
+    <Content Include="Views\XM_TZ\Index.cshtml" />
+    <Content Include="Views\QY_Corp\Index.cshtml" />
+    <Content Include="Views\QY_Corp\Details.cshtml" />
+    <Content Include="Views\QY_Corp\Create.cshtml" />
+    <Content Include="Views\QY_Corp\Edit.cshtml" />
+    <Content Include="Views\QY_Corp\Delete.cshtml" />
+    <Content Include="Views\JG_Agency\Index.cshtml" />
+    <Content Include="Views\JG_Agency\Details.cshtml" />
+    <Content Include="Views\JG_Agency\Create.cshtml" />
+    <Content Include="Views\JG_Agency\Edit.cshtml" />
+    <Content Include="Views\JG_Agency\Delete.cshtml" />
+    <Content Include="Views\JG_Linkman\Index.cshtml" />
+    <Content Include="Views\JG_Linkman\Details.cshtml" />
+    <Content Include="Views\JG_Linkman\Create.cshtml" />
+    <Content Include="Views\JG_Linkman\Edit.cshtml" />
+    <Content Include="Views\JG_Linkman\Delete.cshtml" />
+    <Content Include="Views\JG_Product\Index.cshtml" />
+    <Content Include="Views\JG_Product\Details.cshtml" />
+    <Content Include="Views\JG_Product\Create.cshtml" />
+    <Content Include="Views\JG_Product\Edit.cshtml" />
+    <Content Include="Views\JG_Product\Delete.cshtml" />
+    <Content Include="Views\QY_Person\Index.cshtml" />
+    <Content Include="Views\QY_Person\Details.cshtml" />
+    <Content Include="Views\QY_Person\Create.cshtml" />
+    <Content Include="Views\QY_Person\Edit.cshtml" />
+    <Content Include="Views\QY_Person\Delete.cshtml" />
+    <Content Include="Views\XM_RZ\RZCheckList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\Member\Models\" />
+    <Folder Include="Content\css\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\Common.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Common.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\T_ZC_Department.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>T_ZC_Department.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\T_ZC_Role.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>T_ZC_Role.Designer.cs</LastGenOutput>
+    </Content>
+    <EmbeddedResource Include="App_GlobalResources\T_ZC_System.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>T_ZC_System.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="App_GlobalResources\T_ZC_User.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>T_ZC_User.Designer.cs</LastGenOutput>
+    </Content>
+    <EmbeddedResource Include="Migrations\201210090749348_init.resx">
+      <DependentUpon>201210090749348_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201210090813081_Add-DIC.resx">
+      <DependentUpon>201210090813081_Add-DIC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="obj\Debug\GGZBTQPT_PRO.App_GlobalResources.T_ZC_System.resources" />
+    <EmbeddedResource Include="obj\Debug\GGZBTQPT_PRO.Migrations.init.resources" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>3699</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -52,6 +52,21 @@ namespace GGZBTQPT_PRO.Models
                 return db.T_PTF_DicDetail.Find(this.Industry).Name;
             }
         }
-
+        public string AimIndustryName
+        {
+            get
+            {
+                string result = "";
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                string[] aimInd = this.AimIndustry.Split(',');
+                foreach (string strInd in aimInd)
+                {
+                    result += db.T_PTF_DicDetail.Find(Convert.ToInt32(strInd)).Name + ',';
+                }
+                if (result.Length > 0)
+                    result = result.Substring(0, result.Length - 1);
+                return result;
+            }
+        }
     }
 }

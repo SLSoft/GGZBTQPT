@@ -89,7 +89,6 @@ namespace GGZBTQPT_PRO.Models.Mapping
             this.Property(t => t.TransferPrice).HasColumnName("TransferPrice");
             this.Property(t => t.TransferType).HasColumnName("TransferType");
             this.Property(t => t.TransactionMode).HasColumnName("TransactionMode");
-            this.Property(t => t.Description).HasColumnName("Description2");
             this.Property(t => t.Investment).HasColumnName("Investment");
             this.Property(t => t.CooperationMode).HasColumnName("CooperationMode");
             this.Property(t => t.BuildCycle).HasColumnName("BuildCycle");

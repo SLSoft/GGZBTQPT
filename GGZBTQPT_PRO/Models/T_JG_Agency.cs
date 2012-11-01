@@ -18,13 +18,22 @@ namespace GGZBTQPT_PRO.Models
         public string Phone { get; set; }
         public string Services { get; set; }
         public string Remark { get; set; }
-        public Nullable<bool> IsValid { get; set; }
+        public Boolean IsValid { get; set; }
         public int OP { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
-
+        public Boolean IsIn { get; set; }
 
         public int MemberID { get; set; }
+
+        public string AgencyTypeName
+        {
+            get
+            {
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                return db.T_PTF_DicDetail.Find(this.AgencyType).Name;
+            }
+        }
 
         public virtual ICollection<T_JG_Linkman> Linkmans { get; set; }
     }

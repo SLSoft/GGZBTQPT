@@ -35,6 +35,15 @@ namespace GGZBTQPT_PRO.Models
 
         public int MemberID { get; set; }
 
+        public string Sex { get { return this.Gender == "1" ? "ÄÐ" : "Å®"; } }
 
+        public string DegreeName
+        {
+            get
+            {
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                return db.T_PTF_DicDetail.Find(this.Degree).Name;
+            }
+        }
     }
 }

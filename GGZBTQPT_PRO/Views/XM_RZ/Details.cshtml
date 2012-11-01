@@ -3,243 +3,148 @@
 @{
     ViewBag.Title = "Details";
 }
-
-<h2>Details</h2>
+<h1>项目类别 @Html.DisplayFor(model => model.ItemType)</h1>
+<br />
 
 <fieldset>
-    <legend>T_XM_Financing</legend>
-
-    <div class="display-label">UserID</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.UserID)
-    </div>
-
-    <div class="display-label">ItemName</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ItemName)
-    </div>
-
-    <div class="display-label">Province</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Province)
-    </div>
-
-    <div class="display-label">City</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.City)
-    </div>
-
-    <div class="display-label">Region</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Region)
-    </div>
-
-    <div class="display-label">Industry</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Industry)
-    </div>
-
-    <div class="display-label">ValidDate</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ValidDate)
-    </div>
-
-    <div class="display-label">Keys</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Keys)
-    </div>
-
-    <div class="display-label">ItemContent</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ItemContent)
-    </div>
-
-    <div class="display-label">ItemType</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ItemType)
-    </div>
-
-    <div class="display-label">FinancSum</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.FinancSum)
-    </div>
-
-    <div class="display-label">FinancType</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.FinancType)
-    </div>
-
-    <div class="display-label">FinancCycle</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.FinancCycle)
-    </div>
-
-    <div class="display-label">TotalInvestment</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.TotalInvestment)
-    </div>
-
-    <div class="display-label">ReturnRatio</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ReturnRatio)
-    </div>
-
-    <div class="display-label">ItemStage</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ItemStage)
-    </div>
-
-    <div class="display-label">ItemValue</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ItemValue)
-    </div>
-
-    <div class="display-label">Assure</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Assure)
-    </div>
-
-    <div class="display-label">Collateral</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Collateral)
-    </div>
-
-    <div class="display-label">PartnerRequirements</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.PartnerRequirements)
-    </div>
-
-    <div class="display-label">AssetsType</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.AssetsType)
-    </div>
-
-    <div class="display-label">AssetsCost</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.AssetsCost)
-    </div>
-
-    <div class="display-label">IsMortgage</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.IsMortgage)
-    </div>
-
-    <div class="display-label">TransferPrice</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.TransferPrice)
-    </div>
-
-    <div class="display-label">TransferType</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.TransferType)
-    </div>
-
-    <div class="display-label">TransactionMode</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.TransactionMode)
-    </div>
-
-    <div class="display-label">Description2</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Description2)
-    </div>
-
-    <div class="display-label">Investment</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Investment)
-    </div>
-
-    <div class="display-label">CooperationMode</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.CooperationMode)
-    </div>
-
-    <div class="display-label">BuildCycle</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.BuildCycle)
-    </div>
-
-    <div class="display-label">ReturnCycle</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ReturnCycle)
-    </div>
-
-    <div class="display-label">PublicStatus</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.PublicStatus)
-    </div>
-
-    <div class="display-label">SubmitTime</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.SubmitTime)
-    </div>
-
-    <div class="display-label">PublicTime</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.PublicTime)
-    </div>
-
-    <div class="display-label">Linkman</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Linkman)
-    </div>
-
-    <div class="display-label">Position</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Position)
-    </div>
-
-    <div class="display-label">Phone</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Phone)
-    </div>
-
-    <div class="display-label">Mobile</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Mobile)
-    </div>
-
-    <div class="display-label">Fax</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Fax)
-    </div>
-
-    <div class="display-label">Email</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Email)
-    </div>
-
-    <div class="display-label">QQ</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.QQ)
-    </div>
-
-    <div class="display-label">IsPublic</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.IsPublic)
-    </div>
-
-    <div class="display-label">IsValid</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.IsValid)
-    </div>
-
-    <div class="display-label">OP</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.OP)
-    </div>
-
-    <div class="display-label">CreateTime</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.CreateTime)
-    </div>
-
-    <div class="display-label">UpdateTime</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.UpdateTime)
-    </div>
+    <legend>融资信息</legend>
+    
+        <table>
+            <tr>
+                <td>项目标题</td>
+                <td>@Html.DisplayFor(model => model.ItemName)</td>
+            </tr>
+            <tr>
+                <td>发布会员</td>
+                <td>@Html.DisplayFor(model => model.MemberID)</td>
+            </tr>
+            <tr>
+                <td>发布时间</td>
+                <td>@Html.DisplayFor(model => model.PublicTime)</td>
+            </tr>
+            <tr>
+                <td>所属区域</td>
+                <td>@Html.DisplayFor(model => model.Province)</td>
+            </tr>
+            <tr>
+                <td>所属行业</td>
+                <td>@Html.DisplayFor(model => model.IndustryName)</td>
+            </tr>
+            <tr>
+                <td>有效日期</td>
+                <td>@Html.DisplayFor(model => model.ValidDate)</td>
+            </tr>
+        </table>
+        @if (Model.ItemType == 1)
+        {
+        <table>
+            <tr>
+                <td>融资金额</td>
+                <td>@Html.DisplayFor(model => model.FinancSum)</td>
+            </tr>
+            <tr>
+                <td>融资方式</td>
+                <td>@Html.DisplayFor(model => model.FinancType)</td>
+            </tr>
+            <tr>
+                <td>融资期限</td>
+                <td>@Html.DisplayFor(model => model.FinancCycle)</td>
+            </tr>
+            <tr>
+                <td>项目总投资</td>
+                <td>@Html.DisplayFor(model => model.TotalInvestment)</td>
+            </tr>
+            <tr>
+                <td>预计回报率</td>
+                <td>@Html.DisplayFor(model => model.ReturnRatio)</td>
+            </tr>
+            <tr>
+                <td>项目阶段</td>
+                <td>@Html.DisplayFor(model => model.ItemStage)</td>
+            </tr>
+            <tr>
+                <td>项目评估价值</td>
+                <td>@Html.DisplayFor(model => model.ItemValue)</td>
+            </tr>
+            <tr>
+                <td>担保说明</td>
+                <td>@Html.DisplayFor(model => model.Assure)</td>
+            </tr>
+            <tr>
+                <td>抵质押物</td>
+                <td>@Html.DisplayFor(model => model.Collateral)</td>
+            </tr>
+            <tr>
+                <td>合作方要求</td>
+                <td>@Html.DisplayFor(model => model.PartnerRequirements)</td>
+            </tr>
+            <tr>
+                <td>项目介绍</td>
+                <td>@Html.DisplayFor(model => model.ItemContent)</td>
+            </tr>
+        </table>
+        }
+        @if (Model.ItemType == 2)
+        {
+        <table>
+            <tr>
+                <td>资产类别</td>
+                <td>@Html.DisplayFor(model => model.AssetsType)</td>
+            </tr>
+            <tr>
+                <td>资产估价</td>
+                <td>@Html.DisplayFor(model => model.AssetsCost)</td>
+            </tr>
+            <tr>
+                <td>转让价格</td>
+                <td>@Html.DisplayFor(model => model.TransferPrice)</td>
+            </tr>
+            <tr>
+                <td>是否抵质押</td>
+                <td>@Html.DisplayFor(model => model.IsMortgage)</td>
+            </tr>
+            <tr>
+                <td>转让形式</td>
+                <td>@Html.DisplayFor(model => model.TransferType)</td>
+            </tr>
+            <tr>
+                <td>交易方式</td>
+                <td>@Html.DisplayFor(model => model.TransactionMode)</td>
+            </tr>
+        </table>
+        }
 </fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<fieldset>
+    <legend>联系方式</legend>
+        <table>
+            <tr>
+                <td>联系人</td>
+                <td>@Html.DisplayFor(model => model.Linkman)</td>
+            </tr>
+            <tr>
+                <td>联系人部门/职务</td>
+                <td>@Html.DisplayFor(model => model.Position)</td>
+            </tr>
+            <tr>
+                <td>联系电话</td>
+                <td>@Html.DisplayFor(model => model.Phone)  @Html.DisplayFor(model => model.Mobile)</td>
+            </tr>
+            <tr>
+                <td>传真</td>
+                <td>@Html.DisplayFor(model => model.Fax)</td>
+            </tr>
+            <tr>
+                <td>邮箱</td>
+                <td>@Html.DisplayFor(model => model.Email)</td>
+            </tr>
+            <tr>
+                <td>QQ</td>
+                <td>@Html.DisplayFor(model => model.QQ)</td>
+            </tr>
+            <tr>
+                <td>通讯地址</td>
+                <td></td>
+            </tr>
+        </table>
+</fieldset>

@@ -3,19 +3,67 @@
 @{
     ViewBag.Title = "发布融资信息";
 }
+@helper GenerateTransactionMode()
+    {
+    var i = 0;
+    foreach (var item in ViewData["TransactionMode"] as SelectList)
+    {
+        if (i % 6 == 0)
+        {
+            <br />
+        }
+        <input type="checkbox" name="TransactionMode" value="@item.Value" /><span>@item.Text</span>
+        i++;
+    }
+}
 <script type="text/javascript">
     $(function () {
-        $("#Province").change(
-        function () {
-                var select = $(this).val();
-                $.post("XM_RZ/BindArea2/", { parentcode: select }, function (data) {
-                     $.each(data, function (i, item) {
-                    $("<option></option>").val(item["ID"]).text(item["Name"]).appendTo($("#City"));
-                    }
-                });
+        $("#item2").hide();
+        $("#item3").hide();
+        $("#item4").hide();
+        $("#Province").change(function () { GetPlant() });
+        $("input:radio").change(function () {
+            var checked = $("input[name='itemtype']:checked").val();
+            if (checked == "1") {
+                $("#item1").show();
+                $("#item2").hide();
+                $("#item3").hide();
+                $("#item4").hide();
             }
-        );
+            if (checked == "2") {
+                $("#item1").hide();
+                $("#item2").show();
+                $("#item3").hide();
+                $("#item4").hide();
+            }
+            if (checked == "3") {
+                $("#item1").hide();
+                $("#item2").hide();
+                $("#item3").show();
+                $("#item4").hide();
+            }
+            if (checked == "9") {
+                $("#item1").hide();
+                $("#item2").hide();
+                $("#item3").hide();
+                $("#item4").show();
+            }
+        });
     });
+
+        function GetPlant() {
+            $("#ddlCity").empty();
+            var url = "/XM_RZ/GetCity/?ParentCode=" + $("#Province").val();
+            $.getJSON(url, function (data) {
+                $.each(data, function (i, item) {
+                    $("<option></option>")
+                    .val(item["Code"])
+                    .text(item["Name"])
+                    .appendTo($("#ddlCity"));
+
+                });
+            });
+        }
 </script>
 <h2>发布融资信息</h2>
 
@@ -24,24 +72,28 @@
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>融资信息</legend>
-        <table style="width:100%">
+        <br /><p>选择项目类别：
+        <input type="radio" name="itemtype" value="1" checked=checked /><span>项目融资</span>
+        <input type="radio" name="itemtype" value="2" /><span>资产交易</span>
+        <input type="radio" name="itemtype" value="3" /><span>政府招商</span>
+        <input type="radio" name="itemtype" value="9" /><span>其他</span></p><br />
+        <table style="width:800px">
             <tr>
                 <td colspan="2" style="background-color:#666666; color:#ffffff">基本信息</td>
             </tr>
             <tr>
-                <td style="width:120px">@Html.LabelFor(model => model.ItemName,"项目名称")</td>
+                <td style="width:120px">@Html.LabelFor(model => model.ItemName, "项目名称")</td>
                 <td>@Html.EditorFor(model => model.ItemName)
             @Html.ValidationMessageFor(model => model.ItemName)</td>
             </tr>
             <tr>
-                <td>@Html.LabelFor(model => model.Province,"所属区域")</td>
-                <td>@Html.DropDownList("Province", "请选择")</td>
+                <td>@Html.LabelFor(model => model.Province, "所属区域")</td>
+                <td>@Html.DropDownList("Province", "请选择")<select id="ddlCity" name="ddlCity"><option value="-1">请选择</option></select></td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Industry, "所属行业")</td>
-                <td>@Html.DropDownList("Industry", "请选择")</td>
+                <td>@Html.DropDownList("Industry", "请选择")
+                </td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.ValidDate, "有效日期")</td>
@@ -55,40 +107,39 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.ItemContent, "项目介绍")</td>
-                <td>@Html.TextAreaFor(model => model.ItemContent, new { rows = "5" })
+                <td>@Html.TextAreaFor(model => model.ItemContent, new { rows = "5", cols = "60" })
             @Html.ValidationMessageFor(model => model.ItemContent)</td>
             </tr>
         </table>
-        <table style="width:100%">
+        <table id="item1" style="width:800px">
             <tr>
-                <td colspan="4" style="background-color:#666666; color:#ffffff">融资信息</td>
+                <td colspan="4" style="background-color:#666666; color:#ffffff">项目融资</td>
             </tr>
             <tr>
                 <td style="width:120px">@Html.LabelFor(model => model.FinancSum, "融资金额")</td>
-                <td>@Html.EditorFor(model => model.FinancSum)
+                <td>@Html.EditorFor(model => model.FinancSum)（万元）
             @Html.ValidationMessageFor(model => model.FinancSum)</td>
                 <td>@Html.LabelFor(model => model.FinancType, "融资方式")</td>
                 <td>@Html.DropDownList("FinancType", "请选择")</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.FinancCycle, "融资期限")</td>
-                <td>@Html.EditorFor(model => model.FinancCycle)
+                <td>@Html.EditorFor(model => model.FinancCycle)（月）
             @Html.ValidationMessageFor(model => model.FinancCycle)</td>
                 <td>@Html.LabelFor(model => model.TotalInvestment, "项目总投资")</td>
-                <td>@Html.EditorFor(model => model.TotalInvestment)
+                <td>@Html.EditorFor(model => model.TotalInvestment)（万元）
             @Html.ValidationMessageFor(model => model.TotalInvestment)</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.ReturnRatio, "预计回报率")</td>
-                <td>@Html.EditorFor(model => model.ReturnRatio)
+                <td>@Html.EditorFor(model => model.ReturnRatio)（%/年）
             @Html.ValidationMessageFor(model => model.ReturnRatio)</td>
                 <td>@Html.LabelFor(model => model.ItemStage, "项目阶段")</td>
-                <td>@Html.EditorFor(model => model.ItemStage)
-            @Html.ValidationMessageFor(model => model.ItemStage)</td>
+                <td>@Html.DropDownList("ItemStage", "请选择")</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.ItemValue, "项目评估价值")</td>
-                <td>@Html.EditorFor(model => model.ItemValue)
+                <td>@Html.EditorFor(model => model.ItemValue)（万元）
             @Html.ValidationMessageFor(model => model.ItemValue)</td>
                 <td>@Html.LabelFor(model => model.Assure, "担保说明")</td>
                 <td>@Html.EditorFor(model => model.Assure)
@@ -105,7 +156,62 @@
             @Html.ValidationMessageFor(model => model.PartnerRequirements)</td>
             </tr>
         </table>
-        <table style="width:100%">
+        <table id="item2" style="width:800px">
+            <tr>
+                <td colspan="4" style="background-color:#666666; color:#ffffff">资产交易</td>
+            </tr>
+            <tr>
+                <td style="width:120px">@Html.LabelFor(model => model.AssetsType, "资产类别")</td>
+                <td>@Html.DropDownList("AssetsType", "请选择")</td>
+                <td>@Html.LabelFor(model => model.AssetsCost, "资产估价")</td>
+                <td>@Html.EditorFor(model => model.AssetsCost)万元</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.IsMortgage, "是否抵质押")</td>
+                <td>@Html.RadioButtonFor(model => model.IsMortgage, 1, new { @id = "radio2", @name = "IsMortgage" })是
+                    @Html.RadioButtonFor(model => model.IsMortgage, 2, new { @id = "radio1", @name = "IsMortgage" })否
+                </td>
+                <td>@Html.LabelFor(model => model.TransferPrice, "转让价格")</td>
+                <td>@Html.EditorFor(model => model.TransferPrice)万元</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.TransferType, "转让形式")</td>
+                <td>@Html.RadioButtonFor(model => model.TransferType, 1, new { @id = "radio2", @name = "rdolstState" })整体
+                    @Html.RadioButtonFor(model => model.TransferType, 2, new { @id = "radio1", @name = "rdolstState" })部分
+                </td>
+                <td>@Html.LabelFor(model => model.TransactionMode, "交易方式")</td>
+                <td>@GenerateTransactionMode()</td>
+            </tr>
+        </table>
+        <table id="item3" style="width:800px">
+            <tr>
+                <td colspan="4" style="background-color:#666666; color:#ffffff">政府招商</td>
+            </tr>
+            <tr>
+                <td style="width:120px">@Html.LabelFor(model => model.Investment, "招商投资总额")</td>
+                <td>@Html.EditorFor(model => model.Investment)万元</td>
+                <td>@Html.LabelFor(model => model.CooperationMode, "合作方式")</td>
+                <td>@Html.EditorFor(model => model.CooperationMode)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.BuildCycle, "预计项目所用时间")</td>
+                <td>@Html.EditorFor(model => model.BuildCycle)万元</td>
+                <td>@Html.LabelFor(model => model.ReturnCycle, "投资回收期")</td>
+                <td>@Html.EditorFor(model => model.ReturnCycle)</td>
+            </tr>
+        </table>
+        <table id="item4" style="width:800px">
+            <tr>
+                <td colspan="4" style="background-color:#666666; color:#ffffff">其他项目</td>
+            </tr>
+            <tr>
+                <td style="width:120px">@Html.LabelFor(model => model.OtherItemFinancSum, "融资金额")</td>
+                <td>@Html.EditorFor(model => model.OtherItemFinancSum)万元</td>
+                <td>@Html.LabelFor(model => model.OtherItemFinancSum, "融资期限")</td>
+                <td>@Html.EditorFor(model => model.OtherItemFinancSum)</td>
+            </tr>
+        </table>
+        <table style="width:800px">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">联系人信息</td>
             </tr>
@@ -142,7 +248,6 @@
         <p>
             <input type="submit" value="提交" />
         </p>
-    </fieldset>
 }
 
 <div>

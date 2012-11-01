@@ -1,0 +1,150 @@
+﻿@model GGZBTQPT_PRO.Models.T_QY_Person
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>T_QY_Person</legend>
+
+    <div class="display-label">UserID</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserID)
+    </div>
+
+    <div class="display-label">Name</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">HomeTown</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.HomeTown)
+    </div>
+
+    <div class="display-label">CardType</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CardType)
+    </div>
+
+    <div class="display-label">CardID</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CardID)
+    </div>
+
+    <div class="display-label">Gender</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Gender)
+    </div>
+
+    <div class="display-label">Birth</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Birth)
+    </div>
+
+    <div class="display-label">College</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.College)
+    </div>
+
+    <div class="display-label">Specialty</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Specialty)
+    </div>
+
+    <div class="display-label">Education</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Education)
+    </div>
+
+    <div class="display-label">Degree</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Degree)
+    </div>
+
+    <div class="display-label">Titles</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Titles)
+    </div>
+
+    <div class="display-label">TitlesGrade</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TitlesGrade)
+    </div>
+
+    <div class="display-label">Address</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address)
+    </div>
+
+    <div class="display-label">Phone</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Phone)
+    </div>
+
+    <div class="display-label">Mobile</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Mobile)
+    </div>
+
+    <div class="display-label">Email</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+
+    <div class="display-label">MSN</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MSN)
+    </div>
+
+    <div class="display-label">QQ</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.QQ)
+    </div>
+
+    <div class="display-label">EduExperience</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EduExperience)
+    </div>
+
+    <div class="display-label">WorkExperience</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.WorkExperience)
+    </div>
+
+    <div class="display-label">Remark</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Remark)
+    </div>
+
+    <div class="display-label">IsValid</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsValid)
+    </div>
+
+    <div class="display-label">OP</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.OP)
+    </div>
+
+    <div class="display-label">CreateTime</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreateTime)
+    </div>
+
+    <div class="display-label">UpdateTime</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpdateTime)
+    </div>
+
+    <div class="display-label">MemberID</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MemberID)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

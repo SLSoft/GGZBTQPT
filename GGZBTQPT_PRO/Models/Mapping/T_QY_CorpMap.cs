@@ -7,7 +7,7 @@ namespace GGZBTQPT_PRO.Models.Mapping
     {
         public T_QY_CorpMap()
         {
-            // Primary Key
+            // Primary Keybo
             this.HasKey(t => t.ID);
 
             // Properties

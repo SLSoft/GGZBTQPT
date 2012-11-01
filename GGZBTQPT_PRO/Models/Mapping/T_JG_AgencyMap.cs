@@ -25,8 +25,6 @@ namespace GGZBTQPT_PRO.Models.Mapping
 
             this.Property(t => t.Remark)
                 .HasMaxLength(2000);
-
-
         }
     }
 }

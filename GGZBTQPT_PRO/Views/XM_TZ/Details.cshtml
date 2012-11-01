@@ -2,159 +2,34 @@
 
 @{
     ViewBag.Title = "Details";
+    Layout = null;
 }
 
-<h2>Details</h2>
+<h2>投资意向</h2>
 
 <fieldset>
-    <legend>T_XM_Investment</legend>
-
-    <div class="display-label">UserID</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.UserID)
-    </div>
-
-    <div class="display-label">ItemName</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ItemName)
-    </div>
-
-    <div class="display-label">Province</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Province)
-    </div>
-
-    <div class="display-label">City</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.City)
-    </div>
-
-    <div class="display-label">Region</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Region)
-    </div>
-
-    <div class="display-label">Industry</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Industry)
-    </div>
-
-    <div class="display-label">ValidDate</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ValidDate)
-    </div>
-
-    <div class="display-label">Keys</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Keys)
-    </div>
-
-    <div class="display-label">Description</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Description)
-    </div>
-
-    <div class="display-label">Linkman</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Linkman)
-    </div>
-
-    <div class="display-label">Position</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Position)
-    </div>
-
-    <div class="display-label">Phone</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Phone)
-    </div>
-
-    <div class="display-label">Mobile</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Mobile)
-    </div>
-
-    <div class="display-label">Fax</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Fax)
-    </div>
-
-    <div class="display-label">Email</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Email)
-    </div>
-
-    <div class="display-label">QQ</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.QQ)
-    </div>
-
-    <div class="display-label">IsPublic</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.IsPublic)
-    </div>
-
-    <div class="display-label">Investment</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Investment)
-    </div>
-
-    <div class="display-label">StartInvestment</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.StartInvestment)
-    </div>
-
-    <div class="display-label">AimIndustry</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.AimIndustry)
-    </div>
-
-    <div class="display-label">AjmArea</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.AjmArea)
-    </div>
-
-    <div class="display-label">ReturnRatio</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ReturnRatio)
-    </div>
-
-    <div class="display-label">TeamworkType</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.TeamworkType)
-    </div>
-
-    <div class="display-label">InvestmentPeriod</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.InvestmentPeriod)
-    </div>
-
-    <div class="display-label">PartnerRequirements</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.PartnerRequirements)
-    </div>
-
-    <div class="display-label">IsValid</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.IsValid)
-    </div>
-
-    <div class="display-label">OP</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.OP)
-    </div>
-
-    <div class="display-label">CreateTime</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.CreateTime)
-    </div>
-
-    <div class="display-label">UpdateTime</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.UpdateTime)
+    <legend>基本情况</legend>  
+    <div>
+        <p>投资意向标题：@Html.DisplayFor(model => model.ItemName)</p>
+        <p>投资机构：@Html.DisplayFor(model => model.MemberID)</p>
+        <p>意向行业：@Html.DisplayFor(model => model.AimIndustryName)</p>
+        <p>投资地区：@Html.DisplayFor(model => model.AjmArea)</p>
+        <p>可投资金额：@Html.DisplayFor(model => model.Investment)</p>
+        <p>投资期限：@Html.DisplayFor(model => model.InvestmentPeriod)</p>
+        <p>合作方式：@Html.DisplayFor(model => model.TeamworkType)</p>
+        <p>合作方要求：@Html.DisplayFor(model => model.PartnerRequirements)</p>
+        <p>投资意向描述：@Html.DisplayFor(model => model.Description)</p>
     </div>
 </fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<fieldset>
+    <legend>联系方式</legend>  
+    <div>
+        <p>联系人：@Html.DisplayFor(model => model.Linkman)</p>
+        <p>联系人部门/职务：@Html.DisplayFor(model => model.Position)</p>
+        <p>联系电话：@Html.DisplayFor(model => model.Phone)    @Html.DisplayFor(model => model.Mobile)</p>
+        <p>传真：@Html.DisplayFor(model => model.Fax)</p>
+        <p>邮箱：@Html.DisplayFor(model => model.Email)</p>
+        <p>QQ：@Html.DisplayFor(model => model.QQ)</p>
+        <p>通讯地址：</p>
+    </div>
+</fieldset>
