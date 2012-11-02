@@ -8,8 +8,8 @@ using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 
 namespace GGZBTQPT_PRO.Controllers
-{ 
-    public class JG_AgencyController : Controller
+{
+    public class JG_AgencyController : BaseController
     {
         private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
 
@@ -18,7 +18,8 @@ namespace GGZBTQPT_PRO.Controllers
 
         public ViewResult Index()
         {
-            return View(db.T_JG_Agency.ToList());
+            var t_jg_agency = db.T_JG_Agency.Where(c => c.IsValid == true).ToList();
+            return View(t_jg_agency);
         }
 
         public void BindAgencyType(object select = null)
@@ -62,17 +63,21 @@ namespace GGZBTQPT_PRO.Controllers
         {
             if (ModelState.IsValid)
             {
+                t_jg_agency.MemberID = Convert.ToInt32(Session["MemberID"] == null ? 0 : Session["MemberID"]);
                 t_jg_agency.IsValid = true;
                 t_jg_agency.OP = 0;
                 t_jg_agency.CreateTime = DateTime.Now;
                 t_jg_agency.UpdateTime = DateTime.Now;
                 db.T_JG_Agency.Add(t_jg_agency);
-                db.SaveChanges();
-                return RedirectToAction("Index");  
+                int result = db.SaveChanges();
+                if (result > 0)
+                    return ReturnJson(true, "操作成功", "", "", true, "");
+                else
+                    return ReturnJson(false, "操作失败", "", "", false, "");
             }
 
             ViewBag.MemberID = new SelectList(db.T_HY_Member, "ID", "LoginName", t_jg_agency.MemberID);
-            return View(t_jg_agency);
+            return Json(new { });
         }
         
         //
@@ -96,11 +101,15 @@ namespace GGZBTQPT_PRO.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(t_jg_agency).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                t_jg_agency.UpdateTime = DateTime.Now;
+                int result = db.SaveChanges();
+                if (result > 0)
+                    return ReturnJson(true, "操作成功", "", "", true, "");
+                else
+                    return ReturnJson(false, "操作失败", "", "", false, "");
             }
             ViewBag.MemberID = new SelectList(db.T_HY_Member, "ID", "LoginName", t_jg_agency.MemberID);
-            return View(t_jg_agency);
+            return Json(new { });
         }
 
         //
@@ -118,10 +127,17 @@ namespace GGZBTQPT_PRO.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {            
-            T_JG_Agency t_jg_agency = db.T_JG_Agency.Find(id);
-            db.T_JG_Agency.Remove(t_jg_agency);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (Request.IsAjaxRequest())
+            {
+                T_JG_Agency t_jg_agency = db.T_JG_Agency.Find(id);
+                t_jg_agency.IsValid = false;
+                int result = db.SaveChanges();
+                if (result > 0)
+                    return ReturnJson(true, "操作成功", "", "", true, "");
+                else
+                    return ReturnJson(false, "操作失败", "", "", false, "");
+            }
+            return Json(new { });
         }
 
         protected override void Dispose(bool disposing)

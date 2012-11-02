@@ -41,8 +41,13 @@ namespace GGZBTQPT_PRO.Models
         {
             get
             {
-                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
-                return db.T_PTF_DicDetail.Find(this.Degree).Name;
+                if (this.Degree != null)
+                {
+                    GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                    return db.T_PTF_DicDetail.Find(this.Degree).Name;
+                }
+                else
+                    return "";
             }
         }
     }

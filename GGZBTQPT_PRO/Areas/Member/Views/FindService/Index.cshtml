@@ -1,0 +1,135 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_JG_Agency>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            AgencyName
+        </th>
+        <th>
+            AgencyType
+        </th>
+        <th>
+            RegTime
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            RegCapital
+        </th>
+        <th>
+            Province
+        </th>
+        <th>
+            City
+        </th>
+        <th>
+            Region
+        </th>
+        <th>
+            Phone
+        </th>
+        <th>
+            Services
+        </th>
+        <th>
+            Remark
+        </th>
+        <th>
+            IsValid
+        </th>
+        <th>
+            OP
+        </th>
+        <th>
+            CreateTime
+        </th>
+        <th>
+            UpdateTime
+        </th>
+        <th>
+            IsIn
+        </th>
+        <th>
+            MemberID
+        </th>
+        <th>
+            AgencyTypeName
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AgencyName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AgencyType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegCapital)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Province)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Region)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Services)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Remark)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsValid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsIn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MemberID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AgencyTypeName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

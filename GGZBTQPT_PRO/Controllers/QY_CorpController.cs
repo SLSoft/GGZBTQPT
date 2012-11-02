@@ -8,8 +8,8 @@ using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 
 namespace GGZBTQPT_PRO.Controllers
-{ 
-    public class QY_CorpController : Controller
+{
+    public class QY_CorpController : BaseController
     {
         private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
 
@@ -18,7 +18,8 @@ namespace GGZBTQPT_PRO.Controllers
 
         public ViewResult Index()
         {
-            return View(db.T_QY_Corp.ToList());
+            var t_qy_corp = db.T_QY_Corp.Where(c => c.IsValid == true).ToList();
+            return View(t_qy_corp);
         }
 
         //
@@ -77,6 +78,7 @@ namespace GGZBTQPT_PRO.Controllers
         {
             if (ModelState.IsValid)
             {
+                t_qy_corp.MemberID = Convert.ToInt32(Session["MemberID"] == null ? 0 : Session["MemberID"]);
                 t_qy_corp.IsValid = true;
                 t_qy_corp.OP = 0;
                 t_qy_corp.CreateTime = DateTime.Now;
@@ -85,16 +87,17 @@ namespace GGZBTQPT_PRO.Controllers
                 //存入文件
                 if (file.ContentLength > 0)
                 {
-                    t_qy_corp.Logo = System.IO.File.ReadAllBytes(file.FileName);
-                    //file.SaveAs(Server.MapPath("~/") + System.IO.Path.GetFileName(file.FileName));
+                    t_qy_corp.Logo = System.IO.File.ReadAllBytes(file.FileName);;
                 }
                 db.T_QY_Corp.Add(t_qy_corp);
-                db.SaveChanges();
-                return RedirectToAction("Index");  
+                int result = db.SaveChanges();
+                if (result > 0)
+                    return ReturnJson(true, "操作成功", "", "", true, "");
+                else
+                    return ReturnJson(false, "操作失败", "", "", false, "");
             }
-
             ViewBag.MemberID = new SelectList(db.T_HY_Member, "ID", "LoginName", t_qy_corp.MemberID);
-            return View(t_qy_corp);
+            return Json(new { });
         }
         
         //
@@ -158,11 +161,14 @@ namespace GGZBTQPT_PRO.Controllers
                     Product.Content = collection["Content"];
                     db.T_QY_Product.Add(Product);
                 }
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                int result = db.SaveChanges();
+                if (result > 0)
+                    return ReturnJson(true, "操作成功", "", "", true, "");
+                else
+                    return ReturnJson(false, "操作失败", "", "", false, "");
             }
             ViewBag.MemberID = new SelectList(db.T_HY_Member, "ID", "LoginName", t_qy_corp.MemberID);
-            return View(t_qy_corp);
+            return Json(new { });
         }
 
         //
@@ -180,10 +186,17 @@ namespace GGZBTQPT_PRO.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {            
-            T_QY_Corp t_qy_corp = db.T_QY_Corp.Find(id);
-            db.T_QY_Corp.Remove(t_qy_corp);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (Request.IsAjaxRequest())
+            {
+                T_QY_Corp t_qy_corp = db.T_QY_Corp.Find(id);
+                t_qy_corp.IsValid = false;
+                int result = db.SaveChanges();
+                if (result > 0)
+                    return ReturnJson(true, "操作成功", "", "", true, "");
+                else
+                    return ReturnJson(false, "操作失败", "", "", false, "");
+            }
+            return Json(new { });
         }
 
         protected override void Dispose(bool disposing)

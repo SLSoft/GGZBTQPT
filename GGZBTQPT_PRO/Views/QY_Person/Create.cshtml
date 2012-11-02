@@ -2,21 +2,18 @@
 
 @{
     ViewBag.Title = "Create";
+    Layout = null;
 }
 
-<h2>Create</h2>
-
-<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Create", "QY_Person", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
+{
     @Html.ValidationSummary(true)
-    <table style="width:800px">
+    <table style="width:100%">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">基本信息</td>
             </tr>
             <tr>
-                <td style="width:120px">@Html.LabelFor(model => model.Name, "姓名")</td>
+                <td style="width:80px">@Html.LabelFor(model => model.Name, "姓名")</td>
                 <td>@Html.EditorFor(model => model.Name)</td>
                 <td>@Html.LabelFor(model => model.Gender, "性别")</td>
                 <td>@Html.RadioButtonFor(model => model.Gender, "1", new { @id = "radio2", @name = "Gender" })男
@@ -61,12 +58,12 @@
                 <td>@Html.EditorFor(model => model.Remark)</td>
             </tr>
     </table>
-    <table style="width:800px">
+    <table style="width:100%">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">联系方式</td>
             </tr>
             <tr>
-                <td style="width:120px">@Html.LabelFor(model => model.Phone, "固定电话")</td>
+                <td style="width:80px">@Html.LabelFor(model => model.Phone, "固定电话")</td>
                 <td>@Html.EditorFor(model => model.Phone)</td>
                 <td>@Html.LabelFor(model => model.Mobile, "移动电话")</td>
                 <td>@Html.EditorFor(model => model.Mobile)</td>
@@ -82,24 +79,25 @@
                 <td colspan="3">@Html.EditorFor(model => model.QQ)</td>
             </tr>
     </table>
-    <table style="width:800px">
+    <table style="width:100%">
             <tr>
                 <td colspan="2" style="background-color:#666666; color:#ffffff">教育/工作经历</td>
             </tr>
             <tr>
-                <td style="width:120px">@Html.LabelFor(model => model.EduExperience, "教育经历")</td>
+                <td style="width:80px">@Html.LabelFor(model => model.EduExperience, "教育经历")</td>
                 <td>@Html.TextAreaFor(model => model.EduExperience, new { rows = "5", cols = "60" })</td>
             </tr>
             <tr>
-                <td style="width:120px">@Html.LabelFor(model => model.WorkExperience, "工作经历")</td>
+                <td style="width:80px">@Html.LabelFor(model => model.WorkExperience, "工作经历")</td>
                 <td>@Html.TextAreaFor(model => model.WorkExperience, new { rows = "5", cols = "60" })</td>
             </tr>
     </table>
-    <table style="width:800px">
+    <table style="width:100%">
             <tr>
-                <td style="background-color:#666666; color:#ffffff">其他说明</td>
+                <td colspan="2" style="background-color:#666666; color:#ffffff">其他说明</td>
             </tr>
             <tr>
+                <td style="width:80px">其他说明</td>
                 <td>@Html.TextAreaFor(model => model.Remark, new { rows = "5", cols = "60" })</td>
             </tr>
     </table>
@@ -109,6 +107,3 @@
         </p>
 }
 
-<div>
-    @Html.ActionLink("返回", "Index")
-</div>

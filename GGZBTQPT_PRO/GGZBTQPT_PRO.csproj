@@ -37,6 +37,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="MvcPager">
+      <HintPath>..\MvcPager.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -64,7 +67,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Code\MemberHelper.cs" />
     <Compile Include="App_GlobalResources\Common.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -85,7 +87,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>T_ZC_User.resx</DependentUpon>
     </Compile>
+    <Compile Include="Areas\Member\Controllers\AttentionController.cs" />
+    <Compile Include="Areas\Member\Controllers\FavoriteController.cs" />
+    <Compile Include="Areas\Member\Controllers\FindServiceController.cs" />
     <Compile Include="Areas\Member\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Member\Controllers\InquireResourcesController.cs" />
+    <Compile Include="Areas\Member\Controllers\MemberController.cs" />
+    <Compile Include="Areas\Member\Controllers\PublishController.cs" />
+    <Compile Include="Areas\Member\Controllers\RecommendController.cs" />
     <Compile Include="Areas\Member\Controllers\SideBarController.cs" />
     <Compile Include="Areas\Member\MemberAreaRegistration.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -108,13 +117,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201210090749348_init.cs" />
-    <Compile Include="Migrations\201210090749348_init.Designer.cs">
-      <DependentUpon>201210090749348_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201210090813081_Add-DIC.cs" />
-    <Compile Include="Migrations\201210090813081_Add-DIC.Designer.cs">
-      <DependentUpon>201210090813081_Add-DIC.cs</DependentUpon>
+    <Compile Include="Migrations\201210310921128_updatedb.cs" />
+    <Compile Include="Migrations\201210310921128_updatedb.Designer.cs">
+      <DependentUpon>201210310921128_updatedb.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Mapping\T_HY_MemberMap.cs" />
@@ -168,6 +173,8 @@
     <Compile Include="ViewModels\ViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Member\Content\css\Member.css" />
+    <Content Include="Areas\Member\Content\js\Member.js" />
     <Content Include="bin\EntityFramework.dll" />
     <Content Include="bin\GGZBTQPT_PRO.dll" />
     <Content Include="bin\GGZBTQPT_PRO.pdb" />
@@ -203,20 +210,6 @@
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="obj\Debug\GGZBTQPT_PRO.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Debug\TempPE\App_GlobalResources.Common.designer.cs.dll" />
-    <Content Include="obj\Debug\TempPE\App_GlobalResources.T_ZC_Department.Designer.cs.dll" />
-    <Content Include="obj\Debug\TempPE\App_GlobalResources.T_ZC_Role.Designer.cs.dll" />
-    <Content Include="obj\Debug\TempPE\App_GlobalResources.T_ZC_System.Designer.cs.dll" />
-    <Content Include="obj\Debug\TempPE\App_GlobalResources.T_ZC_User.Designer.cs.dll" />
-    <Content Include="obj\Debug\TempPE\Models.GGZBTQPT.Context.cs.dll" />
-    <Content Include="obj\Debug\TempPE\Models.GGZBTQPT.cs.dll" />
-    <Content Include="obj\Debug\TempPE\Models.GGZBTQPT.Designer.cs.dll" />
-    <Content Include="obj\Debug\TempPE\Models.GGZBTQPTDB.Designer.cs.dll" />
-    <Content Include="obj\Debug\TempPE\Models.Model1.Context.cs.dll" />
-    <Content Include="obj\Debug\TempPE\Models.Model1.cs.dll" />
-    <Content Include="obj\Debug\TempPE\Models.YYZCPT.Designer.cs.dll" />
-    <Content Include="obj\Debug\TempPE\zh.Designer.cs.dll" />
     <Content Include="Public\bootstrap\css\bootstrap.css" />
     <Content Include="Public\bootstrap\css\bootstrap.min.css" />
     <Content Include="Public\bootstrap\img\glyphicons-halflings-white.png" />
@@ -800,19 +793,39 @@
     <Content Include="Areas\Member\Views\Shared\_SideBar.cshtml" />
     <Content Include="Areas\Member\Views\Shared\_Header.cshtml" />
     <Content Include="App_Code\MemberHelper.cshtml" />
-    <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
-    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <None Include="obj\Debug\edmxResourcesToEmbed\Models\GGZBTQPT.csdl" />
-    <None Include="obj\Debug\edmxResourcesToEmbed\Models\GGZBTQPT.msl" />
-    <None Include="obj\Debug\edmxResourcesToEmbed\Models\GGZBTQPT.ssdl" />
-    <None Include="obj\Debug\edmxResourcesToEmbed\Models\GGZBTQPTDB.csdl" />
-    <None Include="obj\Debug\edmxResourcesToEmbed\Models\GGZBTQPTDB.msl" />
-    <None Include="obj\Debug\edmxResourcesToEmbed\Models\GGZBTQPTDB.ssdl" />
-    <None Include="obj\Debug\edmxResourcesToEmbed\Models\YYZCPT.csdl" />
-    <None Include="obj\Debug\edmxResourcesToEmbed\Models\YYZCPT.msl" />
-    <None Include="obj\Debug\edmxResourcesToEmbed\Models\YYZCPT.ssdl" />
-    <None Include="obj\Debug\GenerateResource.read.1.tlog" />
-    <None Include="obj\Debug\GenerateResource.write.1.tlog" />
+    <None Include="Areas\Member\Content\css\member.scss" />
+    <None Include="Areas\Member\Content\js\member.coffee" />
+    <Content Include="Areas\Member\Views\Attention\AttentionedAgencies.cshtml" />
+    <Content Include="Areas\Member\Views\Attention\AttentionedCorps.cshtml" />
+    <Content Include="Areas\Member\Views\Attention\AttentionedPersons.cshtml" />
+    <Content Include="Areas\Member\Views\Attention\Index.cshtml" />
+    <Content Include="Areas\Member\Views\Favorite\FavoredFinancials.cshtml" />
+    <Content Include="Areas\Member\Views\Favorite\FavoredInvestments.cshtml" />
+    <Content Include="Areas\Member\Views\Favorite\FavoredProducts.cshtml" />
+    <Content Include="Areas\Member\Views\Favorite\Index.cshtml" />
+    <Content Include="Areas\Member\Views\InquireResources\Financials.cshtml" />
+    <Content Include="Areas\Member\Views\InquireResources\Investments.cshtml" />
+    <Content Include="Areas\Member\Views\Member\Config.cshtml" />
+    <Content Include="Areas\Member\Views\Member\Delete.cshtml" />
+    <Content Include="Areas\Member\Views\Member\Details.cshtml" />
+    <Content Include="Areas\Member\Views\Member\Edit.cshtml" />
+    <Content Include="Areas\Member\Views\Member\Full.cshtml" />
+    <Content Include="Areas\Member\Views\Member\Index.cshtml" />
+    <Content Include="Areas\Member\Views\Member\Login.cshtml" />
+    <Content Include="Areas\Member\Views\Member\SignUp.cshtml" />
+    <Content Include="Areas\Member\Views\Publish\Index.cshtml" />
+    <Content Include="Areas\Member\Views\Publish\PublishedFinancials.cshtml" />
+    <Content Include="Areas\Member\Views\Publish\PublishedInvestments.cshtml" />
+    <Content Include="Areas\Member\Views\Publish\PublishedProducts.cshtml" />
+    <Content Include="Areas\Member\Views\Recommend\Index.cshtml" />
+    <Content Include="Areas\Member\Views\Recommend\RecommendFinancials.cshtml" />
+    <Content Include="Areas\Member\Views\Recommend\RecommendInvestments.cshtml" />
+    <Content Include="Areas\Member\Views\Recommend\RecommendProducts.cshtml" />
+    <Content Include="Areas\Member\Views\SideBar\MemberBrief.cshtml" />
+    <Content Include="Areas\Member\Views\SideBar\TheLastestFinancials.cshtml" />
+    <Content Include="Areas\Member\Views\SideBar\TheLastestInvestMents.cshtml" />
+    <Content Include="Areas\Member\Views\SideBar\TheLastestProducts.cshtml" />
+    <Content Include="Areas\Member\Views\FindService\Index.cshtml" />
     <None Include="Public\jUI\bin\gzjs.bat" />
     <None Include="Public\jUI\themes\azure\images\grid\Thumbs.db" />
     <None Include="Public\jUI\themes\azure\images\layout\Thumbs.db" />
@@ -901,6 +914,7 @@
   <ItemGroup>
     <Folder Include="Areas\Member\Models\" />
     <Folder Include="Content\css\" />
+    <Folder Include="obj\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\Common.resx">
@@ -924,14 +938,9 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>T_ZC_User.Designer.cs</LastGenOutput>
     </Content>
-    <EmbeddedResource Include="Migrations\201210090749348_init.resx">
-      <DependentUpon>201210090749348_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201210310921128_updatedb.resx">
+      <DependentUpon>201210310921128_updatedb.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201210090813081_Add-DIC.resx">
-      <DependentUpon>201210090813081_Add-DIC.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="obj\Debug\GGZBTQPT_PRO.App_GlobalResources.T_ZC_System.resources" />
-    <EmbeddedResource Include="obj\Debug\GGZBTQPT_PRO.Migrations.init.resources" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

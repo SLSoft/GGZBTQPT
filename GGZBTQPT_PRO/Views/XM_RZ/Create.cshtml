@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "发布融资信息";
+    Layout = null;
 }
 @helper GenerateTransactionMode()
     {
@@ -65,26 +66,22 @@
             });
         }
 </script>
-<h2>发布融资信息</h2>
 
-<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Create", "XM_RZ", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
+{
     @Html.ValidationSummary(true)
         <br /><p>选择项目类别：
         <input type="radio" name="itemtype" value="1" checked=checked /><span>项目融资</span>
         <input type="radio" name="itemtype" value="2" /><span>资产交易</span>
         <input type="radio" name="itemtype" value="3" /><span>政府招商</span>
         <input type="radio" name="itemtype" value="9" /><span>其他</span></p><br />
-        <table style="width:800px">
+        <table style="width:100%">
             <tr>
                 <td colspan="2" style="background-color:#666666; color:#ffffff">基本信息</td>
             </tr>
             <tr>
-                <td style="width:120px">@Html.LabelFor(model => model.ItemName, "项目名称")</td>
-                <td>@Html.EditorFor(model => model.ItemName)
-            @Html.ValidationMessageFor(model => model.ItemName)</td>
+                <td style="width:80px">@Html.LabelFor(model => model.ItemName, "项目名称")</td>
+                <td>@Html.TextBoxFor(model => model.ItemName, new { style = "width:95%" })</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Province, "所属区域")</td>
@@ -107,16 +104,15 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.ItemContent, "项目介绍")</td>
-                <td>@Html.TextAreaFor(model => model.ItemContent, new { rows = "5", cols = "60" })
-            @Html.ValidationMessageFor(model => model.ItemContent)</td>
+                <td>@Html.TextAreaFor(model => model.ItemContent, new { rows = "5", style = "width:95%" })</td>
             </tr>
         </table>
-        <table id="item1" style="width:800px">
+        <table id="item1" style="width:100%">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">项目融资</td>
             </tr>
             <tr>
-                <td style="width:120px">@Html.LabelFor(model => model.FinancSum, "融资金额")</td>
+                <td style="width:80px">@Html.LabelFor(model => model.FinancSum, "融资金额")</td>
                 <td>@Html.EditorFor(model => model.FinancSum)（万元）
             @Html.ValidationMessageFor(model => model.FinancSum)</td>
                 <td>@Html.LabelFor(model => model.FinancType, "融资方式")</td>
@@ -152,16 +148,15 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.PartnerRequirements, "合作方要求")</td>
-                <td colspan="3">@Html.EditorFor(model => model.PartnerRequirements)
-            @Html.ValidationMessageFor(model => model.PartnerRequirements)</td>
+                <td colspan="3">@Html.TextAreaFor(model => model.PartnerRequirements, new { rows = "5", style = "width:95%" })</td>
             </tr>
         </table>
-        <table id="item2" style="width:800px">
+        <table id="item2" style="width:100%">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">资产交易</td>
             </tr>
             <tr>
-                <td style="width:120px">@Html.LabelFor(model => model.AssetsType, "资产类别")</td>
+                <td style="width:80px">@Html.LabelFor(model => model.AssetsType, "资产类别")</td>
                 <td>@Html.DropDownList("AssetsType", "请选择")</td>
                 <td>@Html.LabelFor(model => model.AssetsCost, "资产估价")</td>
                 <td>@Html.EditorFor(model => model.AssetsCost)万元</td>
@@ -183,12 +178,12 @@
                 <td>@GenerateTransactionMode()</td>
             </tr>
         </table>
-        <table id="item3" style="width:800px">
+        <table id="item3" style="width:100%">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">政府招商</td>
             </tr>
             <tr>
-                <td style="width:120px">@Html.LabelFor(model => model.Investment, "招商投资总额")</td>
+                <td style="width:80px">@Html.LabelFor(model => model.Investment, "招商投资总额")</td>
                 <td>@Html.EditorFor(model => model.Investment)万元</td>
                 <td>@Html.LabelFor(model => model.CooperationMode, "合作方式")</td>
                 <td>@Html.EditorFor(model => model.CooperationMode)</td>
@@ -200,23 +195,23 @@
                 <td>@Html.EditorFor(model => model.ReturnCycle)</td>
             </tr>
         </table>
-        <table id="item4" style="width:800px">
+        <table id="item4" style="width:100%">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">其他项目</td>
             </tr>
             <tr>
-                <td style="width:120px">@Html.LabelFor(model => model.OtherItemFinancSum, "融资金额")</td>
+                <td style="width:80px">@Html.LabelFor(model => model.OtherItemFinancSum, "融资金额")</td>
                 <td>@Html.EditorFor(model => model.OtherItemFinancSum)万元</td>
                 <td>@Html.LabelFor(model => model.OtherItemFinancSum, "融资期限")</td>
                 <td>@Html.EditorFor(model => model.OtherItemFinancSum)</td>
             </tr>
         </table>
-        <table style="width:800px">
+        <table style="width:100%">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">联系人信息</td>
             </tr>
             <tr>
-                <td style="width:120px">@Html.LabelFor(model => model.Linkman, "联系人")</td>
+                <td style="width:80px">@Html.LabelFor(model => model.Linkman, "联系人")</td>
                 <td>@Html.EditorFor(model => model.Linkman)
             @Html.ValidationMessageFor(model => model.Linkman)</td>
                 <td>@Html.LabelFor(model => model.Position, "部门&职务")</td>
@@ -249,7 +244,3 @@
             <input type="submit" value="提交" />
         </p>
 }
-
-<div>
-    @Html.ActionLink("返回", "Index")
-</div>

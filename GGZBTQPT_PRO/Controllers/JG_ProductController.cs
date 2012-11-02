@@ -8,8 +8,8 @@ using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 
 namespace GGZBTQPT_PRO.Controllers
-{ 
-    public class JG_ProductController : Controller
+{
+    public class JG_ProductController : BaseController
     {
         private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
 
@@ -18,7 +18,8 @@ namespace GGZBTQPT_PRO.Controllers
 
         public ViewResult Index()
         {
-            return View(db.T_JG_Product.ToList());
+            var t_jg_product = db.T_JG_Product.Where(p => p.IsValid == true).ToList();
+            return View(t_jg_product);
         }
         public void BindCustomerType()
         {
@@ -63,11 +64,13 @@ namespace GGZBTQPT_PRO.Controllers
                     t_jg_product.CustomerType = strType;
                 }
                 db.T_JG_Product.Add(t_jg_product);
-                db.SaveChanges();
-                return RedirectToAction("Index");  
+                int result = db.SaveChanges();
+                if (result > 0)
+                    return ReturnJson(true, "操作成功", "", "", true, "");
+                else
+                    return ReturnJson(false, "操作失败", "", "", false, "");
             }
-
-            return View(t_jg_product);
+            return Json(new { });
         }
         
         //
@@ -91,10 +94,14 @@ namespace GGZBTQPT_PRO.Controllers
             {
                 db.Entry(t_jg_product).State = EntityState.Modified;
                 t_jg_product.CustomerType = collection["checkboxType"];
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                t_jg_product.UpdateTime = DateTime.Now;
+                int result = db.SaveChanges();
+                if (result > 0)
+                    return ReturnJson(true, "操作成功", "", "", true, "");
+                else
+                    return ReturnJson(false, "操作失败", "", "", false, "");
             }
-            return View(t_jg_product);
+            return Json(new { });
         }
 
         //
@@ -112,10 +119,17 @@ namespace GGZBTQPT_PRO.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {            
-            T_JG_Product t_jg_product = db.T_JG_Product.Find(id);
-            db.T_JG_Product.Remove(t_jg_product);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (Request.IsAjaxRequest())
+            {
+                T_JG_Product t_jg_product = db.T_JG_Product.Find(id);
+                t_jg_product.IsValid = false;
+                int result = db.SaveChanges();
+                if (result > 0)
+                    return ReturnJson(true, "操作成功", "", "", true, "");
+                else
+                    return ReturnJson(false, "操作失败", "", "", false, "");
+            }
+            return Json(new { });
         }
 
         protected override void Dispose(bool disposing)

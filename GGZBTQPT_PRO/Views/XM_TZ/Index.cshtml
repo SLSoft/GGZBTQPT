@@ -1,10 +1,13 @@
 ﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Investment>
+@{
+    Layout = null;
+}
 <div class="pageContent j-resizeGrid" style="border-left: 1px #B8D0D6 solid; border-right: 1px #B8D0D6 solid">
   <div class="panelBar">
     <ul class="toolBar">
-      <li><a class="add" href="/XM_TZ/create" rel="create" target="dialog" title="添加新的功能菜单" mask="true"><span>添加</span></a></li>
-      <li><a class="edit" href="/XM_TZ/edit/{mid}" rel="edit" target="dialog" title="编辑功能菜单信息" mask="true" warn="请选择一条菜单数据"><span>修改</span></a></li>
-      <li><a class="delete" href="/XM_TZ/delete/{mid}" rel="delete" target="ajaxTodo" title="确定要删除吗？"  warn="请选择一条菜单数据"><span>删除</span></a></li>
+      <li><a class="add" href="/XM_TZ/create" rel="create" target="dialog" title="添加新项目" mask="true" width="800" height="800"><span>添加</span></a></li>
+      <li><a class="edit" href="/XM_TZ/edit/{mid}" rel="edit" target="dialog" title="编辑项目信息" mask="true" warn="请选择一个项目" width="800" height="800"><span>修改</span></a></li>
+      <li><a class="delete" href="/XM_TZ/delete/{mid}" rel="delete" target="ajaxTodo" title="确定要删除吗？"  warn="请选择一个项目"><span>删除</span></a></li>
       <li class="line">line</li>
       <li><a class="icon" href="#"><span>导入EXCEL</span></a></li>
     </ul>
@@ -22,10 +25,6 @@
             <th>
                 有效日期
             </th>
-            <th>
-                发布时间
-            </th>
-            <th>操作</th>
     </tr>
       </thead>
       <tbody>
@@ -40,15 +39,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ValidDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PublicTime)
-        </td>
-        <td>
-            @Html.ActionLink("编辑", "Edit", new { id = item.ID }) |
-            @Html.ActionLink("详情", "Details", new { id = item.ID }) |
-            @Html.ActionLink("删除", "Del", new { id = item.ID }) |
-            <a href="Del/"@item.ID onclick='return confirm("确定要删除吗?")'>删除</a>
         </td>
     </tr>
         }

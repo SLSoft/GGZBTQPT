@@ -8,8 +8,8 @@ using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 
 namespace GGZBTQPT_PRO.Controllers
-{ 
-    public class XM_TZController : Controller
+{
+    public class XM_TZController : BaseController
     {
         private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
 
@@ -18,7 +18,7 @@ namespace GGZBTQPT_PRO.Controllers
 
         public ViewResult Index()
         {
-            return View(db.T_XM_Investment.ToList());
+            return View(db.T_XM_Investment.Where(p => p.IsValid == true).ToList());
         }
 
         //
@@ -79,11 +79,13 @@ namespace GGZBTQPT_PRO.Controllers
                 t_xm_investment.CreateTime = DateTime.Now;
                 t_xm_investment.UpdateTime = DateTime.Now;
                 db.T_XM_Investment.Add(t_xm_investment);
-                db.SaveChanges();
-                return RedirectToAction("Index");  
+                int result = db.SaveChanges();
+                if (result > 0)
+                    return ReturnJson(true, "操作成功", "", "", true, "");
+                else
+                    return ReturnJson(false, "操作失败", "", "", false, "");
             }
-
-            return View(t_xm_investment);
+            return Json(new { });
         }
         
         //
@@ -118,10 +120,13 @@ namespace GGZBTQPT_PRO.Controllers
                 t_xm_investment.AjmArea = checkedProvince;
                 t_xm_investment.City = Int32.Parse(collection["ddlCity"]);
                 t_xm_investment.UpdateTime = DateTime.Now;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                int result = db.SaveChanges();
+                if (result > 0)
+                    return ReturnJson(true, "操作成功", "", "", true, "");
+                else
+                    return ReturnJson(false, "操作失败", "", "", false, "");
             }
-            return View(t_xm_investment);
+            return Json(new { });
         }
 
         //
@@ -138,11 +143,18 @@ namespace GGZBTQPT_PRO.Controllers
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
-        {            
-            T_XM_Investment t_xm_investment = db.T_XM_Investment.Find(id);
-            db.T_XM_Investment.Remove(t_xm_investment);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+        {
+            if (Request.IsAjaxRequest())
+            {
+                T_XM_Investment t_xm_investment = db.T_XM_Investment.Find(id);
+                t_xm_investment.IsValid = false;
+                int result = db.SaveChanges();
+                if (result > 0)
+                    return ReturnJson(true, "操作成功", "", "", true, "");
+                else
+                    return ReturnJson(false, "操作失败", "", "", false, "");
+            }
+            return Json(new { });
         }
 
         protected override void Dispose(bool disposing)
