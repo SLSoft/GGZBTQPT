@@ -1,12 +1,5 @@
 ﻿@model GGZBTQPT_PRO.Models.T_QY_Person
 
-<script type="text/javascript">
-    function notice(data) {
-        $("#config li.active a").click();
-        $.Member.notice(data);
-    }
-
-</script>
 @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" }))
 {
     @Html.ValidationSummary(true)
@@ -109,7 +102,8 @@
             </tr>
     </table>
     <p>
-            <input type="submit" value="保存" />
+        <button class="btn btn-primary" type="submit">
+            <i class="icon-ok icon-white"></i>保存设置</button>
         </p>
 }
 

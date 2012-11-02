@@ -92,10 +92,10 @@
     <Compile Include="Areas\Member\Controllers\FavoriteController.cs" />
     <Compile Include="Areas\Member\Controllers\HomeController.cs" />
     <Compile Include="Areas\Member\Controllers\InquireResourcesController.cs" />
-    <Compile Include="Areas\Member\Controllers\JG_AgencyController.cs" />
+    <Compile Include="Areas\Member\Controllers\AgencyController.cs" />
     <Compile Include="Areas\Member\Controllers\MemberController.cs" />
     <Compile Include="Areas\Member\Controllers\PublishController.cs" />
-    <Compile Include="Areas\Member\Controllers\QY_CorpController.cs" />
+    <Compile Include="Areas\Member\Controllers\CorpController.cs" />
     <Compile Include="Areas\Member\Controllers\PersonController.cs" />
     <Compile Include="Areas\Member\Controllers\RecommendController.cs" />
     <Compile Include="Areas\Member\Controllers\SideBarController.cs" />
@@ -258,6 +258,10 @@
     <Content Include="Public\bootstrap\js\bootstrap.js" />
     <Content Include="Public\bootstrap\js\bootstrap.min.js" />
     <Content Include="Public\bootstrap\js\jquery.1.7.2.js" />
+    <Content Include="Public\file-uploader\fileuploader.css" />
+    <Content Include="Public\file-uploader\fileuploader.js" />
+    <Content Include="Public\file-uploader\fileuploader.min.js" />
+    <Content Include="Public\file-uploader\loading.gif" />
     <Content Include="Public\jUI\bin\dwz.min.js" />
     <Content Include="Public\jUI\bin\ESC.wsf" />
     <Content Include="Public\jUI\bin\gzip.exe" />
@@ -871,6 +875,8 @@
     <Content Include="Areas\Member\Views\Member\EditCorp.cshtml" />
     <Content Include="Areas\Member\Views\Member\EditPerson.cshtml" />
     <Content Include="Areas\Member\Views\Person\Edit.cshtml" />
+    <Content Include="Areas\Member\Views\Agency\Edit.cshtml" />
+    <Content Include="Areas\Member\Views\Corp\Edit.cshtml" />
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="obj\Debug\edmxResourcesToEmbed\Models\GGZBTQPT.csdl" />
