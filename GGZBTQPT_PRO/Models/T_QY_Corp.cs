@@ -42,16 +42,18 @@ namespace GGZBTQPT_PRO.Models
         {
             get
             {
-                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
-                return db.T_PTF_DicDetail.Find(this.Property).Name;
+                //GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                //return db.T_PTF_DicDetail.Find(this.Property).Name;
+                return "PropertyName";
             }
         }
         public string IndustryName
         {
             get
             {
-                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
-                return db.T_PTF_DicDetail.Find(this.Industry).Name;
+                //GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                //return db.T_PTF_DicDetail.Find(this.Industry).Name;
+                return "IndustryName";
             }
         }
 

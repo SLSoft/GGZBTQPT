@@ -1,0 +1,54 @@
+﻿@model GGZBTQPT_PRO.Models.T_JG_Agency 
+
+@using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" }))
+{
+    @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.IsValid)
+        @Html.HiddenFor(model => model.OP)
+        @Html.HiddenFor(model => model.CreateTime)
+        @Html.HiddenFor(model => model.UpdateTime)
+        @Html.HiddenFor(model => model.MemberID)
+        <table>
+            <tr>
+                <td>@Html.LabelFor(model => model.AgencyName, "机构名称")</td>
+                <td>@Html.EditorFor(model => model.AgencyName)@Html.EditorFor(model => model.IsIn)是否大厦入驻机构</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.AgencyType, "机构类别")</td>
+                <td>@Html.DropDownList("AgencyType", "请选择")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.RegTime, "成立日期")</td>
+                <td>@Html.EditorFor(model => model.RegTime)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Address, "详细地址")</td>
+                <td>@Html.EditorFor(model => model.Address)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.RegCapital, "注册资本")</td>
+                <td>@Html.EditorFor(model => model.RegCapital)（万元）</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Province, "工商注册地")</td>
+                <td>@Html.DropDownList("Province", "请选择")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Phone, "联系电话")</td>
+                <td>@Html.EditorFor(model => model.Phone)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Services, "机构服务内容")</td>
+                <td>@Html.TextAreaFor(model => model.Services, new { rows = "5", cols = "60" })</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Remark, "机构简介")</td>
+                <td>@Html.TextAreaFor(model => model.Remark, new { rows = "5", cols = "60" })</td>
+            </tr>
+        </table>
+        <p>
+        <button class="btn btn-primary" type="submit">
+            <i class="icon-ok icon-white"></i>保存设置</button>
+        </p>
+}

@@ -1,9 +1,44 @@
 ﻿@model GGZBTQPT_PRO.Models.T_QY_Corp
 
-@{
-    ViewBag.Title = "Edit";
-    Layout = null;
-}
+<script src="@Url.Content("~/Public/file-uploader/fileuploader.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    function createUploader() { 
+        var uploader = new qq.FileUploader({
+            element: document.getElementById('bootstrapped-fine-uploader'),
+            action: '@Url.Action("UploadLogo","Corp")',
+            uploadButtonText: '<i class="icon-upload icon-white"></i> 选择LOGO文件',
+            template: '<div class="qq-uploader span12">' +
+                  '<pre class="qq-upload-drop-area span12"><span>{dragText}</span></pre>' +
+                  '<div class="qq-upload-button btn btn-success" style="width: auto;">{uploadButtonText}</div>' +
+                  '<ul class="qq-upload-list" style="margin-top: 10px; text-align: center;"></ul>' +
+                '</div>',
+            classes: {
+                button: 'qq-upload-button',
+                drop: 'qq-upload-drop-area',
+                dropActive: 'qq-upload-drop-area-active',
+                dropDisabled: 'qq-upload-drop-area-disabled',
+                list: 'qq-upload-list',
+                progressBar: 'qq-progress-bar',
+                file: 'qq-upload-file',
+                spinner: 'qq-upload-spinner',
+                finished: 'qq-upload-finished',
+                size: 'qq-upload-size',
+                cancel: 'qq-upload-cancel',
+                failText: 'qq-upload-failed-text',
+                success: 'alert alert-success',
+                fail: 'alert alert-error',
+                successIcon: null,
+                failIcon: null
+            }
+        });
+    }
+    $(document).ready(
+        function () { 
+            //createUploader();
+        }
+    );
+</script>
 
 @helper QY_Financial(int CYear)
 {
@@ -64,20 +99,18 @@
         </tr>
     }
 }
-<<<<<<< HEAD
-@using (Html.BeginForm("Create", "QY_Corp", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
-=======
 
-@using (Html.BeginForm("Edit", "QY_Corp",FormMethod.Post, new { enctype = "multipart/form-data" }))
->>>>>>> 8ceda32adab0d741bfb63b543746e90e54384e4d
+
+@using (Ajax.BeginForm("Edit", null, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" }, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true)
-
+    <fieldset> 
         @Html.HiddenFor(model => model.ID)
         @Html.HiddenFor(model => model.IsValid)
         @Html.HiddenFor(model => model.OP)
         @Html.HiddenFor(model => model.CreateTime)
         @Html.HiddenFor(model => model.UpdateTime)
+        @Html.HiddenFor(model => model.MemberID)
         <table style="width:100%">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">基本信息</td>
@@ -170,6 +203,8 @@
         </table>
 
         <p>
-            <input type="submit" value="保存" />
+        <button class="btn btn-primary" type="submit">
+            <i class="icon-ok icon-white"></i>保存设置</button>
         </p>
+    </fieldset>
 }

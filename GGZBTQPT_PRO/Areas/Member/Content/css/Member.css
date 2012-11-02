@@ -1,5 +1,5 @@
 body {
-  background-color: #eee; }
+  background-color: #bbb; }
   body .main {
     background-color: white;
     -webkit-border-radius: 5px;
@@ -14,7 +14,7 @@ body {
       border-radius: 5px 0 0 5px;
       padding: 20px;
       background-color: #ffffff;
-      margin-left: -30px; }
+      margin-left: -20px; }
     body .main .sidebar {
       -webkit-border-radius: 0 5px 5px 0;
       -moz-border-radius: 0 5px 5px 0;

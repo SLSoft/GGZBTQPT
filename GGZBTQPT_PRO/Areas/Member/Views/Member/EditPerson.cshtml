@@ -1,33 +1,27 @@
 ﻿@model GGZBTQPT_PRO.Models.T_QY_Person
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Create";
     Layout = null;
 }
 
-@using (Html.BeginForm("Edit", "QY_Person", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
-{
+<h2>Create</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
-    @Html.HiddenFor(model => model.ID)
-    @Html.HiddenFor(model => model.IsValid)
-    @Html.HiddenFor(model => model.OP)
-    @Html.HiddenFor(model => model.CreateTime)
-    @Html.HiddenFor(model => model.UpdateTime)
-<<<<<<< HEAD
-    <table style="width:100%">
-=======
-    @Html.HiddenFor(model => model.MemberID)
     <table style="width:800px">
->>>>>>> 8ceda32adab0d741bfb63b543746e90e54384e4d
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">基本信息</td>
             </tr>
             <tr>
-                <td style="width:80px">@Html.LabelFor(model => model.Name, "姓名")</td>
+                <td style="width:120px">@Html.LabelFor(model => model.Name, "姓名")</td>
                 <td>@Html.EditorFor(model => model.Name)</td>
                 <td>@Html.LabelFor(model => model.Gender, "性别")</td>
-                <td>@Html.RadioButtonFor(model => model.Gender, "1", new { @id = "radio2", @name = "Gender" })是
-                    @Html.RadioButtonFor(model => model.Gender, "2", new { @id = "radio1", @name = "Gender" })否</td>
+                <td>@Html.RadioButtonFor(model => model.Gender, "1", new { @id = "radio2", @name = "Gender" })男
+                    @Html.RadioButtonFor(model => model.Gender, "2", new { @id = "radio1", @name = "Gender" })女</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.CardType, "证件类型")</td>
@@ -68,12 +62,12 @@
                 <td>@Html.EditorFor(model => model.Remark)</td>
             </tr>
     </table>
-    <table style="width:100%">
+    <table style="width:800px">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">联系方式</td>
             </tr>
             <tr>
-                <td style="width:80px">@Html.LabelFor(model => model.Phone, "固定电话")</td>
+                <td style="width:120px">@Html.LabelFor(model => model.Phone, "固定电话")</td>
                 <td>@Html.EditorFor(model => model.Phone)</td>
                 <td>@Html.LabelFor(model => model.Mobile, "移动电话")</td>
                 <td>@Html.EditorFor(model => model.Mobile)</td>
@@ -89,29 +83,30 @@
                 <td colspan="3">@Html.EditorFor(model => model.QQ)</td>
             </tr>
     </table>
-    <table style="width:100%">
+    <table style="width:800px">
             <tr>
                 <td colspan="2" style="background-color:#666666; color:#ffffff">教育/工作经历</td>
             </tr>
             <tr>
-                <td style="width:80px">@Html.LabelFor(model => model.EduExperience, "教育经历")</td>
+                <td style="width:120px">@Html.LabelFor(model => model.EduExperience, "教育经历")</td>
                 <td>@Html.TextAreaFor(model => model.EduExperience, new { rows = "5", cols = "60" })</td>
             </tr>
             <tr>
-                <td style="width:80px">@Html.LabelFor(model => model.WorkExperience, "工作经历")</td>
+                <td style="width:120px">@Html.LabelFor(model => model.WorkExperience, "工作经历")</td>
                 <td>@Html.TextAreaFor(model => model.WorkExperience, new { rows = "5", cols = "60" })</td>
             </tr>
     </table>
-    <table style="width:100%">
+    <table style="width:800px">
             <tr>
-                <td colspan="2" style="background-color:#666666; color:#ffffff">其他说明</td>
+                <td style="background-color:#666666; color:#ffffff">其他说明</td>
             </tr>
             <tr>
-                <td style="width:80px">其他说明</td>
                 <td>@Html.TextAreaFor(model => model.Remark, new { rows = "5", cols = "60" })</td>
             </tr>
     </table>
-    <p>
+
+        <p>
             <input type="submit" value="保存" />
         </p>
 }
+
