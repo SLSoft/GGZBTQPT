@@ -72,8 +72,9 @@ namespace GGZBTQPT_PRO.Models
         { 
             get 
             {
-                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
-                return db.T_PTF_DicDetail.Find(this.Industry).Name;
+                //GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                //return db.T_PTF_DicDetail.Find(this.Industry).Name;
+                return "IndustryName";
             } 
         }
 

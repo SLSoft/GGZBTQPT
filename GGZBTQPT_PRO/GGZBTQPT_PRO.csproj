@@ -883,6 +883,9 @@
     <Content Include="Areas\Member\Views\Financial\Create.cshtml" />
     <Content Include="Areas\Member\Views\Financial\Edit.cshtml" />
     <Content Include="Areas\Member\Views\Investment\Create.cshtml" />
+    <Content Include="Areas\Member\Views\Investment\Edit.cshtml" />
+    <Content Include="Areas\Member\Views\Investment\Details.cshtml" />
+    <Content Include="Areas\Member\Views\Financial\Details.cshtml" />
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="obj\Debug\edmxResourcesToEmbed\Models\GGZBTQPT.csdl" />
