@@ -15,7 +15,8 @@
 }
 <script type="text/javascript">
     function notice(data) {
-        $.Member.notice(data.message);
+        $("#recommend li.active a").click();
+        $.Member.notice(data);
     }
 </script>
 @*推荐的资本信息*@
