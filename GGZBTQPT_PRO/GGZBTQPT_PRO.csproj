@@ -90,11 +90,14 @@
     </Compile>
     <Compile Include="Areas\Member\Controllers\AttentionController.cs" />
     <Compile Include="Areas\Member\Controllers\FavoriteController.cs" />
+    <Compile Include="Areas\Member\Controllers\FinancialController.cs" />
+    <Compile Include="Areas\Member\Controllers\BaseController.cs" />
     <Compile Include="Areas\Member\Controllers\HomeController.cs" />
     <Compile Include="Areas\Member\Controllers\InquireResourcesController.cs" />
     <Compile Include="Areas\Member\Controllers\AgencyController.cs" />
+    <Compile Include="Areas\Member\Controllers\InvestmentController.cs" />
     <Compile Include="Areas\Member\Controllers\MemberController.cs" />
-    <Compile Include="Areas\Member\Controllers\PublishController.cs" />
+    <Compile Include="Areas\Member\Controllers\PublishedController.cs" />
     <Compile Include="Areas\Member\Controllers\CorpController.cs" />
     <Compile Include="Areas\Member\Controllers\PersonController.cs" />
     <Compile Include="Areas\Member\Controllers\RecommendController.cs" />
@@ -858,10 +861,10 @@
     <Content Include="Areas\Member\Views\Member\Index.cshtml" />
     <Content Include="Areas\Member\Views\Member\Login.cshtml" />
     <Content Include="Areas\Member\Views\Member\SignUp.cshtml" />
-    <Content Include="Areas\Member\Views\Publish\Index.cshtml" />
-    <Content Include="Areas\Member\Views\Publish\PublishedFinancials.cshtml" />
-    <Content Include="Areas\Member\Views\Publish\PublishedInvestments.cshtml" />
-    <Content Include="Areas\Member\Views\Publish\PublishedProducts.cshtml" />
+    <Content Include="Areas\Member\Views\Published\Index.cshtml" />
+    <Content Include="Areas\Member\Views\Published\PublishedFinancials.cshtml" />
+    <Content Include="Areas\Member\Views\Published\PublishedInvestments.cshtml" />
+    <Content Include="Areas\Member\Views\Published\PublishedProducts.cshtml" />
     <Content Include="Areas\Member\Views\Recommend\Index.cshtml" />
     <Content Include="Areas\Member\Views\Recommend\RecommendFinancials.cshtml">
       <SubType>Code</SubType>
@@ -877,6 +880,9 @@
     <Content Include="Areas\Member\Views\Person\Edit.cshtml" />
     <Content Include="Areas\Member\Views\Agency\Edit.cshtml" />
     <Content Include="Areas\Member\Views\Corp\Edit.cshtml" />
+    <Content Include="Areas\Member\Views\Financial\Create.cshtml" />
+    <Content Include="Areas\Member\Views\Financial\Edit.cshtml" />
+    <Content Include="Areas\Member\Views\Investment\Create.cshtml" />
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="obj\Debug\edmxResourcesToEmbed\Models\GGZBTQPT.csdl" />
