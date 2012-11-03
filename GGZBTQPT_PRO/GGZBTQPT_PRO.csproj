@@ -147,6 +147,10 @@
     <Compile Include="Migrations\201211010639480_with-hongbao.Designer.cs">
       <DependentUpon>201211010639480_with-hongbao.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201211031144423_add-foreignkey-to-member-with-investment.cs" />
+    <Compile Include="Migrations\201211031144423_add-foreignkey-to-member-with-investment.Designer.cs">
+      <DependentUpon>201211031144423_add-foreignkey-to-member-with-investment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Mapping\T_HY_MemberMap.cs" />
     <Compile Include="Models\Mapping\T_PTF_DicDetailMap.cs" />
@@ -1028,6 +1032,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201211010639480_with-hongbao.resx">
       <DependentUpon>201211010639480_with-hongbao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201211031144423_add-foreignkey-to-member-with-investment.resx">
+      <DependentUpon>201211031144423_add-foreignkey-to-member-with-investment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="obj\Debug\GGZBTQPT_PRO.App_GlobalResources.T_ZC_System.resources" />
     <EmbeddedResource Include="obj\Debug\GGZBTQPT_PRO.Migrations.init.resources" />
