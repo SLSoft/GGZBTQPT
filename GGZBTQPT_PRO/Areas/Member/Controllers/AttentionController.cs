@@ -48,8 +48,8 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             {
                 var attentions = member.Attentions.Where(a => a.AttentionedMemberType == 3)
                                     .Join(db.T_JG_Agency, a => a.AttentionedMemberID, p => p.MemberID,
-                                    (a, g) => new T_JG_Agency { AgencyName = g.AgencyName, Address = g.Address, Phone = g.Phone,
-                                                                Services = g.Services, Linkmans = g.Linkmans  })
+                                    (a, g) => new VM_AttentionedAgency { Agency = new T_JG_Agency {AgencyName = g.AgencyName, Address = g.Address, Phone = g.Phone,
+                                                                Services = g.Services, Linkmans = g.Linkmans  }, Member = db.T_HY_Member.Find(g.MemberID) })
                                     .ToList();
                 return PartialView(attentions);
             }
@@ -75,9 +75,9 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             {
                 var corps = member.Attentions.Where(a => a.AttentionedMemberType == 2)
                                 .Join(db.T_QY_Corp, a => a.AttentionedMemberID, p => p.MemberID,
-                                    (a, c) => new T_QY_Corp { CorpName = c.CorpName, Mobile = c.Mobile, Email = c.Email, Fax = c.Fax,
+                                    (a, c) => new  VM_AttentionedCorp { Corp = new T_QY_Corp {CorpName = c.CorpName, Mobile = c.Mobile, Email = c.Email, Fax = c.Fax,
                                                               Linkman = c.Linkman, Phone = c.Phone, QQ = c.QQ, Website = c.Website,
-                                                              City = c.City, CorpCode = c.CorpCode })
+                                                              City = c.City, CorpCode = c.CorpCode }, Member = db.T_HY_Member.Find(c.MemberID) })
                                 .ToList();
                 return PartialView(corps);
             }
