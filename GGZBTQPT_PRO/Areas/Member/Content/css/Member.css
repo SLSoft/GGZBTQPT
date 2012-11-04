@@ -41,13 +41,30 @@ body {
 #recommend .recommend-content {
   border-top: solid 1px #ddd;
   padding: 10px 0; }
-  #recommend .recommend-content ul {
-    list-style: none; }
-#recommend .member-link {
-  margin-left: 10px; }
-  #recommend .member-link img {
-    width: 80px;
-    height: 80px; }
+#recommend .favored-link .favored {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  text-align: center;
+  padding: 3px 0px;
+  margin: 10px 10px 0px 10px;
+  background: #FCEFE3; }
+  #recommend .favored-link .favored a {
+    color: #D9896A; }
+#recommend .favored-link .unfavored {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  text-align: center;
+  padding: 3px 0px;
+  margin: 10px 10px 0px 10px;
+  background: #D9896A; }
+  #recommend .favored-link .unfavored a {
+    color: #FAE7D6; }
+#recommend .favored-link .favorited-people {
+  margin-top: 5px;
+  text-align: center;
+  padding: 3px 0px; }
 
 #attentioned .attentioned-content {
   border-top: solid 1px #ddd;
