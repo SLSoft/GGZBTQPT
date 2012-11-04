@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
+using GGZBTQPT_PRO.Areas.ViewModels;
 using GGZBTQPT_PRO.Enums;
 
 namespace GGZBTQPT_PRO.Areas.Member.Controllers
@@ -45,7 +46,11 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             }
             try
             {
-                var attentions = member.Attentions.Where(a => a.AttentionedMemberType == 3).ToList();
+                var attentions = member.Attentions.Where(a => a.AttentionedMemberType == 3)
+                                    .Join(db.T_JG_Agency, a => a.AttentionedMemberID, p => p.MemberID,
+                                    (a, g) => new T_JG_Agency { AgencyName = g.AgencyName, Address = g.Address, Phone = g.Phone,
+                                                                Services = g.Services, Linkmans = g.Linkmans  })
+                                    .ToList();
                 return PartialView(attentions);
             }
             catch
@@ -69,7 +74,10 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             try
             {
                 var corps = member.Attentions.Where(a => a.AttentionedMemberType == 2)
-                                .Join(db.T_QY_Corp, a => a.AttentionedMemberID, p => p.MemberID, (a, c) => new T_QY_Corp { CorpName = c.CorpName, Mobile = c.Mobile })
+                                .Join(db.T_QY_Corp, a => a.AttentionedMemberID, p => p.MemberID,
+                                    (a, c) => new T_QY_Corp { CorpName = c.CorpName, Mobile = c.Mobile, Email = c.Email, Fax = c.Fax,
+                                                              Linkman = c.Linkman, Phone = c.Phone, QQ = c.QQ, Website = c.Website,
+                                                              City = c.City, CorpCode = c.CorpCode })
                                 .ToList();
                 return PartialView(corps);
             }
@@ -97,9 +105,10 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
 
                 var persons = member.Attentions.Where(a => a.AttentionedMemberType == 1)
                                 .Join( db.T_QY_Person, a => a.AttentionedMemberID, p => p.MemberID, 
-                                        (a,p) => new T_QY_Person { MemberID = p.MemberID, Name = p.Name, Mobile = p.Mobile, Email = p.Email, College = p.College, 
-                                                                   Phone = p.Phone, WorkExperience = p.WorkExperience, Education = p.Education, Specialty = p.Specialty })
+                                        (a,p) => new VM_AttentionedPerson { Person = new T_QY_Person{ MemberID = p.MemberID, Name = p.Name, Mobile = p.Mobile, Email = p.Email, College = p.College, 
+                                                                   Phone = p.Phone, WorkExperience = p.WorkExperience, Education = p.Education, Specialty = p.Specialty}, Member = db.T_HY_Member.Find(p.MemberID) })
                                 .ToList();
+                ViewBag.CurrentMemberID = member.ID;
                 return PartialView(persons);
             }
             catch
