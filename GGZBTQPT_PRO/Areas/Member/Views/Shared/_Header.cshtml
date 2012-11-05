@@ -1,7 +1,32 @@
-﻿<div class="navbar navbar-fixed-top">
+﻿
+
+//判断会员是否登陆
+@helper CheckWhetherMemberLoginIn()
+    {
+    if (Session["MemberID"] != null && Session["MemberID"].ToString() != "")
+    {
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">信息发布<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li>@Html.ActionLink("发布项目", "Create", "Financial")</li>
+            <li>@Html.ActionLink("发布项目", "Create", "Investment")</li>
+
+        </ul>
+    </li>
+    <li class="divider-vertical"></li>
+    <li>@Html.ActionLink("发布项目", "Config", "Member")</li>
+    <li>@Html.ActionLink("发布项目", "LogOut", "Member")</li>
+    }
+    else
+    {
+    <li>@Html.ActionLink("注册", "SignUp", "Member")</li>
+    <li>@Html.ActionLink("登陆", "Login", "Member")</li>
+    }
+}
+<div class="navbar  navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
-            <a class="brand" href="./index.html">科技金融网</a>
+            <a class="brand" href="http://www.ovcstf.com/">科技金融网</a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     <li class="">@Html.ActionLink("金融推荐", "Index", "Home")</li>
@@ -13,7 +38,7 @@
                     <li class="">@Html.ActionLink("找服务", "Index", "FindService") </li>
                 </ul>
                 <ul class="nav pull-right"> 
-                    @MemberHelper.CheckWhetherMemberLoginIn()
+                    @CheckWhetherMemberLoginIn()
                 </ul>
             </div>
             <div class="nav-collapse collapse pull-right">

@@ -10,9 +10,9 @@ using Webdiyer.WebControls.Mvc;
 
 namespace GGZBTQPT_PRO.Areas.Member.Controllers
 {
-    public class RecommendController : Controller
+    public class RecommendController : BaseController
     {
-        private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+ 
         //
         // GET: /Member/Publish/
 
@@ -64,7 +64,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         /// </summary>
         /// <param name="member_id"></param>
         /// <returns></returns>
-        public ActionResult RecommendInvestments()
+        public ActionResult RecommendInvestments(int id = 1)
         {
             var member = CurrentMember();
             if (member == null)
@@ -73,7 +73,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             }
             try
             {
-                var investments = db.T_XM_Investment.ToList();
+                PagedList<T_XM_Investment> investments = db.T_XM_Investment.OrderByDescending(f => f.CreateTime).ToPagedList(id, 5);
                 ViewBag.FavoredInvestments = FavoredItems(2);
                 return PartialView(investments);
             }
@@ -88,7 +88,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         /// </summary>
         /// <param name="member_id"></param>
         /// <returns></returns>
-        public ActionResult RecommendProducts()
+        public ActionResult RecommendProducts(int id = 1)
         {
             var member = CurrentMember();
             if (member == null)
@@ -97,7 +97,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             }
             try
             {
-                var products = db.T_JG_Product.ToList();
+                PagedList<T_JG_Product> products = db.T_JG_Product.OrderByDescending(p => p.CreateTime).ToPagedList(id, 5);
                 ViewBag.FavoredInvestments = FavoredItems(3);
                 return PartialView(products);
             }
@@ -108,16 +108,6 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         } 
 
 
-        //Helper
-        private T_HY_Member CurrentMember()
-        {
-            if (Session["MemberID"] != null && Session["MemberID"].ToString() != "")
-            {
-                var member = db.T_HY_Member.Find(Convert.ToInt32(Session["MemberID"].ToString()));
-                return member;
-            }
-            return null;
-        }
 
         /// <summary>
         /// 读取当前用户所收藏的项目的ID集合

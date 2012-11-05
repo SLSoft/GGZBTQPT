@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Investment> 
+﻿@model Webdiyer.WebControls.Mvc.PagedList<GGZBTQPT_PRO.Models.T_XM_Investment>
 @{
     string FavoredInvestments = ViewBag.FavoredInvestments;
 }
@@ -27,7 +27,7 @@
         {
             <div class="recommend-content ">
                 <h4>
-                    <a href="\Member\Investment\Details\@_model.ID">@_model.ItemName</a></h4>
+                    @Html.ActionLink(_model.ItemName, "Details", "Investment",new {id = _model.ID},null)</h4>
                 @*摘要*@
                 <p class="summary">
                     @_model.Description
@@ -40,16 +40,6 @@
         }
     </div>
     <div class="pagination pagination-left clear">
-        <ul>
-            <li class="disabled"><a href="#">Prev</a></li>
-            <li class="active"><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">6</a></li>
-            <li><a href="#">7</a></li>
-            <li class="disabled"><a href="#">Next</a></li>
-        </ul>
+        @Html.AjaxPager(Model, new PagerOptions { PageIndexParameterName = "id", ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details" }) 
     </div>
 </div>

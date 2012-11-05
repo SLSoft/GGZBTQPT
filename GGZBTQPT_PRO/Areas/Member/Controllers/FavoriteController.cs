@@ -6,12 +6,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
+using Webdiyer.WebControls.Mvc;
 
 namespace GGZBTQPT_PRO.Areas.Member.Controllers
 {
-    public class FavoriteController : Controller
+    public class FavoriteController : BaseController
     {
-        private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+
         private Dictionary<string,string> notice = new Dictionary<string,string>();
         //
         // GET: /Member/Publish/
@@ -35,7 +36,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         /// </summary>
         /// <param name="member_id"></param>
         /// <returns></returns>
-        public ActionResult FavoredFinancials(int member_id)
+        public ActionResult FavoredFinancials(int member_id, int id = 1)
         {
             var member = CurrentMember();
             if (member == null)
@@ -44,16 +45,16 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             }
             try
             {
-                var finacials = member.Favorites.Where(a => a.FavoriteType == 1)
+                IList<T_XM_Financing> financials = member.Favorites.Where(a => a.FavoriteType == 1)
                                 .Join(db.T_XM_Financing, a => a.FinancialID, p => p.ID, 
                                     (a, p) => new T_XM_Financing {  
                                         ItemName = p.ItemName, Investment = p.Investment, 
                                         TotalInvestment = p.TotalInvestment, 
                                         ID = p.ID, ItemContent = p.ItemContent, Favoites = p.Favoites 
-                                    })
-                                .ToList();
+                                    }).OrderByDescending(f => f.CreateTime).ToList();
+                PagedList<T_XM_Financing> paged_financials = new PagedList<T_XM_Financing>(financials,id,5); 
 
-                return PartialView(finacials);
+                return PartialView(paged_financials);
             }
             catch
             {
@@ -66,7 +67,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         /// </summary>
         /// <param name="member_id"></param>
         /// <returns></returns>
-        public ActionResult FavoredInvestments(int member_id)
+        public ActionResult FavoredInvestments(int member_id, int id = 1)
         {
             var member = CurrentMember();
             if (member == null)
@@ -75,14 +76,16 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             }
             try
             {
-                var investments = member.Favorites.Where(a => a.FavoriteType == 2)
+                IList<T_XM_Investment> investments = member.Favorites.Where(a => a.FavoriteType == 2)
                                 .Join(db.T_XM_Investment, a => a.InvestmentID, p => p.ID,
                                     (a, p) => new T_XM_Investment { 
                                         ItemName = p.ItemName, Investment = p.Investment, Description = p.Description,
-                                        StartInvestment = p.StartInvestment, Favoites = p.Favoites 
+                                        StartInvestment = p.StartInvestment, Favoites = p.Favoites, ID = p.ID
                                     })
+                                .OrderByDescending(i => i.CreateTime)
                                 .ToList();
-                return PartialView(investments);
+                PagedList<T_XM_Investment> paged_investments = new PagedList<T_XM_Investment>(investments, id, 5);
+                return PartialView(paged_investments);
             }
             catch
             {
@@ -95,7 +98,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         /// </summary>
         /// <param name="member_id"></param>
         /// <returns></returns>
-        public ActionResult FavoredProducts(int member_id)
+        public ActionResult FavoredProducts(int member_id, int id = 1)
         {
             var member = CurrentMember();
             if (member == null)
@@ -105,14 +108,16 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
 
             try
             {
-                var products = member.Favorites.Where(a => a.FavoriteType == 3)
+                IList<T_JG_Product> products = member.Favorites.Where(a => a.FavoriteType == 3)
                                 .Join(db.T_JG_Product, a => a.FinancialID, p => p.ID,
                                     (a, p) => new T_JG_Product { 
                                         ProductName = p.ProductName, RepaymentType = p.RepaymentType, 
                                         Favoites = p.Favoites 
                                     })
+                                .OrderByDescending(p => p.CreateTime)
                                 .ToList();
-                return PartialView(products);
+                PagedList<T_JG_Product> paged_products = new PagedList<T_JG_Product>(products, id, 5);
+                return PartialView(paged_products);
             }
             catch
             {
@@ -121,16 +126,6 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         } 
 
 
-        //Helper
-        private T_HY_Member CurrentMember()
-        {
-            if (Session["MemberID"] != null && Session["MemberID"].ToString() != "")
-            {
-                var member = db.T_HY_Member.Find(Convert.ToInt32(Session["MemberID"].ToString()));
-                return member;
-            }
-            return null;
-        }
 
         /// <summary>
         /// 收藏项目、资金、服务

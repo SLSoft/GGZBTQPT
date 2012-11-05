@@ -6,12 +6,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
+using Webdiyer.WebControls.Mvc;
 
 namespace GGZBTQPT_PRO.Areas.Member.Controllers
 {
-    public class PublishedController : Controller
+    public class PublishedController : BaseController
     {
-        private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+
         //
         // GET: /Member/Publish/
 
@@ -34,7 +35,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         /// </summary>
         /// <param name="member_id"></param>
         /// <returns></returns>
-        public ActionResult PublishedFinancials(int member_id)
+        public ActionResult PublishedFinancials(int member_id, int id = 1)
         {
             var member = CurrentMember();
             if (member == null)
@@ -43,7 +44,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             }
             try
             {
-                var finacials = db.T_XM_Financing.Where(f => f.MemberID == member.ID).ToList();
+                PagedList<T_XM_Financing> finacials = db.T_XM_Financing.OrderByDescending(f => f.CreateTime).Where(f => f.MemberID == member.ID).ToPagedList(id, 5);
                 return PartialView(finacials);
             }
             catch
@@ -58,7 +59,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         /// </summary>
         /// <param name="member_id"></param>
         /// <returns></returns>
-        public ActionResult PublishedInvestments(int member_id)
+        public ActionResult PublishedInvestments(int member_id, int id = 1)
         {
             var member = CurrentMember();
             if (member == null)
@@ -67,8 +68,8 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             }
             try
             {
-                var finacials = db.T_XM_Investment.Where(f => f.MemberID == member.ID).ToList();
-                return PartialView(finacials);
+                PagedList<T_XM_Investment> investments = db.T_XM_Investment.OrderByDescending(f => f.CreateTime).Where(f => f.MemberID == member.ID).ToPagedList(id, 5);
+                return PartialView(investments);
             }
             catch
             {
@@ -81,7 +82,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         /// </summary>
         /// <param name="member_id"></param>
         /// <returns></returns>
-        public ActionResult PublishedProducts(int member_id)
+        public ActionResult PublishedProducts(int member_id, int id = 1 )
         {
             var member = CurrentMember();
             if (member == null)
@@ -90,25 +91,14 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             }
             try
             {
-                var finacials = db.T_JG_Product.Where(f => f.MemberID == member.ID).ToList();
-                return PartialView(finacials);
+                PagedList<T_JG_Product> products = db.T_JG_Product.OrderByDescending(p => p.CreateTime).Where( p => p.MemberID == member.ID).ToPagedList(id, 5);
+                return PartialView(products);
             }
             catch
             {
                 return PartialView();
             } 
-        }
+        } 
 
-
-
-        private T_HY_Member CurrentMember()
-        {
-            if (Session["MemberID"] != null && Session["MemberID"].ToString() != "")
-            {
-                var member = db.T_HY_Member.Find(Convert.ToInt32(Session["MemberID"].ToString()));
-                return member;
-            }
-            return null;
-        }
     }
 }
