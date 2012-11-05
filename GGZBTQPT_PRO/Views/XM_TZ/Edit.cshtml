@@ -9,17 +9,17 @@
         var i = 0;
         foreach (var item in ViewData["Industry"] as SelectList)
         {
-            if (i % 6 == 0)
+            if (i % 6 == 0 && i != 0)
             {
-            <br />
+                @:</tr><tr>
             }
             if (selected_Industry != null && selected_Industry.IndexOf(@item.Value) >= 0)
             {
-            <input type="checkbox" name="cbIndustry" value="@item.Value" checked="checked" /><span>@item.Text</span>
+                @:<td><input type="checkbox" name="cbIndustry" value="@item.Value" checked="checked" /><span>@item.Text</span></td>
             }
             else
             {
-            <input type="checkbox" name="cbIndustry" value="@item.Value" /><span>@item.Text</span>
+                @:<td><input type="checkbox" name="cbIndustry" value="@item.Value" /><span>@item.Text</span></td>
             }
             i++;
         }
@@ -29,17 +29,37 @@
         var i = 0;
         foreach (var item in ViewData["Province"] as SelectList)
         {
-            if (i % 8 == 0)
+            if (i % 6 == 0 && i != 0)
             {
-            <br />
+                @:</tr><tr>
             }
             if (selected_Province != null && selected_Province.IndexOf(@item.Value) >= 0)
             {
-                <input type="checkbox" name="cbProvince" value="@item.Value" checked="checked" /><span>@item.Text</span>
+                @:<td><input type="checkbox" name="cbProvince" value="@item.Value" checked="checked" /><span>@item.Text</span></td>
             }
             else
             {
-                 <input type="checkbox" name="cbProvince" value="@item.Value" /><span>@item.Text</span>
+                 @:<td><input type="checkbox" name="cbProvince" value="@item.Value" /><span>@item.Text</span></td>
+            }
+            i++;
+        }
+}
+@helper GenerateTeamWorkType(string selected_TeamWorkType)
+    {
+        var i = 0;
+        foreach (var item in ViewData["TeamworkType"] as SelectList)
+        {
+            if (i % 6 == 0 && i != 0)
+            {
+                @:</tr><tr>
+            }
+            if (selected_TeamWorkType != null && selected_TeamWorkType.IndexOf(@item.Value) >= 0)
+            {
+                @:<td><input type="checkbox" name="cbTeamWorkType" value="@item.Value" checked="checked" /><span>@item.Text</span></td>
+            }
+            else
+            {
+                 @:<td><input type="checkbox" name="cbTeamWorkType" value="@item.Value" /><span>@item.Text</span></td>
             }
             i++;
         }
@@ -77,13 +97,14 @@
         @Html.HiddenFor(model => model.OP)
         @Html.HiddenFor(model => model.CreateTime)
         @Html.HiddenFor(model => model.UpdateTime)
+        @Html.HiddenFor(model => model.MemberID)
         <table style="width:100%">
             <tr>
                 <td colspan="2" style="background-color:#666666; color:#ffffff">基本信息</td>
             </tr>
             <tr>
                 <td style="width:80px">@Html.LabelFor(model => model.ItemName, "投资意向标题")</td>
-                <td>@Html.TextBoxFor(model => model.ItemName, new {style = "width:95%" })</td>
+                <td>@Html.TextBoxFor(model => model.ItemName, new { style = "width:95%" })</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Province, "所属区域")</td>
@@ -103,7 +124,7 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Description, "投资意向描述")</td>
-                <td>@Html.TextAreaFor(model => model.Description, new { rows = "8",style = "width:95%" })</td>
+                <td>@Html.TextAreaFor(model => model.Description, new { rows = "8", style = "width:95%" })</td>
             </tr>
         </table>
         <table style="width:100%">
@@ -118,7 +139,13 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.AimIndustry, "意向行业")</td>
-                <td colspan="3">@GenerateIndustry(Model.AimIndustry)</td>
+                <td colspan="3">
+                <table width="100%">
+                    <tr>
+                    @GenerateIndustry(Model.AimIndustry)
+                    </tr>
+                </table>
+                </td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.ReturnRatio, "预期回报率")</td>
@@ -128,11 +155,21 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.AjmArea, "投资地区")</td>
-                <td colspan="3">@GenerateProvince(Model.AjmArea)</td>
+                <td colspan="3">
+                <table width="100%">
+                    <tr>
+                    @GenerateProvince(Model.AjmArea)
+                    </tr>
+                </table>
+                </td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.TeamworkType, "合作方式")</td>
-                <td colspan="3">@Html.DropDownList("TeamworkType", "请选择")</td>
+                <td colspan="3"><table width="100%">
+                    <tr>
+                    @GenerateTeamWorkType(Model.TeamworkType)
+                    </tr>
+                </table></td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.PartnerRequirements, "合作方要求")</td>

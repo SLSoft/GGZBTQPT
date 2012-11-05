@@ -52,17 +52,18 @@
         @Html.HiddenFor(model => model.ID)
         @Html.HiddenFor(model => model.ItemType)
         @Html.HiddenFor(model => model.IsValid)
-        @Html.HiddenFor(model => model.IsPublic)
+        @Html.HiddenFor(model => model.PublicStatus)
         @Html.HiddenFor(model => model.CreateTime)
         @Html.HiddenFor(model => model.City)
+        @Html.HiddenFor(model => model.Member)
 
-        <table style="width:800px">
+        <table style="width:100%">
             <tr>
                 <td colspan="2" style="background-color:#666666; color:#ffffff">基本信息</td>
             </tr>
             <tr>
-                <td style="width:120px">@Html.LabelFor(model => model.ItemName,"项目名称")</td>
-                <td>@Html.EditorFor(model => model.ItemName)</td>
+                <td style="width:80px">@Html.LabelFor(model => model.ItemName,"项目名称")</td>
+                <td>@Html.TextBoxFor(model => model.ItemName, new { style = "width:60%" })</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Province,"所属区域")</td>
@@ -82,17 +83,17 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.ItemContent, "项目介绍")</td>
-                <td>@Html.TextAreaFor(model => model.ItemContent, new { rows = "5", cols="60" })</td>
+                <td>@Html.TextAreaFor(model => model.ItemContent, new { rows = "5", style = "width:95%" })</td>
             </tr>
         </table>
         @if (Model.ItemType == 1)
         {
-        <table id="item1" style="width:800px">
+        <table id="item1" style="width:100%">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">融资信息</td>
             </tr>
             <tr>
-                <td style="width:120px">@Html.LabelFor(model => model.FinancSum, "融资金额")</td>
+                <td style="width:80px">@Html.LabelFor(model => model.FinancSum, "融资金额")</td>
                 <td>@Html.EditorFor(model => model.FinancSum)（万元）</td>
                 <td>@Html.LabelFor(model => model.FinancType, "融资方式")</td>
                 <td>@Html.DropDownList("FinancType", "请选择")</td>
@@ -121,18 +122,18 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.PartnerRequirements, "合作方要求")</td>
-                <td colspan="3">@Html.EditorFor(model => model.PartnerRequirements)</td>
+                <td colspan="3">@Html.TextAreaFor(model => model.PartnerRequirements, new { rows = "5", style = "width:95%" })</td>
             </tr>
         </table>
         }
         @if (Model.ItemType == 2)
         {
-        <table id="item2" style="width:800px">
+        <table id="item2" style="width:100%">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">资产交易</td>
             </tr>
             <tr>
-                <td style="width:120px">@Html.LabelFor(model => model.AssetsType, "资产类别")</td>
+                <td style="width:80px">@Html.LabelFor(model => model.AssetsType, "资产类别")</td>
                 <td>@Html.DropDownList("AssetsType", "请选择")</td>
                 <td>@Html.LabelFor(model => model.AssetsCost, "资产估价")</td>
                 <td>@Html.EditorFor(model => model.AssetsCost)万元</td>
@@ -157,12 +158,12 @@
         }
         @if (Model.ItemType == 3)
         {
-        <table id="item3" style="width:800px">
+        <table id="item3" style="width:100%">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">政府招商</td>
             </tr>
             <tr>
-                <td style="width:120px">@Html.LabelFor(model => model.Investment, "招商投资总额")</td>
+                <td style="width:80px">@Html.LabelFor(model => model.Investment, "招商投资总额")</td>
                 <td>@Html.EditorFor(model => model.Investment)万元</td>
                 <td>@Html.LabelFor(model => model.CooperationMode, "合作方式")</td>
                 <td>@Html.EditorFor(model => model.CooperationMode)</td>
@@ -177,24 +178,24 @@
         }
         @if (Model.ItemType == 9)
         {
-        <table id="item4" style="width:800px">
+        <table id="item4" style="width:100%">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">其他项目</td>
             </tr>
             <tr>
-                <td style="width:120px">@Html.LabelFor(model => model.OtherItemFinancSum, "融资金额")</td>
+                <td style="width:80px">@Html.LabelFor(model => model.OtherItemFinancSum, "融资金额")</td>
                 <td>@Html.EditorFor(model => model.OtherItemFinancSum)万元</td>
                 <td>@Html.LabelFor(model => model.OtherItemFinancSum, "融资期限")</td>
                 <td>@Html.EditorFor(model => model.OtherItemFinancSum)</td>
             </tr>
         </table>
         }
-        <table style="width:800px">
+        <table style="width:100%">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">联系人信息</td>
             </tr>
             <tr>
-                <td style="width:120px">@Html.LabelFor(model => model.Linkman, "联系人")</td>
+                <td style="width:80px">@Html.LabelFor(model => model.Linkman, "联系人")</td>
                 <td>@Html.EditorFor(model => model.Linkman)
             @Html.ValidationMessageFor(model => model.Linkman)</td>
                 <td>@Html.LabelFor(model => model.Position, "部门&职务")</td>
