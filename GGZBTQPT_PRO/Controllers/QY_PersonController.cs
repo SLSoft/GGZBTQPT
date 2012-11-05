@@ -9,16 +9,17 @@ using GGZBTQPT_PRO.Models;
 
 namespace GGZBTQPT_PRO.Controllers
 { 
-    public class QY_PersonController : Controller
+    public class QY_PersonController : BaseController
     {
-        private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+        //private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
 
         //
         // GET: /QY_Person/
 
         public ViewResult Index()
         {
-            return View(db.T_QY_Person.ToList());
+            var t_qy_person = db.T_QY_Person.Where(p => p.IsValid == true).ToList();
+            return View(t_qy_person);
         }
 
         //
@@ -83,12 +84,20 @@ namespace GGZBTQPT_PRO.Controllers
         {
             if (ModelState.IsValid)
             {
+                t_qy_person.MemberID = Convert.ToInt32(Session["MemberID"] == null ? 0 : Session["MemberID"]);
+                t_qy_person.IsValid = true;
+                t_qy_person.OP = 0;
+                t_qy_person.CreateTime = DateTime.Now;
+                t_qy_person.UpdateTime = DateTime.Now;
                 db.T_QY_Person.Add(t_qy_person);
-                db.SaveChanges();
-                return RedirectToAction("Index");  
+                int result = db.SaveChanges();
+                if (result > 0)
+                    return ReturnJson(true, "操作成功", "", "", true, "");
+                else
+                    return ReturnJson(false, "操作失败", "", "", false, "");
             }
 
-            return View(t_qy_person);
+            return Json(new { });
         }
         
         //
@@ -114,10 +123,13 @@ namespace GGZBTQPT_PRO.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(t_qy_person).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                int result = db.SaveChanges();
+                if (result > 0)
+                    return ReturnJson(true, "操作成功", "", "", true, "");
+                else
+                    return ReturnJson(false, "操作失败", "", "", false, "");
             }
-            return View(t_qy_person);
+            return Json(new { });
         }
 
         //
@@ -134,11 +146,18 @@ namespace GGZBTQPT_PRO.Controllers
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
-        {            
-            T_QY_Person t_qy_person = db.T_QY_Person.Find(id);
-            db.T_QY_Person.Remove(t_qy_person);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+        {
+            if (Request.IsAjaxRequest())
+            {
+                T_QY_Person t_qy_person = db.T_QY_Person.Find(id);
+                t_qy_person.IsValid = false;
+                int result = db.SaveChanges();
+                if (result > 0)
+                    return ReturnJson(true, "操作成功", "", "", true, "");
+                else
+                    return ReturnJson(false, "操作失败", "", "", false, "");
+            }
+            return Json(new { });
         }
 
         protected override void Dispose(bool disposing)

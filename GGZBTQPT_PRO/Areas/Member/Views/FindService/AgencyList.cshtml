@@ -1,0 +1,22 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_JG_Agency>
+
+@{
+    ViewBag.Title = "AgencyList";
+}
+<ul>
+<table style="width:100%">
+@foreach (var item in Model) {
+    <tr>
+        <td rowspan="2" width="162px"><img alt="LOGO" style="width:160px; height:120px" src="../../../../Content/images/member/logo.jpg" /></td>
+        <td>@Html.ActionLink(item.AgencyName, "AgencyShow", new { id = item.ID })</td>
+        <td style="text-align:right"><strong>@item.AgencyTypeName</strong></td>
+    </tr>
+    <tr>
+        <td colspan="2">@(item.Remark.Length > 200 ? item.Remark.Substring(0, 200)+"..." : item.Remark)</td>
+    </tr>
+    <tr>
+        <td colspan="2"><hr /></td>
+    </tr>
+}
+</table>>
+

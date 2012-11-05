@@ -16,6 +16,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         // GET: /Member/SideBar/
 
 
+
         public ActionResult MemberBrief()
         {
             var member = CurrentMember();

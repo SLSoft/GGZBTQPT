@@ -2,9 +2,9 @@
 
 @{
     ViewBag.Title = "Edit";
+    Layout = null;
 }
 
-<h2>Edit</h2>
 @helper QY_Financial(int CYear)
 {
     <tr>
@@ -64,12 +64,14 @@
         </tr>
     }
 }
+<<<<<<< HEAD
+@using (Html.BeginForm("Create", "QY_Corp", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
+=======
 
 @using (Html.BeginForm("Edit", "QY_Corp",FormMethod.Post, new { enctype = "multipart/form-data" }))
+>>>>>>> 8ceda32adab0d741bfb63b543746e90e54384e4d
 {
     @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>T_QY_Corp</legend>
 
         @Html.HiddenFor(model => model.ID)
         @Html.HiddenFor(model => model.IsValid)
@@ -168,11 +170,6 @@
         </table>
 
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="保存" />
         </p>
-    </fieldset>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
