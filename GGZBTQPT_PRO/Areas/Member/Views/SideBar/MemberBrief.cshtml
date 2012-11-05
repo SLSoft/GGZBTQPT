@@ -1,9 +1,33 @@
 ﻿@model GGZBTQPT_PRO.Models.T_HY_Member
+
+@helper ComputeMemberGrade(int intetral)
+    {
+        switch (intetral / 100)
+        {
+
+            case 1:
+    <div>
+        <span class="badge badge-info">会员级别：铜牌会员 [@intetral]</span></div>
+                                             break;
+            case 2:
+    <div>
+        <span class="badge badge-info">会员级别：银牌会员 [@intetral]</span></div>
+                                             break;
+            case 3:
+    <div>
+        <span class="badge badge-info">会员级别：金牌会员 [@intetral]</span></div> 
+                                             break;
+            default:
+    <div>
+        <span class="badge badge-info">会员级别：普通会员 [@intetral]</span></div>
+                                             break;
+        }
+}
 <div class="member-info">
     @if (Model != null)
     {
         @Html.ActionLink("欢迎你！" + Model.LoginName, "Config", "Member")
-        @MemberHelper.ComputeMemberGrade(Model.Intetral)
+        @ComputeMemberGrade(Model.Intetral)
         <hr />
         <div>
             <h4>发布内容统计</h4>

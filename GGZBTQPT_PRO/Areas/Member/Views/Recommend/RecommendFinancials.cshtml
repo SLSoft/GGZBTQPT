@@ -49,7 +49,7 @@
             </div>
             <div class="recommend-content span10">
                 <h4>
-                    <a href="\Member\Financial\Details\@_model.ID">@_model.ItemName</a><span class="pub-time pull-right">@_model.CreateTime</span></h4>
+                    @Html.ActionLink(_model.ItemName, "Details", "Financial",new {id = _model.ID},null)<span class="pub-time pull-right">@_model.CreateTime</span></h4>
                 @*摘要*@
                 <p class="summary">
                     @_model.ItemContent

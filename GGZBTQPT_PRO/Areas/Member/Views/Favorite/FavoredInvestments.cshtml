@@ -10,7 +10,7 @@
             @*投资意向信息*@
             <div class="published-content ">
                 <h4>
-                   <a href="\Member\Investment\Edit\@_model.ID">@_model.ItemName</a></h4>
+                   @Html.ActionLink(_model.ItemName, "Details", "Investment",new {id = _model.ID},null)</h4>
                 @*摘要*@
                 <p class="summary">
                     @_model.Description

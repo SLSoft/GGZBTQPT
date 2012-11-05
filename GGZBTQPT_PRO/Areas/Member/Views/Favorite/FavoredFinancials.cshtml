@@ -14,7 +14,7 @@
         {
             <div class="recommend-content ">
                 <h4>
-                    <a href="#">@_model.ItemName</a></h4>
+                    @Html.ActionLink(_model.ItemName, "Details", "Financial",new {id = _model.ID},null)</h4>
                 @*摘要*@
                 <p class="summary">
                     @_model.ItemContent

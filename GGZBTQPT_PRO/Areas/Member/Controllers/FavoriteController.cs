@@ -80,7 +80,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
                                 .Join(db.T_XM_Investment, a => a.InvestmentID, p => p.ID,
                                     (a, p) => new T_XM_Investment { 
                                         ItemName = p.ItemName, Investment = p.Investment, Description = p.Description,
-                                        StartInvestment = p.StartInvestment, Favoites = p.Favoites 
+                                        StartInvestment = p.StartInvestment, Favoites = p.Favoites, ID = p.ID
                                     })
                                 .OrderByDescending(i => i.CreateTime)
                                 .ToList();
