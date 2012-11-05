@@ -1,27 +1,19 @@
 body {
-  background-color: #bbb; }
-  body .main {
-    background-color: white;
+  background-color: #eee; }
+  body .main #notice {
+    margin-bottom: 20px; }
+  body .main .content {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    background-color: #ddddff; }
-    body .main #notice {
-      margin-bottom: 20px; }
-    body .main .content {
-      -webkit-border-radius: 5px 0 0 5px;
-      -moz-border-radius: 5px 0 0 5px;
-      border-radius: 5px 0 0 5px;
-      padding: 20px;
-      background-color: #ffffff;
-      margin-left: -20px; }
-    body .main .sidebar {
-      -webkit-border-radius: 0 5px 5px 0;
-      -moz-border-radius: 0 5px 5px 0;
-      border-radius: 0 5px 5px 0;
-      background-color: #ddddff;
-      padding: 10px;
-      margin-left: -20px; }
+    padding: 20px;
+    background-color: #ffffff; }
+  body .main .sidebar {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #ddd;
+    padding: 20px; }
   body .footer {
     text-align: center;
     padding-top: 10px; }
