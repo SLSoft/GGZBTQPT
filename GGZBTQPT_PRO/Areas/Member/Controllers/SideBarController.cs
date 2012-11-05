@@ -14,7 +14,6 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
     {
         //
         // GET: /Member/SideBar/
-        private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
 
 
         public ActionResult MemberBrief()

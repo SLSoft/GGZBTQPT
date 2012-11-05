@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GGZBTQPT_PRO.Areas.ViewModels.VM_AttentionedPerson>
+﻿@model Webdiyer.WebControls.Mvc.PagedList<GGZBTQPT_PRO.Areas.ViewModels.VM_AttentionedPerson>
 @helper HasAttentioned(GGZBTQPT_PRO.Models.T_HY_Member attentioned_member, int current_member_id, GGZBTQPT_PRO.Models.T_QY_Person attentioned_person)
 {
     if (attentioned_member.Attentions.Select(a => a.AttentionedMemberID == current_member_id).Count() > 0 )
@@ -54,16 +54,6 @@
         </div>
     }
     <div class="pagination pagination-left clear">
-        <ul>
-            <li class="disabled"><a href="#">Prev</a></li>
-            <li class="active"><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">6</a></li>
-            <li><a href="#">7</a></li>
-            <li class="disabled"><a href="#">Next</a></li>
-        </ul>
+        @Html.AjaxPager(Model, new PagerOptions { PageIndexParameterName = "id", ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details" }) 
     </div>
 </div>

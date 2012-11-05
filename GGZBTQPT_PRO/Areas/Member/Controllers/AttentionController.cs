@@ -8,13 +8,14 @@ using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.Areas.ViewModels;
 using GGZBTQPT_PRO.Enums;
+using Webdiyer.WebControls.Mvc;
 
 namespace GGZBTQPT_PRO.Areas.Member.Controllers
 {
-    public class AttentionController : Controller
+    public class AttentionController : BaseController
     {
 
-        private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+
         //
         // GET: /Member/Publish/
 
@@ -37,7 +38,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         /// </summary>
         /// <param name="member_id"></param>
         /// <returns></returns>
-        public ActionResult AttentionedAgencies()
+        public ActionResult AttentionedAgencies(int id = 1)
         {
             var member = CurrentMember();
             if (member == null)
@@ -46,12 +47,13 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             }
             try
             {
-                var attentions = member.Attentions.Where(a => a.AttentionedMemberType == 3)
+                IList<VM_AttentionedAgency> attentions = member.Attentions.Where(a => a.AttentionedMemberType == 3)
                                     .Join(db.T_JG_Agency, a => a.AttentionedMemberID, p => p.MemberID,
                                     (a, g) => new VM_AttentionedAgency { Agency = new T_JG_Agency {AgencyName = g.AgencyName, Address = g.Address, Phone = g.Phone,
                                                                 Services = g.Services, Linkmans = g.Linkmans  }, Member = db.T_HY_Member.Find(g.MemberID) })
                                     .ToList();
-                return PartialView(attentions);
+                PagedList<VM_AttentionedAgency> paged_attentions = new PagedList<VM_AttentionedAgency>(attentions, id, 5);
+                return PartialView(paged_attentions);
             }
             catch
             {
@@ -64,7 +66,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         /// </summary>
         /// <param name="member_id"></param>
         /// <returns></returns>
-        public ActionResult AttentionedCorps()
+        public ActionResult AttentionedCorps(int id = 1)
         {
             var member = CurrentMember();
             if (member == null)
@@ -73,13 +75,14 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             } 
             try
             {
-                var corps = member.Attentions.Where(a => a.AttentionedMemberType == 2)
+                IList<VM_AttentionedCorp> corps = member.Attentions.Where(a => a.AttentionedMemberType == 2)
                                 .Join(db.T_QY_Corp, a => a.AttentionedMemberID, p => p.MemberID,
                                     (a, c) => new  VM_AttentionedCorp { Corp = new T_QY_Corp {CorpName = c.CorpName, Mobile = c.Mobile, Email = c.Email, Fax = c.Fax,
                                                               Linkman = c.Linkman, Phone = c.Phone, QQ = c.QQ, Website = c.Website,
                                                               City = c.City, CorpCode = c.CorpCode }, Member = db.T_HY_Member.Find(c.MemberID) })
                                 .ToList();
-                return PartialView(corps);
+                PagedList<VM_AttentionedCorp> paged_corps = new PagedList<VM_AttentionedCorp>(corps, id, 5);
+                return PartialView(paged_corps);
             }
             catch
             {
@@ -92,7 +95,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         /// </summary>
         /// <param name="member_id"></param>
         /// <returns></returns>
-        public ActionResult AttentionedPersons()
+        public ActionResult AttentionedPersons(int id = 1)
         {
             var member = CurrentMember();
             if (member == null)
@@ -103,31 +106,20 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             {
                 //var attentions = member.Attentions.Where(a => a.AttentionType == 1 || a.AttentionType == 2).ToList(); 
 
-                var persons = member.Attentions.Where(a => a.AttentionedMemberType == 1)
+                IList<VM_AttentionedPerson> persons = member.Attentions.Where(a => a.AttentionedMemberType == 1)
                                 .Join( db.T_QY_Person, a => a.AttentionedMemberID, p => p.MemberID, 
                                         (a,p) => new VM_AttentionedPerson { Person = new T_QY_Person{ MemberID = p.MemberID, Name = p.Name, Mobile = p.Mobile, Email = p.Email, College = p.College, 
                                                                    Phone = p.Phone, WorkExperience = p.WorkExperience, Education = p.Education, Specialty = p.Specialty}, Member = db.T_HY_Member.Find(p.MemberID) })
                                 .ToList();
                 ViewBag.CurrentMemberID = member.ID;
-                return PartialView(persons);
+                PagedList<VM_AttentionedPerson> paged_persons = new PagedList<VM_AttentionedPerson>(persons, id, 5);
+                return PartialView(paged_persons);
             }
             catch
             {
                 return PartialView();
             } 
-        }
-
-        //Helper
-        private T_HY_Member CurrentMember()
-        {
-            if (Session["MemberID"] != null && Session["MemberID"].ToString() != "")
-            {
-                var member = db.T_HY_Member.Find(Convert.ToInt32(Session["MemberID"].ToString()));
-                return member;
-            }
-            return null;
-        }
-
+        } 
 
         /// <summary>
         /// 关注的个人、企业和机构
