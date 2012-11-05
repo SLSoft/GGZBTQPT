@@ -11,7 +11,7 @@ namespace GGZBTQPT_PRO.Controllers
 { 
     public class QY_PersonController : BaseController
     {
-        private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+        //private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
 
         //
         // GET: /QY_Person/

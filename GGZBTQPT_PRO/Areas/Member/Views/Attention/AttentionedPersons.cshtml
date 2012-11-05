@@ -1,9 +1,22 @@
-﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_QY_Person>
- 
+﻿@model IEnumerable<GGZBTQPT_PRO.Areas.ViewModels.VM_AttentionedPerson>
+@helper HasAttentioned(GGZBTQPT_PRO.Models.T_HY_Member attentioned_member, int current_member_id, GGZBTQPT_PRO.Models.T_QY_Person attentioned_person)
+{
+    if (attentioned_member.Attentions.Select(a => a.AttentionedMemberID == current_member_id).Count() > 0 )
+    {
+
+    <span class="mobile">手机：@attentioned_person.Mobile</span><span class="phone">固定电话：@attentioned_person.Phone</span><span class="email">邮箱：@attentioned_person.Email</span> 
+    }
+    else
+    {
+         <p>
+        <span class="label label-important">****以下信息互相关注后可见****</span></p>
+    <span class="mobile">手机：********</span><span class="phone">固定电话：********</span><span class="email">邮箱：********</span> 
+    }
+} 
 <script type="text/javascript">
      function notice(data) {
          $("#attentioned li.active a").click();
-         $.Member.notice(data.message);
+         $.Member.notice(data);
      }
 </script>
 <div id="attentioned">
@@ -15,7 +28,7 @@
                 <img alt="友邻头像" class="img-circle" src="../../../../Content/images/member/user.jpg" />
                 <div class="contact">
                     <ul> 
-                        <li>@Ajax.ActionLink("取消关注", "UnAttentioned", "Attention", new { id =  _model.MemberID }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" }) </li>
+                        <li>@Ajax.ActionLink("取消关注", "UnAttentioned", "Attention", new { id = _model.Person.MemberID }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" }) </li>
                     </ul>
                 </div>
             </div>
@@ -23,25 +36,19 @@
             <div class="person-detail span10">
                 @*可见信息*@
                 <h4>
-                    @_model.Name</h4>
+                    @_model.Person.Name</h4>
                 <div class="base-detail">
                 <p>
-                    <label>毕业院校：<span>@_model.College</span></label>
-                    <label>学历：<span>@_model.Education</span></label>
-                    <label>所学专业：<span>@_model.Specialty</span></label>
+                    <label>毕业院校：<span>@_model.Person.College</span></label>
+                    <label>学历：<span>@_model.Person.Education</span></label>
+                    <label>所学专业：<span>@_model.Person.Specialty</span></label>
                     <label>工作经历:</label>
-                    <p>@_model.WorkExperience</p>
-                </p>
-                <p>
-                    <label>发布项目：<span>3个</span></label>
-                    <label>关注他的：<span>5个</span></label>
-                    <label>他关注的：<span>17个</span></label> 
-                </p>
+                    <p>@_model.Person.WorkExperience</p>
+                </p> 
                 </div>
                 @*隐私信息*@
                 <div class="privacy-detail">
-                <p><span class="label label-important">****以下信息互相关注后可见****</span></p>
-                    <span class="mobile">手机：@_model.Mobile</span><span class="phone">固定电话：@_model.Phone</span><span class="email">邮箱：@_model.Email</span>
+                    @HasAttentioned(_model.Member,ViewBag.CurrentMemberID, _model.Person)
                 </div>
             </div>
         </div>

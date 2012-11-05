@@ -1,0 +1,30 @@
+﻿@model GGZBTQPT_PRO.Models.T_XM_Investment
+
+<h2>@Model.ItemName</h2>
+
+<fieldset>
+    <legend>基本情况</legend>  
+    <div>
+        <p>投资意向标题：@Html.DisplayFor(model => model.ItemName)</p>
+        <p>投资机构：@Html.DisplayFor(model => model.MemberID)</p>
+        <p>意向行业：@Html.DisplayFor(model => model.AimIndustryName)</p>
+        <p>投资地区：@Html.DisplayFor(model => model.AjmArea)</p>
+        <p>可投资金额：@Html.DisplayFor(model => model.Investment)</p>
+        <p>投资期限：@Html.DisplayFor(model => model.InvestmentPeriod)</p>
+        <p>合作方式：@Html.DisplayFor(model => model.TeamworkType)</p>
+        <p>合作方要求：@Html.DisplayFor(model => model.PartnerRequirements)</p>
+        <p>投资意向描述：@Html.DisplayFor(model => model.Description)</p>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>联系方式</legend>  
+    <div>
+        <p>联系人：@Html.DisplayFor(model => model.Linkman)</p>
+        <p>联系人部门/职务：@Html.DisplayFor(model => model.Position)</p>
+        <p>联系电话：@Html.DisplayFor(model => model.Phone)    @Html.DisplayFor(model => model.Mobile)</p>
+        <p>传真：@Html.DisplayFor(model => model.Fax)</p>
+        <p>邮箱：@Html.DisplayFor(model => model.Email)</p>
+        <p>QQ：@Html.DisplayFor(model => model.QQ)</p>
+        <p>通讯地址：</p>
+    </div>
+</fieldset>

@@ -10,11 +10,11 @@ using GGZBTQPT_PRO.Models;
 
 namespace GGZBTQPT_PRO.Areas.Member.Controllers
 {
-    public class SideBarController : Controller
+    public class SideBarController : BaseController
     {
         //
         // GET: /Member/SideBar/
-        private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+        //private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
 
 
         public ActionResult MemberBrief()
@@ -31,7 +31,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         public ActionResult TheLastestFinancials()
         {
 
-            var finacials = db.T_XM_Financing.Take(4).ToList();
+            var finacials = db.T_XM_Financing.OrderByDescending(f => f.CreateTime).Take(4).ToList();
             return PartialView(finacials);
 
         }
@@ -39,26 +39,16 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         public ActionResult TheLastestInvestments()
         {
 
-            var investments = db.T_XM_Investment.Take(4).ToList();
+            var investments = db.T_XM_Investment.OrderByDescending(i => i.CreateTime).Take(4).ToList();
             return PartialView(investments);
 
         }
 
         public ActionResult TheLastestProducts()
         {
-            return PartialView();
-        }
-
-
-        private T_HY_Member CurrentMember()
-        {
-            if (Session["MemberID"] != null && Session["MemberID"].ToString() != "")
-            {
-                var member = db.T_HY_Member.Find(Convert.ToInt32(Session["MemberID"].ToString()));
-                return member;
-            }
-            return null;
-        }
+            var products = db.T_JG_Product.OrderByDescending(p => p.CreateTime).Take(4).ToList();
+            return PartialView(products);
+        } 
 
     }
 }

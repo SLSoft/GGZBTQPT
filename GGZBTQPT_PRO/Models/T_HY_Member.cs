@@ -53,6 +53,7 @@ namespace GGZBTQPT_PRO.Models
         public virtual ICollection<T_HY_Favorite> Favorites { get; set; }//会员能够收藏多个项目、资本、服务
 
         public virtual ICollection<T_XM_Financing> Financials { get; set; }//会员所发布的项目
+        public virtual ICollection<T_XM_Investment> Investments { get; set; }//会员所发布的意向
         
         
         // Validate method

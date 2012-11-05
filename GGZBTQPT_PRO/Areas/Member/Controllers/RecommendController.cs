@@ -47,7 +47,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
                 //*********根据用户收藏的的内容和关注的人员进行特殊推荐*****************//
                 //目前需要完成根据项目的收藏数进行排序，以下的投资和产品同
 
-                PagedList<T_XM_Financing> finacials = db.T_XM_Financing.OrderBy(f => f.ID).ToPagedList(id,5);
+                PagedList<T_XM_Financing> finacials = db.T_XM_Financing.OrderByDescending(f => f.CreateTime).ToPagedList(id,5);
                 ViewBag.FavoredFinacials = FavoredItems(1);
                 ViewBag.AttentionedMembers = AttentionedMembers();
                 ViewBag.CurrentMember = member.ID;

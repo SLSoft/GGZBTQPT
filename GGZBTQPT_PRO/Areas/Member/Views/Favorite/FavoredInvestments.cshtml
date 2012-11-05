@@ -1,1 +1,39 @@
-﻿
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Investment>
+@{
+    ViewBag.Title = "发布的意向";
+}
+@*发布的意向信息*@
+<div id="published">
+    @foreach (var _model in Model)
+    {
+        <div class="row-fluid">
+            @*投资意向信息*@
+            <div class="published-content ">
+                <h4>
+                   <a href="\Member\Investment\Edit\@_model.ID">@_model.ItemName</a></h4>
+                @*摘要*@
+                <p class="summary">
+                    @_model.Description
+                </p>
+                @*附属信息*@
+                <div class="published-info">
+                   <span class="pub-time">@_model.CreateTime</span><span class="pro-type">总投资：@_model.Investment</span><span class="favorite">多少人收藏</span>
+                </div>
+            </div>
+        </div>
+            
+    }
+    <div class="pagination pagination-left clear">
+        <ul>
+            <li class="disabled"><a href="#">Prev</a></li>
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">6</a></li>
+            <li><a href="#">7</a></li>
+            <li class="disabled"><a href="#">Next</a></li>
+        </ul>
+    </div>
+</div>

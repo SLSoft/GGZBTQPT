@@ -15,7 +15,8 @@
 }
 <script type="text/javascript">
     function notice(data) {
-        $.Member.notice(data.message);
+        $("#recommend li.active a").click();
+        $.Member.notice(data);
     }
 </script>
 @*推荐的资本信息*@
@@ -26,7 +27,7 @@
         {
             <div class="recommend-content ">
                 <h4>
-                    <a href="#">@_model.ItemName</a></h4>
+                    <a href="\Member\Investment\Details\@_model.ID">@_model.ItemName</a></h4>
                 @*摘要*@
                 <p class="summary">
                     @_model.Description

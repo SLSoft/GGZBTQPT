@@ -6,23 +6,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
-
-namespace GGZBTQPT_PRO.Controllers
+namespace GGZBTQPT_PRO.Areas.Member.Controllers
 {
-    public class XM_TZController : BaseController
+    public class InvestmentController : BaseController
     {
-        //private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
-
         //
-        // GET: /XM_TZ/
-
-        public ViewResult Index()
-        {
-            return View(db.T_XM_Investment.Where(p => p.IsValid == true).ToList());
-        }
-
-        //
-        // GET: /XM_TZ/Details/5
+        // GET: /Member/Investment/
 
         public ViewResult Details(int id)
         {
@@ -57,13 +46,18 @@ namespace GGZBTQPT_PRO.Controllers
         //
         // GET: /XM_TZ/Create
 
-        public ActionResult Create()
+        public ActionResult Create(string notice_type)
         {
+            if(notice_type == "success")
+            {
+                ViewData["notice"] = "投资项目发布成功，可进入我的发布中查阅！";
+            }
+
             BindArea();
             BindIndustry();
             BindTeamworkType();
             return View();
-        } 
+        }
 
         //
         // POST: /XM_TZ/Create
@@ -71,6 +65,7 @@ namespace GGZBTQPT_PRO.Controllers
         [HttpPost]
         public ActionResult Create(T_XM_Investment t_xm_investment, FormCollection collection)
         {
+            
             if (ModelState.IsValid)
             {
                 t_xm_investment.City = Int32.Parse(collection["ddlCity"]);
@@ -78,21 +73,24 @@ namespace GGZBTQPT_PRO.Controllers
                 t_xm_investment.OP = 0;
                 t_xm_investment.CreateTime = DateTime.Now;
                 t_xm_investment.UpdateTime = DateTime.Now;
+                t_xm_investment.MemberID = CurrentMember().ID;
                 db.T_XM_Investment.Add(t_xm_investment);
-                int result = db.SaveChanges();
-                if (result > 0)
-                    return ReturnJson(true, "操作成功", "", "", true, "");
-                else
-                    return ReturnJson(false, "操作失败", "", "", false, "");
+                db.SaveChanges(); 
+                return RedirectToAction("Create", new { notice_type = "success" });
             }
-            return Json(new { });
+            ViewData["error"] = "投资项目发布失败!请检查输入信息或联系我们!";
+            return View(t_xm_investment);
         }
-        
+
         //
         // GET: /XM_TZ/Edit/5
- 
-        public ActionResult Edit(int id)
+
+        public ActionResult Edit(int id, string notice_type)
         {
+            if (notice_type == "success")
+            {
+                ViewData["notice"] = "投资项目更新成功，可进入我的发布中查阅！";
+            }
             T_XM_Investment t_xm_investment = db.T_XM_Investment.Find(id);
             BindArea(t_xm_investment.Province);
             BindIndustry(t_xm_investment.Industry);
@@ -120,18 +118,17 @@ namespace GGZBTQPT_PRO.Controllers
                 t_xm_investment.AjmArea = checkedProvince;
                 t_xm_investment.City = Int32.Parse(collection["ddlCity"]);
                 t_xm_investment.UpdateTime = DateTime.Now;
-                int result = db.SaveChanges();
-                if (result > 0)
-                    return ReturnJson(true, "操作成功", "", "", true, "");
-                else
-                    return ReturnJson(false, "操作失败", "", "", false, "");
+                db.SaveChanges();
+
+                return RedirectToAction("Edit", new { notice_type = "success" });
             }
-            return Json(new { });
+            ViewData["error"] = "投资项目更新失败!请检查输入信息或联系我们!";
+            return View(t_xm_investment);
         }
 
         //
         // GET: /XM_TZ/Delete/5
- 
+
         public ActionResult Delete(int id)
         {
             T_XM_Investment t_xm_investment = db.T_XM_Investment.Find(id);
@@ -144,17 +141,10 @@ namespace GGZBTQPT_PRO.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            if (Request.IsAjaxRequest())
-            {
-                T_XM_Investment t_xm_investment = db.T_XM_Investment.Find(id);
-                t_xm_investment.IsValid = false;
-                int result = db.SaveChanges();
-                if (result > 0)
-                    return ReturnJson(true, "操作成功", "", "", true, "");
-                else
-                    return ReturnJson(false, "操作失败", "", "", false, "");
-            }
-            return Json(new { });
+            T_XM_Investment t_xm_investment = db.T_XM_Investment.Find(id);
+            db.T_XM_Investment.Remove(t_xm_investment);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -162,5 +152,6 @@ namespace GGZBTQPT_PRO.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+
     }
 }

@@ -11,7 +11,7 @@ namespace GGZBTQPT_PRO.Controllers
 {
     public class JG_ProductController : BaseController
     {
-        private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+        //private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
 
         //
         // GET: /JG_Product/

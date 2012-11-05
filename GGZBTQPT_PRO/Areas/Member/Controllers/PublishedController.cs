@@ -9,7 +9,7 @@ using GGZBTQPT_PRO.Models;
 
 namespace GGZBTQPT_PRO.Areas.Member.Controllers
 {
-    public class PublishController : Controller
+    public class PublishedController : Controller
     {
         private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
         //

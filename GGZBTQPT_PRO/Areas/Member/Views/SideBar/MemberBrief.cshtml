@@ -8,9 +8,9 @@
         <div>
             <h4>发布内容统计</h4>
             <label>
-                发布项目：6条</label>
+                发布项目：@Model.Financials.Count()条</label>
             <label>
-                发布意向：6条</label>
+                发布意向：@Model.Investments.Count()条</label>
         </div>
     }
 </div>

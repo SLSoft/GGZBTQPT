@@ -5,18 +5,19 @@
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     <li class="">@Html.ActionLink("金融推荐", "Index", "Home")</li>
-                    <li class="">@Html.ActionLink("我的发布", "Index", "Publish") </li>
+                    <li class="">@Html.ActionLink("我的发布", "Index", "Published") </li>
                     <li class="">@Html.ActionLink("我的收藏", "Index", "Favorite") </li>
                     <li class="">@Html.ActionLink("我的关注", "Index", "Attention") </li>
                     <li class="">@Html.ActionLink("找项目", "Financials", "InquireResources") </li>
                     <li class="">@Html.ActionLink("找资金", "Investments", "InquireResources") </li>
                     <li class="">@Html.ActionLink("找服务", "Index", "FindService") </li>
                 </ul>
-            </div>
-            <div class="nav-collapse collapse pull-right">
-                <ul class="nav"> 
+                <ul class="nav pull-right"> 
                     @MemberHelper.CheckWhetherMemberLoginIn()
                 </ul>
+            </div>
+            <div class="nav-collapse collapse pull-right">
+
             </div>
         </div>
     </div>

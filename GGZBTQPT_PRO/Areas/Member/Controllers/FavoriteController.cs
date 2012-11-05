@@ -76,9 +76,9 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             try
             {
                 var investments = member.Favorites.Where(a => a.FavoriteType == 2)
-                                .Join(db.T_XM_Investment, a => a.FinancialID, p => p.ID,
+                                .Join(db.T_XM_Investment, a => a.InvestmentID, p => p.ID,
                                     (a, p) => new T_XM_Investment { 
-                                        ItemName = p.ItemName, Investment = p.Investment, 
+                                        ItemName = p.ItemName, Investment = p.Investment, Description = p.Description,
                                         StartInvestment = p.StartInvestment, Favoites = p.Favoites 
                                     })
                                 .ToList();
@@ -140,16 +140,14 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         [HttpPost]
         public ActionResult Favored(int type_id, int id)
         {
-            var favored_item = new T_HY_Favorite();
+            var favored_item = CreateFavoredItem(type_id, id);
             var member = CurrentMember();
 
-            favored_item.FinancialID = id;
-            favored_item.FavoriteType = type_id;
             member.Favorites.Add(favored_item);
             db.SaveChanges();
 
             return Json(new { statusCode = "200", message = "项目收藏成功", type = "success" });
-        }
+        } 
 
         /// <summary>
         /// 取消收藏项目、资金、服务
@@ -169,7 +167,25 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             return Json(new { statusCode = "200", message = "项目取消收藏成功", type = "success" });
         }
 
-
+        //
+        //FavoredHelper
+        public T_HY_Favorite CreateFavoredItem(int type_id, int id)
+        {
+            var favored_item = new T_HY_Favorite();
+            switch (type_id)
+            {
+                case 1:
+                    favored_item.FinancialID = id;
+                    break;
+                case 2:
+                    favored_item.InvestmentID = id;
+                    break;
+                case 3:
+                    break;
+            }
+            favored_item.FavoriteType = type_id;
+            return favored_item;
+        }
 
     }
 }

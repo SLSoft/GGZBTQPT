@@ -7,23 +7,12 @@ using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 
-namespace GGZBTQPT_PRO.Controllers
+namespace GGZBTQPT_PRO.Areas.Member.Controllers
 {
-    public class XM_RZController : BaseController
-    {
-        //private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+    public class FinancialController : BaseController
+    { 
 
-        //
-        // GET: /XM_RZ/
-
-        public ViewResult Index()
-        {
-            return View(db.T_XM_Financing.Where(p  => p.IsValid == true).ToList());
-        }
-
-        //
-        // GET: /XM_RZ/Details/5
-
+        #region-----------------------------项目发布----------------------------------------//
         public ViewResult Details(int id)
         {
             T_XM_Financing t_xm_financing = db.T_XM_Financing.Find(id);
@@ -34,7 +23,7 @@ namespace GGZBTQPT_PRO.Controllers
         {
             List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
 
-            ViewData["Industry"] = new SelectList(Industry,"ID","Name",select);
+            ViewData["Industry"] = new SelectList(Industry, "ID", "Name", select);
         }
 
         public void BindArea(object select = null)
@@ -58,7 +47,7 @@ namespace GGZBTQPT_PRO.Controllers
         public JsonResult GetCity(string ParentCode)
         {
             List<T_PTF_DicTreeDetail> City = db.T_PTF_DicTreeDetail.Where(p => (p.DicType == "34" && p.ParentCode == ParentCode)).ToList();
-            
+
             return Json(City, JsonRequestBehavior.AllowGet);
         }
         public void BindAssetsType(object select = null)
@@ -73,11 +62,8 @@ namespace GGZBTQPT_PRO.Controllers
 
             ViewData["TransactionMode"] = new SelectList(TransactionMode, "ID", "Name", select);
         }
-        
-        //
-        // GET: /XM_RZ/Create
 
-        public ActionResult Create()
+        public void BindOptions()
         {
             BindArea();
             BindIndustry();
@@ -85,8 +71,19 @@ namespace GGZBTQPT_PRO.Controllers
             BindItemStage();
             BindAssetsType();
             BindTransactionMode();
+        }
+        //
+        // GET: /XM_RZ/Create
+
+        public ActionResult Create(string notice_type)
+        {
+            if (notice_type == "success")
+            {
+                ViewData["notice"] = "融资项目发布成功，可进入我的发布中查阅！";
+            }
+            BindOptions();
             return View();
-        } 
+        }
 
         //
         // POST: /XM_RZ/Create
@@ -94,6 +91,7 @@ namespace GGZBTQPT_PRO.Controllers
         [HttpPost]
         public ActionResult Create(T_XM_Financing t_xm_financing, FormCollection collection)
         {
+            BindOptions();
             if (ModelState.IsValid)
             {
                 string checkedTransactionMode = (collection["TransactionMode"] + ",").Replace("false,", "");
@@ -105,22 +103,25 @@ namespace GGZBTQPT_PRO.Controllers
                 t_xm_financing.OP = 0;
                 t_xm_financing.CreateTime = DateTime.Now;
                 t_xm_financing.UpdateTime = DateTime.Now;
-                t_xm_financing.MemberID = 1;
+                t_xm_financing.MemberID = CurrentMember().ID;
                 db.T_XM_Financing.Add(t_xm_financing);
-                int result = db.SaveChanges();
-                if (result > 0)
-                    return ReturnJson(true, "操作成功", "", "", true, "");
-                else
-                    return ReturnJson(false, "操作失败", "", "", false, "");
+                db.SaveChanges();
+
+                return RedirectToAction("Create", new { notice_type = "success" });
             }
-            return Json(new { });
+            ViewData["error"] = "融资项目发布失败!请检查输入信息或联系我们!";
+            return View(t_xm_financing);
         }
-        
+
         //
         // GET: /XM_RZ/Edit/5
- 
-        public ActionResult Edit(int id)
+
+        public ActionResult Edit(int id,string notice_type)
         {
+            if (notice_type == "success")
+            {
+                ViewData["notice"] = "融资项目更新成功，可进入我的发布中查阅！";
+            }
             T_XM_Financing t_xm_financing = db.T_XM_Financing.Find(id);
             BindArea(t_xm_financing.Province);
             BindIndustry(t_xm_financing.Industry);
@@ -137,6 +138,7 @@ namespace GGZBTQPT_PRO.Controllers
         [HttpPost]
         public ActionResult Edit(T_XM_Financing t_xm_financing, FormCollection collection)
         {
+
             if (ModelState.IsValid)
             {
                 db.Entry(t_xm_financing).State = EntityState.Modified;
@@ -146,18 +148,17 @@ namespace GGZBTQPT_PRO.Controllers
                 t_xm_financing.TransactionMode = checkedTransactionMode;
                 t_xm_financing.City = Int32.Parse(collection["ddlCity"]);
                 t_xm_financing.UpdateTime = DateTime.Now;
-                int result = db.SaveChanges();
-                if (result > 0)
-                    return ReturnJson(true, "操作成功", "", "", true, "");
-                else
-                    return ReturnJson(false, "操作失败", "", "", false, "");
+                db.SaveChanges();
+
+                return RedirectToAction("Edit", new { notice_type = "success" });
             }
-            return Json(new { });
+            ViewData["error"] = "融资项目更新失败!请检查输入信息或联系我们!";
+            return View(t_xm_financing);
         }
 
         //
         // GET: /XM_RZ/Delete/5
- 
+
         public ActionResult Delete(int id)
         {
             T_XM_Financing t_xm_financing = db.T_XM_Financing.Find(id);
@@ -169,24 +170,27 @@ namespace GGZBTQPT_PRO.Controllers
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
-        {
-            if (Request.IsAjaxRequest())
+        { 
+            try
             {
-                T_XM_Financing t_xm_financing = db.T_XM_Financing.Find(id);
-                t_xm_financing.IsValid = false;
-                int result = db.SaveChanges();
-                if (result > 0)
-                    return ReturnJson(true, "操作成功", "", "", true, "");
+                // TODO: Add delete logic here 
+                if (Request.IsAjaxRequest())
+                {
+                    T_XM_Financing t_xm_financing = db.T_XM_Financing.Find(id);
+                    //db.T_XM_Financing.Remove(t_xm_financing);
+                    t_xm_financing.IsValid = false;
+                    int result = db.SaveChanges();
+                    return Content(result.ToString());
+                }
                 else
-                    return ReturnJson(false, "操作失败", "", "", false, "");
+                {
+                    return Content("-1");
+                }
             }
-            return Json(new { });
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
+            catch
+            {
+                return Content("-1");
+            }
         }
 
         public ActionResult RZCheckList()
@@ -209,5 +213,13 @@ namespace GGZBTQPT_PRO.Controllers
             db.SaveChanges();
             return RedirectToAction("RZCheckList");
         }
+        #endregion
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
+        }
+
     }
 }
