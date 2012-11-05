@@ -32,11 +32,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-<<<<<<< HEAD
         public ActionResult InquiredFinancials(FormCollection collection)
-=======
-        public ActionResult InquiredFinancials()
->>>>>>> 8ceda32adab0d741bfb63b543746e90e54384e4d
         {
             List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
             ViewData["Industry"] = new SelectList(Industry, "ID", "Name");

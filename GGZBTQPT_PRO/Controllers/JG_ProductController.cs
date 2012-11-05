@@ -63,6 +63,11 @@ namespace GGZBTQPT_PRO.Controllers
                     string strType = collection.GetValue("checkboxType").AttemptedValue;
                     t_jg_product.CustomerType = strType;
                 }
+                t_jg_product.AgencyID = Convert.ToInt32(collection["AgencyList"]);
+                t_jg_product.IsValid = true;
+                t_jg_product.OP = 0;
+                t_jg_product.CreateTime = DateTime.Now;
+                t_jg_product.UpdateTime = DateTime.Now;
                 db.T_JG_Product.Add(t_jg_product);
                 int result = db.SaveChanges();
                 if (result > 0)
@@ -93,6 +98,7 @@ namespace GGZBTQPT_PRO.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(t_jg_product).State = EntityState.Modified;
+                t_jg_product.AgencyID = Convert.ToInt32(collection["AgencyList"]);
                 t_jg_product.CustomerType = collection["checkboxType"];
                 t_jg_product.UpdateTime = DateTime.Now;
                 int result = db.SaveChanges();

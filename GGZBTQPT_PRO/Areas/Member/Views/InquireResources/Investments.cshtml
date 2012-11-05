@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = "找资金";
 }
+<style type="text/css">
+input,span {font:12px/24px verdana;vertical-align:middle;} 
+</style>
 @helper GenerateIndustry()
 {
     var i = 0;
@@ -11,7 +14,7 @@
         {
             @:</tr><tr>
         }
-            @:<td><input type="checkbox" name="cbIndustry" value="@item.Value" /><span>@item.Text</span></td>
+            @:<td><input type="checkbox" name="cbIndustry" value="@item.Value"/><span>@item.Text</span></td>
         i++;
     }
 }
@@ -67,14 +70,14 @@
                     资金范围：</label>
             </div>
             <div class="span10">
-                <input type="checkbox" name="cbFinancial" value="-1" title="不限" />不限
-                <input type="checkbox" name="cbFinancial" value="<10" title="1-10万" />1-10万
-                <input type="checkbox" name="cbFinancial" value="between 10 and 50" title="10-50万" />10-50万
-                <input type="checkbox" name="cbFinancial" value="between 50 and 100" title="50-100万" />50-100万
-                <input type="checkbox" name="cbFinancial" value="between 1 and 1000" title="500-1000万" />500-1000万
-                <input type="checkbox" name="cbFinancial" value="between 1000 and 5000" title="1000-5000万" />1000-5000万
-                <input type="checkbox" name="cbFinancial" value="between 5000 and 10000" title="5000万-1亿" />5000万-1亿
-                <input type="checkbox" name="cbFinancial" value=">10000" title="大于1亿" />大于1亿
+                <input type="checkbox" name="cbFinancial" value="-1" title="不限" /><span>不限</span>
+                <input type="checkbox" name="cbFinancial" value="<10" title="1-10万" /><span>1-10万</span>
+                <input type="checkbox" name="cbFinancial" value="between 10 and 50" title="10-50万" /><span>10-50万</span>
+                <input type="checkbox" name="cbFinancial" value="between 50 and 100" title="50-100万" /><span>50-100万</span>
+                <input type="checkbox" name="cbFinancial" value="between 1 and 1000" title="500-1000万" /><span>500-1000万</span>
+                <input type="checkbox" name="cbFinancial" value="between 1000 and 5000" title="1000-5000万" /><span>1000-5000万</span>
+                <input type="checkbox" name="cbFinancial" value="between 5000 and 10000" title="5000万-1亿" /><span>5000万-1亿</span>
+                <input type="checkbox" name="cbFinancial" value=">10000" title="大于1亿" /><span>大于1亿</span>
             </div>
         </div>
     </div>
