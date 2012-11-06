@@ -19,11 +19,11 @@
     { 
         if (attentioned_members.IndexOf("|" + member_id + "|") >= 0)
         {
-            @Ajax.ActionLink("取消关注", "UnAttentioned", "Attention", new { id = member_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" })
+       <span class="unattentioned">&nbsp;&nbsp;<i class="icon-eye-close icon-white"></i>@Ajax.ActionLink("取消关注", "UnAttentioned", "Attention", new { id = member_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" })&nbsp;&nbsp;</span>
         }
         else
         {
-            @Ajax.ActionLink("关注他", "Attentioned", "Attention", new { type = type_id, id = member_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" })
+       <span class="attentioned">&nbsp;&nbsp;<i class="icon-eye-close"></i> @Ajax.ActionLink("关注他", "Attentioned", "Attention", new { type = type_id, id = member_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" })&nbsp;&nbsp;</span>
         }
 }
 <script type="text/javascript">

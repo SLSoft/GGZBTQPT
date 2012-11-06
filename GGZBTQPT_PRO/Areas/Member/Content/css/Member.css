@@ -63,6 +63,54 @@ body {
   padding: 10px 0; }
   #attentioned .attentioned-content ul {
     list-style: none; }
+#attentioned .attentioned-link .attentioned {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  text-align: center;
+  padding: 3px 0px;
+  margin: 10px 10px 0px 10px;
+  background: #E7F2FD; }
+  #attentioned .attentioned-link .attentioned a {
+    color: #55A255; }
+#attentioned .attentioned-link .unattentioned {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  text-align: center;
+  padding: 3px 0px;
+  margin: 10px 10px 0px 10px;
+  background: #55A255; }
+  #attentioned .attentioned-link .unattentioned a {
+    color: #E7F2FD; }
+#attentioned .attentioned-link .favorited-people {
+  margin-top: 5px;
+  text-align: center;
+  padding: 3px 0px; }
+
+span.attentioned {
+  padding: 0 5px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  text-align: center;
+  padding: 3px 0px;
+  margin: 10px 10px 0px 10px;
+  background: #E7F2FD; }
+  span.attentioned a {
+    color: #55A255; }
+
+span.unattentioned {
+  padding: 0 5px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  text-align: center;
+  padding: 3px 0px;
+  margin: 10px 10px 0px 10px;
+  background: #55A255; }
+  span.unattentioned a {
+    color: #E7F2FD; }
 
 .sidebar .member-info {
   margin-bottom: 30px; }
