@@ -36,7 +36,18 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
 
             ViewData["Province"] = new SelectList(Area, "Code", "Name", select);
         }
+        public void BindInvestmentStage(object select = null)
+        {
+            List<T_PTF_DicDetail> InvestmentStage = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM04")).ToList();
 
+            ViewData["InvestmentStage"] = new SelectList(InvestmentStage, "ID", "Name", select);
+        }
+        public void BindInvestmentNature(object select = null)
+        {
+            List<T_PTF_DicDetail> InvestmentNature = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM07")).ToList();
+
+            ViewData["InvestmentNature"] = new SelectList(InvestmentNature, "ID", "Name", select);
+        }
         public JsonResult GetCity(string ParentCode)
         {
             List<T_PTF_DicTreeDetail> City = db.T_PTF_DicTreeDetail.Where(p => (p.DicType == "34" && p.ParentCode == ParentCode)).ToList();
@@ -56,6 +67,8 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             BindArea();
             BindIndustry();
             BindTeamworkType();
+            BindInvestmentStage();
+            BindInvestmentNature();
             return View();
         }
 
@@ -77,9 +90,13 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
                 string checkedcbTeamWorkType = (collection["cbTeamWorkType"] + ",").Replace("false,", "");
                 if (checkedcbTeamWorkType.Length > 1)
                     checkedcbTeamWorkType = checkedcbTeamWorkType.Remove(checkedcbTeamWorkType.Length - 1);
+                string checkedcbInvestmentStage = (collection["cbInvestmentStage"] + ",").Replace("false,", "");
+                if (checkedcbInvestmentStage.Length > 1)
+                    checkedcbInvestmentStage = checkedcbInvestmentStage.Remove(checkedcbInvestmentStage.Length - 1);
                 t_xm_investment.AimIndustry = checkedIndustry;
                 t_xm_investment.AjmArea = checkedProvince;
                 t_xm_investment.TeamworkType = checkedcbTeamWorkType;
+                t_xm_investment.InvestmentStage = checkedcbInvestmentStage;
                 t_xm_investment.City = Int32.Parse(collection["ddlCity"]);
                 t_xm_investment.IsValid = true;
                 t_xm_investment.OP = 0;
@@ -107,6 +124,8 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             BindArea(t_xm_investment.Province);
             BindIndustry(t_xm_investment.Industry);
             BindTeamworkType(t_xm_investment.TeamworkType);
+            BindInvestmentStage(t_xm_investment.InvestmentStage);
+            BindInvestmentNature(t_xm_investment.InvestmentNature);
             return View(t_xm_investment);
         }
 
@@ -127,10 +146,14 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
                 string checkedcbTeamWorkType = (collection["cbTeamWorkType"] + ",").Replace("false,", "");
                 if (checkedcbTeamWorkType.Length > 1)
                     checkedcbTeamWorkType = checkedcbTeamWorkType.Remove(checkedcbTeamWorkType.Length - 1);
+                string checkedcbInvestmentStage = (collection["cbInvestmentStage"] + ",").Replace("false,", "");
+                if (checkedcbInvestmentStage.Length > 1)
+                    checkedcbInvestmentStage = checkedcbInvestmentStage.Remove(checkedcbInvestmentStage.Length - 1);
                 db.Entry(t_xm_investment).State = EntityState.Modified;
                 t_xm_investment.AimIndustry = checkedIndustry;
                 t_xm_investment.AjmArea = checkedProvince;
                 t_xm_investment.TeamworkType = checkedcbTeamWorkType;
+                t_xm_investment.InvestmentStage = checkedcbInvestmentStage;
                 t_xm_investment.City = Int32.Parse(collection["ddlCity"]);
                 t_xm_investment.UpdateTime = DateTime.Now;
                 db.SaveChanges();

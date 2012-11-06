@@ -13,7 +13,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
     {
         private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
 
-
+        #region --------------------会员管理系统（找项目、找资金）--------------------------
         /// <summary>
         /// 找项目
         /// </summary>
@@ -22,6 +22,8 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         {
             List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
             ViewData["Industry"] = new SelectList(Industry, "ID", "Name");
+            List<T_PTF_DicDetail> ItemStage = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM04")).ToList();
+            ViewData["ItemStage"] = new SelectList(ItemStage, "ID", "Name");
 
             var financials = db.T_XM_Financing.ToList();
             return View(financials); 
@@ -36,6 +38,8 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         {
             List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
             ViewData["Industry"] = new SelectList(Industry, "ID", "Name");
+            List<T_PTF_DicDetail> ItemStage = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM04")).ToList();
+            ViewData["ItemStage"] = new SelectList(ItemStage, "ID", "Name");
             string keys = "";
             string select_itemtype = "";
             string select_industry = "";
@@ -69,6 +73,10 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             ViewData["TeamworkType"] = new SelectList(TeamworkType, "ID", "Name");
             List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
             ViewData["Industry"] = new SelectList(Industry, "ID", "Name");
+            List<T_PTF_DicDetail> InvestmentNature = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM07")).ToList();
+            ViewData["InvestmentNature"] = new SelectList(InvestmentNature, "ID", "Name");
+            List<T_PTF_DicDetail> InvestmentStage = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM04")).ToList();
+            ViewData["InvestmentStage"] = new SelectList(InvestmentStage, "ID", "Name");
             var investments = db.T_XM_Investment.ToList();
             if (Request.RequestType=="POST")
             {
@@ -133,6 +141,8 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             }
             return null;
         }
+
+        #endregion
 
     }
 }
