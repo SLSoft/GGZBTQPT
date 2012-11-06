@@ -40,9 +40,9 @@
         <div class="row-fluid">
             <div class="span2">
                 <div class="favored-link">
-                    
                     @GenerateFavoriteLink(FavoredFinacials, @_model.ID.ToString())
-                    <div class="favorited-people"><span class="text-info">【@_model.Favoites.Count() 人收藏】</span></div>
+                    <div class="favorited-people">
+                        <span class="text-info">【@_model.Favoites.Count() 人收藏】</span></div>
                 </div>
             </div>
             <div class="recommend-content span10">
@@ -54,8 +54,9 @@
                 </p>
                 @*附属信息*@
                 <div class="recommend-info">
-                   <span class="pro-type">总投资：@_model.Amount</span>  <span class="published-member pull-right">发布人：<a href="#">@_model.Member.MemberName</a> <em>@if (@_model.MemberID != @ViewBag.CurrentMember)
-                                                                                                                                                                 { @GenerateAttentionLink(@AttentionedMembers, @_model.MemberID.ToString(), @_model.Member.Type)}</em></span>
+                    <span class="pro-type">总投资：@_model.Amount</span> <span class="published-member pull-right">发布人：<a href="#">@_model.Member.MemberName</a> <em>
+                        @if (@_model.MemberID != @ViewBag.CurrentMember)
+                        { @GenerateAttentionLink(@AttentionedMembers, @_model.MemberID.ToString(), @_model.Member.Type)}</em></span>
                 </div>
             </div>
         </div>

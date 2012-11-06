@@ -8,7 +8,7 @@
 
         sendRandomPwd: ->
             $("#send_random_pwd").click ->
-                alert("xx")
+
                 $.get(
                     $(this).attr("href"),
                     {"loginname": $("#find_loginname").attr("value")},

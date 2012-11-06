@@ -7,7 +7,6 @@
       },
       sendRandomPwd: function() {
         return $("#send_random_pwd").click(function() {
-          alert("xx");
           $.get($(this).attr("href"), {
             "loginname": $("#find_loginname").attr("value")
           }, function(data) {
