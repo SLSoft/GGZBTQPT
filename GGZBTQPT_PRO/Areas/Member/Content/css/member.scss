@@ -47,27 +47,22 @@ body
 
 
 
-//friends's trend
-#twitter
+//published 
+#published
 {
-    .twitter-content
+    .published-content
     {
-        border-top: solid 1px #ddd;
+        border-bottom: dashed 1px #ddd;
         padding: 10px 0;
     }
-    .member-link 
-    {
-    }
-    .msg 
-    {
-    }
+
 }
 //recommand financilas 
-#recommend
+#recommend, #favored
 {
     .recommend-content
     {
-        border-top: solid 1px #ddd;
+        border-top: dashed 1px #ddd;
         padding: 10px 0;
 
     }
@@ -116,6 +111,7 @@ body
 }
 
 //attentioned person
+
 #attentioned
 {
     .attentioned-content
@@ -128,10 +124,80 @@ body
             list-style: none;
         }
     }
-    .member-link 
+    .attentioned-link 
     {
+
+        .attentioned 
+        {
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px; 
+            text-align: center;
+            padding: 3px 0px;
+            margin: 10px 10px 0px 10px;
+            background: #E7F2FD;
+            a
+            {
+                color: #55A255; 
+            }
+        }
+
+        .unattentioned 
+        {
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px; 
+            text-align: center;
+            padding: 3px 0px;
+            margin: 10px 10px 0px 10px;
+            background: #55A255;
+            a
+            {
+                color: #E7F2FD;
+
+            }
+        }
+
+        .favorited-people
+        {
+            margin-top: 5px;
+            text-align: center;
+            padding: 3px 0px;
+        }
     }
 
+}
+span.attentioned 
+{
+    padding: 0 5px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px; 
+    text-align: center;
+    padding: 3px 0px;
+    margin: 10px 10px 0px 10px;
+    background: #E7F2FD;
+    a
+    {
+        color: #55A255; 
+    }
+}
+
+span.unattentioned 
+{
+    padding: 0 5px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px; 
+    text-align: center;
+    padding: 3px 0px;
+    margin: 10px 10px 0px 10px;
+    background: #55A255;
+    a
+    {
+        color: #E7F2FD;
+
+    }
 }
 
 //sidebar
@@ -194,4 +260,6 @@ body
         }
     }
 }
+
+
 

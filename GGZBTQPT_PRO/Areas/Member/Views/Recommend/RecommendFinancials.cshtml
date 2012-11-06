@@ -11,21 +11,19 @@
         }
         else
         {
-       <div class="favored"><span ><i class="icon-heart "></i> @Ajax.ActionLink("收藏该项目", "Favored", "Favorite", new { type_id = 1, id = favored_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" })</span></div> 
-        }
-
-
+       <div class="favored"><span ><i class="icon-heart "></i> @Ajax.ActionLink("收藏项目", "Favored", "Favorite", new { type_id = 1, id = favored_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" })</span></div> 
+        } 
 }
 
 @helper GenerateAttentionLink(string attentioned_members, string member_id, int type_id)
     { 
         if (attentioned_members.IndexOf("|" + member_id + "|") >= 0)
         {
-        @Ajax.ActionLink("取消关注", "UnAttentioned", "Attention", new { id = member_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" })
+       <span class="unattentioned">&nbsp;&nbsp;<i class="icon-eye-close icon-white"></i>@Ajax.ActionLink("取消关注", "UnAttentioned", "Attention", new { id = member_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" })&nbsp;&nbsp;</span>
         }
         else
         {
-        @Ajax.ActionLink("关注他", "Attentioned", "Attention", new { type = type_id, id = member_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" })
+       <span class="attentioned">&nbsp;&nbsp;<i class="icon-eye-close"></i> @Ajax.ActionLink("关注他", "Attentioned", "Attention", new { type = type_id, id = member_id }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" })&nbsp;&nbsp;</span>
         }
 }
 <script type="text/javascript">
@@ -42,22 +40,23 @@
         <div class="row-fluid">
             <div class="span2">
                 <div class="favored-link">
-                    
                     @GenerateFavoriteLink(FavoredFinacials, @_model.ID.ToString())
-                    <div class="favorited-people"><span ><a href="#">【@_model.Favoites.Count() 人收藏】</a></span></div>
+                    <div class="favorited-people">
+                        <span class="text-info">【@_model.Favoites.Count() 人收藏】</span></div>
                 </div>
             </div>
             <div class="recommend-content span10">
                 <h4>
-                    @Html.ActionLink(_model.ItemName, "Details", "Financial",new {id = _model.ID},null)<span class="pub-time pull-right">@_model.CreateTime</span></h4>
+                    @Html.ActionLink(_model.ItemName, "Details", "Financial", new { id = _model.ID }, null)<span class="pub-time pull-right">@_model.CreateTime</span></h4>
                 @*摘要*@
                 <p class="summary">
                     @_model.ItemContent
                 </p>
                 @*附属信息*@
                 <div class="recommend-info">
-                   <span class="pro-type">总投资：@_model.TotalInvestment</span>  <span class="published-member pull-right">发布人：<a href="#">@_model.Member.MemberName</a> <em class="favored"> @if (@_model.MemberID != @ViewBag.CurrentMember)
-                                                                                                                                                                                           { @GenerateAttentionLink(@AttentionedMembers, @_model.MemberID.ToString(), @_model.Member.Type)}</em></span>
+                    <span class="pro-type">总投资：@_model.Amount</span> <span class="published-member pull-right">发布人：<a href="#">@_model.Member.MemberName</a> <em>
+                        @if (@_model.MemberID != @ViewBag.CurrentMember)
+                        { @GenerateAttentionLink(@AttentionedMembers, @_model.MemberID.ToString(), @_model.Member.Type)}</em></span>
                 </div>
             </div>
         </div>

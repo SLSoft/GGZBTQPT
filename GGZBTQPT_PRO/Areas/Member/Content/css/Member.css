@@ -26,14 +26,14 @@ body {
 .field-validation-error {
   color: #FF8C05; }
 
-#twitter .twitter-content {
-  border-top: solid 1px #ddd;
+#published .published-content {
+  border-bottom: dashed 1px #ddd;
   padding: 10px 0; }
 
-#recommend .recommend-content {
-  border-top: solid 1px #ddd;
+#recommend .recommend-content, #favored .recommend-content {
+  border-top: dashed 1px #ddd;
   padding: 10px 0; }
-#recommend .favored-link .favored {
+#recommend .favored-link .favored, #favored .favored-link .favored {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -41,9 +41,9 @@ body {
   padding: 3px 0px;
   margin: 10px 10px 0px 10px;
   background: #FCEFE3; }
-  #recommend .favored-link .favored a {
+  #recommend .favored-link .favored a, #favored .favored-link .favored a {
     color: #D9896A; }
-#recommend .favored-link .unfavored {
+#recommend .favored-link .unfavored, #favored .favored-link .unfavored {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -51,9 +51,9 @@ body {
   padding: 3px 0px;
   margin: 10px 10px 0px 10px;
   background: #D9896A; }
-  #recommend .favored-link .unfavored a {
+  #recommend .favored-link .unfavored a, #favored .favored-link .unfavored a {
     color: #FAE7D6; }
-#recommend .favored-link .favorited-people {
+#recommend .favored-link .favorited-people, #favored .favored-link .favorited-people {
   margin-top: 5px;
   text-align: center;
   padding: 3px 0px; }
@@ -63,6 +63,54 @@ body {
   padding: 10px 0; }
   #attentioned .attentioned-content ul {
     list-style: none; }
+#attentioned .attentioned-link .attentioned {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  text-align: center;
+  padding: 3px 0px;
+  margin: 10px 10px 0px 10px;
+  background: #E7F2FD; }
+  #attentioned .attentioned-link .attentioned a {
+    color: #55A255; }
+#attentioned .attentioned-link .unattentioned {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  text-align: center;
+  padding: 3px 0px;
+  margin: 10px 10px 0px 10px;
+  background: #55A255; }
+  #attentioned .attentioned-link .unattentioned a {
+    color: #E7F2FD; }
+#attentioned .attentioned-link .favorited-people {
+  margin-top: 5px;
+  text-align: center;
+  padding: 3px 0px; }
+
+span.attentioned {
+  padding: 0 5px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  text-align: center;
+  padding: 3px 0px;
+  margin: 10px 10px 0px 10px;
+  background: #E7F2FD; }
+  span.attentioned a {
+    color: #55A255; }
+
+span.unattentioned {
+  padding: 0 5px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  text-align: center;
+  padding: 3px 0px;
+  margin: 10px 10px 0px 10px;
+  background: #55A255; }
+  span.unattentioned a {
+    color: #E7F2FD; }
 
 .sidebar .member-info {
   margin-bottom: 30px; }
