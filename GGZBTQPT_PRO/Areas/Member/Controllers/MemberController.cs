@@ -154,14 +154,25 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         [HttpPost]
         public ActionResult Login(string loginname, string password)
         {
-            T_HY_Member member = db.T_HY_Member.Where(m => m.LoginName == loginname).First();
-            if (member != null && member.Password == password)
+            try
             {
-                Session["MemberID"] = member.ID;
-
-                return RedirectToAction("Index", "Home");
+                T_HY_Member member = db.T_HY_Member.Where(m => m.LoginName == loginname).First();
+                if (member != null && member.Password == password)
+                {
+                    Session["MemberID"] = member.ID; 
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewData["notice"] = "密码错误，请检查后重新尝试!";
+                    return View();
+                }
             }
-            return View();
+            catch
+            {
+                ViewData["notice"] = "用户名错误，请检查后重新尝试!";
+                return View();
+            } 
         }
 
         public ActionResult Logout()

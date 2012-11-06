@@ -10,13 +10,19 @@
 {
     <fieldset>
      <legend><h3>会员登录</h3></legend>
-        <div>
-            <label for="loginname">登录名:</label>
-            <input type="text" id="loginname" name="loginname" />
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LoginName)
         </div>
-        <div>
-            <label for="password">登录密码:</label>
-            <input type="password" id="password" name="password" />
+        <div class="editor-field">
+            <input class="valid" data-val="true" data-val-required="必须填写登录名" id="LoginName" name="LoginName" type="text" />
+            <span class="field-validation-valid" data-valmsg-for="LoginName" data-valmsg-replace="true"></span>
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Password)
+        </div>
+        <div class="editor-field">
+            @Html.PasswordFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
         </div>
         <p> 
             <button class="btn btn-primary" type="submit"><i class="icon-ok-circle icon-white"></i> 登录</button>
