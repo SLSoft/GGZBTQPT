@@ -1,17 +1,22 @@
 ﻿
 
-//判断会员是否登陆
 @helper CheckWhetherMemberLoginIn()
     {
     if (Session["MemberID"] != null && Session["MemberID"].ToString() != "")
     {
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">信息发布<b class="caret"></b></a>
-        <ul class="dropdown-menu">
-            <li>@Html.ActionLink("发布项目", "Create", "Financial")</li>
-            <li>@Html.ActionLink("发布项目", "Create", "Investment")</li>
-
-        </ul>
+    
+    <li>
+        <div class="btn-group">
+            <button class="btn btn-success">
+                信息发布</button>
+            <button class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("发布投资项目", "Create", "Financial")</li>
+                <li>@Html.ActionLink("发布融资意向", "Create", "Investment")</li>
+            </ul>
+        </div>
     </li>
     <li class="divider-vertical"></li>
     <li>@Html.ActionLink("设置", "Config", "Member")</li>
@@ -26,8 +31,7 @@
 <div class="navbar  navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
-            <a class="brand" href="http://www.ovcstf.com/">科技金融网</a>
-            <div class="nav-collapse collapse">
+            <a class="brand" href="http://www.ovcstf.com/">科技金融网</a> 
                 <ul class="nav">
                     <li class="">@Html.ActionLink("金融推荐", "Index", "Home")</li>
                     <li class="">@Html.ActionLink("我的发布", "Index", "Published") </li>
@@ -36,14 +40,11 @@
                     <li class="">@Html.ActionLink("找项目", "Financials", "InquireResources") </li>
                     <li class="">@Html.ActionLink("找资金", "Investments", "InquireResources") </li>
                     <li class="">@Html.ActionLink("找服务", "Index", "FindService") </li>
+                     
                 </ul>
-                <ul class="nav pull-right"> 
+                <ul class="nav pull-right">
                     @CheckWhetherMemberLoginIn()
-                </ul>
-            </div>
-            <div class="nav-collapse collapse pull-right">
-
-            </div>
+                </ul> 
         </div>
     </div>
 </div>

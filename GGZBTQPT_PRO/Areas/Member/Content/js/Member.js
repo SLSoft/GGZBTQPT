@@ -1,7 +1,7 @@
 (function() {
 
   (function($) {
-    return $.Member = {
+    $.Member = {
       notice: function(msg) {
         return $("<div class='alert fade in alert-" + msg.type + "'></div>").text(msg.message).append("<button type='button' class='close' data-dismiss='alert'>×</button>").prependTo("#notice");
       },
@@ -17,6 +17,11 @@
         });
       }
     };
+    if (window.PIE) {
+      return $('.rounded').each(function() {
+        return PIE.attach(this);
+      });
+    }
   })(jQuery);
 
 }).call(this);

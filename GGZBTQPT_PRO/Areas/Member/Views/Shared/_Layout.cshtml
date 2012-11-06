@@ -32,15 +32,15 @@
     <script src="@Url.Content("~/Public/bootstrap/js/bootstrap.min.js")")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Areas/Member/Content/js/Member.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script> 
 </head>
-<body style="margin-top: 65px;">
+<body style="margin-top: 60px;">
     @Html.Partial("_Header")
+
     <div class="container">
         <div id="main" class="row main">
             <div class="span9">
-                <div class="content">
+                <div class="content rounded">
                     <div id="notice">
                         @Notice()
                     </div>
@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="span3">
-                <div class="sidebar">
+                <div class="sidebar rounded">
                     @Html.Partial("_SideBar")
                 </div>
             </div>
@@ -58,4 +58,8 @@
         <a href="#">武汉东湖新技术开发区金融办</a> | <a href="#">光谷资本大厦</a> | <a href="#">武汉神路信息咨询有限公司</a>
     </div>
 </body>
+    <!--[if lt IE 10]>
+    <script src="@Url.Content("~/Areas/Member/Content/js/PIE.js")" type="text/javascript"></script>
+    <![endif]-->
+    <script src="@Url.Content("~/Areas/Member/Content/js/Member.js")" type="text/javascript"></script>
 </html>
