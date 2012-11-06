@@ -18,16 +18,24 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
 
         public ActionResult Index()
         {
-            var jg_agency = db.T_JG_Agency.ToList();
+            var jg_agency = db.T_JG_Agency.Where(p => p.IsIn == true).ToList();
             return View(jg_agency);
         }
 
-        public ActionResult AgencyList(int AgencyType)
+        public ActionResult AgencyList(int AgencyType, bool isin)
         {
             if (AgencyType != 0)
             {
-                var jg_agency = db.T_JG_Agency.Where(p => p.AgencyType == (int)AgencyType).ToList();
-                return View(jg_agency);
+                if ((bool)isin == true)
+                {
+                    var jg_agency = db.T_JG_Agency.Where(p => (p.AgencyType == (int)AgencyType && p.IsIn == (bool)isin)).ToList();
+                    return View(jg_agency);
+                }
+                else
+                {
+                    var jg_agency = db.T_JG_Agency.Where(p => p.AgencyType == (int)AgencyType).ToList();
+                    return View(jg_agency);
+                }
             }
             else
             {

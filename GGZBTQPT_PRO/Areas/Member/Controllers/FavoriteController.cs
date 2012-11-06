@@ -50,7 +50,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
                                     (a, p) => new T_XM_Financing {  
                                         ItemName = p.ItemName, Investment = p.Investment, 
                                         TotalInvestment = p.TotalInvestment, 
-                                        ID = p.ID, ItemContent = p.ItemContent, Favoites = p.Favoites 
+                                        ID = p.ID, ItemContent = p.ItemContent, Favoites = p.Favoites, Member = p.Member 
                                     }).OrderByDescending(f => f.CreateTime).ToList();
                 PagedList<T_XM_Financing> paged_financials = new PagedList<T_XM_Financing>(financials,id,5); 
 
@@ -80,7 +80,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
                                 .Join(db.T_XM_Investment, a => a.InvestmentID, p => p.ID,
                                     (a, p) => new T_XM_Investment { 
                                         ItemName = p.ItemName, Investment = p.Investment, Description = p.Description,
-                                        StartInvestment = p.StartInvestment, Favoites = p.Favoites, ID = p.ID
+                                        StartInvestment = p.StartInvestment, Favoites = p.Favoites, ID = p.ID, Member = p.Member
                                     })
                                 .OrderByDescending(i => i.CreateTime)
                                 .ToList();
@@ -112,7 +112,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
                                 .Join(db.T_JG_Product, a => a.FinancialID, p => p.ID,
                                     (a, p) => new T_JG_Product { 
                                         ProductName = p.ProductName, RepaymentType = p.RepaymentType, 
-                                        Favoites = p.Favoites 
+                                        Favoites = p.Favoites
                                     })
                                 .OrderByDescending(p => p.CreateTime)
                                 .ToList();

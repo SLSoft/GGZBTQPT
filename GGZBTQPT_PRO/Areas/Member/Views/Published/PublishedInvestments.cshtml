@@ -10,14 +10,14 @@
             @*投资意向信息*@
             <div class="published-content ">
                 <h4>
-                   @Html.ActionLink(_model.ItemName, "Edit", "Investment",new {id = _model.ID},null)</h4>
+                   @Html.ActionLink(_model.ItemName, "Edit", "Investment", new { id = _model.ID }, null)<span class="pub-time pull-right">@_model.CreateTime</span></h4>
                 @*摘要*@
                 <p class="summary">
                     @_model.Description
                 </p>
                 @*附属信息*@
                 <div class="published-info">
-                   <span class="pub-time">@_model.CreateTime</span><span class="pro-type">总投资：@_model.Investment</span><span class="favorite">多少人收藏</span>
+                   <span class="pro-type">总投资：@_model.Investment</span><span class="favorite pull-right text-info">【@_model.Favoites.Count() 人收藏】</span>
                 </div>
             </div>
         </div>

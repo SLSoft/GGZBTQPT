@@ -9,11 +9,11 @@
     var i = 0;
     foreach (var item in ViewData["Industry"] as SelectList)
     {
-        if (i % 6 == 0)
+        if (i % 6 == 0 && i != 0)
         {
-            <br />
+            @:</tr><tr>
         }
-        <input type="checkbox" id="checkboxType" name="checkboxType" value="@item.Value" /><span>@item.Text</span>
+        @:<td><input type="checkbox"  name="cbIndustry" value="@item.Value" /><span>@item.Text</span></td>
         i++;
     }
 }
@@ -22,11 +22,24 @@
     var i = 0;
     foreach (var item in ViewData["Province"] as SelectList)
     {
-        if (i % 6 == 0)
+        if (i % 6 == 0 && i != 0)
         {
-            <br />
+            @:</tr><tr>
         }
-        <input type="checkbox" id="checkboxType" name="checkboxType" value="@item.Value" /><span>@item.Text</span>
+        @:<td><input type="checkbox" name="cbProvince" value="@item.Value" /><span>@item.Text</span></td>
+        i++;
+    }
+}
+@helper GenerateTeamWorkType()
+{
+    var i = 0;
+    foreach (var item in ViewData["TeamworkType"] as SelectList)
+    {
+        if (i % 6 == 0 && i != 0)
+        {
+            @:</tr><tr>
+        }
+        @:<td><input type="checkbox" name="cbTeamWorkType" value="@item.Value" /><span>@item.Text</span></td>
         i++;
     }
 }
@@ -98,7 +111,11 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.AimIndustry, "意向行业")</td>
-                <td colspan="3">@GenerateIndustry()</td>
+                <td colspan="3"><table width="100%">
+                    <tr>
+                    @GenerateIndustry()
+                    </tr>
+                </table></td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.ReturnRatio, "预期回报率")</td>
@@ -110,11 +127,19 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.AjmArea, "投资地区")</td>
-                <td colspan="3">@GenerateProvince()</td>
+                <td colspan="3"><table width="100%">
+                    <tr>
+                    @GenerateProvince()
+                    </tr>
+                </table></td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.TeamworkType, "合作方式")</td>
-                <td colspan="3">@Html.DropDownList("TeamworkType", "请选择")</td>
+                <td colspan="3"><table width="100%">
+                    <tr>
+                    @GenerateTeamWorkType()
+                    </tr>
+                </table></td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.PartnerRequirements, "合作方要求")</td>

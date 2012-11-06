@@ -43,7 +43,7 @@ namespace GGZBTQPT_PRO.Controllers
         }
         public void BindArea(object select = null)
         {
-            List<T_PTF_DicTreeDetail> Area = db.T_PTF_DicTreeDetail.Where(p => (p.DicType == "34" && p.Depth == 1)).ToList();
+            List<T_PTF_DicTreeDetail> Area = db.T_PTF_DicTreeDetail.Where(p => (p.DicType == "34" && p.Depth == 1)).OrderBy(p => p.Taxis).ToList();
 
             ViewData["Province"] = new SelectList(Area, "Code", "Name", select);
         }
@@ -73,6 +73,18 @@ namespace GGZBTQPT_PRO.Controllers
         {
             if (ModelState.IsValid)
             {
+                string checkedIndustry = (collection["cbIndustry"] + ",").Replace("false,", "");
+                if (checkedIndustry.Length > 1)
+                    checkedIndustry = checkedIndustry.Remove(checkedIndustry.Length - 1);
+                string checkedProvince = (collection["cbProvince"] + ",").Replace("false,", "");
+                if (checkedProvince.Length > 1)
+                    checkedProvince = checkedProvince.Remove(checkedProvince.Length - 1);
+                string checkedcbTeamWorkType = (collection["cbTeamWorkType"] + ",").Replace("false,", "");
+                if (checkedcbTeamWorkType.Length > 1)
+                    checkedcbTeamWorkType = checkedcbTeamWorkType.Remove(checkedcbTeamWorkType.Length - 1);
+                t_xm_investment.AimIndustry = checkedIndustry;
+                t_xm_investment.AjmArea = checkedProvince;
+                t_xm_investment.TeamworkType = checkedcbTeamWorkType;
                 t_xm_investment.City = Int32.Parse(collection["ddlCity"]);
                 t_xm_investment.IsValid = true;
                 t_xm_investment.OP = 0;
@@ -114,10 +126,13 @@ namespace GGZBTQPT_PRO.Controllers
                 string checkedProvince = (collection["cbProvince"] + ",").Replace("false,", "");
                 if (checkedProvince.Length > 1)
                     checkedProvince = checkedProvince.Remove(checkedProvince.Length - 1);
-
+                string checkedcbTeamWorkType = (collection["cbTeamWorkType"] + ",").Replace("false,", "");
+                if (checkedcbTeamWorkType.Length > 1)
+                    checkedcbTeamWorkType = checkedcbTeamWorkType.Remove(checkedcbTeamWorkType.Length - 1);
                 db.Entry(t_xm_investment).State = EntityState.Modified;
                 t_xm_investment.AimIndustry = checkedIndustry;
                 t_xm_investment.AjmArea = checkedProvince;
+                t_xm_investment.TeamworkType = checkedcbTeamWorkType;
                 t_xm_investment.City = Int32.Parse(collection["ddlCity"]);
                 t_xm_investment.UpdateTime = DateTime.Now;
                 int result = db.SaveChanges();

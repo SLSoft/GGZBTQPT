@@ -28,7 +28,7 @@ namespace GGZBTQPT_PRO.Models
         public string AimIndustry { get; set; }
         public string AjmArea { get; set; }
         public Nullable<double> ReturnRatio { get; set; }
-        public Nullable<int> TeamworkType { get; set; }
+        public string TeamworkType { get; set; }
         public string InvestmentPeriod { get; set; }
         public string PartnerRequirements { get; set; }
         public string PublicStatus { get; set; }

@@ -70,29 +70,46 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
             ViewData["Industry"] = new SelectList(Industry, "ID", "Name");
             var investments = db.T_XM_Investment.ToList();
-            //if (Request.IsAjaxRequest())
-            //{
-            //    string keys = "";
-            //    string select_TeamworkType = "";
-            //    string select_industry = "";
-            //    string select_Investment = "";
-            //    if (collection["keys"].ToString().Trim() != "")
-            //        keys = collection["keys"].ToString();
-            //    if (collection["cbTeamworkType"] != null)
-            //        select_TeamworkType = collection["cbTeamworkType"];
-            //    if (collection["cbIndustry"] != null)
-            //        select_industry = collection["cbIndustry"];
-            //    if (collection["cbFinancial"] != null)
-            //        select_Investment = collection["cbFinancial"];
-            //    string order = "ID";
-            //    System.Data.SqlClient.SqlParameter[] selparms = new System.Data.SqlClient.SqlParameter[5];
-            //    selparms[0] = new System.Data.SqlClient.SqlParameter("@keys", keys);
-            //    selparms[1] = new System.Data.SqlClient.SqlParameter("@TeamworkType", select_TeamworkType);
-            //    selparms[2] = new System.Data.SqlClient.SqlParameter("@Industry", select_industry);
-            //    selparms[3] = new System.Data.SqlClient.SqlParameter("@FinancSum", select_Investment);
-            //    selparms[4] = new System.Data.SqlClient.SqlParameter("@Order", order);
-            //    investments = (from p in db.T_XM_Investment.SqlQuery("exec dbo.P_GetTZXMByCondition @keys,@TeamworkType,@Industry,@FinancSum,@Order", selparms) select p).ToList();
-            //}
+            if (Request.RequestType=="POST")
+            {
+                string keys = "";
+                string select_TeamworkType = "";
+                string select_industry = "";
+                string select_Investment = "";
+                if (collection["keys"].ToString().Trim() != "")
+                    keys = collection["keys"].ToString();
+                if (collection["cbTeamworkType"] != null)
+                {
+                    string[] temp = collection["cbTeamworkType"].Split(',');
+                    select_TeamworkType += " and (";
+                    foreach (string str in temp)
+                    {
+                        select_TeamworkType += " TeamworkType like '%" + str + "%' or";
+                    }
+                    select_TeamworkType = select_TeamworkType.Substring(0, select_TeamworkType.Length - 3);
+                    select_TeamworkType += ")";
+                }
+                if (collection["cbIndustry"] != null)
+                {
+                    //string[] temp = collection["cbIndustry"].Split(',');
+                    //foreach (string str in temp)
+                    //{
+                    //    select_Investment += " and AimIndustry like '%" + str + "%'";
+                    //}
+                }
+                if (collection["cbFinancial"] != null)
+                {
+                    //select_Investment = collection["cbFinancial"];
+                }
+                string order = "ID";
+                System.Data.SqlClient.SqlParameter[] selparms = new System.Data.SqlClient.SqlParameter[5];
+                selparms[0] = new System.Data.SqlClient.SqlParameter("@keys", keys);
+                selparms[1] = new System.Data.SqlClient.SqlParameter("@TeamworkType", select_TeamworkType);
+                selparms[2] = new System.Data.SqlClient.SqlParameter("@Industry", select_industry);
+                selparms[3] = new System.Data.SqlClient.SqlParameter("@FinancSum", select_Investment);
+                selparms[4] = new System.Data.SqlClient.SqlParameter("@Order", order);
+                investments = (from p in db.T_XM_Investment.SqlQuery("exec dbo.P_GetTZXMByCondition @keys,@TeamworkType,@Industry,@FinancSum,@Order", selparms) select p).ToList();
+            }
             return View(investments); 
         }
 

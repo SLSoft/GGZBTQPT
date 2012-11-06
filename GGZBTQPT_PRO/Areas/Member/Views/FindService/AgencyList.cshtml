@@ -1,22 +1,42 @@
 ﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_JG_Agency>
 
-@{
-    ViewBag.Title = "AgencyList";
+@section custom_css{
+    <link href="@Url.Content("~/Areas/Member/Content/css/wscss/news_css.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Areas/Member/Content/css/wscss/style.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Areas/Member/Content/css/wscss/text1.css")" rel="stylesheet" type="text/css" />
 }
-<ul>
-<table style="width:100%">
-@foreach (var item in Model) {
-    <tr>
-        <td rowspan="2" width="162px"><img alt="LOGO" style="width:160px; height:120px" src="../../../../Content/images/member/logo.jpg" /></td>
-        <td>@Html.ActionLink(item.AgencyName, "AgencyShow", new { id = item.ID })</td>
-        <td style="text-align:right"><strong>@item.AgencyTypeName</strong></td>
-    </tr>
-    <tr>
-        <td colspan="2">@(item.Remark.Length > 200 ? item.Remark.Substring(0, 200)+"..." : item.Remark)</td>
-    </tr>
-    <tr>
-        <td colspan="2"><hr /></td>
-    </tr>
-}
-</table>>
+<div class="part-r part-fsrw">
+<div class="fs-content">
+<ul class="fs-c-nav">
+	<li><a href="##"></a></li>
+	<li><a href="##"></a></li>
+	<li><a href="##"></a></li>
+	<li><a href="##"></a></li>
+	<li><a href="##"></a></li>
+	<li class="last">
+        @Html.ActionLink("已入驻", "AgencyList", new {AgencyType=Model.First().AgencyType, isin = true})
+        @Html.ActionLink("全部", "AgencyList", new { AgencyType = Model.First().AgencyType, isin = false})
+	</li>
+</ul>
+<ul class="fs-c-list">
+    @foreach (var item in Model)
+    {
+        <li>
+        <h3><span class="dot">■</span>@Html.ActionLink(item.AgencyName, "AgencyShow", new { id = item.ID })</h3>
+        <div class="fs-c-c">
+            <div class="copic">
+				<img alt="logo" src="#"/>
+            </div>
+            <span class="_text">
+            @(item.Remark.Length > 200 ? item.Remark.Substring(0, 200) + "..." : item.Remark)
+            </span>
+        </div>
+
+	</li>
+    }
+</ul>
+</div>
+<div class="clear"></div>
+</div>
+
 

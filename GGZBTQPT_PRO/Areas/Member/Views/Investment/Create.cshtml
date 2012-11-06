@@ -1,15 +1,17 @@
 ﻿@model GGZBTQPT_PRO.Models.T_XM_Investment
-
+<style type="text/css">
+input,span {font:12px/24px verdana;vertical-align:middle;} 
+</style>
 @helper GenerateIndustry()
 {
     var i = 0;
     foreach (var item in ViewData["Industry"] as SelectList)
     {
-        if (i % 6 == 0)
+        if (i % 6 == 0 && i != 0)
         {
-            <br />
+            @:</tr><tr>
         }
-        <input type="checkbox" id="checkboxType" name="checkboxType" value="@item.Value" /><span>@item.Text</span>
+        @:<td><input type="checkbox"  name="cbIndustry" value="@item.Value" /><span>@item.Text</span></td>
         i++;
     }
 }
@@ -18,11 +20,24 @@
     var i = 0;
     foreach (var item in ViewData["Province"] as SelectList)
     {
-        if (i % 6 == 0)
+        if (i % 6 == 0 && i != 0)
         {
-            <br />
+            @:</tr><tr>
         }
-        <input type="checkbox" id="checkboxType" name="checkboxType" value="@item.Value" /><span>@item.Text</span>
+        @:<td><input type="checkbox" name="cbProvince" value="@item.Value" /><span>@item.Text</span></td>
+        i++;
+    }
+}
+@helper GenerateTeamWorkType()
+{
+    var i = 0;
+    foreach (var item in ViewData["TeamworkType"] as SelectList)
+    {
+        if (i % 6 == 0 && i != 0)
+        {
+            @:</tr><tr>
+        }
+        @:<td><input type="checkbox" name="cbTeamWorkType" value="@item.Value" /><span>@item.Text</span></td>
         i++;
     }
 }
@@ -53,14 +68,13 @@
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
-        <table style="width:800px">
+        <table style="width:100%">
             <tr>
                 <td colspan="2" style="background-color:#666666; color:#ffffff">基本信息</td>
             </tr>
             <tr>
-                <td style="width:120px">@Html.LabelFor(model => model.ItemName, "投资意向标题")</td>
-                <td>@Html.EditorFor(model => model.ItemName)
-            @Html.ValidationMessageFor(model => model.ItemName)</td>
+                <td style="width:90px">@Html.LabelFor(model => model.ItemName, "投资意向标题")</td>
+                <td>@Html.TextBoxFor(model => model.ItemName, new { style = "width:60%" })</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Province, "所属区域")</td>
@@ -82,16 +96,15 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Description, "投资意向描述")</td>
-                <td>@Html.TextAreaFor(model => model.Description, new { rows = "5", cols = "60" })
-            @Html.ValidationMessageFor(model => model.Description)</td>
+                <td>@Html.TextAreaFor(model => model.Description, new { rows = "8", style = "width:95%" })</td>
             </tr>
         </table>
-        <table style="width:800px">
+        <table style="width:100%">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">投资信息</td>
             </tr>
             <tr>
-                <td style="width:120px">@Html.LabelFor(model => model.Investment, "可投资金额")</td>
+                <td style="width:90px">@Html.LabelFor(model => model.Investment, "可投资金额")</td>
                 <td>@Html.EditorFor(model => model.Investment)（万元）
             @Html.ValidationMessageFor(model => model.Investment)</td>
                 <td>@Html.LabelFor(model => model.StartInvestment, "起始投资金额")</td>
@@ -100,7 +113,11 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.AimIndustry, "意向行业")</td>
-                <td colspan="3">@GenerateIndustry()</td>
+                <td colspan="3"><table width="100%">
+                    <tr>
+                    @GenerateIndustry()
+                    </tr>
+                </table></td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.ReturnRatio, "预期回报率")</td>
@@ -112,24 +129,31 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.AjmArea, "投资地区")</td>
-                <td colspan="3">@GenerateProvince()</td>
+                <td colspan="3"><table width="100%">
+                    <tr>
+                    @GenerateProvince()
+                    </tr>
+                </table></td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.TeamworkType, "合作方式")</td>
-                <td colspan="3">@Html.DropDownList("TeamworkType", "请选择")</td>
+                <td colspan="3"><table width="100%">
+                    <tr>
+                    @GenerateTeamWorkType()
+                    </tr>
+                </table></td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.PartnerRequirements, "合作方要求")</td>
-                <td colspan="3">@Html.EditorFor(model => model.PartnerRequirements)
-            @Html.ValidationMessageFor(model => model.PartnerRequirements)</td>
+                <td colspan="3">@Html.TextAreaFor(model => model.PartnerRequirements, new { rows = "5", style = "width:95%" })</td>
             </tr>
         </table>
-        <table style="width:800px">
+        <table style="width:100%">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">联系人信息</td>
             </tr>
             <tr>
-                <td style="width:120px">@Html.LabelFor(model => model.Linkman, "联系人")</td>
+                <td style="width:90px">@Html.LabelFor(model => model.Linkman, "联系人")</td>
                 <td>@Html.EditorFor(model => model.Linkman)
             @Html.ValidationMessageFor(model => model.Linkman)</td>
                 <td>@Html.LabelFor(model => model.Position, "部门&职务")</td>

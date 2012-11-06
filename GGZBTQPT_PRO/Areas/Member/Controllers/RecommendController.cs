@@ -75,6 +75,8 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             {
                 PagedList<T_XM_Investment> investments = db.T_XM_Investment.OrderByDescending(f => f.CreateTime).ToPagedList(id, 5);
                 ViewBag.FavoredInvestments = FavoredItems(2);
+                ViewBag.AttentionedMembers = AttentionedMembers();
+                ViewBag.CurrentMember = member.ID;
                 return PartialView(investments);
             }
             catch
@@ -99,6 +101,8 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             {
                 PagedList<T_JG_Product> products = db.T_JG_Product.OrderByDescending(p => p.CreateTime).ToPagedList(id, 5);
                 ViewBag.FavoredInvestments = FavoredItems(3);
+                ViewBag.AttentionedMembers = AttentionedMembers();
+                ViewBag.CurrentMember = member.ID;
                 return PartialView(products);
             }
             catch
@@ -107,8 +111,6 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             }
         } 
 
-
-
         /// <summary>
         /// 读取当前用户所收藏的项目的ID集合
         /// </summary>
@@ -116,8 +118,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         private string FavoredItems(int favorite_type)
         {
             string favored_items = "";
-            List<int?> item_ids = new List<int?>();
-
+            List<int?> item_ids = new List<int?>(); 
 
             switch(favorite_type)
             {
@@ -147,8 +148,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         private string AttentionedMembers()
         {
             string attentioned_members = "";
-            List<int> member_ids = new List<int>();
-
+            List<int> member_ids = new List<int>(); 
             member_ids = CurrentMember().Attentions.Select(a => a.AttentionedMemberID).ToList();
 
             foreach (int member_id in member_ids)
