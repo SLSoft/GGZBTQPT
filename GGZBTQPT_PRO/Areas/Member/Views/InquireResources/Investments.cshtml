@@ -31,6 +31,26 @@ input,span {font:12px/24px verdana;vertical-align:middle;}
         i++;
     }
 }
+@helper GenerateInvestmentStage()
+{
+    foreach (var item in ViewData["InvestmentStage"] as SelectList)
+    {
+        @:<td><input type="checkbox" name="cbInvestmentStage" value="@item.Value" /><span>@item.Text</span></td>
+    }
+}
+@helper GenerateInvestmentNature()
+{
+    var i = 0;
+    foreach (var item in ViewData["InvestmentNature"] as SelectList)
+    {
+        if (i % 6 == 0 && i != 0)
+        {
+            @:</tr><tr>
+        }
+       @:<td><input type="checkbox" id="checkboxType" name="cbInvestmentNature" value="@item.Value" /><span>@item.Text</span></td>
+       i++;
+    }
+}
 <h3 class="content-title">
     找资金</h3>
 <div class="inquire-conditions">
@@ -38,6 +58,19 @@ input,span {font:12px/24px verdana;vertical-align:middle;}
 <div id="inquire-options" class="inquire-options well well-small">
     <form action="Investments" method="post">
     <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span2">
+                <label>
+                    投资性质：</label>
+            </div>
+            <div class="span10">
+                <table width="600px">
+                    <tr>
+                    @GenerateInvestmentNature()
+                    </tr>
+                </table>
+            </div>
+        </div>
         <div class="row-fluid">
             <div class="span2">
                 <label>
@@ -60,6 +93,19 @@ input,span {font:12px/24px verdana;vertical-align:middle;}
                 <table width="600px">
                     <tr>
                     @GenerateIndustry()
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span2">
+                <label>
+                    投资阶段：</label>
+            </div>
+            <div class="span10">
+                <table width="600px">
+                    <tr>
+                    @GenerateInvestmentStage()
                     </tr>
                 </table>
             </div>

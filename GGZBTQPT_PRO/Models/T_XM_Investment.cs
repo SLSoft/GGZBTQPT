@@ -31,6 +31,8 @@ namespace GGZBTQPT_PRO.Models
         public string TeamworkType { get; set; }
         public string InvestmentPeriod { get; set; }
         public string PartnerRequirements { get; set; }
+        public Nullable<int> InvestmentNature { get; set; }
+        public string InvestmentStage { get; set; }
         public string PublicStatus { get; set; }
         public Nullable<System.DateTime> SubmitTime { get; set; }
         public Nullable<System.DateTime> PublicTime { get; set; }

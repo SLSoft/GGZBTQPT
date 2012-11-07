@@ -30,15 +30,16 @@ input,span {font:12px/24px verdana;vertical-align:middle;}
 }
 @helper GenerateTeamWorkType()
 {
-    var i = 0;
     foreach (var item in ViewData["TeamworkType"] as SelectList)
     {
-        if (i % 6 == 0 && i != 0)
-        {
-            @:</tr><tr>
-        }
         @:<td><input type="checkbox" name="cbTeamWorkType" value="@item.Value" /><span>@item.Text</span></td>
-        i++;
+    }
+}
+@helper GenerateInvestmentStage()
+{
+    foreach (var item in ViewData["InvestmentStage"] as SelectList)
+    {
+        @:<td><input type="checkbox" name="cbInvestmentStage" value="@item.Value" /><span>@item.Text</span></td>
     }
 }
 <script type="text/javascript">
@@ -104,6 +105,10 @@ input,span {font:12px/24px verdana;vertical-align:middle;}
                 <td colspan="4" style="background-color:#666666; color:#ffffff">投资信息</td>
             </tr>
             <tr>
+                <td>@Html.LabelFor(model => model.InvestmentNature, "投资性质")</td>
+                <td colspan="3">@Html.DropDownList("InvestmentNature", "请选择")</td>
+            </tr>
+            <tr>
                 <td style="width:90px">@Html.LabelFor(model => model.Investment, "可投资金额")</td>
                 <td>@Html.EditorFor(model => model.Investment)（万元）
             @Html.ValidationMessageFor(model => model.Investment)</td>
@@ -134,6 +139,13 @@ input,span {font:12px/24px verdana;vertical-align:middle;}
                     @GenerateProvince()
                     </tr>
                 </table></td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.InvestmentStage, "投资阶段")</td>
+                <td colspan="3"><table width="100%">
+                    <tr>
+                    @GenerateInvestmentStage()
+                    </tr></table></td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.TeamworkType, "合作方式")</td>
