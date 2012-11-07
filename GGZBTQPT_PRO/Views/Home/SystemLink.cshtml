@@ -1,0 +1,7 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_ZC_System>
+<ul>
+    @foreach( var system in Model)
+    { 
+        <li><a data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace"  href="Home/SystemMenus/@system.ID"><span>@system.Name</span></a></li>
+    }
+</ul>
