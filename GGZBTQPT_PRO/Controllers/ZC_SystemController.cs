@@ -27,7 +27,7 @@ namespace GGZBTQPT_PRO.Controllers
                                                             .Skip(numPerPage * (pageNum -1))
                                                             .Take(numPerPage).ToList(); 
 
-            ViewBag.recordCount = list.Count();
+            ViewBag.recordCount = db.T_ZC_System.Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
@@ -87,11 +87,6 @@ namespace GGZBTQPT_PRO.Controllers
             return Json("");
         }
 
-        //public ActionResult Delete(int id)
-        //{
-        //    T_ZC_System t_zc_system = db.T_ZC_System.Find(id);
-        //    return View(t_zc_system);
-        //}
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
