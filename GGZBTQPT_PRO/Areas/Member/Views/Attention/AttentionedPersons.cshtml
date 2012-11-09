@@ -16,6 +16,7 @@
          $("#attentioned li.active a").click();
          $.Member.notice(data);
      }
+     $.Member.replaceBlankForMVCPager();
 </script>
 <div id="attentioned">
     @foreach (var _model in Model)

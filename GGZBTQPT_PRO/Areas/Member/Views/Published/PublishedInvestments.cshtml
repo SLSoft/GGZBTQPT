@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = "发布的意向";
 }
+<script type="text/javascript">
+    $.Member.replaceBlankForMVCPager();
+</script>
 @*发布的意向信息*@
 <div id="published">
     @foreach (var _model in Model)

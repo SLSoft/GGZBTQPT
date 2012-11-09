@@ -29,8 +29,9 @@
 <script type="text/javascript">
     function notice(data) {
         $("#recommend li.active a").click();
-        $.Member.notice(data); 
+        $.Member.notice(data);
     }
+    $.Member.replaceBlankForMVCPager();
 </script>
 @*推荐的项目信息*@
 <div id="recommend">
@@ -61,7 +62,12 @@
             </div>
         </div>
     }
-    <div class="pagination pagination-left clear">
-        @Html.AjaxPager(Model, new PagerOptions { PageIndexParameterName = "id", ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details" }) 
-    </div>
+
 </div>
+<div class="pagination pagination-right pagination-small">
+    @Html.AjaxPager(Model, new PagerOptions { PageIndexParameterName = "id",  ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details" })
+</div>
+
+
+
+

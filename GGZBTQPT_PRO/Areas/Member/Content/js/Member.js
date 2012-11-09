@@ -14,6 +14,9 @@
           });
           return false;
         });
+      },
+      replaceBlankForMVCPager: function() {
+        return $(".pagination").html($(".pagination").html().replace(/&nbsp;/ig, ""));
       }
     };
     if (window.PIE) {

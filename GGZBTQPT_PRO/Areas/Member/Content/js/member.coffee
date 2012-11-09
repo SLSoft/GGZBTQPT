@@ -16,8 +16,12 @@
                        $(".modal-msg").html(data) 
                 )
                 return false
+        replaceBlankForMVCPager: -> 
+            $(".pagination").html($(".pagination").html().replace(/&nbsp;/ig, ""))
+
     if (window.PIE) 
         $('.rounded').each -> 
             PIE.attach(this);
-)(jQuery)
     
+
+)(jQuery)
