@@ -101,7 +101,8 @@
 }
 
 
-@using (Ajax.BeginForm("Edit", null, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" }, new { enctype = "multipart/form-data" }))
+@*@using (Ajax.BeginForm("Edit", null, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" }, new { enctype = "multipart/form-data" }))*@
+@using (Html.BeginForm("Edit", "Corp", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true)
     <fieldset> 

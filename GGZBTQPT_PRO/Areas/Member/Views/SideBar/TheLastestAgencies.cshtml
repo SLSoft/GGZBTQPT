@@ -1,0 +1,12 @@
+﻿ @model IEnumerable<GGZBTQPT_PRO.Models.T_JG_Agency>
+<div>
+    <h4>
+        最新加入的金融服务机构</h4>
+    <ul>
+        @foreach (var _model in Model)
+        {
+            <li><a href="\Member\Agency\Details\@_model.ID">@_model.AgencyName</a>[@_model.AgencyTypeName]</li>
+        }
+    </ul>
+</div>
+

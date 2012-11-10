@@ -68,6 +68,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             {
                 db.Entry(t_qy_corp).State = EntityState.Modified;
                 t_qy_corp.UpdateTime = DateTime.Now;
+                var y = Request.Files["file1"];
                 Stream stream = Request.Files.Count > 0
                                         ? Request.Files[0].InputStream
                                         : Request.InputStream;

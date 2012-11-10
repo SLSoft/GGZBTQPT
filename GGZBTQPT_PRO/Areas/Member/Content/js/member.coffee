@@ -18,10 +18,11 @@
                 return false
         replaceBlankForMVCPager: -> 
             $(".pagination").html($(".pagination").html().replace(/&nbsp;/ig, ""))
+        rounded: -> 
+            if (window.PIE) 
+                $('.rounded').each -> 
+                    PIE.attach(this);
 
-    if (window.PIE) 
-        $('.rounded').each -> 
-            PIE.attach(this);
-    
+    $.Member.rounded()
 
 )(jQuery)

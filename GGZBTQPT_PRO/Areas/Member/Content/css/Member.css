@@ -89,6 +89,7 @@ body {
   padding: 3px 0px; }
 
 span.attentioned {
+  display: inline-block;
   padding: 0 5px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -101,6 +102,7 @@ span.attentioned {
     color: #55A255; }
 
 span.unattentioned {
+  display: inline-block;
   padding: 0 5px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;

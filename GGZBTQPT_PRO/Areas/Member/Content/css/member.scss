@@ -169,6 +169,7 @@ body
 }
 span.attentioned 
 {
+    display: inline-block;
     padding: 0 5px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -185,6 +186,7 @@ span.attentioned
 
 span.unattentioned 
 {
+    display: inline-block;
     padding: 0 5px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;

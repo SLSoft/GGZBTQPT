@@ -27,6 +27,12 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             ViewData["Province"] = new SelectList(Area, "ID", "Name", select);
         }
 
+        public ViewResult Details(int id)
+        {
+            T_JG_Agency t_jg_agency = db.T_JG_Agency.Find(id);
+            return View(t_jg_agency);
+        }
+
         
         //
         // GET: /JG_Agency/Edit/5

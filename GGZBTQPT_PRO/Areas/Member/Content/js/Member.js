@@ -17,13 +17,16 @@
       },
       replaceBlankForMVCPager: function() {
         return $(".pagination").html($(".pagination").html().replace(/&nbsp;/ig, ""));
+      },
+      rounded: function() {
+        if (window.PIE) {
+          return $('.rounded').each(function() {
+            return PIE.attach(this);
+          });
+        }
       }
     };
-    if (window.PIE) {
-      return $('.rounded').each(function() {
-        return PIE.attach(this);
-      });
-    }
+    return $.Member.rounded();
   })(jQuery);
 
 }).call(this);

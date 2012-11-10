@@ -48,7 +48,12 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         {
             var products = db.T_JG_Product.OrderByDescending(p => p.CreateTime).Take(4).ToList();
             return PartialView(products);
-        } 
+        }
 
+        public ActionResult TheLastestAgencies()
+        {
+            var agencies = db.T_JG_Agency.OrderByDescending(p => p.CreateTime).Take(4).ToList();
+            return PartialView(agencies);
+        } 
     }
 }

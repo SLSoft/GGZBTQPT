@@ -109,55 +109,35 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             {
                 return PartialView();
             }
+        }
+
+
+        /// <summary>
+        /// 系统所推荐的金融机构
+        /// </summary>
+        /// <param name="member_id"></param>
+        /// <returns></returns>
+        public ActionResult RecommendAgencies(int id = 1)
+        {
+            var member = CurrentMember();
+            if (member == null)
+            {
+                return RedirectToAction("Login", "Member");
+            }
+            try
+            {
+                PagedList<T_JG_Agency> Agencies = db.T_JG_Agency.OrderByDescending(a => a.CreateTime).ToPagedList(id, 5); 
+                ViewBag.AttentionedMembers = AttentionedMembers();//金融机构只有关注，而没有收藏
+                ViewBag.CurrentMember = member.ID;
+                return PartialView(Agencies);
+            }
+            catch
+            {
+                return PartialView();
+            }
         } 
 
-        /// <summary>
-        /// 读取当前用户所收藏的项目的ID集合
-        /// </summary>
-        /// <returns></returns>
-        private string FavoredItems(int favorite_type)
-        {
-            string favored_items = "";
-            List<int?> item_ids = new List<int?>(); 
 
-            switch(favorite_type)
-            {
-                case 1:
-                    item_ids = CurrentMember().Favorites.Where(f => f.FavoriteType == favorite_type).Select(f => f.FinancialID).ToList();
-                    break;
-                case 2:
-                    item_ids = CurrentMember().Favorites.Where(f => f.FavoriteType == favorite_type).Select(f => f.InvestmentID).ToList();
-                    break;
-                case 3:
-                    item_ids = CurrentMember().Favorites.Where(f => f.FavoriteType == favorite_type).Select(f => f.ProductID).ToList();
-                    break; 
-            }
-
-            foreach (int finacial_id in item_ids)
-            {
-                favored_items += "|" + finacial_id + "|";
-            }
-
-            return favored_items;
-        }
-
-        /// <summary>
-        /// 读取当前用户所关注的用户的ID集合
-        /// </summary>
-        /// <returns></returns>
-        private string AttentionedMembers()
-        {
-            string attentioned_members = "";
-            List<int> member_ids = new List<int>(); 
-            member_ids = CurrentMember().Attentions.Select(a => a.AttentionedMemberID).ToList();
-
-            foreach (int member_id in member_ids)
-            {
-                attentioned_members += "|" + member_id + "|";
-            }
-
-            return attentioned_members;
-        }
 
 
     }
