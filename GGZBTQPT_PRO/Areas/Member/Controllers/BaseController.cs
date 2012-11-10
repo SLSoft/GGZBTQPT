@@ -22,6 +22,5 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             }
             return null;
         }
-
     }
 }

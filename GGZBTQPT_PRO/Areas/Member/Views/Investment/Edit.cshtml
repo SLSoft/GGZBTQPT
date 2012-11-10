@@ -2,6 +2,9 @@
 <style type="text/css">
 input,span {font:12px/24px verdana;vertical-align:middle;} 
 </style>
+@section custom_css{
+    <link href="@Url.Content("~/Areas/Member/Content/css/member.css")" rel="stylesheet" type="text/css" />
+}
 @helper GenerateIndustry(string selected_Industry)
     {
         var i = 0;
@@ -114,7 +117,9 @@ input,span {font:12px/24px verdana;vertical-align:middle;}
         @Html.HiddenFor(model => model.MemberID)
         <table style="width:100%">
             <tr>
-                <td colspan="2" style="background-color:#666666; color:#ffffff">基本信息</td>
+                <td colspan="2"><div class= "form-title">
+                    <strong>基本信息</strong>
+                </div></td>
             </tr>
             <tr>
                 <td style="width:90px">@Html.LabelFor(model => model.ItemName, "投资意向标题")</td>
@@ -143,7 +148,9 @@ input,span {font:12px/24px verdana;vertical-align:middle;}
         </table>
         <table style="width:100%">
             <tr>
-                <td colspan="4" style="background-color:#666666; color:#ffffff">融资信息</td>
+                <td colspan="4"><div class= "form-title">
+                    <strong>投资信息</strong>
+                </div></td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.InvestmentNature, "投资性质")</td>
@@ -203,7 +210,9 @@ input,span {font:12px/24px verdana;vertical-align:middle;}
         </table>
         <table style="width:100%">
             <tr>
-                <td colspan="4" style="background-color:#666666; color:#ffffff">联系人信息</td>
+                <td colspan="4"><div class= "form-title">
+                    <strong>联系方式</strong>
+                </div></td>
             </tr>
             <tr>
                 <td style="width:90px">@Html.LabelFor(model => model.Linkman, "联系人")</td>

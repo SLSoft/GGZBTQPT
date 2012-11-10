@@ -141,3 +141,10 @@ span.unattentioned {
     line-height: 100px;
     background-color: #eee; }
 
+.form-title 
+{
+    font-size:12pt;
+  border-bottom: solid 1px #ddd;
+  padding-bottom: 5px;
+  margin-bottom: 10px; 
+}

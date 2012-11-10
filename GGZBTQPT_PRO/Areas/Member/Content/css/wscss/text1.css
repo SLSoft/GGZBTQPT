@@ -293,3 +293,93 @@ IMG {
 	FLOAT: right;
 	COLOR: #666
 }
+.f_b{
+font-weight:bold;
+}
+.bb{
+border:1px solid #ccc;
+}
+.table_ccc{
+border-bottom:1px solid #ccc;
+background:#ececec;
+}
+.p10{
+padding:10px;
+border-bottom:1px dashed #ccc;
+}
+.font_bb{
+width:80px;
+height:27px;
+border:1px solid #ccc;
+color:#880000;
+margin-bottom:5px;
+margin-top:5px;
+}
+
+/*  about  */
+.breadNavigation972 {
+	WIDTH: 972px; MARGIN-BOTTOM: 10px; BACKGROUND: url(../images/cwealth_09.jpg) repeat-y left top;
+}
+.breadNavigation972Top {
+	WIDTH: 972px; BACKGROUND: url(../images/cwealth_06.jpg) no-repeat 50% top;
+}
+.breadNavigation972Bottom {
+	WIDTH: 972px; BACKGROUND: url(../images/cwealth_11.jpg) no-repeat 50% bottom;
+}
+.breadNavigation972Detail {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; COLOR: #666; PADDING-TOP: 5px
+}
+.breadNavigation972Bottom2 {
+	WIDTH: 972px;
+}
+.breadNavigation9722 {
+	WIDTH: 972px; MARGIN-BOTTOM: 8px; BACKGROUND: url(../images/cwealth_099.jpg) no-repeat 50% top
+}
+.main2 {
+	PADDING-LEFT: 15px; CLEAR: both
+}
+#tabs1 {
+	MARGIN: 0px auto; WIDTH: 970px; BACKGROUND: url(../images/tview_01.jpg) repeat-x 0px 11px
+}
+.menu1 {
+	WIDTH: 870px
+}
+.menu1 LI {
+	TEXT-ALIGN: center; LINE-HEIGHT: 46px; WIDTH: 114px; DISPLAY: block; FONT-FAMILY: "Î¢ÈíÑÅºÚ", "ºÚÌå", Arial; FLOAT: left; HEIGHT: 46px; FONT-SIZE: 14px; CURSOR: pointer; BORDER-RIGHT: #dcdcdc 1px solid
+}
+.menu1 LI.hover {
+	BORDER-BOTTOM: #fff 1px solid; MARGIN-TOP: 2px; BACKGROUND: url(../images/tview_14.gif) no-repeat
+}
+#main1 {
+	PADDING-BOTTOM: 5px;
+}
+#main1 UL {
+	PADDING-BOTTOM: 20px; PADDING-LEFT: 20px; WIDTH: 890px; DISPLAY: none
+}
+#main1 UL.block {
+	DISPLAY: block
+}
+.main2 H1 {
+	PADDING-BOTTOM: 10px; FONT-FAMILY: "Î¢ÈíÑÅºÚ", "ºÚÌå", Arial; FONT-SIZE: 26px; FONT-WEIGHT: normal; PADDING-TOP: 30px
+}
+.main2 P {
+	PADDING-BOTTOM: 10px; LINE-HEIGHT: 24px; COLOR: #7f7e7e; PADDING-TOP: 10px
+}
+.introduce {
+	WIDTH: 357px; FLOAT: left; PADDING-TOP: 20px
+}
+.neirong {
+	PADDING-LEFT: 30px; WIDTH: 500px; FLOAT: left
+}
+.contentPart {
+	MARGIN: 0px auto; WIDTH: 972px
+}
+.contentPart .left {
+	WIDTH: 708px; FLOAT: left
+}
+.contentPart .left .region-content {
+	WIDTH: 100%
+}
+.contentPart .right {
+	WIDTH: 257px; FLOAT: right
+}

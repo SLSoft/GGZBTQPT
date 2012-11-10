@@ -23,7 +23,7 @@ namespace GGZBTQPT_PRO.Models
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
         public Boolean IsIn { get; set; }
-
+        public byte[] Pic { get; set; }
         public int MemberID { get; set; }
 
         public string AgencyTypeName

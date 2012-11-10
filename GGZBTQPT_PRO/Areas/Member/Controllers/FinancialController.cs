@@ -13,9 +13,16 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
     { 
 
         #region-----------------------------项目发布----------------------------------------//
+        public ViewResult List()
+        {
+            return View(db.T_XM_Financing.Where(p => p.IsValid == true).ToList());
+        }
+
         public ViewResult Details(int id)
         {
             T_XM_Financing t_xm_financing = db.T_XM_Financing.Find(id);
+            if (t_xm_financing.Province != null)
+                ViewBag.AreaText = db.T_PTF_DicTreeDetail.Where(p => (p.DicType == "34" && p.Code == t_xm_financing.Province)).FirstOrDefault().Name;
             return View(t_xm_financing);
         }
 
@@ -98,7 +105,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
                 if (checkedTransactionMode.Length > 1)
                     checkedTransactionMode = checkedTransactionMode.Remove(checkedTransactionMode.Length - 1);
                 t_xm_financing.TransactionMode = checkedTransactionMode;
-                t_xm_financing.City = Int32.Parse(collection["ddlCity"]);
+                t_xm_financing.City = collection["ddlCity"];
                 t_xm_financing.IsValid = true;
                 t_xm_financing.OP = 0;
                 t_xm_financing.CreateTime = DateTime.Now;
@@ -134,11 +141,9 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
 
         //
         // POST: /XM_RZ/Edit/5
-
         [HttpPost]
         public ActionResult Edit(T_XM_Financing t_xm_financing, FormCollection collection)
         {
-
             if (ModelState.IsValid)
             {
                 db.Entry(t_xm_financing).State = EntityState.Modified;
@@ -146,7 +151,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
                 if (checkedTransactionMode.Length > 1)
                     checkedTransactionMode = checkedTransactionMode.Remove(checkedTransactionMode.Length - 1);
                 t_xm_financing.TransactionMode = checkedTransactionMode;
-                t_xm_financing.City = Int32.Parse(collection["ddlCity"]);
+                t_xm_financing.City = collection["ddlCity"];
                 t_xm_financing.UpdateTime = DateTime.Now;
                 db.SaveChanges();
 
@@ -220,6 +225,8 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+
+
 
     }
 }

@@ -1,0 +1,161 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Investment>
+@{
+    Layout = null;
+}
+<link href="@Url.Content("~/Areas/Member/Content/css/wscss/news_css.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Areas/Member/Content/css/wscss/style.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Areas/Member/Content/css/wscss/text1.css")" rel="stylesheet" type="text/css" />
+@helper GenerateIndustry()
+{
+    foreach (var item in ViewData["Industry"] as SelectList)
+    {
+        <em><input type="checkbox" name="cbIndustry" value="@item.Value"/><span>@item.Text</span></em>
+    }
+}
+@helper GenerateTeamworkType()
+{
+    foreach (var item in ViewData["TeamworkType"] as SelectList)
+    {
+       <em><input type="checkbox" name="cbTeamworkType" value="@item.Value" /><span>@item.Text</span></em>
+    }
+}
+@helper GenerateInvestmentStage()
+{
+    foreach (var item in ViewData["InvestmentStage"] as SelectList)
+    {
+        <em><input type="checkbox" name="cbInvestmentStage" value="@item.Value" /><span>@item.Text</span></em>
+    }
+}
+@helper GenerateInvestmentNature()
+{
+    foreach (var item in ViewData["InvestmentNature"] as SelectList)
+    {
+       <em><input type="checkbox" id="checkboxType" name="cbInvestmentNature" value="@item.Value" /><span>@item.Text</span></em>
+    }
+}
+
+<div id="pagebody" class="w">
+	<div id="middle">
+	  <div class="part">
+			  <div class="part-l part-lw">
+				   <div class="article">
+				    	<div class="ts">
+				    	    <div class="r"><div class="r1"></div><div class="r2"></div><div class="r3"></div></div>
+				    	    <div class="rm">&nbsp;&nbsp;&nbsp;&nbsp;<big>资金分类搜索</big>
+				    	    </div>
+			                <div class="p_mid">
+                                 <div class="ts-in">
+										<div class="ts-item">
+                                             <dl>
+												 <dt>按投资性质：</dt>
+												 <dd>
+													@GenerateInvestmentNature()
+												 </dd>
+                                             </dl>
+										</div>
+										<div class="ts-item">
+                                             <dl>
+												 <dt>按合作方式：</dt>
+												 <dd>
+													 @GenerateTeamworkType()
+												 </dd>
+                                             </dl>
+										</div>
+										<div class="ts-item">
+                                             <dl>
+												 <dt>按意向行业：</dt>
+												 <dd>
+													 @GenerateIndustry()
+												 </dd>
+                                             </dl>
+										</div>
+										<div class="ts-item">
+                                             <dl>
+												 <dt>按投资阶段：</dt>
+												 <dd>
+													 @GenerateInvestmentStage()
+												 </dd>
+                                             </dl>
+										</div>
+                                        <div class="ts-item">
+                                             <dl>
+												 <dt>按资金范围：</dt>
+												 <dd>
+													 <em><input type="checkbox" name="cbFinancial" value="-1" title="不限" /><span>不限</span></em>
+				                                    <em><input type="checkbox" name="cbFinancial" value="<10" title="1-10万" /><span>1-10万</span></em>
+                                                    <em><input type="checkbox" name="cbFinancial" value="between 10 and 50" title="10-50万" /><span>10-50万</span></em>
+                                                    <em><input type="checkbox" name="cbFinancial" value="between 50 and 100" title="50-100万" /><span>50-100万</span></em>
+                                                    <em><input type="checkbox" name="cbFinancial" value="between 1 and 1000" title="500-1000万" /><span>500-1000万</span></em>
+                                                    <em><input type="checkbox" name="cbFinancial" value="between 1000 and 5000" title="1000-5000万" /><span>1000-5000万</span></em>
+                                                    <em><input type="checkbox" name="cbFinancial" value="between 5000 and 10000" title="5000万-1亿" /><span>5000万-1亿</span></em>
+                                                    <em><input type="checkbox" name="cbFinancial" value=">10000" title="大于1亿" /><span>大于1亿</span></em>
+												 </dd>
+                                             </dl>
+										</div>
+                                 </div>
+                                 <div class="ts-con">
+									 <h3 class="ts-con-t">
+                                          <form class="rsearch">
+                                          	   <label>关键字搜索：</label>
+                                          	   <input type="text" class="rinput" name="keys" />
+                                 <input type="submit" name="button" id="button" value="" class=" rbtn">
+                                       </form>
+                                          <a href="#" class="first"><span class="_text">所有信息</span></a>
+                                          <a href="##" class="sf"><span class="_text">自主信息</span></a>
+                                          <a href="##" class="sf"><span class="_text">特区信息</span></a>
+                                          <a href="##" class="sf"><span class="_text">公开信息</span></a>
+                                          <a href="##" class="sf"><span class="_text">政府信息</span></a>									 </h3>
+                                     <div class="ts-con-btn">
+                                          <span class="btn1"><div class="icon"></div><span class="_text">默认排序</span></span>
+                                          <span class="btn1"><div class="icon"></div><span class="_text">回应数</span></span>
+                                          <span class="btn1"><div class="icon"></div><span class="_text">评论数</span></span>
+                                          <span class="btn1"><div class="icon"></div><span class="_text">收藏数</span></span>
+                                          <span class="btn1"><div class="icon"></div><span class="_text">点击数</span></span>
+                                          <span class="lnum">
+											    <span class="_text">显示数量：</span>
+											    <a href="##">20</a><a href="##">30</a><a href="##">40</a>
+                                          </span>
+                                     </div>
+
+                              <div class="ts-list">
+										 @foreach (var _model in Model)
+           {
+				<div class="ts-l-item">
+                    <div class="ts-l-item-l">
+                        <h3 class="ts-l-item-title">
+                            <span class="_time">
+                                    <span class="_label">登记时间：</span><em>@_model.CreateTime</em>
+                            </span>
+                            <a href="##">@_model.ItemName</a>
+                        </h3>
+                        <p class="ts-l-item-content">
+                            <span class="_td  _gs">
+								<span class="_label">发布用户：</span><em>@_model.MemberName</em>
+                            </span>
+                            <span class="_td  _rzje">
+                                <span class="_label">融资金额：</span><em>@_model.Investment</em>
+                            </span>
+                        </p>
+                        <p class="ts-l-item-desc">
+							@_model.Description
+							<a href="##">【查看详情】</a>
+                        </p>
+                    </div>
+                    <div class="ts-l-item-r">
+						<p class="_addfocusbtn">+关注项目</p>
+                        <p class="_focusnum"><em class="_num">1</em>人关注</p>
+                    </div>
+                    <div class="clear"></div>
+				</div>
+    }
+                                     </div>
+                                 </div>
+			                </div>
+						    <div class="p_bot"><div class="_bg"></div></div>
+					    </div>
+				  </div>
+		     </div>
+			<div class="clear"></div>
+	  </div>
+	</div>
+</div>

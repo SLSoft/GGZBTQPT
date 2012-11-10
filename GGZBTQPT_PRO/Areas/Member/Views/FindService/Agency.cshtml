@@ -1,0 +1,41 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_JG_Agency>
+@{
+    Layout = null;
+}
+    <link href="@Url.Content("~/Areas/Member/Content/css/wscss/news_css.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Areas/Member/Content/css/wscss/style.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Areas/Member/Content/css/wscss/text1.css")" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+    function selall() {
+        $("#btn").removeClass("last").addClass("last2");
+    }
+    function sel() {
+        $("#btn").removeClass("last2").addClass("last");
+    }
+</script>
+<div class="fs-content" >
+<ul class="fs-c-nav">
+	<li id = "btn" class="last">
+        @Ajax.ActionLink("已入驻", "Agency", new { AgencyType = ViewBag.AgencyType, isin = true }, new AjaxOptions { HttpMethod = "post", OnSuccess = "sel" })
+        @Ajax.ActionLink("全部", "Agency", new { AgencyType = ViewBag.AgencyType, isin = false }, new AjaxOptions { HttpMethod = "post", OnSuccess = "selall" })
+	</li>
+</ul>
+<ul class="fs-c-list">
+    @foreach (var item in Model)
+    {
+        <li>
+        <h3><span class="dot">■</span>@Html.ActionLink(item.AgencyName, "AgencyShow", new { id = item.ID })</h3>
+        <div class="fs-c-c">
+            <div class="copic">
+                <img src=@Url.Content("~/Areas/Member/Content/css/images/co1_logo.jpg") />
+            </div>
+            <span class="_text">
+            @(item.Remark.Length > 200 ? item.Remark.Substring(0, 200)+"..." : item.Remark)
+            </span>
+        </div>
+
+	</li>
+    }
+</ul>
+</div>

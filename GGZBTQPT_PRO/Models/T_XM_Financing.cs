@@ -12,9 +12,9 @@ namespace GGZBTQPT_PRO.Models
         public int ID { get; set; }
 
         public string ItemName { get; set; }
-        public Nullable<int> Province { get; set; }
-        public Nullable<int> City { get; set; }
-        public Nullable<int> Region { get; set; }
+        public string Province { get; set; }
+        public string City { get; set; }
+        public string Region { get; set; }
         public Nullable<int> Industry { get; set; }
         public Nullable<System.DateTime> ValidDate { get; set; }
         public string Keys { get; set; }
@@ -58,23 +58,27 @@ namespace GGZBTQPT_PRO.Models
         public int OP { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
-
+        public byte[] Pic { get; set; }
 
         public int MemberID { get; set; } 
         public virtual T_HY_Member Member { get; set; }
 
         public virtual ICollection<T_HY_Favorite> Favoites { get; set; }//每个项目都对应多个收藏
 
+        //所属行业
         public string IndustryName 
         { 
             get 
             {
-                //GGZBTQPTDBContext db = new GGZBTQPTDBContext();
-                //return db.T_PTF_DicDetail.Find(this.Industry).Name;
-                return "IndustryName";
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                if (db.T_PTF_DicDetail.Find(this.Industry) != null)
+                    return db.T_PTF_DicDetail.Find(this.Industry).Name;
+                else
+                    return "";
             } 
         }
 
+        //审核状态
         public string PublicText
         {
             get
@@ -91,7 +95,7 @@ namespace GGZBTQPT_PRO.Models
                 return "";
             }
         }
-
+        //发布人
         public string MemberName
         {
             get
@@ -100,7 +104,7 @@ namespace GGZBTQPT_PRO.Models
                 return db.T_HY_Member.Find(this.MemberID).LoginName;
             }
         }
-
+        //融资金额
         public string Amount
         {
             get
@@ -119,7 +123,7 @@ namespace GGZBTQPT_PRO.Models
                 return "不限";
             }
         }
-
+        //项目类别
         public string ItemText
         {
             get
@@ -134,6 +138,57 @@ namespace GGZBTQPT_PRO.Models
                         return "政府招商";
                 }
                 return "其他";
+            }
+        }
+        //融资方式
+        public string FinancTypeText
+        {
+            get
+            {
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                if (db.T_PTF_DicDetail.Find(this.FinancType) != null)
+                    return db.T_PTF_DicDetail.Find(this.FinancType).Name;
+                else
+                    return "";
+            }
+        }
+
+        //项目阶段
+        public string ItemStageText
+        {
+            get
+            {
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                if (db.T_PTF_DicDetail.Find(this.ItemStage) != null)
+                    return db.T_PTF_DicDetail.Find(this.ItemStage).Name;
+                else
+                    return "";
+            }
+        }
+
+        //资产类别
+        public string AssetsTypeText
+        {
+            get
+            {
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                if (db.T_PTF_DicDetail.Find(this.AssetsType) != null)
+                    return db.T_PTF_DicDetail.Find(this.AssetsType).Name;
+                else
+                    return "";
+            }
+        }
+
+        //交易方式
+        public string TransactionModeText
+        {
+            get
+            {
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                if (db.T_PTF_DicDetail.Find(this.TransactionMode) != null)
+                    return db.T_PTF_DicDetail.Find(this.TransactionMode).Name;
+                else
+                    return "";
             }
         }
     }

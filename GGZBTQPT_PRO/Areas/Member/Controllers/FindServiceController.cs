@@ -24,6 +24,8 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
 
         public ActionResult AgencyList(int AgencyType, bool isin)
         {
+            ViewBag.isin = isin;
+            ViewBag.AgencyType = AgencyType;
             if (AgencyType != 0)
             {
                 if ((bool)isin == true)
@@ -39,8 +41,17 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             }
             else
             {
-                var jg_agency = db.T_JG_Agency.ToList();
-                return View(jg_agency);
+                ViewBag.isin = isin;
+                if ((bool)isin == true)
+                {
+                    var jg_agency = db.T_JG_Agency.Where(p => p.IsIn == (bool)isin).ToList();
+                    return View(jg_agency);
+                }
+                else
+                {
+                    var jg_agency = db.T_JG_Agency.ToList();
+                    return View(jg_agency);
+                }
             }
         }
         //机构详情
@@ -48,6 +59,39 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         {
             T_JG_Agency t_jg_agency = db.T_JG_Agency.Find(id);
             return View(t_jg_agency);
+        }
+
+        public ActionResult Agency(int AgencyType, bool isin)
+        {
+            ViewBag.isin = isin;
+            ViewBag.AgencyType = AgencyType;
+            if (AgencyType != 0)
+            {
+                if ((bool)isin == true)
+                {
+                    var jg_agency = db.T_JG_Agency.Where(p => (p.AgencyType == (int)AgencyType && p.IsIn == (bool)isin)).ToList();
+                    return View(jg_agency);
+                }
+                else
+                {
+                    var jg_agency = db.T_JG_Agency.Where(p => p.AgencyType == (int)AgencyType).ToList();
+                    return View(jg_agency);
+                }
+            }
+            else
+            {
+                ViewBag.isin = isin;
+                if ((bool)isin == true)
+                {
+                    var jg_agency = db.T_JG_Agency.Where(p => p.IsIn == (bool)isin).ToList();
+                    return View(jg_agency);
+                }
+                else
+                {
+                    var jg_agency = db.T_JG_Agency.ToList();
+                    return View(jg_agency);
+                }
+            }
         }
     }
 }
