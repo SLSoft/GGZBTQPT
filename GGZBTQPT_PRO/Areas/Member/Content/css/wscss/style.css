@@ -1,5 +1,14 @@
 @CHARSET "UTF-8";
-
+html,body{
+	margin:0;
+	padding:0;
+}
+body{
+	font:12px/25px "微软雅黑";
+	color:#333;
+	background:#f3f3f3;
+	word-break:break-all;
+}
 div,span,ul,li,dl,dd,dt,h1,h2,h3,h4,h5,h6,img,form,legend,fieldset,input,button,label,table,thead,tbody,th,tr,td,b,p,select,em{
 	margin:0;
 	padding:0;
@@ -22,6 +31,10 @@ img{
 	position:absolute;
 	width:16px;
 	height:16px;
+}
+a{
+	color:#333;
+	text-decoration:none;
 }
 a:hover{
 	color:#f60;
@@ -253,7 +266,9 @@ a.more{
 .part-l{
 	float:left;
 }
-
+.part-r{
+	float:right;
+}
 
 /*轮换图片新闻*/
 .p_top{
@@ -389,10 +404,12 @@ h3.tabtitle2 a{
 	float:left;
 	height:25px;
 	line-height:25px;
-	padding:0 15px;
+	/*padding:0 15px;*/
 	position:relative;
 	font-weight:normal;
 	font-size:12px;
+	width:100px;
+	text-align:center;
 }
 h3.tabtitle2 a.current{
 	background:#fff;

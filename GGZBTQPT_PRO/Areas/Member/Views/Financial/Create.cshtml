@@ -1,5 +1,7 @@
 ﻿@model GGZBTQPT_PRO.Models.T_XM_Financing 
-
+@section custom_css{
+    <link href="@Url.Content("~/Areas/Member/Content/css/member.css")" rel="stylesheet" type="text/css" />
+}
 @helper GenerateTransactionMode()
     {
     var i = 0;
@@ -62,7 +64,7 @@
         });
     }
 </script>
-<h2>发布融资项目信息</h2>
+<h3>发布融资项目信息</h3>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
@@ -70,10 +72,14 @@
         <input type="radio" name="itemtype" value="1" checked=checked /><span>项目融资</span>
         <input type="radio" name="itemtype" value="2" /><span>资产交易</span>
         <input type="radio" name="itemtype" value="3" /><span>政府招商</span>
-        <input type="radio" name="itemtype" value="9" /><span>其他</span></p><br />
+        <input type="radio" name="itemtype" value="9" /><span>其他</span></p>
         <table style="width:100%">
             <tr>
-                <td colspan="2" style="background-color:#666666; color:#ffffff">基本信息</td>
+                <td colspan="4">
+                <div class= "form-title">
+                    <strong>基本信息</strong>
+                </div>
+                </td>
             </tr>
             <tr>
                 <td style="width:90px">@Html.LabelFor(model => model.ItemName, "项目名称")</td>
@@ -105,7 +111,11 @@
         </table>
         <table id="item1" style="width:100%">
             <tr>
-                <td colspan="4" style="background-color:#666666; color:#ffffff">项目融资</td>
+                <td colspan="4">
+                <div class= "form-title">
+                    <strong>项目融资</strong>
+                </div>
+                </td>
             </tr>
             <tr>
                 <td style="width:90px">@Html.LabelFor(model => model.FinancSum, "融资金额")</td>
@@ -149,7 +159,11 @@
         </table>
         <table id="item2" style="width:100%">
             <tr>
-                <td colspan="4" style="background-color:#666666; color:#ffffff">资产交易</td>
+                <td colspan="4">
+                <div class= "form-title">
+                    <strong>资产交易</strong>
+                </div>
+                </td>
             </tr>
             <tr>
                 <td style="width:90px">@Html.LabelFor(model => model.AssetsType, "资产类别")</td>
@@ -176,7 +190,11 @@
         </table>
         <table id="item3" style="width:100%">
             <tr>
-                <td colspan="4" style="background-color:#666666; color:#ffffff">政府招商</td>
+                <td colspan="4">
+                <div class= "form-title">
+                    <strong>政府招商</strong>
+                </div>
+                </td>
             </tr>
             <tr>
                 <td style="width:90px">@Html.LabelFor(model => model.Investment, "招商投资总额")</td>
@@ -193,7 +211,11 @@
         </table>
         <table id="item4" style="width:100%">
             <tr>
-                <td colspan="4" style="background-color:#666666; color:#ffffff">其他项目</td>
+                <td colspan="4">
+                <div class= "form-title">
+                    <strong>其他项目</strong>
+                </div>
+                </td>
             </tr>
             <tr>
                 <td style="width:90px">@Html.LabelFor(model => model.OtherItemFinancSum, "融资金额")</td>
@@ -204,7 +226,11 @@
         </table>
         <table style="width:100%">
             <tr>
-                <td colspan="4" style="background-color:#666666; color:#ffffff">联系人信息</td>
+                <td colspan="4">
+                <div class= "form-title">
+                    <strong>联系方式</strong>
+                </div>
+                </td>
             </tr>
             <tr>
                 <td style="width:90px">@Html.LabelFor(model => model.Linkman, "联系人")</td>

@@ -1,29 +1,19 @@
 ﻿@model GGZBTQPT_PRO.Models.T_XM_Financing
 
-
-<h2>@Model.ItemName</h2>
-<h3>项目类别 @Html.DisplayFor(model => model.ItemType)</h3>
-<br />
-
-<fieldset>
-    <legend>融资信息</legend>
-    
-        <table>
+<h3>@Model.ItemName</h3>
+<p>项目类别【@Html.DisplayFor(model => model.ItemText)】</p>
+        <table width="100%">
             <tr>
-                <td>项目标题</td>
-                <td>@Html.DisplayFor(model => model.ItemName)</td>
-            </tr>
-            <tr>
-                <td>发布会员</td>
-                <td>@Html.DisplayFor(model => model.MemberID)</td>
+                <td width="90px">发布会员</td>
+                <td>@Html.DisplayFor(model => model.MemberName)</td>
             </tr>
             <tr>
                 <td>发布时间</td>
-                <td>@Html.DisplayFor(model => model.PublicTime)</td>
+                <td>@Html.DisplayFor(model => model.CreateTime)</td>
             </tr>
             <tr>
                 <td>所属区域</td>
-                <td>@Html.DisplayFor(model => model.Province)</td>
+                <td>@ViewBag.AreaText</td>
             </tr>
             <tr>
                 <td>所属行业</td>
@@ -36,89 +26,111 @@
         </table>
         @if (Model.ItemType == 1)
         {
-        <table>
+        <table width="100%" border="1">
+            <tr>
+                <td colspan="6" style="background-color:Gray; color:#fff">融资信息</td>
+            </tr>
             <tr>
                 <td>融资金额</td>
                 <td>@Html.DisplayFor(model => model.FinancSum)</td>
-            </tr>
-            <tr>
                 <td>融资方式</td>
-                <td>@Html.DisplayFor(model => model.FinancType)</td>
+                <td colspan="3">@Html.DisplayFor(model => model.FinancTypeText)</td>
             </tr>
             <tr>
-                <td>融资期限</td>
-                <td>@Html.DisplayFor(model => model.FinancCycle)</td>
-            </tr>
-            <tr>
-                <td>项目总投资</td>
-                <td>@Html.DisplayFor(model => model.TotalInvestment)</td>
-            </tr>
-            <tr>
-                <td>预计回报率</td>
+                <td width="90px">融资期限</td>
+                <td width="180px">@Html.DisplayFor(model => model.FinancCycle)</td>
+                <td width="90px">项目总投资</td>
+                <td width="180px">@Html.DisplayFor(model => model.TotalInvestment)</td>
+                <td width="90px">预计回报率</td>
                 <td>@Html.DisplayFor(model => model.ReturnRatio)</td>
             </tr>
             <tr>
                 <td>项目阶段</td>
-                <td>@Html.DisplayFor(model => model.ItemStage)</td>
-            </tr>
-            <tr>
+                <td>@Html.DisplayFor(model => model.ItemStageText)</td>
                 <td>项目评估价值</td>
                 <td>@Html.DisplayFor(model => model.ItemValue)</td>
-            </tr>
-            <tr>
                 <td>担保说明</td>
                 <td>@Html.DisplayFor(model => model.Assure)</td>
             </tr>
             <tr>
-                <td>抵质押物</td>
-                <td>@Html.DisplayFor(model => model.Collateral)</td>
+                <td width="90px">合作方要求</td>
+                <td colspan="5">@Html.DisplayFor(model => model.PartnerRequirements)</td>          
             </tr>
             <tr>
-                <td>合作方要求</td>
-                <td>@Html.DisplayFor(model => model.PartnerRequirements)</td>
-            </tr>
-            <tr>
-                <td>项目介绍</td>
-                <td>@Html.DisplayFor(model => model.ItemContent)</td>
+                <td width="90px">项目介绍</td>
+                <td colspan="5">@Html.DisplayFor(model => model.ItemContent)</td>
             </tr>
         </table>
         }
         @if (Model.ItemType == 2)
         {
-        <table>
+        <table width="100%" border="1">
             <tr>
-                <td>资产类别</td>
-                <td>@Html.DisplayFor(model => model.AssetsType)</td>
+                <td colspan="6" style="background-color:Gray; color:#fff">资产交易</td>
             </tr>
             <tr>
-                <td>资产估价</td>
-                <td>@Html.DisplayFor(model => model.AssetsCost)</td>
-            </tr>
-            <tr>
-                <td>转让价格</td>
+                <td width="90px">资产类别</td>
+                <td width="180px">@Html.DisplayFor(model => model.AssetsTypeText)</td>
+                <td width="90px">资产估价</td>
+                <td width="180px">@Html.DisplayFor(model => model.AssetsCost)</td>
+                <td width="90px">转让价格</td>
                 <td>@Html.DisplayFor(model => model.TransferPrice)</td>
             </tr>
             <tr>
                 <td>是否抵质押</td>
                 <td>@Html.DisplayFor(model => model.IsMortgage)</td>
-            </tr>
-            <tr>
                 <td>转让形式</td>
                 <td>@Html.DisplayFor(model => model.TransferType)</td>
+                <td>交易方式</td>
+                <td>@Html.DisplayFor(model => model.TransactionModeText)</td>
             </tr>
             <tr>
-                <td>交易方式</td>
-                <td>@Html.DisplayFor(model => model.TransactionMode)</td>
+                <td>资产介绍</td>
+                <td colspan="5">@Html.DisplayFor(model => model.ItemContent)</td>
             </tr>
         </table>
         }
-</fieldset>
-
-<fieldset>
-    <legend>联系方式</legend>
-        <table>
+        @if (Model.ItemType == 2)
+        {
+        <table width="100%" border="1">
             <tr>
-                <td>联系人</td>
+                <td colspan="4" style="background-color:Gray; color:#fff">政府招商</td>
+            </tr>
+            <tr>
+                <td style="width:80px">@Html.LabelFor(model => model.Investment, "招商投资总额")</td>
+                <td>@Html.EditorFor(model => model.Investment)万元</td>
+                <td>@Html.LabelFor(model => model.CooperationMode, "合作方式")</td>
+                <td>@Html.EditorFor(model => model.CooperationMode)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.BuildCycle, "预计项目所用时间")</td>
+                <td>@Html.EditorFor(model => model.BuildCycle)</td>
+                <td>@Html.LabelFor(model => model.ReturnCycle, "投资回收期")</td>
+                <td>@Html.EditorFor(model => model.ReturnCycle)</td>
+            </tr>
+        </table>
+        }
+        @if (Model.ItemType == 9)
+        {
+        <table width="100%" border="1">
+            <tr>
+                <td colspan="4" style="background-color:Gray; color:#fff">其他项目</td>
+            </tr>
+            <tr>
+                <td style="width:80px">@Html.LabelFor(model => model.OtherItemFinancSum, "融资金额")</td>
+                <td>@Html.EditorFor(model => model.OtherItemFinancSum)万元</td>
+                <td>@Html.LabelFor(model => model.OtherItemFinancSum, "融资期限")</td>
+                <td>@Html.EditorFor(model => model.OtherItemFinancSum)</td>
+            </tr>
+        </table>
+        }
+        <p style="background-color:Gray; color:#fff"></p>
+        <table width="100%" border="1px">
+            <tr>
+                <td colspan="2" style="background-color:Gray; color:#fff">联系方式</td>
+            </tr>
+            <tr>
+                <td width="120px">联系人</td>
                 <td>@Html.DisplayFor(model => model.Linkman)</td>
             </tr>
             <tr>
@@ -146,4 +158,3 @@
                 <td></td>
             </tr>
         </table>
-</fieldset>

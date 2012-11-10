@@ -5,7 +5,11 @@
     <link href="@Url.Content("~/Areas/Member/Content/css/wscss/style.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Areas/Member/Content/css/wscss/text1.css")" rel="stylesheet" type="text/css" />
 }
-<div class="part-r part-fsrw">
+
+@{
+    Layout = null;
+}
+@*<div class="part-r part-fsrw">
 <div class="fs-content">
 <ul class="fs-c-nav">
 	<li><a href="##"></a></li>
@@ -18,6 +22,10 @@
         @Html.ActionLink("全部", "AgencyList", new { AgencyType = Model.First().AgencyType, isin = false})
 	</li>
 </ul>
+</div>
+<div id="details"></div>
+<div class="clear"></div>
+</div>*@
 <ul class="fs-c-list">
     @foreach (var item in Model)
     {
@@ -25,18 +33,15 @@
         <h3><span class="dot">■</span>@Html.ActionLink(item.AgencyName, "AgencyShow", new { id = item.ID })</h3>
         <div class="fs-c-c">
             <div class="copic">
-				<img alt="logo" src="#"/>
+                <img src=@Url.Content("~/Areas/Member/Content/css/images/co1_logo.jpg") />
             </div>
             <span class="_text">
-            @(item.Remark.Length > 200 ? item.Remark.Substring(0, 200) + "..." : item.Remark)
+            @(item.Remark.Length > 200 ? item.Remark.Substring(0, 200)+"..." : item.Remark)
             </span>
         </div>
 
 	</li>
     }
 </ul>
-</div>
-<div class="clear"></div>
-</div>
 
 

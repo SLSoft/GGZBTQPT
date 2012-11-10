@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
+using System.IO;
 
 namespace GGZBTQPT_PRO.Controllers
 {
@@ -100,12 +101,22 @@ namespace GGZBTQPT_PRO.Controllers
                 if (checkedTransactionMode.Length > 1)
                     checkedTransactionMode = checkedTransactionMode.Remove(checkedTransactionMode.Length - 1);
                 t_xm_financing.TransactionMode = checkedTransactionMode;
-                t_xm_financing.City = Int32.Parse(collection["ddlCity"]);
+                t_xm_financing.City = collection["ddlCity"];
                 t_xm_financing.IsValid = true;
                 t_xm_financing.OP = 0;
                 t_xm_financing.CreateTime = DateTime.Now;
                 t_xm_financing.UpdateTime = DateTime.Now;
                 t_xm_financing.MemberID = 1;
+
+                Stream stream = Request.Files.Count > 0
+                                        ? Request.Files[0].InputStream
+                                        : Request.InputStream;
+                //存入文件
+                if (stream.Length > 0)
+                {
+                    t_xm_financing.Pic = new byte[stream.Length];
+                    //stream.Read(t_qy_corp.Logo, 0, t_qy_corp.Logo.Length);
+                }
                 db.T_XM_Financing.Add(t_xm_financing);
                 int result = db.SaveChanges();
                 if (result > 0)
@@ -144,8 +155,25 @@ namespace GGZBTQPT_PRO.Controllers
                 if (checkedTransactionMode.Length > 1)
                     checkedTransactionMode = checkedTransactionMode.Remove(checkedTransactionMode.Length - 1);
                 t_xm_financing.TransactionMode = checkedTransactionMode;
-                t_xm_financing.City = Int32.Parse(collection["ddlCity"]);
+                t_xm_financing.City = collection["ddlCity"];
                 t_xm_financing.UpdateTime = DateTime.Now;
+
+                //Stream stream = Request.Files.Count > 0
+                //                        ? Request.Files[0].InputStream
+                //                        : Request.InputStream;
+                ////存入文件
+                //if (stream.Length > 0)
+                //{
+                //    t_xm_financing.Pic = new byte[stream.Length];
+                //    stream.Read(t_xm_financing.Pic, 0, t_xm_financing.Pic.Length);
+                //}
+                HttpPostedFileBase file = Request.Files["file1"];
+                //存入文件
+                if (file.ContentLength > 0)
+                {
+                    t_xm_financing.Pic = new byte[file.InputStream.Length];
+                    file.InputStream.Read(t_xm_financing.Pic, 0, t_xm_financing.Pic.Length);
+                }
                 int result = db.SaveChanges();
                 if (result > 0)
                     return ReturnJson(true, "操作成功", "", "", true, "");
@@ -208,6 +236,11 @@ namespace GGZBTQPT_PRO.Controllers
             t_xm_financing.PublicStatus = state;
             db.SaveChanges();
             return RedirectToAction("RZCheckList");
+        }
+
+        public ActionResult ImgShow()
+        {
+            return File(db.T_XM_Financing.Find(2).Pic,"image/jpeg");
         }
     }
 }

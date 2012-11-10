@@ -8,9 +8,9 @@ namespace GGZBTQPT_PRO.Models
         public int ID { get; set; }
 
         public string ItemName { get; set; }
-        public Nullable<int> Province { get; set; }
-        public Nullable<int> City { get; set; }
-        public Nullable<int> Region { get; set; }
+        public string Province { get; set; }
+        public string City { get; set; }
+        public string Region { get; set; }
         public Nullable<int> Industry { get; set; }
         public Nullable<System.DateTime> ValidDate { get; set; }
         public string Keys { get; set; }
@@ -40,7 +40,7 @@ namespace GGZBTQPT_PRO.Models
         public int OP { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
-
+        public byte[] Pic { get; set; }
 
         public int MemberID { get; set; }
         public virtual T_HY_Member Member { get; set; }
@@ -69,6 +69,15 @@ namespace GGZBTQPT_PRO.Models
                 if (result.Length > 0)
                     result = result.Substring(0, result.Length - 1);
                 return result;
+            }
+        }
+
+        public string MemberName
+        {
+            get
+            {
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                return db.T_HY_Member.Find(this.MemberID).LoginName;
             }
         }
     }
