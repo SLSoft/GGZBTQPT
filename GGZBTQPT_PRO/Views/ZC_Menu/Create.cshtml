@@ -4,14 +4,17 @@
 }
 <script type="text/javascript">
     $.validator.unobtrusive.parse(document);
+    $("#ParentID").children().first().attr("value", 0);
 </script>
 <div class="pageContent">
     @using (Html.BeginForm("Create", "ZC_Menu", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
     {
+
         @Html.ValidationSummary(true)
-        <div class="pageFormContent" layouth="56">
+
+        <div class="pageFormContent" layouth="56"> 
             <p>@Html.LabelFor(model => model.SystemID, "所属系统")
-                @Html.DropDownList("SystemID", "请选择所属系统")
+                @Html.DropDownList("SystemID")
                 @Html.ValidationMessageFor(model => model.SystemID)
             </p>
             <p>@Html.LabelFor(model => model.ParentID, "上级菜单")

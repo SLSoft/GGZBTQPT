@@ -36,16 +36,7 @@
       </ul>
     </div>
     <div id="navMenu">
-    <ul>
-      <li class="selected"><a href="sidebar_1.html"><span>内部办公</span></a></li>
-      <li><a href="sidebar_2.html"><span>网站管理</span></a></li>
-      <li><a href="sidebar_1.html"><span>项目管理</span></a></li>
-      <li><a href="sidebar_2.html"><span>会员管理</span></a></li>
-      <li><a href="sidebar_1.html"><span>案例管理</span></a></li>
-      <li><a href="sidebar_2.html"><span>企业管理</span></a></li>
-      <li><a href="sidebar_2.html"><span>机构管理</span></a></li>
-      <li><a href="sidebar_2.html"><span>产品管理</span></a></li>
-    </ul>
+        @Html.Action("SystemLink")
   </div>
   </div>
   
@@ -66,7 +57,9 @@
       <div>
         收缩</div>
     </div>
-    @Html.Partial("_Menu");
+
+    @Html.Action("SystemMenus")
+
   </div>
 </div>
 <div id="container">
@@ -93,7 +86,7 @@
     <div class="navTab-panel tabsPageContent layoutBox">
       <div class="page unitBox">
         <div class="pageFormContent" layouth="80" style="margin-right: 230px">
-          @Html.Partial("_EasyPanel")
+
         </div>
       </div>
     </div>

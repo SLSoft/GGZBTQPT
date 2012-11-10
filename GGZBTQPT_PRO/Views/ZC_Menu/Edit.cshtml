@@ -4,6 +4,7 @@
 }
 <script type="text/javascript">
     $.validator.unobtrusive.parse(document);
+    $("#ParentID").children().first().attr("value", 0);
 </script>
 <div id="FormContainer" class="pageContent">
     @using (Html.BeginForm("Edit", "ZC_Menu", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))

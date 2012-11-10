@@ -11,40 +11,29 @@ namespace GGZBTQPT_PRO.Controllers
 {
     public class ZC_SystemController : BaseController
     {
-        public ActionResult Index(int? pageNum, int? numPerPage, string keywords)
-        {
-            int pageIndex = pageNum.HasValue ? pageNum.Value - 1 : 0;
-            int pageSize = numPerPage.HasValue && numPerPage.Value > 0 ? numPerPage.Value : 1;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageNum">当前页码</param>
+        /// <param name="numPerPage">每页显示多少条</param>
+        /// <param name="keywords">搜索关键字</param>
+        /// <returns></returns>
+        public ActionResult Index( string keywords, int pageNum = 1, int numPerPage = 5)
+        { 
             keywords = keywords == null ? "" : keywords;
-            IList<GGZBTQPT_PRO.Models.T_ZC_System> list = db.T_ZC_System.Where(p => p.Name.Contains(keywords)).Where(p => p.IsValid == true).ToList();
-            //ViewBag.recordCount = db.T_ZC_System.Where(p => p.IsValid == true).Count();
-            ViewBag.recordCount = list.Count();
-            list = list.OrderBy(i => i.ID).Skip(pageSize * pageIndex).Take(pageSize).ToList();
-            ViewBag.numPerPage = pageSize;
-            ViewBag.pageNum = pageIndex + 1;
-            ViewBag.keywords = keywords;
-            return View(list);
-        }
 
-        //public ViewResult Index(FormCollection form)
-        //{
-        //    keyString = form["keyword"];
-        //    //int p = Int32.Parse(form["pageNum"]);
-        //    //int size = Int32.Parse(form["numPerPage"]);  
-        //    int p = 1;
-        //    int size = 5;  
-        //    //var List = from ds in db.T_ZC_System orderby ds.ID ascending
-        //    //           where keyString == null || ds.Name.Contains(keyString) || ds.Name.Contains(keyString) select ds;
-        //    //return View(List.Skip((PageNum - 1) * NumPerPage).Take(NumPerPage));
-        //    var List = db.T_ZC_System.Select(n => n).OrderBy(n => n.ID).Skip((p - 1) * size).Take(size);  
-        //    TotalCount = List.Count();
-        //    ViewData["List"] = List;
-        //    ViewData["recordCount"] = form["recordCount"];
-        //    ViewData["pageNum"] = p;
-        //    ViewData["numPerPage"] = size;
-        //    return View();              
-        //    //return View(db.T_ZC_System.Where(p => p.IsValid == true).ToList());
-        //}
+            IList<GGZBTQPT_PRO.Models.T_ZC_System> list = db.T_ZC_System.Where(p => p.Name.Contains(keywords)).Where(p => p.IsValid == true)
+                                                            .OrderBy(s => s.ID)
+                                                            .Skip(numPerPage * (pageNum -1))
+                                                            .Take(numPerPage).ToList(); 
+
+            ViewBag.recordCount = db.T_ZC_System.Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+            ViewBag.keywords = keywords;
+
+            return View(list);
+        } 
 
         public ActionResult Create()
         {
@@ -98,11 +87,6 @@ namespace GGZBTQPT_PRO.Controllers
             return Json("");
         }
 
-        //public ActionResult Delete(int id)
-        //{
-        //    T_ZC_System t_zc_system = db.T_ZC_System.Find(id);
-        //    return View(t_zc_system);
-        //}
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
