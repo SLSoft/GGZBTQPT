@@ -68,16 +68,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             {
                 db.Entry(t_qy_corp).State = EntityState.Modified;
                 t_qy_corp.UpdateTime = DateTime.Now;
-                var y = Request.Files["file1"];
-                Stream stream = Request.Files.Count > 0
-                                        ? Request.Files[0].InputStream
-                                        : Request.InputStream;
-                //存入文件
-                if (stream.Length > 0)
-                {
-                    t_qy_corp.Logo = new byte[stream.Length];
-                    stream.Read(t_qy_corp.Logo, 0, t_qy_corp.Logo.Length);
-                }
+
                 string cyear = collection["FYear"].ToString();
                 if (db.T_QY_Financial.Where(f => (f.CorpID == t_qy_corp.ID && f.CurYear == cyear)).Count() > 0)
                 {
@@ -112,9 +103,38 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             return Json(new { statusCode = "200", message = "信息保存失败！", type = "error" });
         }
 
-        public ActionResult UploadLogo(string qqfile)
+        
+
+        public ActionResult UploadLogo(string qqfile, int corp_id)
+        { 
+            var corp = db.T_QY_Corp.Find(corp_id);
+            db.Entry(corp).State = EntityState.Modified;
+
+            try
+            {
+
+                Stream stream = Request.Files.Count > 0
+                    ? Request.Files[0].InputStream
+                    : Request.InputStream;
+                //存入文件
+                if (stream.Length > 0)
+                {
+                    corp.Logo = new byte[stream.Length];
+                    stream.Read(corp.Logo, 0, corp.Logo.Length);
+                } 
+                db.SaveChanges();
+                return Json(new { success = "true", message = "上传成功", logo = Convert.ToBase64String(corp.Logo) }, "text/x-json");
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, "text/x-json");
+            }
+        }
+
+        public FileContentResult ShowLogo(int corp_id)
         {
-            return Json(new { statusCode = "200", message = "信息保存成功！", type = "success" });
+
+            return File(db.T_QY_Corp.Find(corp_id).Logo, "image/jpeg");
         }
    
 
