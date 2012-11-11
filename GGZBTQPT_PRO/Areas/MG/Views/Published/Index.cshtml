@@ -1,0 +1,38 @@
+﻿@model GGZBTQPT_PRO.Models.T_HY_Member
+@{
+    ViewBag.Title = "我的发布";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#published li a").click(function (e) {
+            e.preventDefault();
+            $("#published li").removeClass("active");
+            $(this).parent("li").addClass("active");
+        });
+
+        $("#published li.active a").click();
+    });  
+</script>
+<h2 class="content-title">
+    我的发布</h2>
+
+<ul id="published" class="nav nav-tabs">
+    <li class="active">
+        @Ajax.ActionLink("发布的项目", "PublishedFinancials", "Published", new { member_id = Model.ID }, new AjaxOptions {  HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
+    </li>
+    <li>
+        @Ajax.ActionLink("发布的意向", "PublishedInvestments", "Published", new { member_id = Model.ID }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
+    </li>
+@*    <li>
+        @Ajax.ActionLink("发布的产品", "PublishedProducts", "Published", new { member_id = Model.ID }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
+    </li>*@
+
+</ul>
+
+<div id="details">
+
+</div>
+
+
+

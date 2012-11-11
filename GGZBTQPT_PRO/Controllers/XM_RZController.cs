@@ -86,7 +86,8 @@ namespace GGZBTQPT_PRO.Controllers
             BindItemStage();
             BindAssetsType();
             BindTransactionMode();
-            return View();
+            var t_xm_financing = new T_XM_Financing();
+            return View(t_xm_financing);
         } 
 
         //

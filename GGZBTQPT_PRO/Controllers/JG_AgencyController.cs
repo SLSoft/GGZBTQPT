@@ -52,7 +52,8 @@ namespace GGZBTQPT_PRO.Controllers
             BindArea();
             BindAgencyType();
             ViewBag.MemberID = new SelectList(db.T_HY_Member, "ID", "LoginName");
-            return View();
+            var t_jg_agency = new T_JG_Agency();
+            return View(t_jg_agency);
         } 
 
         //

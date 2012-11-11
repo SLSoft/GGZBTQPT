@@ -2,6 +2,6 @@
 <ul>
     @foreach( var system in Model)
     { 
-        <li><a data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace"  href="Home/SystemMenus/@system.ID"><span>@system.Name</span></a></li>
+        <li><a data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace"  href="@Url.Action("SystemMenus","Home", new {id=system.ID})"><span>@system.Name</span></a></li>
     }
 </ul>

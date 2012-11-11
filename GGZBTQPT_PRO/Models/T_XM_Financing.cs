@@ -1,5 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace GGZBTQPT_PRO.Models
 {
@@ -7,8 +11,58 @@ namespace GGZBTQPT_PRO.Models
     {
         public T_XM_Financing()
         { 
+            ItemName = " ";
+            Province = " ";
+            City = " ";
+            Region = " ";
+            Industry = 0;
+            ValidDate = DateTime.MaxValue;
+            Keys = " ";
+            ItemContent = " ";
+            ItemType = 0;
+            FinancSum = 0;
+            FinancType = 0;
+            FinancCycle = 0;
+            TotalInvestment = 0;
+            ReturnRatio = 0;
+            ItemStage = 0;
+            ItemValue = 0;
+            Assure = " ";
+            Collateral = " ";
+            PartnerRequirements = " ";
+            AssetsType = 0;
+            AssetsCost = 0;
+            IsMortgage = " ";
+            TransferPrice = 0;
+            TransferType = 0;
+            TransactionMode = " ";
+            Investment = 0;
+            CooperationMode = 0;
+            BuildCycle = 0;
+            ReturnCycle = 0;
+            OtherItemFinancSum = 0;
+            OtherItemFinancCycle = 0;
+            PublicStatus = " ";
+            SubmitTime = DateTime.MaxValue;
+            PublicTime = DateTime.MaxValue;
+            Linkman = " ";
+            Position = " ";
+            Phone = " ";
+            Mobile = " ";
+            Fax = " ";
+            Email = " ";
+            QQ = " ";
+            Address = " ";
+            IsPublic = " ";
+            IsValid = true;
+            OP = 0;
+            CreateTime = DateTime.MaxValue;
+            UpdateTime = DateTime.MaxValue;
+            Pic = new Byte[0]; 
+            MemberID = 9999;
         }
 
+        
         public int ID { get; set; }
 
         public string ItemName { get; set; }

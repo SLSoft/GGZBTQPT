@@ -67,7 +67,8 @@ namespace GGZBTQPT_PRO.Controllers
             BindIndustry();
             BindProperty();
             ViewBag.MemberID = new SelectList(db.T_HY_Member, "ID", "LoginName");
-            return View();
+            var t_qy_corp = new T_QY_Corp();
+            return View(t_qy_corp);
         } 
 
         //

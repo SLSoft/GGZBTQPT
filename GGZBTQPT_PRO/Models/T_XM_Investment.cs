@@ -5,6 +5,45 @@ namespace GGZBTQPT_PRO.Models
 {
     public class T_XM_Investment
     {
+        public T_XM_Investment()
+        {
+            ItemName = " ";
+            Province = " ";
+            City = " ";
+            Region = " ";
+            Industry = 0;
+            ValidDate = DateTime.MaxValue;
+            Keys = " ";
+            Description = " ";
+            Linkman = " ";
+            Position = " ";
+            Phone = " ";
+            Mobile = " ";
+            Fax = " ";
+            Email = " ";
+            QQ = " ";
+            IsPublic = " ";
+            Investment = 0;
+            StartInvestment = 0;
+            AimIndustry = " ";
+            AjmArea = " ";
+            ReturnRatio = 0;
+            TeamworkType = " ";
+            InvestmentPeriod = " ";
+            PartnerRequirements = " ";
+            InvestmentNature = 0;
+            InvestmentStage = " ";
+            PublicStatus = " ";
+            SubmitTime = DateTime.MaxValue;
+            PublicTime = DateTime.MaxValue;
+            IsValid = true;
+            OP = 9999;
+            CreateTime = DateTime.Now;
+            UpdateTime = DateTime.Now;
+            Pic = new Byte[0];
+            MemberID = 9999;
+
+        }
         public int ID { get; set; }
 
         public string ItemName { get; set; }
