@@ -9,7 +9,7 @@ using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.Enums;
 
 
-namespace GGZBTQPT_PRO.Areas.Member.Controllers
+namespace GGZBTQPT_PRO.Areas.MG.Controllers
 { 
     public class MemberController : Controller
     {

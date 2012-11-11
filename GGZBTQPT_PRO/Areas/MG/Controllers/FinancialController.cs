@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 
-namespace GGZBTQPT_PRO.Areas.Member.Controllers
+namespace GGZBTQPT_PRO.Areas.MG.Controllers
 {
     public class FinancialController : BaseController
     { 
@@ -89,7 +89,8 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
                 ViewData["notice"] = "融资项目发布成功，可进入我的发布中查阅！";
             }
             BindOptions();
-            return View();
+            var t_xm_financing = new T_XM_Financing();
+            return View(t_xm_financing);
         }
 
         //

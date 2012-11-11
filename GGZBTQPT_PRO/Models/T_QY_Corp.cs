@@ -5,6 +5,39 @@ namespace GGZBTQPT_PRO.Models
 {
     public class T_QY_Corp
     {
+        public T_QY_Corp()
+        {
+            CorpName = " ";
+            CorpCode = " ";
+            RegTime = DateTime.MaxValue;
+            Property = 0;
+            Province = 0;
+            City = 0;
+            Region = 0;
+            RegCapital = 0;
+            Industry = 0;
+            Stage = 0;
+            LegalPerson = " ";
+            Employees = 0;
+            Website = " ";
+            Logo = new byte[0];
+            Range = " ";
+            Remark = " ";
+            Linkman = " ";
+            Position = " ";
+            Phone = " ";
+            Mobile = " ";
+            Fax = " ";
+            Email = " ";
+            QQ = " ";
+            IsPublic= " ";
+            IsValid = true;
+            OP = 9999;
+            CreateTime = DateTime.Now;
+            UpdateTime = DateTime.Now;
+
+        }
+
         public int ID { get; set; }
         public int UserID { get; set; }
         public string CorpName { get; set; }

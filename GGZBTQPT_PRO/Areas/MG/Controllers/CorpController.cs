@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 using System.IO;
 
-namespace GGZBTQPT_PRO.Areas.Member.Controllers
+namespace GGZBTQPT_PRO.Areas.MG.Controllers
 { 
     public class CorpController : Controller
     {

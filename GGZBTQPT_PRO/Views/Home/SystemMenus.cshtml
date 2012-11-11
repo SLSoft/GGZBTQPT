@@ -4,10 +4,19 @@
 { 
   foreach (var menu in Model)
   {
+    
     if (menu.ParentID == ParentMenu.ID)
     { 
+        var paths = menu.Url.Split('/');
       <li>
-        <a href="@menu.Url"  target="navTab" title="@menu.Name" rel="@menu.ID">@menu.Name</a>
+        @if(paths.Length > 1)
+        {
+            <a href="@Url.Action(paths[1],paths[0])"  target="navTab" title="@menu.Name" rel="@menu.ID">@menu.Name</a> 
+        }
+        else
+        {
+            <a href="#"  target="navTab" title="@menu.Name" rel="@menu.ID">@menu.Name</a> 
+        }
         @if (Model.Where(m => m.ParentID == menu.ID).Count() > 0)
         {
           <ul>
@@ -25,8 +34,8 @@
 <div class="accordion" fillspace="sidebar">
   @foreach (var menu in Model)
   {
-    if (menu.ParentID == 0)
-    {
+      if (menu.ParentID == 0)
+      {
       <div class="accordionHeader">
         <h2>
           <span>Folder</span>@menu.Name</h2>

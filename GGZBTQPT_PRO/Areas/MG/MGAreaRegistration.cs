@@ -16,7 +16,7 @@ namespace GGZBTQPT_PRO.Areas.Member
         {
             context.MapRoute(
                 "Member_default",
-                "Member/{controller}/{action}/{id}",
+                "MG/{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index",id = UrlParameter.Optional }
             );
         }

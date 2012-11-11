@@ -63,7 +63,8 @@ namespace GGZBTQPT_PRO.Controllers
             BindArea();
             BindIndustry();
             BindTeamworkType();
-            return View();
+            var t_xm_investment = new T_XM_Investment();
+            return View(t_xm_investment);
         } 
 
         //

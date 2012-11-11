@@ -7,11 +7,11 @@ using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 
-namespace GGZBTQPT_PRO.Areas.Member.Controllers
+namespace GGZBTQPT_PRO.Areas.MG.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+
         //
         // GET: /Member/Home/
 
@@ -26,17 +26,6 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             {
                 return RedirectToAction("Login", "Member");
             }
-        }
-
-        private T_HY_Member CurrentMember()
-        {
-            if (Session["MemberID"] != null && Session["MemberID"].ToString() != "")
-            {
-                var member = db.T_HY_Member.Find(Convert.ToInt32(Session["MemberID"].ToString()));
-                return member;
-            }
-            return null;
-        }
- 
+        } 
     }
 }

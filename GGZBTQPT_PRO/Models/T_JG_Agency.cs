@@ -5,6 +5,27 @@ namespace GGZBTQPT_PRO.Models
 {
     public class T_JG_Agency
     {
+        public T_JG_Agency()
+        {
+            AgencyName = " ";
+            AgencyType = 0;
+            RegTime = DateTime.MaxValue;
+            Address = " ";
+            RegCapital = 0;
+            Province = 0;
+            City = 0;
+            Region = 0;
+            Phone = " ";
+            Services = " ";
+            Remark = " ";
+            IsValid = true;
+            OP = 9999;
+            CreateTime = DateTime.Now;
+            UpdateTime = DateTime.Now;
+            IsIn = true;
+            Pic = new byte[0]; 
+        }
+
         public int ID { get; set; } 
 
         public string AgencyName { get; set; }

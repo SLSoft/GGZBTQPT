@@ -87,11 +87,11 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Province, "所属区域")</td>
-                <td>@Html.DropDownList("Province", "请选择")<select id="ddlCity" name="ddlCity"><option value="-1">请选择</option></select></td>
+                <td>@Html.DropDownList("Province")<select id="ddlCity" name="ddlCity"><option value="-1">请选择</option></select></td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Industry, "所属行业")</td>
-                <td>@Html.DropDownList("Industry", "请选择")
+                <td>@Html.DropDownList("Industry")
                 </td>
             </tr>
             <tr>
@@ -122,7 +122,7 @@
                 <td>@Html.EditorFor(model => model.FinancSum)（万元）
             @Html.ValidationMessageFor(model => model.FinancSum)</td>
                 <td>@Html.LabelFor(model => model.FinancType, "融资方式")</td>
-                <td>@Html.DropDownList("FinancType", "请选择")</td>
+                <td>@Html.DropDownList("FinancType")</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.FinancCycle, "融资期限")</td>
@@ -137,7 +137,7 @@
                 <td>@Html.EditorFor(model => model.ReturnRatio)（%/年）
             @Html.ValidationMessageFor(model => model.ReturnRatio)</td>
                 <td>@Html.LabelFor(model => model.ItemStage, "项目阶段")</td>
-                <td>@Html.DropDownList("ItemStage", "请选择")</td>
+                <td>@Html.DropDownList("ItemStage")</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.ItemValue, "项目评估价值")</td>
@@ -167,7 +167,7 @@
             </tr>
             <tr>
                 <td style="width:90px">@Html.LabelFor(model => model.AssetsType, "资产类别")</td>
-                <td>@Html.DropDownList("AssetsType", "请选择")</td>
+                <td>@Html.DropDownList("AssetsType")</td>
                 <td>@Html.LabelFor(model => model.AssetsCost, "资产估价")</td>
                 <td>@Html.EditorFor(model => model.AssetsCost)万元</td>
             </tr>

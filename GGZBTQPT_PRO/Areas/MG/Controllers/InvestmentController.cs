@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
-namespace GGZBTQPT_PRO.Areas.Member.Controllers
+namespace GGZBTQPT_PRO.Areas.MG.Controllers
 {
     public class InvestmentController : BaseController
     {
@@ -69,7 +69,8 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
             BindTeamworkType();
             BindInvestmentStage();
             BindInvestmentNature();
-            return View();
+            var t_xm_investment = new T_XM_Investment();
+            return View(t_xm_investment);
         }
 
         //

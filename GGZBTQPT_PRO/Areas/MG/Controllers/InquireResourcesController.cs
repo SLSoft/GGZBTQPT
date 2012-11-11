@@ -7,11 +7,11 @@ using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 
-namespace GGZBTQPT_PRO.Areas.Member.Controllers
+namespace GGZBTQPT_PRO.Areas.MG.Controllers
 {
-    public class InquireResourcesController : Controller
+    public class InquireResourcesController : BaseController
     {
-        private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+
 
         #region --------------------会员管理系统（找项目、找资金）--------------------------
         /// <summary>
@@ -143,18 +143,7 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
         {
            return View(); 
         }
-
-        //Helper
-        private T_HY_Member CurrentMember()
-        {
-            if (Session["MemberID"] != null && Session["MemberID"].ToString() != "")
-            {
-                var member = db.T_HY_Member.Find(Convert.ToInt32(Session["MemberID"].ToString()));
-                return member;
-            }
-            return null;
-        }
-
+ 
         #endregion
 
         /// <summary>

@@ -10,7 +10,7 @@ using GGZBTQPT_PRO.Areas.ViewModels;
 using GGZBTQPT_PRO.Enums;
 using Webdiyer.WebControls.Mvc;
 
-namespace GGZBTQPT_PRO.Areas.Member.Controllers
+namespace GGZBTQPT_PRO.Areas.MG.Controllers
 {
     public class AttentionController : BaseController
     {

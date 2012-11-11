@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 
-namespace GGZBTQPT_PRO.Areas.Member.Controllers
+namespace GGZBTQPT_PRO.Areas.MG.Controllers
 { 
     public class AgencyController : Controller
     {
