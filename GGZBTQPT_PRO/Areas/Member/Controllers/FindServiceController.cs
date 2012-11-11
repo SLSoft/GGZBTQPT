@@ -93,5 +93,11 @@ namespace GGZBTQPT_PRO.Areas.Member.Controllers
                 }
             }
         }
+
+        public ActionResult CorpList()
+        {
+            var qy_corp = db.T_QY_Corp.Where(c => c.IsValid == true).ToList();
+            return View(qy_corp);
+        }
     }
 }

@@ -60,6 +60,8 @@ namespace GGZBTQPT_PRO.Models
             get
             {
                 string result = "";
+                if (AimIndustry.Trim() == "")
+                    return result;
                 GGZBTQPTDBContext db = new GGZBTQPTDBContext();
                 string[] aimInd = this.AimIndustry.Split(',');
                 foreach (string strInd in aimInd)

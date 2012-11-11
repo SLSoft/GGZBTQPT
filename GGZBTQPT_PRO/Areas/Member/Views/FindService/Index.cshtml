@@ -13,14 +13,9 @@
             $("#btn").removeClass("last2").addClass("last");
         }
 </script>
-<div class="part-r part-fsrw">
+
 <div class="fs-content">
 <ul class="fs-c-nav">
-	<li><a href="##"></a></li>
-	<li><a href="##"></a></li>
-	<li><a href="##"></a></li>
-	<li><a href="##"></a></li>
-	<li><a href="##"></a></li>
 	<li id = "btn" class="last">
         @Ajax.ActionLink("已入驻", "AgencyList", new { AgencyType = 0, isin = true }, new AjaxOptions { HttpMethod = "post", UpdateTargetId = "details", OnSuccess = "sel" })
         @Ajax.ActionLink("全部", "AgencyList", new { AgencyType = 0, isin = false }, new AjaxOptions { HttpMethod = "post", UpdateTargetId = "details", OnSuccess = "selall" })
@@ -46,5 +41,5 @@
 </ul>
 </div>
 </div>
-</div>
+
 
