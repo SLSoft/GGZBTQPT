@@ -49,7 +49,7 @@
                 </p>
                 @*附属信息*@
                 <div class="recommend-info">
-                    <span class="pro-type">总投资：@_model.Amount</span> <span class="published-member pull-right">发布人：<a href="#">@_model.Member.MemberName</a> <em>
+                    <span class="amount text-error">总投资：@_model.Amount</span> <span class="published-member pull-right ">发布人：<a href="#">@_model.Member.MemberName</a> <em>
                         @if (@_model.MemberID != @ViewBag.CurrentMember)
                         { @GenerateAttentionLink(@AttentionedMembers, @_model.MemberID.ToString(), @_model.Member.Type)}</em></span>
                 </div>

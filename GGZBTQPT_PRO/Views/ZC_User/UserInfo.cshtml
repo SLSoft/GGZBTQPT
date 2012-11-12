@@ -9,11 +9,11 @@
 <div class="pageContent j-resizeGrid" style="border-left: 1px #B8D0D6 solid; border-right: 1px #B8D0D6 solid">
     <div class="panelBar">
         <ul class="toolBar">
-            <li><a class="add" href="/ZC_User/create" rel="create" target="dialog" title="添加新的用户"
+            <li><a class="add" href="@Url.Action("create","ZC_User")" rel="create" target="dialog" title="添加新的用户"
                 mask="true" width="320" height="330"><span>添加</span></a></li>
-            <li><a class="edit" href="/ZC_User/edit/{mid}" rel="edit" target="dialog" title="编辑用户信息"
+            <li><a class="edit" href="@Url.Action("edit","ZC_User", new { id = "{mid}"})" rel="edit" target="dialog" title="编辑用户信息"
                 mask="true" width="320" height="330" warn="请选择一条用户信息"><span>修改</span></a></li>
-            <li><a class="delete" href="/ZC_User/delete/{mid}" rel="delete" target="ajaxTodo"
+            <li><a class="delete" href="@Url.Action("delete","ZC_User", new { id = "{mid}"})" rel="delete" target="ajaxTodo"
                 title="确定要删除吗？" warn="请选择一条用户信息"><span>删除</span></a></li>
             <li class="line">line</li>
             @*<li><a class="icon" href="#"><span>导入EXCEL</span></a></li>*@
@@ -75,7 +75,7 @@
             <span>每页显示</span>
             <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value,pageNum:1},'userInfoBox')">
                 @{  
-                    int[] nums = new int[] { 5, 10, 20, 50, 100, 200 };
+                    int[] nums = new int[] {10, 20, 50, 100, 200 };
                     foreach (var num in nums)
                     {
                         if (Int32.Parse(ViewData["numPerPage"].ToString()) == num)
