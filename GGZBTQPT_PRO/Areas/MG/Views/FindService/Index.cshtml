@@ -1,45 +1,26 @@
-﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_JG_Agency>
+﻿@model Webdiyer.WebControls.Mvc.PagedList<GGZBTQPT_PRO.Models.T_JG_Agency>
 
-@section custom_css{
-    <link href="@Url.Content("~/Areas/Member/Content/css/wscss/news_css.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Areas/Member/Content/css/wscss/style.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Areas/Member/Content/css/wscss/text1.css")" rel="stylesheet" type="text/css" />
-}
-<script type="text/javascript">
-    function selall() {
-            $("#btn").removeClass("last").addClass("last2");
-        }
-        function sel() {
-            $("#btn").removeClass("last2").addClass("last");
-        }
-</script>
-
-<div class="fs-content">
-<ul class="fs-c-nav">
-	<li id = "btn" class="last">
-        @Ajax.ActionLink("已入驻", "AgencyList", new { AgencyType = 0, isin = true }, new AjaxOptions { HttpMethod = "post", UpdateTargetId = "details", OnSuccess = "sel" })
-        @Ajax.ActionLink("全部", "AgencyList", new { AgencyType = 0, isin = false }, new AjaxOptions { HttpMethod = "post", UpdateTargetId = "details", OnSuccess = "selall" })
-	</li>
-</ul>
-<div id="details">
-<ul class="fs-c-list">
-    @foreach (var item in Model)
+<div id="published">
+    @foreach (var _model in Model)
     {
-        <li>
-        <h3><span class="dot">■</span>@Html.ActionLink(item.AgencyName, "AgencyShow", new { id = item.ID })</h3>
-        <div class="fs-c-c">
-            <div class="copic">
-                <img src=@Url.Content("~/Areas/Member/Content/css/images/co1_logo.jpg") />
+        <div class="row-fluid" style="border-bottom:1 solid">
+            <div class="published-content ">
+                <div style="float:left"><h4>
+                    ■@Html.ActionLink(_model.AgencyName, "AgencyShow", new { id = _model.ID })</h4>    
+                </div>
+                <div style="float:right"><img src=@Url.Content("~/Areas/mg/Content/css/images/co1_logo.jpg") /></div>                   
+            
+            <div style="clear:both;">
+            <p class="summary">
+                    @(_model.Remark.Length > 200 ? _model.Remark.Substring(0, 200) + "..." : _model.Remark)
+                </p>   
+            </div>          
             </div>
-            <span class="_text">
-            @(item.Remark.Length > 200 ? item.Remark.Substring(0, 200)+"..." : item.Remark)
-            </span>
-        </div>
-
-	</li>
+        </div>          
     }
-</ul>
-</div>
+    <div class="pagination pagination-left clear">
+        @Html.AjaxPager(Model, new PagerOptions { PageIndexParameterName = "id", ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details" }) 
+    </div>
 </div>
 
 

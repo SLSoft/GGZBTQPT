@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
+using Webdiyer.WebControls.Mvc;
 
 namespace GGZBTQPT_PRO.Areas.MG.Controllers
 {
@@ -25,7 +26,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             List<T_PTF_DicDetail> ItemStage = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM04")).ToList();
             ViewData["ItemStage"] = new SelectList(ItemStage, "ID", "Name");
 
-            var financials = db.T_XM_Financing.ToList();
+            PagedList<T_XM_Financing> financials = db.T_XM_Financing.OrderBy(p => p.CreateTime).ToPagedList(1, 5);
             return View(financials); 
         } 
 
@@ -34,7 +35,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult InquiredFinancials(FormCollection collection)
+        public ActionResult InquiredFinancials(FormCollection collection,int id=1)
         {
             List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
             ViewData["Industry"] = new SelectList(Industry, "ID", "Name");
@@ -59,8 +60,9 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             selparms[2] = new System.Data.SqlClient.SqlParameter("@Industry", select_industry);
             selparms[3] = new System.Data.SqlClient.SqlParameter("@FinancSum", select_Financial);
             selparms[4] = new System.Data.SqlClient.SqlParameter("@Order", order);
-            var financials = (from p in db.T_XM_Financing.SqlQuery("exec dbo.P_GetRZXMByCondition @keys,@ItemType,@Industry,@FinancSum,@Order", selparms) select p).ToList();
-            return View(financials); 
+            IList<T_XM_Financing> financials = (from p in db.T_XM_Financing.SqlQuery("exec dbo.P_GetRZXMByCondition @keys,@ItemType,@Industry,@FinancSum,@Order", selparms) select p).ToList();
+            PagedList<T_XM_Financing> paged_financials = new PagedList<T_XM_Financing>(financials, id, 5);
+            return View(paged_financials); 
         } 
 
         /// <summary>
@@ -270,6 +272,17 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             ViewData["InvestmentStage"] = new SelectList(InvestmentStage, "ID", "Name");
             var investments = db.T_XM_Investment.ToList();
             return View(investments);
+        }
+
+        /// <summary>
+        /// 找产品
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <returns></returns>
+        public ActionResult zcp(FormCollection collection)
+        {
+            var products = db.T_JG_Product.ToList();
+            return View(products);
         }
     }
 }

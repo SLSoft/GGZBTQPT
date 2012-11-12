@@ -20,7 +20,7 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.AgencyID, "所属机构")</td>
-                <td>@Html.DropDownList("AgencyList", "请选择")</td>
+                <td>@Html.DropDownList("AgencyList")</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.FinancingAmount, "最高融资额度")</td>
@@ -49,7 +49,11 @@
             <tr>
                 <td>@Html.LabelFor(model => model.AppCondition, "申请条件")</td>
                 <td>@Html.TextAreaFor(model => model.AppCondition, new { rows = "5", cols = "60" })</td>
-            </tr>           
+            </tr> 
+            <tr>
+                <td>@Html.LabelFor(model => model.Process, "办理流程")</td>
+                <td>@Html.TextAreaFor(model => model.Process, new { rows = "5", cols = "60" })</td>
+            </tr>              
         </table> 
         <table>
             <tr>

@@ -118,7 +118,15 @@
                             </span>
                         </p>
                         <p class="ts-l-item-desc">
-							@_model.ItemContent
+							@if (_model.ItemContent.Length > 200)
+                            {
+                                <span>@_model.ItemContent.Substring(0, 200)...</span>
+                            }
+                            else
+                            {
+                                <span>@_model.ItemContent.Substring(0, _model.ItemContent.Length)</span>
+                            }
+                            @*<a href="http://www.ovcstf.com/Default_754_"+@_model.ID+",1.html">【查看详情】</a>*@
                             @Html.ActionLink("【查看详情】", "Details", "Financial", new { id = _model.ID }, null)
                         </p>
                     </div>

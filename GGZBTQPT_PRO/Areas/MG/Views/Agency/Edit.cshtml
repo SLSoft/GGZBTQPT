@@ -9,6 +9,7 @@
         @Html.HiddenFor(model => model.CreateTime)
         @Html.HiddenFor(model => model.UpdateTime)
         @Html.HiddenFor(model => model.MemberID)
+        @Html.HiddenFor(model => model.Pic)
         <table>
             <tr>
                 <td>@Html.LabelFor(model => model.AgencyName, "机构名称")</td>
@@ -46,9 +47,69 @@
                 <td>@Html.LabelFor(model => model.Remark, "机构简介")</td>
                 <td>@Html.TextAreaFor(model => model.Remark, new { rows = "5", cols = "60" })</td>
             </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Pic, "机构LOGO")</td>
+                <td colspan="3">
+                   <div id="bootstrapped-fine-uploader"></div>
+                   <img id="logo_preview" src='@Url.Action("ShowLogo", "Agency", new { agency_id = Model.ID })'  alt="@Model.AgencyName" />
+                </td>
+            </tr>
         </table>
         <p>
         <button class="btn btn-primary" type="submit">
             <i class="icon-ok icon-white"></i>保存设置</button>
         </p>
 }
+
+<script src="@Url.Content("~/Public/file-uploader/fileuploader.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+    function createUploader() {
+        var uploader = new qq.FileUploader({
+            element: document.getElementById('bootstrapped-fine-uploader'),
+            action: '@Url.Action("UploadLogo", "Agency", new { agency_id = @Model.ID })',
+            uploadButtonText: '<i class="icon-upload icon-white"></i>上传图片',
+            template: '<div class="qq-uploader span12">' +
+                  '<pre class="qq-upload-drop-area span12"><span>{dragText}</span></pre>' +
+                  '<div class="qq-upload-button btn btn-success" style="width: auto;">{uploadButtonText}</div>' +
+                  '<ul class="qq-upload-list" style="margin-top: 10px; text-align: center;"></ul>' +
+                '</div>',
+            allowedExtensions: ['jpeg', 'jpg', 'gif', 'png'],
+            classes: {
+                button: 'qq-upload-button',
+                drop: 'qq-upload-drop-area',
+                dropActive: 'qq-upload-drop-area-active',
+                dropDisabled: 'qq-upload-drop-area-disabled',
+                list: 'qq-upload-list',
+                progressBar: 'qq-progress-bar',
+                file: 'qq-upload-file',
+                spinner: 'qq-upload-spinner',
+                finished: 'qq-upload-finished',
+                size: 'qq-upload-size',
+                cancel: 'qq-upload-cancel',
+                failText: 'qq-upload-failed-text',
+                success: 'alert alert-success',
+                fail: 'alert alert-error',
+                successIcon: null,
+                failIcon: null
+            },
+            failUploadText: '上传成功',
+            onComplete: function (id, fileName, responseJSON) {
+                var src = $("#logo_preview").attr("src");
+                $("#logo_preview").attr("src", src + "&" + Math.random());
+                $("#Logo").attr("value", responseJSON.logo);
+            }
+        });
+    }
+    $(document).ready(
+        function () {
+            createUploader();
+        }
+    );
+
+    function notice(data) {
+        $("#recommend li.active a").click();
+        $.Member.notice(data);
+    }
+</script>

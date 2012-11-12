@@ -16,9 +16,14 @@ namespace GGZBTQPT_PRO.Controllers
         //
         // GET: /JG_Product/
 
-        public ViewResult Index()
+        public ViewResult Index(int pageNum = 1, int numPerPage = 5)
         {
-            var t_jg_product = db.T_JG_Product.Where(p => p.IsValid == true).ToList();
+            var t_jg_product = db.T_JG_Product.Where(p => p.IsValid == true).OrderBy(s => s.ID)
+                                                                    .Skip(numPerPage * (pageNum - 1))
+                                                                    .Take(numPerPage).ToList();
+            ViewBag.recordCount = db.T_JG_Product.Where(c => c.IsValid == true).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
             return View(t_jg_product);
         }
         public void BindCustomerType()
@@ -47,7 +52,8 @@ namespace GGZBTQPT_PRO.Controllers
         {
             BindCustomerType();
             BindAgency();
-            return View();
+            var t_jg_product = new T_JG_Product();
+            return View(t_jg_product);
         } 
 
         //

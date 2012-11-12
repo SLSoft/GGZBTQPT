@@ -17,9 +17,15 @@ namespace GGZBTQPT_PRO.Controllers
         //
         // GET: /XM_TZ/
 
-        public ViewResult Index()
+        public ViewResult Index(int pageNum = 1, int numPerPage = 5)
         {
-            return View(db.T_XM_Investment.Where(p => p.IsValid == true).ToList());
+            var t_xm_investment = db.T_XM_Investment.Where(p => p.IsValid == true).OrderBy(s => s.ID)
+                                                                    .Skip(numPerPage * (pageNum - 1))
+                                                                    .Take(numPerPage).ToList();
+            ViewBag.recordCount = db.T_XM_Investment.Where(c => c.IsValid == true).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+            return View(t_xm_investment);
         }
 
         //

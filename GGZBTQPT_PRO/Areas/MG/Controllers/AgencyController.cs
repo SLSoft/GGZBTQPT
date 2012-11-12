@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
+using System.IO;
 
 namespace GGZBTQPT_PRO.Areas.MG.Controllers
 { 
@@ -59,6 +60,38 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 return Json(new { statusCode = "200", message = "信息保存成功！", type = "success" });
             }
             return Json(new { statusCode = "200", message = "信息保存失败！", type = "error" }); 
+        }
+
+        public ActionResult UploadLogo(string qqfile, int agency_id)
+        {
+            var agency = db.T_JG_Agency.Find(agency_id);
+            db.Entry(agency).State = EntityState.Modified;
+
+            try
+            {
+
+                Stream stream = Request.Files.Count > 0
+                    ? Request.Files[0].InputStream
+                    : Request.InputStream;
+                //存入文件
+                if (stream.Length > 0)
+                {
+                    agency.Pic = new byte[stream.Length];
+                    stream.Read(agency.Pic, 0, agency.Pic.Length);
+                }
+                db.SaveChanges();
+                return Json(new { success = "true", message = "上传成功", logo = Convert.ToBase64String(agency.Pic) }, "text/x-json");
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, "text/x-json");
+            }
+        }
+
+        public FileContentResult ShowLogo(int agency_id)
+        {
+
+            return File(db.T_JG_Agency.Find(agency_id).Pic, "image/jpeg");
         }
 
         protected override void Dispose(bool disposing)
