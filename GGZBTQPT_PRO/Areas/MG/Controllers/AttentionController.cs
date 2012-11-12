@@ -128,9 +128,14 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// <param name="id">会员ID</param>
         [HttpPost]
         public ActionResult Attentioned(int type, int id)
-        {
-            var attentioned_item = new T_HY_Attention();
+        { 
             var member = CurrentMember();
+            if (member == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var attentioned_item = new T_HY_Attention();
 
             attentioned_item.AttentionedMemberID = id;
             attentioned_item.AttentionedMemberType = type; 
@@ -149,6 +154,11 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ActionResult UnAttentioned(int id)
         {
             var member = CurrentMember();
+            if (member == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var unattentioned_item = member.Attentions.First( a => a.AttentionedMemberID == id);
 
             member.Attentions.Remove(unattentioned_item);
