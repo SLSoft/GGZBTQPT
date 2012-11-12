@@ -50,7 +50,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 IList<VM_AttentionedAgency> attentions = member.Attentions.Where(a => a.AttentionedMemberType == 3)
                                     .Join(db.T_JG_Agency, a => a.AttentionedMemberID, p => p.MemberID,
                                     (a, g) => new VM_AttentionedAgency { Agency = new T_JG_Agency {AgencyName = g.AgencyName, Address = g.Address, Phone = g.Phone,
-                                                                Services = g.Services, Linkmans = g.Linkmans  }, Member = db.T_HY_Member.Find(g.MemberID) })
+                                                                Services = g.Services, Linkmans = g.Linkmans, RegTime = g.RegTime  }, Member = db.T_HY_Member.Find(g.MemberID) })
                                     .ToList();
                 PagedList<VM_AttentionedAgency> paged_attentions = new PagedList<VM_AttentionedAgency>(attentions, id, 5);
                 return PartialView(paged_attentions);
@@ -79,7 +79,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                                 .Join(db.T_QY_Corp, a => a.AttentionedMemberID, p => p.MemberID,
                                     (a, c) => new  VM_AttentionedCorp { Corp = new T_QY_Corp {CorpName = c.CorpName, Mobile = c.Mobile, Email = c.Email, Fax = c.Fax,
                                                               Linkman = c.Linkman, Phone = c.Phone, QQ = c.QQ, Website = c.Website,
-                                                              City = c.City, CorpCode = c.CorpCode }, Member = db.T_HY_Member.Find(c.MemberID) })
+                                                              City = c.City, CorpCode = c.CorpCode, RegTime = c.RegTime }, Member = db.T_HY_Member.Find(c.MemberID) })
                                 .ToList();
                 PagedList<VM_AttentionedCorp> paged_corps = new PagedList<VM_AttentionedCorp>(corps, id, 5);
                 return PartialView(paged_corps);
@@ -109,7 +109,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 IList<VM_AttentionedPerson> persons = member.Attentions.Where(a => a.AttentionedMemberType == 1)
                                 .Join( db.T_QY_Person, a => a.AttentionedMemberID, p => p.MemberID, 
                                         (a,p) => new VM_AttentionedPerson { Person = new T_QY_Person{ MemberID = p.MemberID, Name = p.Name, Mobile = p.Mobile, Email = p.Email, College = p.College, 
-                                                                   Phone = p.Phone, WorkExperience = p.WorkExperience, Education = p.Education, Specialty = p.Specialty}, Member = db.T_HY_Member.Find(p.MemberID) })
+                                                                   Phone = p.Phone, WorkExperience = p.WorkExperience, Education = p.Education, Specialty = p.Specialty, CreateTime = p.CreateTime }, Member = db.T_HY_Member.Find(p.MemberID) })
                                 .ToList();
                 ViewBag.CurrentMemberID = member.ID;
                 PagedList<VM_AttentionedPerson> paged_persons = new PagedList<VM_AttentionedPerson>(persons, id, 5);

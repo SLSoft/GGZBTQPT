@@ -65,7 +65,9 @@ body
         border-top: dashed 1px #ddd;
         padding: 10px 0;
 
+
     }
+
     .favored-link 
     {
 
@@ -202,9 +204,25 @@ span.unattentioned
     }
 }
 
+//little component 
+.pub-time
+{
+    color: #999;
+    font-size: 14px;
+}
+.recommend-info
+{
+    color: #999;
+    font-style: italic;
+}
+.privacy-detail
+{
+    font-style: italic;
+}
 //sidebar
 .sidebar
 {
+    color: #555;
     .member-info
     {
         margin-bottom: 30px;
@@ -224,6 +242,11 @@ span.unattentioned
 
         }
     }
+    h4
+    {
+        color: #555;
+    }
+
 }
 //overide bootstrap
 .clear

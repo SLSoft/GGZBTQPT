@@ -121,7 +121,7 @@ namespace GGZBTQPT_PRO.Controllers
                                                                     .OrderBy(s => s.ID)
                                                                     .Skip(numPerPage * (pageNum - 1))
                                                                     .Take(numPerPage).ToList(); 
-            ViewBag.recordCount = db.T_ZC_Menu.Count();
+            ViewBag.recordCount = db.T_ZC_Menu.Where(m => m.SystemID == id && m.IsValid == true).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.ID = id;

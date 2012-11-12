@@ -27,7 +27,7 @@ namespace GGZBTQPT_PRO.Controllers
                                                             .Skip(numPerPage * (pageNum -1))
                                                             .Take(numPerPage).ToList(); 
 
-            ViewBag.recordCount = db.T_ZC_System.Count();
+            ViewBag.recordCount = db.T_ZC_System.Where(p => p.Name.Contains(keywords)).Where(p => p.IsValid == true).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
