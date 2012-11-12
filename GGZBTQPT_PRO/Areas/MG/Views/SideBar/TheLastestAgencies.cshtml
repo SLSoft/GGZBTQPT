@@ -5,7 +5,7 @@
     <ul>
         @foreach (var _model in Model)
         {
-            <li><a href="\Member\Agency\Details\@_model.ID">@_model.AgencyName</a>[@_model.AgencyTypeName]</li>
+            <li>@Html.ActionLink(_model.AgencyName,"Details","Agency", new {id = _model.ID},null)</li>
         }
     </ul>
 </div>

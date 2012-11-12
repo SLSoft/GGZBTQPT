@@ -1,21 +1,21 @@
 ﻿using System.Web.Mvc;
 
-namespace GGZBTQPT_PRO.Areas.Member
+namespace GGZBTQPT_PRO.Areas.MG
 {
-    public class MemberAreaRegistration : AreaRegistration
+    public class MGAreaRegistration : AreaRegistration
     {
         public override string AreaName
         {
             get
             {
-                return "Member";
+                return "MG";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "Member_default",
+                "MG_default",
                 "MG/{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index",id = UrlParameter.Optional }
             );
