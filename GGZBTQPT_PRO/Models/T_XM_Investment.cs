@@ -8,9 +8,9 @@ namespace GGZBTQPT_PRO.Models
         public T_XM_Investment()
         {
             ItemName = " ";
-            Province = " ";
-            City = " ";
-            Region = " ";
+            Province = "0";
+            City = "0";
+            Region = "0";
             Industry = 0;
             ValidDate = DateTime.MaxValue;
             Keys = " ";
@@ -99,6 +99,8 @@ namespace GGZBTQPT_PRO.Models
             get
             {
                 string result = "";
+                if (AimIndustry.Length < 2)
+                    return result;
                 GGZBTQPTDBContext db = new GGZBTQPTDBContext();
                 string[] aimInd = this.AimIndustry.Split(',');
                 foreach (string strInd in aimInd)

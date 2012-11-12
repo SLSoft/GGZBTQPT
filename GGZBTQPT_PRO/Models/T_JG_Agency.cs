@@ -12,9 +12,9 @@ namespace GGZBTQPT_PRO.Models
             RegTime = DateTime.MaxValue;
             Address = " ";
             RegCapital = 0;
-            Province = " ";
-            City = 0;
-            Region = 0;
+            Province = "0";
+            City = "0";
+            Region = "0";
             Phone = " ";
             Services = " ";
             Remark = " ";
@@ -34,8 +34,8 @@ namespace GGZBTQPT_PRO.Models
         public string Address { get; set; }
         public Nullable<decimal> RegCapital { get; set; }
         public string Province { get; set; }
-        public Nullable<int> City { get; set; }
-        public Nullable<int> Region { get; set; }
+        public string City { get; set; }
+        public string Region { get; set; }
         public string Phone { get; set; }
         public string Services { get; set; }
         public string Remark { get; set; }

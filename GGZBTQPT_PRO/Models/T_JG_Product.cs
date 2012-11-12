@@ -5,6 +5,32 @@ namespace GGZBTQPT_PRO.Models
 {
     public class T_JG_Product
     {
+        public T_JG_Product()
+        {
+            ProductName = " ";
+            AgencyID = 0;
+            FinancingAmount = 0;
+            FinancingLimit = 0;
+            InterestRate = 0;
+            CustomerType = " ";
+            Superiority = " ";
+            RepaymentType = " ";
+            AppCondition = " ";
+            Linkman = " ";
+            Position = " ";
+            Phone = " ";
+            Mobile = " ";
+            Fax = " ";
+            Email = " ";
+            QQ = " ";
+            IsPublic = " ";
+            IsValid = true;
+            OP = 9999;
+            CreateTime = DateTime.Now;
+            UpdateTime = DateTime.Now;
+            Pic = new byte[0];
+            Process = " ";
+        }
         public int ID { get; set; }
         public string ProductName { get; set; }
         public int AgencyID { get; set; }
@@ -28,12 +54,17 @@ namespace GGZBTQPT_PRO.Models
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
         public byte[] Pic { get; set; }
+        public string Process { get; set; }
+
         public string AgencyName
         {
             get
             {
                 GGZBTQPTDBContext db = new GGZBTQPTDBContext();
-                return db.T_JG_Agency.Find(this.AgencyID).AgencyName;
+                if (db.T_JG_Agency.Find(this.AgencyID) != null)
+                    return db.T_JG_Agency.Find(this.AgencyID).AgencyName;
+                else
+                    return "";
             }
         }
 

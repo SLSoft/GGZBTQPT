@@ -12,9 +12,9 @@ namespace GGZBTQPT_PRO.Models
         public T_XM_Financing()
         { 
             ItemName = " ";
-            Province = " ";
-            City = " ";
-            Region = " ";
+            Province = "0";
+            City = "0";
+            Region = "0";
             Industry = 0;
             ValidDate = DateTime.MaxValue;
             Keys = " ";

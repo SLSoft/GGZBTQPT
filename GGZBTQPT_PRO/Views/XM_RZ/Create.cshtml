@@ -174,7 +174,7 @@
                 <td>@Html.RadioButtonFor(model => model.TransferType, 1, new { @id = "radio2", @name = "rdolstState" })整体
                     @Html.RadioButtonFor(model => model.TransferType, 2, new { @id = "radio1", @name = "rdolstState" })部分
                 </td>
-                <td>@Html.LabelFor(model => model.TransactionMode, "交易方式")</td>
+                <td>@Html.LabelFor(model => model.TransactionMode, "交易方式")</td> 
                 <td>@GenerateTransactionMode()</td>
             </tr>
         </table>

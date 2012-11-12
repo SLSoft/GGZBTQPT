@@ -45,27 +45,28 @@
     {
         <tr>
             <td style="width:120px">产品名称：</td>
-            <td><input type="text" name="ProductName" value=@Model.Products.FirstOrDefault().ProductName /></td>
+            <td><input type="text" name="ProductName" value=@Model.Products.FirstOrDefault().ProductName style="width:40%"  /></td>
         </tr>
         <tr>
             <td>产品介绍：</td>
-            <td><input type="text" name="Content" value=@Model.Products.FirstOrDefault().Content /></td>
+            <td>
+            <textarea name="Content" rows="5" style="width:95%">@Model.Products.FirstOrDefault().Content</textarea></td>
         </tr>
     }
     else
     {
         <tr>
             <td>产品名称：</td>
-            <td><input type="text" name="ProductName" /></td>
+            <td><input type="text" name="ProductName" style="width:40%" /></td>
         </tr>
         <tr>
             <td>产品介绍：</td>
-            <td><input type="text" name="Content" /></td>
+            <td><textarea name="Content" rows="5" style="width:95%"></textarea></td>
         </tr>
     }
 }
 
-@using (Html.BeginForm("Create", "QY_Corp", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" })) 
+@using (Html.BeginForm("Create", "QY_Corp", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
 {
     @Html.ValidationSummary(true)
 

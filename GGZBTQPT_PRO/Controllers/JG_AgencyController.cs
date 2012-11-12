@@ -16,9 +16,14 @@ namespace GGZBTQPT_PRO.Controllers
         //
         // GET: /JG_Agency/
 
-        public ViewResult Index()
+        public ViewResult Index(int pageNum = 1, int numPerPage = 5)
         {
-            var t_jg_agency = db.T_JG_Agency.Where(c => c.IsValid == true).ToList();
+            var t_jg_agency = db.T_JG_Agency.Where(c => c.IsValid == true).OrderBy(s => s.ID)
+                                                                    .Skip(numPerPage * (pageNum - 1))
+                                                                    .Take(numPerPage).ToList();
+            ViewBag.recordCount = db.T_JG_Agency.Where(c => c.IsValid == true).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
             return View(t_jg_agency);
         }
 
@@ -102,6 +107,8 @@ namespace GGZBTQPT_PRO.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(t_jg_agency).State = EntityState.Modified;
+                if (t_jg_agency.RegTime == null)
+                    t_jg_agency.RegTime = DateTime.MaxValue;
                 t_jg_agency.UpdateTime = DateTime.Now;
                 int result = db.SaveChanges();
                 if (result > 0)

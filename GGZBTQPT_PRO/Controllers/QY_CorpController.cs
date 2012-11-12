@@ -16,9 +16,14 @@ namespace GGZBTQPT_PRO.Controllers
         //
         // GET: /QY_Corp/
 
-        public ViewResult Index()
+        public ViewResult Index(int pageNum = 1, int numPerPage = 5)
         {
-            var t_qy_corp = db.T_QY_Corp.Where(c => c.IsValid == true).ToList();
+            var t_qy_corp = db.T_QY_Corp.Where(c => c.IsValid == true).OrderBy(s => s.ID)
+                                                                    .Skip(numPerPage * (pageNum - 1))
+                                                                    .Take(numPerPage).ToList();
+            ViewBag.recordCount = db.T_QY_Corp.Where(c => c.IsValid == true).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
             return View(t_qy_corp);
         }
 

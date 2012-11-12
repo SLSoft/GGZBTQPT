@@ -1,0 +1,36 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_QY_Corp>
+@section custom_css{
+    <link href="@Url.Content("~/Areas/Member/Content/css/wscss/news_css.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Areas/Member/Content/css/wscss/style.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Areas/Member/Content/css/wscss/text1.css")" rel="stylesheet" type="text/css" />
+}
+@{
+    ViewBag.Title = "CorpList";
+}
+
+<div class="fs-content">
+<div id="details">
+<ul class="fs-c-list">
+    @foreach (var item in Model)
+    {
+        <li>
+        <h3><span class="dot">■</span>@Html.ActionLink(item.CorpName, "AgencyShow", new { id = item.ID })</h3>
+        <div class="fs-c-c">
+            <div class="copic">
+                <img src=@Url.Content("~/Areas/Member/Content/css/images/co1_logo.jpg") />
+            </div>
+            <span class="_text">
+            经营范围：@(item.Range.Length > 200 ? item.Range.Substring(0, 200) + "..." : item.Range)
+            </span><br />
+            <span class="_text">
+            公司介绍：@(item.Remark.Length > 200 ? item.Remark.Substring(0, 200) + "..." : item.Remark)
+            </span>
+        </div>
+
+	</li>
+    }
+</ul>
+</div>
+</div>
+
+

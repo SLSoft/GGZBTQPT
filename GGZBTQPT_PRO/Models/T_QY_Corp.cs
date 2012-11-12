@@ -11,9 +11,9 @@ namespace GGZBTQPT_PRO.Models
             CorpCode = " ";
             RegTime = DateTime.MaxValue;
             Property = 0;
-            Province = 0;
-            City = 0;
-            Region = 0;
+            Province = "0";
+            City = "0";
+            Region = "0";
             RegCapital = 0;
             Industry = 0;
             Stage = 0;
@@ -44,9 +44,9 @@ namespace GGZBTQPT_PRO.Models
         public string CorpCode { get; set; }
         public Nullable<System.DateTime> RegTime { get; set; }
         public Nullable<int> Property { get; set; }
-        public Nullable<int> Province { get; set; }
-        public Nullable<int> City { get; set; }
-        public Nullable<int> Region { get; set; }
+        public string Province { get; set; }
+        public string City { get; set; }
+        public string Region { get; set; }
         public Nullable<decimal> RegCapital { get; set; }
         public Nullable<int> Industry { get; set; }
         public Nullable<int> Stage { get; set; }

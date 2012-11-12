@@ -3,11 +3,15 @@
     Layout = null;
 }
 <div class="pageContent j-resizeGrid" style="border-left: 1px #B8D0D6 solid; border-right: 1px #B8D0D6 solid">
+    <form id="pagerForm" method="post" action="@Url.Action("Index")">
+    <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
+    <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
+    </form>
   <div class="panelBar">
     <ul class="toolBar">
-      <li><a class="add" href="/JG_Agency/create" rel="create" target="dialog" title="添加新机构" mask="true" width="500" height="400"><span>添加</span></a></li>
-      <li><a class="edit" href="/JG_Agency/edit/{mid}" rel="edit" target="dialog" title="编辑机构信息" mask="true" warn="请选择一个机构" width="500" height="400"><span>修改</span></a></li>
-      <li><a class="delete" href="/JG_Agency/delete/{mid}" rel="delete" target="ajaxTodo" title="确定要删除吗？"  warn="请选择一个机构"><span>删除</span></a></li>
+      <li><a class="add" href="@Url.Action("create", "JG_Agency")" rel="create" target="dialog" title="添加新机构" mask="true" width="500" height="400"><span>添加</span></a></li>
+      <li><a class="edit" href="@Url.Action("edit", "JG_Agency", new { id = "{mid}" })" rel="edit" target="dialog" title="编辑机构信息" mask="true" warn="请选择一个机构" width="500" height="400"><span>修改</span></a></li>
+      <li><a class="delete" href="@Url.Action("delete", "JG_Agency", new { id = "{mid}" })" rel="delete" target="ajaxTodo" title="确定要删除吗？"  warn="请选择一个机构"><span>删除</span></a></li>
       <li class="line">line</li>
       <li><a class="icon" href="#"><span>导入EXCEL</span></a></li>
     </ul>
@@ -46,17 +50,27 @@
     </table>
   </div>
   <div class="panelBar">
-    <div class="pages">
-      <span>显示</span>
-      <select name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
-        <option value="20">20</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-        <option value="200">200</option>
-      </select>
-      <span>条，共23条</span>
+        <div class="pages">
+            <span>每页显示</span>
+            <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value,pageNum:1})">
+                @{  
+                    int[] nums = new int[] { 5, 10, 20, 50, 100, 200 };
+                    foreach (var num in nums)
+                    {
+                        if (Int32.Parse(ViewData["numPerPage"].ToString()) == num)
+                        {  
+                    <option value="@num" selected="selected">@num</option>       
+                        }
+                        else
+                        {<option value="@num">@num</option>    }
+
+                    }  
+                }
+            </select>
+            <span>条，共 @ViewData["recordCount"] 条</span>
+        </div>
+        <div class="pagination" targettype="navTab" totalcount="@ViewData["recordCount"]" numperpage="@ViewData["numPerPage"]" pagenumshown="10"  
+               currentpage="@ViewData["pageNum"]">
+        </div>
     </div>
-    <div class="pagination" targettype="navTab" totalcount="200" numperpage="20" pagenumshown="10" currentpage="2">
-    </div>
-  </div>
 </div>
