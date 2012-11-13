@@ -46,15 +46,15 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
             if (ModelState.IsValid)
             {
-                if( !VerifyCode(Request["verify"].ToString(),t_hy_member.CellPhone) )
-                {
-                    ViewData["error"] = "验证码校验失败，请核对后重试!";
-                    return View(t_hy_member);
-                } 
+                //if( !VerifyCode(Request["verify"].ToString(),t_hy_member.CellPhone) )
+                //{
+                //    ViewData["error"] = "验证码校验失败，请核对后重试!";
+                //    return View(t_hy_member);
+                //} 
 
                 t_hy_member.CreatedAt = DateTime.Now;
                 t_hy_member.UpdatedAt = DateTime.Now; 
-                t_hy_member.MemberName = t_hy_member.LoginName;
+                //t_hy_member.MemberName = t_hy_member.LoginName;
                 db.T_HY_Member.Add(t_hy_member);
                 db.SaveChanges();
 

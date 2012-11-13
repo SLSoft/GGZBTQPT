@@ -72,8 +72,15 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 string cyear = collection["FYear"].ToString();
                 if (db.T_QY_Financial.Where(f => (f.CorpID == t_qy_corp.ID && f.CurYear == cyear)).Count() > 0)
                 {
-                    db.T_QY_Financial.Where(f => f.CurYear == cyear).FirstOrDefault().TotalAssets = Convert.ToDecimal(collection["TotalAssets"]);
-                    db.T_QY_Financial.Where(f => f.CurYear == cyear).FirstOrDefault().Revenue = Convert.ToDecimal(collection["Revenue"]);
+                    decimal assets = 0;
+                    decimal revenue = 0;
+                    if (collection["TotalAssets"] != "")
+                        assets = Convert.ToDecimal(collection["TotalAssets"]);
+                    if (collection["Revenue"] != "")
+                        revenue = Convert.ToDecimal(collection["Revenue"]);
+
+                    db.T_QY_Financial.Where(f => f.CurYear == cyear).FirstOrDefault().TotalAssets = assets;
+                    db.T_QY_Financial.Where(f => f.CurYear == cyear).FirstOrDefault().Revenue =revenue;
                 }
                 else
                 {
@@ -117,8 +124,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             db.Entry(corp).State = EntityState.Modified;
 
             try
-            {
-
+            { 
                 Stream stream = Request.Files.Count > 0
                     ? Request.Files[0].InputStream
                     : Request.InputStream;

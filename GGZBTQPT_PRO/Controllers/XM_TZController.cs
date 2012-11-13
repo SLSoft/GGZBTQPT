@@ -98,15 +98,15 @@ namespace GGZBTQPT_PRO.Controllers
                 t_xm_investment.OP = 0;
                 t_xm_investment.CreateTime = DateTime.Now;
                 t_xm_investment.UpdateTime = DateTime.Now;
-                Stream stream = Request.Files.Count > 0
-                                        ? Request.Files[0].InputStream
-                                        : Request.InputStream;
+
+                HttpPostedFileBase file = Request.Files[0];
                 //存入文件
-                if (stream.Length > 0)
+                if (file.ContentLength > 0)
                 {
-                    t_xm_investment.Pic = new byte[stream.Length];
-                    //stream.Read(t_qy_corp.Logo, 0, t_qy_corp.Logo.Length);
+                    t_xm_investment.Pic = new byte[Request.Files[0].InputStream.Length];
+                    Request.Files[0].InputStream.Read(t_xm_investment.Pic, 0, t_xm_investment.Pic.Length);
                 }
+
                 db.T_XM_Investment.Add(t_xm_investment);
                 int result = db.SaveChanges();
                 if (result > 0)
@@ -152,14 +152,13 @@ namespace GGZBTQPT_PRO.Controllers
                 t_xm_investment.TeamworkType = checkedcbTeamWorkType;
                 t_xm_investment.City = collection["ddlCity"];
                 t_xm_investment.UpdateTime = DateTime.Now;
-                Stream stream = Request.Files.Count > 0
-                                        ? Request.Files[0].InputStream
-                                        : Request.InputStream;
+
+                HttpPostedFileBase file = Request.Files[0];
                 //存入文件
-                if (stream.Length > 0)
+                if (file.ContentLength > 0)
                 {
-                    t_xm_investment.Pic = new byte[stream.Length];
-                    //stream.Read(t_qy_corp.Logo, 0, t_qy_corp.Logo.Length);
+                    t_xm_investment.Pic = new byte[Request.Files[0].InputStream.Length];
+                    Request.Files[0].InputStream.Read(t_xm_investment.Pic, 0, t_xm_investment.Pic.Length);
                 }
 
                 int result = db.SaveChanges();
@@ -197,6 +196,12 @@ namespace GGZBTQPT_PRO.Controllers
                     return ReturnJson(false, "操作失败", "", "", false, "");
             }
             return Json(new { });
+        }
+
+        //helper
+        public FileContentResult ShowPic(int xm_id)
+        {
+            return File(db.T_XM_Investment.Find(xm_id).Pic, "image/jpeg");
         }
 
         protected override void Dispose(bool disposing)

@@ -140,8 +140,14 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         [HttpPost]
         public ActionResult Favored(int type_id, int id)
         {
-            var favored_item = CreateFavoredItem(type_id, id);
+
             var member = CurrentMember();
+            if (member == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var favored_item = CreateFavoredItem(type_id, id);
 
             member.Favorites.Add(favored_item);
             db.SaveChanges();
@@ -158,6 +164,11 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ActionResult UnFavored(int id)
         {
             var member = CurrentMember();
+            if (member == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var favored_item = member.Favorites.First( f => f.FinancialID == id);
 
             member.Favorites.Remove(favored_item);

@@ -39,8 +39,7 @@ namespace GGZBTQPT_PRO.Models
 
         }
 
-        public int ID { get; set; }
-        public int UserID { get; set; }
+        public int ID { get; set; } 
         public string CorpName { get; set; }
         public string CorpCode { get; set; }
         public Nullable<System.DateTime> RegTime { get; set; }
@@ -77,18 +76,22 @@ namespace GGZBTQPT_PRO.Models
         {
             get
             {
-                //GGZBTQPTDBContext db = new GGZBTQPTDBContext();
-                //return db.T_PTF_DicDetail.Find(this.Property).Name;
-                return "PropertyName";
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                if (db.T_PTF_DicDetail.Find(this.Property) != null)
+                    return db.T_PTF_DicDetail.Find(this.Property).Name;
+                else
+                    return "";
             }
         }
         public string IndustryName
         {
             get
             {
-                //GGZBTQPTDBContext db = new GGZBTQPTDBContext();
-                //return db.T_PTF_DicDetail.Find(this.Industry).Name;
-                return "IndustryName";
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                if (db.T_PTF_DicDetail.Find(this.Industry) != null)
+                    return db.T_PTF_DicDetail.Find(this.Industry).Name;
+                else
+                    return "";
             }
         }
 
