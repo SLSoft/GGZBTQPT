@@ -81,12 +81,16 @@
                 <td colspan="3"><input type="file" name="file1" /></td>
             </tr>
             <tr>
-                <td>@Html.LabelFor(model => model.Range, "经营范围")</td>
-                <td colspan="3">@Html.EditorFor(model => model.Range)</td>
+                <td>@Html.LabelFor(model => model.Range, "详细地址")</td>
+                <td colspan="3">@Html.TextBoxFor(model => model.Address, new { style = "width:95%" })</td>
             </tr>
             <tr>
-                <td>@Html.LabelFor(model => model.Remark, "备注")</td>
-                <td colspan="3">@Html.EditorFor(model => model.Remark)</td>
+                <td>@Html.LabelFor(model => model.Range, "经营范围")</td>
+                <td colspan="3">@Html.TextBoxFor(model => model.Range, new { style = "width:95%" })</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Remark, "企业简介")</td>
+                <td colspan="3">@Html.TextAreaFor(model => model.Remark, new { rows = "5", style = "width:95%" })</td>
             </tr>
         </table>
         <table style="width:100%">

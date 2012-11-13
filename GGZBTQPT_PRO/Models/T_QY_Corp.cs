@@ -35,6 +35,7 @@ namespace GGZBTQPT_PRO.Models
             OP = 9999;
             CreateTime = DateTime.Now;
             UpdateTime = DateTime.Now;
+            Address = " ";
 
         }
 
@@ -68,6 +69,7 @@ namespace GGZBTQPT_PRO.Models
         public int OP { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
+        public string Address { get; set; }
 
         public int MemberID { get; set; }
 

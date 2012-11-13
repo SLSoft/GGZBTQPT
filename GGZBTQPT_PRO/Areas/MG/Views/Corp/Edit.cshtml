@@ -5,7 +5,7 @@
 @helper QY_Financial(int CYear)
 {
     <tr>
-        <td style="width:120px">年度</td>
+        <td style="width:90px">年度</td>
         <td><select name="FYear">
         <option value=@(CYear-1)>@(CYear-1)年度</option>
         <option value=@(CYear-2)>@(CYear-2)年度</option>
@@ -16,7 +16,7 @@
     if(Model.Financials.Where(p => p.CurYear == (CYear-1).ToString()).Count()>0)
     {
         <tr>
-            <td>年末总资产：</td>
+            <td style="width:90px">年末总资产：</td>
             <td><input type="text" name="TotalAssets" value=@Model.Financials.Where(p => p.CurYear == (CYear-1).ToString()).First().TotalAssets /></td>
         </tr>
         <tr>
@@ -27,7 +27,7 @@
     else
     {
         <tr>
-            <td>年末总资产：</td>
+            <td style="width:90px">年末总资产：</td>
             <td><input type="text" name="TotalAssets" /></td>
         </tr>
         <tr>
@@ -41,23 +41,24 @@
     if(Model.Products.Count()>0)
     {
         <tr>
-            <td style="width:120px">产品名称：</td>
-            <td><input type="text" name="ProductName" value=@Model.Products.FirstOrDefault().ProductName /></td>
+            <td style="width:90px">产品名称：</td>
+            <td><input type="text" name="ProductName" value="@Model.Products.FirstOrDefault().ProductName" style="width:40%"  /></td>
         </tr>
         <tr>
             <td>产品介绍：</td>
-            <td><input type="text" name="Content" value=@Model.Products.FirstOrDefault().Content /></td>
+            <td>
+            <textarea name="Content" rows="5" style="width:90%">@Model.Products.FirstOrDefault().Content</textarea></td>
         </tr>
     }
     else
     {
         <tr>
-            <td>产品名称：</td>
-            <td><input type="text" name="ProductName" /></td>
+            <td style="width:90px">产品名称：</td>
+            <td><input type="text" name="ProductName" style="width:40%" /></td>
         </tr>
         <tr>
             <td>产品介绍：</td>
-            <td><input type="text" name="Content" /></td>
+            <td><textarea name="Content" rows="5" style="width:95%"></textarea></td>
         </tr>
     }
 }
@@ -80,7 +81,7 @@
                 <td colspan="4" style="background-color:#666666; color:#ffffff">基本信息</td>
             </tr>
             <tr>
-                <td style="width:120px">@Html.LabelFor(model => model.CorpName, "企业名称")</td>
+                <td style="width:90px">@Html.LabelFor(model => model.CorpName, "企业名称")</td>
                 <td>@Html.EditorFor(model => model.CorpName)</td>
                 <td>@Html.LabelFor(model => model.CorpCode, "机构代码")</td>
                 <td>@Html.EditorFor(model => model.CorpCode)</td>
@@ -121,12 +122,16 @@
                 </td>
             </tr>
             <tr>
-                <td>@Html.LabelFor(model => model.Range, "经营范围")</td>
-                <td colspan="3">@Html.EditorFor(model => model.Range)</td>
+                <td>@Html.LabelFor(model => model.Range, "详细地址")</td>
+                <td colspan="3">@Html.TextBoxFor(model => model.Address, new { style = "width:90%" })</td>
             </tr>
             <tr>
-                <td>@Html.LabelFor(model => model.Remark, "备注")</td>
-                <td colspan="3">@Html.EditorFor(model => model.Remark)</td>
+                <td>@Html.LabelFor(model => model.Range, "经营范围")</td>
+                <td colspan="3">@Html.TextBoxFor(model => model.Range, new { style = "width:90%" })</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Remark, "企业简介")</td>
+                <td colspan="3">@Html.TextAreaFor(model => model.Remark, new { rows = "5", style = "width:90%" })</td>
             </tr>
         </table>
         <table style="width:100%">
@@ -134,7 +139,7 @@
                 <td colspan="4" style="background-color:#666666; color:#ffffff">联系人信息</td>
             </tr>
             <tr>
-                <td style="width:120px">@Html.LabelFor(model => model.Linkman, "联系人")</td>
+                <td style="width:90px">@Html.LabelFor(model => model.Linkman, "联系人")</td>
                 <td>@Html.EditorFor(model => model.Linkman)</td>
                 <td>@Html.LabelFor(model => model.Position, "部门&职务")</td>
                 <td>@Html.EditorFor(model => model.Position)</td>

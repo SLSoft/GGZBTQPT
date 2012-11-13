@@ -80,8 +80,14 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                     T_QY_Financial financial = new T_QY_Financial();
                     financial.CorpID = t_qy_corp.ID;
                     financial.CurYear = cyear;
-                    financial.TotalAssets = Convert.ToDecimal(collection["TotalAssets"]);
-                    financial.Revenue = Convert.ToDecimal(collection["Revenue"]); ;
+                    if (collection["TotalAssets"] != "")
+                        financial.TotalAssets = Convert.ToDecimal(collection["TotalAssets"]);
+                    else
+                        financial.TotalAssets = 0;
+                    if (collection["Revenue"] != "")
+                        financial.Revenue = Convert.ToDecimal(collection["Revenue"]);
+                    else
+                        financial.Revenue = 0;
                     db.T_QY_Financial.Add(financial);
                 }
                 if (db.T_QY_Product.Where(f => f.CorpID == t_qy_corp.ID).Count() > 0)

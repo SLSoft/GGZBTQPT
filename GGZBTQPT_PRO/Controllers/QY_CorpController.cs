@@ -89,12 +89,12 @@ namespace GGZBTQPT_PRO.Controllers
                 t_qy_corp.OP = 0;
                 t_qy_corp.CreateTime = DateTime.Now;
                 t_qy_corp.UpdateTime = DateTime.Now;
-                HttpPostedFileBase file = Request.Files["file1"];
-                //存入文件
-                if (file.ContentLength > 0)
-                {
-                    t_qy_corp.Logo = System.IO.File.ReadAllBytes(file.FileName);;
-                }
+                //HttpPostedFileBase file = Request.Files["file1"];
+                ////存入文件
+                //if (file.ContentLength > 0)
+                //{
+                //    t_qy_corp.Logo = System.IO.File.ReadAllBytes(file.FileName);;
+                //}
                 db.T_QY_Corp.Add(t_qy_corp);
                 int result = db.SaveChanges();
                 if (result > 0)
@@ -132,13 +132,7 @@ namespace GGZBTQPT_PRO.Controllers
             {
                 db.Entry(t_qy_corp).State = EntityState.Modified;
                 t_qy_corp.UpdateTime = DateTime.Now;
-                HttpPostedFileBase file = Request.Files["file1"];
-                //存入文件
-                if (file.ContentLength > 0)
-                {
-                    t_qy_corp.Logo = new byte[Request.Files[0].InputStream.Length];
-                    Request.Files[0].InputStream.Read(t_qy_corp.Logo, 0, t_qy_corp.Logo.Length);
-                }
+                
                 string cyear = collection["FYear"].ToString();
                 if (db.T_QY_Financial.Where(f => (f.CorpID == t_qy_corp.ID && f.CurYear == cyear)).Count() > 0)
                 {
@@ -150,8 +144,14 @@ namespace GGZBTQPT_PRO.Controllers
                     T_QY_Financial financial = new T_QY_Financial();
                     financial.CorpID = t_qy_corp.ID;
                     financial.CurYear = cyear;
-                    financial.TotalAssets = Convert.ToDecimal(collection["TotalAssets"]);
-                    financial.Revenue = Convert.ToDecimal(collection["Revenue"]); ;
+                    if (collection["TotalAssets"] != "")
+                        financial.TotalAssets = Convert.ToDecimal(collection["TotalAssets"]);
+                    else
+                        financial.TotalAssets = 0;
+                    if (collection["Revenue"] != "")
+                        financial.Revenue = Convert.ToDecimal(collection["Revenue"]);
+                    else
+                        financial.Revenue = 0;
                     db.T_QY_Financial.Add(financial);
                 }
                 if (db.T_QY_Product.Where(f => f.CorpID == t_qy_corp.ID).Count() > 0)
