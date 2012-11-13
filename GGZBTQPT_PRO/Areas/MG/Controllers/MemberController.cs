@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.Enums;
+using GGZBTQPT_PRO.Areas.ViewModels;
 
 
 namespace GGZBTQPT_PRO.Areas.MG.Controllers
@@ -31,18 +32,20 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         {
             var types = from MemberTypes type in Enum.GetValues(typeof(MemberTypes))
                         select new { ID = (int)type, Name = type.ToString() };
-            ViewData["Type"] = new SelectList(types, "ID", "Name");
+            ViewData["Member.Type"] = new SelectList(types, "ID", "Name");
 
-            return View();
+            ValidateMember validate_member = new ValidateMember();
+
+            return View(validate_member);
         } 
 
 
         [HttpPost]
-        public ActionResult SignUp(T_HY_Member t_hy_member)
+        public ActionResult SignUp(ValidateMember validate_member)
         {
             var types = from MemberTypes type in Enum.GetValues(typeof(MemberTypes))
                         select new { ID = (int)type, Name = type.ToString() };
-            ViewData["Type"] = new SelectList(types, "ID", "Name");
+            ViewData["Member.Type"] = new SelectList(types, "ID", "Name");
 
             if (ModelState.IsValid)
             {
@@ -52,18 +55,19 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 //    return View(t_hy_member);
                 //} 
 
-                t_hy_member.CreatedAt = DateTime.Now;
-                t_hy_member.UpdatedAt = DateTime.Now; 
+                validate_member.Member.CreatedAt = DateTime.Now;
+                validate_member.Member.UpdatedAt = DateTime.Now; 
+                validate_member.Member.Password = validate_member.Password;
                 //t_hy_member.MemberName = t_hy_member.LoginName;
-                db.T_HY_Member.Add(t_hy_member);
+                db.T_HY_Member.Add(validate_member.Member);
                 db.SaveChanges();
 
-                InitMemberDetail(t_hy_member.Type, t_hy_member.ID);
+                InitMemberDetail(validate_member.Member.Type, validate_member.Member.ID);
                 ViewData["notice"] = "注册成功，请登录!";
                 return RedirectToAction("Login","Member", new { login_type="Register" });  
             }
 
-            return View(t_hy_member);
+            return View(validate_member);
         }
 
 
