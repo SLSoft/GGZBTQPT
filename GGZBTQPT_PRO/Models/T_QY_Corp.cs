@@ -38,8 +38,7 @@ namespace GGZBTQPT_PRO.Models
 
         }
 
-        public int ID { get; set; }
-        public int UserID { get; set; }
+        public int ID { get; set; } 
         public string CorpName { get; set; }
         public string CorpCode { get; set; }
         public Nullable<System.DateTime> RegTime { get; set; }

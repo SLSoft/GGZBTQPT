@@ -74,6 +74,15 @@ namespace GGZBTQPT_PRO.Controllers
                 t_jg_agency.OP = 0;
                 t_jg_agency.CreateTime = DateTime.Now;
                 t_jg_agency.UpdateTime = DateTime.Now;
+
+                HttpPostedFileBase file = Request.Files[0];
+                //存入文件
+                if (file.ContentLength > 0)
+                {
+                    t_jg_agency.Pic = new byte[Request.Files[0].InputStream.Length];
+                    Request.Files[0].InputStream.Read(t_jg_agency.Pic, 0, t_jg_agency.Pic.Length);
+                }
+
                 db.T_JG_Agency.Add(t_jg_agency);
                 int result = db.SaveChanges();
                 if (result > 0)
@@ -107,15 +116,25 @@ namespace GGZBTQPT_PRO.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(t_jg_agency).State = EntityState.Modified;
+
                 if (t_jg_agency.RegTime == null)
                     t_jg_agency.RegTime = DateTime.MaxValue;
                 t_jg_agency.UpdateTime = DateTime.Now;
+                HttpPostedFileBase file = Request.Files[0];
+                //存入文件
+                if (file.ContentLength > 0)
+                {
+                    t_jg_agency.Pic = new byte[Request.Files[0].InputStream.Length];
+                    Request.Files[0].InputStream.Read(t_jg_agency.Pic, 0, t_jg_agency.Pic.Length);
+                }
+
                 int result = db.SaveChanges();
                 if (result > 0)
                     return ReturnJson(true, "操作成功", "", "", true, "");
                 else
                     return ReturnJson(false, "操作失败", "", "", false, "");
             }
+
             ViewBag.MemberID = new SelectList(db.T_HY_Member, "ID", "LoginName", t_jg_agency.MemberID);
             return Json(new { });
         }
@@ -146,6 +165,12 @@ namespace GGZBTQPT_PRO.Controllers
                     return ReturnJson(false, "操作失败", "", "", false, "");
             }
             return Json(new { });
+        }
+
+        //helper
+        public FileContentResult ShowPic(int Agency_id)
+        {
+            return File(db.T_JG_Agency.Find(Agency_id).Pic, "image/jpeg");
         }
 
         protected override void Dispose(bool disposing)

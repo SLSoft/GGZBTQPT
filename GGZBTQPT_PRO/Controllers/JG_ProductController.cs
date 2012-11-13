@@ -74,6 +74,15 @@ namespace GGZBTQPT_PRO.Controllers
                 t_jg_product.OP = 0;
                 t_jg_product.CreateTime = DateTime.Now;
                 t_jg_product.UpdateTime = DateTime.Now;
+
+                HttpPostedFileBase file = Request.Files[0];
+                //存入文件
+                if (file.ContentLength > 0)
+                {
+                    t_jg_product.Pic = new byte[Request.Files[0].InputStream.Length];
+                    Request.Files[0].InputStream.Read(t_jg_product.Pic, 0, t_jg_product.Pic.Length);
+                }
+
                 db.T_JG_Product.Add(t_jg_product);
                 int result = db.SaveChanges();
                 if (result > 0)
@@ -107,6 +116,15 @@ namespace GGZBTQPT_PRO.Controllers
                 t_jg_product.AgencyID = Convert.ToInt32(collection["AgencyList"]);
                 t_jg_product.CustomerType = collection["checkboxType"];
                 t_jg_product.UpdateTime = DateTime.Now;
+
+                HttpPostedFileBase file = Request.Files[0];
+                //存入文件
+                if (file.ContentLength > 0)
+                {
+                    t_jg_product.Pic = new byte[Request.Files[0].InputStream.Length];
+                    Request.Files[0].InputStream.Read(t_jg_product.Pic, 0, t_jg_product.Pic.Length);
+                }
+
                 int result = db.SaveChanges();
                 if (result > 0)
                     return ReturnJson(true, "操作成功", "", "", true, "");
@@ -142,6 +160,12 @@ namespace GGZBTQPT_PRO.Controllers
                     return ReturnJson(false, "操作失败", "", "", false, "");
             }
             return Json(new { });
+        }
+
+        //helper
+        public FileContentResult ShowPic(int product_id)
+        {
+            return File(db.T_JG_Product.Find(product_id).Pic, "image/jpeg");
         }
 
         protected override void Dispose(bool disposing)

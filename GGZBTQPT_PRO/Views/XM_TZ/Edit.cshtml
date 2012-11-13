@@ -88,7 +88,7 @@
     }
 </script>
 
-@using (Html.BeginForm("Edit", "XM_TZ", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
+@using (Html.BeginForm("Edit", "XM_TZ", FormMethod.Post, new { onsubmit = "return iframeCallback(this);", @class = "pageForm required-validate", enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.ID)
@@ -98,7 +98,10 @@
         @Html.HiddenFor(model => model.CreateTime)
         @Html.HiddenFor(model => model.UpdateTime)
         @Html.HiddenFor(model => model.MemberID)
-        <table style="width:100%">
+        @Html.HiddenFor(model => model.Pic)
+        <div layoutH="20">
+
+        <table style="width:100%" class="list">
             <tr>
                 <td colspan="2" style="background-color:#666666; color:#ffffff">基本信息</td>
             </tr>
@@ -122,12 +125,22 @@
                 <td>@Html.LabelFor(model => model.Keys, "关键词")</td>
                 <td>@Html.EditorFor(model => model.Keys)</td>
             </tr>
+                        <tr>
+                <td>@Html.LabelFor(model => model.Pic, "项目图片")
+                </td>
+                <td>
+                    <input type="file" name="file1" />
+                    <div>
+                        <img id="logo_preview" src='@Url.Action("ShowPic", "XM_TZ", new { xm_id = Model.ID })'  alt="@Model.ItemName" /></div>
+               
+                </td>
+            </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Description, "投资意向描述")</td>
                 <td>@Html.TextAreaFor(model => model.Description, new { rows = "8", style = "width:95%" })</td>
             </tr>
         </table>
-        <table style="width:100%">
+        <table style="width:100%" class="list">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">融资信息</td>
             </tr>
@@ -176,7 +189,7 @@
                 <td colspan="3">@Html.TextAreaFor(model => model.PartnerRequirements, new { rows = "5", style = "width:95%" })</td>
             </tr>
         </table>
-        <table style="width:100%">
+        <table style="width:100%" class="list">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">联系人信息</td>
             </tr>
@@ -210,7 +223,7 @@
             @Html.ValidationMessageFor(model => model.QQ)</td>
             </tr>
         </table>
-        <table style="width:100%">
+        <table style="width:100%" class="list">
         <tr>
                 <td>展示图片</td>
                 <td><input type="file" name="file1" /></td>
@@ -219,4 +232,5 @@
         <p>
             <input type="submit" value="保存" />
         </p>
+                </div>
 }

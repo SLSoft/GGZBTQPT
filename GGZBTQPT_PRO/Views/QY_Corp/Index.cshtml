@@ -9,8 +9,8 @@
     </form>
   <div class="panelBar">
     <ul class="toolBar">
-      <li><a class="add" href="@Url.Action("create", "QY_Corp")" rel="create" target="dialog" title="添加新的功能菜单" mask="true" width="600" height="600"><span>添加</span></a></li>
-      <li><a class="edit" href="@Url.Action("edit", "QY_Corp", new { id = "{mid}" })" rel="edit" target="dialog" title="编辑功能菜单信息" mask="true" warn="请选择一条菜单数据" width="600" height="600"><span>修改</span></a></li>
+      <li><a class="add" href="@Url.Action("create", "QY_Corp")" rel="create" target="dialog" title="添加新的功能菜单" max="true" mask="true" width="600" height="600"><span>添加</span></a></li>
+      <li><a class="edit" href="@Url.Action("edit", "QY_Corp", new { id = "{mid}" })" rel="edit" max="true" target="dialog" title="编辑功能菜单信息" mask="true" warn="请选择一条菜单数据" width="600" height="600"><span>修改</span></a></li>
       <li><a class="delete" href="@Url.Action("delete", "QY_Corp", new { id = "{mid}" })" rel="delete" target="ajaxTodo" title="确定要删除吗？"  warn="请选择一条菜单数据"><span>删除</span></a></li>
       <li class="line">line</li>
       <li><a class="icon" href="#"><span>导入EXCEL</span></a></li>

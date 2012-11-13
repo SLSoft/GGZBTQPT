@@ -115,14 +115,12 @@ namespace GGZBTQPT_PRO.Controllers
                 t_xm_financing.UpdateTime = DateTime.Now;
                 t_xm_financing.MemberID = 1;
 
-                Stream stream = Request.Files.Count > 0
-                                        ? Request.Files[0].InputStream
-                                        : Request.InputStream;
+                HttpPostedFileBase file = Request.Files[0];
                 //存入文件
-                if (stream.Length > 0)
+                if (file.ContentLength > 0)
                 {
-                    t_xm_financing.Pic = new byte[stream.Length];
-                    //stream.Read(t_qy_corp.Logo, 0, t_qy_corp.Logo.Length);
+                    t_xm_financing.Pic = new byte[Request.Files[0].InputStream.Length];
+                    Request.Files[0].InputStream.Read(t_xm_financing.Pic, 0, t_xm_financing.Pic.Length);
                 }
                 db.T_XM_Financing.Add(t_xm_financing);
                 int result = db.SaveChanges();
@@ -165,21 +163,12 @@ namespace GGZBTQPT_PRO.Controllers
                 t_xm_financing.City = collection["ddlCity"];
                 t_xm_financing.UpdateTime = DateTime.Now;
 
-                //Stream stream = Request.Files.Count > 0
-                //                        ? Request.Files[0].InputStream
-                //                        : Request.InputStream;
-                ////存入文件
-                //if (stream.Length > 0)
-                //{
-                //    t_xm_financing.Pic = new byte[stream.Length];
-                //    stream.Read(t_xm_financing.Pic, 0, t_xm_financing.Pic.Length);
-                //}
-                HttpPostedFileBase file = Request.Files["file1"];
+                HttpPostedFileBase file = Request.Files[0];
                 //存入文件
                 if (file.ContentLength > 0)
                 {
-                    t_xm_financing.Pic = new byte[file.InputStream.Length];
-                    file.InputStream.Read(t_xm_financing.Pic, 0, t_xm_financing.Pic.Length);
+                    t_xm_financing.Pic = new byte[Request.Files[0].InputStream.Length];
+                    Request.Files[0].InputStream.Read(t_xm_financing.Pic, 0, t_xm_financing.Pic.Length);
                 }
                 int result = db.SaveChanges();
                 if (result > 0)
@@ -245,9 +234,10 @@ namespace GGZBTQPT_PRO.Controllers
             return RedirectToAction("RZCheckList");
         }
 
-        public ActionResult ImgShow()
+        //helper
+        public FileContentResult ShowPic(int xm_id)
         {
-            return File(db.T_XM_Financing.Find(2).Pic,"image/jpeg");
+            return File(db.T_XM_Financing.Find(xm_id).Pic, "image/jpeg");
         }
     }
 }

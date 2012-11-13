@@ -6,13 +6,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
+using System.IO;
 
 namespace GGZBTQPT_PRO.Controllers
 {
     public class QY_CorpController : BaseController
-    {
-        //private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
-
+    { 
         //
         // GET: /QY_Corp/
 
@@ -89,12 +88,15 @@ namespace GGZBTQPT_PRO.Controllers
                 t_qy_corp.OP = 0;
                 t_qy_corp.CreateTime = DateTime.Now;
                 t_qy_corp.UpdateTime = DateTime.Now;
-                HttpPostedFileBase file = Request.Files["file1"];
+
+                HttpPostedFileBase file = Request.Files[0];
                 //存入文件
                 if (file.ContentLength > 0)
                 {
-                    t_qy_corp.Logo = System.IO.File.ReadAllBytes(file.FileName);;
+                    t_qy_corp.Logo = new byte[Request.Files[0].InputStream.Length];
+                    Request.Files[0].InputStream.Read(t_qy_corp.Logo, 0, t_qy_corp.Logo.Length);
                 }
+
                 db.T_QY_Corp.Add(t_qy_corp);
                 int result = db.SaveChanges();
                 if (result > 0)
@@ -132,7 +134,7 @@ namespace GGZBTQPT_PRO.Controllers
             {
                 db.Entry(t_qy_corp).State = EntityState.Modified;
                 t_qy_corp.UpdateTime = DateTime.Now;
-                HttpPostedFileBase file = Request.Files["file1"];
+                HttpPostedFileBase file = Request.Files[0];
                 //存入文件
                 if (file.ContentLength > 0)
                 {
@@ -177,6 +179,7 @@ namespace GGZBTQPT_PRO.Controllers
             return Json(new { });
         }
 
+
         //
         // GET: /QY_Corp/Delete/5
  
@@ -204,6 +207,13 @@ namespace GGZBTQPT_PRO.Controllers
             }
             return Json(new { });
         }
+
+        //helper
+        public FileContentResult ShowLogo(int corp_id)
+        { 
+            return File(db.T_QY_Corp.Find(corp_id).Logo, "image/jpeg");
+        }
+
 
         protected override void Dispose(bool disposing)
         {

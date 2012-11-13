@@ -98,7 +98,7 @@
             onComplete: function (id, fileName, responseJSON) {
                 var src = $("#logo_preview").attr("src");
                 $("#logo_preview").attr("src", src + "&" + Math.random());
-                $("#Logo").attr("value", responseJSON.logo);
+                $("#Pic").attr("value", responseJSON.logo);
             }
         });
     }

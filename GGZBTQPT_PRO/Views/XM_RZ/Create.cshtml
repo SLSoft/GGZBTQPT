@@ -67,15 +67,17 @@
         }
 </script>
 
-@using (Html.BeginForm("Create", "XM_RZ", FormMethod.Post, new {enctype="multipart/form-data", onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
+@using (Html.BeginForm("Create", "XM_RZ", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return iframeCallback(this);", @class = "pageForm required-validate" }))
 {
     @Html.ValidationSummary(true)
+    
         <br /><p>选择项目类别：
         <input type="radio" name="itemtype" value="1" checked=checked /><span>项目融资</span>
         <input type="radio" name="itemtype" value="2" /><span>资产交易</span>
         <input type="radio" name="itemtype" value="3" /><span>政府招商</span>
         <input type="radio" name="itemtype" value="9" /><span>其他</span></p><br />
-        <table style="width:100%">
+        <div layoutH="40">
+        <table style="width:100%" class="list">
             <tr>
                 <td colspan="2" style="background-color:#666666; color:#ffffff">基本信息</td>
             </tr>
@@ -103,11 +105,18 @@
             @Html.ValidationMessageFor(model => model.Keys)</td>
             </tr>
             <tr>
+                <td>@Html.LabelFor(model => model.Pic, "项目图片")
+                </td>
+                <td>
+                    <input type="file" name="file1" />
+                </td>
+            </tr>
+            <tr>
                 <td>@Html.LabelFor(model => model.ItemContent, "项目介绍")</td>
                 <td>@Html.TextAreaFor(model => model.ItemContent, new { rows = "5", style = "width:95%" })</td>
             </tr>
         </table>
-        <table id="item1" style="width:100%">
+        <table id="item1" style="width:100%" class="list">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">项目融资</td>
             </tr>
@@ -151,7 +160,7 @@
                 <td colspan="3">@Html.TextAreaFor(model => model.PartnerRequirements, new { rows = "5", style = "width:95%" })</td>
             </tr>
         </table>
-        <table id="item2" style="width:100%">
+        <table id="item2" style="width:100%" class="list">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">资产交易</td>
             </tr>
@@ -178,7 +187,7 @@
                 <td>@GenerateTransactionMode()</td>
             </tr>
         </table>
-        <table id="item3" style="width:100%">
+        <table id="item3" style="width:100%" class="list">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">政府招商</td>
             </tr>
@@ -195,7 +204,7 @@
                 <td>@Html.EditorFor(model => model.ReturnCycle)</td>
             </tr>
         </table>
-        <table id="item4" style="width:100%">
+        <table id="item4" style="width:100%" class="list">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">其他项目</td>
             </tr>
@@ -206,7 +215,7 @@
                 <td>@Html.EditorFor(model => model.OtherItemFinancSum)</td>
             </tr>
         </table>
-        <table style="width:100%">
+        <table style="width:100%" class="list">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">联系人信息</td>
             </tr>
@@ -240,13 +249,9 @@
             @Html.ValidationMessageFor(model => model.QQ)</td>
             </tr>
         </table>
-        <table style="width:100%">
-        <tr>
-                <td>展示图片</td>
-                <td><input type="file" name="file1" /></td>
-            </tr>
-        </table>
+
         <p>
             <input type="submit" value="提交" />
         </p>
+        </div>
 }

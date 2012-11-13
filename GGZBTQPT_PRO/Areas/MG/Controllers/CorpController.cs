@@ -111,8 +111,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             db.Entry(corp).State = EntityState.Modified;
 
             try
-            {
-
+            { 
                 Stream stream = Request.Files.Count > 0
                     ? Request.Files[0].InputStream
                     : Request.InputStream;
