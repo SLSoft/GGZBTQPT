@@ -35,7 +35,7 @@
     个人设置</h3>
 <ul class="nav nav-tabs" id="config">
     <li class="active">
-        @Ajax.ActionLink("基本设置", "Edit", "Member", new { id = ViewBag.MemberID }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "detail", LoadingElementId = "Loading" })
+        @Ajax.ActionLink("基本设置", "Edit", "Member", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "detail", LoadingElementId = "Loading" })
     </li>
     <li>
         @FullDetails(ViewBag.MemberType, ViewBag.MemberDetailID)
