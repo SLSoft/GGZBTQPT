@@ -62,7 +62,7 @@ namespace GGZBTQPT_PRO.Models
             {
                 GGZBTQPTDBContext db = new GGZBTQPTDBContext();
                 if (db.T_JG_Agency.Find(this.AgencyID) != null)
-                    return db.T_JG_Agency.Find(this.AgencyID).AgencyName;
+                    return db.T_JG_Agency.Find(this.AgencyID).SubName;
                 else
                     return "";
             }

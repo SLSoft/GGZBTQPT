@@ -294,7 +294,7 @@ h3.ts-l-item-title a{
 	color:#f00;
 }
 h3.ts-l-item-title span._time{
-	font-size:12px !important;
+	font-size:12px ;
 }
 .ts-l-item-content{
 	font-size:0;

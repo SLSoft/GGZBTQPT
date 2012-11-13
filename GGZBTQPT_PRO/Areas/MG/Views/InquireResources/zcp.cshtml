@@ -1,299 +1,138 @@
-﻿ @{
+﻿ @model IEnumerable<GGZBTQPT_PRO.Models.T_JG_Product>
+ 
+ @{
     Layout = null;
 }
 <link href="@Url.Content("~/Areas/MG/Content/css/wscss/news_css.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Areas/MG/Content/css/wscss/style.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Areas/MG/Content/css/wscss/text1.css")" rel="stylesheet" type="text/css" />
-<div class="part-l part-lw">
-					<div class="article">
-	                <div class="p_top"><div class="_bg"></div></div>
-	                <div class="p_mid">
-	                  <div class="curpos">
-	                	<span class="_text">您现在的位置：</span>
-		                	<a href="##">光谷科技金融网</a>
-		                	 -
-		                	<a href="##">找项目</a>
-		                     -
-		                    <a href="##">融资企业</a>
-	                    </div>
-	                </div>
-					<div class="p_bot"><div class="_bg"></div></div>
-				  </div>
-				   <div class="article">
-				    	<div class="ts">
-				    	    <div class="r"><div class="r1"></div><div class="r2"></div><div class="r3"></div></div>
-				    	    <div class="rm">
-				    	    	<dl>
-									<dt>您已选择：</dt>
-									<dd>
-									    <em>项目融资</em>
-									    |
-									    <em>项目整体转让</em>
-									    |
-									    <em>项目融资</em>
-									    |
-									    <em>项目整体转让</em>
-									    |
-									    <em>项目融资</em>
-									    |
-									    <em>项目整体转让</em>
-									    |
-									    <em class="last">项目融资</em>
-									</dd>
-				    	    	</dl>
-				    	    </div>
-			                <div class="p_mid">
-                                 <div class="ts-in">
-										<div class="ts-item">
-                                             <dl>
-												 <dt>按抵质押物：</dt>
-												 <dd>
-													 <em>不限</em>
-													 <em>有</em>
-													 <em>无</em>
-                                             </dd></dl>
-								   </div>
-						   <div class="ts-item">
-                                             <dl>
-												 <dt>按需要担保：</dt>
-												 <dd>
-													 <em>不限</em>
-													 <em>有</em>
-													 <em>无</em>											 </dd>
-                                             </dl>
-								   </div>
-						   <div class="ts-item">
-                                             <dl>
-												 <dt>按贷款类型：</dt>
-												 <dd>
-													 <em>不限</em>
-													 <em>个人</em>
-													 <em>企业</em>											 </dd>
-                                             </dl>
-								   </div>
-                                     <div class="ts-item">
-                                             <dl>
-												 <dt>按贷款期限：</dt>
-												 <dd>
-													 <em>不限</em>
-													 <em>3个月</em>
-													 <em>6个月</em>
-													 <em>1年</em>
-													 <em>2年</em>
-													 <em>3年</em>
-													 <em>3年以上</em>
-												 </dd>
-                                             </dl>
-										</div>
-						   <div class="ts-item">
-                                             <dl>
-												 <dt>按贷款方式：</dt>
-												 <dd>
-													 <em>不限</em>
-													 <em>信用贷款</em>
-													 <em>担保贷款</em>
-													 <em>抵押贷款</em>
-													 <em>质押贷款</em>
-												 </dd>
-                                             </dl>
-										</div>
-                                        <div class="ts-item">
-                                             <dl>
-												 <dt>按贷款机构：</dt>
-												 <dd>
-													 <em>不限</em>
-													 <em>建设银行 </em>
-													 <em>中国银行</em>
-													 <em>浦发银行</em>
-													 <em>工商银行</em>
-													 <em>中信银行</em>
-													 <em>恒丰银行</em>
-                                                     <em>台州银行</em>
-													 <em>民生银行</em>
-													 <em>南洋商业银行</em>
-													 <em>广发银行</em>
-													 <em>北京银行</em>
-												 </dd>
-                                             </dl>
-										</div>
-										<div class="ts-item">
-                                             <dl>
-												 <dt>按资金选择：</dt>
-												 <dd>
-													 <em>不限</em>
-													 <em>1-10万</em>
-													 <em>10-50万</em>
-													 <em>50-100万</em>
-													 <em>100-500万</em>
-													 <em>500-1000万</em>
-													 <em>1000-5000万</em>
-													 <em>5000-1亿</em>
-													 <em>大于1亿</em>
-												 </dd>
-                                             </dl>
-										</div>
-                                 </div>
-                                 <div class="ts-con">
-									 <h3 class="ts-con-t">
-                                          <form class="rsearch">
-                                          	   <label>结果中搜索：</label>
-                                          	   <input type="text" class="rinput">
-                                 <input type="submit" name="button" id="button" value="" class=" rbtn">
-                                       </form>
-                                          <a href="#" class="first"><span class="_text">所有信息</span></a></h3>
-                                     <div class="ts-con-btn">
-                                          <span class="btn1"><div class="icon"></div><span class="_text">默认排序</span></span>
-                                          <span class="btn1"><div class="icon"></div><span class="_text">回应数</span></span>
-                                          <span class="btn1"><div class="icon"></div><span class="_text">评论数</span></span>
-                                          <span class="btn1"><div class="icon"></div><span class="_text">收藏数</span></span>
-                                          <span class="btn1"><div class="icon"></div><span class="_text">点击数</span></span>
-                                          <span class="lnum">
-											    <span class="_text">显示数量：</span>
-											    <a href="##">20</a><a href="##">30</a><a href="##">40</a>
-                                          </span>
-                                          <span class="lselect">
-                                                <span class="_text">区域：</span>
-                                                <select>
-                                                	<option>区域</option>
-                                                	<option>区域</option>
-                                                	<option>区域</option>
-                                                	<option>区域</option>
+<link href="@Url.Content("~/Areas/MG/Content/css/wscss/qy.css")" rel="stylesheet" type="text/css" />
 
-                                                </select>
-                                          </span>
+@helper GenerateCustomerType()
+{
+    foreach (var item in ViewData["CustomerType"] as SelectList)
+    {
+       <li><input type="checkbox" id="checkboxType" name="cbIndustry" value="@item.Value" /><span>@item.Text</span></li>
+    }
+}
 
-                                     </div>
+@helper GenerateAgency()
+{
+    foreach (var item in ViewData["AgencyList"] as SelectList)
+    {
+       <li><input type="checkbox" id="checkboxType" name="cbIndustry" value="@item.Value" /><span>@item.Text</span></li>
+    }
+}
 
-                              <div class="ts-list">
-                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                  <tbody><tr>
-                                    <td width="14%" height="30" align="center" valign="middle" class="table_ccc">产品名称</td>
-                                    <td width="35%" height="30" align="center" valign="middle" class="table_ccc">产品特点</td>
-                                    <td width="11%" height="30" align="center" valign="middle" class="table_ccc">贷款机构</td>
-                                    <td width="15%" height="30" align="center" valign="middle" class="table_ccc">贷款方式</td>
-                                    <td width="11%" height="30" align="center" valign="middle" class="table_ccc"><a href="/products/search?direction=asc&amp;search%5Bregion%5D=&amp;sort=ceiling_amount">最高额度</a></td>
-                                    <td width="14%" height="30" align="center" valign="middle" class="table_ccc"><ul>
-                                      <li>产品操作</li>
-                                    </ul>                                    </td>
-                                  </tr>
-                                </tbody></table>
-                                <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
-
-                                  <tbody><tr>
-                                    <td width="13%" align="center" class="p10"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                      <tbody><tr>
-                                        <td align="center"><img src="images/yh_hf.jpg" width="50" height="50"></td>
-                                      </tr>
-                                      <tr>
-                                        <td align="center"><p>出口信保通</p></td>
-                                      </tr>
-                                    </tbody></table></td>
-                                    <td width="36%" class="p10">适合前期缺少抵押、保证的出口贸易企业，审批速度快（材料完整后3个工作日完成审批），无需缴纳保证金、无需通过担保...</td>
-                                    <td width="11%" align="center" class="p10">恒丰银行</td>
-                                    <td width="15%" class="p10">抵押贷款，质押贷款</td>
-                                    <td width="11%" class="p10">有条件商议</td>
-                                    <td width="14%" class="p10"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                      <tbody><tr>
-                                        <td height="35" align="center"><div class="font_bb">查看详情</div></td>
-                                      </tr>
-                                      <tr>
-                                        <td height="35" align="center"><div class="font_bb">申请贷款</div></td>
-                                      </tr>
-                                    </tbody></table></td>
-                                  </tr>
-                                  <tr>
-                                    <td align="center" class="p10"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tbody><tr>
-                                          <td align="center"><img src="images/yh_hf.jpg" width="50" height="50"></td>
-                                        </tr>
-                                        <tr>
-                                          <td align="center"><p>出口信保通</p></td>
-                                        </tr>
-                                    </tbody></table></td>
-                                    <td class="p10">适合前期缺少抵押、保证的出口贸易企业，审批速度快（材料完整后3个工作日完成审批），无需缴纳保证金、无需通过担保...</td>
-                                    <td align="center" class="p10">恒丰银行</td>
-                                    <td class="p10">抵押贷款，质押贷款</td>
-                                    <td class="p10">有条件商议</td>
-                                    <td class="p10"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tbody><tr>
-                                          <td height="35" align="center"><div class="font_bb">查看详情</div></td>
-                                        </tr>
-                                        <tr>
-                                          <td height="35" align="center"><div class="font_bb">申请贷款</div></td>
-                                        </tr>
-                                    </tbody></table></td>
-                                  </tr>
-                                  <tr>
-                                    <td align="center" class="p10"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tbody><tr>
-                                          <td align="center"><img src="images/yh_hf.jpg" width="50" height="50"></td>
-                                        </tr>
-                                        <tr>
-                                          <td align="center"><p>出口信保通</p></td>
-                                        </tr>
-                                    </tbody></table></td>
-                                    <td class="p10">适合前期缺少抵押、保证的出口贸易企业，审批速度快（材料完整后3个工作日完成审批），无需缴纳保证金、无需通过担保...</td>
-                                    <td align="center" class="p10">恒丰银行</td>
-                                    <td class="p10">抵押贷款，质押贷款</td>
-                                    <td class="p10">有条件商议</td>
-                                    <td class="p10"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tbody><tr>
-                                          <td height="35" align="center"><div class="font_bb">查看详情</div></td>
-                                        </tr>
-                                        <tr>
-                                          <td height="35" align="center"><div class="font_bb">申请贷款</div></td>
-                                        </tr>
-                                    </tbody></table></td>
-                                  </tr>
-                                  <tr>
-                                    <td align="center" class="p10"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tbody><tr>
-                                          <td align="center"><img src="images/yh_hf.jpg" width="50" height="50"></td>
-                                        </tr>
-                                        <tr>
-                                          <td align="center"><p>出口信保通</p></td>
-                                        </tr>
-                                    </tbody></table></td>
-                                    <td class="p10">适合前期缺少抵押、保证的出口贸易企业，审批速度快（材料完整后3个工作日完成审批），无需缴纳保证金、无需通过担保...</td>
-                                    <td align="center" class="p10">恒丰银行</td>
-                                    <td class="p10">抵押贷款，质押贷款</td>
-                                    <td class="p10">有条件商议</td>
-                                    <td class="p10"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tbody><tr>
-                                          <td height="35" align="center"><div class="font_bb">查看详情</div></td>
-                                        </tr>
-                                        <tr>
-                                          <td height="35" align="center"><div class="font_bb">申请贷款</div></td>
-                                        </tr>
-                                    </tbody></table></td>
-                                  </tr>
-                                  <tr>
-                                    <td align="center" class="p10"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tbody><tr>
-                                          <td align="center"><img src="images/yh_hf.jpg" width="50" height="50"></td>
-                                        </tr>
-                                        <tr>
-                                          <td align="center"><p>出口信保通</p></td>
-                                        </tr>
-                                    </tbody></table></td>
-                                    <td class="p10">适合前期缺少抵押、保证的出口贸易企业，审批速度快（材料完整后3个工作日完成审批），无需缴纳保证金、无需通过担保...</td>
-                                    <td align="center" class="p10">恒丰银行</td>
-                                    <td class="p10">抵押贷款，质押贷款</td>
-                                    <td class="p10">有条件商议</td>
-                                    <td class="p10"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tbody><tr>
-                                          <td height="35" align="center"><div class="font_bb">查看详情</div></td>
-                                        </tr>
-                                        <tr>
-                                          <td height="35" align="center"><div class="font_bb">申请贷款</div></td>
-                                        </tr>
-                                    </tbody></table></td>
-                                  </tr>
-                                </tbody></table>
-                              </div>
-                              </div>
-			                </div>
-						    <div class="p_bot"><div class="_bg"></div></div>
-					    </div>
-				  </div>
-		     </div>
+<div class="article730">
+  <div class="ts">
+    <div class="p_mid">
+      <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item">
+        <tr>
+          <td width="91">按贷款类型：</td>
+          <td width="637" colspan="7"><div class="newsbox">
+            <ul class="newslist _qy">
+              @GenerateCustomerType()
+            </ul>
+          </div></td>
+        </tr>
+      </table>
+      <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item">
+        <tr>
+          <td width="91">按贷款期限：</td>
+          <td width="637" colspan="7"><div class="newsbox">
+            <ul class="newslist _qy">
+              <li><input type="checkbox" name="cbFinancial" value="<3" title="3个月" /><span>3个月</span></li>
+              <li><input type="checkbox" name="cbFinancial" value="<6" title="6个月" /><span>6个月</span></li>
+              <li><input type="checkbox" name="cbFinancial" value="<12" title="1年" /><span>1年</span></li>
+              <li><input type="checkbox" name="cbFinancial" value="<24" title="2年" /><span>2年</span></li>
+              <li><input type="checkbox" name="cbFinancial" value="<36" title="3年" /><span>3年</span></li>
+              <li><input type="checkbox" name="cbFinancial" value=">36" title="3年以上" /><span>3年以上</span></li>
+            </ul>
+          </div></td>
+        </tr>
+      </table>
+      <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item">
+        <tr>
+          <td width="91">按贷款机构：</td>
+          <td width="637" colspan="7"><div class="newsbox">
+            <ul class="newslist _qy">
+              @GenerateAgency()
+            </ul>
+          </div></td>
+        </tr>
+      <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item">
+        <tr>
+          <td width="91">按资金范围：</td>
+          <td width="637" colspan="7"><div class="newsbox">
+            <ul class="newslist _qy">
+			    <li><input type="checkbox" name="cbFinancial" value="<10" title="1-10万" /><span>1-10万</span></li>
+                <li><input type="checkbox" name="cbFinancial" value="between 10 and 50" title="10-50万" /><span>10-50万</span></li>
+                <li><input type="checkbox" name="cbFinancial" value="between 50 and 100" title="50-100万" /><span>50-100万</span></li>
+                <li><input type="checkbox" name="cbFinancial" value="between 1 and 1000" title="500-1000万" /><span>500-1000万</span></li>
+                <li><input type="checkbox" name="cbFinancial" value="between 1000 and 5000" title="1000-5000万" /><span>1000-5000万</span></li><br />
+                <li><input type="checkbox" name="cbFinancial" value="between 5000 and 10000" title="5000万-1亿" /><span>5000万-1亿</span></li>
+                <li><input type="checkbox" name="cbFinancial" value=">10000" title="大于1亿" /><span>大于1亿</span></li>
+            </ul>
+          </div></td>
+        </tr>
+      </table>
+      </table>
+      <div class="ts-con">
+        <h3 class="ts-con-t">
+          <form class="rsearch">
+            <label>产品名称：</label>
+            <input type="text" class="rinput" />
+            <input type="submit" name="button" id="button" value="" class=" rbtn">
+          </form>
+          <a href="#" class="first"><span class="_text">所有信息</span></a> </h3>
+        <div class="ts-con-btn"> <span class="btn1">
+          <div class="icon"></div>
+          <span class="_text">默认排序</span></span> <span class="btn1">
+            <div class="icon"></div>
+            <span class="_text">回应数</span></span> <span class="btn1">
+              <div class="icon"></div>
+              <span class="_text">评论数</span></span> <span class="btn1">
+                <div class="icon"></div>
+                <span class="_text">收藏数</span></span> <span class="btn1">
+                  <div class="icon"></div>
+                  <span class="_text">点击数</span></span> <span class="lnum"> <span class="_text">显示数量：</span> <a href="#">20</a><a href="#">30</a><a href="#">40</a> </span> <span class="lselect"> <span class="_text">区域：</span>
+                  </span> </div>
+       <div class="ts-list">
+        @foreach (var _model in Model)
+        {
+          <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item">
+            <tr>
+              <td colspan="3" align="left" class="tq-up-num"><a href="#">@_model.ProductName</a></td>
+              <td width="163" align="left">登记时间：@_model.CreateTime.Value.ToString("yyyy-MM-dd")</td>
+              <td width="130" rowspan="3"><div class="ts-l-item-r">
+                <p class="_addfocusbtn"><a href="#">在线申请</a></p>
+                <p class="_focusnum"><em class="_num"></em></p>
+              </div></td>
+            </tr>
+            <tr>
+              <td copan="2"><span class="_label">所属机构：</span>@_model.AgencyName</td>
+              <td copan="2"><span class="_label">最高融资额度：</span>@_model.FinancingAmount</td>
+            </tr>
+            <tr>
+              <td colspan="4"><span class="ts-l-item-desc">
+              产品优势:@if (_model.Superiority.Length > 200)
+                                    {
+        <span>@_model.Superiority.Substring(0, 200)...</span>
+                                    }
+                                    else
+                                    {
+        <span>@_model.Superiority.Substring(0, _model.Superiority.Length)</span>
+                                    }
+                            @{
+                                                           var yy = "http://www.ovcstf.com/Default_754_" + _model.ID + ",1.html";
+                                }
+                            <a target="_blank" href="@yy">【查看详情】</a></span></td>
+            </tr>
+          </table>
+        }
+        </div>
+                                
+      </div>
+    </div>
+  </div>
+</div>

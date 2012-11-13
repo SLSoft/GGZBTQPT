@@ -23,7 +23,8 @@ namespace GGZBTQPT_PRO.Models
             CreateTime = DateTime.Now;
             UpdateTime = DateTime.Now;
             IsIn = true;
-            Pic = new byte[0]; 
+            Pic = new byte[0];
+            SubName = " ";
         }
 
         public int ID { get; set; } 
@@ -46,6 +47,7 @@ namespace GGZBTQPT_PRO.Models
         public Boolean IsIn { get; set; }
         public byte[] Pic { get; set; }
         public int MemberID { get; set; }
+        public string SubName { get; set; }
 
         public string AgencyTypeName
         {

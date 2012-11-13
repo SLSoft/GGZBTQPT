@@ -16,6 +16,10 @@
                 <td>@Html.EditorFor(model => model.AgencyName)@Html.EditorFor(model => model.IsIn)是否大厦入驻机构</td>
             </tr>
             <tr>
+                <td>@Html.LabelFor(model => model.SubName, "机构简称")</td>
+                <td>@Html.EditorFor(model => model.SubName)</td>
+            </tr>
+            <tr>
                 <td>@Html.LabelFor(model => model.AgencyType, "机构类别")</td>
                 <td>@Html.DropDownList("AgencyType")</td>
             </tr>
@@ -98,7 +102,7 @@
             onComplete: function (id, fileName, responseJSON) {
                 var src = $("#logo_preview").attr("src");
                 $("#logo_preview").attr("src", src + "&" + Math.random());
-                $("#Logo").attr("value", responseJSON.logo);
+                $("#Pic").attr("value", responseJSON.logo);
             }
         });
     }
