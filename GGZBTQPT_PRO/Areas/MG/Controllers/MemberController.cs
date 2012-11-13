@@ -32,20 +32,20 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         {
             var types = from MemberTypes type in Enum.GetValues(typeof(MemberTypes))
                         select new { ID = (int)type, Name = type.ToString() };
-            ViewData["Member.Type"] = new SelectList(types, "ID", "Name");
+            ViewData["Type"] = new SelectList(types, "ID", "Name");
 
-            ValidateMember validate_member = new ValidateMember();
+            VM_SignUp vm_signup = new VM_SignUp();
 
-            return View(validate_member);
+            return View(vm_signup);
         } 
 
 
         [HttpPost]
-        public ActionResult SignUp(ValidateMember validate_member)
+        public ActionResult SignUp(VM_SignUp vm_signup)
         {
             var types = from MemberTypes type in Enum.GetValues(typeof(MemberTypes))
                         select new { ID = (int)type, Name = type.ToString() };
-            ViewData["Member.Type"] = new SelectList(types, "ID", "Name");
+            ViewData["Type"] = new SelectList(types, "ID", "Name");
 
             if (ModelState.IsValid)
             {
@@ -54,42 +54,60 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 //    ViewData["error"] = "验证码校验失败，请核对后重试!";
                 //    return View(t_hy_member);
                 //} 
-
-                validate_member.Member.CreatedAt = DateTime.Now;
-                validate_member.Member.UpdatedAt = DateTime.Now; 
-                validate_member.Member.Password = validate_member.Password;
+                var member = new T_HY_Member();
+                member.LoginName = vm_signup.LoginName;
+                member.MemberName = vm_signup.MemberName;
+                member.CellPhone = vm_signup.CellPhone;
+                member.CreatedAt = DateTime.Now;
+                member.UpdatedAt = DateTime.Now;
+                member.Password = vm_signup.Password;
+                member.Type = vm_signup.Type;
                 //t_hy_member.MemberName = t_hy_member.LoginName;
-                db.T_HY_Member.Add(validate_member.Member);
+                db.T_HY_Member.Add(member);
                 db.SaveChanges();
 
-                InitMemberDetail(validate_member.Member.Type, validate_member.Member.ID);
+                InitMemberDetail(member.Type, member.ID);
                 ViewData["notice"] = "注册成功，请登录!";
                 return RedirectToAction("Login","Member", new { login_type="Register" });  
             }
 
-            return View(validate_member);
+            return View(vm_signup);
         }
 
 
-        public PartialViewResult Edit(int id)
+        public PartialViewResult Edit()
         { 
-            return PartialView(CurrentMember());
+            var member = CurrentMember();
+            if(member != null)
+            {
+                VM_EditMember vm_edit_member = new VM_EditMember();
+                vm_edit_member.MemberName = member.MemberName;
+                vm_edit_member.Password = member.Password;
+                vm_edit_member.CellPhone = member.CellPhone;
+                return PartialView(vm_edit_member);
+            }
+            return PartialView();
         }
 
         [HttpPost]
-        public ActionResult Edit(T_HY_Member t_hy_member)
+        public ActionResult Edit(VM_EditMember vm_edit_member)
         {
-            if (ModelState.IsValid)
+
+            //if (!VerifyCode(Request["verify"].ToString(), t_hy_member.CellPhone))
+            //{
+            //    return Json(new { statusCode = "200", message = "验证码错误！请检查后输入", type = "error" });
+            //} 
+            var member = CurrentMember();
+            if(member != null)
             {
-                if (!VerifyCode(Request["verify"].ToString(), t_hy_member.CellPhone))
-                {
-                    return Json(new { statusCode = "200", message = "验证码错误！请检查后输入", type = "error" });
-                } 
-                db.Entry(t_hy_member).State = EntityState.Modified;
-                t_hy_member.UpdatedAt = DateTime.Now; 
+                db.Entry(member).State = EntityState.Modified;
+                member.UpdatedAt = DateTime.Now;
+                member.MemberName = vm_edit_member.MemberName;
+                member.Password = vm_edit_member.Password;
+                member.CellPhone = vm_edit_member.CellPhone;
                 db.SaveChanges();
                 return Json(new { statusCode = "200", message = "信息保存成功！", type = "success" });
-            }
+            } 
 
             return Json(new { statusCode = "200", message = "信息保存失败！", type = "error" });
         }
@@ -257,6 +275,18 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public JsonResult CheckCellPhone(string cellphone)
         {
             return Json(!db.T_HY_Member.Any(m => m.CellPhone == cellphone), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CheckCellPhoneForRegistered(string cellphone)
+        {
+            var current_member_cellphone = CurrentMember().CellPhone;
+            return Json(!db.T_HY_Member.Where(m => m.CellPhone != current_member_cellphone).Any(m => m.CellPhone == cellphone), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CheckMemberName(string membername)
+        {
+            var current_member_membername = CurrentMember().MemberName;
+            return Json(!db.T_HY_Member.Where(m => m.MemberName != current_member_membername).Any(m => m.MemberName == membername), JsonRequestBehavior.AllowGet);
         }
 
 

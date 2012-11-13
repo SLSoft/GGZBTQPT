@@ -23,6 +23,8 @@ namespace GGZBTQPT_PRO.Models
         [Remote("CheckLoginName", "Member", ErrorMessage = "该登录名已经被注册了")]
         public string LoginName { get; set; }
 
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "必须填写登陆密码")]
         [Display(Name = "登录密码")]
         public string Password { get; set; }
 
