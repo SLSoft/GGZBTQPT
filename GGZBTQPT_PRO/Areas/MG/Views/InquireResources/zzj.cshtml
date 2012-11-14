@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Investment>
+﻿@model Webdiyer.WebControls.Mvc.PagedList<GGZBTQPT_PRO.Models.T_XM_Investment>
 @{
     Layout = null;
 }
@@ -34,7 +34,8 @@
     }
 }
 
-
+@using (Html.BeginForm())
+{
 <div class="article730">
   <div class="ts">
     <div class="p_mid">
@@ -83,13 +84,12 @@
           <td width="91">按资金范围：</td>
           <td width="637" colspan="7"><div class="newsbox">
             <ul class="newslist _qy">
-              <li><input type="checkbox" name="cbFinancial" value="-1" title="不限" /><span>不限</span></li>
 			    <li><input type="checkbox" name="cbFinancial" value="<10" title="1-10万" /><span>1-10万</span></li>
                 <li><input type="checkbox" name="cbFinancial" value="between 10 and 50" title="10-50万" /><span>10-50万</span></li>
                 <li><input type="checkbox" name="cbFinancial" value="between 50 and 100" title="50-100万" /><span>50-100万</span></li>
                 <li><input type="checkbox" name="cbFinancial" value="between 1 and 1000" title="500-1000万" /><span>500-1000万</span></li>
-                <li><input type="checkbox" name="cbFinancial" value="between 1000 and 5000" title="1000-5000万" /><span>1000-5000万</span></li><br />
-                <li><input type="checkbox" name="cbFinancial" value="between 5000 and 10000" title="5000万-1亿" /><span>5000万-1亿</span></li>
+                <li><input type="checkbox" name="cbFinancial" value="between 1000 and 5000" title="1000-5000万" /><span>1000-5000万</span></li>
+                <li><input type="checkbox" name="cbFinancial" value="between 5000 and 10000" title="5000万-1亿" /><span>5000万-1亿</span></li><br />
                 <li><input type="checkbox" name="cbFinancial" value=">10000" title="大于1亿" /><span>大于1亿</span></li>
             </ul>
           </div></td>
@@ -97,12 +97,10 @@
       </table>
       <div class="ts-con">
         <h3 class="ts-con-t">
-          <form class="rsearch">
-            <label>项目名称：</label>
-            <input type="text" class="rinput" />
-            <input type="submit" name="button" id="button" value="" class=" rbtn">
-          </form>
-          <a href="#" class="first"><span class="_text">所有信息</span></a> <a href="#" class="sf"><span class="_text">自主信息</span></a> <a href="#" class="sf"><span class="_text">特区信息</span></a> <a href="#" class="sf"><span class="_text">公开信息</span></a> <a href="#" class="sf"><span class="_text">政府信息</span></a> </h3>
+         <a href="#" class="first"><span class="_text">所有信息</span></a> <a href="#" class="sf"><span class="_text">自主信息</span></a> <a href="#" class="sf"><span class="_text">特区信息</span></a> <a href="#" class="sf"><span class="_text">公开信息</span></a> <a href="#" class="sf"><span class="_text">政府信息</span></a>
+          <label>项目名称：</label>
+            <input type="text" name="keys" class="rinput" />
+            <input type="submit" name="button" id="button" value="" class=" rbtn" /></h3>
         <div class="ts-con-btn"> <span class="btn1">
           <div class="icon"></div>
           <span class="_text">默认排序</span></span> <span class="btn1">
@@ -113,7 +111,7 @@
                 <div class="icon"></div>
                 <span class="_text">收藏数</span></span> <span class="btn1">
                   <div class="icon"></div>
-                  <span class="_text">点击数</span></span> <span class="lnum"> <span class="_text">显示数量：</span> <a href="#">20</a><a href="#">30</a><a href="#">40</a> </span> <span class="lselect"> <span class="_text">区域：</span>
+                  <span class="_text">点击数</span></span> <span class="lnum"> <span class="_text">显示数量：</span> <a href="#">20</a><a href="#">30</a><a href="#">40</a> </span> <span class="lselect">
                   </span> </div>
         <div class="ts-list">
         @foreach (var _model in Model)
@@ -151,3 +149,16 @@
     </div>
   </div>
 </div>
+}
+<div id="pager">
+    @Html.AjaxPager(Model, new PagerOptions { PageIndexParameterName = "id",  ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }, new AjaxOptions { HttpMethod = "GET" })
+</div>
+
+<script type="text/javascript">
+    function notice(data) {
+        $("#recommend li.active a").click();
+        $.Member.notice(data);
+    }
+    $.Member.replaceBlankForMVCPager();
+    $.Member.rounded();
+</script>

@@ -53,9 +53,11 @@ namespace GGZBTQPT_PRO.Models
         {
             get
             {
-                //GGZBTQPTDBContext db = new GGZBTQPTDBContext();
-                //return db.T_PTF_DicDetail.Find(this.AgencyType).Name;
-                return "机构类型名称";
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                if (db.T_PTF_DicDetail.Find(this.AgencyType) != null)
+                    return db.T_PTF_DicDetail.Find(this.AgencyType).Name;
+                else
+                    return "";
             }
         }
 
