@@ -1,0 +1,60 @@
+﻿ @model Webdiyer.WebControls.Mvc.PagedList<GGZBTQPT_PRO.Models.T_QY_Corp>
+ 
+ @{
+    Layout = null;
+}
+<link href="@Url.Content("~/Areas/MG/Content/css/wscss/news_css.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Areas/MG/Content/css/wscss/style.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Areas/MG/Content/css/wscss/qy.css")" rel="stylesheet" type="text/css" />
+
+<div class="article730">
+  <div class="ts">
+    <div class="p_mid">
+<div class="ts-list">
+        @foreach (var _model in Model)
+        {
+            var yy = "http://www.ovcstf.com/Default_756_" + _model.MemberID + ",1.html";
+          <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item">
+            <tr>
+              <td colspan="3" align="left" class="tq-up-num"><a href="#">@_model.CorpName</a></td>
+              <td width="163" align="left"></td>
+              <td width="130" rowspan="3"><div class="ts-l-item-r">
+
+                <p class="_addfocusbtn"><a target="_blank" href="@yy">查看详情</a></p>
+                <p class="_focusnum"><em class="_num"></em></p>
+              </div></td>
+            </tr>
+            <tr>
+              <td width="200px" cospan="2"><span class="_label">企业性质：</span>@_model.PropertyName</td>
+              <td cospan="2">&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="4"><span class="ts-l-item-desc">
+              企业简介:@if (_model.Remark.Length > 200)
+                                    {
+        <span>@_model.Remark.Substring(0, 200)...</span>
+                                    }
+                                    else
+                                    {
+        <span>@_model.Remark.Substring(0, _model.Remark.Length)</span>
+                                    }
+                            </span></td>
+            </tr>
+          </table>
+        }
+        </div>
+        </div>
+  </div>
+</div>
+        <div id="pager">
+    @Html.AjaxPager(Model, new PagerOptions { PageIndexParameterName = "id",  ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }, new AjaxOptions { HttpMethod = "GET" })
+</div>
+
+<script type="text/javascript">
+    function notice(data) {
+        $("#recommend li.active a").click();
+        $.Member.notice(data);
+    }
+    $.Member.replaceBlankForMVCPager();
+    $.Member.rounded();
+</script>

@@ -91,7 +91,10 @@ namespace GGZBTQPT_PRO.Models
             get
             {
                 GGZBTQPTDBContext db = new GGZBTQPTDBContext();
-                return db.T_PTF_DicDetail.Find(this.Industry).Name;
+                if (db.T_PTF_DicDetail.Find(this.Industry) != null)
+                    return db.T_PTF_DicDetail.Find(this.Industry).Name;
+                else
+                    return "";
             }
         }
         public string AimIndustryName
