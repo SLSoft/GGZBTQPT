@@ -1,51 +1,34 @@
-﻿@model GGZBTQPT_PRO.Models.T_HY_Member 
+﻿@model GGZBTQPT_PRO.Areas.ViewModels.VM_EditMember 
 
-<script type="text/javascript">
-    function notice(data) {
-        $("#config li.active a").click();
-        $.Member.notice(data);
-    }
 
-    //发送手机验证码
-//    $(document).ready(function () {
-//        $("#get_verify_code").click(function () {
-
-//            var requestData = { phone_number: $("#CellPhone").attr("value") };
-//            $.get("\SendVerifyCodeToPhone", requestData, function (data) {
-//                if (data == "True") {
-//                    alert("发送成功");
-//                }
-//                else {
-//                    alert("发送失败，请检查手机号码!");
-//                }
-//            });
-//            return false;
-//        });
-//    });
-</script>
 
 @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" }))
 {
     @Html.ValidationSummary(true)
-
-    @Html.HiddenFor(model => model.ID)
-    @Html.HiddenFor(model => model.CreatedAt)
+ 
     <div class="editor-label">
-        @Html.LabelFor(model => model.LoginName, "登录名")
+        @Html.LabelFor(model => model.MemberName)
     </div>
     <div class="editor-field">
-        @Html.EditorFor(model => model.LoginName)
-        @Html.ValidationMessageFor(model => model.LoginName)
+        @Html.EditorFor(model => model.MemberName)
+        @Html.ValidationMessageFor(model => model.MemberName)
     </div>
     <div class="editor-label">
-        @Html.LabelFor(model => model.Password, "用户密码")
+        @Html.LabelFor(model => model.Password)
     </div>
     <div class="editor-field">
         @Html.PasswordFor(model => model.Password)
         @Html.ValidationMessageFor(model => model.Password)
     </div>
     <div class="editor-label">
-        @Html.LabelFor(model => model.CellPhone, "手机号码")
+        @Html.LabelFor(model => model.ConfirmPassword)
+    </div>
+    <div class="editor-field">
+        @Html.PasswordFor(model => model.ConfirmPassword)
+        @Html.ValidationMessageFor(model => model.ConfirmPassword)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.CellPhone)
     </div>
     <div class="editor-field">
         @Html.EditorFor(model => model.CellPhone)
@@ -71,3 +54,27 @@
     </p>
 
 }
+<script type="text/javascript">
+    function notice(data) {
+        $("#config li.active a").click();
+        $.Member.notice(data);
+    }
+    $.validator.unobtrusive.parse(document);
+
+    //发送手机验证码
+    //    $(document).ready(function () {
+    //        $("#get_verify_code").click(function () {
+
+    //            var requestData = { phone_number: $("#CellPhone").attr("value") };
+    //            $.get("\SendVerifyCodeToPhone", requestData, function (data) {
+    //                if (data == "True") {
+    //                    alert("发送成功");
+    //                }
+    //                else {
+    //                    alert("发送失败，请检查手机号码!");
+    //                }
+    //            });
+    //            return false;
+    //        });
+    //    });
+</script>
