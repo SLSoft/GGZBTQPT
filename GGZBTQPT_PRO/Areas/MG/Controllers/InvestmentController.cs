@@ -59,6 +59,11 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
         public ActionResult Create(string notice_type)
         {
+            var member = CurrentMember();
+            if (member == null)
+            {
+                return RedirectToAction("Login", "Member");
+            }
             if(notice_type == "success")
             {
                 ViewData["notice"] = "投资项目发布成功，可进入我的发布中查阅！";
@@ -79,7 +84,11 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         [HttpPost]
         public ActionResult Create(T_XM_Investment t_xm_investment, FormCollection collection)
         {
-            
+            var member = CurrentMember();
+            if (member == null)
+            {
+                return RedirectToAction("Login", "Member");
+            }
             if (ModelState.IsValid)
             {
                 string checkedIndustry = (collection["cbIndustry"] + ",").Replace("false,", "");
@@ -117,6 +126,11 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
         public ActionResult Edit(int id, string notice_type)
         {
+            var member = CurrentMember();
+            if (member == null)
+            {
+                return RedirectToAction("Login", "Member");
+            }
             if (notice_type == "success")
             {
                 ViewData["notice"] = "投资项目更新成功，可进入我的发布中查阅！";
@@ -136,6 +150,11 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         [HttpPost]
         public ActionResult Edit(T_XM_Investment t_xm_investment, FormCollection collection)
         {
+            var member = CurrentMember();
+            if (member == null)
+            {
+                return RedirectToAction("Login", "Member");
+            }
             if (ModelState.IsValid)
             {
                 string checkedIndustry = (collection["cbIndustry"] + ",").Replace("false,", "");

@@ -192,7 +192,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             }
             catch
             {
-                ViewData["error"] = "用户名错误，请检查后重新尝试!";
+                ViewData["error"] = "登陆名错误，请检查后重新尝试!";
                 return View();
             } 
         }

@@ -15,6 +15,7 @@ namespace GGZBTQPT_PRO.Models
         public T_HY_Member()
         {
             IsValid = true;
+            IsVerified = false;
         }
         public int ID { get; set; }
 
@@ -35,9 +36,7 @@ namespace GGZBTQPT_PRO.Models
         public string CellPhone { get; set; }
 
         [Display(Name = "会员名")]
-        public string MemberName { get; set; }//默认是登录名，用户可以修改
-
-
+        public string MemberName { get; set; }//默认是登录名，用户可以修改 
 
         public int Number { get; set; } //会员编号 
 
@@ -49,6 +48,7 @@ namespace GGZBTQPT_PRO.Models
 
  
         public Boolean IsValid { get; set; }
+        public Boolean IsVerified { get; set; }//该会员是否通过审核
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; } 
 
