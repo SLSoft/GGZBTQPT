@@ -1,0 +1,119 @@
+﻿@model GGZBTQPT_PRO.Models.T_HY_Member
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Edit</title>
+</head>
+<body>
+    @using (Html.BeginForm()) {
+        @Html.ValidationSummary(true)
+        <fieldset>
+            <legend>T_HY_Member</legend>
+    
+            @Html.HiddenFor(model => model.ID)
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.LoginName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.LoginName)
+                @Html.ValidationMessageFor(model => model.LoginName)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Password)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CellPhone)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CellPhone)
+                @Html.ValidationMessageFor(model => model.CellPhone)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.MemberName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.MemberName)
+                @Html.ValidationMessageFor(model => model.MemberName)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Number)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Number)
+                @Html.ValidationMessageFor(model => model.Number)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Type)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Type)
+                @Html.ValidationMessageFor(model => model.Type)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Intetral)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Intetral)
+                @Html.ValidationMessageFor(model => model.Intetral)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.IsValid)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.IsValid)
+                @Html.ValidationMessageFor(model => model.IsValid)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.IsVerified)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.IsVerified)
+                @Html.ValidationMessageFor(model => model.IsVerified)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CreatedAt)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CreatedAt)
+                @Html.ValidationMessageFor(model => model.CreatedAt)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.UpdatedAt)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.UpdatedAt)
+                @Html.ValidationMessageFor(model => model.UpdatedAt)
+            </div>
+    
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+        </fieldset>
+    }
+    
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</body>
+</html>

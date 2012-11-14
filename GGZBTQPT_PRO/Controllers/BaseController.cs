@@ -22,7 +22,7 @@ namespace GGZBTQPT_PRO.Controllers
         public JsonResult ReturnJson(bool _IfSuccess, string _message, string _navTabId, string _rel, bool _IfColse, string _forwardUrl)//批量删除会自动刷新所在的navTab。 
         {
             string _statusCode = _IfSuccess ? "200" : "300";
-            string _callbackType=_IfColse?"closeCurrent":"";
+            string _callbackType=_IfColse?"closeCurrent":null;
             return Json(new { statusCode = _statusCode, message = _message, navTabId = _navTabId, rel = _rel, callbackType = _callbackType, forwardUrl = _forwardUrl }, "text/html", JsonRequestBehavior.AllowGet);
         }
     }

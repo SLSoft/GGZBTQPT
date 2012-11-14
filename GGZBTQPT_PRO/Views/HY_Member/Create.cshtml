@@ -1,0 +1,75 @@
+﻿@model GGZBTQPT_PRO.Models.T_HY_Member
+@{
+    Layout = null;
+}
+<script type="text/javascript">
+    $.validator.unobtrusive.parse(document);
+</script>
+<div class="pageContent">
+    @using (Html.BeginForm("Create", "HY_Member", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
+    {
+        @Html.ValidationSummary(true)
+        <div class="pageFormContent" layouth="56">
+            <p>
+                @Html.LabelFor(model => model.LoginName, "登录名")
+                @Html.EditorFor(model => model.LoginName)
+                @Html.ValidationMessageFor(model => model.LoginName)
+            </p>
+            <p>
+                @Html.LabelFor(model => model.Password)
+                @Html.EditorFor(model => model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
+            </p>
+            <p>
+                @Html.LabelFor(model => model.CellPhone)
+                @Html.EditorFor(model => model.CellPhone)
+                @Html.ValidationMessageFor(model => model.CellPhone)
+            </p>
+            <p>
+                @Html.LabelFor(model => model.MemberName)
+                @Html.EditorFor(model => model.MemberName)
+                @Html.ValidationMessageFor(model => model.MemberName)
+            </p>
+            <p>
+                @Html.LabelFor(model => model.Number)
+                @Html.EditorFor(model => model.Number)
+                @Html.ValidationMessageFor(model => model.Number)
+            </p>
+            <p>
+                @Html.LabelFor(model => model.Type)
+                @Html.EditorFor(model => model.Type)
+                @Html.ValidationMessageFor(model => model.Type)
+            </p>
+            <p>
+                @Html.LabelFor(model => model.LoginName, "登录名")
+                @Html.EditorFor(model => model.LoginName)
+                @Html.ValidationMessageFor(model => model.LoginName)
+            </p>
+            <p>
+                @Html.LabelFor(model => model.LoginName, "登录名")
+                @Html.EditorFor(model => model.LoginName)
+                @Html.ValidationMessageFor(model => model.LoginName)
+            </p>
+        </div>
+
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">
+                                保存</button></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close">
+                                取消</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+  
+    }
+</div>

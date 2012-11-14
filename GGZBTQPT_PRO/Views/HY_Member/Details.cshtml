@@ -1,0 +1,77 @@
+﻿@model GGZBTQPT_PRO.Models.T_HY_Member
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Details</title>
+</head>
+<body>
+    <fieldset>
+        <legend>T_HY_Member</legend>
+    
+        <div class="display-label">LoginName</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.LoginName)
+        </div>
+    
+        <div class="display-label">Password</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Password)
+        </div>
+    
+        <div class="display-label">CellPhone</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.CellPhone)
+        </div>
+    
+        <div class="display-label">MemberName</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.MemberName)
+        </div>
+    
+        <div class="display-label">Number</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Number)
+        </div>
+    
+        <div class="display-label">Type</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Type)
+        </div>
+    
+        <div class="display-label">Intetral</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Intetral)
+        </div>
+    
+        <div class="display-label">IsValid</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.IsValid)
+        </div>
+    
+        <div class="display-label">IsVerified</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.IsVerified)
+        </div>
+    
+        <div class="display-label">CreatedAt</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.CreatedAt)
+        </div>
+    
+        <div class="display-label">UpdatedAt</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.UpdatedAt)
+        </div>
+    </fieldset>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
