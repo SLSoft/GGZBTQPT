@@ -144,6 +144,7 @@ h3.ts-con-t{
 }
 h3.ts-con-t *{
 	font-size:12px;
+    vertical-align:middle;
 }
 h3.ts-con-t form.rsearch{
 	position:absolute;
