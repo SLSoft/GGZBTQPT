@@ -132,7 +132,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             var member = CurrentMember();
             if (member == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Member");
             }
 
             var attentioned_item = new T_HY_Attention();
@@ -156,7 +156,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             var member = CurrentMember();
             if (member == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Member");
             }
 
             var unattentioned_item = member.Attentions.First( a => a.AttentionedMemberID == id);

@@ -144,7 +144,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             var member = CurrentMember();
             if (member == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Member");
             }
 
             var favored_item = CreateFavoredItem(type_id, id);
@@ -166,7 +166,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             var member = CurrentMember();
             if (member == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Member");
             }
 
             var favored_item = member.Favorites.First( f => f.FinancialID == id);
@@ -196,6 +196,54 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             }
             favored_item.FavoriteType = type_id;
             return favored_item;
+        }
+
+        //-----------------为门户提供收藏功能----------------//
+        /// <summary>
+        /// 收藏项目、资金、服务
+        /// </summary>
+        /// <param name="type_id">收藏的类别</param>
+        /// <param name="id">项目、资金、服务ID</param>
+        [HttpPost]
+        public ActionResult FavoredForPortal(int type_id, int id, string url)
+        {
+
+            var member = CurrentMember();
+            if (member == null)
+            {
+                Session["RedirectUrl"] = url;
+                return Json(new { statusCode = "200", message = "项目收藏成功", login = true });
+            }
+
+            var favored_item = CreateFavoredItem(type_id, id);
+
+            member.Favorites.Add(favored_item);
+            db.SaveChanges();
+
+            return Json(new { statusCode = "200", message = "项目收藏成功", type = "success" });
+        }
+
+        /// <summary>
+        /// 取消收藏项目、资金、服务
+        /// </summary>
+        /// <param name="type_id">取消收藏的类别</param>
+        /// <param name="id">项目、资金、服务ID</param>
+        [HttpPost]
+        public ActionResult UnFavoredForPortal(int id)
+        {
+            var member = CurrentMember();
+            if (member == null)
+            {
+                return RedirectToAction("Login", "Member");
+            }
+
+            var favored_item = member.Favorites.First(f => f.FinancialID == id);
+
+            member.Favorites.Remove(favored_item);
+            db.T_HY_Favorite.Remove(favored_item);
+            db.SaveChanges();
+
+            return Json(new { statusCode = "200", message = "项目取消收藏成功", type = "success" });
         }
 
     }
