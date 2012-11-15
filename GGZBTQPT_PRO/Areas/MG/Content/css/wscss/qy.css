@@ -1,7 +1,7 @@
 @charset "utf-8";
 .article730{
    background:#fff;
-   width:730px;
+   width:100%;
 }
 .ts{
 	margin-top:10px;
@@ -51,4 +51,30 @@
     margin-left:10px;
     float:left;
     }
+.active
+{
+    font-weight: bold;
+}
+.itemtitle
+{
+    color: #004079;
+    font-size: 14px;
+}
+.form-tb
+{
+    padding-top:3px;
+    padding-bottom:3px;
+}
+.content-tb
+{
+    padding-top:10px;
+    padding-bottom:10px;
+    line-height:20px;
+}
+.lbinput_mid
+{
+    vertical-align:middle; 
+    height:20px;
+}
+
 

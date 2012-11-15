@@ -19,14 +19,14 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// 找项目
         /// </summary>
         /// <returns></returns>
-        public ActionResult Financials()
+        public ActionResult Financials(int id = 1)
         {
             List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
             ViewData["Industry"] = new SelectList(Industry, "ID", "Name");
             List<T_PTF_DicDetail> ItemStage = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM04")).ToList();
             ViewData["ItemStage"] = new SelectList(ItemStage, "ID", "Name");
-
-            PagedList<T_XM_Financing> financials = db.T_XM_Financing.OrderBy(p => p.CreateTime).ToPagedList(1, 5);
+            //var financials = db.T_XM_Financing.OrderBy(p => p.CreateTime);
+            PagedList<T_XM_Financing> financials = db.T_XM_Financing.OrderBy(p => p.CreateTime).ToPagedList(id, 5);
             return View(financials); 
         } 
 
@@ -35,7 +35,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult InquiredFinancials(FormCollection collection,int id=1)
+        public ActionResult Financials(FormCollection collection, int id = 1)
         {
             List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
             ViewData["Industry"] = new SelectList(Industry, "ID", "Name");
@@ -45,14 +45,23 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             string select_itemtype = "";
             string select_industry = "";
             string select_Financial = "";
-            if(collection["keys"].ToString().Trim() != "")
+            if (collection["keys"].ToString().Trim() != "")
                 keys = collection["keys"].ToString();
             if (collection["cbItemType"] != null)
                 select_itemtype = collection["cbItemType"];
             if (collection["cbIndustry"] != null)
                 select_industry = collection["cbIndustry"];
             if (collection["cbFinancial"] != null)
-                select_Financial = collection["cbFinancial"];
+            {
+                string[] temp = collection["cbFinancial"].Split(',');
+                select_Financial += " and (";
+                foreach (string str in temp)
+                {
+                    select_Financial += " FinancSum " + str + " or";
+                }
+                select_Financial = select_Financial.Substring(0, select_Financial.Length - 3);
+                select_Financial += ")";
+            }
             string order = "ID";
             System.Data.SqlClient.SqlParameter[] selparms = new System.Data.SqlClient.SqlParameter[5];
             selparms[0] = new System.Data.SqlClient.SqlParameter("@keys",keys);
@@ -62,14 +71,14 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             selparms[4] = new System.Data.SqlClient.SqlParameter("@Order", order);
             IList<T_XM_Financing> financials = (from p in db.T_XM_Financing.SqlQuery("exec dbo.P_GetRZXMByCondition @keys,@ItemType,@Industry,@FinancSum,@Order", selparms) select p).ToList();
             PagedList<T_XM_Financing> paged_financials = new PagedList<T_XM_Financing>(financials, id, 5);
-            return View(paged_financials); 
+            return View(paged_financials);
         } 
 
         /// <summary>
         /// 找资金
         /// </summary>
         /// <returns></returns>
-        public ActionResult InquiredInvestments(FormCollection collection)
+        public ActionResult Investments(int id = 1)
         {
             List<T_PTF_DicDetail> TeamworkType = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM06")).ToList();
             ViewData["TeamworkType"] = new SelectList(TeamworkType, "ID", "Name");
@@ -79,63 +88,73 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             ViewData["InvestmentNature"] = new SelectList(InvestmentNature, "ID", "Name");
             List<T_PTF_DicDetail> InvestmentStage = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM04")).ToList();
             ViewData["InvestmentStage"] = new SelectList(InvestmentStage, "ID", "Name");
-            var investments = db.T_XM_Investment.ToList();
-            if (Request.RequestType=="POST")
+            var investments = db.T_XM_Investment.OrderByDescending(f => f.CreateTime).ToPagedList(id, 5);
+            return View(investments);
+        }
+        [HttpPost]
+        public ActionResult Investments(FormCollection collection, int id = 1)
+        {
+            List<T_PTF_DicDetail> TeamworkType = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM06")).ToList();
+            ViewData["TeamworkType"] = new SelectList(TeamworkType, "ID", "Name");
+            List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
+            ViewData["Industry"] = new SelectList(Industry, "ID", "Name");
+            List<T_PTF_DicDetail> InvestmentNature = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM07")).ToList();
+            ViewData["InvestmentNature"] = new SelectList(InvestmentNature, "ID", "Name");
+            List<T_PTF_DicDetail> InvestmentStage = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM04")).ToList();
+            ViewData["InvestmentStage"] = new SelectList(InvestmentStage, "ID", "Name");
+            
+            string keys = "";
+            string select_TeamworkType = "";
+            string select_industry = "";
+            string select_Investment = "";
+            if (collection["keys"].ToString().Trim() != "")
+                keys = collection["keys"].ToString();
+            if (collection["cbTeamworkType"] != null)
             {
-                string keys = "";
-                string select_TeamworkType = "";
-                string select_industry = "";
-                string select_Investment = "";
-                if (collection["keys"].ToString().Trim() != "")
-                    keys = collection["keys"].ToString();
-                if (collection["cbTeamworkType"] != null)
+                string[] temp = collection["cbTeamworkType"].Split(',');
+                select_TeamworkType += " and (";
+                foreach (string str in temp)
                 {
-                    string[] temp = collection["cbTeamworkType"].Split(',');
-                    select_TeamworkType += " and (";
-                    foreach (string str in temp)
-                    {
-                        select_TeamworkType += " TeamworkType like '%" + str + "%' or";
-                    }
-                    select_TeamworkType = select_TeamworkType.Substring(0, select_TeamworkType.Length - 3);
-                    select_TeamworkType += ")";
+                    select_TeamworkType += " TeamworkType like '%" + str + "%' or";
                 }
-                if (collection["cbIndustry"] != null)
-                {
-                    //string[] temp = collection["cbIndustry"].Split(',');
-                    //foreach (string str in temp)
-                    //{
-                    //    select_Investment += " and AimIndustry like '%" + str + "%'";
-                    //}
-                }
-                if (collection["cbFinancial"] != null)
-                {
-                    //select_Investment = collection["cbFinancial"];
-                }
-                string order = "ID";
-                System.Data.SqlClient.SqlParameter[] selparms = new System.Data.SqlClient.SqlParameter[5];
-                selparms[0] = new System.Data.SqlClient.SqlParameter("@keys", keys);
-                selparms[1] = new System.Data.SqlClient.SqlParameter("@TeamworkType", select_TeamworkType);
-                selparms[2] = new System.Data.SqlClient.SqlParameter("@Industry", select_industry);
-                selparms[3] = new System.Data.SqlClient.SqlParameter("@FinancSum", select_Investment);
-                selparms[4] = new System.Data.SqlClient.SqlParameter("@Order", order);
-                investments = (from p in db.T_XM_Investment.SqlQuery("exec dbo.P_GetTZXMByCondition @keys,@TeamworkType,@Industry,@FinancSum,@Order", selparms) select p).ToList();
+                select_TeamworkType = select_TeamworkType.Substring(0, select_TeamworkType.Length - 3);
+                select_TeamworkType += ")";
             }
-            return View(investments); 
+            if (collection["cbIndustry"] != null)
+            {
+                string[] temp = collection["cbIndustry"].Split(',');
+                select_industry += " and (";
+                foreach (string str in temp)
+                {
+                    select_industry += " AimIndustry like '%" + str + "%' or";
+                }
+                select_industry = select_industry.Substring(0, select_industry.Length - 3);
+                select_industry += ")";
+            }
+            if (collection["cbFinancial"] != null)
+            {
+                string[] temp = collection["cbFinancial"].Split(',');
+                select_Investment += " and (";
+                foreach (string str in temp)
+                {
+                    select_Investment += " Investment " + str + " or";
+                }
+                select_Investment = select_Investment.Substring(0, select_Investment.Length - 3);
+                select_Investment += ")";
+            }
+            string order = "ID";
+            System.Data.SqlClient.SqlParameter[] selparms = new System.Data.SqlClient.SqlParameter[5];
+            selparms[0] = new System.Data.SqlClient.SqlParameter("@keys", keys);
+            selparms[1] = new System.Data.SqlClient.SqlParameter("@TeamworkType", select_TeamworkType);
+            selparms[2] = new System.Data.SqlClient.SqlParameter("@Industry", select_industry);
+            selparms[3] = new System.Data.SqlClient.SqlParameter("@FinancSum", select_Investment);
+            selparms[4] = new System.Data.SqlClient.SqlParameter("@Order", order);
+
+            IList<T_XM_Investment> investments = (from p in db.T_XM_Investment.SqlQuery("exec dbo.P_GetTZXMByCondition @keys,@TeamworkType,@Industry,@FinancSum,@Order", selparms) select p).ToList();
+            PagedList<T_XM_Investment> paged_inverstments = new PagedList<T_XM_Investment>(investments, id, 5);
+            return View(paged_inverstments); 
         }
 
-        public ActionResult Investments(FormCollection collection)
-        {
-            List<T_PTF_DicDetail> TeamworkType = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM06")).ToList();
-            ViewData["TeamworkType"] = new SelectList(TeamworkType, "ID", "Name");
-            List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
-            ViewData["Industry"] = new SelectList(Industry, "ID", "Name");
-            List<T_PTF_DicDetail> InvestmentNature = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM07")).ToList();
-            ViewData["InvestmentNature"] = new SelectList(InvestmentNature, "ID", "Name");
-            List<T_PTF_DicDetail> InvestmentStage = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM04")).ToList();
-            ViewData["InvestmentStage"] = new SelectList(InvestmentStage, "ID", "Name");
-            var investments = db.T_XM_Investment.ToList();
-            return View(investments); 
-        }
 
         /// <summary>
         /// 找服务
@@ -148,6 +167,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
  
         #endregion
 
+        #region --------------------外网（找项目、找资金）--------------------------
         /// <summary>
         /// 找项目
         /// </summary>
@@ -390,5 +410,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
             return View(corplist);
         }
-    }
+
+        #endregion
+    }  
 }

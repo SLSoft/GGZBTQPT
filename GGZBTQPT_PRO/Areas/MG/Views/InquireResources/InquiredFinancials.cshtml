@@ -1,8 +1,10 @@
-﻿@model Webdiyer.WebControls.Mvc.PagedList<GGZBTQPT_PRO.Models.T_XM_Financing>
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Financing>
 @{
     ViewBag.Title = "InquiredFinancials";
 }
-
+<style type="text/css">
+input,span {font:12px/24px verdana;vertical-align:middle;} 
+</style>
  <div class="row-fluid">
         @*项目信息*@
         @foreach (var _model in Model)
@@ -12,7 +14,14 @@
                     <a href="#">@_model.ItemName</a></h4>
                 @*摘要*@
                 <p class="summary">
-                    @_model.ItemContent
+                    @if (_model.ItemContent.Length > 300)
+                    {
+                         <span>@_model.ItemContent.Substring(0, 300)...</span>
+                    }
+                    else
+                    {
+                        <span>@_model.ItemContent.Substring(0, _model.ItemContent.Length)</span>
+                    }
                 </p>
                 @*附属信息*@
                 <div class="recommend-info">
