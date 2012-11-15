@@ -58,6 +58,12 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// <returns></returns>
         protected string FavoredItems(int favorite_type)
         {
+            var member = CurrentMember();
+            if (member == null)
+            {
+                return null;
+            }
+
             string favored_items = "";
             List<int?> item_ids = new List<int?>();
 

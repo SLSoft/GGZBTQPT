@@ -162,11 +162,12 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
  
         //登录
         public ActionResult Login(string login_type)
-        { 
+        {
+
             if(login_type == "Register")
             {
                 ViewData["notice"] = "注册成功，请重新登陆!";
-            }
+            } 
 
             //---------TO-DO--------------//
             //将登陆类型编写成函数，根据不同的登陆类型，生成不同的消息信息
@@ -181,7 +182,11 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 T_HY_Member member = db.T_HY_Member.Where(m => m.LoginName == loginname).First();
                 if (member != null && member.Password == password)
                 {
-                    Session["MemberID"] = member.ID; 
+                    Session["MemberID"] = member.ID;
+                    if (Session["RedirectUrl"] != null && Session["RedirectUrl"].ToString() != "")
+                    {
+                        return Redirect(Session["RedirectUrl"].ToString());
+                    }
                     return RedirectToAction("Index", "Home");
                 }
                 else
