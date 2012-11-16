@@ -26,7 +26,12 @@
         }
       }
     };
-    return $.Member.rounded();
+    $.Member.rounded();
+    return $('#loading').hide().ajaxStart(function() {
+      return $(this).show();
+    }).ajaxStop(function() {
+      return $(this).hide();
+    });
   })(jQuery);
 
 }).call(this);

@@ -28,5 +28,11 @@
 
 
     $.Member.rounded()
+    $('#loading')
+    .hide()
+    .ajaxStart -> 
+        $(this).show()
+    .ajaxStop -> 
+        $(this).hide()
 
 )(jQuery)
