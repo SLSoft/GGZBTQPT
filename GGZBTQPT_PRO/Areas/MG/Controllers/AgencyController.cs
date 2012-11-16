@@ -89,8 +89,12 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
         public FileContentResult ShowLogo(int agency_id)
         {
-
-            return File(db.T_JG_Agency.Find(agency_id).Pic, "image/jpeg");
+            byte[] pic;
+            if (db.T_JG_Agency.Find(agency_id).Pic != null)
+                pic = db.T_JG_Agency.Find(agency_id).Pic;
+            else
+                pic = new byte[1];
+            return File(pic, "image/jpeg");
         }
 
         protected override void Dispose(bool disposing)

@@ -95,6 +95,8 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             }
             BindOptions();
             var t_xm_financing = new T_XM_Financing();
+            if (t_xm_financing.ValidDate == DateTime.MaxValue)
+                t_xm_financing.ValidDate = DateTime.Now;
             return View(t_xm_financing);
         }
 
@@ -146,6 +148,8 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 ViewData["notice"] = "融资项目更新成功，可进入我的发布中查阅！";
             }
             T_XM_Financing t_xm_financing = db.T_XM_Financing.Find(id);
+            if (t_xm_financing.ValidDate == DateTime.MaxValue)
+                t_xm_financing.ValidDate = DateTime.Now;
             BindArea(t_xm_financing.Province);
             BindIndustry(t_xm_financing.Industry);
             BindFinancType(t_xm_financing.FinancType);

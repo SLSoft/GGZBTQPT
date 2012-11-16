@@ -330,6 +330,10 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// <returns></returns>
         public ActionResult zcp(int id = 1)
         {
+            if (Request.RequestType == "Post")
+            {
+                int i = 0;
+            }
             List<T_JG_Agency> AgencyList = db.T_JG_Agency.Where(p => p.AgencyType == 2119).ToList();
             ViewData["AgencyList"] = new SelectList(AgencyList, "ID", "SubName");
             List<T_PTF_DicDetail> CustomerType = db.T_PTF_DicDetail.Where(p => (p.DicType == "JG02")).ToList();

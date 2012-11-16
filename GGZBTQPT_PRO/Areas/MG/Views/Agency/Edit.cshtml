@@ -10,9 +10,9 @@
         @Html.HiddenFor(model => model.UpdateTime)
         @Html.HiddenFor(model => model.MemberID)
         @Html.HiddenFor(model => model.Pic)
-        <table>
+        <table width="100%">
             <tr>
-                <td>@Html.LabelFor(model => model.AgencyName, "机构名称")</td>
+                <td width="150px;">@Html.LabelFor(model => model.AgencyName, "机构名称")</td>
                 <td>@Html.EditorFor(model => model.AgencyName)@Html.EditorFor(model => model.IsIn)是否大厦入驻机构</td>
             </tr>
             <tr>
@@ -44,16 +44,16 @@
                 <td>@Html.EditorFor(model => model.Phone)</td>
             </tr>
             <tr>
-                <td>@Html.LabelFor(model => model.Services, "机构服务内容")</td>
-                <td>@Html.TextAreaFor(model => model.Services, new { rows = "5", cols = "60" })</td>
+                <td>@Html.LabelFor(model => model.Services, "机构服务内容11111")</td>
+                <td>@Html.TextAreaFor(model => model.Services, new { rows = "5", style = "width:80%" })</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Remark, "机构简介")</td>
-                <td>@Html.TextAreaFor(model => model.Remark, new { rows = "5", cols = "60" })</td>
+                <td>@Html.TextAreaFor(model => model.Remark, new { rows = "5", style = "width:80%" })</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Pic, "机构LOGO")</td>
-                <td colspan="3">
+                <td>
                    <div id="bootstrapped-fine-uploader"></div>
                    <img id="logo_preview" src='@Url.Action("ShowLogo", "Agency", new { agency_id = Model.ID })'  alt="@Model.AgencyName" />
                 </td>

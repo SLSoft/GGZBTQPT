@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GGZBTQPT_PRO.Models
 {
@@ -45,7 +46,7 @@ namespace GGZBTQPT_PRO.Models
 
         }
         public int ID { get; set; }
-
+        [Required(ErrorMessage = "必须填写项目名称")]
         public string ItemName { get; set; }
         public string Province { get; set; }
         public string City { get; set; }
