@@ -63,7 +63,6 @@
     }
 }
 
-
 @using (Ajax.BeginForm("Edit", null, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" }, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true)
@@ -78,7 +77,7 @@
 
         <table style="width:100%">
             <tr>
-                <td colspan="4" style="background-color:#666666; color:#ffffff">基本信息</td>
+                <td colspan="4"><strong>基本信息</strong></td>
             </tr>
             <tr>
                 <td style="width:90px">@Html.LabelFor(model => model.CorpName, "企业名称")</td>
@@ -136,7 +135,7 @@
         </table>
         <table style="width:100%">
             <tr>
-                <td colspan="4" style="background-color:#666666; color:#ffffff">联系人信息</td>
+                <td colspan="4"><strong>联系人信息</strong></td>
             </tr>
             <tr>
                 <td style="width:90px">@Html.LabelFor(model => model.Linkman, "联系人")</td>
@@ -163,13 +162,13 @@
         </table>
         <table style="width:100%">
             <tr>
-                <td colspan="4" style="background-color:#666666; color:#ffffff">财务概况</td>
+                <td colspan="4"><strong>财务概况</strong></td>
             </tr>
             @QY_Financial(DateTime.Now.Year)
         </table>       
         <table style="width:100%">
             <tr>
-                <td colspan="4" style="background-color:#666666; color:#ffffff">主要产品介绍</td>
+                <td colspan="4"><strong>主要产品介绍</strong></td>
             </tr>
             @QY_Product()
         </table>

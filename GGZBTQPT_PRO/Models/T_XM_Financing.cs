@@ -64,12 +64,13 @@ namespace GGZBTQPT_PRO.Models
 
         
         public int ID { get; set; }
-
+        [Required(ErrorMessage = "必须填写项目名称")]
         public string ItemName { get; set; }
         public string Province { get; set; }
         public string City { get; set; }
         public string Region { get; set; }
         public Nullable<int> Industry { get; set; }
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public Nullable<System.DateTime> ValidDate { get; set; }
         public string Keys { get; set; }
         public string ItemContent { get; set; }

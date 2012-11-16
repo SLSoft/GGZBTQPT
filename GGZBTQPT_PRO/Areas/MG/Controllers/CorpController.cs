@@ -49,7 +49,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ActionResult Edit(int id)
         {
             T_QY_Corp t_qy_corp = db.T_QY_Corp.Find(id);
-
+            
             BindStage(t_qy_corp.Stage);
             BindArea(t_qy_corp.Province);
             BindIndustry(t_qy_corp.Industry);
@@ -68,7 +68,8 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             {
                 db.Entry(t_qy_corp).State = EntityState.Modified;
                 t_qy_corp.UpdateTime = DateTime.Now;
-
+                if (collection["RegTime"].Trim() == "")
+                    t_qy_corp.RegTime = DateTime.MaxValue;
                 string cyear = collection["FYear"].ToString();
                 if (db.T_QY_Financial.Where(f => (f.CorpID == t_qy_corp.ID && f.CurYear == cyear)).Count() > 0)
                 {
@@ -145,8 +146,12 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
         public FileContentResult ShowLogo(int corp_id)
         {
-
-            return File(db.T_QY_Corp.Find(corp_id).Logo, "image/jpeg");
+            byte[] pic;
+            if (db.T_QY_Corp.Find(corp_id).Logo != null)
+                pic = db.T_QY_Corp.Find(corp_id).Logo;
+            else
+                pic = new byte[1];
+            return File(pic, "image/jpeg");
         }
    
 
