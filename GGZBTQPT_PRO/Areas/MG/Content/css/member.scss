@@ -239,6 +239,29 @@ span.unattentioned
     display: none;
 
 }
+.checkbox
+{
+    vertical-align:middle;
+}
+#signup
+{
+    .editor-label 
+    { 
+        clear: both;
+        margin-left: 20px;
+        label
+        {
+            float:left;
+            width:120px;
+        }
+        input
+        {
+            float:left;
+
+        }
+    }
+
+}
 //sidebar
 .sidebar
 {

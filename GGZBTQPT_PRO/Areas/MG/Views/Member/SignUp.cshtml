@@ -18,7 +18,7 @@
 //        });
 //    });
 </script>
-
+<div id="signup">
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
@@ -28,41 +28,36 @@
         </legend>
         <hr />
         <div class="editor-label">
-            @Html.LabelFor(model => model.LoginName)
-        </div>
-        <div class="editor-field">
+            @Html.LabelFor(model => model.LoginName)<span style="color:#999;font-size:10px;">(用于登录会员专区)</span>
+
             @Html.EditorFor(model => model.LoginName)
             @Html.ValidationMessageFor(model => model.LoginName)
         </div>
         <div class="editor-label">
-            @Html.LabelFor(model => model.MemberName)
-        </div>
-        <div class="editor-field">
+            @Html.LabelFor(model => model.MemberName)<span style="color:#999;font-size:10px;">(会员发布信息将显示的名称)</span>
+
             @Html.EditorFor(model => model.MemberName)
             @Html.ValidationMessageFor(model => model.MemberName)
         </div>
         <div class="editor-label">
-            @Html.LabelFor(model => model.Password)<span style="color:#999;font-size:10px;">(字母开头，长度6~18位，只能包含字符、数字和下划线)</span>
-        </div>
-        <div class="editor-field">
+            @Html.LabelFor(model => model.Password)<span style="color:#999;font-size:10px;">(字母开头，长度6~18位)</span>
+
             @Html.PasswordFor(model => model.Password)
             @Html.ValidationMessageFor(model => model.Password)
         </div>
         <div class="editor-label">
-            @Html.LabelFor(model => model.ConfirmPassword)
-        </div>
-        <div class="editor-field">
+            @Html.LabelFor(model => model.ConfirmPassword)<span style="color:#999;font-size:10px;">(字母开头，长度6~18位)</span>
+
             @Html.PasswordFor(model => model.ConfirmPassword)
             @Html.ValidationMessageFor(model => model.ConfirmPassword)
         </div>
         <div class="editor-label">
-            @Html.LabelFor(model => model.CellPhone)
-        </div>
-        <div class="editor-field">
+            @Html.LabelFor(model => model.CellPhone)<span style="color:#999;font-size:10px;">(用于接收会员短信提醒和服务认证)</span>
+
             @Html.EditorFor(model => model.CellPhone)
             @Html.ValidationMessageFor(model => model.CellPhone)
         </div>
-@*        <div>
+@*      <div>
             <a href="#" id="get_verify_code" class="btn btn-success"><i class="icon-bell icon-white"></i>获取验证码</a>
         </div>
         <div class="verify">
@@ -70,22 +65,28 @@
                 验证码：</label><input id="verify" name="verify" type="text" />
         </div>*@
         <div class="editor-label">
-            @Html.LabelFor(model => model.Email)
-        </div>
-        <div class="editor-field"> 
+            @Html.LabelFor(model => model.Email)<span style="color:#999;font-size:10px;">(用于接收会员服务专刊)</span>
+
             @Html.EditorFor(model => model.Email)
             @Html.ValidationMessageFor(model => model.Email)
         </div>
         <div class="editor-label">
-            @Html.LabelFor(model => model.Type)
-        </div>
-        <div class="editor-field"> 
+            @Html.LabelFor(model => model.Type)<span style="color:#999;font-size:10px;"></span>
+
             @Html.DropDownList("Type")
             @Html.ValidationMessageFor(model => model.Type)
         </div>
-        <p>
-            <button class="btn btn-primary" type="submit">
+        <div class="editor-label"> 
+            @Html.CheckBoxFor(model => model.provision, new { @class="checkbox" })<span style="vertical-align:middle;"> 我同意网站的<a href='http://www.ovcstf.com/Default_782,1.html' target="_blank">用户协议</a>和<a href='http://www.ovcstf.com/Default_781,1.html' target="_blank">隐私条款</a> </span>
+
+            @Html.ValidationMessageFor(model => model.provision)
+        </div>
+        <div class="editor-label">
+            <button class="btn btn-primary" type="submit" id="register" style="margin-top:10px;">
                 <i class="icon-ok icon-white"></i>注册</button>
-        </p>
+        </div>
     </fieldset>
 }
+
+
+</div>

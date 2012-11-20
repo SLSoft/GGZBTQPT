@@ -64,7 +64,11 @@ namespace GGZBTQPT_PRO.Areas.ViewModels
 
         [Required(ErrorMessage = "必须选择会员类型")]
         [Display(Name = "注册会员类型")]
-        public int Type { get; set; } 
+        public int Type { get; set; }
+
+        [Display(Name = @"我同意网站的<a href='http://www.ovcstf.com/Default_782,1.html'>用户协议</a>和<a href='http://www.ovcstf.com/Default_781,1.html'>隐私条款</a>")]
+        [MustBeTrue(ErrorMessage = "请同意网站的相关协议和条款")]
+        public bool provision { get; set; }
 
     }
 
@@ -100,5 +104,15 @@ namespace GGZBTQPT_PRO.Areas.ViewModels
         [Compare("Password", ErrorMessage = "密码必须一致")]
         public string ConfirmPassword { get; set; } 
 
+    }
+
+
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
+    public class MustBeTrueAttribute : ValidationAttribute
+    {
+        public override bool IsValid(object value)
+        {
+            return value != null && value is bool && (bool)value;
+        }
     }
 }

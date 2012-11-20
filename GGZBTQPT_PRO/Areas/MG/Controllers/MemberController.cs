@@ -72,7 +72,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 {
                     return Redirect(Session["RedirectUrl"].ToString());
                 }
-                return RedirectToAction("Login","Member", new { login_type="Register" });  
+                return RedirectToAction("Index","Home");  
             }
 
             return View(vm_signup);

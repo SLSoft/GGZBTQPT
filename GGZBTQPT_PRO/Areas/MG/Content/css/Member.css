@@ -142,6 +142,18 @@ span.unattentioned {
   margin-left: -30px;
   display: none; }
 
+.checkbox {
+  vertical-align: middle; }
+
+#signup .editor-label {
+  clear: both;
+  margin-left: 20px; }
+  #signup .editor-label label {
+    float: left;
+    width: 120px; }
+  #signup .editor-label input {
+    float: left; }
+
 .sidebar {
   color: #555; }
   .sidebar .member-info {
