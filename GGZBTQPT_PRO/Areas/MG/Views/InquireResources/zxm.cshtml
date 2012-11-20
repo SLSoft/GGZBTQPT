@@ -12,7 +12,7 @@
     foreach (var item in ViewData["Industry"] as SelectList)
     {
     <li>
-        <input type="checkbox" id="checkboxType" name="cbIndustry" value="@item.Value" /><span>@item.Text</span></li>
+        <input type="checkbox" name="cbIndustry" value="@item.Value" /><span>@item.Text</span></li>
     }
 }
 @helper GenerateItemStage()
@@ -20,7 +20,7 @@
     foreach (var item in ViewData["ItemStage"] as SelectList)
     {
     <li>
-        <input type="checkbox" id="checkboxType" name="cbItemStage" value="@item.Value" /><span>@item.Text</span></li>
+        <input type="checkbox" name="cbItemStage" value="@item.Value" /><span>@item.Text</span></li>
     }
 }
 
@@ -37,11 +37,58 @@
     <p class="_addfocusbtn">@Html.ActionLink("+收藏项目", "FavoredForPortal", "Favorite", new { type_id = 1, id = favored_id }, new { @class = "favoritem" })</p>
         } 
 }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("input[type=checkbox]").click(function () {
+            var str = "";
+            if ($(this).attr("checked")) {
+                $("#message").append($(this).next().html() + "|");
+                if ($(this).attr("name") == "cbItemType") {
+                    $("#condition1").attr("value", $("#condition1").val() + "," + $(this).val());
+                }
+                if ($(this).attr("name") == "cbIndustry") {
+                    $("#condition2").attr("value", $("#condition2").val() + "," + $(this).val());
+                }
+                if ($(this).attr("name") == "cbItemStage") {
+                    $("#condition3").attr("value", $("#condition3").val() + "," + $(this).val());
+                }
+                if ($(this).attr("name") == "cbFinancial") {
+                    $("#condition4").attr("value", $("#condition4").val() + "," + $(this).val());
+                }
+            }
+            else {
+                $("#message").text($("#message").text().replace($(this).next().html() + "|", ""));
+                if ($(this).attr("name") == "cbItemType") {
+                    $("#condition1").attr("value", $("#condition1").val().replace("," + $(this).val(), ""));
+                }
+                if ($(this).attr("name") == "cbIndustry") {
+                    $("#condition2").attr("value", $("#condition2").val().replace("," + $(this).val(), ""));
+                }
+                if ($(this).attr("name") == "cbItemStage") {
+                    $("#condition3").attr("value", $("#condition3").val().replace("," + $(this).val(), ""));
+                }
+                if ($(this).attr("name") == "cbFinancial") {
+                    $("#condition4").attr("value", $("#condition4").val().replace("," + $(this).val(), ""));
+                }
+            }
+            $("#context").attr("value", $("#message").text());
+        });
+        var filter = $("#condition1").val() + $("#condition2").val() + $("#condition3").val() + $("#condition4").val();
+        var list = filter.split(",");
+        $("input[type=checkbox]").each(function () {
+            $(this).attr("checked", $.inArray(this.value, list) > -1);
+        });
+    });
+</script>
+
 @using (Html.BeginForm())
 {
     <div class="article730">
         <div class="ts">
             <div class="p_mid">
+                <div style="float:left"><span>已经选择：</span></div><div id="message" name="mes" style="color:Red;">@ViewBag.context</div>
+                <div class="clear"></div>
                 <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item form-tb">
                     <tr>
                         <td width="91">
@@ -80,6 +127,20 @@
                 <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item form-tb">
                     <tr>
                         <td width="91">
+                            按项目阶段：
+                        </td>
+                        <td width="637" colspan="7">
+                            <div class="newsbox">
+                                <ul class="newslist _qy">
+                                    @GenerateItemStage()
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item form-tb">
+                    <tr>
+                        <td width="91">
                             按资金范围：
                         </td>
                         <td width="637" colspan="7">
@@ -106,25 +167,21 @@
                 </table>
                 <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item form-tb">
                     <tr>
-                        <td width="91">
-                            按项目阶段：
+                        <td width="91"><label>
+                            按项目名称：</label></td>
+                        <td  align="left"><input type="text" name="keys"  />（输入项目名称关键字）
                         </td>
-                        <td width="637" colspan="7">
-                            <div class="newsbox">
-                                <ul class="newslist _qy">
-                                    @GenerateItemStage()
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+                        </tr>
+                    </table>
+                    <table width="728">
+                    <tr>
+                            <td align="right"><input type="submit" name="button" value="搜  索" class="btn_query" /></td>
+                        </tr>
+                    </table>
                 <div class="ts-con">
                     <h3 class="ts-con-t">
-                        <a href="#" class="first"><span class="_text">所有信息</span></a> <a href="#" class="sf"><span class="_text">自主信息</span></a> <a href="#" class="sf"><span class="_text">特区信息</span></a> <a href="#" class="sf"><span class="_text">公开信息</span></a> <a href="#" class="sf"><span class="_text">政府信息</span></a>
-                        <label>
-                            项目名称：</label>
-                        <input type="text" name="keys" class="rinput" />
-                        <input type="submit" name="button" id="button" value="" class=" rbtn" /></h3>
+                        <a href="#" class="first"><span class="_text">所有信息</span></a>
+                        </h3>
                     <div class="ts-con-btn">
                         <span class="btn1">
                             <div class="icon">
@@ -204,10 +261,21 @@
             </div>
         </div>
     </div>
-}
+    if (ViewBag.Message != null)
+    {
+        <span style="font-weight:bold; font-size:large;">@ViewBag.Message</span>
+    }
+    <div style="visibility:hidden">
+                <input id="condition1" type="text" name="condition1" style="width:600px" value="@ViewBag.condition1" />
+                <input id="condition2" type="text" name="condition2" style="width:600px" value="@ViewBag.condition2" />
+                <input id="condition3" type="text" name="condition3" style="width:600px" value="@ViewBag.condition3" />
+                <input id="condition4" type="text" name="condition4" style="width:600px" value="@ViewBag.condition4" />
+                <input id="context" type="text" name="context" value="@ViewBag.context" /></div>
+
 <div id="pager">
-    @Html.AjaxPager(Model, new PagerOptions { PageIndexParameterName = "id", ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }, new AjaxOptions { HttpMethod = "GET" })
+    @Html.AjaxPager(Model, new PagerOptions { PageIndexParameterName = "id", ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }, new AjaxOptions { HttpMethod = "POST" })
 </div>
+}
 <script type="text/javascript">
     $(".favoritem").click(function () {
         $.post(

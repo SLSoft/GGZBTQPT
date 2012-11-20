@@ -1,26 +1,31 @@
 ﻿@model Webdiyer.WebControls.Mvc.PagedList<GGZBTQPT_PRO.Models.T_JG_Agency>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#recommend li a").click(function (e) {
+            e.preventDefault();
+            $("#recommend li").removeClass("active");
+            $(this).parent("li").addClass("active");
+        });
+        $("#recommend li.active a").click();
+    });
+</script>
 
-<div id="published">
-    @foreach (var _model in Model)
+
+<h3 class="content-title">
+    机构分类</h3>
+<ul id="recommend" class="nav nav-tabs">
+    <li class="active">@Ajax.ActionLink("投资理财", "AgencyType", "FindService", new { AgencyType = 2112 }, new AjaxOptions { UpdateTargetId = "details" })</li>
+    @foreach (var item in ViewData["AgencyType"] as SelectList)
     {
-        <div class="row-fluid" style="border-bottom:1 solid">
-            <div class="published-content ">
-                <div style="float:left"><h4>
-                    ■@Html.ActionLink(_model.AgencyName, "AgencyShow", new { id = _model.ID })</h4>    
-                </div>
-                <div style="float:right"><img src=@Url.Content("~/Areas/mg/Content/css/images/co1_logo.jpg") /></div>                   
-            
-            <div style="clear:both;">
-            <p class="summary">
-                    @(_model.Remark.Length > 200 ? _model.Remark.Substring(0, 200) + "..." : _model.Remark)
-                </p>   
-            </div>          
-            </div>
-        </div>          
+        if (item.Value != "2112")
+        {
+        <li>@Ajax.ActionLink(item.Text, "AgencyType", "FindService", new { AgencyType = item.Value }, new AjaxOptions { UpdateTargetId = "details" })</li>
+        }
     }
-    <div class="pagination pagination-left clear">
-        @Html.AjaxPager(Model, new PagerOptions { PageIndexParameterName = "id", ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details" }) 
-    </div>
+</ul>
+
+<div id="details">
+    
 </div>
 
 
