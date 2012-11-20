@@ -359,6 +359,16 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             return result;
         }
 
+        
+        public string CurrentMemberForPortal()
+        {
+            if(CurrentMember() != null)
+            {
+                return CurrentMember().MemberName;
+            }
+            return "";
+        }
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
