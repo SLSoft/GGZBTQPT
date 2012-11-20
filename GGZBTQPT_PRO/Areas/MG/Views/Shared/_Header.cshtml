@@ -26,19 +26,30 @@
     <div class="navbar-inner">
         <div class="container">
             <a class="brand" href="http://www.ovcstf.com/">科技金融网</a> 
-                <ul class="nav">
-                    <li class="">@Html.ActionLink("金融推荐", "Index", "Home")</li>
-                    <li class="">@Html.ActionLink("我的发布", "Index", "Published") </li>
-                    <li class="">@Html.ActionLink("我的收藏", "Index", "Favorite") </li>
-                    <li class="">@Html.ActionLink("我的关注", "Index", "Attention") </li>
-                    <li class="">@Html.ActionLink("找项目", "Financials", "InquireResources") </li>
-                    <li class="">@Html.ActionLink("找资金", "Investments", "InquireResources") </li>
-                    <li class="">@Html.ActionLink("找服务", "Index", "FindService") </li>
-                     
-                </ul>
-                <ul class="nav pull-right">
-                    @CheckWhetherMemberLoginIn()
-                </ul> 
+            <ul class="nav header-link">
+                <li>@Html.ActionLink("金融推荐", "Index", "Recommend")</li>
+                <li>@Html.ActionLink("我的发布", "Index", "Published") </li>
+                <li>@Html.ActionLink("我的收藏", "Index", "Favorite") </li>
+                <li>@Html.ActionLink("我的关注", "Index", "Attention") </li>
+                <li>@Html.ActionLink("找项目", "Financials", "InquireResources") </li>
+                <li>@Html.ActionLink("找资金", "Investments", "InquireResources") </li>
+                <li>@Html.ActionLink("找服务", "Index", "FindService") </li>
+                 
+            </ul>
+            <ul class="nav pull-right">
+                @CheckWhetherMemberLoginIn()
+            </ul> 
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".header-link li a").each(function () {
+            var urls = window.location.href.toString().split('/');
+            var actions = $(this).attr("href").toString().split('/');
+            if (urls[urls.length - 1] == actions[actions.length - 1]) {
+                $(this).parent("li").addClass("active");
+            } 
+        }); 
+    }); 
+</script> 

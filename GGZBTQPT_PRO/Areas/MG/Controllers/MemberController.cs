@@ -7,15 +7,13 @@ using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.Enums;
-using GGZBTQPT_PRO.Areas.ViewModels;
-
+using GGZBTQPT_PRO.Areas.ViewModels; 
+ 
 
 namespace GGZBTQPT_PRO.Areas.MG.Controllers
 { 
-    public class MemberController : Controller
-    {
-        private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
-
+    public class MemberController : BaseController
+    { 
         public ViewResult Index()
         { 
             return View(); 
@@ -61,13 +59,19 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 member.CreatedAt = DateTime.Now;
                 member.UpdatedAt = DateTime.Now;
                 member.Password = vm_signup.Password;
-                member.Type = vm_signup.Type;
-                //t_hy_member.MemberName = t_hy_member.LoginName;
+                member.Type = vm_signup.Type; 
+
                 db.T_HY_Member.Add(member);
                 db.SaveChanges();
 
-                InitMemberDetail(member.Type, member.ID);
-                ViewData["notice"] = "注册成功，请登录!";
+                //根据用户类型，往不同的业务用户数据表中初始化信息
+                InitMemberDetail(member.Type, member.ID); 
+                Session["MemberID"] = member.ID;
+
+                if(Session["RedirectUrl"] != null && Session["RedirectUrl"].ToString() != "")
+                {
+                    return Redirect(Session["RedirectUrl"].ToString());
+                }
                 return RedirectToAction("Login","Member", new { login_type="Register" });  
             }
 
@@ -133,18 +137,6 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             return RedirectToAction("Index");
         }
 
-        //
-        //------------Helper-------------------// 
-        private T_HY_Member CurrentMember()
-        {
-            if (Session["MemberID"] != null && Session["MemberID"].ToString() != "")
-            {
-                var member = db.T_HY_Member.Find(Convert.ToInt32(Session["MemberID"].ToString()));
-                return member;
-            }
-            return null;
-        }
-
         //------------ViewAction---------------//
         //个人设置
         public ActionResult Config()
@@ -161,16 +153,8 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         }
  
         //登录
-        public ActionResult Login(string login_type)
-        {
-
-            if(login_type == "Register")
-            {
-                ViewData["notice"] = "注册成功，请重新登陆!";
-            } 
-
-            //---------TO-DO--------------//
-            //将登陆类型编写成函数，根据不同的登陆类型，生成不同的消息信息
+        public ActionResult Login()
+        { 
             return View();
         }
 

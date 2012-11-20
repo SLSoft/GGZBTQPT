@@ -6,26 +6,17 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
+using GGZBTQPT_PRO.Areas.MG.Filter;
 
 namespace GGZBTQPT_PRO.Areas.MG.Controllers
 {
+    [MemberFilter]
     public class HomeController : BaseController
-    {
-
-        //
-        // GET: /Member/Home/
-
+    { 
         public ActionResult Index()
-        {
-            if (CurrentMember() != null)
-            {
-                var member = db.T_HY_Member.Find(CurrentMember().ID);
-                return View(member);
-            }
-            else
-            {
-                return RedirectToAction("Login", "Member");
-            }
+        { 
+            var member = db.T_HY_Member.Find(CurrentMember().ID);
+            return View(member); 
         } 
     }
 }

@@ -5,43 +5,32 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using GGZBTQPT_PRO.Models;
-
+using GGZBTQPT_PRO.Models; 
 
 namespace GGZBTQPT_PRO.Areas.MG.Controllers
 {
+
     public class SideBarController : BaseController
     {
         //
-        // GET: /Member/SideBar/
-
-
+        // GET: /Member/SideBar/ 
 
         public ActionResult MemberBrief()
         {
-            var member = CurrentMember();
-            if (member == null)
-            {
-                return PartialView();
-            }
-            return PartialView(member);
-
+            var member = CurrentMember(); 
+            return PartialView(member); 
         }
 
         public ActionResult TheLastestFinancials()
-        {
-
+        { 
             var finacials = db.T_XM_Financing.OrderByDescending(f => f.CreateTime).Take(4).ToList();
-            return PartialView(finacials);
-
+            return PartialView(finacials); 
         }
 
         public ActionResult TheLastestInvestments()
-        {
-
+        { 
             var investments = db.T_XM_Investment.OrderByDescending(i => i.CreateTime).Take(4).ToList();
-            return PartialView(investments);
-
+            return PartialView(investments); 
         }
 
         public ActionResult TheLastestProducts()

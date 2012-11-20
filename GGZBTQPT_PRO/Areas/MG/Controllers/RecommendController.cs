@@ -7,9 +7,11 @@ using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 using Webdiyer.WebControls.Mvc;
+using GGZBTQPT_PRO.Areas.MG.Filter;
 
 namespace GGZBTQPT_PRO.Areas.MG.Controllers
 {
+    [MemberFilter()]
     public class RecommendController : BaseController
     {
  
@@ -17,16 +19,8 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         // GET: /Member/Publish/
 
         public ActionResult Index()
-        {
-
-            if (CurrentMember() != null)
-            {
-                return View(CurrentMember());
-            }
-            else
-            {
-                return RedirectToAction("Login", "Member");
-            }
+        { 
+            return View(CurrentMember()); 
         }
 
         /// <summary>
@@ -37,10 +31,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ActionResult RecommendFinancials(int id = 1)
         {
             var member = CurrentMember();
-            if (member == null)
-            {
-                return RedirectToAction("Login", "Member");
-            }
+
             try
             {
                 //*********TO-DO************//
@@ -67,10 +58,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ActionResult RecommendInvestments(int id = 1)
         {
             var member = CurrentMember();
-            if (member == null)
-            {
-                return RedirectToAction("Login", "Member");
-            }
+    
             try
             {
                 PagedList<T_XM_Investment> investments = db.T_XM_Investment.OrderByDescending(f => f.CreateTime).ToPagedList(id, 5);
@@ -93,10 +81,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ActionResult RecommendProducts(int id = 1)
         {
             var member = CurrentMember();
-            if (member == null)
-            {
-                return RedirectToAction("Login", "Member");
-            }
+           
             try
             {
                 PagedList<T_JG_Product> products = db.T_JG_Product.OrderByDescending(p => p.CreateTime).ToPagedList(id, 5);
@@ -120,10 +105,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ActionResult RecommendAgencies(int id = 1)
         {
             var member = CurrentMember();
-            if (member == null)
-            {
-                return RedirectToAction("Login", "Member");
-            }
+         
             try
             {
                 PagedList<T_JG_Agency> Agencies = db.T_JG_Agency.OrderByDescending(a => a.CreateTime).ToPagedList(id, 5); 

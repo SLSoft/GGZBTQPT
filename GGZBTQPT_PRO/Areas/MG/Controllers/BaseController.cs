@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 
+
 namespace GGZBTQPT_PRO.Areas.MG.Controllers
 {
     public class BaseController : Controller
@@ -23,6 +24,17 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             return null;
         }
 
+        public ActionResult CheckMemberForRedirect(string redirect_url)
+        {
+            if(CurrentMember() != null)
+            { 
+                return Redirect(redirect_url);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Member", new { url = redirect_url });
+            }
+        }
 
         /// <summary>
         /// 读取当前用户所关注的用户的ID集合

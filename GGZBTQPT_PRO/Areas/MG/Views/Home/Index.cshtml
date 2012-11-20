@@ -9,10 +9,9 @@
     $(document).ready(function () {
         $("#recommend li a").click(function (e) {
             e.preventDefault();
-            $("#recommend li").removeClass("active");
-            $(this).parent("li").addClass("active");
+            $(this).tab('show');
         });
-        $("#recommend li.active a").click();
+
     });
 </script> 
 

@@ -18,12 +18,13 @@
 //        });
 //    });
 </script>
+
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>
-            <h3>会员注册</h3>
+            <h3>会员注册<em style="font-size:12px;color:#888;">*以下信息均为必填项</em></h3>
         </legend>
         <hr />
         <div class="editor-label">
@@ -41,7 +42,7 @@
             @Html.ValidationMessageFor(model => model.MemberName)
         </div>
         <div class="editor-label">
-            @Html.LabelFor(model => model.Password)
+            @Html.LabelFor(model => model.Password)<span style="color:#999;font-size:10px;">(字母开头，长度6~18位，只能包含字符、数字和下划线)</span>
         </div>
         <div class="editor-field">
             @Html.PasswordFor(model => model.Password)
@@ -68,6 +69,13 @@
             <label for="verify">
                 验证码：</label><input id="verify" name="verify" type="text" />
         </div>*@
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Email)
+        </div>
+        <div class="editor-field"> 
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.Type)
         </div>
