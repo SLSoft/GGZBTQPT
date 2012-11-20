@@ -19,10 +19,24 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
         public ActionResult Index(int id = 1)
         {
-            PagedList<T_JG_Agency> jg_agency = db.T_JG_Agency.Where(p => p.IsIn == true).OrderBy(p => p.CreateTime).ToPagedList(id, 5);
-            return View(jg_agency);
+            BindAgencyType();
+            return View();
         }
 
+        public ActionResult AgencyType(int AgencyType = 2112, int id = 1)
+        {
+            PagedList<T_JG_Agency> jg_agency = db.T_JG_Agency.Where(p => p.AgencyType == AgencyType).OrderBy(p => p.CreateTime).ToPagedList(id, 5);
+            if (jg_agency.Count == 0)
+                ViewBag.Message = "暂无该类别机构!";
+            return PartialView(jg_agency);
+        }
+
+        public void BindAgencyType()
+        {
+            List<T_PTF_DicDetail> AgencyType = db.T_PTF_DicDetail.Where(p => (p.DicType == "JG01")).ToList();
+
+            ViewData["AgencyType"] = new SelectList(AgencyType, "ID", "Name");
+        }
         public ActionResult AgencyList(int AgencyType, bool isin)
         {
             ViewBag.isin = isin;

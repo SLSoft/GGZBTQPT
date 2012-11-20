@@ -1,0 +1,33 @@
+﻿@model Webdiyer.WebControls.Mvc.PagedList<GGZBTQPT_PRO.Models.T_JG_Agency>
+
+@{
+    ViewBag.Title = "AgencyType";
+}
+
+@foreach (var _model in Model)
+    {
+        <div class="row-fluid" style="border-bottom:1 solid">
+            <div class="published-content ">
+                <div style="float:left"><h4>
+                    ■@Html.ActionLink(_model.AgencyName, "AgencyShow", new { id = _model.ID })</h4>    
+                </div>
+                <div style="float:right"><img src=@Url.Content("~/Areas/mg/Content/css/images/co1_logo.jpg") /></div>                   
+            
+            <div style="clear:both;">
+            <p class="summary">
+                    @(_model.Remark.Length > 200 ? _model.Remark.Substring(0, 200) + "..." : _model.Remark)
+                </p>   
+            </div>          
+            </div>
+        </div>          
+    }
+    <div>
+    @if (ViewBag.Message != null)
+    {
+        <span style="font-weight:bold; font-size:large; color:#ff0000">@ViewBag.Message</span>
+    }
+    </div>
+    <div class="pagination pagination-left clear">
+        @Html.AjaxPager(Model, new PagerOptions { PageIndexParameterName = "id", ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details" }) 
+    </div>
+    
