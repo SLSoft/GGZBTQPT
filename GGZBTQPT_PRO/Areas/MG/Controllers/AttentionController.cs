@@ -9,9 +9,11 @@ using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.Areas.ViewModels;
 using GGZBTQPT_PRO.Enums;
 using Webdiyer.WebControls.Mvc;
+using GGZBTQPT_PRO.Areas.MG.Filter;
 
 namespace GGZBTQPT_PRO.Areas.MG.Controllers
 {
+    [MemberFilter()]
     public class AttentionController : BaseController
     {
 
@@ -21,16 +23,9 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
         public ActionResult Index()
         {
-
-            if (CurrentMember() != null)
-            {
-                var member = db.T_HY_Member.Find(CurrentMember().ID);
-                return View(member);
-            }
-            else
-            {
-                return RedirectToAction("Login", "Member");
-            }
+            var member = db.T_HY_Member.Find(CurrentMember().ID);
+            return View(member);
+           
         }
 
         /// <summary>
@@ -41,10 +36,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ActionResult AttentionedAgencies(int id = 1)
         {
             var member = CurrentMember();
-            if (member == null)
-            {
-                return RedirectToAction("Login", "Member");
-            }
+           
             try
             {
                 IList<VM_AttentionedAgency> attentions = member.Attentions.Where(a => a.AttentionedMemberType == 3)
@@ -69,10 +61,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ActionResult AttentionedCorps(int id = 1)
         {
             var member = CurrentMember();
-            if (member == null)
-            {
-                return RedirectToAction("Login", "Member");         
-            } 
+            
             try
             {
                 IList<VM_AttentionedCorp> corps = member.Attentions.Where(a => a.AttentionedMemberType == 2)
@@ -98,10 +87,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ActionResult AttentionedPersons(int id = 1)
         {
             var member = CurrentMember();
-            if (member == null)
-            {
-                return RedirectToAction("Login", "Member");       
-            } 
+            
             try
             {
                 //var attentions = member.Attentions.Where(a => a.AttentionType == 1 || a.AttentionType == 2).ToList(); 
@@ -130,11 +116,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ActionResult Attentioned(int type, int id)
         { 
             var member = CurrentMember();
-            if (member == null)
-            {
-                return RedirectToAction("Login", "Member");
-            }
-
+           
             var attentioned_item = new T_HY_Attention();
 
             attentioned_item.AttentionedMemberID = id;
@@ -153,11 +135,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         [HttpPost]
         public ActionResult UnAttentioned(int id)
         {
-            var member = CurrentMember();
-            if (member == null)
-            {
-                return RedirectToAction("Login", "Member");
-            }
+            var member = CurrentMember(); 
 
             var unattentioned_item = member.Attentions.First( a => a.AttentionedMemberID == id);
 

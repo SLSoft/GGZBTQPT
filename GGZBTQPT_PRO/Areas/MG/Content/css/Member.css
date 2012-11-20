@@ -1,5 +1,7 @@
 body {
   background-color: #333; }
+  body .header-link {
+    font-weight: bold; }
   body .main #notice {
     margin-bottom: 20px; }
   body .main .content {
@@ -124,6 +126,33 @@ span.unattentioned {
 
 .privacy-detail {
   font-style: italic; }
+
+#loading {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  color: #fff;
+  padding: 5px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  top: 50%;
+  left: 50%;
+  margin-top: -30px;
+  margin-left: -30px;
+  display: none; }
+
+.checkbox {
+  vertical-align: middle; }
+
+#signup .editor-label {
+  clear: both;
+  margin-left: 20px; }
+  #signup .editor-label label {
+    float: left;
+    width: 120px; }
+  #signup .editor-label input {
+    float: left; }
 
 .sidebar {
   color: #555; }

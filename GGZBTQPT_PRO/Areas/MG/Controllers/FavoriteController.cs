@@ -7,9 +7,11 @@ using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 using Webdiyer.WebControls.Mvc;
+using GGZBTQPT_PRO.Areas.MG.Filter;
 
 namespace GGZBTQPT_PRO.Areas.MG.Controllers
 {
+    [MemberFilter()]
     public class FavoriteController : BaseController
     {
 
@@ -19,16 +21,8 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
         public ActionResult Index()
         {
-
-            if (CurrentMember() != null)
-            {
-                var member = db.T_HY_Member.Find(CurrentMember().ID);
-                return View(member);
-            }
-            else
-            {
-                return RedirectToAction("Login", "Member");
-            }
+            var member = db.T_HY_Member.Find(CurrentMember().ID);
+            return View(member); 
         }
 
         /// <summary>
@@ -39,10 +33,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ActionResult FavoredFinancials(int member_id, int id = 1)
         {
             var member = CurrentMember();
-            if (member == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
+           
             try
             {
                 IList<T_XM_Financing> financials = member.Favorites.Where(a => a.FavoriteType == 1)
@@ -71,10 +62,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ActionResult FavoredInvestments(int member_id, int id = 1)
         {
             var member = CurrentMember();
-            if (member == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
+           
             try
             {
                 IList<T_XM_Investment> investments = member.Favorites.Where(a => a.FavoriteType == 2)
@@ -104,11 +92,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ActionResult FavoredProducts(int member_id, int id = 1)
         {
             var member = CurrentMember();
-            if (member == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
+            
             try
             {
                 IList<T_JG_Product> products = member.Favorites.Where(a => a.FavoriteType == 3)
@@ -139,14 +123,8 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// <param name="id">项目、资金、服务ID</param>
         [HttpPost]
         public ActionResult Favored(int type_id, int id)
-        {
-
-            var member = CurrentMember();
-            if (member == null)
-            {
-                return RedirectToAction("Login", "Member");
-            }
-
+        { 
+            var member = CurrentMember(); 
             var favored_item = CreateFavoredItem(type_id, id);
 
             member.Favorites.Add(favored_item);
@@ -163,12 +141,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         [HttpPost]
         public ActionResult UnFavored(int id)
         {
-            var member = CurrentMember();
-            if (member == null)
-            {
-                return RedirectToAction("Login", "Member");
-            }
-
+            var member = CurrentMember(); 
             var favored_item = member.Favorites.First( f => f.FinancialID == id);
 
             member.Favorites.Remove(favored_item);
@@ -206,15 +179,8 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// <param name="id">项目、资金、服务ID</param>
         [HttpPost]
         public ActionResult FavoredForPortal(int type_id, int id, string url)
-        {
-
-            var member = CurrentMember();
-            if (member == null)
-            {
-                Session["RedirectUrl"] = url;
-                return Json(new { statusCode = "200", message = "项目收藏成功", login = true });
-            }
-
+        { 
+            var member = CurrentMember(); 
             var favored_item = CreateFavoredItem(type_id, id);
 
             member.Favorites.Add(favored_item);
@@ -231,12 +197,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         [HttpPost]
         public ActionResult UnFavoredForPortal(int id)
         {
-            var member = CurrentMember();
-            if (member == null)
-            {
-                return RedirectToAction("Login", "Member");
-            }
-
+            var member = CurrentMember(); 
             var favored_item = member.Favorites.First(f => f.FinancialID == id);
 
             member.Favorites.Remove(favored_item);
