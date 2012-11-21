@@ -14,17 +14,19 @@
     <li class="divider-vertical"></li>
     <li>@Html.ActionLink("设置", "Config", "Member")</li>
     <li>@Html.ActionLink("退出", "LogOut", "Member")</li>
+    <li><a href="http://www.ovcstf.com/">返回资本光谷</a></li>
     }
     else
     {
     <li>@Html.ActionLink("注册", "SignUp", "Member")</li>
     <li>@Html.ActionLink("登陆", "Login", "Member")</li>
+    <li><a href="http://www.ovcstf.com/">返回资本光谷</a></li>
     }
 }
 <div class="navbar  navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
-            <a class="brand" href="http://www.ovcstf.com/">科技金融网</a> 
+            <a class="brand" href="http://www.ovcstf.com/"><img src="@Url.Content("~/Areas/MG/Content/images/logo.png")" width="36px" height="36px" alt="资本光谷" /></a> 
             <ul class="nav header-link">
                 <li>@Html.ActionLink("金融推荐", "Index", "Recommend")</li>
                 <li>@Html.ActionLink("我的发布", "Index", "Published") </li>

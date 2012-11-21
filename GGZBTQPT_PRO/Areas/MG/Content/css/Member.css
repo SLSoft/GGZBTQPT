@@ -18,7 +18,14 @@ body {
     padding: 20px; }
   body .footer {
     text-align: center;
-    padding-top: 10px; }
+    background: url(../images/footer.png) repeat-x top left;
+    margin-top: 10px;
+    color: #fff;
+    height: 59px; }
+    body .footer .right {
+      padding-top: 10px; }
+      body .footer .right a {
+        color: #fff; }
 
 .content-title {
   border-bottom: solid 1px #ddd;
@@ -145,14 +152,24 @@ span.unattentioned {
 .checkbox {
   vertical-align: middle; }
 
-#signup .editor-label {
-  clear: both;
-  margin-left: 20px; }
-  #signup .editor-label label {
-    float: left;
-    width: 120px; }
-  #signup .editor-label input {
-    float: left; }
+#signup {
+  background: url(../images/register-2.png) no-repeat bottom right;
+  filter: alpha(opacity=50); }
+  #signup .editor-label {
+    margin: 0px;
+    padding: 0px;
+    clear: both;
+    margin-left: 20px; }
+    #signup .editor-label label {
+      float: left;
+      width: 100px; }
+    #signup .editor-label input {
+      float: left;
+      padding: 0;
+      margin: 0;
+      height: 26px; }
+  #signup .input-row {
+    margin-top: 10px; }
 
 .sidebar {
   color: #555; }
@@ -174,6 +191,9 @@ span.unattentioned {
 
 .alert {
   text-align: center; }
+
+.container .brand {
+  padding: 0; }
 
 #deploy {
   text-align: center; }
