@@ -27,7 +27,10 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         {
             PagedList<T_JG_Agency> jg_agency = db.T_JG_Agency.Where(p => p.AgencyType == AgencyType).OrderBy(p => p.CreateTime).ToPagedList(id, 5);
             if (jg_agency.Count == 0)
+            {
                 ViewBag.Message = "暂无该类别机构!";
+            }
+            ViewBag.AgencyName = db.T_PTF_DicDetail.Find(AgencyType).Name;
             return PartialView(jg_agency);
         }
 

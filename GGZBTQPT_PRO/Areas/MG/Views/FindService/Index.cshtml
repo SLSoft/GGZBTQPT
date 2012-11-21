@@ -13,7 +13,10 @@
 
 <h3 class="content-title">
     机构分类</h3>
-<ul id="recommend" class="nav nav-tabs">
+<table width="100%">
+<tr>
+    <td width="20%" valign="top">
+    <ul id="recommend">
     <li class="active">@Ajax.ActionLink("投资理财", "AgencyType", "FindService", new { AgencyType = 2112 }, new AjaxOptions { UpdateTargetId = "details" })</li>
     @foreach (var item in ViewData["AgencyType"] as SelectList)
     {
@@ -23,9 +26,10 @@
         }
     }
 </ul>
-
-<div id="details">
-    
-</div>
+    </td>
+    <td valign="top"    ><div id="details"></div>
+    </td>
+</tr>
+</table>
 
 

@@ -21,7 +21,7 @@
 .newslist{
 	margin:0 5px;
 }
-.newslist._qy li{
+.newslist li{
     width:90px;
     float:left;
 }
@@ -77,4 +77,5 @@
     height:20px;
 }
 .btn_query {padding: 2 4 0 4;font-size:12pt;height:26;width:60;}
+.li_query{float:left;}
 
