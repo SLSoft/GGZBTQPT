@@ -21,7 +21,14 @@ body {
     background: url(../images/footer.png) repeat-x top left;
     margin-top: 10px;
     color: #fff;
-    height: 59px; }
+    height: 59px;
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    margin-bottom: 0;
+    bottom: 0;
+    clear: both; }
     body .footer .right {
       padding-top: 10px; }
       body .footer .right a {

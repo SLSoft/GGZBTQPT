@@ -38,7 +38,10 @@ namespace GGZBTQPT_PRO.Areas.MG.Filter
                 {
                     filterContext.HttpContext.Session["RedirectUrl"] = filterContext.HttpContext.Request.UrlReferrer;
                 }
-
+                if (filterContext.HttpContext.Request["url"] != null)
+                {
+                    filterContext.HttpContext.Session["RedirectUrl"] = filterContext.HttpContext.Request["url"];
+                }
                 if (filterContext.HttpContext.Request.IsAjaxRequest())
                 {
                     // For AJAX requests, we're overriding the returned JSON result with a simple string,

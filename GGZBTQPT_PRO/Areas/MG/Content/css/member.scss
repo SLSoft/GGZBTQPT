@@ -37,7 +37,13 @@ body
         margin-top: 10px;
         color: #fff;
         height: 59px;
-
+        position: fixed;
+        right: 0;
+        left: 0;
+        z-index: 1030;
+        margin-bottom: 0;
+        bottom: 0;
+        clear: both;
         .right
         {
             padding-top: 10px;
