@@ -37,7 +37,7 @@
     @RenderSection("custom_css", false)
 
 </head>
-<body style="margin-top: 60px;">
+<body style="margin-top: 60px; margin-bottom: 70px;">
     @Html.Partial("_Header")
 
     <div class="container">
@@ -58,7 +58,12 @@
         </div>
     </div>
     <div class="footer">
-        <a href="#">武汉东湖新技术开发区金融办</a> | <a href="#">光谷资本大厦</a> | <a href="#">武汉神路信息咨询有限公司</a>
+    <div class="right">
+        <a href="http://www.wehdz.gov.cn/structure/">主办单位：武汉东湖新技术开发区金融办</a> | <a href="http://ovct.ovcstf.com/">承办单位：武汉光谷广场建设发展有限公司</a>
+        <div>
+            鄂ICP备12015034号-1 版权所有 内容未经允许 严禁转载 ALL Rights Reserved
+        </div>
+        </div>
     </div>
     <div id="loading" class="rounded"><img src="@Url.Content("~/Areas/MG/Content/images/loading.gif")"  /></div>
 </body>

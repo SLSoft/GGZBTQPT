@@ -32,8 +32,26 @@ body
 
     .footer
     {
-        text-align: center;
-        padding-top: 10px;
+        text-align: center; 
+        background: url(../images/footer.png) repeat-x top left;
+        margin-top: 10px;
+        color: #fff;
+        height: 59px;
+        position: fixed;
+        right: 0;
+        left: 0;
+        z-index: 1030;
+        margin-bottom: 0;
+        bottom: 0;
+        clear: both;
+        .right
+        {
+            padding-top: 10px;
+            a
+            {
+                color: #fff;
+            }
+        }
     }
 }
 
@@ -245,20 +263,32 @@ span.unattentioned
 }
 #signup
 {
+    background: url(../images/register-2.png) no-repeat bottom right;
+    filter:alpha(opacity=50); 
     .editor-label 
     { 
+        margin: 0px;
+        padding: 0px;
         clear: both;
         margin-left: 20px;
         label
         {
             float:left;
-            width:120px;
+            width:100px;
         }
         input
         {
             float:left;
+            padding: 0;
+            margin: 0;
+            height: 26px;
 
         }
+
+    }
+    .input-row 
+    {
+        margin-top: 10px;
     }
 
 }
@@ -302,7 +332,10 @@ span.unattentioned
 }
 .container
 {
-
+    .brand
+    {
+        padding:0;
+    }
 }
 .row
 {
