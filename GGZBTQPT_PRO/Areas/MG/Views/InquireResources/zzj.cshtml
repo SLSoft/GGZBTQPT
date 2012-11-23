@@ -275,6 +275,9 @@
     {
         <span style="font-weight:bold; font-size:large;">@ViewBag.Message</span>
     }
+    <div id="pager">
+        @Html.AjaxPager(Model, new PagerOptions { PageIndexParameterName = "id", ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }, new AjaxOptions { HttpMethod = "GET" })
+    </div>
     <div style="visibility:hidden">
                 <input id="condition1" type="text" name="condition1" value="@ViewBag.condition1" />
                 <input id="condition2" type="text" name="condition2" value="@ViewBag.condition2" />
@@ -283,7 +286,4 @@
                 <input id="condition5" type="text" name="condition5" value="@ViewBag.condition5" />
                 <input id="context" type="text" name="context" value="@ViewBag.context" /></div>
 }
-<div id="pager">
-    @Html.AjaxPager(Model, new PagerOptions { PageIndexParameterName = "id", ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }, new AjaxOptions { HttpMethod = "GET" })
-</div>
 
