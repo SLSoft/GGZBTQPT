@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
+using GGZBTQPT_PRO.Enums;
 
 namespace GGZBTQPT_PRO.Controllers
 {
@@ -53,9 +54,15 @@ namespace GGZBTQPT_PRO.Controllers
                     db.T_ZC_System.Add(t_zc_system);
                     int result = db.SaveChanges();
                     if (result > 0)
+                    {
+                        Logging((int)LogTypes.operate,"成功新增了一条系统数据:" + t_zc_system.Name);
                         return ReturnJson(true, "操作成功", "", "", true, "");
+                    }
                     else
+                    {
+                        Logging((int)LogTypes.warn,"新增系统失败:" + t_zc_system.Name);
                         return ReturnJson(false, "操作失败", "", "", false, "");
+                    }
                 }
             }
             return Json(new { });

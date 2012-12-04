@@ -145,5 +145,6 @@ namespace GGZBTQPT_PRO.Controllers
             depart_user.Users = db.T_ZC_User.Where(p => p.IsValid == true).Include("Department").ToList();
             return PartialView(depart_user);
         }
+
     }
 }

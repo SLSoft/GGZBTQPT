@@ -16,7 +16,7 @@ namespace GGZBTQPT_PRO.Models
     public int ID { get; set; }
 
     [Required(ErrorMessage = "必须填写用户名称")]
-    public string Name { get; set; }
+    public string UserName { get; set; }
 
     [Required(ErrorMessage = "必须填写登录名称")]
     public string LoginName { get; set; }

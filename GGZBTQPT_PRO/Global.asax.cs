@@ -34,8 +34,11 @@ namespace GGZBTQPT_PRO
     {
       AreaRegistration.RegisterAllAreas();
 
+      log4net.Config.XmlConfigurator.Configure();
       RegisterGlobalFilters(GlobalFilters.Filters);
       RegisterRoutes(RouteTable.Routes);
+
+
     }
   }
 }

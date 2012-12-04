@@ -35,6 +35,7 @@ namespace GGZBTQPT_PRO.Models
         public DbSet<T_PTF_DicDetail> T_PTF_DicDetail { get; set; }
         public DbSet<T_PTF_DicTreeDetail> T_PTF_DicTreeDetail { get; set; }
         public DbSet<T_PTF_DicType> T_PTF_DicType { get; set; }
+        public DbSet<T_ZC_CommonLog> T_ZC_CommonLog { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

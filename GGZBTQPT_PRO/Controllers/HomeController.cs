@@ -4,21 +4,24 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
+using GGZBTQPT_PRO.Filter;
 
 namespace GGZBTQPT_PRO.Controllers
 {
+
+    [ActionAttributeFilter()]
     public class HomeController : BaseController
     {
 
         public ActionResult Index()
-        {
+        { 
             var menus = db.T_ZC_Menu.Where(p => p.IsValid == true).ToList();
             return View(menus);
         }
 
         public ActionResult SystemLink()
         {
-            var system_links = db.T_ZC_System.OrderBy(s => s.ID).ToList();
+            var system_links = db.T_ZC_System.OrderBy(s => s.ID).Where(s => s.IsValid == true).ToList();
             return PartialView(system_links);
         }
 
