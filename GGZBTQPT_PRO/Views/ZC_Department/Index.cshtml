@@ -6,8 +6,6 @@
 <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
 <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
 <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />
-@*<input type="hidden" name="orderField" value="${param.orderField}" />
-<input type="hidden" name="orderDirection" value="${param.orderDirection}" />*@
 </form>
 <div class="pageHeader">
     <form rel="pagerForm" onsubmit="return navTabSearch(this);" action="@Url.Action("Index")"
@@ -29,8 +27,6 @@
                                 检索</button></div>
                     </div>
                 </li>
-                @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框">
-                    <span>高级检索</span></a></li>*@
             </ul>
         </div>
     </div>
@@ -60,6 +56,9 @@
                         部门全称
                     </th>
                     <th>
+                        上级部门
+                    </th>
+                    <th>
                         创建时间
                     </th>
                     <th>
@@ -78,6 +77,9 @@
                             @Html.DisplayFor(modelItem => item.FullName)
                         </td>
                         <td>
+                            @Html.DisplayFor(modelItem => item.ParentID)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.CreatedAt)
                         </td>
                         <td>
@@ -93,7 +95,7 @@
             <span>每页显示</span>
             <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value,pageNum:1})">
                 @{  
-                    int[] nums = new int[] { 5, 10, 20, 50, 100, 200 };
+                    int[] nums = new int[] { 15, 20, 50, 100, 200 };
                     foreach (var num in nums)
                     {
                         if (Int32.Parse(ViewData["numPerPage"].ToString()) == num)

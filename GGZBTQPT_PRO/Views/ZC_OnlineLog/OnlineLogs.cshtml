@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_ZC_System>
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_ZC_OnlineLog>
 @{
     Layout = null;
 }
@@ -10,13 +10,13 @@
     @*<input type="hidden" name="orderField" value="${param.orderField}" />
         <input type="hidden" name="orderDirection" value="${param.orderDirection}" />*@
     </form>
-    <form onsubmit="return navTabSearch(this);" action="@Url.Action("Index")"
+    <form onsubmit="return navTabSearch(this);" action="@Url.Action("OnlineLogs")"
     method="post">
     <div class="searchBar">
         <ul class="searchContent">
             <li>
                 <label>
-                    系统名称：</label>
+                    会员名称：</label>
                 <input type="text" name="keywords" value="@ViewData["keywords"]" />
             </li>
         </ul>
@@ -37,18 +37,6 @@
     </form>
 </div>
 <div class="pageContent">
-    <div class="panelBar">
-        <ul class="toolBar">
-            <li><a class="add" href="@Url.Action("create","ZC_System")" rel="create" target="dialog" width="400"
-                height="250" title="添加新的业务系统" mask="true"><span>添加</span></a></li>
-            <li><a class="edit" href="@Url.Action("edit","ZC_System", new { id = "{mid}"})" rel="edit" target="dialog" width="400"
-                height="250" title="编辑业务系统信息" mask="true" warn="请选择一条系统数据"><span>编辑</span></a></li>
-            <li><a class="delete" href="@Url.Action("delete","ZC_System", new { id = "{mid}"})" rel="delete" target="ajaxTodo"
-                title="确定要删除吗？" warn="请选择一条系统数据"><span>删除</span></a></li>
-            <li class="line">line</li>
-
-        </ul>
-    </div>
     <div layouth="116" id="divList">
         <table class="list" width="100%" asc="asc" desc="desc">
             <thead>
@@ -57,13 +45,16 @@
                         <input type="checkbox" group="ids" class="checkboxCtrl">
                     </th>
                     <th orderfield="name" class="asc">
-                        系统名称
+                        会员名称
                     </th>
                     <th>
-                        创建时间
+                        登陆时间
                     </th>
                     <th>
-                        更新时间
+                        离开时间
+                    </th>
+                    <th>
+                        IP地址
                     </th>
                 </tr>
             </thead>
@@ -75,13 +66,16 @@
                             <input name="ids" type="checkbox" value="@item.ID" />
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Name)
+                            @Html.DisplayFor(modelItem => item.Member.MemberName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.CreatedAt)
+                            @Html.DisplayFor(modelItem => item.LoginInDate)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.UpdatedAt)
+                            @Html.DisplayFor(modelItem => item.LoginOutDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IpAddress)
                         </td>
                     </tr>
                 }

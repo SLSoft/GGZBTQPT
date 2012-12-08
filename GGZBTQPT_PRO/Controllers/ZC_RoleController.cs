@@ -152,6 +152,8 @@ namespace GGZBTQPT_PRO.Controllers
             var select_user = new VM_SelectUser();
             select_user.Users = db.T_ZC_User.Where(p => p.IsValid == true).ToList();
             select_user.Departments = db.T_ZC_Department.Where(p => p.IsValid == true).ToList();
+
+            ViewBag.RoleID = id;
             return PartialView(select_user);
         }
 
@@ -164,6 +166,26 @@ namespace GGZBTQPT_PRO.Controllers
             }
             return select_users;
         }
+
+        [HttpPost]
+        public ActionResult SelectUser(int id, string select_users)
+        {
+            T_ZC_Role current_role = db.T_ZC_Role.Find(id);
+            select_users = RemoveTheLastComma(select_users);
+            string[] user_ids = select_users.Split(','); 
+
+            foreach( string user_id in user_ids)
+            {
+                T_ZC_User _user = db.T_ZC_User.Find(Convert.ToInt32(user_id));
+                current_role.Users.Add(_user);
+            }
+
+            db.SaveChanges();
+
+            return ReturnJson(true, "用户设置成功", "", "", false, "");
+        }
+
+
 
     }
 }

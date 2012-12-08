@@ -197,7 +197,9 @@ function divSearch(form, rel) {
 * @param String formId 分页表单选择器，非必填项默认值是 "pagerForm"
 */
 function _getPagerForm($parent, args) {
+    //根据
     var form = $("#pagerForm", $parent).get(0);
+
     if (form) {
         if (args["pageNum"]) form[DWZ.pageInfo.pageNum].value = args["pageNum"];
         if (args["numPerPage"]) form[DWZ.pageInfo.numPerPage].value = args["numPerPage"];
@@ -215,13 +217,13 @@ function _getPagerForm($parent, args) {
 * data: pagerForm参数 {pageNum:"n", numPerPage:"n", orderField:"xxx", orderDirection:""}
 * callback: 加载完成回调函数
 */
-function dwzPageBreak(options) {
+function dwzPageBreak(options) { 
     var op = $.extend({ targetType: "navTab", rel: "", data: { pageNum: "", numPerPage: "", orderField: "", orderDirection: "" }, callback: null }, options);
     var $parent = op.targetType == "dialog" ? $.pdialog.getCurrent() : navTab.getCurrentPanel();
     if (op.rel) {
-        var $box = $parent.find("#" + op.rel);
+        var $box = $parent.find("#" + op.rel); 
         var form = _getPagerForm($box, op.data);
-        if (form) {
+        if (form) { 
             $box.ajaxUrl({
                 type: "POST", url: $(form).attr("action"), data: $(form).serializeArray(), callback: function () {
                     $box.find("[layoutH]").layoutH();
@@ -232,7 +234,7 @@ function dwzPageBreak(options) {
         var form = _getPagerForm($parent, op.data);
         var params = $(form).serializeArray();
         if (op.targetType == "dialog") {
-            if (form) $.pdialog.reload($(form).attr("action"), { data: params, callback: ops.callback });
+            if (form) $.pdialog.reload($(form).attr("action"), { data: params, callback: op.callback });
         } else {
             if (form) navTab.reload($(form).attr("action"), { data: params, callback: op.callback });
         }

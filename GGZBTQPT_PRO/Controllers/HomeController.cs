@@ -4,12 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
-using GGZBTQPT_PRO.Filter;
+
 
 namespace GGZBTQPT_PRO.Controllers
 {
-
-    [ActionAttributeFilter()]
+ 
     public class HomeController : BaseController
     {
 
@@ -28,7 +27,7 @@ namespace GGZBTQPT_PRO.Controllers
         public ActionResult SystemMenus(int id = 1)
         {
             var system = FindSystemByID(id);
-            var menu_links = system.Menus.OrderBy(m => m.ID).ToList();
+            var menu_links = system.Menus.Where(m => m.IsValid == true).OrderBy(m => m.ID).ToList();
             return PartialView(menu_links);
         }
 

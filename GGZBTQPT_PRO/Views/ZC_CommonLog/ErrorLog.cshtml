@@ -1,22 +1,22 @@
-﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_ZC_System>
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_ZC_CommonLog>
 @{
     Layout = null;
 }
 <div class="pageHeader">
-    <form id="pagerForm" method="post" action="@Url.Action("Index")">
+    <form id="pagerForm" method="post" action="@Url.Action("ErrorLogExcel")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
     <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />
     @*<input type="hidden" name="orderField" value="${param.orderField}" />
         <input type="hidden" name="orderDirection" value="${param.orderDirection}" />*@
     </form>
-    <form onsubmit="return navTabSearch(this);" action="@Url.Action("Index")"
+    <form onsubmit="return navTabSearch(this);" action="@Url.Action("ErrorLog")"
     method="post">
     <div class="searchBar">
         <ul class="searchContent">
             <li>
                 <label>
-                    系统名称：</label>
+                    错误日志关键字：</label>
                 <input type="text" name="keywords" value="@ViewData["keywords"]" />
             </li>
         </ul>
@@ -26,7 +26,16 @@
                     <div class="buttonActive">
                         <div class="buttonContent">
                             <button type="submit">
-                                检索</button></div>
+                                检索</button>
+                            
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                        <a href="@Url.Action("ExportErrorLogWithExcel")" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?">导出EXCEL</a>
+                        </div>
                     </div>
                 </li>
                 @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框">
@@ -38,15 +47,9 @@
 </div>
 <div class="pageContent">
     <div class="panelBar">
-        <ul class="toolBar">
-            <li><a class="add" href="@Url.Action("create","ZC_System")" rel="create" target="dialog" width="400"
-                height="250" title="添加新的业务系统" mask="true"><span>添加</span></a></li>
-            <li><a class="edit" href="@Url.Action("edit","ZC_System", new { id = "{mid}"})" rel="edit" target="dialog" width="400"
-                height="250" title="编辑业务系统信息" mask="true" warn="请选择一条系统数据"><span>编辑</span></a></li>
-            <li><a class="delete" href="@Url.Action("delete","ZC_System", new { id = "{mid}"})" rel="delete" target="ajaxTodo"
-                title="确定要删除吗？" warn="请选择一条系统数据"><span>删除</span></a></li>
-            <li class="line">line</li>
-
+        <ul class="toolBar"> 
+            <li><a class="edit" href="@Url.Action("ErrorDetails","ZC_CommonLog", new { id = "{mid}"})" rel="ErrorDetails" target="dialog" width="400"
+                height="250"  max="true" title="查看详细错误日志" mask="true" warn="请选择一条日志数据"><span>详细信息</span></a></li> 
         </ul>
     </div>
     <div layouth="116" id="divList">
@@ -57,13 +60,20 @@
                         <input type="checkbox" group="ids" class="checkboxCtrl">
                     </th>
                     <th orderfield="name" class="asc">
-                        系统名称
+                        错误日志记录
                     </th>
                     <th>
                         创建时间
                     </th>
                     <th>
-                        更新时间
+                        来源
+                    </th>
+
+                    <th>
+                        操作人
+                    </th>
+                    <th>
+                        详细堆栈信息
                     </th>
                 </tr>
             </thead>
@@ -75,13 +85,20 @@
                             <input name="ids" type="checkbox" value="@item.ID" />
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Name)
+                            @Html.DisplayFor(modelItem => item.Message).ToString().Substring(0,30)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.CreatedAt)
+                            @Html.DisplayFor(modelItem => item.Date)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.UpdatedAt)
+                            @Html.DisplayFor(modelItem => item.Logger)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Exception).ToString().Substring(0, 50)
                         </td>
                     </tr>
                 }
@@ -108,8 +125,7 @@
             </select>
             <span>条，共 @ViewData["recordCount"] 条</span>
         </div>
-        <div class="pagination" targettype="navTab" totalcount="@ViewData["recordCount"]" numperpage="@ViewData["numPerPage"]" pagenumshown="10"  
-               currentpage="@ViewData["pageNum"]">
+        <div class="pagination" targettype="navTab" totalcount="@ViewData["recordCount"]" numperpage="@ViewData["numPerPage"]" pagenumshown="10"  currentpage="@ViewData["pageNum"]">
         </div>
     </div>
 </div>

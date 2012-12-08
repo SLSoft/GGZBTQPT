@@ -483,7 +483,7 @@ body { overflow:hidden;}
 .searchBar label { float:left; width:80px; padding:0 5px; line-height:23px;}
 .searchBar .searchContent td{padding-right:20px; white-space:nowrap; height:25px}
 .searchBar .subBar { height:25px;}
-.searchBar .subBar ul { float:right;}
+.searchBar .subBar ul { float:left;}
 .searchBar .subBar li { float:left; margin-left:5px;}
 .pageContent { display:block;overflow:auto;position:relative;}
 

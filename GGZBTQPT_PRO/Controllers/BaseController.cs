@@ -6,9 +6,11 @@ using System.Web.Mvc;
 using System.Data.SqlClient;
 using System.Data;
 using GGZBTQPT_PRO.Enums;
+using GGZBTQPT_PRO.Filter;
 
 namespace GGZBTQPT_PRO.Controllers
 {
+    [ActionAttributeFilter()]
     public class BaseController : Controller
     {
         public GGZBTQPT_PRO.Models.GGZBTQPTDBContext db = new GGZBTQPT_PRO.Models.GGZBTQPTDBContext();
@@ -16,7 +18,7 @@ namespace GGZBTQPT_PRO.Controllers
         //"statusCode":"返回的状态值，200--success 300--fail 301--timeout",
         //"message":"提示信息",
         //"navTabId":"定navTab页面标记为需要“重新载入”。注意navTabId不能是当前navTab页面的",
-        //"rel":"指定ID",
+        //"rel":"指定ID",该ID用于指定回调后,需要局部刷新的页面元素ID
         //"callbackType":"closeCurrent或forward", 关闭当前页面/转发到其他页面
         //"forwardUrl":"跳转的URL，callbackType是forward时使用"
         //"confirmMsg":"需要确定的信息"
@@ -57,5 +59,16 @@ namespace GGZBTQPT_PRO.Controllers
                     break;
             }
         } 
+
+
+        //Helper
+        public string RemoveTheLastComma(string str)
+        {
+            if(str.Last() == ',')
+            {
+                str = str.Substring(0,str.Length - 1);
+            }
+            return str;
+        }
     }
 }

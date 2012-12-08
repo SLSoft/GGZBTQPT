@@ -19,7 +19,7 @@ namespace GGZBTQPT_PRO.Controllers
         /// <param name="numPerPage">每页显示多少条</param>
         /// <param name="keywords">搜索关键字</param>
         /// <returns></returns>
-        public ActionResult Index( string keywords, int pageNum = 1, int numPerPage = 5)
+        public ActionResult Index( string keywords, int pageNum = 1, int numPerPage = 15)
         { 
             keywords = keywords == null ? "" : keywords;
 

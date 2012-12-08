@@ -10,7 +10,7 @@
     <div class="panelBar">
         <ul class="toolBar">
             <li><a class="add" href="@Url.Action("create","ZC_Menu", new { system_id = ViewBag.SystemID})"   rel="create" target="dialog" title="添加新的功能菜单" mask="true" width="420" height="340"><span>添加菜单</span></a></li>
-            <li><a class="edit" href="@Url.Action("edit","ZC_Menu", new { id = "{mid}"})" rel="edit" target="dialog" title="编辑功能菜单信息" mask="true" warn="请选择一条菜单数据" width="320" height="240"><span>修改菜单</span></a></li>
+            <li><a class="edit" href="@Url.Action("edit","ZC_Menu", new { id = "{mid}", system_id = ViewBag.SystemID })" rel="edit" target="dialog" title="编辑功能菜单信息" mask="true" warn="请选择一条菜单数据" width="420" height="340"><span>修改菜单</span></a></li>
             <li><a class="delete" href="@Url.Action("delete","ZC_Menu", new { id = "{mid}"})" rel="delete" target="ajaxTodo" title="确定要删除吗？" warn="请选择一条菜单数据"><span>删除菜单</span></a></li>
             <li class="line">line</li>
             @*<li><a class="icon" href="#"><span>导入EXCEL</span></a></li>*@
@@ -72,7 +72,7 @@
             <span>每页显示</span>
             <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value,pageNum:1},'menuInfoBox')">
                 @{  
-                    int[] nums = new int[] { 10, 20, 50, 100, 200 };
+                    int[] nums = new int[] { 5, 15, 20, 50, 100, 200 };
                     foreach (var num in nums)
                     {
                         if (Int32.Parse(ViewData["numPerPage"].ToString()) == num)

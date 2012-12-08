@@ -62,7 +62,10 @@
                         更新时间
                     </th>
                     <th align="center">
-                        操作
+                        设置用户
+                    </th>
+                    <th align="center">
+                        设置权限
                     </th>
                 </tr>
             </thead>
@@ -80,7 +83,10 @@
                             @Html.DisplayFor(modelItem => item.UpdatedAt)
                         </td>
                         <td>
-                            @Html.ActionLink("设置用户", "SelectUser", new { id = item.ID }, new { target = "dialog", mask = "true" })
+                            @Html.ActionLink("选择用户", "SelectUser", new { id = item.ID }, new { target = "dialog", mask = "true" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("设置权限", "SetPurview", new { id = item.ID }, new { target = "dialog", mask = "true" })
                         </td>
                     </tr>
                 }
