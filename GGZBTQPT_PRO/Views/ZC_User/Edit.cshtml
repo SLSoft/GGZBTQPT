@@ -13,9 +13,9 @@
                 @Html.ValidationMessageFor(model => model.DepartmentID)
             </p>
             <p>
-                @Html.LabelFor(model => model.Name, "用户姓名")
-                @Html.EditorFor(model => model.Name)
-                @Html.ValidationMessageFor(model => model.Name)
+                @Html.LabelFor(model => model.UserName, "用户姓名")
+                @Html.EditorFor(model => model.UserName)
+                @Html.ValidationMessageFor(model => model.UserName)
             </p>
             <p>
                 @Html.LabelFor(model => model.LoginName, "登录名称")
@@ -23,7 +23,7 @@
                 @Html.ValidationMessageFor(model => model.LoginName)
             </p>
             <p>
-                @Html.LabelFor(model => model.Password, "登录名称")
+                @Html.LabelFor(model => model.Password, "登录密码")
                 @Html.EditorFor(model => model.Password)
                 @Html.ValidationMessageFor(model => model.Password)
             </p>

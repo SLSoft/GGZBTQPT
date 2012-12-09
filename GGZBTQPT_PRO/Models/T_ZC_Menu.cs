@@ -28,5 +28,7 @@ namespace GGZBTQPT_PRO.Models
 
         public int SystemID { get; set; }
         public virtual T_ZC_System System { get; set; }
+
+        public virtual ICollection<T_ZC_Role> Roles { get; set; }
     }
 }

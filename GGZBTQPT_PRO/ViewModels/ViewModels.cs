@@ -8,8 +8,12 @@ namespace GGZBTQPT_PRO.ViewModels
     {
         public ICollection<T_ZC_User> Users { get; set; }
         public ICollection<T_ZC_Department> Departments { get; set; }
-        public ICollection<T_ZC_Role> Roles { get; set; }
+    }
+
+    public class VM_SystemMenu
+    {
         public ICollection<T_ZC_System> Systems { get; set; }
+        public ICollection<T_ZC_Menu> Menus { get; set; } 
     }
 
 }

@@ -27,8 +27,7 @@ namespace GGZBTQPT_PRO.Controllers
             string _statusCode = _IfSuccess ? "200" : "300";
             string _callbackType = _IfColse ? "closeCurrent" : null;
             return Json(new { statusCode = _statusCode, message = _message, navTabId = _navTabId, rel = _rel, callbackType = _callbackType, forwardUrl = _forwardUrl }, "text/html", JsonRequestBehavior.AllowGet);
-        }
-
+        } 
 
         //日志处理
         public void Logging(int type, string message, string exception = "无")
@@ -60,8 +59,8 @@ namespace GGZBTQPT_PRO.Controllers
             }
         } 
 
-
         //Helper
+        //去掉字符串最后的逗号
         public string RemoveTheLastComma(string str)
         {
             if(str.Last() == ',')

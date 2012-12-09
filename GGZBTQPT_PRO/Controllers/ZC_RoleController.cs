@@ -77,20 +77,10 @@ namespace GGZBTQPT_PRO.Controllers
             }
             return Json(new { });
         }
- 
-        //public ActionResult Delete(int id)
-        //{
-        //    T_ZC_Role t_zc_role = db.T_ZC_Role.Find(id);
-        //    return View(t_zc_role);
-        //}
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
-        {            
-            //T_ZC_Role t_zc_role = db.T_ZC_Role.Find(id);
-            //db.T_ZC_Role.Remove(t_zc_role);
-            //db.SaveChanges();
-            //return RedirectToAction("Index");
+        {      
             if (Request.IsAjaxRequest())
             {
                 T_ZC_Role t_zc_role = db.T_ZC_Role.Find(id);
@@ -104,11 +94,7 @@ namespace GGZBTQPT_PRO.Controllers
             return Json(new { });
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
+
 
         [HttpPost]
         public ActionResult CheckUser(FormCollection collection, int id)
@@ -139,14 +125,10 @@ namespace GGZBTQPT_PRO.Controllers
             return Json(new { });
         }
 
-        /// <summary>
-        /// 返回当前角色下的所有用户
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        #region//角色所属用户选择
         public PartialViewResult SelectUser(int id)
         {
-            string selected_users = GenerateStringFromList(db.T_ZC_Role.Where(r => r.ID == id).First().Users.Where(p => p.IsValid == true).ToList());
+            string selected_users = GenerateStringFromList(db.T_ZC_Role.Find(id).Users.Where(p => p.IsValid == true).ToList());
             ViewBag.selected_users = selected_users;
 
             var select_user = new VM_SelectUser();
@@ -180,12 +162,75 @@ namespace GGZBTQPT_PRO.Controllers
                 current_role.Users.Add(_user);
             }
 
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+                return ReturnJson(true, "用户设置成功", "", "", false, "");
+            }
+            catch
+            {
+                return ReturnJson(false, "用户设置失败", "", "", false, "");
+            }
+        }
+        #endregion
 
-            return ReturnJson(true, "用户设置成功", "", "", false, "");
+        #region//角色所拥有的功能菜单选择
+        public ActionResult SetPurview(int id)
+        {
+            var selected_menus = db.T_ZC_Role.Find(id).Menus.Where(m => m.IsValid == true).ToList();
+            ViewBag.SelectedMenus = GenerateStringFromMenus(selected_menus);
+
+            VM_SystemMenu system_and_menu = new VM_SystemMenu();
+            system_and_menu.Menus = db.T_ZC_Menu.Where(m => m.IsValid == true).ToList();
+            system_and_menu.Systems = db.T_ZC_System.Where(s => s.IsValid == true).ToList();
+
+            ViewBag.RoleID = id;
+            return PartialView(system_and_menu);
         }
 
+        public string GenerateStringFromMenus(ICollection<T_ZC_Menu> menus)
+        {
+            string select_menus = "";
+            foreach (T_ZC_Menu menu in menus)
+            {
+                select_menus += menu.ID + "|";
+            }
+            return select_menus;
+        }
 
+        [HttpPost]
+        public ActionResult SetPurview(int id, string select_menus)
+        {
+            T_ZC_Role current_role = db.T_ZC_Role.Find(id);
+            current_role.Menus.Clear();
+
+            select_menus = RemoveTheLastComma(select_menus);
+            string[] menu_ids = select_menus.Split(',');
+
+            foreach (string menu_id in menu_ids)
+            {
+                T_ZC_Menu _menu = db.T_ZC_Menu.Find(Convert.ToInt32(menu_id));
+                current_role.Menus.Add(_menu);
+            }
+
+            try
+            {
+                db.SaveChanges();
+                return ReturnJson(true, "功能菜单设置成功", "", "", false, "");
+            }
+            catch
+            {
+                return ReturnJson(false, "功能菜单设置失败", "", "", false, "");
+            }
+        }
+
+        #endregion
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
+        }
 
     }
 }

@@ -1,0 +1,77 @@
+﻿@model GGZBTQPT_PRO.ViewModels.VM_SystemMenu
+@{
+    Layout = null;
+}
+
+@helper GenerateMenu(string selected_menus, GGZBTQPT_PRO.Models.T_ZC_Menu menu)
+{
+    if (selected_menus.IndexOf(menu.ID.ToString()) >= 0)
+    { 
+       <a tname="@menu.Name" tvalue="@menu.ID" checked=true >@menu.Name</a>
+    }
+    else
+    { 
+        <a tname="@menu.Name" tvalue="@menu.ID" >@menu.Name</a>
+    }    
+}
+@helper GenerateMenus(IEnumerable<GGZBTQPT_PRO.Models.T_ZC_Menu> menus)
+{    
+    foreach (var menu in menus)
+    {   
+        <ul>
+            <li>@GenerateMenu(ViewBag.SelectedMenus, menu)
+                @if(Model.Menus.Where(m => m.ParentID == @menu.ID).Count() > 0)
+                { 
+                    @GenerateMenus(Model.Menus.Where(m => m.ParentID == @menu.ID).ToList())
+                }
+            </li>
+        </ul>
+    }        
+}
+
+<ul class="tree treeFolder treeCheck select-tree">
+    <li><a>内部平台系统功能列表</a>
+        <ul >
+            @foreach (var system in Model.Systems)
+            { 
+                <li><a>@system.Name </a> 
+                    @GenerateMenus(Model.Menus.Where(m => (m.SystemID == @system.ID && m.ParentID == 0)))
+                </li> 
+            }
+        </ul>
+    </li>
+</ul>
+<div class="formBar">
+    <ul>
+        <li>
+            <div class="buttonActive">
+                <div class="buttonContent">
+                    <button type="submit" id="select_menu">
+                        保存</button></div>
+            </div>
+        </li>
+        <li>
+            <div class="button">
+                <div class="buttonContent">
+                    <button type="button" class="close">
+                        取消</button></div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#select_menu").click(function () {
+            var result = "";
+
+            $(".select-tree .checked input[type='checkbox']").each(function () {
+                var value = $(this).attr("value");
+                if (value != "" && value != "on") {
+                    result += value + ",";
+                }
+            });
+            $.post("@Url.Action("SetPurview","ZC_Role", new { id = @ViewBag.RoleID})", { select_menus: result }, function(data){ DWZ.ajaxDone(data);}, "json");
+        }); 
+    }); 
+</script>
