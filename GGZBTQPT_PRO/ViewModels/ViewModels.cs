@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using GGZBTQPT_PRO.Models;
+using System.Web;
+using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace GGZBTQPT_PRO.ViewModels
 {
@@ -15,5 +18,7 @@ namespace GGZBTQPT_PRO.ViewModels
         public ICollection<T_ZC_System> Systems { get; set; }
         public ICollection<T_ZC_Menu> Menus { get; set; } 
     }
+
+   
 
 }

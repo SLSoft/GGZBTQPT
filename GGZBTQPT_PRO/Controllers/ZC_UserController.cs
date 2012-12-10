@@ -82,11 +82,7 @@ namespace GGZBTQPT_PRO.Controllers
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
-        {            
-            //T_ZC_User t_zc_user = db.T_ZC_User.Find(id);
-            //db.T_ZC_User.Remove(t_zc_user);
-            //db.SaveChanges();
-            //return RedirectToAction("Index");
+        {  
             if (Request.IsAjaxRequest())
             {
                 T_ZC_User t_zc_user = db.T_ZC_User.Find(id);

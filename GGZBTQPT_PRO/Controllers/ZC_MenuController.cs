@@ -83,8 +83,7 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.SystemID = new SelectList(db.T_ZC_System.Where(p => p.IsValid == true), "ID", "Name", t_zc_menu.SystemID);
             ViewBag.ParentID = new SelectList(db.T_ZC_Menu.Where(p => p.IsValid == true), "ID", "Name", t_zc_menu.ParentID); 
             return Json(new { });
-        }
-
+        } 
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
@@ -106,8 +105,7 @@ namespace GGZBTQPT_PRO.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
-        }
-
+        } 
 
         public PartialViewResult SystemLinks()
         {
@@ -116,8 +114,7 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         public PartialViewResult MenuInfo(int id, int pageNum = 1, int numPerPage = 15)
-        {
-
+        { 
             IList<GGZBTQPT_PRO.Models.T_ZC_Menu> list = db.T_ZC_Menu.Include("System")
                                                                     .Where(m => m.SystemID == id && m.IsValid == true)
                                                                     .OrderBy(s => s.ID)
@@ -130,8 +127,7 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.SystemID = id;
             return PartialView(list);
         }
-
-
+ 
         //
         //helper
         public int ConvertMenuCode(T_ZC_Menu menu)

@@ -6,7 +6,7 @@ namespace GGZBTQPT_PRO.Models
 {
   public class T_ZC_User
   {
-     public T_ZC_User()
+    public T_ZC_User()
     {
         IsValid = true;
         CreatedAt = DateTime.Now;

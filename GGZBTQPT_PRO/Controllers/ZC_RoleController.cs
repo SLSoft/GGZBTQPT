@@ -12,17 +12,20 @@ namespace GGZBTQPT_PRO.Controllers
 {
     public class ZC_RoleController : BaseController
     {
-        public ActionResult Index(int? pageNum, int? numPerPage, string keywords)
-        {
-            int pageIndex = pageNum.HasValue ? pageNum.Value - 1 : 0;
-            int pageSize = numPerPage.HasValue && numPerPage.Value > 0 ? numPerPage.Value : 1;
+        public ActionResult Index(string keywords, int pageNum = 1, int numPerPage = 15)
+        { 
             keywords = keywords == null ? "" : keywords;
-            IList<GGZBTQPT_PRO.Models.T_ZC_Role> list = db.T_ZC_Role.Where(p => p.Name.Contains(keywords)).Where(p => p.IsValid == true).ToList();
-            ViewBag.recordCount = list.Count();
-            list = list.OrderBy(i => i.ID).Skip(pageSize * pageIndex).Take(pageSize).ToList();
-            ViewBag.numPerPage = pageSize;
-            ViewBag.pageNum = pageIndex + 1;
+
+            IList<GGZBTQPT_PRO.Models.T_ZC_Role> list = db.T_ZC_Role.Where(p => p.Name.Contains(keywords)).Where(p => p.IsValid == true)
+                                                            .OrderBy(s => s.ID)
+                                                            .Skip(numPerPage * (pageNum - 1))
+                                                            .Take(numPerPage).ToList();
+
+            ViewBag.recordCount = db.T_ZC_Role.Where(p => p.Name.Contains(keywords)).Where(p => p.IsValid == true).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
+
             return View(list);
         }
 

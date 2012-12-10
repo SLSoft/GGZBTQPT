@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Data;
 using GGZBTQPT_PRO.Enums;
 using GGZBTQPT_PRO.Filter;
+using GGZBTQPT_PRO.Models;
 
 namespace GGZBTQPT_PRO.Controllers
 {
@@ -57,7 +58,17 @@ namespace GGZBTQPT_PRO.Controllers
                     log.Info(message);
                     break;
             }
-        } 
+        }
+
+        protected T_ZC_User CurrentUser()
+        {
+            if (Session["UserID"] != null && Session["UserID"].ToString() != "")
+            {
+                var user = db.T_ZC_User.Find(Convert.ToInt32(Session["UserID"].ToString()));
+                return user;
+            }
+            return null;
+        }
 
         //Helper
         //去掉字符串最后的逗号

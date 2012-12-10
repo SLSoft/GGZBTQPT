@@ -23,6 +23,5 @@ namespace GGZBTQPT_PRO.Models
     public DateTime UpdatedAt { get; set; }
 
     public virtual ICollection<T_ZC_Menu> Menus { get; set; }
-
   }
 }
