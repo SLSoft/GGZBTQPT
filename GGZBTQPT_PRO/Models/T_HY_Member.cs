@@ -53,13 +53,32 @@ namespace GGZBTQPT_PRO.Models
         public Boolean IsValid { get; set; }
         public Boolean IsVerified { get; set; }//该会员是否通过审核
         public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; } 
+        public DateTime UpdatedAt { get; set; }
+
+        public string TypeName
+        {
+            get
+            {
+                switch(this.Type)
+                {
+                    case 1:
+                        return "个人";
+                    case 2:
+                        return "企业";
+                    case 3:
+                        return "机构";
+                }
+                return "其他";
+            }
+            
+        }
 
         public virtual ICollection<T_HY_Attention> Attentions { get; set; }//会员能够关注多个人（企业），也能被多个人（企业）关注 
         public virtual ICollection<T_HY_Favorite> Favorites { get; set; }//会员能够收藏多个项目、资本、服务
 
         public virtual ICollection<T_XM_Financing> Financials { get; set; }//会员所发布的项目
         public virtual ICollection<T_XM_Investment> Investments { get; set; }//会员所发布的意向
+        public virtual ICollection<T_JG_Product> Products { get; set; }//会员所发布的金融产品
         
         
         // Validate method

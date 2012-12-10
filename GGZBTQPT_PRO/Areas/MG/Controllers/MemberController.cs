@@ -17,8 +17,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ViewResult Index()
         { 
             return View(); 
-        }
-
+        } 
  
         public PartialViewResult Details(int id)
         {
@@ -36,7 +35,6 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
             return View(vm_signup);
         } 
-
 
         [HttpPost]
         public ActionResult SignUp(VM_SignUp vm_signup)
@@ -192,8 +190,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //-----------msgHelper-------------------//
-
+        //-----------msgHelper-------------------// 
         public bool SendVerifyCodeToPhone(string phone_number)
         {
             Random r = new Random();
@@ -252,8 +249,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 return Json("已向该用户名所绑定的手机号发送了临时登陆密码，请及时登陆并修改密码！", JsonRequestBehavior.AllowGet);
             }
             return Json("发送失败!", "text/html", JsonRequestBehavior.AllowGet);
-        }
-
+        } 
  
         //----------------登录验证-----------------//
         public JsonResult CheckLoginName(string loginname)
@@ -279,7 +275,6 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         }
 
 
-
         //
         //----------------三类用户的信息维护-----------//
 
@@ -300,6 +295,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             }
             return result;
         }
+
         public bool InitCorp(int member_id)
         {
             T_QY_Corp corp = new T_QY_Corp();
@@ -364,9 +360,14 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         {
             if(CurrentMember() != null)
             {
-                return CurrentMember().MemberName;
+                return CurrentMember().MemberName + "!";
             }
             return "";
+        }
+
+        public void LogoutForPortal()
+        {
+            Session["MemberID"] = null; 
         }
 
         protected override void Dispose(bool disposing)

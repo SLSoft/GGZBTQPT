@@ -69,6 +69,7 @@ namespace GGZBTQPT_PRO.Models
         }
 
         public int MemberID { get; set; }
+        public virtual T_HY_Member Member { get; set; }
 
 
         public virtual ICollection<T_HY_Favorite> Favoites { get; set; }
