@@ -94,7 +94,10 @@
         @Html.HiddenFor(model => model.ID)
         @Html.HiddenFor(model => model.City)
         @Html.HiddenFor(model => model.IsValid)
+        @Html.HiddenFor(model => model.PublicStatus)
+        @Html.HiddenFor(model => model.PublicTime)
         @Html.HiddenFor(model => model.OP)
+        @Html.HiddenFor(model => model.SubmitTime)
         @Html.HiddenFor(model => model.CreateTime)
         @Html.HiddenFor(model => model.UpdateTime)
         @Html.HiddenFor(model => model.MemberID)
@@ -221,12 +224,6 @@
                 <td>@Html.LabelFor(model => model.QQ, "QQ")</td>
                 <td colspan="3">@Html.EditorFor(model => model.QQ)
             @Html.ValidationMessageFor(model => model.QQ)</td>
-            </tr>
-        </table>
-        <table style="width:100%" class="list">
-        <tr>
-                <td>展示图片</td>
-                <td><input type="file" name="file1" /></td>
             </tr>
         </table>
         <p>

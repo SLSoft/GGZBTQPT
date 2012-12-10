@@ -213,31 +213,95 @@ namespace GGZBTQPT_PRO.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult RZCheckList()
+        //待审核项目一览
+        public ActionResult RZCheckList(int pageNum = 1, int numPerPage = 15)
         {
-            return View(db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == "1")).ToList());
+            IList<GGZBTQPT_PRO.Models.T_XM_Financing> list = db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == "1")).ToList()
+                                                            .OrderByDescending(s => s.SubmitTime)
+                                                            .Skip(numPerPage * (pageNum - 1))
+                                                            .Take(numPerPage).ToList();
+            
+            ViewBag.recordCount = db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == "1")).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+
+            return View(list);
+        }
+        //审核通过项目一览
+        public ActionResult RZCheckList_Pass(int pageNum = 1, int numPerPage = 15)
+        {
+            IList<GGZBTQPT_PRO.Models.T_XM_Financing> list = db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == "2")).ToList()
+                                                            .OrderByDescending(s => s.SubmitTime)
+                                                            .Skip(numPerPage * (pageNum - 1))
+                                                            .Take(numPerPage).ToList();
+
+            ViewBag.recordCount = db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == "1")).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+
+            return View(list);
         }
 
+        /// <summary>
+        /// 项目审核、撤销审核
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="state"></param>
+        /// <returns></returns>
         [HttpPost]
-        public ActionResult RZCheckList(FormCollection collection)
-        {
-            string strPublicState = collection["PublicState"];
-            ViewBag.State = strPublicState;
-            return View(db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == strPublicState)).ToList());
-        }
-
         public ActionResult RZCheck(int id, string state)
         {
             T_XM_Financing t_xm_financing = db.T_XM_Financing.Find(id);
             t_xm_financing.PublicStatus = state;
-            db.SaveChanges();
-            return RedirectToAction("RZCheckList");
+            t_xm_financing.PublicTime = DateTime.Now;
+            t_xm_financing.UpdateTime = DateTime.Now;
+
+            if (db.SaveChanges() > 0)
+                if(state == "2")
+                    return ReturnJson(true, "审核成功", "","RZCheckList", false, "");
+                else
+                    return ReturnJson(true, "撤销审核成功", "", "RZCheckList", false, "");
+            else
+                if (state == "2")
+                    return ReturnJson(false, "审核失败", "", "", false, "");
+                else
+                    return ReturnJson(true, "撤销审核失败", "", "RZCheckList", false, "");
         }
 
         //helper
         public FileContentResult ShowPic(int xm_id)
         {
             return File(db.T_XM_Financing.Find(xm_id).Pic, "image/jpeg");
+        }
+
+        //项目分析--项目列表
+        public ActionResult RZMatch(int pageNum = 1, int numPerPage = 5)
+        {
+            IList<GGZBTQPT_PRO.Models.T_XM_Financing> list = db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == "2")).ToList()
+                                                            .OrderByDescending(s => s.SubmitTime)
+                                                            .Skip(numPerPage * (pageNum - 1))
+                                                            .Take(numPerPage).ToList();
+
+            ViewData["recordCount"] = db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == "2")).Count();
+            ViewData["numPerPage"] = numPerPage;
+            ViewData["pageNum"] = pageNum;
+
+            return View(list);
+        }
+
+        //根据项目匹配对应的资金
+        public ActionResult RZMatchResult(decimal amount, int industry, int pageNum = 1, int numPerPage = 5)
+        {
+            string strindustry = industry.ToString();
+            IList<GGZBTQPT_PRO.Models.T_XM_Investment> list = db.T_XM_Investment.Where(p => (p.IsValid == true && p.PublicStatus == "2" && p.Investment > amount && p.AimIndustry.Contains(strindustry))).ToList()
+                                                            .OrderByDescending(s => s.SubmitTime)
+                                                            .Skip(numPerPage * (pageNum - 1))
+                                                            .Take(numPerPage).ToList();
+            ViewBag.recordCount = db.T_XM_Investment.Where(p => (p.IsValid == true && p.PublicStatus == "2" && p.Investment == amount && p.AimIndustry.Contains(strindustry))).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+
+            return PartialView(list);
         }
     }
 }

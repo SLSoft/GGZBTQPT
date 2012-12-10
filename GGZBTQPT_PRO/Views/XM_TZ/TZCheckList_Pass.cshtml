@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Financing>
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Investment>
 @{
     Layout = null;
 }
@@ -6,11 +6,11 @@
 <div class="pageContent j-resizeGrid" style="border-left: 1px #B8D0D6 solid; border-right: 1px #B8D0D6 solid">
   <div class="panelBar">
     <ul class="toolBar">
-      <li><a class="add" href="@Url.Action("create", "XM_RZ")" rel="create" target="dialog" title="添加新项目" mask="true" width="650" height="620"><span>添加</span></a></li>
-      <li><a class="edit" href="@Url.Action("edit", "XM_RZ", new { id = "{mid}" })" rel="edit" target="dialog" title="编辑项目信息" mask="true" warn="请选择一个项目" width="800" height="620"><span>修改</span></a></li>
-      <li><a class="delete" href="@Url.Action("delete", "XM_RZ", new { id = "{mid}" })" rel="delete" target="ajaxTodo" title="确定要删除吗？"  warn="请选择一个项目"><span>删除</span></a></li>
+      <li><a class="add" href="@Url.Action("create", "XM_TZ")" rel="create" target="dialog" title="添加新项目" mask="true" width="650" height="620"><span>添加</span></a></li>
+      <li><a class="edit" href="@Url.Action("edit", "XM_TZ", new { id = "{mid}" })" rel="edit" target="dialog" title="编辑项目信息" mask="true" warn="请选择一个项目" width="800" height="620"><span>修改</span></a></li>
+      <li><a class="delete" href="@Url.Action("delete", "XM_TZ", new { id = "{mid}" })" rel="delete" target="ajaxTodo" title="确定要删除吗？"  warn="请选择一个项目"><span>删除</span></a></li>
       <li class="line">line</li>
-      <li><a class="icon" href="@Url.Action("RZCheckList_Pass", "XM_RZ")" target="navTab"><span>已审核项目</span></a></li>
+      <li><a class="icon" href="@Url.Action("TZCheckList", "XM_TZ")" target="navTab"><span>待审核意向</span></a></li>
     </ul>
   </div>
   <div layouth="116">
@@ -18,13 +18,13 @@
       <thead>
         <tr>
             <th>
-            项目名称
+            意向名称
         </th>
         <th>
             所属单位
         </th>
         <th>
-            融资金额(万元)
+            最高投资额度(万元)
         </th>
         <th>
             提交时间
@@ -44,13 +44,13 @@
                     @Html.DisplayFor(modelItem => item.MemberName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Amount)
+                    @Html.DisplayFor(modelItem => item.Investment)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.SubmitTime)
                 </td>
                 <td>
-                    @Html.ActionLink("审核通过", "RZCheck", "XM_RZ", new { id = @item.ID, state = "2" }, new { rel = "RZCheckList", target = "ajaxTodo" })
+                    @Html.ActionLink("撤销审核", "UnTZCheck", "XM_TZ", new { id = @item.ID, state = "2" }, new { rel = "TZCheckList", target = "ajaxTodo" })
                 </td>
             </tr>
         }

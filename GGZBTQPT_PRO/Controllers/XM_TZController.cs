@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 using System.IO;
+using System.Data.Objects.SqlClient;
 
 namespace GGZBTQPT_PRO.Controllers
 {
@@ -201,13 +202,114 @@ namespace GGZBTQPT_PRO.Controllers
         //helper
         public FileContentResult ShowPic(int xm_id)
         {
-            return File(db.T_XM_Investment.Find(xm_id).Pic, "image/jpeg");
+            byte[] pic;
+            if (db.T_XM_Investment.Find(xm_id).Pic != null)
+                pic = db.T_XM_Investment.Find(xm_id).Pic;
+            else
+                pic = new byte[1];
+            return File(pic, "image/jpeg");
         }
 
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        //待审核意向
+        public ActionResult TZCheckList(int pageNum = 1, int numPerPage = 15)
+        {
+            IList<GGZBTQPT_PRO.Models.T_XM_Investment> list = db.T_XM_Investment.Where(p => (p.IsValid == true && p.PublicStatus == "1")).ToList()
+                                                            .OrderByDescending(s => s.SubmitTime)
+                                                            .Skip(numPerPage * (pageNum - 1))
+                                                            .Take(numPerPage).ToList();
+
+            ViewBag.recordCount = db.T_XM_Investment.Where(p => (p.IsValid == true && p.PublicStatus == "1")).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+
+            return View(list);
+        }
+
+        //已审核意向
+        public ActionResult TZCheckList_Pass(int pageNum = 1, int numPerPage = 15)
+        {
+            IList<GGZBTQPT_PRO.Models.T_XM_Investment> list = db.T_XM_Investment.Where(p => (p.IsValid == true && p.PublicStatus == "2")).ToList()
+                                                            .OrderByDescending(s => s.SubmitTime)
+                                                            .Skip(numPerPage * (pageNum - 1))
+                                                            .Take(numPerPage).ToList();
+
+            ViewBag.recordCount = db.T_XM_Investment.Where(p => (p.IsValid == true && p.PublicStatus == "1")).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+
+            return View(list);
+        }
+
+        //意向审核
+        public ActionResult TZCheck(int id)
+        {
+            T_XM_Investment t_xm_investment = db.T_XM_Investment.Find(id);
+            t_xm_investment.PublicStatus = "2";
+            t_xm_investment.PublicTime = DateTime.Now;
+            t_xm_investment.UpdateTime = DateTime.Now;
+
+            if (db.SaveChanges() > 0)
+                return ReturnJson(true, "审核成功", "", "TZCheckList", false, "");
+            else
+                return ReturnJson(false, "审核失败", "", "", false, "");
+        }
+
+        //意向撤销审核
+        public ActionResult UnTZCheck(int id)
+        {
+            T_XM_Investment t_xm_investment = db.T_XM_Investment.Find(id);
+            t_xm_investment.PublicStatus = "1";
+            t_xm_investment.PublicTime = DateTime.Now;
+            t_xm_investment.UpdateTime = DateTime.Now;
+
+            if (db.SaveChanges() > 0)
+                return ReturnJson(true, "撤销审核成功", "", "TZCheckList_Pass", false, "");
+            else
+                return ReturnJson(false, "撤销审核失败", "", "", false, "");
+        }
+
+        //项目分析--投资意向列表
+        public ActionResult TZMatch(int pageNum = 1, int numPerPage = 5)
+        {
+            IList<GGZBTQPT_PRO.Models.T_XM_Investment> list = db.T_XM_Investment.Where(p => (p.IsValid == true && p.PublicStatus == "2")).ToList()
+                                                            .OrderByDescending(s => s.SubmitTime)
+                                                            .Skip(numPerPage * (pageNum - 1))
+                                                            .Take(numPerPage).ToList();
+
+            ViewBag.recordCount = db.T_XM_Investment.Where(p => (p.IsValid == true && p.PublicStatus == "2")).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+
+            return View(list);
+        }
+
+        //根据投资意向匹配对应的项目
+        public ActionResult TZMatchResult(int id, int pageNum = 1, int numPerPage = 5)
+        {
+            T_XM_Investment inverst = db.T_XM_Investment.Find(id);
+            decimal investment = inverst.Investment == null ? 0 : (decimal)inverst.Investment;
+            string[] industry = inverst.AimIndustry.Split(',');
+            int[] temp = new int[industry.Length];
+            for (int i = 0; i < industry.Length; i++)
+            {
+                temp[i] = Convert.ToInt32(industry[i]);
+            }
+            ViewData["inverstName"] = inverst.ItemName;
+            IList<GGZBTQPT_PRO.Models.T_XM_Financing> list = db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == "2" && (p.FinancSum < investment || p.TransferPrice < investment || p.Investment < investment || p.OtherItemFinancSum < investment) && temp.Contains((int)p.Industry))).ToList()
+                                                        .OrderByDescending(s => s.SubmitTime)
+                                                        .Skip(numPerPage * (pageNum - 1))
+                                                        .Take(numPerPage).ToList();
+            ViewBag.recordCount = db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == "2" && (p.FinancSum > investment || p.TransferPrice > investment || p.Investment > investment || p.OtherItemFinancSum > investment) && industry.Contains(SqlFunctions.StringConvert((double)p.Industry)))).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+
+            return PartialView(list);
         }
     }
 }

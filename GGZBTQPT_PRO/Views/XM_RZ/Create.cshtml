@@ -116,6 +116,8 @@
                 <td>@Html.TextAreaFor(model => model.ItemContent, new { rows = "5", style = "width:95%" })</td>
             </tr>
         </table>
+        @if (Model.ItemType == 1)
+        {
         <table id="item1" style="width:100%" class="list">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">项目融资</td>
@@ -160,6 +162,9 @@
                 <td colspan="3">@Html.TextAreaFor(model => model.PartnerRequirements, new { rows = "5", style = "width:95%" })</td>
             </tr>
         </table>
+        }
+        @if (Model.ItemType == 2)
+        {
         <table id="item2" style="width:100%" class="list">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">资产交易</td>
@@ -187,6 +192,9 @@
                 <td>@GenerateTransactionMode()</td>
             </tr>
         </table>
+        }
+        @if (Model.ItemType == 3)
+        {
         <table id="item3" style="width:100%" class="list">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">政府招商</td>
@@ -204,6 +212,9 @@
                 <td>@Html.EditorFor(model => model.ReturnCycle)</td>
             </tr>
         </table>
+        }
+        @if (Model.ItemType == 9)
+        {
         <table id="item4" style="width:100%" class="list">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">其他项目</td>
@@ -215,6 +226,7 @@
                 <td>@Html.EditorFor(model => model.OtherItemFinancSum)</td>
             </tr>
         </table>
+        }
         <table style="width:100%" class="list">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">联系人信息</td>

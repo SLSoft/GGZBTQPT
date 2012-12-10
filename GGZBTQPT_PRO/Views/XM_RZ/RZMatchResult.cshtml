@@ -1,0 +1,15 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Investment>
+<div>
+    @foreach (var item in Model)
+     {
+        <div class="aaa">
+<ul>
+        <li>发布会员：@item.MemberName</li>
+        <li>联系人：@item.Linkman</li>
+        <li>联系电话：@item.Phone | @item.Mobile</li>
+        <li><a href="@Url.Action("Details", "XM_TZ", new { id = item.ID })" rel="details" target="dialog" title="项目信息" mask="true"  width="800" height="800"><span>查看项目详情</span></a></li>
+        </ul>
+</div><br />
+     }
+</div>
+

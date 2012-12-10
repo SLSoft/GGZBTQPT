@@ -6,23 +6,23 @@
 }
 @helper GenerateTransactionMode(string selected_TransactionMode)
     {
-    var i = 0;
-    foreach (var item in ViewData["TransactionMode"] as SelectList)
-    {
-        if (i % 6 == 0)
+        var i = 0;
+        foreach (var item in ViewData["TransactionMode"] as SelectList)
         {
+            if (i % 6 == 0)
+            {
             <br />
-        }
-        if (selected_TransactionMode != null && selected_TransactionMode.IndexOf(@item.Value) >= 0)
-        {
+            }
+            if (selected_TransactionMode != null && selected_TransactionMode.IndexOf(@item.Value) >= 0)
+            {
             <input type="checkbox" name="TransactionMode" value="@item.Value" checked="checked" /><span>@item.Text</span>
-        }
-        else
-        {
+            }
+            else
+            {
             <input type="checkbox" name="TransactionMode" value="@item.Value" /><span>@item.Text</span>
+            }
+            i++;
         }
-        i++;
-    }
 }
 <script type="text/javascript">
     $(function () {
@@ -55,6 +55,10 @@
     @Html.HiddenFor(model => model.ID)
     @Html.HiddenFor(model => model.MemberID)
     @Html.HiddenFor(model => model.ItemType)
+    @Html.HiddenFor(model => model.PublicStatus)
+    @Html.HiddenFor(model => model.PublicTime)
+    @Html.HiddenFor(model => model.OP)
+    @Html.HiddenFor(model => model.SubmitTime)
     @Html.HiddenFor(model => model.IsValid)
     @Html.HiddenFor(model => model.IsPublic)
     @Html.HiddenFor(model => model.CreateTime)
@@ -115,7 +119,8 @@
                 </td>
             </tr>
         </table>
-        if (Model.ItemType == 1) {
+        @if (Model.ItemType == 1)
+        {
         <table id="item1" style="width: 100%" class="list">
             <tr>
                 <td colspan="4" style="background-color: #666666; color: #ffffff">
@@ -175,7 +180,9 @@
                 </td>
             </tr>
         </table>
-        } if (Model.ItemType == 2) {
+        } 
+        @if (Model.ItemType == 2)
+        {
         <table id="item2" style="width: 100%" class="list">
             <tr>
                 <td colspan="4" style="background-color: #666666; color: #ffffff">
@@ -215,7 +222,9 @@
                 </td>
             </tr>
         </table>
-        } if (Model.ItemType == 3) {
+        }
+        @if (Model.ItemType == 3)
+        {
         <table id="item3" style="width: 100%" class="list">
             <tr>
                 <td colspan="4" style="background-color: #666666; color: #ffffff">
@@ -243,7 +252,9 @@
                 </td>
             </tr>
         </table>
-        } if (Model.ItemType == 9) {
+        } 
+        @if (Model.ItemType == 9)
+        {
         <table id="item4" style="width: 100%" class="list">
             <tr>
                 <td colspan="4" style="background-color: #666666; color: #ffffff">

@@ -79,7 +79,7 @@ namespace GGZBTQPT_PRO.Controllers
         // POST: /QY_Corp/Create
 
         [HttpPost]
-        public ActionResult Create(T_QY_Corp t_qy_corp)
+        public ActionResult Create(T_QY_Corp t_qy_corp, FormCollection collection)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +97,40 @@ namespace GGZBTQPT_PRO.Controllers
                     t_qy_corp.Logo = new byte[Request.Files[0].InputStream.Length];
                     Request.Files[0].InputStream.Read(t_qy_corp.Logo, 0, t_qy_corp.Logo.Length);
                 }
-
+                string cyear = collection["FYear"].ToString();
+                if (db.T_QY_Financial.Where(f => (f.CorpID == t_qy_corp.ID && f.CurYear == cyear)).Count() > 0)
+                {
+                    db.T_QY_Financial.Where(f => f.CurYear == cyear).FirstOrDefault().TotalAssets = Convert.ToDecimal(collection["TotalAssets"]);
+                    db.T_QY_Financial.Where(f => f.CurYear == cyear).FirstOrDefault().Revenue = Convert.ToDecimal(collection["Revenue"]);
+                }
+                else
+                {
+                    T_QY_Financial financial = new T_QY_Financial();
+                    financial.CorpID = t_qy_corp.ID;
+                    financial.CurYear = cyear;
+                    if (collection["TotalAssets"] != "")
+                        financial.TotalAssets = Convert.ToDecimal(collection["TotalAssets"]);
+                    else
+                        financial.TotalAssets = 0;
+                    if (collection["Revenue"] != "")
+                        financial.Revenue = Convert.ToDecimal(collection["Revenue"]);
+                    else
+                        financial.Revenue = 0;
+                    db.T_QY_Financial.Add(financial);
+                }
+                if (db.T_QY_Product.Where(f => f.CorpID == t_qy_corp.ID).Count() > 0)
+                {
+                    db.T_QY_Product.Where(f => f.CorpID == t_qy_corp.ID).FirstOrDefault().ProductName = collection["ProductName"];
+                    db.T_QY_Product.Where(f => f.CorpID == t_qy_corp.ID).FirstOrDefault().Content = collection["Content"];
+                }
+                else
+                {
+                    T_QY_Product Product = new T_QY_Product();
+                    Product.CorpID = t_qy_corp.ID;
+                    Product.ProductName = collection["ProductName"];
+                    Product.Content = collection["Content"];
+                    db.T_QY_Product.Add(Product);
+                }
                 db.T_QY_Corp.Add(t_qy_corp);
                 int result = db.SaveChanges();
                 if (result > 0)

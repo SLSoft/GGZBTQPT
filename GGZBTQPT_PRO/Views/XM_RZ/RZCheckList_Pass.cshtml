@@ -2,7 +2,11 @@
 @{
     Layout = null;
 }
-
+<script type="text/javascript">
+    $(function () {
+        $("#PublicState").find("option[value='"+@ViewBag.State+"']").attr("selected", true);
+    });
+</script>
 <div class="pageContent j-resizeGrid" style="border-left: 1px #B8D0D6 solid; border-right: 1px #B8D0D6 solid">
   <div class="panelBar">
     <ul class="toolBar">
@@ -10,7 +14,7 @@
       <li><a class="edit" href="@Url.Action("edit", "XM_RZ", new { id = "{mid}" })" rel="edit" target="dialog" title="编辑项目信息" mask="true" warn="请选择一个项目" width="800" height="620"><span>修改</span></a></li>
       <li><a class="delete" href="@Url.Action("delete", "XM_RZ", new { id = "{mid}" })" rel="delete" target="ajaxTodo" title="确定要删除吗？"  warn="请选择一个项目"><span>删除</span></a></li>
       <li class="line">line</li>
-      <li><a class="icon" href="@Url.Action("RZCheckList_Pass", "XM_RZ")" target="navTab"><span>已审核项目</span></a></li>
+      <li><a class="icon" href="@Url.Action("RZCheckList", "XM_RZ")" target="navTab"><span>待审核项目</span></a></li>
     </ul>
   </div>
   <div layouth="116">
@@ -27,7 +31,7 @@
             融资金额(万元)
         </th>
         <th>
-            提交时间
+            审核时间
         </th>
         <th>
             操作
@@ -47,10 +51,10 @@
                     @Html.DisplayFor(modelItem => item.Amount)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SubmitTime)
+                    @Html.DisplayFor(modelItem => item.PublicTime)
                 </td>
                 <td>
-                    @Html.ActionLink("审核通过", "RZCheck", "XM_RZ", new { id = @item.ID, state = "2" }, new { rel = "RZCheckList", target = "ajaxTodo" })
+                    @Html.ActionLink("审核驳回", "RZCheck", "XM_RZ", new { id = @item.ID, state = "1" }, new { rel = "RZCheckList", target = "ajaxTodo" })
                 </td>
             </tr>
         }

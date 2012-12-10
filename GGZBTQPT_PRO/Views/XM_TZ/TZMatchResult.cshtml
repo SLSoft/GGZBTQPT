@@ -1,0 +1,23 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Financing>
+<style type="text/css">
+.bbb li { padding-top:10px; float:left; height:30px; vertical-align:top;}
+.clear{clear:both;}
+</style>
+<div style="margin:20px 20px">
+<h1>意向名称：@ViewData["inverstName"]</h1><br />
+<fieldset style="width:90%;">
+<legend>匹配的项目</legend>
+<div>
+@foreach (var item in Model)
+     {
+        <ul class="bbb">
+        <li>项目名称：@item.ItemName</li>
+        <li>发布会员：@item.MemberName</li>
+        <li>联系人：@item.Linkman</li>
+        <li>联系电话：@item.Phone   @item.Mobile</li>
+        <li><a href="@Url.Action("Details", "XM_RZ", new { id = item.ID })" rel="details" target="dialog" title="项目详情" mask="true" warn="请选择一个项目" width="800" height="620">查看项目详情</a></li>
+        </ul>
+    <div class="clear"></div>
+     }</div>
+</fieldset>
+</div>

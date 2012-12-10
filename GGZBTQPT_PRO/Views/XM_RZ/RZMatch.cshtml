@@ -1,0 +1,53 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Financing>
+@{
+    Layout = null;
+}
+<style type="text/css">
+   .aa{ background-color:#71DAF7}
+.aaa {border:1px solid #B8D0D6; width:400px;}
+.aaa ul li{padding-top:5px; padding-bottom:5px}
+</style>
+<div class="pageContent j-resizeGrid" style="border-left: 1px #B8D0D6 solid; border-right: 1px #B8D0D6 solid">
+  <div class="panelBar">
+
+  </div>
+  <div layouth="116">
+  <table>
+    <thead>
+        <tr>
+            <td style="width:500px;height:30px; font-size:14pt">融资项目</td>
+            <td style="height:30px; font-size:14pt; padding-left:50px">匹配的投资意向</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+            @foreach (var item in Model)
+            {
+                <div class="aaa" id=@item.ID>
+                <ul>
+                <li>项目名称：@item.ItemName</li>
+                <li>项目类别：@item.ItemText</li>
+                <li>需要融资金额：@item.Amount</li>
+                <li style="text-align:right">@Ajax.ActionLink("项目对接〉〉", "RZMatchResult", "XM_RZ", new { amount = item.Amount, industry = item.Industry }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", OnSuccess="cc("+item.ID+")"})</li>
+                </ul>
+                </div><br />
+            }
+            </td>
+            <td style="vertical-align:top">
+                <div id="details"></div>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+     
+     
+  </div>
+</div>
+<script type="text/javascript">
+    function cc(id) {
+        $(".aa").removeClass("aa");
+        $("#" + id).addClass("aa");
+    }
+
+</script>
