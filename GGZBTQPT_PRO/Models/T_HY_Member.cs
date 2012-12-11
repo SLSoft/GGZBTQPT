@@ -60,6 +60,8 @@ namespace GGZBTQPT_PRO.Models
 
         public virtual ICollection<T_XM_Financing> Financials { get; set; }//会员所发布的项目
         public virtual ICollection<T_XM_Investment> Investments { get; set; }//会员所发布的意向
+
+        public virtual ICollection<T_ZC_OnlineLog> OnlineLogs { get; set; } //会员的在线日志
         
         
         // Validate method

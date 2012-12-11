@@ -17,8 +17,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ViewResult Index()
         { 
             return View(); 
-        }
-
+        } 
  
         public PartialViewResult Details(int id)
         {
@@ -36,7 +35,6 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
             return View(vm_signup);
         } 
-
 
         [HttpPost]
         public ActionResult SignUp(VM_SignUp vm_signup)
@@ -167,6 +165,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 if (member != null && member.Password == password)
                 {
                     Session["MemberID"] = member.ID;
+                    RegisterLoginInfo();
                     if (Session["RedirectUrl"] != null && Session["RedirectUrl"].ToString() != "")
                     {
                         return Redirect(Session["RedirectUrl"].ToString());
@@ -189,11 +188,11 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ActionResult Logout()
         {
             Session["MemberID"] = null;
+            RegisterLogoutInfo();
             return RedirectToAction("Index", "Home");
         }
 
-        //-----------msgHelper-------------------//
-
+        //-----------msgHelper-------------------// 
         public bool SendVerifyCodeToPhone(string phone_number)
         {
             Random r = new Random();
@@ -252,8 +251,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 return Json("已向该用户名所绑定的手机号发送了临时登陆密码，请及时登陆并修改密码！", JsonRequestBehavior.AllowGet);
             }
             return Json("发送失败!", "text/html", JsonRequestBehavior.AllowGet);
-        }
-
+        } 
  
         //----------------登录验证-----------------//
         public JsonResult CheckLoginName(string loginname)
@@ -278,6 +276,35 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             return Json(!db.T_HY_Member.Where(m => m.MemberName != current_member_membername).Any(m => m.MemberName == membername), JsonRequestBehavior.AllowGet);
         }
 
+        public void RegisterLoginInfo()
+        {
+            var member = CurrentMember();
+            if(member != null)
+            {
+                var online_log = new T_ZC_OnlineLog();
+                online_log.IpAddress = HttpContext.Request.UserHostAddress;
+                online_log.LoginInDate = DateTime.Now;
+                online_log.LoginOutDate = DateTime.Now;
+                member.OnlineLogs.Add(online_log);
+                db.SaveChanges();
+
+                Session["OnlineID"] = online_log.ID;
+            } 
+        }
+
+        public void RegisterLogoutInfo()
+        {
+            var member = CurrentMember();
+            if (member != null)
+            {
+                var online_log = new T_ZC_OnlineLog(); 
+                online_log.LoginOutDate = DateTime.Now;
+                member.OnlineLogs.Add(online_log);
+                db.SaveChanges();
+
+                Session["OnlineID"] = null; 
+            } 
+        }
 
 
         //
@@ -300,6 +327,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             }
             return result;
         }
+
         public bool InitCorp(int member_id)
         {
             T_QY_Corp corp = new T_QY_Corp();
@@ -359,15 +387,21 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             return result;
         }
 
-        
+        #region//为外网服务
         public string CurrentMemberForPortal()
         {
             if(CurrentMember() != null)
             {
-                return CurrentMember().MemberName;
+                return CurrentMember().MemberName + "!";
             }
             return "";
         }
+
+        public void LogoutForPortal()
+        {
+            Session["MemberID"] = null; 
+        }
+        #endregion
 
         protected override void Dispose(bool disposing)
         {

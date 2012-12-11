@@ -14,9 +14,10 @@ namespace GGZBTQPT_PRO.Controllers
         public ViewResult Index()
         {
             var t_zc_system = db.T_ZC_System.Where(p => p.IsValid == true).ToList();
-            var t_zc_menu = db.T_ZC_Menu.Include(t => t.System);
+            var t_zc_menu = db.T_ZC_Menu.Include(t => t.System).Where(p => p.IsValid == true).ToList();
+
             ViewBag.systems = t_zc_system;
-            return View(t_zc_menu.Where(p => p.IsValid == true).ToList());
+            return View(t_zc_menu);
         }
 
         public ActionResult Create(int system_id)
@@ -46,17 +47,19 @@ namespace GGZBTQPT_PRO.Controllers
                         return ReturnJson(false, "操作失败", "", "", false, "");
                 }
             }
+
             ViewBag.SystemID = new SelectList(db.T_ZC_System.Where(p => p.IsValid == true), "ID", "Name",t_zc_menu.SystemID);
             ViewBag.ParentID = new SelectList(db.T_ZC_Menu.Where(p => p.IsValid == true), "ID", "Name", t_zc_menu.ParentID);
             return Json(new { });
         }
-        
-        public ActionResult Edit(int id)
+
+        public ActionResult Edit(int id, int system_id)
         {
             T_ZC_Menu t_zc_menu = db.T_ZC_Menu.Find(id);
-            ViewBag.SystemID = new SelectList(db.T_ZC_System.Where(p => p.IsValid == true), "ID", "Name", t_zc_menu.SystemID);
-            ViewBag.ParentID = new SelectList(db.T_ZC_Menu.Where(p => p.IsValid == true), "ID", "Name", t_zc_menu.ParentID);
-            return View("Edit", t_zc_menu);
+
+            ViewBag.SystemID = new SelectList(db.T_ZC_System.Where(p => p.IsValid == true), "ID", "Name", system_id);
+            ViewBag.ParentID = new SelectList(db.T_ZC_Menu.Where(p => p.IsValid == true && p.SystemID == system_id), "ID", "Name", t_zc_menu.ParentID);
+            return View(t_zc_menu);
         }
 
         [HttpPost]
@@ -71,22 +74,20 @@ namespace GGZBTQPT_PRO.Controllers
                     db.Entry(t_zc_menu).State = EntityState.Modified;
                     int result = db.SaveChanges();
                     if (result >= 0)
-                        return ReturnJson(true, "操作成功", "", "", true, "");
+                        return ReturnJson(true, "操作成功", "", "menuInfoBox", true, "");
                     else
                         return ReturnJson(false, "操作失败", "", "", false, "");
                 }
             }
-            ViewBag.SystemID = new SelectList(db.T_ZC_System.Where(p => p.IsValid == true), "ID", "Name", t_zc_menu.SystemID);
-            ViewBag.ParentID = new SelectList(db.T_ZC_Menu.Where(p => p.IsValid == true), "ID", "Name", t_zc_menu.ParentID);
-            //return PartialView("Edit",t_zc_menu);
-            return Json(new { });
-        }
 
+            ViewBag.SystemID = new SelectList(db.T_ZC_System.Where(p => p.IsValid == true), "ID", "Name", t_zc_menu.SystemID);
+            ViewBag.ParentID = new SelectList(db.T_ZC_Menu.Where(p => p.IsValid == true), "ID", "Name", t_zc_menu.ParentID); 
+            return Json(new { });
+        } 
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {            
-
             if (Request.IsAjaxRequest())
             {
                 T_ZC_Menu t_zc_menu = db.T_ZC_Menu.Find(id);
@@ -104,8 +105,7 @@ namespace GGZBTQPT_PRO.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
-        }
-
+        } 
 
         public PartialViewResult SystemLinks()
         {
@@ -113,9 +113,8 @@ namespace GGZBTQPT_PRO.Controllers
             return PartialView(links);
         }
 
-        public PartialViewResult MenuInfo(int id, int pageNum = 1, int numPerPage = 10)
-        {
-
+        public PartialViewResult MenuInfo(int id, int pageNum = 1, int numPerPage = 15)
+        { 
             IList<GGZBTQPT_PRO.Models.T_ZC_Menu> list = db.T_ZC_Menu.Include("System")
                                                                     .Where(m => m.SystemID == id && m.IsValid == true)
                                                                     .OrderBy(s => s.ID)
@@ -128,7 +127,7 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.SystemID = id;
             return PartialView(list);
         }
-
+ 
         //
         //helper
         public int ConvertMenuCode(T_ZC_Menu menu)
@@ -138,7 +137,6 @@ namespace GGZBTQPT_PRO.Controllers
                 return menu.ParentID;
             }  
             return 0; 
-
         }
 
 

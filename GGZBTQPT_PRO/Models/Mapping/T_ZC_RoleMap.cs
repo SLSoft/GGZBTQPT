@@ -17,7 +17,8 @@ namespace GGZBTQPT_PRO.Models.Mapping
             this.HasMany(r => r.Users)
                 .WithMany(u => u.Roles);
 
-
+            this.HasMany(r => r.Menus)
+                .WithMany(m => m.Roles); 
         }
     }
 }

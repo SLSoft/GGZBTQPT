@@ -80,19 +80,9 @@ namespace GGZBTQPT_PRO.Controllers
             return Json(new { });
         }
 
-        //public ActionResult Delete(int id)
-        //{
-        //    T_ZC_User t_zc_user = db.T_ZC_User.Find(id);
-        //    return View(t_zc_user);
-        //}
-
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
-        {            
-            //T_ZC_User t_zc_user = db.T_ZC_User.Find(id);
-            //db.T_ZC_User.Remove(t_zc_user);
-            //db.SaveChanges();
-            //return RedirectToAction("Index");
+        {  
             if (Request.IsAjaxRequest())
             {
                 T_ZC_User t_zc_user = db.T_ZC_User.Find(id);
@@ -112,23 +102,17 @@ namespace GGZBTQPT_PRO.Controllers
             base.Dispose(disposing);
         }
 
-        //public PartialViewResult UserInfo(int department_id)
-        //{
-        //    var users = db.T_ZC_User.Include("Department").Where(m => m.DepartmentID == department_id);
-        //    return PartialView(users.Where(p => p.IsValid == true));
-        //}
-
-        public PartialViewResult UserInfo(int? pageNum, int? numPerPage, int id)
-        {
-            int pageIndex = pageNum.HasValue ? pageNum.Value - 1 : 0;
-            int pageSize = numPerPage.HasValue && numPerPage.Value > 0 ? numPerPage.Value : 1;
-            //IList<GGZBTQPT_PRO.Models.T_ZC_User> list = db.T_ZC_User.Include(t => t.Department).Where(p => p.IsValid == true).ToList();
-            IList<GGZBTQPT_PRO.Models.T_ZC_User> list = db.T_ZC_User.Include("Department").Where(m => m.DepartmentID == id).Where(p => p.IsValid == true).ToList();
-            ViewBag.recordCount = list.Count();
-            list = list.OrderBy(i => i.ID).Skip(pageSize * pageIndex).Take(pageSize).ToList();
-            ViewBag.numPerPage = pageSize;
-            ViewBag.pageNum = pageIndex + 1;
-            ViewBag.ID = id;
+        public PartialViewResult UserInfo(int department_id, int pageNum = 1, int numPerPage = 15)
+        { 
+            IList<GGZBTQPT_PRO.Models.T_ZC_User> list = db.T_ZC_User.Include("Department")
+                                                        .Where(m => m.DepartmentID == department_id).Where(p => p.IsValid == true)
+                                                        .OrderBy(s => s.ID)
+                                                        .Skip(numPerPage * (pageNum - 1))
+                                                        .Take(numPerPage).ToList();
+            ViewBag.recordCount = db.T_ZC_User.Where(m => m.DepartmentID == department_id && m.IsValid == true).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+            ViewBag.DepartmentID = department_id;
             return PartialView(list);
         }
 
@@ -145,5 +129,6 @@ namespace GGZBTQPT_PRO.Controllers
             depart_user.Users = db.T_ZC_User.Where(p => p.IsValid == true).Include("Department").ToList();
             return PartialView(depart_user);
         }
+
     }
 }

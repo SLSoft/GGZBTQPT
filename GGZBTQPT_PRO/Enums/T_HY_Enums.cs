@@ -17,4 +17,10 @@ namespace GGZBTQPT_PRO.Enums
         机构 = 3
 
     }
+
+    public enum LogTypes : int
+    { 
+        //操作日志、登录日志、错误日志、警告日志（用于操作失败）
+        operate, login, error, warn
+    }
 }

@@ -13,3 +13,8 @@ Release
 Database
 Local.testsettings
 TraceAndTestImpact.testsettings
+.nuget
+GGZBTQPT_PRO.Tests/
+TestResults/
+packages/NUnit.2.6.2/
+packages/NUnit.Runners.2.6.2/
