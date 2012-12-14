@@ -38,6 +38,7 @@ namespace GGZBTQPT_PRO.Models
         public DbSet<T_ZC_CommonLog> T_ZC_CommonLog { get; set; } 
         public DbSet<T_ZC_OnlineLog> T_ZC_OnlineLog { get; set; } 
         public DbSet<T_HY_Member> T_HY_Member { get; set; }
+        public DbSet<T_XM_Case> T_XM_Case { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -62,6 +63,7 @@ namespace GGZBTQPT_PRO.Models
             modelBuilder.Configurations.Add(new T_PTF_DicTreeDetailMap());
             modelBuilder.Configurations.Add(new T_PTF_DicTypeMap());
             modelBuilder.Configurations.Add(new T_ZC_OnlineLogMap());
+            modelBuilder.Configurations.Add(new T_XM_CaseMap());
         }
 
     }

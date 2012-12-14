@@ -23,6 +23,8 @@ namespace GGZBTQPT_PRO.Models
 
         public int Order { get; set; }
 
+        public int UseLevel { get; set; } //使用级别，参考枚举类型
+
         public int ParentID { get; set; }
         public Boolean IsValid { get; set; }
         public DateTime CreatedAt { get; set; }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
+using GGZBTQPT_PRO.Util;
 
 
 namespace GGZBTQPT_PRO.Controllers
@@ -25,13 +26,19 @@ namespace GGZBTQPT_PRO.Controllers
         public ActionResult SystemLink()
         {
             var current_user = CurrentUser();
-
-            List<int> system_rights = GetSystemRightFromCurrentUser(current_user.Roles);
-
             var system_links = db.T_ZC_System.OrderBy(s => s.ID)
-                                 .Where(s => (s.IsValid == true && system_rights.Contains(s.ID)))
+                                 .Where(s => s.IsValid == true)
                                  .ToList();
 
+            if(current_user.LoginName == "admin")
+            {
+                return PartialView(system_links);
+            }
+
+            List<int> system_rights = GetSystemRightFromCurrentUser(current_user.Roles); 
+            system_links = db.T_ZC_System.OrderBy(s => s.ID)
+                                 .Where(s => (s.IsValid == true && system_rights.Contains(s.ID)))
+                                 .ToList(); 
             return PartialView(system_links);
         }
 
@@ -39,9 +46,18 @@ namespace GGZBTQPT_PRO.Controllers
         { 
             var current_user = CurrentUser();
             var system = db.T_ZC_System.Find(id);
+            var menu_links = system.Menus.OrderBy(m => m.ID)
+                       .Where(m => m.IsValid == true)
+                       .ToList();
+
+            if (current_user.LoginName == "admin")
+            {
+                return PartialView(menu_links);
+            }
+
             List<int> menu_rights = GetMenusRightFromCurrentUser(current_user.Roles);
 
-            var menu_links = system.Menus.OrderBy(m => m.ID)
+            menu_links = system.Menus.OrderBy(m => m.ID)
                                    .Where(m => (m.IsValid == true && menu_rights.Contains(m.ID)))
                                    .ToList();
 
@@ -64,6 +80,7 @@ namespace GGZBTQPT_PRO.Controllers
                 if (user != null && user.Password == password)
                 {
                     Session["UserID"] = user.ID;
+                    Mail.SendEmail("xiongbo","请查收！");
                     return RedirectToAction("Index", "Home");
                 }
                 else

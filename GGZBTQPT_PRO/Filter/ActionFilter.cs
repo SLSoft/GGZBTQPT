@@ -27,23 +27,14 @@ namespace GGZBTQPT_PRO.Filter
         {
             if (filterContext.HttpContext.Session["UserID"] == null)
             {
-                if (filterContext.HttpContext.Request.IsAjaxRequest())
-                {
-                    // For AJAX requests, we're overriding the returned JSON result with a simple string,
-                    // indicating to the calling JavaScript code that a redirect should be performed.
-                    filterContext.Result = new JsonResult { Data = new { login = true } };
-                }
-                else
-                {
-                    // For round-trip posts, we're forcing a redirect to Home/TimeoutRedirect/, which
-                    // simply displays a temporary 5 second notification that they have timed out, and
-                    // will, in turn, redirect to the logon page.
-                    filterContext.Result = new RedirectToRouteResult(
-                        new RouteValueDictionary {
-                        { "Controller", "Home" },
-                        { "Action", "Login" }
-                    });
-                }
+                // For round-trip posts, we're forcing a redirect to Home/TimeoutRedirect/, which
+                // simply displays a temporary 5 second notification that they have timed out, and
+                // will, in turn, redirect to the logon page.
+                filterContext.Result = new RedirectToRouteResult(
+                    new RouteValueDictionary {
+                    { "Controller", "Home" },
+                    { "Action", "Login" }
+                });
             }
 
             base.OnActionExecuting(filterContext); 
