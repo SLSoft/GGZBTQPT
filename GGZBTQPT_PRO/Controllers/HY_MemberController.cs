@@ -9,8 +9,6 @@ using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.Enums;
 using GGZBTQPT_PRO.ViewModels;
 using Webdiyer.WebControls.Mvc;
-using System.Data.Entity.Validation;
-using System.Data.Entity.Infrastructure;
 
 namespace GGZBTQPT_PRO.Controllers
 { 
@@ -464,21 +462,25 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         [HttpPost]
-        public ActionResult HotProductEdit(T_JG_Product t_jg_product)
+        public ActionResult HotProductEdit(int id, FormCollection collection)
         {
             if (Request.IsAjaxRequest())
             {
-                if (ModelState.IsValid)
-                {
-                    t_jg_product.UpdateTime = Convert.ToDateTime(DateTime.Now.ToLongTimeString());
-                    db.Entry(t_jg_product).State = EntityState.Modified;
+                T_JG_Product t_jg_product = db.T_JG_Product.Find(id);
 
-                    int result = db.SaveChanges();
-                    if (result > 0)
-                        return ReturnJson(true, "操作成功", "", "", true, "");
-                    else
-                        return ReturnJson(false, "操作失败", "", "", false, "");
-                }
+                t_jg_product.ProductName = collection["ProductName"];
+                t_jg_product.Process = collection["Process"];
+                t_jg_product.Linkman = collection["Linkman"];
+                t_jg_product.UpdateTime = Convert.ToDateTime(DateTime.Now.ToLongTimeString());
+
+                db.Entry(t_jg_product).State = EntityState.Modified;
+
+                int result = db.SaveChanges();
+                if (result > 0)
+                    return ReturnJson(true, "操作成功", "hotInfoBox", "", true, "HotProductList");
+                else
+                    return ReturnJson(false, "操作失败", "hotInfoBox", "", false, "HotProductList");
+                
             }
             return Json(new { });
         }
@@ -495,21 +497,25 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         [HttpPost]
-        public ActionResult HotFinancingEdit(T_XM_Financing t_xm_financing)
+        public ActionResult HotFinancingEdit(int id,FormCollection collection)
         {
             if (Request.IsAjaxRequest())
             {
-                if (ModelState.IsValid)
-                {
-                    t_xm_financing.UpdateTime = Convert.ToDateTime(DateTime.Now.ToLongTimeString());
-                    db.Entry(t_xm_financing).State = EntityState.Modified;
+                T_XM_Financing t_xm_financing = db.T_XM_Financing.Find(id);
 
-                    int result = db.SaveChanges();
-                    if (result > 0)
-                        return ReturnJson(true, "操作成功", "", "", true, "");
-                    else
-                        return ReturnJson(false, "操作失败", "", "", false, "");
-                }
+                t_xm_financing.ItemName = collection["ItemName"];
+                t_xm_financing.ItemContent = collection["ItemContent"];
+                t_xm_financing.Linkman = collection["Linkman"];
+                t_xm_financing.UpdateTime = Convert.ToDateTime(DateTime.Now.ToLongTimeString());
+
+                db.Entry(t_xm_financing).State = EntityState.Modified;
+
+                int result = db.SaveChanges();
+                if (result > 0)
+                    return ReturnJson(true, "操作成功", "hotInfoBox", "", true, "HotFinancingList");
+                else
+                    return ReturnJson(false, "操作失败", "hotInfoBox", "", false, "HotFinancingList");
+                
             }
             return Json(new { });
         }
@@ -526,21 +532,25 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         [HttpPost]
-        public ActionResult HotInvestmentEdit(T_XM_Investment t_xm_investment)
+        public ActionResult HotInvestmentEdit(int id,FormCollection collection)
         {
             if (Request.IsAjaxRequest())
             {
-                if (ModelState.IsValid)
-                {
-                    t_xm_investment.UpdateTime = Convert.ToDateTime(DateTime.Now.ToLongTimeString());
-                    db.Entry(t_xm_investment).State = EntityState.Modified;
+                T_XM_Investment t_xm_investment = db.T_XM_Investment.Find(id);
 
-                    int result = db.SaveChanges();
-                    if (result > 0)
-                        return ReturnJson(true, "操作成功", "", "", true, "");
-                    else
-                        return ReturnJson(false, "操作失败", "", "", false, "");
-                }
+                t_xm_investment.ItemName = collection["ItemName"];
+                t_xm_investment.Description = collection["Description"];
+                t_xm_investment.Linkman = collection["Linkman"];
+                t_xm_investment.UpdateTime = Convert.ToDateTime(DateTime.Now.ToLongTimeString());
+
+                db.Entry(t_xm_investment).State = EntityState.Modified;
+
+                int result = db.SaveChanges();
+                if (result > 0)
+                    return ReturnJson(true, "操作成功", "hotInfoBox", "", true, "HotInvestmentList");
+                else
+                    return ReturnJson(false, "操作失败", "hotInfoBox", "", false, "HotInvestmentList");
+               
             }
             return Json(new { });
         }
