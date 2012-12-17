@@ -1,0 +1,32 @@
+﻿@model GGZBTQPT_PRO.ViewModels.VM_SelectMember
+
+<div id="dvInvestment">
+    <div style="height:140px; background-color:#ffffff">
+        <table class="list" width="100%" asc="asc" desc="desc">
+            <tr>
+                <th>
+                    投资意向
+                </th>
+                <th>
+                    所属行业
+                </th>
+            </tr>
+
+            @foreach (var item in Model.Investments)
+            {
+                <tr>
+                    <td>
+                        @item.ItemName
+                    </td>
+                    <td>
+                        @item.AimIndustry
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    @Ajax.Pager(Model.Investments, new PagerOptions { PageIndexParameterName = "pageNum" ,ShowPageIndexBox=true,PageIndexBoxType=PageIndexBoxType.DropDownList,
+                                               ShowGoButton = false,
+                                               PageIndexBoxWrapperFormatString = "跳转到第{0}页"
+}, new AjaxOptions() { UpdateTargetId = "dvInvestment" })
+</div>

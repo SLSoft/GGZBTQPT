@@ -1,43 +1,25 @@
-﻿@model GGZBTQPT_PRO.ViewModels.VM_SelectUser
+@model GGZBTQPT_PRO.ViewModels.VM_SelectUser
 @{
     Layout = null;
 }
-<script type="text/javascript">
-    $.validator.unobtrusive.parse(document);
-    $(function () {
-//        $("a").click(function () {
-//            alert();
-//            var result = $(this).val();
-//            alert(result);
-//        });
-    });
-    function kkk() {
-        var json = arguments[0], result = "";
-        alert(json.checked);
-        $(json.items).each(function (i) {
-            //result += "<p>name:" + this.name + " value:" + this.value + " text: " + this.text + "</p>";
-            result += this.value + ",";
-        });
-        alert(result);
-    }
-</script>
+
 @helper GenerateUser(string selected_users, GGZBTQPT_PRO.Models.T_ZC_User user)
 {
-    if(selected_users.IndexOf(user.ID.ToString()) > 0)
+    if(selected_users.IndexOf(user.ID.ToString()) >= 0)
     { 
-        <li><a tname="@user.Name" tvalue="@user.ID" checked=true >@user.Name</a></li>  
+        <li><a tname="@user.UserName" tvalue="@user.ID" checked=true >@user.UserName</a></li>  
     }
     else
     { 
-        <li><a tname="@user.Name" tvalue="@user.ID" >@user.Name</a></li>  
+        <li><a tname="@user.UserName" tvalue="@user.ID" >@user.UserName</a></li>  
     }    
 }
 @helper GenerateDeparts(GGZBTQPT_PRO.Models.T_ZC_Department parent_department, ICollection<GGZBTQPT_PRO.Models.T_ZC_Department> departments)
 {    
     foreach (var department in departments)
     { 
-        <ul >
-            <li><a>@department.FullName</a>
+        <ul>
+            <li><a>@department.Name</a>
                 <ul>
                     @foreach (var user in Model.Users)
                     {
@@ -56,20 +38,13 @@
         }
     }        
 }
-@*<div class="pageContent">*@
-<ul class="tree treeFolder treeCheck" oncheck="kkk">
-    <li><a>内部平台系统用户列表</a>
-        <ul>
-            @foreach (var department in Model.Departments.Where(d => d.ParentID == 0 || d.ParentID == null))
-            {
 
-                <li><a>@department.FullName </a>
-                    <ul>
-                        @foreach (var user in Model.Departments.Where(d => d.ID == department.ID).First().Users.ToList())
-                        {
-                            @GenerateUser(ViewBag.selected_users, user)
-                        }
-                    </ul> 
+<ul class="tree treeFolder treeCheck select-tree">
+    <li><a>内部平台系统用户列表</a>
+        <ul >
+            @foreach (var department in Model.Departments.Where(d => d.ParentID == 0 || d.ParentID == null))
+            { 
+                <li><a>@department.Name </a> 
                     @GenerateDeparts(department, Model.Departments.Where(d => d.ParentID == department.ID).ToList())
                 </li> 
             }
@@ -81,7 +56,7 @@
         <li>
             <div class="buttonActive">
                 <div class="buttonContent">
-                    <button type="submit" onclick="kkk">
+                    <button type="submit" id="select_user">
                         保存</button></div>
             </div>
         </li>
@@ -94,4 +69,19 @@
         </li>
     </ul>
 </div>
-@*</div>*@
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#select_user").click(function () {
+            var result = "";
+
+            $(".select-tree .checked input[type='checkbox']").each(function () {
+                var value = $(this).attr("value");
+                if (value != "" && value != "on") {
+                    result += value + ",";
+                }
+            });
+            $.post("@Url.Action("SelectUser","ZC_Role", new { id = @ViewBag.RoleID})",{ select_users: result },function(data){ DWZ.ajaxDone(data);},"json");
+        }); 
+    }); 
+</script>

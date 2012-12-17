@@ -1,0 +1,125 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_JG_Product>
+@{
+    Layout = null;
+}
+
+<div class="pageHeader">
+    <form id="pagerForm" method="post" action="@Url.Action("HotList")">
+    <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
+    <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
+    <input type="hidden" name="memberType" value="@ViewData["Types"]"  />
+    </form>
+    <form onsubmit="return navTabSearch(this);" action="@Url.Action("HotList", new { type=1})" method="post">
+    <div class="searchBar">
+        <ul class="searchContent">
+            <li>
+                <label>
+                    产品名称：</label>
+                <input type="text" name="keywords" value="@ViewData["keywords"]" /> </li>
+            <li>
+                <label>
+                    会员类型：</label>
+                    @Html.DropDownList("memberType", (SelectList)@ViewData["Types"])
+            </li>
+        </ul>
+        <div class="subBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">
+                                检索</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </form>
+</div>
+<div class="pageContent j-resizeGrid" style="border-left: 1px #B8D0D6 solid; border-right: 1px #B8D0D6 solid">
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a class="edit" href="@Url.Action("HotProductEdit", "HY_Member", new { id = "{mid}" })" rel="HotProductEdit" target="dialog" title="编辑产品信息" mask="true"
+                warn="请选择一条信息数据" width="420" height="340"><span>修改信息</span></a></li>
+            <li class="line">line</li>
+        </ul>
+    </div>
+    <div layouth="116">
+        <table class="list" width="98%" asc="asc" desc="desc">
+            <thead>
+                <tr>
+                    <th>
+                        序号
+                    </th>
+                    <th>
+                        产品名称
+                    </th>
+                    <th>
+                        融资金额
+                    </th>
+                    <th>
+                        融资限制
+                    </th>
+                    <th>
+                        会员名
+                    </th>
+                    <th>
+                        会员类型
+                    </th>
+                    <th>
+                        发布时间
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr target="mid" rel=@item.ID>
+                        <td>@item.ID</td>
+                        <td>
+                            @item.ProductName
+                        </td>
+                        <td>
+                            @String.Format("{0:F}", item.FinancingAmount)
+                        </td>
+                        <td>
+                            @item.FinancingLimit
+                        </td>
+                        <td>@item.Member.MemberName
+                        </td>
+                        <td>@item.Member.TypeName
+                        </td>
+                        <td>
+                            @item.CreateTime
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="panelBar">
+        <div class="pages">
+            <span>每页显示</span>
+            <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value,pageNum:1},'menuInfoBox')">
+                @{  
+                    int[] nums = new int[] { 5, 15, 20, 50, 100, 200 };
+                    foreach (var num in nums)
+                    {
+                        if (Int32.Parse(ViewData["numPerPage"].ToString()) == num)
+                        {  
+
+                    <option value="@num" selected="selected">@num</option>       
+                        }
+                        else
+                        {<option value="@num">@num</option>    }
+
+                    }  
+                }
+            </select>
+            <span>条，共 @ViewData["recordCount"] 条</span>
+        </div>
+        <div rel="menuInfoBox" class="pagination" targettype="navTab" totalcount="@ViewData["recordCount"]" numperpage="@ViewData["numPerPage"]" pagenumshown="10"  
+               currentpage="@ViewData["pageNum"]">
+        </div>
+    </div>
+</div>

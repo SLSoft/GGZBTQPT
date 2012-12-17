@@ -4,6 +4,7 @@
     Layout = null;
 }
 
+
 <div class="pageHeader">
     <form id="pagerForm" method="post" action="@Url.Action("Query")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
@@ -23,7 +24,7 @@
             <li>
                 <label>
                     会员类型：</label>
-                    @Html.DropDownList("Type",(SelectList)ViewData["Types"])
+                    @Html.DropDownList("Type",(SelectList) @ViewData["Types"])
             </li>
         </ul>
         <div class="subBar">
@@ -41,25 +42,11 @@
     </form>
 </div>
 <div class="pageContent">
-    <div class="panelBar">
-        <ul class="toolBar">
-            @*<li><a class="add" href="@Url.Action("create","HY_Member")" rel="create" target="dialog" width="400"
-                height="250" title="添加新的会员" mask="true"><span>添加</span></a></li>
-            <li><a class="edit" href="@Url.Action("edit", "HY_Member", new { id = "{mid}" })" rel="edit" target="dialog" width="400"
-                height="250" title="编辑会员信息" mask="true" warn="请选择一条会员数据"><span>编辑</span></a></li>*@
-            <li><a class="delete" href="@Url.Action("delete", "HY_Member", new { id = "{mid}" })" rel="delete" target="ajaxTodo"
-                title="确定要删除吗？" warn="请选择一条会员数据"><span>删除</span></a></li>
-            <li class="line">line</li>
-
-        </ul>
-    </div>
+    <div class="panelBar"></div>
     <div layouth="116" id="divList">
         <table  class="list" width="100%" asc="asc" desc="desc">
         <thead>
         <tr>
-            <th width="40">
-                <input type="checkbox" group="ids" class="checkboxCtrl" />
-            </th>
             <th>
                 登录名
             </th>
@@ -84,17 +71,11 @@
             <th>
                 产品数
             </th>
-            <th>
-                操作
-            </th>
         </tr>
         </thead>
         <tbody>
         @foreach (var item in Model) {
         <tr>
-            <td  target="mid" rel=@item.Member.ID>
-                 <input name="ids" type="checkbox" value="@item.Member.ID" />      
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Member.LoginName)
             </td>
@@ -110,19 +91,44 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Member.CreatedAt)
             </td>
+            @if (@item.FinancingCount > 0)
+            {
             <td>
-                @item.FinancingCount
+                
+                <a href="@Url.Action("QueryDetails", "HY_Member", new { member_id = @item.Member.ID,type=1 })"  target="dialog" width="550"
+                height="300" title="项目详情" mask="true"><span>@item.FinancingCount</span></a>
             </td>
+            }
+            else
+            {
+                <td>@item.FinancingCount</td>
+            }
+            @if (@item.InvestmentCount > 0)
+            {
+                <td>
+                    <a href="@Url.Action("QueryDetails", "HY_Member", new { member_id = @item.Member.ID, type = 2 })"  target="dialog" width="550"
+                    height="300" title="意向详情" mask="true"><span>@item.InvestmentCount</span></a>
+                </td>
+            }
+            else
+            {
             <td>
                 @item.InvestmentCount
             </td>
+            }
+            @if (@item.ProductCount > 0)
+            {
+                <td>
+                    <a href="@Url.Action("QueryDetails", "HY_Member", new { member_id = @item.Member.ID, type = 3 })"  target="dialog" width="550"
+                    height="300" title="产品详情" mask="true"><span>@item.ProductCount</span></a>
+                </td>
+            }
+            else
+            {
             <td>
                 @item.ProductCount
             </td>
-            <td>
-                <a class="add" href="@Url.Action("QueryDetails", "HY_Member", new { member_id = @item.Member.ID })" rel="QueryDetails" target="dialog" width="650"
-                height="550" title="详情" mask="true"><span>详情</span></a>
-            </td>
+            }
         </tr>
         }
         </tbody>

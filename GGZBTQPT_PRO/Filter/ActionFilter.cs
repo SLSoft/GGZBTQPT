@@ -1,60 +1,83 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using GGZBTQPT_PRO.Models;
+using System.Web.Routing;
 
 namespace GGZBTQPT_PRO.Filter
 {
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
-    public class ActionAttributeFilter : ActionFilterAttribute
+    public class ActionAttributeFilter : ActionFilterAttribute, IExceptionFilter
     {
 
         public string Message { get; set; } 
 
         //在Action执行之后执行  
         public override void OnActionExecuted(ActionExecutedContext filterContext)
-        {
-
-            //在页面上输出一段文字表示在Action执行完后执行了此段代码 
-            filterContext.HttpContext.Response.Write(@"<br />After Action Excute" + "\t " + Message);
-
-            base.OnActionExecuted(filterContext);
-
+        { 
+            base.OnActionExecuted(filterContext); 
         } 
 
         //在Action执行前执行
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            if (filterContext.HttpContext.Session["UserID"] == null)
+            {
+                if (filterContext.HttpContext.Request.IsAjaxRequest())
+                {
+                    // For AJAX requests, we're overriding the returned JSON result with a simple string,
+                    // indicating to the calling JavaScript code that a redirect should be performed.
+                    filterContext.Result = new JsonResult { Data = new { login = true } };
+                }
+                else
+                {
+                    // For round-trip posts, we're forcing a redirect to Home/TimeoutRedirect/, which
+                    // simply displays a temporary 5 second notification that they have timed out, and
+                    // will, in turn, redirect to the logon page.
+                    filterContext.Result = new RedirectToRouteResult(
+                        new RouteValueDictionary {
+                        { "Controller", "Home" },
+                        { "Action", "Login" }
+                    });
+                }
+            }
 
-            filterContext.HttpContext.Response.Write(@"<br />Before Action Excute" + "\t " + Message);
-
-            base.OnActionExecuting(filterContext);
-
+            base.OnActionExecuting(filterContext); 
         } 
 
         //在Result执行之后  
         public override void OnResultExecuted(ResultExecutedContext filterContext)
-        {
-
-            filterContext.HttpContext.Response.Write(@"<br />After ViewResult Excute" + "\t " + Message);
-
-            base.OnResultExecuted(filterContext);
-
+        { 
+            base.OnResultExecuted(filterContext); 
         } 
 
         //在Result执行之前
         public override void OnResultExecuting(ResultExecutingContext filterContext)
-        {
-
-            filterContext.HttpContext.Response.Write(@"<br />Before ViewResult Excute" + "\t " + Message);
-
-            base.OnResultExecuting(filterContext);
-
+        { 
+            base.OnResultExecuting(filterContext); 
         }
 
+        public  void OnException(ExceptionContext filterContext)
+        {
+            //string controller = filterContext.RouteData.Values["controller"] as string;
+            //string action = filterContext.RouteData.Values["action"] as string; 
 
+            log4net.ILog log = log4net.LogManager.GetLogger(this.GetType());
+            if(filterContext.HttpContext.Session["UserName"] != null)
+            {
+                log4net.LogicalThreadContext.Properties["user"] = filterContext.HttpContext.Session["UserName"];
+            }
+            else
+            {
+                log4net.LogicalThreadContext.Properties["user"] = "无";
+            }
 
+            log.Error("----方法:" + filterContext.Exception.TargetSite + "\n----来源:" + filterContext.Exception.Source + "\n----错误信息:" + filterContext.Exception.Message + "\n----链接地址:" + filterContext.Exception.HelpLink, new Exception("\n----详细信息:" + filterContext.Exception.StackTrace)); 
+        } 
     }
 
  

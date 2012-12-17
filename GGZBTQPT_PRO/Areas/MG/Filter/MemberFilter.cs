@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -15,19 +15,24 @@ namespace GGZBTQPT_PRO.Areas.MG.Filter
     { 
         //在Action执行之后执行  
         public override void OnActionExecuted(ActionExecutedContext filterContext)
-        {
+        { 
+            //记录用户的操作时间，写入用户的在线记录
+            if(filterContext.HttpContext.Session["OnlineID"] != null)
+            {
+                using(GGZBTQPTDBContext db = new GGZBTQPTDBContext())
+                {
+                    T_ZC_OnlineLog online_log = db.T_ZC_OnlineLog.Find(Convert.ToInt32(filterContext.HttpContext.Session["OnlineID"].ToString()));
+                    online_log.LoginOutDate = DateTime.Now;
+                    db.SaveChanges();
+                }
+            }
 
-            //在页面上输出一段文字表示在Action执行完后执行了此段代码 
-
-            base.OnActionExecuted(filterContext);
-
+            base.OnActionExecuted(filterContext); 
         }
 
         //在Action执行前执行
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         { 
-            // If the browser session or authentication session has expired...
-            //if (filterContext.HttpContext.Session["MemberID"] == null || !filterContext.HttpContext.Request.IsAuthenticated)
             if (filterContext.HttpContext.Session["MemberID"] == null)
             {
                 if (filterContext.HttpContext.Request.Url != null)
@@ -67,21 +72,13 @@ namespace GGZBTQPT_PRO.Areas.MG.Filter
         //在Result执行之后  
         public override void OnResultExecuted(ResultExecutedContext filterContext)
         {
-
-
-
-            base.OnResultExecuted(filterContext);
-
+            base.OnResultExecuted(filterContext); 
         }
 
         //在Result执行之前
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
-
-
-
-            base.OnResultExecuting(filterContext);
-
+            base.OnResultExecuting(filterContext); 
         }
 
 

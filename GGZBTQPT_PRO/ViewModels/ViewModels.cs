@@ -1,6 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using GGZBTQPT_PRO.Models;
+using System.Web;
+using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
+using Webdiyer.WebControls.Mvc;
 
 namespace GGZBTQPT_PRO.ViewModels
 {
@@ -8,18 +12,22 @@ namespace GGZBTQPT_PRO.ViewModels
     {
         public ICollection<T_ZC_User> Users { get; set; }
         public ICollection<T_ZC_Department> Departments { get; set; }
-        public ICollection<T_ZC_Role> Roles { get; set; }
-        public ICollection<T_ZC_System> Systems { get; set; }
     }
-    
-    /// <summary>
+
+    public class VM_SystemMenu
+    {
+        public ICollection<T_ZC_System> Systems { get; set; }
+        public ICollection<T_ZC_Menu> Menus { get; set; } 
+    }
+
+   /// <summary>
     /// 会员查询
     /// </summary>
     public class VM_SelectMember
     {
-        public ICollection<T_XM_Financing> Financings { get; set; }
-        public ICollection<T_XM_Investment> Investments { get; set; }
-        public ICollection<T_JG_Product> Products { get; set; }
+        public PagedList<T_XM_Financing> Financings { get; set; }
+        public PagedList<T_XM_Investment> Investments { get; set; }
+        public PagedList<T_JG_Product> Products { get; set; }
     }
 
     public class VM_MemberStat

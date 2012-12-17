@@ -1,56 +1,99 @@
-﻿@model Webdiyer.WebControls.Mvc.PagedList<GGZBTQPT_PRO.Models.T_XM_Investment>
+@model Webdiyer.WebControls.Mvc.PagedList<GGZBTQPT_PRO.Models.T_XM_Investment>
 @{
     ViewBag.Title = "找资金";
 }
 <style type="text/css">
 input,span {font:12px/24px verdana;vertical-align:middle;} 
+.ul_query{margin-left:0;list-style:none;}
+.ul_query li{width:95px; float:left;margin:0px;padding:0px;}
+.td_line{border-bottom:1px dashed #DDD;}
 </style>
 @helper GenerateIndustry()
 {
-    var i = 0;
+    @:<ul class="ul_query">
     foreach (var item in ViewData["Industry"] as SelectList)
     {
-        if (i % 6 == 0 && i != 0)
-        {
-            @:</tr><tr>
-        }
-            @:<td><input type="checkbox" name="cbIndustry" value="@item.Value"/><span>@item.Text</span></td>
-        i++;
+        <li><input type="checkbox" name="cbIndustry" value="@item.Value"/><span>@item.Text</span></li>
     }
+    @:</ul>
 }
 @helper GenerateTeamworkType()
-{
-    var i = 0;
+    {
+    @:<ul class="ul_query">
     foreach (var item in ViewData["TeamworkType"] as SelectList)
     {
-        if (i % 6 == 0 && i != 0)
-        {
-            @:</tr><tr>
-        }
-            @:<td><input type="checkbox" name="cbTeamworkType" value="@item.Value" /><span>@item.Text</span></td>
-        i++;
+        <li><input type="checkbox" name="cbTeamworkType" value="@item.Value" /><span>@item.Text</span></li>
     }
+    @:</ul>
 }
 @helper GenerateInvestmentStage()
 {
+    @:<ul class="ul_query">
     foreach (var item in ViewData["InvestmentStage"] as SelectList)
     {
-        @:<td><input type="checkbox" name="cbInvestmentStage" value="@item.Value" /><span>@item.Text</span></td>
+        <li><input type="checkbox" name="cbInvestmentStage" value="@item.Value" /><span>@item.Text</span></li>
     }
+    @:</ul>
 }
 @helper GenerateInvestmentNature()
 {
-    var i = 0;
+    @:<ul class="ul_query">
     foreach (var item in ViewData["InvestmentNature"] as SelectList)
     {
-        if (i % 6 == 0 && i != 0)
-        {
-            @:</tr><tr>
-        }
-       @:<td><input type="checkbox" id="checkboxType" name="cbInvestmentNature" value="@item.Value" /><span>@item.Text</span></td>
-       i++;
+        <li><input type="checkbox" id="checkboxType" name="cbInvestmentNature" value="@item.Value" /><span>@item.Text</span></li>
     }
+    @:</ul>
 }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("input[type=checkbox]").click(function () {
+            if ($(this).attr("checked")) {
+                $("#message").append($(this).next().html() + "|");
+                if ($(this).attr("name") == "cbInvestmentNature") {
+                    $("#condition1").attr("value", $("#condition1").val() + "," + $(this).val());
+                }
+                if ($(this).attr("name") == "cbTeamworkType") {
+                    $("#condition2").attr("value", $("#condition2").val() + "," + $(this).val());
+                }
+                if ($(this).attr("name") == "cbIndustry") {
+                    $("#condition3").attr("value", $("#condition3").val() + "," + $(this).val());
+                }
+                if ($(this).attr("name") == "cbInvestmentStage") {
+                    $("#condition4").attr("value", $("#condition4").val() + "," + $(this).val());
+                }
+                if ($(this).attr("name") == "cbFinancial") {
+                    $("#condition5").attr("value", $("#condition5").val() + "," + $(this).val());
+                }
+            }
+            else {
+                $("#message").text($("#message").text().replace($(this).next().html() + "|", ""));
+                if ($(this).attr("name") == "cbInvestmentNature") {
+                    $("#condition1").attr("value", $("#condition1").val().replace("," + $(this).val(), ""));
+                }
+                if ($(this).attr("name") == "cbTeamworkType") {
+                    $("#condition2").attr("value", $("#condition2").val().replace("," + $(this).val(), ""));
+                }
+                if ($(this).attr("name") == "cbIndustry") {
+                    $("#condition3").attr("value", $("#condition3").val().replace("," + $(this).val(), ""));
+                }
+                if ($(this).attr("name") == "cbInvestmentStage") {
+                    $("#condition4").attr("value", $("#condition4").val().replace("," + $(this).val(), ""));
+                }
+                if ($(this).attr("name") == "cbFinancial") {
+                    $("#condition5").attr("value", $("#condition5").val().replace("," + $(this).val(), ""));
+                }
+            }
+            $("#context").attr("value", $("#message").text());
+        });
+        var filter = $("#condition1").val() + $("#condition2").val() + $("#condition3").val() + $("#condition4").val() + $("#condition5").val();
+        var list = filter.split(",");
+        $("input[type=checkbox]").each(function () {
+            $(this).attr("checked", $.inArray(this.value, list) > -1);
+        });
+    });
+</script>
+
 <h3 class="content-title">
     找资金</h3>
 @using (Html.BeginForm())
@@ -59,85 +102,62 @@ input,span {font:12px/24px verdana;vertical-align:middle;}
 </div>
 <div id="inquire-options" class="inquire-options well well-small">
     <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="span2">
-                <label>
-                    投资性质：</label>
-            </div>
-            <div class="span10">
-                <table width="100%">
-                    <tr>
-                    @GenerateInvestmentNature()
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span2">
-                <label>
-                    合作方式：</label>
-            </div>
-            <div class="span10">
-                <table width="100%">
-                    <tr>
-                    @GenerateTeamworkType()
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span2">
-                <label>
-                    意向行业：</label>
-            </div>
-            <div class="span10">
-                <table width="100%">
-                    <tr>
-                    @GenerateIndustry()
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span2">
-                <label>
-                    投资阶段：</label>
-            </div>
-            <div class="span10">
-                <table width="100%">
-                    <tr>
-                    @GenerateInvestmentStage()
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span2">
-                <label>
-                    资金范围：</label>
-            </div>
-            <div class="span10">
-                <input type="checkbox" name="cbFinancial" value="-1" title="不限" /><span>不限</span>
-                <input type="checkbox" name="cbFinancial" value="<10" title="1-10万" /><span>1-10万</span>
-                <input type="checkbox" name="cbFinancial" value="between 10 and 50" title="10-50万" /><span>10-50万</span>
-                <input type="checkbox" name="cbFinancial" value="between 50 and 100" title="50-100万" /><span>50-100万</span>
-                <input type="checkbox" name="cbFinancial" value="between 1 and 1000" title="500-1000万" /><span>500-1000万</span>
-                <input type="checkbox" name="cbFinancial" value="between 1000 and 5000" title="1000-5000万" /><span>1000-5000万</span><br />
-                <input type="checkbox" name="cbFinancial" value="between 5000 and 10000" title="5000万-1亿" /><span>5000万-1亿</span>
-                <input type="checkbox" name="cbFinancial" value=">10000" title="大于1亿" /><span>大于1亿</span>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid">
-        @*<div style="float:left;">
-            排序方式：<a href="#">发布时间↓</a> <a href="#">投资金额↓</a> <a href="#">收藏数↓</a>
-        </div>*@
-        <div style="float:right;">
-            项目名称：<input type="text" name="keys" /><input type="submit" value="查询" /><input type="reset" value="重置" />
-        </div>
+        <table id="qtb" width="100%" border="0" cellpadding="1">
+        <tr>
+            <td width="70px">
+                已经选择：
+            </td>
+            <td class="td_line"><div id="message" name="mes" style="color:Red;">@ViewBag.context</div></td>
+        </tr>
+        <tr>
+            <td>投资性质：</td>
+            <td class="td_line">
+                @GenerateInvestmentNature()
+            </td>
+        </tr>
+        <tr>
+            <td>合作方式：</td>
+            <td class="td_line">
+                @GenerateTeamworkType()
+            </td>
+        </tr>
+        <tr>
+            <td>意向行业：</td>
+            <td class="td_line">
+                @GenerateIndustry()
+            </td>
+        </tr>
+        <tr>
+            <td>投资阶段：</td>
+            <td class="td_line">
+                @GenerateInvestmentStage()
+            </td>
+        </tr>
+        <tr>
+            <td>资金范围：</td>
+            <td class="td_line">
+                <ul class="ul_query">
+                <li><input type="checkbox" name="cbFinancial" value="<10" title="1-10万" /><span>1-10万</span></li>
+                <li><input type="checkbox" name="cbFinancial" value="between 10 and 50" title="10-50万" /><span>10-50万</span></li>
+                <li><input type="checkbox" name="cbFinancial" value="between 50 and 100" title="50-100万" /><span>50-100万</span></li>
+                <li><input type="checkbox" name="cbFinancial" value="between 1 and 1000" title="500-1000万" /><span>500-1000万</span></li>
+                <li><input type="checkbox" name="cbFinancial" value="between 1000 and 5000" title="1000-5000万" /><span>1000-5000万</span></li>
+                <li><input type="checkbox" name="cbFinancial" value="between 5000 and 10000" title="5000万-1亿" /><span>5000万-1亿</span></li>
+                <li><input type="checkbox" name="cbFinancial" value=">10000" title="大于1亿" /><span>大于1亿</span></li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>项目名称：</td>
+            <td class="td_line"><input type="text" name="keys" />(项目名称关键字)</td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="搜  索" style="margin-left:70px; font-size:13pt" /></td>
+        </tr>
+        </table>
     </div>
 </div>
-}
+
 <div id="published">
     @foreach (var _model in Model)
     {
@@ -145,7 +165,7 @@ input,span {font:12px/24px verdana;vertical-align:middle;}
             @*投资意向信息*@
             <div class="published-content ">
                 <h4>
-                   @Html.ActionLink(_model.ItemName, "Edit", "Investment", new { id = _model.ID }, null)<span class="pub-time pull-right">@_model.CreateTime</span></h4>
+                   @Html.ActionLink(_model.ItemName, "Edit", "Investment", new { id = _model.ID }, null)<span class="pub-time pull-right">@_model.CreateTime.Value.ToString("yyyy年MM月dd日")</span></h4>
                 @*摘要*@
                 <p class="summary">
                     @if (_model.Description.Length > 200)
@@ -162,15 +182,25 @@ input,span {font:12px/24px verdana;vertical-align:middle;}
                    <span class="amount text-error">总投资：@_model.Investment 万元</span><span class="favorite pull-right text-info">【@_model.Favoites.Count() 人收藏】</span>
                 </div>
             </div>
-        </div>
-            
-    }
-
+        </div>   
+    }        
 </div>
-
-<div class="pagination pagination-left clear">
+    if (ViewBag.Message != null)
+    {
+        <span style="font-weight:bold; font-size:large;">@ViewBag.Message</span>
+    }
+    <div class="pagination pagination-left clear">
         @Html.Pager(Model, new PagerOptions { PageIndexParameterName = "id", ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }) 
     </div>
+    <div style="visibility:hidden">
+                <input id="condition1" type="text" name="condition1" value="@ViewBag.condition1" />
+                <input id="condition2" type="text" name="condition2" value="@ViewBag.condition2" />
+                <input id="condition3" type="text" name="condition3" value="@ViewBag.condition3" />
+                <input id="condition4" type="text" name="condition4" value="@ViewBag.condition4" />
+                <input id="condition5" type="text" name="condition5" value="@ViewBag.condition5" />
+                <input id="context" type="text" name="context" value="@ViewBag.context" /></div>
+        
+}
 <script type="text/javascript">
     function notice(data) {
         $("#recommend li.active a").click();

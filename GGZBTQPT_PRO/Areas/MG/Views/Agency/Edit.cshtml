@@ -1,4 +1,4 @@
-﻿@model GGZBTQPT_PRO.Models.T_JG_Agency 
+@model GGZBTQPT_PRO.Models.T_JG_Agency 
 
 @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" }))
 {
@@ -44,7 +44,7 @@
                 <td>@Html.EditorFor(model => model.Phone)</td>
             </tr>
             <tr>
-                <td>@Html.LabelFor(model => model.Services, "机构服务内容11111")</td>
+                <td>@Html.LabelFor(model => model.Services, "机构服务内容")</td>
                 <td>@Html.TextAreaFor(model => model.Services, new { rows = "5", style = "width:80%" })</td>
             </tr>
             <tr>

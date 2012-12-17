@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +16,7 @@ namespace GGZBTQPT_PRO.Models
         {
             IsValid = true;
             IsVerified = false;
+            State = 0;
         }
         public int ID { get; set; }
 
@@ -25,10 +26,8 @@ namespace GGZBTQPT_PRO.Models
         public string LoginName { get; set; }
 
         [DataType(DataType.Password)]
-        [Required(ErrorMessage = "必须填写登陆密码")]
         [Display(Name = "登录密码")]
         public string Password { get; set; }
-
 
         [Required(ErrorMessage = "必须填写手机号码")]
         [Display(Name = "手机号码")]
@@ -41,19 +40,21 @@ namespace GGZBTQPT_PRO.Models
         [Display(Name = "邮箱")] 
         public string Email { get; set; }
 
+        [Display(Name = "会员编号")] 
         public int Number { get; set; } //会员编号 
 
-        [Required(ErrorMessage = "必须选择会员类型")]
+        //[Required(ErrorMessage = "必须选择会员类型")]
         [Display(Name = "注册会员类型")]
-        public int Type { get; set; } 
+        public int Type { get; set; }
 
+        [Display(Name = "会员积分")] 
         public int Intetral { get; set; } //会员积分
-
- 
+        
         public Boolean IsValid { get; set; }
         public Boolean IsVerified { get; set; }//该会员是否通过审核
+        public int State { get; set; }//会员状态 0：待审核 1：审核通过 2：驳回
         public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; } 
 
         public string TypeName
         {
@@ -79,6 +80,8 @@ namespace GGZBTQPT_PRO.Models
         public virtual ICollection<T_XM_Financing> Financials { get; set; }//会员所发布的项目
         public virtual ICollection<T_XM_Investment> Investments { get; set; }//会员所发布的意向
         public virtual ICollection<T_JG_Product> Products { get; set; }//会员所发布的金融产品
+
+        public virtual ICollection<T_ZC_OnlineLog> OnlineLogs { get; set; } //会员的在线日志
         
         
         // Validate method
@@ -123,7 +126,5 @@ namespace GGZBTQPT_PRO.Models
             //增加密码的加密方法
             return password;
         }
-
-
     } 
  }

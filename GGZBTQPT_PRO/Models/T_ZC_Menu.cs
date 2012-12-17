@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -15,6 +15,7 @@ namespace GGZBTQPT_PRO.Models
 
         public int ID { get; set; }
 
+
         [Required(ErrorMessage = "必须填写菜单名称")]
         public string Name { get; set; }
 
@@ -28,5 +29,8 @@ namespace GGZBTQPT_PRO.Models
 
         public int SystemID { get; set; }
         public virtual T_ZC_System System { get; set; }
+
+        public virtual ICollection<T_ZC_Role> Roles { get; set; }
+
     }
 }

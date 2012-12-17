@@ -165,6 +165,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 if (member != null && member.Password == password)
                 {
                     Session["MemberID"] = member.ID;
+                    RegisterLoginInfo();
                     if (Session["RedirectUrl"] != null && Session["RedirectUrl"].ToString() != "")
                     {
                         return Redirect(Session["RedirectUrl"].ToString());
@@ -187,6 +188,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ActionResult Logout()
         {
             Session["MemberID"] = null;
+            RegisterLogoutInfo();
             return RedirectToAction("Index", "Home");
         }
 
@@ -274,6 +276,36 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             return Json(!db.T_HY_Member.Where(m => m.MemberName != current_member_membername).Any(m => m.MemberName == membername), JsonRequestBehavior.AllowGet);
         }
 
+        public void RegisterLoginInfo()
+        {
+            var member = CurrentMember();
+            if(member != null)
+            {
+                var online_log = new T_ZC_OnlineLog();
+                online_log.IpAddress = HttpContext.Request.UserHostAddress;
+                online_log.LoginInDate = DateTime.Now;
+                online_log.LoginOutDate = DateTime.Now;
+                member.OnlineLogs.Add(online_log);
+                db.SaveChanges();
+
+                Session["OnlineID"] = online_log.ID;
+            } 
+        }
+
+        public void RegisterLogoutInfo()
+        {
+            var member = CurrentMember();
+            if (member != null)
+            {
+                var online_log = new T_ZC_OnlineLog(); 
+                online_log.LoginOutDate = DateTime.Now;
+                member.OnlineLogs.Add(online_log);
+                db.SaveChanges();
+
+                Session["OnlineID"] = null; 
+            } 
+        }
+
 
         //
         //----------------三类用户的信息维护-----------//
@@ -355,7 +387,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             return result;
         }
 
-        
+        #region//为外网服务
         public string CurrentMemberForPortal()
         {
             if(CurrentMember() != null)
@@ -369,6 +401,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         {
             Session["MemberID"] = null; 
         }
+        #endregion
 
         protected override void Dispose(bool disposing)
         {

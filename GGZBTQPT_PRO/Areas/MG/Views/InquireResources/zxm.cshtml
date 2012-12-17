@@ -1,4 +1,4 @@
-﻿@model Webdiyer.WebControls.Mvc.PagedList<GGZBTQPT_PRO.Models.T_XM_Financing>
+@model Webdiyer.WebControls.Mvc.PagedList<GGZBTQPT_PRO.Models.T_XM_Financing>
 @{
     Layout = null;
     string FavoredFinacials = ViewBag.FavoredFinacials;
@@ -9,19 +9,19 @@
 <link href="@Url.Content("~/Areas/MG/Content/css/wscss/qy.css")" rel="stylesheet" type="text/css" />
 @helper GenerateIndustry()
     {
-    foreach (var item in ViewData["Industry"] as SelectList)
-    {
+        foreach (var item in ViewData["Industry"] as SelectList)
+        {
     <li>
         <input type="checkbox" name="cbIndustry" value="@item.Value" /><span>@item.Text</span></li>
-    }
+        }
 }
 @helper GenerateItemStage()
     {
-    foreach (var item in ViewData["ItemStage"] as SelectList)
-    {
+        foreach (var item in ViewData["ItemStage"] as SelectList)
+        {
     <li>
         <input type="checkbox" name="cbItemStage" value="@item.Value" /><span>@item.Text</span></li>
-    }
+        }
 }
 
 @helper GenerateFavoriteLink(string favored_finacials, string favored_id)
@@ -267,10 +267,14 @@
             </div>
         </div>
     </div>
-    if (ViewBag.Message != null)
-    {
+                        if (ViewBag.Message != null)
+                        {
         <span style="font-weight:bold; font-size:large;">@ViewBag.Message</span>
-    }
+                        }
+    
+<div id="pager">
+    @Html.AjaxPager(Model, new PagerOptions { PageIndexParameterName = "id", ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }, new AjaxOptions { HttpMethod = "POST" })
+</div>
     <div style="visibility:hidden">
                 <input id="condition1" type="text" name="condition1" style="width:600px" value="@ViewBag.condition1" />
                 <input id="condition2" type="text" name="condition2" style="width:600px" value="@ViewBag.condition2" />
@@ -278,9 +282,6 @@
                 <input id="condition4" type="text" name="condition4" style="width:600px" value="@ViewBag.condition4" />
                 <input id="context" type="text" name="context" value="@ViewBag.context" /></div>
 
-<div id="pager">
-    @Html.AjaxPager(Model, new PagerOptions { PageIndexParameterName = "id", ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }, new AjaxOptions { HttpMethod = "POST" })
-</div>
 }
 <script type="text/javascript">
     $(".favoritem").click(function () { 
