@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
+using GGZBTQPT_PRO.Enums;
 
 
 namespace GGZBTQPT_PRO.Areas.MG.Controllers
@@ -100,5 +101,39 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             return favored_items;
         }
 
+        //日志处理
+        public void Logging(int level, string message, int operate_type, int generate_type, string exception = "无")
+        {
+            log4net.ILog log = log4net.LogManager.GetLogger(this.GetType());
+
+            if (Session["MemberName"] != null)
+            {
+                log4net.LogicalThreadContext.Properties["user"] = Session["MemberName"];
+            }
+            else
+            {
+                log4net.LogicalThreadContext.Properties["user"] = "无";
+            }
+            log4net.LogicalThreadContext.Properties["opeate_type"] = operate_type;
+            log4net.LogicalThreadContext.Properties["generate_type"] = generate_type;
+
+            switch (level)
+            {
+                case (int)LogLevels.error:
+                    log.Error(message, new Exception(exception));
+                    break;
+                case (int)LogLevels.warn:
+                    log.Warn(message);
+                    break;
+                case (int)LogLevels.login:
+                    //------ToDo------//
+                    //创建登录日志，登录日志需要记录用户登录和离开系统的时间
+                    break;
+                case (int)LogLevels.operate:
+                    log.Info(message);
+                    break;
+            }
+        }
     }
 }
+

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
+using GGZBTQPT_PRO.Enums;
 
 namespace GGZBTQPT_PRO.Controllers
 {
@@ -15,7 +16,7 @@ namespace GGZBTQPT_PRO.Controllers
         { 
             keywords = keywords == null ? "" : keywords;
 
-            IList<GGZBTQPT_PRO.Models.T_ZC_Department> list = db.T_ZC_Department.Where(p => p.Name.Contains(keywords)).Where(p => p.IsValid == true)
+            IList<GGZBTQPT_PRO.Models.T_ZC_Department> list = db.T_ZC_Department.Where(p => p.Name.Contains(keywords)).Where(p => p.IsValid == true && p.UseLevel == (int)UseLevel.System)
                                                             .OrderBy(s => s.ID)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
@@ -43,6 +44,7 @@ namespace GGZBTQPT_PRO.Controllers
                 {
                     t_zc_department.CreatedAt = DateTime.Now;
                     t_zc_department.UpdatedAt = DateTime.Now;
+                    t_zc_department.UseLevel = (int)UseLevel.System;
                     t_zc_department.IsValid = true;
                     db.T_ZC_Department.Add(t_zc_department);
                     int result = db.SaveChanges();
@@ -71,6 +73,7 @@ namespace GGZBTQPT_PRO.Controllers
                 if (ModelState.IsValid)
                 {
                     t_zc_department.UpdatedAt = DateTime.Now;
+                    t_zc_department.UseLevel = (int)UseLevel.System;
                     t_zc_department.IsValid = true;
                     db.Entry(t_zc_department).State = EntityState.Modified;
                     int result = db.SaveChanges();

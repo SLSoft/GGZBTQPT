@@ -81,6 +81,10 @@ namespace GGZBTQPT_PRO.Models
         public virtual ICollection<T_JG_Product> Products { get; set; }//会员所发布的金融产品
 
         public virtual ICollection<T_ZC_OnlineLog> OnlineLogs { get; set; } //会员的在线日志
+
+        public virtual ICollection<T_HY_Message> SendedMessages { get; set; }//会员发送的站内消息
+        public virtual ICollection<T_HY_Message> ReceivedMessages { get; set; }//会员接收的站内消息
+        public virtual ICollection<T_HY_Reply> Replies { get; set; }//会员对站内消息的回复
         
         
         // Validate method

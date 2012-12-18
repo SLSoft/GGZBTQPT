@@ -1,0 +1,34 @@
+﻿@model GGZBTQPT_PRO.Areas.ViewModels.VM_CreateMessage
+
+@{
+    ViewBag.Title = "发送新消息";
+}
+<h3 class="content-title">
+    发送新消息
+</h3>
+
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset> 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ReceiveMember)
+        </div>
+        <div class="editor-field"> 
+            @Html.EditorFor(model => model.ReceiveMember)
+            @Html.ValidationMessageFor(model => model.ReceiveMember)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Content)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Content, new { cols = 10})
+            @Html.ValidationMessageFor(model => model.Content)
+        </div>
+        <div class="editor-label input-row">
+            <button class="btn btn-primary" type="submit" id="register" style="margin-top:10px;">
+                <i class="icon-ok icon-white"></i>发送</button>
+        </div>
+    </fieldset>
+}
+

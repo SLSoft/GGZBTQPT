@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.ViewModels;
+using GGZBTQPT_PRO.Enums;
 
 namespace GGZBTQPT_PRO.Controllers
 {
@@ -95,9 +96,7 @@ namespace GGZBTQPT_PRO.Controllers
                     return ReturnJson(false, "操作失败", "", "", false, "");
             }
             return Json(new { });
-        }
-
-
+        } 
 
         [HttpPost]
         public ActionResult CheckUser(FormCollection collection, int id)
@@ -131,7 +130,7 @@ namespace GGZBTQPT_PRO.Controllers
         #region//角色所属用户选择
         public PartialViewResult SelectUser(int id)
         {
-            string selected_users = GenerateStringFromList(db.T_ZC_Role.Find(id).Users.Where(p => p.IsValid == true).ToList());
+            string selected_users = GenerateStringFromList(db.T_ZC_Role.Find(id).Users.Where(p => p.IsValid == true && p.UseLevel == (int)UseLevel.System).ToList());
             ViewBag.selected_users = selected_users;
 
             var select_user = new VM_SelectUser();

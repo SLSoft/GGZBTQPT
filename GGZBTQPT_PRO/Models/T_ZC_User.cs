@@ -33,6 +33,8 @@ namespace GGZBTQPT_PRO.Models
     public string IdCard { get; set; }
     public int Order { get; set; }
 
+    public int UseLevel { get; set; } //使用级别，参考枚举类型
+
     public int DepartmentID { get; set; }
     public virtual T_ZC_Department Department { get; set; }
 

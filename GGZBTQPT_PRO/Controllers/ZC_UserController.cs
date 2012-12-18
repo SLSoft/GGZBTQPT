@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.ViewModels;
+using GGZBTQPT_PRO.Enums;
 
 namespace GGZBTQPT_PRO.Controllers
 {
@@ -14,8 +15,8 @@ namespace GGZBTQPT_PRO.Controllers
     {
         public ViewResult Index()
         {
-            var t_zc_user = db.T_ZC_User.Include(t => t.Department);
-            return View(t_zc_user.Where(p => p.IsValid == true).ToList());
+            var t_zc_user = db.T_ZC_User.Include(t => t.Department).Where(p => p.IsValid == true && p.UseLevel == (int)UseLevel.System).ToList();
+            return View(t_zc_user);
         }
 
         public ViewResult Details(int id)
@@ -39,6 +40,7 @@ namespace GGZBTQPT_PRO.Controllers
                 {
                     t_zc_user.CreatedAt = DateTime.Now;
                     t_zc_user.UpdatedAt = DateTime.Now;
+                    t_zc_user.UseLevel = (int)UseLevel.System;
                     t_zc_user.IsValid = true;
                     db.T_ZC_User.Add(t_zc_user);
                     int result = db.SaveChanges();
@@ -67,6 +69,7 @@ namespace GGZBTQPT_PRO.Controllers
                 if (ModelState.IsValid)
                 {
                     t_zc_user.UpdatedAt = DateTime.Now;
+                    t_zc_user.UseLevel = (int)UseLevel.System;
                     t_zc_user.IsValid = true;
                     db.Entry(t_zc_user).State = EntityState.Modified;
                     int result = db.SaveChanges();
@@ -118,15 +121,15 @@ namespace GGZBTQPT_PRO.Controllers
 
         public PartialViewResult DepartmentLinks()
         {
-            var links = db.T_ZC_Department.Where(p => p.IsValid == true).ToList();
+            var links = db.T_ZC_Department.Where(p => p.IsValid == true && p.UseLevel == (int)UseLevel.System).ToList();
             return PartialView(links);
         }
 
         public PartialViewResult SelectUsers()
         { 
             var depart_user = new VM_SelectUser();
-            depart_user.Departments = db.T_ZC_Department.Where(p => p.IsValid == true).ToList();
-            depart_user.Users = db.T_ZC_User.Where(p => p.IsValid == true).Include("Department").ToList();
+            depart_user.Departments = db.T_ZC_Department.Where(p => p.IsValid == true && p.UseLevel == (int)UseLevel.System).ToList();
+            depart_user.Users = db.T_ZC_User.Where(p => p.IsValid == true && p.UseLevel == (int)UseLevel.System).Include("Department").ToList();
             return PartialView(depart_user);
         }
 

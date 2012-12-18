@@ -1,9 +1,10 @@
-﻿@model GGZBTQPT_PRO.Models.T_ZC_Department
+@model GGZBTQPT_PRO.Models.T_ZC_Department
 @{
     Layout = null;
 }
 <script type="text/javascript">
     $.validator.unobtrusive.parse(document);
+    $("#ParentID").children().first().attr("value", 0);
 </script>
 <div class="pageContent">
     @using (Html.BeginForm("Create", "ZC_Department", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
@@ -49,7 +50,6 @@
                     </div>
                 </li>
             </ul>
-        </div>
-  
+        </div> 
     }
 </div>

@@ -55,12 +55,12 @@ namespace GGZBTQPT_PRO.Controllers
                     int result = db.SaveChanges();
                     if (result > 0)
                     {
-                        Logging((int)LogTypes.operate,"成功新增了一条系统数据:" + t_zc_system.Name);
+                        Logging((int)LogLevels.operate, "成功新增了一条系统数据:" + t_zc_system.Name, (int)OperateTypes.Add, (int)GenerateTypes.FromUser);
                         return ReturnJson(true, "操作成功", "", "", true, "");
                     }
                     else
                     {
-                        Logging((int)LogTypes.warn,"新增系统失败:" + t_zc_system.Name);
+                        Logging((int)LogLevels.warn, "新增系统失败:" + t_zc_system.Name, (int)OperateTypes.Add, (int)GenerateTypes.FromUser);
                         return ReturnJson(false, "操作失败", "", "", false, "");
                     }
                 }

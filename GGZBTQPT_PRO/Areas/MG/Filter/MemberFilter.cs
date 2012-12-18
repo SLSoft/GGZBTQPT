@@ -11,7 +11,7 @@ using System.Web.Routing;
 namespace GGZBTQPT_PRO.Areas.MG.Filter
 {
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
-    public class MemberFilter : ActionFilterAttribute
+    public class MemberFilter : ActionFilterAttribute, IExceptionFilter
     { 
         //在Action执行之后执行  
         public override void OnActionExecuted(ActionExecutedContext filterContext)
@@ -81,6 +81,23 @@ namespace GGZBTQPT_PRO.Areas.MG.Filter
             base.OnResultExecuting(filterContext); 
         }
 
+        public void OnException(ExceptionContext filterContext)
+        {
+            string controller = filterContext.RouteData.Values["controller"] as string;
+            string action = filterContext.RouteData.Values["action"] as string; 
+
+            log4net.ILog log = log4net.LogManager.GetLogger(this.GetType());
+            if (filterContext.HttpContext.Session["MemberName"] != null)
+            {
+                log4net.LogicalThreadContext.Properties["user"] = filterContext.HttpContext.Session["MemberName"];
+            }
+            else
+            {
+                log4net.LogicalThreadContext.Properties["user"] = "无";
+            }
+
+            log.Error("----方法:[controller]" + controller + "[action]" + action + ";\n----目标:" + filterContext.Exception.TargetSite + ";\n----来源:" + filterContext.Exception.Source + ";\n----错误信息:" + filterContext.Exception.Message + ";\n----链接地址:" + filterContext.Exception.HelpLink, new Exception(";\n----详细信息:" + filterContext.Exception.StackTrace));
+        } 
 
 
     }

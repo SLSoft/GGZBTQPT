@@ -42,7 +42,7 @@ namespace GGZBTQPT_PRO.Controllers
                     db.T_ZC_Menu.Add(t_zc_menu);
                     int result = db.SaveChanges();
                     if (result > 0)
-                        return ReturnJson(true, "操作成功", "", "", true, "");
+                        return ReturnJson(true, "操作成功", "", "menuInfoBox", true, "");
                     else
                         return ReturnJson(false, "操作失败", "", "", false, "");
                 }
@@ -94,7 +94,7 @@ namespace GGZBTQPT_PRO.Controllers
                 t_zc_menu.IsValid = false;
                 int result = db.SaveChanges();
                 if (result > 0)
-                    return ReturnJson(true, "操作成功", "", "", false, "");
+                    return ReturnJson(true, "操作成功", "", "menuInfoBox", false, "");
                 else
                     return ReturnJson(false, "操作失败", "", "", false, "");
             }
