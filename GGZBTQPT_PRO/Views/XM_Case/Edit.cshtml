@@ -1,0 +1,87 @@
+﻿@model GGZBTQPT_PRO.Models.T_XM_Case
+@{
+    Layout = null;
+}
+@*<script type="text/javascript">
+    $.validator.unobtrusive.parse(document);
+</script>*@
+<div class="pageContent">
+    @using (Html.BeginForm("Edit", "XM_Case", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
+    {
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.CreatedAt)
+        <div class="pageFormContent" layouth="106">
+            <p>
+                @Html.LabelFor(model => model.Name)
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </p>
+            <p>
+                @Html.LabelFor(model => model.Type)
+                @Html.EditorFor(model => model.Type)
+                @Html.ValidationMessageFor(model => model.Type)
+            </p>
+            <p>
+                @Html.LabelFor(model => model.Summary)
+                @Html.TextAreaFor(model => model.Summary, new { @class = "editor", rows = "10" })
+                @Html.ValidationMessageFor(model => model.Summary)
+            </p>
+            <p>
+                @Html.LabelFor(model => model.Analysis)
+                @Html.TextAreaFor(model => model.Analysis, new { @class = "editor", rows = "10" })
+                @Html.ValidationMessageFor(model => model.Analysis)
+            </p>
+            <p>
+                <div id="fine-uploader">
+                </div>
+            </p>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit" value="保存">
+                                保存</button></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close" value="取消">
+                                取消</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+      
+    }
+</div>
+<link href="@Url.Content("~/Public/file-uploader/fineuploader.css")" rel="stylesheet" type="text/css" />
+
+<script src="@Url.Content("~/Public/file-uploader/fineuploader-3.0.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var uploader = new qq.FineUploader({
+            element: document.getElementById('fine-uploader'),
+            request: { endpoint: '@Url.Action("TemporariedFile", "XM_Case")' },
+            failedUploadTextDisplay: {
+                mode: 'custom',
+                maxChars: 40,
+                responseProperty: 'error',
+                enableTooltip: true
+            },
+            multiple: false,
+            validation: {
+                allowedExtensions: ['doc', 'docx'],
+                sizeLimit: 25120000
+            },
+            text: {
+                uploadButton: '上传新文件'
+            },
+            debug: false
+        });
+    });
+</script>

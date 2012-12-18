@@ -26,7 +26,7 @@ namespace GGZBTQPT_PRO.Controllers
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
 
-            ViewBag.recordCount = db.T_ZC_CommonLog.Count();
+            ViewBag.recordCount = db.T_ZC_CommonLog.Where(l => (l.Level == "INFO" || l.Level == "WARN") && l.Message.Contains(keywords)).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
@@ -43,7 +43,7 @@ namespace GGZBTQPT_PRO.Controllers
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
 
-            ViewBag.recordCount = db.T_ZC_CommonLog.Count();
+            ViewBag.recordCount = db.T_ZC_CommonLog.Where(l => l.Level == "ERROR" && l.Message.Contains(keywords)).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;

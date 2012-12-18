@@ -42,7 +42,7 @@ namespace GGZBTQPT_PRO.Models
             ReturnCycle = 0;
             OtherItemFinancSum = 0;
             OtherItemFinancCycle = 0;
-            PublicStatus = " ";
+            PublicStatus = "1";
             SubmitTime = DateTime.MaxValue;
             PublicTime = DateTime.MaxValue;
             Linkman = " ";

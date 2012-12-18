@@ -30,9 +30,10 @@ namespace GGZBTQPT_PRO.Models
             UpdateTime = DateTime.Now;
             Pic = new byte[0];
             Process = " ";
-            PublicStatus = "0";
+            PublicStatus = "1";
             PublicTime = DateTime.Now;
-
+            PublicTime = DateTime.Now;
+            SubmitTime = DateTime.Now;
         }
         public int ID { get; set; }
         public string ProductName { get; set; }
@@ -60,6 +61,7 @@ namespace GGZBTQPT_PRO.Models
         public string Process { get; set; }
         public string PublicStatus { get; set; }
         public DateTime PublicTime { get; set; }
+        public DateTime SubmitTime { get; set; }
 
         public string AgencyName
         {

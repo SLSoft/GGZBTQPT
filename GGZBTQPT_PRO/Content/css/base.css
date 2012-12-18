@@ -1,0 +1,19 @@
+﻿/*
+** --------------------override dwz----------------------- 
+*/
+
+/*----pageForm------*/
+.pageForm { display:block; overflow:auto;}
+.pageFormContent { display:block; overflow:auto; padding:10px 5px; position:relative;}
+.pageFormContent div.unit {display:block; margin:0; padding:5px 0; position:relative;clear:both;}
+.pageFormContent p { display:block; width:95%; height:auto; margin:0; padding:5px 0; position:relative;}
+.pageFormContent p textarea { height: 200px;}
+.pageFormContent p.nowrap { height:auto;}
+.pageFormContent .radioGroup { float:left; display:block; overflow:hidden;}
+.pageFormContent label { float:left; width:120px; padding:0 5px; line-height:21px;}
+.pageFormContent label.radioButton { float:left; width:auto; padding:0 10px 0 0; line-height:21px;}
+.pageFormContent .textInput { float:left;}
+.pageFormContent select { float:left;}
+.pageFormContent .inputInfo { padding:0 5px; line-height:21px;}
+.pageFormContent span.unit, .pageFormContent a.unit { padding:0 5px; line-height:21px;}
+.pageFormContent span.info{color:#7F7F7F;display:block;line-height:21px;float:left;}

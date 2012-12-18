@@ -3,7 +3,7 @@
     Layout = null;
 }
 <div class="pageHeader">
-    <form id="pagerForm" method="post" action="@Url.Action("Index")">
+    <form id="pagerForm" method="post" action="@Url.Action("OperateLog")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
     <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />

@@ -253,7 +253,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             return Json("发送失败!", "text/html", JsonRequestBehavior.AllowGet);
         } 
  
-        //----------------登录验证-----------------//
+        //----------------验证-----------------//
         public JsonResult CheckLoginName(string loginname)
         { 
             return Json(!db.T_HY_Member.Any(m => m.LoginName == loginname), JsonRequestBehavior.AllowGet);
@@ -274,6 +274,11 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         {
             var current_member_membername = CurrentMember().MemberName;
             return Json(!db.T_HY_Member.Where(m => m.MemberName != current_member_membername).Any(m => m.MemberName == membername), JsonRequestBehavior.AllowGet);
+        }
+ 
+        public JsonResult CheckMember([Bind(Prefix = "ReceiveMember")] string receivemembername)
+        {
+            return Json(db.T_HY_Member.Any(m => m.MemberName == receivemembername), JsonRequestBehavior.AllowGet);
         }
 
         public void RegisterLoginInfo()

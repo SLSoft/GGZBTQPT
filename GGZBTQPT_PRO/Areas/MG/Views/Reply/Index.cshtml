@@ -1,0 +1,64 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_HY_Reply>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table>
+        <tr>
+            <th>
+                Content
+            </th>
+            <th>
+                CreatedTime
+            </th>
+            <th>
+                UpdatedTime
+            </th>
+            <th>
+                Message
+            </th>
+            <th>
+                Member
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.LoginName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

@@ -27,23 +27,14 @@ namespace GGZBTQPT_PRO.Filter
         {
             if (filterContext.HttpContext.Session["UserID"] == null)
             {
-                if (filterContext.HttpContext.Request.IsAjaxRequest())
-                {
-                    // For AJAX requests, we're overriding the returned JSON result with a simple string,
-                    // indicating to the calling JavaScript code that a redirect should be performed.
-                    filterContext.Result = new JsonResult { Data = new { login = true } };
-                }
-                else
-                {
-                    // For round-trip posts, we're forcing a redirect to Home/TimeoutRedirect/, which
-                    // simply displays a temporary 5 second notification that they have timed out, and
-                    // will, in turn, redirect to the logon page.
-                    filterContext.Result = new RedirectToRouteResult(
-                        new RouteValueDictionary {
-                        { "Controller", "Home" },
-                        { "Action", "Login" }
-                    });
-                }
+                // For round-trip posts, we're forcing a redirect to Home/TimeoutRedirect/, which
+                // simply displays a temporary 5 second notification that they have timed out, and
+                // will, in turn, redirect to the logon page.
+                filterContext.Result = new RedirectToRouteResult(
+                    new RouteValueDictionary {
+                    { "Controller", "Home" },
+                    { "Action", "Login" }
+                });
             }
 
             base.OnActionExecuting(filterContext); 
@@ -63,10 +54,11 @@ namespace GGZBTQPT_PRO.Filter
 
         public  void OnException(ExceptionContext filterContext)
         {
-            //string controller = filterContext.RouteData.Values["controller"] as string;
-            //string action = filterContext.RouteData.Values["action"] as string; 
+            string controller = filterContext.RouteData.Values["controller"] as string;
+            string action = filterContext.RouteData.Values["action"] as string; 
 
             log4net.ILog log = log4net.LogManager.GetLogger(this.GetType());
+
             if(filterContext.HttpContext.Session["UserName"] != null)
             {
                 log4net.LogicalThreadContext.Properties["user"] = filterContext.HttpContext.Session["UserName"];
@@ -76,7 +68,7 @@ namespace GGZBTQPT_PRO.Filter
                 log4net.LogicalThreadContext.Properties["user"] = "无";
             }
 
-            log.Error("----方法:" + filterContext.Exception.TargetSite + "\n----来源:" + filterContext.Exception.Source + "\n----错误信息:" + filterContext.Exception.Message + "\n----链接地址:" + filterContext.Exception.HelpLink, new Exception("\n----详细信息:" + filterContext.Exception.StackTrace)); 
+            log.Error("----方法:[controller]" + controller + "[action]" + action + ";\n----目标:" + filterContext.Exception.TargetSite + ";\n----来源:" + filterContext.Exception.Source + ";\n----错误信息:" + filterContext.Exception.Message + ";\n----链接地址:" + filterContext.Exception.HelpLink, new Exception(";\n----详细信息:" + filterContext.Exception.StackTrace)); 
         } 
     }
 

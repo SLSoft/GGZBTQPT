@@ -23,8 +23,11 @@
         rounded: -> 
             if (window.PIE) 
                 $('.rounded').each -> 
-                    PIE.attach(this);
-        
+                    PIE.attach(this)
+
+        viewAllReplies: ->
+            $("#view_all_replies").click ->
+                $(".replies").toggle() 
 
 
     $.Member.rounded()

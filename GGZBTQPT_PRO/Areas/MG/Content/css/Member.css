@@ -130,6 +130,9 @@ span.unattentioned {
   span.unattentioned a {
     color: #E7F2FD; }
 
+.replies {
+  display: none; }
+
 .pub-time {
   color: #999;
   font-size: 14px; }
@@ -150,9 +153,8 @@ span.unattentioned {
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   border-radius: 2px;
-  top: 50%;
+  top: 90px;
   left: 50%;
-  margin-top: -30px;
   margin-left: -30px;
   display: none; }
 

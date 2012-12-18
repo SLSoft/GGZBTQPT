@@ -11,7 +11,6 @@ namespace GGZBTQPT_PRO.Controllers
 {
     public class XM_JYController : BaseController
     {
-        private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
 
         //
         // GET: /XM_JY/
