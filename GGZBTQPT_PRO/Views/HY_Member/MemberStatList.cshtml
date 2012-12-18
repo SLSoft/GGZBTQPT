@@ -1,0 +1,41 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.ViewModels.VM_Member_Stat>
+
+@{
+    Layout = null;
+}
+
+<div class="pageHeader">
+    <form id="pagerForm" method="post" action="@Url.Action("MemberStatList")">
+    </form>
+    
+</div>
+<div class="pageContent">
+    <div class="panelBar"></div>
+    <div layouth="116" id="divList">
+        <table  class="list" width="100%" asc="asc" desc="desc">
+        <thead>
+        <tr>
+            <th>
+                会员类型
+            </th>
+            <th>
+                会员数量
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => new GGZBTQPT_PRO.Models.T_HY_Member { Type = item.Type}.TypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemberCount)
+            </td>
+           
+        </tr>
+        }
+        </tbody>
+        </table>
+    </div>
+</div>

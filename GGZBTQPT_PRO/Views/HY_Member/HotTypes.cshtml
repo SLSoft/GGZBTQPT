@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "HotTypes";
+}
+<ul class="tree treeFolder">
+    <li><a>信息分类列表</a>
+        <ul>
+            @foreach (var hottype in ViewData["HotTypes"] as Dictionary<string,string>)
+            {
+                <li>@Html.ActionLink(hottype.Value, "HotList", "HY_Member", new { type = hottype.Key }, new { target = "ajax", rel = "hotInfoBox" })</li>
+            }
+        </ul>
+    </li>
+</ul>

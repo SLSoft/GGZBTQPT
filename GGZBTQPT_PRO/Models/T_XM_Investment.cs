@@ -34,7 +34,7 @@ namespace GGZBTQPT_PRO.Models
             PartnerRequirements = " ";
             InvestmentNature = 0;
             InvestmentStage = " ";
-            PublicStatus = "1";
+            PublicStatus = " ";
             SubmitTime = DateTime.MaxValue;
             PublicTime = DateTime.MaxValue;
             IsValid = true;

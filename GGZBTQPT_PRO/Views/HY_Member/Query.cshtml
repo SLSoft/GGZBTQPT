@@ -1,0 +1,161 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.ViewModels.VM_MemberStat>
+
+@{
+    Layout = null;
+}
+
+
+<div class="pageHeader">
+    <form id="pagerForm" method="post" action="@Url.Action("Query")">
+    <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
+    <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
+    <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />
+    <input type="hidden" name="type" value="@ViewData["Types"]"  />
+    </form>
+    <form onsubmit="return navTabSearch(this);" action="@Url.Action("Query")"
+    method="post">
+    <div class="searchBar">
+        <ul class="searchContent">
+            <li>
+                <label>
+                    会员用户名：</label>
+                <input type="text" name="keywords" value="@ViewData["keywords"]" />
+            </li>
+            <li>
+                <label>
+                    会员类型：</label>
+                    @Html.DropDownList("Type",(SelectList) @ViewData["Types"])
+            </li>
+        </ul>
+        <div class="subBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">
+                                检索</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </form>
+</div>
+<div class="pageContent">
+    <div class="panelBar"></div>
+    <div layouth="116" id="divList">
+        <table  class="list" width="100%" asc="asc" desc="desc">
+        <thead>
+        <tr>
+            <th>
+                登录名
+            </th>
+            <th>
+                用户名
+            </th>
+            <th>
+                手机
+            </th>
+            <th>
+                用户类型
+            </th>
+            <th>
+                创建时间
+            </th>
+            <th>
+                项目数
+            </th>
+            <th>
+                意向数
+            </th>
+            <th>
+                产品数
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.LoginName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.MemberName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.CellPhone)
+            </td>
+            <td>
+                @item.Member.TypeName
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.CreatedAt)
+            </td>
+            @if (@item.FinancingCount > 0)
+            {
+            <td>
+                
+                <a href="@Url.Action("QueryDetails", "HY_Member", new { member_id = @item.Member.ID,type=1 })"  target="dialog" width="550"
+                height="300" title="项目详情" mask="true"><span>@item.FinancingCount</span></a>
+            </td>
+            }
+            else
+            {
+                <td>@item.FinancingCount</td>
+            }
+            @if (@item.InvestmentCount > 0)
+            {
+                <td>
+                    <a href="@Url.Action("QueryDetails", "HY_Member", new { member_id = @item.Member.ID, type = 2 })"  target="dialog" width="550"
+                    height="300" title="意向详情" mask="true"><span>@item.InvestmentCount</span></a>
+                </td>
+            }
+            else
+            {
+            <td>
+                @item.InvestmentCount
+            </td>
+            }
+            @if (@item.ProductCount > 0)
+            {
+                <td>
+                    <a href="@Url.Action("QueryDetails", "HY_Member", new { member_id = @item.Member.ID, type = 3 })"  target="dialog" width="550"
+                    height="300" title="产品详情" mask="true"><span>@item.ProductCount</span></a>
+                </td>
+            }
+            else
+            {
+            <td>
+                @item.ProductCount
+            </td>
+            }
+        </tr>
+        }
+        </tbody>
+        </table>
+    </div>
+    <div class="panelBar">
+        <div class="pages">
+            <span>每页显示</span>
+            <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value,pageNum:1})">
+                @{  
+                    int[] nums = new int[] { 15, 25, 50, 100, 200 };
+                    foreach (var num in nums)
+                    {
+                        if (Int32.Parse(ViewData["numPerPage"].ToString()) == num)
+                        {  
+                    <option value="@num" selected="selected">@num</option>       
+                        }
+                        else
+                        {<option value="@num">@num</option>    }
+
+                    }  
+                }
+            </select>
+            <span>条，共 @ViewData["recordCount"] 条</span>
+        </div>
+        <div class="pagination" targettype="navTab" totalcount="@ViewData["recordCount"]" numperpage="@ViewData["numPerPage"]" pagenumshown="10"  
+               currentpage="@ViewData["pageNum"]">
+        </div>
+    </div>
+</div>

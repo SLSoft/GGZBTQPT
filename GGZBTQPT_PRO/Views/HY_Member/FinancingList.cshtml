@@ -1,0 +1,41 @@
+﻿@model GGZBTQPT_PRO.ViewModels.VM_SelectMember
+
+<div id="dvFinancings">
+    <div style="height:140px; background-color:#ffffff">
+        <table class="list" width="100%" asc="asc" desc="desc">
+            <tr>
+                <th>
+                    项目名称
+                </th>
+                <th>
+                    融资金额
+                </th>
+                <th>
+                    项目类别
+                </th>
+            </tr>
+
+            @foreach (var item in Model.Financings)
+            {
+                <tr>
+                    <td>
+                        @item.ItemName
+                    </td>
+                    <td>
+                        @item.Amount
+                    </td>
+                    <td>
+                        @item.ItemText
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    @Ajax.Pager(Model.Financings, new PagerOptions { PageIndexParameterName = "pageNum" ,ShowPageIndexBox=true,PageIndexBoxType=PageIndexBoxType.DropDownList,
+                                               ShowGoButton = false,
+                                               PageIndexBoxWrapperFormatString = "跳转到第{0}页"
+    }, new AjaxOptions() { UpdateTargetId = "dvFinancings" })
+</div>
+
+
+

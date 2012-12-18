@@ -19,7 +19,7 @@ namespace GGZBTQPT_PRO.Models
             ValidDate = DateTime.MaxValue;
             Keys = " ";
             ItemContent = " ";
-            ItemType = 1;
+            ItemType = 0;
             FinancSum = 0;
             FinancType = 0;
             FinancCycle = 0;
@@ -42,7 +42,7 @@ namespace GGZBTQPT_PRO.Models
             ReturnCycle = 0;
             OtherItemFinancSum = 0;
             OtherItemFinancCycle = 0;
-            PublicStatus = "1";
+            PublicStatus = " ";
             SubmitTime = DateTime.MaxValue;
             PublicTime = DateTime.MaxValue;
             Linkman = " ";

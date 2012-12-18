@@ -11,19 +11,9 @@
         @Html.ValidationSummary(true)
         <div class="pageFormContent" layouth="56">
             <p>
-                @Html.LabelFor(model => model.LoginName, "登录名")
+                @Html.LabelFor(model => model.LoginName)
                 @Html.EditorFor(model => model.LoginName)
                 @Html.ValidationMessageFor(model => model.LoginName)
-            </p>
-            <p>
-                @Html.LabelFor(model => model.Password)
-                @Html.EditorFor(model => model.Password)
-                @Html.ValidationMessageFor(model => model.Password)
-            </p>
-            <p>
-                @Html.LabelFor(model => model.CellPhone)
-                @Html.EditorFor(model => model.CellPhone)
-                @Html.ValidationMessageFor(model => model.CellPhone)
             </p>
             <p>
                 @Html.LabelFor(model => model.MemberName)
@@ -31,24 +21,19 @@
                 @Html.ValidationMessageFor(model => model.MemberName)
             </p>
             <p>
-                @Html.LabelFor(model => model.Number)
-                @Html.EditorFor(model => model.Number)
-                @Html.ValidationMessageFor(model => model.Number)
+                @Html.LabelFor(model => model.CellPhone)
+                @Html.EditorFor(model => model.CellPhone)
+                @Html.ValidationMessageFor(model => model.CellPhone)
+            </p>
+            <p>
+                @Html.LabelFor(model => model.Email)
+                @Html.EditorFor(model => model.Email)
+                @Html.ValidationMessageFor(model => model.Email)
             </p>
             <p>
                 @Html.LabelFor(model => model.Type)
-                @Html.EditorFor(model => model.Type)
+                @Html.DropDownList("Type", (SelectList)ViewData["Types"])
                 @Html.ValidationMessageFor(model => model.Type)
-            </p>
-            <p>
-                @Html.LabelFor(model => model.LoginName, "登录名")
-                @Html.EditorFor(model => model.LoginName)
-                @Html.ValidationMessageFor(model => model.LoginName)
-            </p>
-            <p>
-                @Html.LabelFor(model => model.LoginName, "登录名")
-                @Html.EditorFor(model => model.LoginName)
-                @Html.ValidationMessageFor(model => model.LoginName)
             </p>
         </div>
 

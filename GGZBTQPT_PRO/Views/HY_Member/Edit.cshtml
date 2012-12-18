@@ -1,119 +1,62 @@
 ﻿@model GGZBTQPT_PRO.Models.T_HY_Member
-
 @{
     Layout = null;
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>Edit</title>
-</head>
-<body>
-    @using (Html.BeginForm()) {
+<div id="FormContainer" class="pageContent">
+    @using (Html.BeginForm("Edit", "HY_Member", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
+    {
         @Html.ValidationSummary(true)
-        <fieldset>
-            <legend>T_HY_Member</legend>
-    
+        <div class="pageFormContent" layouth="56">
             @Html.HiddenFor(model => model.ID)
-    
-            <div class="editor-label">
+            @Html.HiddenFor(model => model.Password)
+            @Html.HiddenFor(model => model.CreatedAt)
+            @Html.HiddenFor(model => model.IsValid)
+            @Html.HiddenFor(model => model.IsVerified)
+            @Html.HiddenFor(model => model.State)
+            <p>
                 @Html.LabelFor(model => model.LoginName)
-            </div>
-            <div class="editor-field">
                 @Html.EditorFor(model => model.LoginName)
                 @Html.ValidationMessageFor(model => model.LoginName)
-            </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Password)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Password)
-                @Html.ValidationMessageFor(model => model.Password)
-            </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.CellPhone)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.CellPhone)
-                @Html.ValidationMessageFor(model => model.CellPhone)
-            </div>
-    
-            <div class="editor-label">
+            </p>
+            <p>
                 @Html.LabelFor(model => model.MemberName)
-            </div>
-            <div class="editor-field">
                 @Html.EditorFor(model => model.MemberName)
                 @Html.ValidationMessageFor(model => model.MemberName)
-            </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Number)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Number)
-                @Html.ValidationMessageFor(model => model.Number)
-            </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Type)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Type)
-                @Html.ValidationMessageFor(model => model.Type)
-            </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Intetral)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Intetral)
-                @Html.ValidationMessageFor(model => model.Intetral)
-            </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.IsValid)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.IsValid)
-                @Html.ValidationMessageFor(model => model.IsValid)
-            </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.IsVerified)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.IsVerified)
-                @Html.ValidationMessageFor(model => model.IsVerified)
-            </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.CreatedAt)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.CreatedAt)
-                @Html.ValidationMessageFor(model => model.CreatedAt)
-            </div>
-    
-            <div class="editor-label">
-                @Html.LabelFor(model => model.UpdatedAt)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.UpdatedAt)
-                @Html.ValidationMessageFor(model => model.UpdatedAt)
-            </div>
-    
-            <p>
-                <input type="submit" value="Save" />
             </p>
-        </fieldset>
+            <p>
+                @Html.LabelFor(model => model.CellPhone)
+                @Html.EditorFor(model => model.CellPhone)
+                @Html.ValidationMessageFor(model => model.CellPhone)
+            </p>
+            <p>
+                @Html.LabelFor(model => model.Email)
+                @Html.EditorFor(model => model.Email)
+                @Html.ValidationMessageFor(model => model.Email)
+            </p>
+            <p>
+                @Html.LabelFor(model => model.Type)
+                @Html.DropDownList("Type", (SelectList)ViewData["Types"])
+                @Html.ValidationMessageFor(model => model.Type)
+            </p>
+        </div>
+        
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">
+                                保存</button></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close">
+                                取消</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
     }
-    
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
-</body>
-</html>
+</div>

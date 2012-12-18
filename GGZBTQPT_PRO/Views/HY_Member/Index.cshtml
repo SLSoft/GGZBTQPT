@@ -42,9 +42,9 @@
     <div class="panelBar">
         <ul class="toolBar">
             <li><a class="add" href="@Url.Action("create","HY_Member")" rel="create" target="dialog" width="400"
-                height="250" title="添加新的会员" mask="true"><span>添加</span></a></li>
+                height="300" title="添加新的会员" mask="true"><span>添加</span></a></li>
             <li><a class="edit" href="@Url.Action("edit", "HY_Member", new { id = "{mid}" })" rel="edit" target="dialog" width="400"
-                height="250" title="编辑会员信息" mask="true" warn="请选择一条会员数据"><span>编辑</span></a></li>
+                height="300" title="编辑会员信息" mask="true" warn="请选择一条会员数据"><span>编辑</span></a></li>
             <li><a class="delete" href="@Url.Action("delete", "HY_Member", new { id = "{mid}" })" rel="delete" target="ajaxTodo"
                 title="确定要删除吗？" warn="请选择一条会员数据"><span>删除</span></a></li>
             <li class="line">line</li>
@@ -76,9 +76,6 @@
                     <th>
                         更新时间
                     </th>
-                    <th>
-                        操作
-                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -98,16 +95,13 @@
                             @Html.DisplayFor(modelItem => item.CellPhone)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Type)
+                            @Html.DisplayFor(modelItem => item.TypeName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.CreatedAt)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.UpdatedAt)
-                        </td>
-                        <td>
-                            @Html.ActionLink("审核", "Verify", "HY_Member", new { id = @item.ID }, new { rel = "verify", target = "ajaxTodo" })
                         </td>
                     </tr>
                 }

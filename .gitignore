@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 GGZBTQPT_PRO/Migrations
 GGZBTQPT_PRO/bin
 GGZBTQPT_PRO/obj
@@ -17,4 +18,25 @@ TraceAndTestImpact.testsettings
 GGZBTQPT_PRO.Tests/
 TestResults/
 packages/NUnit.2.6.2/
+=======
+GGZBTQPT_PRO/Migrations
+GGZBTQPT_PRO/bin
+GGZBTQPT_PRO/obj
+.sass-cache
+GGZBTQPT_PRO/GGZBTQPT_PRO.csproj
+GGZBTQPT_PRO/GGZBTQPT_PRO.csproj.user
+GGZBTQPT_PRO/GGZBTQPT_PRO.Publish.xml
+GGZBTQPT.sln
+GGZBTQPT.suo
+GGZBTQPT_TEST
+GGZBTQPT.vsmdi
+Release
+Database
+Local.testsettings
+TraceAndTestImpact.testsettings
+.nuget
+GGZBTQPT_PRO.Tests/
+TestResults/
+packages/NUnit.2.6.2/
+>>>>>>> 6f46db076a5ad5cfefafd7ac581f7913bc7df42d
 packages/NUnit.Runners.2.6.2/
