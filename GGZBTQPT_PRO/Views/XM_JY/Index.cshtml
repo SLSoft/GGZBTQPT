@@ -1,21 +1,29 @@
-@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Financing>
+ï»¿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Transaction>
 @{
     Layout = null;
 }
-
 <div class="pageHeader">
-<form id="pagerForm" method="post" action="@Url.Action("RZMatch")">
+<form id="pagerForm" method="post" action="@Url.Action("Index")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
-    <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />
     </form>
-    <form onsubmit="return navTabSearch(this);" action="@Url.Action("RZMatch")" method="post">
+    <form onsubmit="return navTabSearch(this);" action="@Url.Action("Index")" method="post">
     <div class="searchBar">
         <ul class="searchContent">
             <li>
                 <label>
-                    ÏîÄ¿Ãû³Æ£º</label>
-                <input type="text" name="keywords" value="@ViewData["keywords"]" />
+                    äº¤æ˜“æ ‡é¢˜ï¼š</label>
+                <input type="text" name="title" value="@ViewData["keywords"]" />
+            </li>
+            <li>
+                <label>
+                    å—èµ„æ–¹ï¼š</label>
+                <input type="text" name="accept" value="@ViewData["keywords"]" />
+            </li>
+            <li>
+                <label>
+                    æŠ•èµ„æ–¹ï¼š</label>
+                <input type="text" name="give" value="@ViewData["keywords"]" />
             </li>
         </ul>
         <div class="subBar">
@@ -24,20 +32,21 @@
                     <div class="buttonActive">
                         <div class="buttonContent">
                             <button type="submit">
-                                ¼ìË÷</button></div>
+                                æ£€ç´¢</button></div>
                     </div>
                 </li>
+                @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="æŸ¥è¯¢æ¡†">
+                    <span>é«˜çº§æ£€ç´¢</span></a></li>*@
             </ul>
         </div>
     </div>
-    </form>
-</div>
+    </div>
 <div class="pageContent">
   <div class="panelBar">
     <ul class="toolBar">
-      <li><a class="add" href="@Url.Action("create", "XM_RZ")" rel="create" target="dialog" title="Ìí¼ÓĞÂÏîÄ¿" mask="true" width="650" height="620"><span>Ìí¼Ó</span></a></li>
-      <li><a class="edit" href="@Url.Action("edit", "XM_RZ", new { id = "{mid}" })" rel="edit" target="dialog" title="±à¼­ÏîÄ¿ĞÅÏ¢" mask="true" warn="ÇëÑ¡ÔñÒ»¸öÏîÄ¿" width="800" height="620"><span>ĞŞ¸Ä</span></a></li>
-      <li><a class="delete" href="@Url.Action("delete", "XM_RZ", new { id = "{mid}" })" rel="delete" target="ajaxTodo" title="È·¶¨ÒªÉ¾³ıÂğ£¿"  warn="ÇëÑ¡ÔñÒ»¸öÏîÄ¿"><span>É¾³ı</span></a></li>
+      <li><a class="add" href="@Url.Action("create", "XM_JY")" rel="create" target="dialog" title="æ·»åŠ æ–°äº¤æ˜“" mask="true" width="850" height="580"><span>æ·»åŠ </span></a></li>
+      <li><a class="edit" href="@Url.Action("edit", "XM_JY", new { id = "{mid}" })" rel="edit" target="dialog" title="ç¼–è¾‘äº¤æ˜“ä¿¡æ¯" mask="true" warn="è¯·é€‰æ‹©ä¸€ä¸ªäº¤æ˜“ä¿¡æ¯" width="850" height="580"><span>ä¿®æ”¹</span></a></li>
+      <li><a class="delete" href="@Url.Action("delete", "XM_JY", new { id = "{mid}" })" rel="delete" target="ajaxTodo" title="ç¡®å®šè¦åˆ é™¤å—ï¼Ÿ"  warn="è¯·é€‰æ‹©ä¸€ä¸ªäº¤æ˜“ä¿¡æ¯"><span>åˆ é™¤</span></a></li>
     </ul>
   </div>
   <div layouth="115">
@@ -45,20 +54,20 @@
       <thead>
         <tr>
             <th>
-                ÏîÄ¿Ãû³Æ
+                äº¤æ˜“æ ‡é¢˜
             </th>
             <th>
-                ÏîÄ¿Àà±ğ
+                å—èµ„æ–¹
             </th>
             <th>
-                ËùÊôĞĞÒµ
+                æŠ•èµ„æ–¹
             </th>
             <th>
-                ÓĞĞ§ÈÕÆÚ
-            </th>
+                äº¤æ˜“é‡‘é¢
+            </th>  
             <th>
-                ²Ù×÷
-            </th>          
+                äº¤æ˜“æ—¶é—´
+            </th>           
     </tr>
       </thead>
       <tbody>
@@ -66,29 +75,28 @@
         {
             <tr target="mid" rel=@item.ID>
                 <td>
-                @Html.DisplayFor(modelItem => item.ItemName)
+                @Html.DisplayFor(modelItem => item.TranTitle)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ItemText)
+                @Html.DisplayFor(modelItem => item.AcceptMember)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IndustryName)
+                @Html.DisplayFor(modelItem => item.GiveMember)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ValidDate)
+                @Html.DisplayFor(modelItem => item.Amount)
             </td>
             <td>
-                <a href="@Url.Action("RZMatchResult", "XM_RZ", new { id = item.ID})" target="navtab" title="Æ¥ÅäÒâÏò" mask="true" width="690" height="800"><span>½»Ò×·ÖÎö</span></a>|
-                <a class="add" href="@Url.Action("create", "XM_JY", new { id = item.ID})" rel="create" target="dialog" title="Ìí¼ÓĞÂ½»Ò×" mask="true" width="850" height="580">½»Ò×¹ÜÀí</a>
+                @Html.DisplayFor(modelItem => item.TranTime)
             </td>
             </tr>
         }
       </tbody>
     </table>
   </div>
-   <div class="panelBar">
+  <div class="panelBar">
         <div class="pages">
-            <span>Ã¿Ò³ÏÔÊ¾</span>
+            <span>æ¯é¡µæ˜¾ç¤º</span>
             <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value,pageNum:1})">
                 @{  
                     int[] nums = new int[] { 5, 10, 20, 50, 100, 200 };
@@ -104,7 +112,7 @@
                     }  
                 }
             </select>
-            <span>Ìõ£¬¹² @ViewData["recordCount"] Ìõ</span>
+            <span>æ¡ï¼Œå…± @ViewData["recordCount"] æ¡</span>
         </div>
         <div class="pagination" targettype="navTab" totalcount="@ViewData["recordCount"]" numperpage="@ViewData["numPerPage"]" pagenumshown="10"  
                currentpage="@ViewData["pageNum"]">

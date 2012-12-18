@@ -1,15 +1,28 @@
 ﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Investment>
-<div>
-    @foreach (var item in Model)
-     {
-        <div class="aaa">
-<ul>
-        <li>发布会员：@item.MemberName</li>
-        <li>联系人：@item.Linkman</li>
-        <li>联系电话：@item.Phone | @item.Mobile</li>
-        <li><a href="@Url.Action("Details", "XM_TZ", new { id = item.ID })" rel="details" target="dialog" title="项目信息" mask="true"  width="800" height="800"><span>查看项目详情</span></a></li>
-        </ul>
-</div><br />
-     }
+
+<div style="margin:20px 20px">
+<h1>项目名称：@ViewData["itemname"]</h1><br />
+<fieldset style="width:90%;">
+<legend>匹配的意向</legend>
+<table  style="width:100%; border-spacing:15px">
+    <tr>
+        <td>项目名称</td>
+        <td>发布会员</td>
+        <td>联系人</td>
+        <td>联系电话</td>
+        <td></td>
+    </tr>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.ItemName</td>
+        <td>@item.MemberName</td>
+        <td>@item.Linkman</td>
+        <td>@item.Phone    @item.Mobile</td>
+        <td><a href="@Url.Action("Details", "XM_TZ", new { id = item.ID })" rel="details" target="dialog" title="项目详情" mask="true" warn="请选择一个项目" width="800" height="620">查看项目详情</a></td>
+    </tr>
+}
+</table>
+</fieldset>
 </div>
 

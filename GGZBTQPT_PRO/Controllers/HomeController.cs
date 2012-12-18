@@ -29,7 +29,7 @@ namespace GGZBTQPT_PRO.Controllers
             List<int> system_rights = GetSystemRightFromCurrentUser(current_user.Roles);
 
             var system_links = db.T_ZC_System.OrderBy(s => s.ID)
-                                 .Where(s => (s.IsValid == true && system_rights.Contains(s.ID)))
+                                 .Where(s => (s.IsValid == true))
                                  .ToList();
 
             return PartialView(system_links);
@@ -42,7 +42,7 @@ namespace GGZBTQPT_PRO.Controllers
             List<int> menu_rights = GetMenusRightFromCurrentUser(current_user.Roles);
 
             var menu_links = system.Menus.OrderBy(m => m.ID)
-                                   .Where(m => (m.IsValid == true && menu_rights.Contains(m.ID)))
+                                   .Where(m => (m.IsValid == true))
                                    .ToList();
 
             return PartialView(menu_links);

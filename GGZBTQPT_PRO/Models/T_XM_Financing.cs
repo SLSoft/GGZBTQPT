@@ -19,7 +19,7 @@ namespace GGZBTQPT_PRO.Models
             ValidDate = DateTime.MaxValue;
             Keys = " ";
             ItemContent = " ";
-            ItemType = 0;
+            ItemType = 1;
             FinancSum = 0;
             FinancType = 0;
             FinancCycle = 0;

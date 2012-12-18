@@ -27,6 +27,7 @@ namespace GGZBTQPT_PRO.Models
         public DbSet<T_QY_Product> T_QY_Product { get; set; }
         public DbSet<T_XM_Financing> T_XM_Financing { get; set; }
         public DbSet<T_XM_Investment> T_XM_Investment { get; set; }
+        public DbSet<T_XM_Transaction> T_XM_Transaction { get; set; }
         public DbSet<T_ZC_User> T_ZC_User { get; set; }
         public DbSet<T_ZC_System> T_ZC_System { get; set; }
         public DbSet<T_ZC_Menu> T_ZC_Menu { get; set; }
