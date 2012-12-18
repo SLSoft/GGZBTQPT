@@ -18,10 +18,22 @@ namespace GGZBTQPT_PRO.Enums
 
     }
 
-    public enum LogTypes : int
+    public enum LogLevels : int
     { 
         //操作日志、登录日志、错误日志、警告日志（用于操作失败）
         operate, login, error, warn
+    }
+
+    public enum OperateTypes : int
+    {
+        //操作日志类别
+        Attention,//关注
+        Favorite,//收藏
+        Release,//发布
+        Edit,//编辑
+        Add,//新增
+        Delete,//删除
+        Search//搜索 
     }
 
     public enum CaseTypes : int
@@ -31,6 +43,17 @@ namespace GGZBTQPT_PRO.Enums
         [Display(Name = "投资项目")] 
         Investment
     }
+
+    public enum GenerateTypes : int
+    { 
+        [Display(Name = "用户生成")]
+        FromUser, 
+        [Display(Name = "系统生成")] 
+        FromSystem,
+        [Display(Name = "会员生成")]
+        FromMember
+    }
+
 
     //使用级别，用于系统用户分类，部门分类等，是为了区分系统用户和系统内置的管理用户
     public enum UseLevel : int

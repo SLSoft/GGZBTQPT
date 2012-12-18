@@ -24,6 +24,11 @@
             return PIE.attach(this);
           });
         }
+      },
+      viewAllReplies: function() {
+        return $("#view_all_replies").click(function() {
+          return $(".replies").toggle();
+        });
       }
     };
     $.Member.rounded();

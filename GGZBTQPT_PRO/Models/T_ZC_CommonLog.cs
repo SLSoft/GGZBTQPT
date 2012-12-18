@@ -8,6 +8,7 @@ namespace GGZBTQPT_PRO.Models
     {
         public T_ZC_CommonLog()
         {
+            
         }
 
         public int ID { get; set; }
@@ -20,5 +21,7 @@ namespace GGZBTQPT_PRO.Models
         public string Source { get; set; }//代码行,目前错误日志都通过过滤器进行了过滤，所以Source中记录的都是过滤器中的方法； 
         public string Exception { get; set; }//详细的错误信息（主要是错误的堆栈信息）
         public string User { get; set; }//当前操作的人员
+        public int OperateType { get; set; }//操作类型记录，详细参考枚举类
+        public int GenerateType { get; set; }//操作来源 系统、用户、会员
     }
 }

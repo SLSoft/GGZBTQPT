@@ -1,0 +1,47 @@
+﻿@model GGZBTQPT_PRO.Models.T_HY_Reply
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Details</title>
+</head>
+<body>
+    <fieldset>
+        <legend>T_HY_Reply</legend>
+    
+        <div class="display-label">Content</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Content)
+        </div>
+    
+        <div class="display-label">CreatedTime</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.CreatedTime)
+        </div>
+    
+        <div class="display-label">UpdatedTime</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.UpdatedTime)
+        </div>
+    
+        <div class="display-label">Message</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Message.Content)
+        </div>
+    
+        <div class="display-label">Member</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Member.LoginName)
+        </div>
+    </fieldset>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

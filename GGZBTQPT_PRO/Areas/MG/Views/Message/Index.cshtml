@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "我的消息";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#message li a").click(function (e) {
+            e.preventDefault();
+            $("#message li").removeClass("active");
+            $(this).parent("li").addClass("active");
+        });
+        $("#message li.active a").click();
+    });
+</script>
+<h3 class="content-title">
+    我的消息</h3>
+
+<ul id="message" class="nav nav-tabs">
+    <li class="active">
+        @Ajax.ActionLink("发送的消息", "Sended", "Message", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
+    </li>
+    <li>
+        @Ajax.ActionLink("接收的消息", "Received", "Message", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
+    </li>
+</ul>
+
+<div id="details">
+
+</div>

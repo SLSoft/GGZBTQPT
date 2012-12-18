@@ -23,6 +23,12 @@ namespace GGZBTQPT_PRO.Models
         [Required(ErrorMessage = "必须选择案例类型")]
         [Display(Name = "案例类型")]
         public int Type { get; set; }//金融项目类型 
+ 
+        [Display(Name = "生成类型")]
+        public int GenerateType { get; set; }//金融案例生成类型，用于判断该类型是自主填写的，还是通过交易记录生成的
+
+        [Display(Name = "生成人")]
+        public int GenerateFromID { get; set; }//生成人的ID，包括会员ID，用户ID，项目ID
 
         [Required(ErrorMessage = "必须填写案例摘要")]
         [Display(Name = "案例摘要")]
@@ -36,6 +42,7 @@ namespace GGZBTQPT_PRO.Models
         public byte[] File { get; set; }//案例分析文件
 
         public int OP { get; set; }//发布人
+        public bool IsPublished { get; set; }
         public bool IsValid { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; } 
