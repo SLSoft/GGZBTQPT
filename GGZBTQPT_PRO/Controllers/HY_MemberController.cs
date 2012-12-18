@@ -219,6 +219,12 @@ namespace GGZBTQPT_PRO.Controllers
             return View(list);
         } 
 
+        /// <summary>
+        /// 审核、驳回会员
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="stateType"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Verify(int id,int stateType)
         {
@@ -237,6 +243,43 @@ namespace GGZBTQPT_PRO.Controllers
             else
                 return ReturnJson(false, "操作失败", "", "", false, ""); 
 
+        }
+
+        [HttpPost]
+        public ActionResult batch_Verify(int stateType,string checkedIds)
+        {
+            if (checkedIds == null)
+            {
+                return ReturnJson(false, "请选择一条会员数据", "", "UnVerified", false, "");
+            }
+            else
+            {
+                var Ids = checkedIds;
+                string[] strIds = Ids.Split(',');
+
+                var count = 0;
+                foreach (var id in strIds)
+                {
+                    T_HY_Member t_hy_member = db.T_HY_Member.Find(id);
+
+                    if (stateType == 1)
+                    {
+                        t_hy_member.IsVerified = true;
+                    }
+                    t_hy_member.State = stateType;
+
+                    db.Entry(t_hy_member).State = EntityState.Modified;
+                    count = db.SaveChanges();
+                    count++;
+                }
+
+                if (count == strIds.Length)
+                    return ReturnJson(true, "批量操作成功", "", "UnVerified", false, "");
+                else
+                    return ReturnJson(false, "批量操作失败", "", "", false, "");
+            }
+
+            
         }
 
         [HttpPost]
@@ -572,6 +615,25 @@ namespace GGZBTQPT_PRO.Controllers
             return types;
         }
 
+        #endregion
+
+        #region 会员统计
+        /// <summary>
+        /// 会员统计
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult MemberStatList()
+        {
+            IList<VM_Member_Stat> list = db.T_HY_Member.Where(p => p.IsValid == true && p.IsVerified == true)
+                                                   .GroupBy(g => g.Type)
+                                                   .Select(s => new VM_Member_Stat
+                                                   {
+                                                       MemberCount = s.Count(),
+                                                       Type = s.Key
+                                                   }).ToList();
+
+            return View(list);
+        }
         #endregion
 
         protected override void Dispose(bool disposing)

@@ -37,4 +37,11 @@ namespace GGZBTQPT_PRO.ViewModels
         public int ProductCount { get; set; }
         public T_HY_Member Member { get; set; }
     }
+
+    public class VM_Member_Stat
+    {
+        public int MemberCount { get; set; }
+        public int Type { get; set; }
+        public T_HY_Member Member { get; set; }
+    }
 }

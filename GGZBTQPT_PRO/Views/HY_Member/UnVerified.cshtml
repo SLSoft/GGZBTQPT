@@ -3,12 +3,29 @@
 @{
     Layout = null;
 }
+<script type="text/javascript">
+    function Getcheckbox() 
+    {
+        var str = document.getElementsByName("ids");
+        var objarray = str.length;
+        var chestr = "";
+        for (i = 0; i < objarray; i++) 
+        {
+            if (str[i].checked == true) {
+                chestr += str[i].value + ",";
+            }
+        }
+        document.getElementById("checkedIds").value = chestr;
+    }
+
+</script>
 
 <div class="pageHeader">
     <form id="pagerForm" method="post" action="@Url.Action("Index")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
     <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />
+    <input type="hidden" name="checkedIds" id="checkedIds" value=""  /> 
     @*<input type="hidden" name="orderField" value="${param.orderField}" />
         <input type="hidden" name="orderDirection" value="${param.orderDirection}" />*@
     </form>
@@ -31,9 +48,7 @@
                                 检索</button></div>
                     </div>
                 </li>
-                @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框">
-                    <span>高级检索</span></a></li>*@
-            </ul>
+             </ul>
         </div>
     </div>
     </form>
@@ -41,9 +56,9 @@
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-            <li><a class="edit" href="@Url.Action("delete", "HY_Member", new { id = "{mid}" })" rel="delete" target="ajaxTodo"
+            <li><a class="edit" href="@Url.Action("batch_Verify", "HY_Member", new { stateType = 1 })" rel="batch_Verify" target="ajaxTodo"
                 title="确定批量通过吗？" warn="请选择一条会员数据"><span>批量审核</span></a></li>
-            <li><a class="edit" href="@Url.Action("delete", "HY_Member", new { id = "{mid}" })" rel="delete" target="ajaxTodo"
+            <li><a class="edit" href="@Url.Action("batch_Verify", "HY_Member", new { stateType = 2 })" rel="batch_Verify" target="ajaxTodo"
                 title="确定批量驳回吗？" warn="请选择一条会员数据"><span>批量驳回</span></a></li>
             <li class="line">line</li>
         </ul>
@@ -83,7 +98,8 @@
                 {
                     <tr target="mid" rel=@item.ID>
                         <td>
-                            <input name="ids" type="checkbox" value="@item.ID" />
+                            <input type="checkbox" name="ids" value="@item.ID"/>
+                            @*@Html.CheckBox("ids", new { value = item.ID })*@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.LoginName)
@@ -138,4 +154,18 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Batch_Audit").click(function () {
+            var result = "";
 
+            $(".list input[type='checkbox']").each(function () {
+                var value = $(this).attr("value");
+                if (value != "" && value != "on") {
+                    result += value + ",";
+                }
+            });
+            $.post("@Url.Action("SelectUser","ZC_Role", new { id = @ViewBag.RoleID})",{ select_users: result },function(data){ DWZ.ajaxDone(data);},"json");
+        }); 
+    }); 
+</script>
