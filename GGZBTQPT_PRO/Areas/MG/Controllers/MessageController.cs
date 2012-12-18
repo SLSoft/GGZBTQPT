@@ -48,8 +48,9 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
             try
             {
-                PagedList<T_HY_Message> messages = db.T_HY_Message.Include("Replies").Where(m => m.ReceiveMember == current_member).ToPagedList(id, 5);
-                return PartialView(messages);
+                IList<T_HY_Message> messages = current_member.ReceivedMessages.ToList();
+                PagedList<T_HY_Message> paged_messages = new PagedList<T_HY_Message>(messages, id, 5);
+                return PartialView(paged_messages);
             }
             catch
             {
