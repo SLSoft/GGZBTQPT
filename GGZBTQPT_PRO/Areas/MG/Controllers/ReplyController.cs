@@ -5,57 +5,49 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using GGZBTQPT_PRO.Models;
+using GGZBTQPT_PRO.Models; 
+using GGZBTQPT_PRO.Areas.ViewModels;
+using Webdiyer.WebControls.Mvc;
+using GGZBTQPT_PRO.Areas.MG.Filter;
 
 namespace GGZBTQPT_PRO.Areas.MG.Controllers
-{ 
-    public class ReplyController : Controller
+{
+    [MemberFilter()]
+    public class ReplyController : BaseController
     {
-        private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
 
-        //
-        // GET: /MG/Reply/
-
-        public ViewResult Index()
+        public ActionResult Details(int id)
         {
-            var t_hy_reply = db.T_HY_Reply.Include(t => t.Message).Include(t => t.Member);
-            return View(t_hy_reply.ToList());
+            return PartialView(db.T_HY_Reply.Find(id));
         }
-
-        //
-        // GET: /MG/Reply/Details/5
-
-        public ViewResult Details(int id)
-        {
-            T_HY_Reply t_hy_reply = db.T_HY_Reply.Find(id);
-            return View(t_hy_reply);
-        }
-
         //
         // GET: /MG/Reply/Create
 
-        public ActionResult Create()
+        public ActionResult Create(int message_id)
         {
-            ViewBag.MessageID = new SelectList(db.T_HY_Message, "ID", "Content");
-            ViewBag.MemberID = new SelectList(db.T_HY_Member, "ID", "LoginName");
-            return View();
+            ViewBag.MessageID = message_id;
+            return PartialView();
         } 
 
         //
         // POST: /MG/Reply/Create
 
         [HttpPost]
-        public ActionResult Create(T_HY_Reply t_hy_reply)
+        public ActionResult Create(T_HY_Reply t_hy_reply, int message_id )
         {
             if (ModelState.IsValid)
             {
+
+                T_HY_Message message = db.T_HY_Message.Find(message_id);
+                t_hy_reply.Message = message;
+                t_hy_reply.Member = CurrentMember();
+
                 db.T_HY_Reply.Add(t_hy_reply);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
-            }
 
-            ViewBag.MessageID = new SelectList(db.T_HY_Message, "ID", "Content", t_hy_reply.MessageID);
-            ViewBag.MemberID = new SelectList(db.T_HY_Member, "ID", "LoginName", t_hy_reply.MemberID);
+
+                return Json(new { statusCode = "200", message = "消息发送成功！", type = "success", reply_id = t_hy_reply.ID, message_id = message_id});
+            }
             return View(t_hy_reply);
         }
         
@@ -65,8 +57,6 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ActionResult Edit(int id)
         {
             T_HY_Reply t_hy_reply = db.T_HY_Reply.Find(id);
-            ViewBag.MessageID = new SelectList(db.T_HY_Message, "ID", "Content", t_hy_reply.MessageID);
-            ViewBag.MemberID = new SelectList(db.T_HY_Member, "ID", "LoginName", t_hy_reply.MemberID);
             return View(t_hy_reply);
         }
 

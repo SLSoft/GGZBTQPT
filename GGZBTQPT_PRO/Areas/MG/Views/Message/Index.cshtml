@@ -1,5 +1,7 @@
 ﻿@{
     ViewBag.Title = "我的消息";
+    string UnReadSend = "我发送的消息(" + ViewBag.UnReadSend + "条新回复)";
+    string UnReadReceive = "我接收的消息(" + ViewBag.UnReadReceive + "条新回复)";
 }
 
 <script type="text/javascript">
@@ -17,10 +19,10 @@
 
 <ul id="message" class="nav nav-tabs">
     <li class="active">
-        @Ajax.ActionLink("发送的消息", "Sended", "Message", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
+        @Ajax.ActionLink(UnReadSend, "Sended", "Message", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
     </li>
     <li>
-        @Ajax.ActionLink("接收的消息", "Received", "Message", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
+        @Ajax.ActionLink(UnReadReceive, "Received", "Message", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
     </li>
 </ul>
 

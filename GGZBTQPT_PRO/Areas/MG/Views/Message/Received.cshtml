@@ -27,45 +27,69 @@
         <h4>@member_name 在 @date_time 说道:</h4>
     }
 }
-<div id="received">
+<div id="sended">
     @*发送消息信息*@
     <ul class="media-list">
         @foreach (var _model in Model)
         {    
-            <li class="media"><a class="pull-left" href="#">@StyledDate(@_model.CreatedTime)</a>
-                <div class="media-body message">
-                    <h4 class="media-heading">@_model.Title<span class="pull-right" id="view_all_replies">查看相关回复</span></h4>
+            <li class="media" ><a class="pull-left" href="#">@StyledDate(@_model.CreatedTime)</a>
+                <div class="media-body message" id="@_model.ID.ToString()message">
+                    <h4 class="media-heading">@_model.Title
+                    <span class="pull-right view_all_replies">
+                        查看相关回复
+                    </span>
+                    </h4>
                     @_model.Content
-
-                    @if (_model.Replies.Count > 0)
-                    {
-                        <div class="replies">
-                            @foreach (var reply in _model.Replies)
-                            {
-                                <div class="media reply well">
-                                    <div class="media-body">
-                                        @FormatReply(@reply.Member.MemberName, @reply.CreatedTime.ToShortTimeString())
-                                        @reply.Content
-                                    </div>
+                    <div class="replies">
+                        @foreach (var reply in _model.Replies)
+                        {
+                            <div class="media reply well">
+                                <div class="media-body">
+                                    @FormatReply(@reply.Member.MemberName, @reply.CreatedTime.ToShortTimeString())
+                                    @reply.Content
                                 </div>
-                        }
-                        </div>
-                    }
-                    <h5 class="media-heading">回复这条消息</h5>
+                            </div>
+                        } 
+                    </div>
+                    <h5 class="media-heading reply-to">
+                        @Ajax.ActionLink("回复该消息", "Create", "Reply", new { message_id = @_model.ID },
+                                        new AjaxOptions
+                                        {
+                                            HttpMethod = "GET",
+                                            UpdateTargetId = _model.ID.ToString() + "replying",
+                                            LoadingElementId = "Loading"
+                                        })
+                    </h5>
+                    <div id="@_model.ID.ToString()replying">
+                    </div>
                 </div>
             </li>
         }
     </ul>
 </div>
 <div class="pagination pagination-right pagination-small">
-    @Html.AjaxPager(Model, new PagerOptions { PageIndexParameterName = "id",  ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details" })
+    @Html.AjaxPager(Model,
+    new PagerOptions
+    {
+        PageIndexParameterName = "id",
+        ContainerTagName = "ul",
+        CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>",
+        PagerItemWrapperFormatString = "<li>{0}</li>"
+    },
+    new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details" })
 </div>
 
 
 <script type="text/javascript">
     function notice(data) {
-        $("#received li.active a").click();
         $.Member.notice(data);
+        updateReplies(data.reply_id, data.message_id);
+    }
+
+    function updateReplies(reply_id, message_id) {
+        $.get("/MG/Reply/Details/" + reply_id, function (data) {
+            $("#" + message_id + "message").children("div[class$='replies']").append(data).toggle();
+        });
     }
     $.Member.replaceBlankForMVCPager();
     $.Member.rounded();

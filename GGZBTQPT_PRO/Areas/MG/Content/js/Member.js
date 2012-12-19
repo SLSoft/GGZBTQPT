@@ -26,8 +26,13 @@
         }
       },
       viewAllReplies: function() {
-        return $("#view_all_replies").click(function() {
-          return $(".replies").toggle();
+        return $(".view_all_replies").click(function() {
+          return $(this).parent().next().toggle();
+        });
+      },
+      replyTo: function() {
+        return $("a[class='cancel']").click(function() {
+          return $(this).parents("div[id$='replying']").empty();
         });
       }
     };

@@ -133,6 +133,9 @@ span.unattentioned {
 .replies {
   display: none; }
 
+.replying {
+  display: none; }
+
 .pub-time {
   color: #999;
   font-size: 14px; }

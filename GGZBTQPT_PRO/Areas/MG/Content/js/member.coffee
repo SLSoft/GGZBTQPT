@@ -26,8 +26,12 @@
                     PIE.attach(this)
 
         viewAllReplies: ->
-            $("#view_all_replies").click ->
-                $(".replies").toggle() 
+            $(".view_all_replies").click ->
+                $(this).parent().next().toggle() 
+        
+        replyTo: ->
+            $("a[class='cancel']").click ->
+                $(this).parents("div[id$='replying']").empty()
 
 
     $.Member.rounded()

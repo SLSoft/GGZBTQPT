@@ -21,6 +21,12 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ViewResult Index()
         { 
             T_HY_Member current_member = CurrentMember();
+
+            string un_read_send = current_member.SendedMessages.Where( m => m.Readed == false).Count().ToString();
+            string  un_read_receive =  current_member.ReceivedMessages.Where(m => m.Readed == false).Count().ToString();
+            ViewBag.UnReadSend = un_read_send;
+            ViewBag.UnReadReceive = un_read_receive;
+
             return View(current_member);
         }
 
@@ -31,7 +37,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
             try
             {
-                IList<T_HY_Message> messages = current_member.SendedMessages.ToList();
+                IList<T_HY_Message> messages = current_member.SendedMessages.OrderByDescending(m => m.CreatedTime).ToList();
                 PagedList<T_HY_Message> paged_messages = new PagedList<T_HY_Message>(messages, id, 5);
 
                 return PartialView(paged_messages);
@@ -45,10 +51,28 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public PartialViewResult Received(int id = 1)
         {
             T_HY_Member current_member = CurrentMember();
+            ViewBag.current_member = current_member;
 
             try
             {
-                IList<T_HY_Message> messages = current_member.ReceivedMessages.ToList();
+                IList<T_HY_Message> messages = current_member.ReceivedMessages.OrderByDescending(m => m.CreatedTime).ToList();
+                PagedList<T_HY_Message> paged_messages = new PagedList<T_HY_Message>(messages, id, 5);
+                return PartialView(paged_messages);
+            }
+            catch
+            {
+                return PartialView();
+            }
+        }
+
+        public PartialViewResult UnRead(int id = 1)
+        {
+            T_HY_Member current_member = CurrentMember();
+            ViewBag.current_member = current_member;
+
+            try
+            {
+                IList<T_HY_Message> messages = current_member.ReceivedMessages.OrderByDescending(m => m.CreatedTime).ToList();
                 PagedList<T_HY_Message> paged_messages = new PagedList<T_HY_Message>(messages, id, 5);
                 return PartialView(paged_messages);
             }

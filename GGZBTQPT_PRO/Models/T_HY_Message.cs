@@ -27,7 +27,8 @@ namespace GGZBTQPT_PRO.Models
         public string Content { get; set; }//短消息内容
 
         public bool Readed { get; set; }//已读
-
+        public int RelateID { get; set; }
+        
         public DateTime CreatedTime { get; set; }
         public DateTime UpdatedTime { get; set; }
 
@@ -37,9 +38,7 @@ namespace GGZBTQPT_PRO.Models
         [Required(ErrorMessage = "必须选择接收人")]
         [Display(Name = "接收人")] 
         [Remote("CheckMember", "Member", ErrorMessage = "不存在该用户")]
-        public int ReceiveMemberID { get; set; }//接收短消息的会员ID
-
-
+        public int ReceiveMemberID { get; set; }//接收短消息的会员ID 
         public virtual T_HY_Member ReceiveMember { get; set; }
 
         public virtual ICollection<T_HY_Reply> Replies { get; set; }//该短消息所对应的回复信息
@@ -58,7 +57,11 @@ namespace GGZBTQPT_PRO.Models
         }
 
         public int ID { get; set; }
+
+        [Required(ErrorMessage = "必须填写消息内容")]
+        [Display(Name = "消息内容")]
         public string Content { get; set; }//短消息回复内容
+
         public bool Readed { get; set; }//已读
 
         public DateTime CreatedTime { get; set; }

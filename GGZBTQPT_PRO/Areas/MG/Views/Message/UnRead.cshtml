@@ -1,20 +1,8 @@
 ﻿@model Webdiyer.WebControls.Mvc.PagedList<GGZBTQPT_PRO.Models.T_HY_Message>
 
-@helper FormatReply(string member_name, string date_time)
-    {
-        if (member_name == ViewBag.current_member.MemberName)
-        {
-        <h4>你在 @date_time 说道:</h4>
-        }
-        else
-        {
-        <h4>@member_name 在 @date_time 回复道:</h4>
-        }
-}
-
 @helper StyledDate(DateTime date_time)
-    {
-    if (@date_time.Year == DateTime.Now.Year)
+{
+    if(@date_time.Year == DateTime.Now.Year)
     {
         <h4>@date_time.Month - @date_time.Day</h4>
         <span>@date_time.ToShortTimeString()</span>
@@ -27,6 +15,18 @@
     }
 
 }
+
+@helper FormatReply(string member_name, string date_time)
+{
+    if(member_name == ViewBag.current_member.MemberName)
+    {
+        <h4>你在 @date_time 回复道:</h4>
+    }
+    else
+    {
+        <h4>@member_name 在 @date_time 说道:</h4>
+    }
+}
 <div id="sended">
     @*发送消息信息*@
     <ul class="media-list">
@@ -36,7 +36,7 @@
                 <div class="media-body message" id="@_model.ID.ToString()message">
                     <h4 class="media-heading">@_model.Title
                     <span class="pull-right view_all_replies">
-                        查看相关回复(@_model.Replies.Count()条)
+                        查看相关回复
                     </span>
                     </h4>
                     @_model.Content
@@ -89,10 +89,10 @@
     function updateReplies(reply_id, message_id) {
         $.get("/MG/Reply/Details/" + reply_id, function (data) {
             $("#" + message_id + "message").children("div[class$='replies']").append(data).toggle();
-        }); 
+        });
     }
     $.Member.replaceBlankForMVCPager();
-    $.Member.rounded(); 
+    $.Member.rounded();
     $.Member.viewAllReplies();
 </script>
 
