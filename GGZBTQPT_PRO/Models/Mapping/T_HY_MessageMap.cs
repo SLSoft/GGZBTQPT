@@ -20,21 +20,4 @@ namespace GGZBTQPT_PRO.Models.Mapping
              .HasForeignKey(t => t.ReceiveMemberID);
         }
     }
-
-    public class T_HY_ReplyMap : EntityTypeConfiguration<T_HY_Reply>
-    {
-        public T_HY_ReplyMap()
-        {
-            // Primary Key
-            this.HasKey(t => t.ID);
-
-            this.HasRequired(t => t.Member)
-             .WithMany(s => s.Replies)
-             .HasForeignKey(t => t.MemberID);
-
-            this.HasRequired(t => t.Message)
-                .WithMany(s => s.Replies)
-                .HasForeignKey(t => t.MessageID);
-        }
-    }
 }

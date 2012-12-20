@@ -65,7 +65,6 @@ namespace GGZBTQPT_PRO.Models
 
         public virtual ICollection<T_HY_Message> SendedMessages { get; set; }//会员发送的站内消息
         public virtual ICollection<T_HY_Message> ReceivedMessages { get; set; }//会员接收的站内消息
-        public virtual ICollection<T_HY_Reply> Replies { get; set; }//会员对站内消息的回复
         
         
         // Validate method

@@ -16,15 +16,19 @@ namespace GGZBTQPT_PRO.Models
     public int ID { get; set; }
 
     [Required(ErrorMessage = "必须填写用户名称")]
+    [Display(Name = "用户名称")]
     public string UserName { get; set; }
 
     [Required(ErrorMessage = "必须填写登录名称")]
+    [Display(Name = "登录名称")]
     public string LoginName { get; set; }
 
     [Required(ErrorMessage = "必须填写登录密码")]
+    [Display(Name = "登录密码")]
     public string Password { get; set; }
 
     [Required(ErrorMessage = "必须填写手机号码")]
+    [Display(Name = "手机号码")]
     public string CellPhone { get; set; }
 
     public Boolean IsValid { get; set; }

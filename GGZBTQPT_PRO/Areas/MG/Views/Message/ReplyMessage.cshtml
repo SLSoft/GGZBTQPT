@@ -1,6 +1,6 @@
-﻿@model GGZBTQPT_PRO.Models.T_HY_Reply
+﻿@model GGZBTQPT_PRO.Areas.ViewModels.VM_ReplyMessage
 
-@using (Ajax.BeginForm("Create", "Reply", new { message_id = ViewBag.MessageID }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" }))
+@using (Ajax.BeginForm("ReplyMessage", "Message", new { relate_id = ViewBag.RelateID }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" }))
 {
     @Html.ValidationSummary(true) 
 

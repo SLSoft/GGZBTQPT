@@ -16,6 +16,7 @@ namespace GGZBTQPT_PRO.Models
         public int ID { get; set; }
 
         [Required(ErrorMessage = "必须填写角色名称")]
+        [Display(Name = "角色名称")]
         public string Name { get; set; }//角色名称
 
         public Boolean IsValid { get; set; }

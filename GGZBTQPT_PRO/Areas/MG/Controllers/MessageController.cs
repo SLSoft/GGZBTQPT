@@ -22,10 +22,8 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         { 
             T_HY_Member current_member = CurrentMember();
 
-            string un_read_send = current_member.SendedMessages.Where( m => m.Readed == false).Count().ToString();
-            string  un_read_receive =  current_member.ReceivedMessages.Where(m => m.Readed == false).Count().ToString();
-            ViewBag.UnReadSend = un_read_send;
-            ViewBag.UnReadReceive = un_read_receive;
+            string un_read = db.T_HY_Message.Where(m => (m.ReceiveMemberID == current_member.ID && m.IsValid == true && m.Readed == false)).Count().ToString();
+            ViewBag.UnRead = un_read;
 
             return View(current_member);
         }
@@ -37,8 +35,12 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
             try
             {
-                IList<T_HY_Message> messages = current_member.SendedMessages.OrderByDescending(m => m.CreatedTime).ToList();
-                PagedList<T_HY_Message> paged_messages = new PagedList<T_HY_Message>(messages, id, 5);
+                IList<VM_Message> messages = current_member.SendedMessages.OrderByDescending(m => m.CreatedTime)
+                                                           .Where(m => m.RelateID == 0 && m.IsValid == true)
+                                                           .Select( m => new VM_Message { Message = m, 
+                                                                                          RelateMessages = db.T_HY_Message.Where( g => g.RelateID == m.ID).ToList() })
+                                                           .ToList();
+                PagedList<VM_Message> paged_messages = new PagedList<VM_Message>(messages, id, 5);
 
                 return PartialView(paged_messages);
             }
@@ -55,8 +57,16 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
             try
             {
-                IList<T_HY_Message> messages = current_member.ReceivedMessages.OrderByDescending(m => m.CreatedTime).ToList();
-                PagedList<T_HY_Message> paged_messages = new PagedList<T_HY_Message>(messages, id, 5);
+                IList<VM_Message> messages = current_member.ReceivedMessages.OrderByDescending(m => m.CreatedTime)
+                                                           .Where(m => m.RelateID == 0 && m.IsValid == true)
+                                                           .Select(m => new VM_Message
+                                                           {
+                                                               Message = m,
+                                                               RelateMessages = db.T_HY_Message.Where(g => g.RelateID == m.ID).ToList()
+                                                           })
+                                                           .ToList();
+                PagedList<VM_Message> paged_messages = new PagedList<VM_Message>(messages, id, 5);
+
                 return PartialView(paged_messages);
             }
             catch
@@ -72,8 +82,22 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
             try
             {
-                IList<T_HY_Message> messages = current_member.ReceivedMessages.OrderByDescending(m => m.CreatedTime).ToList();
-                PagedList<T_HY_Message> paged_messages = new PagedList<T_HY_Message>(messages, id, 5);
+                IList<VM_Message> messages = current_member.ReceivedMessages.OrderByDescending(m => m.CreatedTime)
+                                                           .Where(m => m.Readed == false )
+                                                           .Select(m => new VM_Message
+                                                           {
+                                                               Message = m,
+                                                               RelateMessages = db.T_HY_Message.Where(g => 
+                                                                                                        (g.RelateID == m.RelateID && g.ID < m.ID) //与该消息相关的消息
+                                                                                                        || 
+                                                                                                        (g.RelateID == 0 && g.ID == m.RelateID ))//与该消息相关的主题消息
+                                                                                               .OrderByDescending(g => g.CreatedTime)
+                                                                                               .ToList()
+                                                           })
+                                                           .ToList();
+
+                PagedList<VM_Message> paged_messages = new PagedList<VM_Message>(messages, id, 5);
+
                 return PartialView(paged_messages);
             }
             catch
@@ -85,10 +109,10 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         //
         // GET: /MG/Message/Details/5
 
-        public ViewResult Details(int id)
+        public ActionResult Details(int id)
         {
             T_HY_Message t_hy_message = db.T_HY_Message.Find(id);
-            return View(t_hy_message);
+            return PartialView(t_hy_message);
         }
 
         //
@@ -132,6 +156,62 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public ActionResult SetReaded(int id)
+        { 
+            T_HY_Message t_hy_message = db.T_HY_Message.Find(id);
+
+            db.Entry(t_hy_message).State = EntityState.Modified;
+            t_hy_message.Readed = true;
+
+            db.SaveChanges();
+
+            return Json(new { statusCode = "200", message = "成功标记已读！", type = "success", message_id = id });
+        }
+
+
+        //
+        //回复消息相关
+
+        public ActionResult ReplyMessage(int message_id)
+        {
+            ViewBag.RelateID = message_id;
+            return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult ReplyMessage(VM_ReplyMessage reply_message, int relate_id)
+        {
+            if (ModelState.IsValid)
+            {
+                T_HY_Message relate_message = db.T_HY_Message.Find(relate_id);
+
+                T_HY_Message message = new T_HY_Message();
+                message.RelateID = relate_id;
+                message.Content = reply_message.Content;
+                message.SendMember = CurrentMember();
+
+                if(relate_message.SendMember == CurrentMember())
+                {
+                    message.ReceiveMember = relate_message.ReceiveMember;
+                }
+                else
+                {
+                    message.ReceiveMember = relate_message.SendMember;
+                }
+
+                message.Title = "Re(" + (db.T_HY_Message.Where( m => m.RelateID == relate_id).Count() + 1) + "):" + relate_message.Title;
+
+                db.T_HY_Message.Add(message);
+                db.SaveChanges();
+
+                return Json(new { statusCode = "200", message = "消息发送成功！", type = "success", reply_id = message.ID, message_id = relate_id });
+            }
+            return Json(new { statusCode = "300", message = "消息发送失败！", type = "error" });
+        }
+
+
 
         protected override void Dispose(bool disposing)
         {

@@ -40,7 +40,6 @@ namespace GGZBTQPT_PRO.Models
         public DbSet<T_HY_Member> T_HY_Member { get; set; }
         public DbSet<T_XM_Case> T_XM_Case { get; set; }
         public DbSet<T_HY_Message> T_HY_Message { get; set; }
-        public DbSet<T_HY_Reply> T_HY_Reply { get; set; }
         
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -68,7 +67,6 @@ namespace GGZBTQPT_PRO.Models
             modelBuilder.Configurations.Add(new T_ZC_OnlineLogMap());
             modelBuilder.Configurations.Add(new T_XM_CaseMap());
             modelBuilder.Configurations.Add(new T_HY_MessageMap());
-            modelBuilder.Configurations.Add(new T_HY_ReplyMap());
         }
 
     }

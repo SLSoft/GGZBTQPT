@@ -130,14 +130,21 @@ namespace GGZBTQPT_PRO.Areas.ViewModels
         public string ReceiveMember { get; set; }//接收短消息的会员ID 
 
     }
-    #endregion
+    
+    public class VM_ReplyMessage
+    { 
+        [Required(ErrorMessage = "必须填写消息内容")]
+        [Display(Name = "消息内容")]
+        public string Content { get; set; }//短消息内容
+    }
 
-    //
-    //------------------短消息视图---------------------//
     public class VM_Message
     {
         public T_HY_Message Message { get; set; }
+        public ICollection<T_HY_Message> RelateMessages { get; set; }
     }
+
+    #endregion
 
 
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]

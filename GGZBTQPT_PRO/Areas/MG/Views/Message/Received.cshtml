@@ -1,8 +1,20 @@
-﻿@model Webdiyer.WebControls.Mvc.PagedList<GGZBTQPT_PRO.Models.T_HY_Message>
+﻿@model Webdiyer.WebControls.Mvc.PagedList<GGZBTQPT_PRO.Areas.ViewModels.VM_Message>
+
+@helper FormatReply(string member_name, string date_time)
+    {
+        if (member_name == ViewBag.current_member.MemberName)
+        {
+        <h4>你在 @date_time 回复道:</h4>
+        }
+        else
+        {
+        <h4>@member_name 在 @date_time 说道:</h4>
+        }
+}
 
 @helper StyledDate(DateTime date_time)
-{
-    if(@date_time.Year == DateTime.Now.Year)
+    {
+    if (@date_time.Year == DateTime.Now.Year)
     {
         <h4>@date_time.Month - @date_time.Day</h4>
         <span>@date_time.ToShortTimeString()</span>
@@ -15,52 +27,40 @@
     }
 
 }
-
-@helper FormatReply(string member_name, string date_time)
-{
-    if(member_name == ViewBag.current_member.MemberName)
-    {
-        <h4>你在 @date_time 回复道:</h4>
-    }
-    else
-    {
-        <h4>@member_name 在 @date_time 说道:</h4>
-    }
-}
 <div id="sended">
     @*发送消息信息*@
     <ul class="media-list">
         @foreach (var _model in Model)
         {    
-            <li class="media" ><a class="pull-left" href="#">@StyledDate(@_model.CreatedTime)</a>
-                <div class="media-body message" id="@_model.ID.ToString()message">
-                    <h4 class="media-heading">@_model.Title
+            <li class="media" ><a class="pull-left" href="#">@StyledDate(@_model.Message.CreatedTime)</a>
+                <div class="media-body message" id="@_model.Message.ID.ToString()message">
+                    <h4 class="media-heading">@_model.Message.Title
                     <span class="pull-right view_all_replies">
-                        查看相关回复
+                        查看相关消息(@_model.RelateMessages.Count()条)
                     </span>
                     </h4>
-                    @_model.Content
+                    @_model.Message.Content
                     <div class="replies">
-                        @foreach (var reply in _model.Replies)
+                        @foreach (var reply in _model.RelateMessages)
                         {
                             <div class="media reply well">
                                 <div class="media-body">
-                                    @FormatReply(@reply.Member.MemberName, @reply.CreatedTime.ToShortTimeString())
+                                    @FormatReply(@reply.SendMember.MemberName, @reply.CreatedTime.ToString())
                                     @reply.Content
                                 </div>
                             </div>
                         } 
                     </div>
                     <h5 class="media-heading reply-to">
-                        @Ajax.ActionLink("回复该消息", "Create", "Reply", new { message_id = @_model.ID },
+                        @Ajax.ActionLink("回复该消息", "ReplyMessage", "Message", new { message_id = @_model.Message.RelateID },
                                         new AjaxOptions
                                         {
                                             HttpMethod = "GET",
-                                            UpdateTargetId = _model.ID.ToString() + "replying",
+                                            UpdateTargetId = _model.Message.ID.ToString() + "replying",
                                             LoadingElementId = "Loading"
                                         })
                     </h5>
-                    <div id="@_model.ID.ToString()replying">
+                    <div id="@_model.Message.ID.ToString()replying">
                     </div>
                 </div>
             </li>
@@ -87,7 +87,7 @@
     }
 
     function updateReplies(reply_id, message_id) {
-        $.get("/MG/Reply/Details/" + reply_id, function (data) {
+        $.get("/MG/Message/Details/" + reply_id, function (data) {
             $("#" + message_id + "message").children("div[class$='replies']").append(data).toggle();
         });
     }

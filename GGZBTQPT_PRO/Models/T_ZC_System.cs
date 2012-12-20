@@ -16,6 +16,7 @@ namespace GGZBTQPT_PRO.Models
     public int ID { get; set; }
 
     [Required(ErrorMessage = "必须填写系统名称")]
+    [Display(Name = "系统名称")]
     public string Name { get; set; }
 
     public Boolean IsValid { get; set; }

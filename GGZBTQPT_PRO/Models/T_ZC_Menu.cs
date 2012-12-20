@@ -17,9 +17,10 @@ namespace GGZBTQPT_PRO.Models
 
 
         [Required(ErrorMessage = "必须填写菜单名称")]
+        [Display(Name = "菜单名称")]
         public string Name { get; set; }
 
-
+        [Display(Name = "系统地址名称")]
         public string Url { get; set; }
 
         public int ParentID { get; set; }

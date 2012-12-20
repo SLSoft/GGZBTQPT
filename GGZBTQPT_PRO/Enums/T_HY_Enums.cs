@@ -18,6 +18,16 @@ namespace GGZBTQPT_PRO.Enums
 
     }
 
+    public enum CaseTypes : int
+    {
+        [Display(Name = "融资项目")]
+        Financing,
+        [Display(Name = "投资项目")]
+        Investment
+    }
+
+    //
+    //---------日志相关-------------
     public enum LogLevels : int
     { 
         //操作日志、登录日志、错误日志、警告日志（用于操作失败）
@@ -36,13 +46,6 @@ namespace GGZBTQPT_PRO.Enums
         Search//搜索 
     }
 
-    public enum CaseTypes : int
-    {
-        [Display(Name = "融资项目")]
-        Financing, 
-        [Display(Name = "投资项目")] 
-        Investment
-    }
 
     public enum GenerateTypes : int
     { 
@@ -52,6 +55,24 @@ namespace GGZBTQPT_PRO.Enums
         FromSystem,
         [Display(Name = "会员生成")]
         FromMember
+    }
+
+    public enum GenerateSystem : int
+    {
+        [Display(Name = "金融推荐")]
+        Recommend,
+        [Display(Name = "找项目")]
+        FindFinancial,
+        [Display(Name = "找资金")]
+        FindInvestment,
+        [Display(Name = "找服务")]
+        FindService,
+        [Display(Name = "我的关注")]
+        Attention,
+        [Display(Name = "我的收藏")]
+        Favorite,
+        [Display(Name = "我的发布")]
+        Publish
     }
 
 
