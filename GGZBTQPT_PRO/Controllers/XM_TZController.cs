@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 using System.IO;
+using System.Data.Objects.SqlClient;
 
 namespace GGZBTQPT_PRO.Controllers
 {
@@ -201,13 +202,196 @@ namespace GGZBTQPT_PRO.Controllers
         //helper
         public FileContentResult ShowPic(int xm_id)
         {
-            return File(db.T_XM_Investment.Find(xm_id).Pic, "image/jpeg");
+            byte[] pic;
+            if (db.T_XM_Investment.Find(xm_id).Pic != null)
+                pic = db.T_XM_Investment.Find(xm_id).Pic;
+            else
+                pic = new byte[1];
+            return File(pic, "image/jpeg");
         }
 
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        //待审核意向
+        public ActionResult TZCheckList(int pageNum = 1, int numPerPage = 15)
+        {
+            IList<GGZBTQPT_PRO.Models.T_XM_Investment> list = db.T_XM_Investment.Where(p => (p.IsValid == true && p.PublicStatus == "1")).ToList()
+                                                            .OrderByDescending(s => s.SubmitTime)
+                                                            .Skip(numPerPage * (pageNum - 1))
+                                                            .Take(numPerPage).ToList();
+
+            ViewBag.recordCount = db.T_XM_Investment.Where(p => (p.IsValid == true && p.PublicStatus == "1")).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+
+            return View(list);
+        }
+
+        //已审核意向
+        public ActionResult TZCheckList_Pass(int pageNum = 1, int numPerPage = 15)
+        {
+            IList<GGZBTQPT_PRO.Models.T_XM_Investment> list = db.T_XM_Investment.Where(p => (p.IsValid == true && p.PublicStatus == "2")).ToList()
+                                                            .OrderByDescending(s => s.SubmitTime)
+                                                            .Skip(numPerPage * (pageNum - 1))
+                                                            .Take(numPerPage).ToList();
+
+            ViewBag.recordCount = db.T_XM_Investment.Where(p => (p.IsValid == true && p.PublicStatus == "1")).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+
+            return View(list);
+        }
+
+        //意向审核
+        public ActionResult TZCheck(int id)
+        {
+            T_XM_Investment t_xm_investment = db.T_XM_Investment.Find(id);
+            t_xm_investment.PublicStatus = "2";
+            t_xm_investment.PublicTime = DateTime.Now;
+            t_xm_investment.UpdateTime = DateTime.Now;
+
+            if (db.SaveChanges() > 0)
+                return ReturnJson(true, "审核成功", "", "TZCheckList", false, "");
+            else
+                return ReturnJson(false, "审核失败", "", "", false, "");
+        }
+
+        //意向撤销审核
+        public ActionResult UnTZCheck(int id)
+        {
+            T_XM_Investment t_xm_investment = db.T_XM_Investment.Find(id);
+            t_xm_investment.PublicStatus = "1";
+            t_xm_investment.PublicTime = DateTime.Now;
+            t_xm_investment.UpdateTime = DateTime.Now;
+
+            if (db.SaveChanges() > 0)
+                return ReturnJson(true, "撤销审核成功", "", "TZCheckList_Pass", false, "");
+            else
+                return ReturnJson(false, "撤销审核失败", "", "", false, "");
+        }
+
+        //项目分析--投资意向列表
+        public ActionResult TZMatch(string keywords, int pageNum = 1, int numPerPage = 5)
+        {
+            keywords = keywords == null ? "" : keywords;
+            IList<GGZBTQPT_PRO.Models.T_XM_Investment> list = db.T_XM_Investment.Where(p => (p.IsValid == true && p.ItemName.Contains(keywords) && p.PublicStatus == "2")).ToList()
+                                                            .OrderByDescending(s => s.SubmitTime)
+                                                            .Skip(numPerPage * (pageNum - 1))
+                                                            .Take(numPerPage).ToList();
+
+            ViewBag.recordCount = db.T_XM_Investment.Where(p => (p.IsValid == true && p.ItemName.Contains(keywords) && p.PublicStatus == "2")).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+
+            return View(list);
+        }
+
+        //根据投资意向匹配对应的项目
+        public ActionResult TZMatchResult(int id, int pageNum = 1, int numPerPage = 5)
+        {
+            T_XM_Investment inverst = db.T_XM_Investment.Find(id);
+            decimal investment = inverst.Investment == null ? 0 : (decimal)inverst.Investment;
+            string[] industry = inverst.AimIndustry.Split(',');
+            int[] temp = new int[industry.Length];
+            for (int i = 0; i < industry.Length; i++)
+            {
+                temp[i] = Convert.ToInt32(industry[i]);
+            }
+            ViewData["inverstName"] = inverst.ItemName;
+            IList<GGZBTQPT_PRO.Models.T_XM_Financing> list = db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == "2" && (p.FinancSum < investment || p.TransferPrice < investment || p.Investment < investment || p.OtherItemFinancSum < investment) && temp.Contains((int)p.Industry))).ToList()
+                                                        .OrderByDescending(s => s.SubmitTime)
+                                                        .Skip(numPerPage * (pageNum - 1))
+                                                        .Take(numPerPage).ToList();
+            ViewBag.recordCount = db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == "2" && (p.FinancSum > investment || p.TransferPrice > investment || p.Investment > investment || p.OtherItemFinancSum > investment) && industry.Contains(SqlFunctions.StringConvert((double)p.Industry)))).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+
+            return PartialView(list);
+        }
+
+        //意向查询
+        public ActionResult TZQuery(FormCollection collection, int pageNum = 1, int numPerPage = 5)
+        {
+            ViewBag.condition1 = collection["condition1"];
+            ViewBag.condition2 = collection["condition2"];
+            ViewBag.condition3 = collection["condition3"];
+            ViewBag.condition4 = collection["condition4"];
+            ViewBag.condition5 = collection["condition5"];
+            ViewBag.context = collection["context"];
+            List<T_PTF_DicDetail> TeamworkType = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM06")).ToList();
+            ViewData["TeamworkType"] = new SelectList(TeamworkType, "ID", "Name");
+            List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
+            ViewData["Industry"] = new SelectList(Industry, "ID", "Name");
+            List<T_PTF_DicDetail> InvestmentNature = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM07")).ToList();
+            ViewData["InvestmentNature"] = new SelectList(InvestmentNature, "ID", "Name");
+            List<T_PTF_DicDetail> InvestmentStage = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM04")).ToList();
+            ViewData["InvestmentStage"] = new SelectList(InvestmentStage, "ID", "Name");
+
+            string keys = "";
+            string select_TeamworkType = "";
+            string select_industry = "";
+            string select_Investment = "";
+            if (collection["keys"] != null && collection["keys"].ToString().Trim() != "")
+                keys = collection["keys"].ToString();
+            if (collection["cbTeamworkType"] != null && collection["cbTeamworkType"] != null)
+            {
+                string[] temp = collection["cbTeamworkType"].Split(',');
+                select_TeamworkType += " and (";
+                foreach (string str in temp)
+                {
+                    select_TeamworkType += " TeamworkType like '%" + str + "%' or";
+                }
+                select_TeamworkType = select_TeamworkType.Substring(0, select_TeamworkType.Length - 3);
+                select_TeamworkType += ")";
+            }
+            if (collection["cbIndustry"] != null && collection["cbIndustry"] != null)
+            {
+                string[] temp = collection["cbIndustry"].Split(',');
+                select_industry += " and (";
+                foreach (string str in temp)
+                {
+                    select_industry += " AimIndustry like '%" + str + "%' or";
+                }
+                select_industry = select_industry.Substring(0, select_industry.Length - 3);
+                select_industry += ")";
+            }
+            if (collection["cbFinancial"] != null && collection["cbFinancial"] != null)
+            {
+                string[] temp = collection["cbFinancial"].Split(',');
+                select_Investment += " and (";
+                foreach (string str in temp)
+                {
+                    select_Investment += " Investment " + str + " or";
+                }
+                select_Investment = select_Investment.Substring(0, select_Investment.Length - 3);
+                select_Investment += ")";
+            }
+            string order = "ID";
+            System.Data.SqlClient.SqlParameter[] selparms = new System.Data.SqlClient.SqlParameter[5];
+            selparms[0] = new System.Data.SqlClient.SqlParameter("@keys", keys);
+            selparms[1] = new System.Data.SqlClient.SqlParameter("@TeamworkType", select_TeamworkType);
+            selparms[2] = new System.Data.SqlClient.SqlParameter("@Industry", select_industry);
+            selparms[3] = new System.Data.SqlClient.SqlParameter("@FinancSum", select_Investment);
+            selparms[4] = new System.Data.SqlClient.SqlParameter("@Order", order);
+            System.Data.SqlClient.SqlParameter[] selparms_new = new System.Data.SqlClient.SqlParameter[selparms.Length];
+
+            for (int i = 0, j = selparms.Length; i < j; i++)
+            {
+                selparms_new[i] = (System.Data.SqlClient.SqlParameter)((ICloneable)selparms[i]).Clone();
+            }
+            IList<T_XM_Investment> investments = (from p in db.T_XM_Investment.SqlQuery("exec dbo.P_GetTZXMByCondition @keys,@TeamworkType,@Industry,@FinancSum,@Order", selparms) select p).ToList().OrderByDescending(s => s.SubmitTime)
+                                                            .Skip(numPerPage * (pageNum - 1))
+                                                            .Take(numPerPage).ToList();
+            ViewBag.recordCount = (from p in db.T_XM_Investment.SqlQuery("exec dbo.P_GetTZXMByCondition @keys,@TeamworkType,@Industry,@FinancSum,@Order", selparms_new) select p).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+            if (investments.Count == 0)
+                ViewBag.Message = "未找到符合要求的项目!";
+            return View(investments); 
         }
     }
 }

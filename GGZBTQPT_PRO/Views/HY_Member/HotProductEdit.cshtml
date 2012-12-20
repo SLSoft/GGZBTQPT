@@ -1,0 +1,48 @@
+﻿@model GGZBTQPT_PRO.Models.T_JG_Product
+@{
+    Layout = null;
+}
+<div id="FormContainer" class="pageContent">
+    @using (Html.BeginForm("HotProductEdit", "HY_Member", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
+    {
+        @Html.ValidationSummary(true)
+        <div class="pageFormContent" layouth="56">
+
+            @Html.HiddenFor(model => model.ID)
+            <p>
+                @Html.LabelFor(model => model.ProductName,"产品名称")
+                @Html.EditorFor(model => model.ProductName)
+                @Html.ValidationMessageFor(model => model.ProductName)
+            </p>
+            <p style="height:auto">
+                @Html.LabelFor(model => model.Process,"产品描述")
+                @Html.TextAreaFor(model => model.Process, new { rows = "8", style = "width:200px" })
+                @Html.ValidationMessageFor(model => model.Process)
+            </p>
+            <p>
+                @Html.LabelFor(model => model.Linkman,"产品链接")
+                @Html.EditorFor(model => model.Linkman)
+                @Html.ValidationMessageFor(model => model.Linkman)
+            </p>
+        </div>
+        
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">
+                                保存</button></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close">
+                                取消</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    }
+</div>

@@ -2,7 +2,8 @@
 <_AJAX_>
 
 <!-- dwz.dialog -->
-<_PAGE_ id="dialogFrag"><![CDATA[
+<_PAGE_ id="dialogFrag">
+    <![CDATA[
 <div class="dialog" style="top:150px; left:300px;">
 	<div class="dialogHeader" onselectstart="return false;" oncopy="return false;" onpaste="return false;" oncut="return false;">
 		<div class="dialogHeader_r">

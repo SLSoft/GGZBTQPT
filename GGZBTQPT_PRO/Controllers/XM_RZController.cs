@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -213,31 +213,157 @@ namespace GGZBTQPT_PRO.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult RZCheckList()
+        //待审核项目一览
+        public ActionResult RZCheckList(int pageNum = 1, int numPerPage = 15)
         {
-            return View(db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == "1")).ToList());
+            IList<GGZBTQPT_PRO.Models.T_XM_Financing> list = db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == "1")).ToList()
+                                                            .OrderByDescending(s => s.SubmitTime)
+                                                            .Skip(numPerPage * (pageNum - 1))
+                                                            .Take(numPerPage).ToList();
+            
+            ViewBag.recordCount = db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == "1")).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+
+            return View(list);
+        }
+        //审核通过项目一览
+        public ActionResult RZCheckList_Pass(int pageNum = 1, int numPerPage = 15)
+        {
+            IList<GGZBTQPT_PRO.Models.T_XM_Financing> list = db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == "2")).ToList()
+                                                            .OrderByDescending(s => s.SubmitTime)
+                                                            .Skip(numPerPage * (pageNum - 1))
+                                                            .Take(numPerPage).ToList();
+
+            ViewBag.recordCount = db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == "1")).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+
+            return View(list);
         }
 
+        /// <summary>
+        /// 项目审核、撤销审核
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="state"></param>
+        /// <returns></returns>
         [HttpPost]
-        public ActionResult RZCheckList(FormCollection collection)
-        {
-            string strPublicState = collection["PublicState"];
-            ViewBag.State = strPublicState;
-            return View(db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == strPublicState)).ToList());
-        }
-
         public ActionResult RZCheck(int id, string state)
         {
             T_XM_Financing t_xm_financing = db.T_XM_Financing.Find(id);
             t_xm_financing.PublicStatus = state;
-            db.SaveChanges();
-            return RedirectToAction("RZCheckList");
+            t_xm_financing.PublicTime = DateTime.Now;
+            t_xm_financing.UpdateTime = DateTime.Now;
+
+            if (db.SaveChanges() > 0)
+                if(state == "2")
+                    return ReturnJson(true, "审核成功", "","RZCheckList", false, "");
+                else
+                    return ReturnJson(true, "撤销审核成功", "", "RZCheckList", false, "");
+            else
+                if (state == "2")
+                    return ReturnJson(false, "审核失败", "", "", false, "");
+                else
+                    return ReturnJson(true, "撤销审核失败", "", "RZCheckList", false, "");
         }
 
         //helper
         public FileContentResult ShowPic(int xm_id)
         {
             return File(db.T_XM_Financing.Find(xm_id).Pic, "image/jpeg");
+        }
+
+        //项目分析--项目列表
+        public ActionResult RZMatch(string keywords, int pageNum = 1, int numPerPage = 5)
+        {
+            keywords = keywords == null ? "" : keywords;
+            IList<GGZBTQPT_PRO.Models.T_XM_Financing> list = db.T_XM_Financing.Where(p => (p.IsValid == true && p.ItemName.Contains(keywords) && p.PublicStatus == "2")).ToList()
+                                                            .OrderByDescending(s => s.SubmitTime)
+                                                            .Skip(numPerPage * (pageNum - 1))
+                                                            .Take(numPerPage).ToList();
+
+            ViewData["recordCount"] = db.T_XM_Financing.Where(p => (p.IsValid == true && p.ItemName.Contains(keywords) && p.PublicStatus == "2")).Count();
+            ViewData["numPerPage"] = numPerPage;
+            ViewData["pageNum"] = pageNum;
+
+            return View(list);
+        }
+
+        //根据项目匹配对应的资金
+        public ActionResult RZMatchResult(int id, int pageNum = 1, int numPerPage = 5)
+        {
+            T_XM_Financing financing = db.T_XM_Financing.Find(id);
+            decimal amount = Convert.ToDecimal(financing.Amount);
+            string strindustry = financing.Industry.ToString();
+            ViewData["itemname"] = financing.ItemName;
+            IList<GGZBTQPT_PRO.Models.T_XM_Investment> list = db.T_XM_Investment.Where(p => (p.IsValid == true && p.PublicStatus == "2" && p.Investment > amount && p.AimIndustry.Contains(strindustry))).ToList()
+                                                            .OrderByDescending(s => s.SubmitTime)
+                                                            .Skip(numPerPage * (pageNum - 1))
+                                                            .Take(numPerPage).ToList();
+            ViewBag.recordCount = db.T_XM_Investment.Where(p => (p.IsValid == true && p.PublicStatus == "2" && p.Investment == amount && p.AimIndustry.Contains(strindustry))).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+
+            return PartialView(list);
+        }
+
+        //项目查询
+        public ActionResult RZQuery(FormCollection collection, int pageNum = 1, int numPerPage = 5)
+        {
+            ViewBag.condition1 = collection["condition1"];
+            ViewBag.condition2 = collection["condition2"];
+            ViewBag.condition3 = collection["condition3"];
+            ViewBag.condition4 = collection["condition4"];
+            ViewBag.context = collection["context"];
+            List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
+            ViewData["Industry"] = new SelectList(Industry, "ID", "Name");
+            List<T_PTF_DicDetail> ItemStage = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM04")).ToList();
+            ViewData["ItemStage"] = new SelectList(ItemStage, "ID", "Name");
+            string keys = "";
+            string select_itemtype = "";
+            string select_industry = "";
+            string select_Financial = "";
+            if (collection["keys"]!=null && collection["keys"].ToString().Trim() != "")
+                keys = collection["keys"].ToString();
+            if (collection["cbItemType"] != null && collection["cbItemType"] != null)
+                select_itemtype = collection["cbItemType"];
+            if (collection["cbIndustry"] != null && collection["cbIndustry"] != null)
+                select_industry = collection["cbIndustry"];
+            if (collection["cbFinancial"] != null && collection["cbFinancial"] != null)
+            {
+                string[] temp = collection["cbFinancial"].Split(',');
+                select_Financial += " and (";
+                foreach (string str in temp)
+                {
+                    select_Financial += " FinancSum " + str + " or";
+                }
+                select_Financial = select_Financial.Substring(0, select_Financial.Length - 3);
+                select_Financial += ")";
+            }
+            string order = "ID";
+            System.Data.SqlClient.SqlParameter[] selparms = new System.Data.SqlClient.SqlParameter[5];
+            selparms[0] = new System.Data.SqlClient.SqlParameter("@keys", keys);
+            selparms[1] = new System.Data.SqlClient.SqlParameter("@ItemType", select_itemtype);
+            selparms[2] = new System.Data.SqlClient.SqlParameter("@Industry", select_industry);
+            selparms[3] = new System.Data.SqlClient.SqlParameter("@FinancSum", select_Financial);
+            selparms[4] = new System.Data.SqlClient.SqlParameter("@Order", order);
+            System.Data.SqlClient.SqlParameter[] selparms_new = new System.Data.SqlClient.SqlParameter[selparms.Length];
+
+            for (int i = 0, j = selparms.Length; i < j; i++)
+            {
+                selparms_new[i] = (System.Data.SqlClient.SqlParameter)((ICloneable)selparms[i]).Clone();
+            }
+
+            IList<T_XM_Financing> financials = (from p in db.T_XM_Financing.SqlQuery("exec dbo.P_GetRZXMByCondition @keys,@ItemType,@Industry,@FinancSum,@Order", selparms) select p).ToList().OrderByDescending(s => s.SubmitTime)
+                                                            .Skip(numPerPage * (pageNum - 1))
+                                                            .Take(numPerPage).ToList();
+            ViewBag.recordCount = (from p in db.T_XM_Financing.SqlQuery("exec dbo.P_GetRZXMByCondition @keys,@ItemType,@Industry,@FinancSum,@Order", selparms_new) select p).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+            if (financials.Count == 0)
+                ViewBag.Message = "未找到符合要求的项目!";
+            return View(financials);
         }
     }
 }

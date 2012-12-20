@@ -1,3 +1,156 @@
+<<<<<<< HEAD
+﻿@model GGZBTQPT_PRO.Models.T_XM_Financing
+
+@{
+    ViewBag.Title = "Details";
+    Layout = null;
+}
+<h1>项目类别 @Html.DisplayFor(model => model.ItemText)</h1>
+<br />
+
+<fieldset>
+    <legend>融资信息</legend>
+    
+        <table>
+            <tr>
+                <td>项目标题</td>
+                <td>@Html.DisplayFor(model => model.ItemName)</td>
+            </tr>
+            <tr>
+                <td>发布会员</td>
+                <td>@Html.DisplayFor(model => model.MemberID)</td>
+            </tr>
+            <tr>
+                <td>发布时间</td>
+                <td>@Html.DisplayFor(model => model.PublicTime)</td>
+            </tr>
+            <tr>
+                <td>所属区域</td>
+                <td>@Html.DisplayFor(model => model.Province)</td>
+            </tr>
+            <tr>
+                <td>所属行业</td>
+                <td>@Html.DisplayFor(model => model.IndustryName)</td>
+            </tr>
+            <tr>
+                <td>有效日期</td>
+                <td>@Html.DisplayFor(model => model.ValidDate)</td>
+            </tr>
+        </table>
+        @if (Model.ItemType == 1)
+        {
+        <table>
+            <tr>
+                <td>融资金额</td>
+                <td>@Html.DisplayFor(model => model.FinancSum)</td>
+            </tr>
+            <tr>
+                <td>融资方式</td>
+                <td>@Html.DisplayFor(model => model.FinancType)</td>
+            </tr>
+            <tr>
+                <td>融资期限</td>
+                <td>@Html.DisplayFor(model => model.FinancCycle)</td>
+            </tr>
+            <tr>
+                <td>项目总投资</td>
+                <td>@Html.DisplayFor(model => model.TotalInvestment)</td>
+            </tr>
+            <tr>
+                <td>预计回报率</td>
+                <td>@Html.DisplayFor(model => model.ReturnRatio)</td>
+            </tr>
+            <tr>
+                <td>项目阶段</td>
+                <td>@Html.DisplayFor(model => model.ItemStage)</td>
+            </tr>
+            <tr>
+                <td>项目评估价值</td>
+                <td>@Html.DisplayFor(model => model.ItemValue)</td>
+            </tr>
+            <tr>
+                <td>担保说明</td>
+                <td>@Html.DisplayFor(model => model.Assure)</td>
+            </tr>
+            <tr>
+                <td>抵质押物</td>
+                <td>@Html.DisplayFor(model => model.Collateral)</td>
+            </tr>
+            <tr>
+                <td>合作方要求</td>
+                <td>@Html.DisplayFor(model => model.PartnerRequirements)</td>
+            </tr>
+            <tr>
+                <td>项目介绍</td>
+                <td>@Html.DisplayFor(model => model.ItemContent)</td>
+            </tr>
+        </table>
+        }
+        @if (Model.ItemType == 2)
+        {
+        <table>
+            <tr>
+                <td>资产类别</td>
+                <td>@Html.DisplayFor(model => model.AssetsType)</td>
+            </tr>
+            <tr>
+                <td>资产估价</td>
+                <td>@Html.DisplayFor(model => model.AssetsCost)</td>
+            </tr>
+            <tr>
+                <td>转让价格</td>
+                <td>@Html.DisplayFor(model => model.TransferPrice)</td>
+            </tr>
+            <tr>
+                <td>是否抵质押</td>
+                <td>@Html.DisplayFor(model => model.IsMortgage)</td>
+            </tr>
+            <tr>
+                <td>转让形式</td>
+                <td>@Html.DisplayFor(model => model.TransferType)</td>
+            </tr>
+            <tr>
+                <td>交易方式</td>
+                <td>@Html.DisplayFor(model => model.TransactionMode)</td>
+            </tr>
+        </table>
+        }
+</fieldset>
+
+<fieldset>
+    <legend>联系方式</legend>
+        <table>
+            <tr>
+                <td>联系人</td>
+                <td>@Html.DisplayFor(model => model.Linkman)</td>
+            </tr>
+            <tr>
+                <td>联系人部门/职务</td>
+                <td>@Html.DisplayFor(model => model.Position)</td>
+            </tr>
+            <tr>
+                <td>联系电话</td>
+                <td>@Html.DisplayFor(model => model.Phone)  @Html.DisplayFor(model => model.Mobile)</td>
+            </tr>
+            <tr>
+                <td>传真</td>
+                <td>@Html.DisplayFor(model => model.Fax)</td>
+            </tr>
+            <tr>
+                <td>邮箱</td>
+                <td>@Html.DisplayFor(model => model.Email)</td>
+            </tr>
+            <tr>
+                <td>QQ</td>
+                <td>@Html.DisplayFor(model => model.QQ)</td>
+            </tr>
+            <tr>
+                <td>通讯地址</td>
+                <td></td>
+            </tr>
+        </table>
+</fieldset>
+=======
 ﻿@model GGZBTQPT_PRO.Models.T_XM_Financing
 
 @{
@@ -148,3 +301,4 @@
             </tr>
         </table>
 </fieldset>
+>>>>>>> 3fbeb56cdca24a377e0435ff75fa2d027515386f

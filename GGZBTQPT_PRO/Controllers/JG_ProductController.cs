@@ -173,5 +173,35 @@ namespace GGZBTQPT_PRO.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+
+        //待审核产品一览
+        public ActionResult CPUnCheckList(int pageNum = 1, int numPerPage = 15)
+        {
+            IList<GGZBTQPT_PRO.Models.T_JG_Product> list = db.T_JG_Product.Where(p => (p.IsValid == true && p.PublicStatus == "1")).ToList()
+                                                            .OrderByDescending(s => s.SubmitTime)
+                                                            .Skip(numPerPage * (pageNum - 1))
+                                                            .Take(numPerPage).ToList();
+
+            ViewBag.recordCount = db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == "1")).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+
+            return View(list);
+        }
+
+        //已审核产品一览
+        public ActionResult CPCheckList(int pageNum = 1, int numPerPage = 15)
+        {
+            IList<GGZBTQPT_PRO.Models.T_JG_Product> list = db.T_JG_Product.Where(p => (p.IsValid == true && p.PublicStatus == "2")).ToList()
+                                                            .OrderByDescending(s => s.SubmitTime)
+                                                            .Skip(numPerPage * (pageNum - 1))
+                                                            .Take(numPerPage).ToList();
+
+            ViewBag.recordCount = db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == "2")).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+
+            return View(list);
+        }
     }
 }

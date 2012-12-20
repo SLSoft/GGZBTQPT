@@ -5,14 +5,15 @@
 }
 
 <div class="pageHeader">
-    <form id="pagerForm" method="post" action="@Url.Action("Index")">
+    <form id="pagerForm" method="post" action="@Url.Action("HasVerified")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
     <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />
+    <input type="hidden" name="state" value="@ViewData["State"]"  />
     @*<input type="hidden" name="orderField" value="${param.orderField}" />
         <input type="hidden" name="orderDirection" value="${param.orderDirection}" />*@
     </form>
-    <form onsubmit="return navTabSearch(this);" action="@Url.Action("Index")"
+    <form onsubmit="return navTabSearch(this);" action="@Url.Action("HasVerified")"
     method="post">
     <div class="searchBar">
         <ul class="searchContent">
@@ -21,6 +22,11 @@
                     会员用户名：</label>
                 <input type="text" name="keywords" value="@ViewData["keywords"]" />
             </li>
+            <li>
+                <label>
+                    会员状态：</label>
+                @Html.DropDownList("State", (SelectList)ViewData["State"])
+            </li>   
         </ul>
         <div class="subBar">
             <ul>
@@ -28,7 +34,8 @@
                     <div class="buttonActive">
                         <div class="buttonContent">
                             <button type="submit">
-                                检索</button></div>
+                                检索</button>
+                               </div>
                     </div>
                 </li>
                 @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框">
@@ -39,24 +46,12 @@
     </form>
 </div>
 <div class="pageContent">
-    <div class="panelBar">
-        <ul class="toolBar">
-            <li><a class="add" href="@Url.Action("create","HY_Member")" rel="create" target="dialog" width="400"
-                height="250" title="添加新的会员" mask="true"><span>添加</span></a></li>
-            <li><a class="edit" href="@Url.Action("edit", "HY_Member", new { id = "{mid}" })" rel="edit" target="dialog" width="400"
-                height="250" title="编辑会员信息" mask="true" warn="请选择一条会员数据"><span>编辑</span></a></li>
-            <li><a class="delete" href="@Url.Action("delete", "HY_Member", new { id = "{mid}" })" rel="delete" target="ajaxTodo"
-                title="确定要删除吗？" warn="请选择一条会员数据"><span>删除</span></a></li>
-            <li class="line">line</li>
-
-        </ul>
-    </div>
-    <div layouth="116" id="divList">
+    <div layouth="88" id="divList">
         <table class="list" width="100%" asc="asc" desc="desc">
             <thead>
                 <tr>
                     <th width="40">
-                        <input type="checkbox" group="ids" class="checkboxCtrl">
+                        序号
                     </th>
                     <th orderfield="name" class="asc">
                         登录名
@@ -76,9 +71,9 @@
                     <th>
                         更新时间
                     </th>
-                    <th>
+                    @*<th>
                         操作
-                    </th>
+                    </th>*@
                 </tr>
             </thead>
             <tbody>
@@ -86,7 +81,7 @@
                 {
                     <tr target="mid" rel=@item.ID>
                         <td>
-                            <input name="ids" type="checkbox" value="@item.ID" />
+                            @Html.DisplayFor(modelItem => item.ID)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.LoginName)
@@ -98,7 +93,7 @@
                             @Html.DisplayFor(modelItem => item.CellPhone)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Type)
+                            @Html.DisplayFor(modelItem => item.TypeName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.CreatedAt)
@@ -106,9 +101,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.UpdatedAt)
                         </td>
-                        <td>
+                        @*<td>
                             @Html.ActionLink("撤销审核", "UnVerify", "HY_Member", new { id = @item.ID }, new { rel = "HasVerified", target = "ajaxTodo" })
-                        </td>
+                        </td>*@
                     </tr>
                 }
             </tbody>

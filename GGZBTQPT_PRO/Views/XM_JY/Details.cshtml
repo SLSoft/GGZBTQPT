@@ -1,0 +1,70 @@
+﻿@model GGZBTQPT_PRO.Models.T_XM_Transaction
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>T_XM_Transaction</legend>
+
+    <div class="display-label">ItemID</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ItemID)
+    </div>
+
+    <div class="display-label">TranTitle</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TranTitle)
+    </div>
+
+    <div class="display-label">AcceptMember</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AcceptMember)
+    </div>
+
+    <div class="display-label">GiveMember</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.GiveMember)
+    </div>
+
+    <div class="display-label">Amount</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Amount)
+    </div>
+
+    <div class="display-label">TranTime</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TranTime)
+    </div>
+
+    <div class="display-label">TranContent</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TranContent)
+    </div>
+
+    <div class="display-label">IsValid</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsValid)
+    </div>
+
+    <div class="display-label">OP</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.OP)
+    </div>
+
+    <div class="display-label">CreateTime</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreateTime)
+    </div>
+
+    <div class="display-label">UpdateTime</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpdateTime)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
