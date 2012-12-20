@@ -38,7 +38,7 @@ namespace GGZBTQPT_PRO.Controllers
 
         public void BindProperty(object select = null)
         {
-            List<T_PTF_DicDetail> Property = db.T_PTF_DicDetail.Where(p => (p.DicType == "5")).ToList();
+            List<T_PTF_DicDetail> Property = db.T_PTF_DicDetail.Where(p => (p.DicType == "5" && p.IsValid=="1")).ToList();
 
             ViewData["Property"] = new SelectList(Property, "ID", "Name", select);
         }
@@ -261,6 +261,52 @@ namespace GGZBTQPT_PRO.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        //企业查询功能
+        public ActionResult CorpQuery(FormCollection collection, int pageNum = 1, int numPerPage = 5)
+        {
+            BindProperty();
+            BindIndustry();
+            string corpname = collection["corpname"] == null ? "" : collection["corpname"];
+            string property = collection["cbProperty"] == null ? "" : collection["cbProperty"];
+            decimal regcapital = collection["regcapital"] == null || collection["regcapital"] == "" ? 0 : Convert.ToDecimal(collection["regcapital"]);
+            string industry = collection["cbIndustry"] == null ? "" : collection["cbIndustry"];
+
+            var t_qy_corp = db.T_QY_Corp.Where(c => c.IsValid == true && c.CorpName.Contains(corpname));
+            if (property != "")
+            {
+                int[] temp1 = new int[property.Split(',').Length];
+                for (int i = 0; i < property.Split(',').Length; i++)
+                {
+                    temp1[i] = Convert.ToInt32(property.Split(',')[i]);
+                }
+                t_qy_corp = t_qy_corp.Where(c => temp1.Contains((int)c.Property));
+            }
+            if (regcapital != 0)
+            {
+                if (collection["regkey"] == "1")
+                    t_qy_corp = t_qy_corp.Where(c => c.RegCapital > regcapital);
+                else
+                    t_qy_corp = t_qy_corp.Where(c => c.RegCapital < regcapital);
+            }
+            if (industry != "")
+            {
+                int[] temp = new int[industry.Split(',').Length];
+                for (int i = 0; i < industry.Split(',').Length; i++)
+                {
+                    temp[i] = Convert.ToInt32(industry.Split(',')[i]);
+                }
+                t_qy_corp = t_qy_corp.Where(c => temp.Contains((int)c.Industry));
+            }
+            IList<GGZBTQPT_PRO.Models.T_QY_Corp> list = t_qy_corp.OrderByDescending(s => s.CreateTime)
+                                                        .Skip(numPerPage * (pageNum - 1))
+                                                        .Take(numPerPage).ToList();
+            ViewBag.recordCount = t_qy_corp.Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+
+            return PartialView(list);
         }
     }
 }

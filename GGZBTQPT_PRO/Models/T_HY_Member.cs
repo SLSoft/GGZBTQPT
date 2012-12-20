@@ -128,5 +128,5 @@ namespace GGZBTQPT_PRO.Models
             //增加密码的加密方法
             return password;
         }
-    } 
- }
+    }
+} 

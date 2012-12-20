@@ -1,11 +1,9 @@
-@model GGZBTQPT_PRO.Models.T_JG_Agency
+﻿@model GGZBTQPT_PRO.Models.T_JG_Agency
 
 @{
     ViewBag.Title = "Edit";
     Layout = null;
 }
-
-
 
 @using (Html.BeginForm("Edit", "JG_Agency", FormMethod.Post, new { onsubmit = "return iframeCallback(this);", @class = "pageForm required-validate", enctype = "multipart/form-data" }))
 {

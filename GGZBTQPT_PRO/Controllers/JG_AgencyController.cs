@@ -178,5 +178,29 @@ namespace GGZBTQPT_PRO.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+
+        //企业查询功能
+        public ActionResult AgencyQuery(FormCollection collection, int pageNum = 1, int numPerPage = 5)
+        {
+            BindAgencyType();
+            string agencyname = collection["agencyname"] == null ? "" : collection["agencyname"];
+            int agencytype = collection["AgencyType"] == null || collection["AgencyType"] == "" ? 0 : Convert.ToInt32(collection["AgencyType"]);
+
+
+            var t_jg_agency = db.T_JG_Agency.Where(c => c.IsValid == true && c.AgencyName.Contains(agencyname));
+            if (agencytype != 0)
+            {
+                t_jg_agency = t_jg_agency.Where(c => c.AgencyType == agencytype);
+            }
+
+            IList<GGZBTQPT_PRO.Models.T_JG_Agency> list = t_jg_agency.OrderByDescending(s => s.CreateTime)
+                                                        .Skip(numPerPage * (pageNum - 1))
+                                                        .Take(numPerPage).ToList();
+            ViewBag.recordCount = t_jg_agency.Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+
+            return PartialView(list);
+        }
     }
 }

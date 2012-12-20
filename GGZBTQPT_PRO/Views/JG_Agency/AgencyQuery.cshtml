@@ -2,34 +2,63 @@
 @{
     Layout = null;
 }
-<div class="pageContent j-resizeGrid" style="border-left: 1px #B8D0D6 solid; border-right: 1px #B8D0D6 solid">
-    <form id="pagerForm" method="post" action="@Url.Action("Index")">
+<link href="@Url.Content("~/Content/css/Style.css")" rel="stylesheet" type="text/css" />
+
+<div class="pageHeader">
+<form id="pagerForm" method="post" action="@Url.Action("AgencyQuery")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
     </form>
+    <form onsubmit="return navTabSearch(this);" action="@Url.Action("AgencyQuery")" method="post">
+    <div class="searchBar">
+        <table style="width:100%; border-spacing:5px;" >
+            <tr>
+                <td width="80px;">机构名称：</td>
+                <td><input type="text" name="agencyname" value="@ViewData["agencyname"]" style="width:300px"/></td>
+            </tr>
+            <tr>
+                <td>机构类别：</td>
+                <td>@Html.DropDownList("AgencyType","全部")</td>
+            </tr>
+        </table>
+        <div class="subBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">
+                                检索</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </form>
+</div>
+<div class="pageContent">
   <div class="panelBar">
     <ul class="toolBar">
       <li><a class="add" href="@Url.Action("create", "JG_Agency")" rel="create" target="dialog" title="添加新机构" mask="true" width="500" height="400"><span>添加</span></a></li>
       <li><a class="edit" href="@Url.Action("edit", "JG_Agency", new { id = "{mid}" })" rel="edit" target="dialog" title="编辑机构信息" mask="true" warn="请选择一个机构" width="500" height="400"><span>修改</span></a></li>
       <li><a class="delete" href="@Url.Action("delete", "JG_Agency", new { id = "{mid}" })" rel="delete" target="ajaxTodo" title="确定要删除吗？"  warn="请选择一个机构"><span>删除</span></a></li>
-      <li class="line">line</li>
-      <li><a class="icon" href="#"><span>导入EXCEL</span></a></li>
     </ul>
   </div>
-  <div layouth="52">
+  <div layouth="150">
     <table class="list" width="100%" asc="asc" desc="desc">
       <thead>
         <tr>
-            <th>
-            机构名称
-        </th>
-        <th>
-            机构类别
-        </th>
-        <th>
-            联系电话
-        </th>
-    </tr>
+            <tr>
+                <th>
+                    机构名称
+                </th>
+                <th>
+                    机构类别
+                </th>
+                <th>
+                    联系电话
+                </th>
+            </tr>
+        </tr>
       </thead>
       <tbody>
         @foreach (var item in Model)
@@ -42,14 +71,14 @@
                     @Html.DisplayFor(modelItem => item.AgencyTypeName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Phone,"联系电话")
+                    @Html.DisplayFor(modelItem => item.Phone, "联系电话")
                 </td>
             </tr>
         }
       </tbody>
     </table>
   </div>
-  <div class="panelBar">
+   <div class="panelBar">
         <div class="pages">
             <span>每页显示</span>
             <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value,pageNum:1})">

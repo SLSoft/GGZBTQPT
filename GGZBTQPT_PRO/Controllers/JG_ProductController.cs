@@ -175,14 +175,15 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         //待审核产品一览
-        public ActionResult CPUnCheckList(int pageNum = 1, int numPerPage = 15)
+        public ActionResult CPUnCheckList(string keywords, int pageNum = 1, int numPerPage = 10)
         {
-            IList<GGZBTQPT_PRO.Models.T_JG_Product> list = db.T_JG_Product.Where(p => (p.IsValid == true && p.PublicStatus == "1")).ToList()
+            keywords = keywords == null ? "" : keywords;
+            IList<GGZBTQPT_PRO.Models.T_JG_Product> list = db.T_JG_Product.Where(p => (p.IsValid == true && p.PublicStatus == "1" && p.ProductName.Contains(keywords))).ToList()
                                                             .OrderByDescending(s => s.SubmitTime)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
 
-            ViewBag.recordCount = db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == "1")).Count();
+            ViewBag.recordCount = db.T_JG_Product.Where(p => (p.IsValid == true && p.PublicStatus == "1")).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
 
@@ -190,18 +191,45 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         //已审核产品一览
-        public ActionResult CPCheckList(int pageNum = 1, int numPerPage = 15)
+        public ActionResult CPCheckList(string keywords, int pageNum = 1, int numPerPage = 10)
         {
-            IList<GGZBTQPT_PRO.Models.T_JG_Product> list = db.T_JG_Product.Where(p => (p.IsValid == true && p.PublicStatus == "2")).ToList()
+            keywords = keywords == null ? "" : keywords;
+            IList<GGZBTQPT_PRO.Models.T_JG_Product> list = db.T_JG_Product.Where(p => (p.IsValid == true && p.PublicStatus == "2" && p.ProductName.Contains(keywords))).ToList()
                                                             .OrderByDescending(s => s.SubmitTime)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
 
-            ViewBag.recordCount = db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == "2")).Count();
+            ViewBag.recordCount = db.T_JG_Product.Where(p => (p.IsValid == true && p.PublicStatus == "2")).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
 
             return View(list);
+        }
+
+        /// <summary>
+        /// 产品审核、撤销审核
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult CPCheck(int id, string state)
+        {
+            T_JG_Product t_jg_product = db.T_JG_Product.Find(id);
+            t_jg_product.PublicStatus = state;
+            t_jg_product.PublicTime = DateTime.Now;
+            t_jg_product.UpdateTime = DateTime.Now;
+
+            if (db.SaveChanges() > 0)
+                if (state == "2")
+                    return ReturnJson(true, "审核成功", "", "RZCheckList", false, "");
+                else
+                    return ReturnJson(true, "撤销审核成功", "", "RZCheckList", false, "");
+            else
+                if (state == "2")
+                    return ReturnJson(false, "审核失败", "", "", false, "");
+                else
+                    return ReturnJson(true, "撤销审核失败", "", "RZCheckList", false, "");
         }
     }
 }

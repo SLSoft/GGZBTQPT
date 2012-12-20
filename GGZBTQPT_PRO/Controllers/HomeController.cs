@@ -80,7 +80,6 @@ namespace GGZBTQPT_PRO.Controllers
                 if (user != null && user.Password == password)
                 {
                     Session["UserID"] = user.ID;
-                    Mail.SendEmail("xiongbo","请查收！");
                     return RedirectToAction("Index", "Home");
                 }
                 else
