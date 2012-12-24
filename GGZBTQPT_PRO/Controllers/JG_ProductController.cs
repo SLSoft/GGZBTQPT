@@ -231,5 +231,42 @@ namespace GGZBTQPT_PRO.Controllers
                 else
                     return ReturnJson(true, "撤销审核失败", "", "RZCheckList", false, "");
         }
+
+        //产品查询功能
+        public ActionResult ProductQuery(FormCollection collection, int pageNum = 1, int numPerPage = 5)
+        {
+            string productname = collection["productname"] == null ? "" : collection["productname"];
+            string agencyname = collection["agencyname"] == null ? "" : collection["agencyname"];
+            decimal amount = collection["amount"] == null || collection["amount"] == "" ? 0 : Convert.ToDecimal(collection["amount"]);
+
+
+            var t_jg_product = db.T_JG_Product.Where(p => p.IsValid == true && p.ProductName.Contains(productname));
+            if (agencyname != "")
+            {
+                IList<GGZBTQPT_PRO.Models.T_JG_Agency> t_jg_agency = db.T_JG_Agency.Where(a=>a.AgencyName.Contains(agencyname)).ToList();
+                int [] iid = new int[t_jg_agency.Count];
+                for(int i=0;i< t_jg_agency.Count;i++)
+                {
+                    iid[i] = t_jg_agency[i].ID;
+                }
+                t_jg_product = t_jg_product.Where(p => iid.Contains(p.AgencyID));
+            }
+            if(amount!=0)
+            {
+                if (collection["regkey"] == "1")
+                    t_jg_product = t_jg_product.Where(p=> p.FinancingAmount>amount);
+                else
+                    t_jg_product = t_jg_product.Where(p=> p.FinancingAmount<amount);    
+            }
+
+            IList<GGZBTQPT_PRO.Models.T_JG_Product> list = t_jg_product.OrderByDescending(s => s.CreateTime)
+                                                        .Skip(numPerPage * (pageNum - 1))
+                                                        .Take(numPerPage).ToList();
+            ViewBag.recordCount = t_jg_product.Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+
+            return PartialView(list);
+        }
     }
 }

@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 
-namespace GGZBTQPT_PRO.Controllers
+using System.Net;namespace GGZBTQPT_PRO.Controllers
 {
     public class XM_JYController : BaseController
     {
@@ -76,6 +76,9 @@ namespace GGZBTQPT_PRO.Controllers
                 t_xm_transaction.CreateTime = DateTime.Now;
                 t_xm_transaction.UpdateTime = DateTime.Now;
                 db.T_XM_Transaction.Add(t_xm_transaction);
+
+                //
+
                 int result = db.SaveChanges();
                 if (result > 0)
                     return ReturnJson(true, "操作成功", "", "", true, "");

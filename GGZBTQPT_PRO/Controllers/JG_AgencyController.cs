@@ -179,7 +179,7 @@ namespace GGZBTQPT_PRO.Controllers
             base.Dispose(disposing);
         }
 
-        //企业查询功能
+        //机构查询功能
         public ActionResult AgencyQuery(FormCollection collection, int pageNum = 1, int numPerPage = 5)
         {
             BindAgencyType();
