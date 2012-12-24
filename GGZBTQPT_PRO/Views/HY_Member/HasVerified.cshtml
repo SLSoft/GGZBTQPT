@@ -9,9 +9,7 @@
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
     <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />
-    <input type="hidden" name="state" value="@ViewData["State"]"  />
-    @*<input type="hidden" name="orderField" value="${param.orderField}" />
-        <input type="hidden" name="orderDirection" value="${param.orderDirection}" />*@
+    <input type="hidden" name="state" value="@ViewData["States"]"  />
     </form>
     <form onsubmit="return navTabSearch(this);" action="@Url.Action("HasVerified")"
     method="post">
@@ -25,7 +23,7 @@
             <li>
                 <label>
                     会员状态：</label>
-                @Html.DropDownList("State", (SelectList)ViewData["State"])
+                @Html.DropDownList("State", (SelectList)ViewData["States"])
             </li>   
         </ul>
         <div class="subBar">
@@ -38,8 +36,6 @@
                                </div>
                     </div>
                 </li>
-                @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框">
-                    <span>高级检索</span></a></li>*@
             </ul>
         </div>
     </div>
@@ -53,17 +49,23 @@
                     <th width="40">
                         序号
                     </th>
-                    <th orderfield="name" class="asc">
+                    <th>
                         登录名
                     </th>
-                    <th orderfield="name" class="asc">
+                    <th>
                         用户名
                     </th>
-                    <th orderfield="name" class="asc">
+                    <th>
                         手机
                     </th>
-                    <th orderfield="name" class="asc">
+                    <th>
+                        邮箱
+                    </th>
+                    <th>
                         用户类型
+                    </th>
+                    <th>
+                        状态
                     </th>
                     <th>
                         创建时间
@@ -71,9 +73,9 @@
                     <th>
                         更新时间
                     </th>
-                    @*<th>
+                    <th>
                         操作
-                    </th>*@
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -93,7 +95,13 @@
                             @Html.DisplayFor(modelItem => item.CellPhone)
                         </td>
                         <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.TypeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StateName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.CreatedAt)
@@ -101,9 +109,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.UpdatedAt)
                         </td>
-                        @*<td>
-                            @Html.ActionLink("撤销审核", "UnVerify", "HY_Member", new { id = @item.ID }, new { rel = "HasVerified", target = "ajaxTodo" })
-                        </td>*@
+                        <td>
+                            @Html.ActionLink((item.State == 1) ? "撤销通过" : "撤销驳回", "UnVerify", "HY_Member", new { id = @item.ID }, new { rel = "HasVerified", target = "ajaxTodo" })
+                        </td>
                     </tr>
                 }
             </tbody>

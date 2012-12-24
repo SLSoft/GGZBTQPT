@@ -3,33 +3,16 @@
 @{
     Layout = null;
 }
-<script type="text/javascript">
-    function Getcheckbox() 
-    {
-        var str = document.getElementsByName("ids");
-        var objarray = str.length;
-        var chestr = "";
-        for (i = 0; i < objarray; i++) 
-        {
-            if (str[i].checked == true) {
-                chestr += str[i].value + ",";
-            }
-        }
-        document.getElementById("checkedIds").value = chestr;
-    }
-
-</script>
 
 <div class="pageHeader">
-    <form id="pagerForm" method="post" action="@Url.Action("Index")">
+    <form id="pagerForm" method="post" action="@Url.Action("UnVerified")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
     <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />
-    <input type="hidden" name="checkedIds" id="checkedIds" value=""  /> 
     @*<input type="hidden" name="orderField" value="${param.orderField}" />
         <input type="hidden" name="orderDirection" value="${param.orderDirection}" />*@
     </form>
-    <form onsubmit="return navTabSearch(this);" action="@Url.Action("Index")"
+    <form onsubmit="return navTabSearch(this);" action="@Url.Action("UnVerified")"
     method="post">
     <div class="searchBar">
         <ul class="searchContent">
@@ -56,10 +39,8 @@
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-            <li><a class="edit" href="@Url.Action("batch_Verify", "HY_Member", new { stateType = 1 })" rel="batch_Verify" target="ajaxTodo"
-                title="确定批量通过吗？" warn="请选择一条会员数据"><span>批量审核</span></a></li>
-            <li><a class="edit" href="@Url.Action("batch_Verify", "HY_Member", new { stateType = 2 })" rel="batch_Verify" target="ajaxTodo"
-                title="确定批量驳回吗？" warn="请选择一条会员数据"><span>批量驳回</span></a></li>
+            <li><a class="edit" id="Batch_Audit" href="#" title="确定批量通过吗？"><span>批量审核</span></a></li>
+            <li><a class="edit" id="Batch_Overrule" href="#" title="确定批量驳回吗？"><span>批量驳回</span></a></li>
             <li class="line">line</li>
         </ul>
     </div>
@@ -70,16 +51,19 @@
                     <th width="40">
                         <input type="checkbox" group="ids" class="checkboxCtrl">
                     </th>
-                    <th orderfield="name" class="asc">
+                    <th>
                         登录名
                     </th>
-                    <th orderfield="name" class="asc">
+                    <th>
                         用户名
                     </th>
-                    <th orderfield="name" class="asc">
+                    <th>
                         手机
                     </th>
-                    <th orderfield="name" class="asc">
+                    <th>
+                        邮箱
+                    </th>
+                    <th>
                         用户类型
                     </th>
                     <th>
@@ -99,7 +83,6 @@
                     <tr target="mid" rel=@item.ID>
                         <td>
                             <input type="checkbox" name="ids" value="@item.ID"/>
-                            @*@Html.CheckBox("ids", new { value = item.ID })*@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.LoginName)
@@ -109,6 +92,9 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.CellPhone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.TypeName)
@@ -157,15 +143,34 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#Batch_Audit").click(function () {
+            checkedBatchPost(1);
+        });
+
+        $("#Batch_Overrule").click(function () {
+            checkedBatchPost(2);
+        });
+    }); 
+    function checkedBatchPost(i)
+    {
+        if(confirm("确定操作吗？"))
+        {
             var result = "";
 
             $(".list input[type='checkbox']").each(function () {
-                var value = $(this).attr("value");
-                if (value != "" && value != "on") {
-                    result += value + ",";
+                if ($(this).attr("checked") == true) {
+                    var value = $(this).attr("value");
+                    if (value != "" && value != "on") {
+                        result += value + ",";
+                    }
                 }
             });
-            $.post("@Url.Action("SelectUser","ZC_Role", new { id = @ViewBag.RoleID})",{ select_users: result },function(data){ DWZ.ajaxDone(data);},"json");
-        }); 
-    }); 
+            if (result == "")
+            {
+                alert("请选择一条会员数据");
+                return;
+            }
+            
+            $.post("@Url.Action("batch_Verify", "HY_Member")",{ stateType:i, checkedIds: result },function(data){ navTabAjaxDone(data);},"json");
+         }
+    }
 </script>

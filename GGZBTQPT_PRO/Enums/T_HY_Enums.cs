@@ -22,6 +22,8 @@ namespace GGZBTQPT_PRO.Enums
     //会员状态
     public enum MemberStates : int
     {
+        [Display(Name = "全部")]
+        全部 = -1,
         //[Display(Name = "待审核")]
         //待审核 = 0,
         [Display(Name = "通过")]

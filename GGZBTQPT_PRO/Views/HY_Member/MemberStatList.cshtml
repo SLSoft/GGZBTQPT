@@ -10,8 +10,7 @@
     
 </div>
 <div class="pageContent">
-    <div class="panelBar"></div>
-    <div layouth="116" id="divList">
+    <div layouth="88" id="divList">
         <table  class="list" width="100%" asc="asc" desc="desc">
         <thead>
         <tr>
@@ -24,16 +23,16 @@
         </tr>
         </thead>
         <tbody>
-        @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => new GGZBTQPT_PRO.Models.T_HY_Member { Type = item.Type}.TypeName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MemberCount)
-            </td>
-           
-        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => new GGZBTQPT_PRO.Models.T_HY_Member { Type = item.Type }.TypeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MemberCount)
+                </td>
+            </tr>
         }
         </tbody>
         </table>

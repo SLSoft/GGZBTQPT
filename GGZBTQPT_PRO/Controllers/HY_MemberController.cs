@@ -26,12 +26,12 @@ namespace GGZBTQPT_PRO.Controllers
         {
             keywords = keywords == null ? "" : keywords;
 
-            IList<GGZBTQPT_PRO.Models.T_HY_Member> list = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords)).Where(p => p.IsValid == true)
+            IList<GGZBTQPT_PRO.Models.T_HY_Member> list = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords) && p.IsValid == true && p.IsVerified == true)
                                                             .OrderBy(s => s.ID)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
 
-            ViewBag.recordCount = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords)).Where(p => p.IsValid == true).Count();
+            ViewBag.recordCount = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords) && p.IsValid == true && p.IsVerified == true).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
@@ -167,7 +167,7 @@ namespace GGZBTQPT_PRO.Controllers
 
         #region 会员审核
         /// <summary>
-        /// 待审核会员
+        /// 待审核会员列表
         /// </summary>
         /// <param name="keywords"></param>
         /// <param name="pageNum"></param>
@@ -177,12 +177,12 @@ namespace GGZBTQPT_PRO.Controllers
         {
             keywords = keywords == null ? "" : keywords;
 
-            IList<GGZBTQPT_PRO.Models.T_HY_Member> list = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords)).Where(p => p.IsValid == true && p.IsVerified == false && p.State == 0)
+            IList<GGZBTQPT_PRO.Models.T_HY_Member> list = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords) && p.IsValid == true && p.State == 0)
                                                             .OrderBy(s => s.ID)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
 
-            ViewBag.recordCount = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords)).Where(p => p.IsValid == true && p.IsVerified == false && p.State==0).Count();
+            ViewBag.recordCount = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords) && p.IsValid == true && p.State==0).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
@@ -191,30 +191,40 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         /// <summary>
-        /// 已审核会员查询
+        /// 已审核会员列表
         /// </summary>
         /// <param name="keywords"></param>
         /// <param name="pageNum"></param>
         /// <param name="numPerPage"></param>
         /// <returns></returns>
-        public ActionResult HasVerified(string keywords, int state = 1, int pageNum = 1, int numPerPage = 15)
+        public ActionResult HasVerified(string keywords, int state = -1, int pageNum = 1, int numPerPage = 15)
         {
             var States = from MemberStates mstate in Enum.GetValues(typeof(MemberStates))
                          select new { ID = (int)mstate, Name = mstate.ToString() };
-            ViewData["State"] = new SelectList(States, "ID", "Name");
+            ViewData["States"] = new SelectList(States, "ID", "Name");
 
             keywords = keywords == null ? "" : keywords;
+            var tqCount = 0;
+            var tq = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords)).Where(p => p.IsValid == true);
+            if (state == -1)
+            {
+                tq = tq.Where(p=>p.State != 0);
+            }
+            else
+            {
+                tq = tq.Where(p => p.State == state);
+            }
+            tqCount = tq.Count();
 
-            IList<GGZBTQPT_PRO.Models.T_HY_Member> list = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords)).Where(p => p.IsValid == true && p.State == state)
-                                                            .OrderBy(s => s.ID)
-                                                            .Skip(numPerPage * (pageNum - 1))
-                                                            .Take(numPerPage).ToList();
+            IList<T_HY_Member> list = tq.OrderBy(s => s.ID)
+                                                       .Skip(numPerPage * (pageNum - 1))
+                                                       .Take(numPerPage).ToList();
 
-            ViewBag.recordCount = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords)).Where(p => p.IsValid == true && p.State==state).Count();
+            ViewBag.recordCount = tqCount;
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
-            ViewBag.states = States;
+            ViewBag.state = state;
 
             return View(list);
         } 
@@ -245,54 +255,54 @@ namespace GGZBTQPT_PRO.Controllers
 
         }
 
+        /// <summary>
+        /// 批量审核、驳回会员
+        /// </summary>
+        /// <param name="stateType"></param>
+        /// <param name="checkedIds"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult batch_Verify(int stateType,string checkedIds)
         {
-            if (checkedIds == null)
-            {
-                return ReturnJson(false, "请选择一条会员数据", "", "UnVerified", false, "");
-            }
-            else
-            {
-                var Ids = checkedIds;
-                string[] strIds = Ids.Split(',');
+            checkedIds = RemoveTheLastComma(checkedIds);
+            string[] strIds = checkedIds.Split(',');
 
-                var count = 0;
-                foreach (var id in strIds)
+            foreach (string id in strIds)
+            {
+                T_HY_Member t_hy_member = db.T_HY_Member.Find(Convert.ToInt32(id));
+
+                if (stateType == 1)
                 {
-                    T_HY_Member t_hy_member = db.T_HY_Member.Find(id);
-
-                    if (stateType == 1)
-                    {
-                        t_hy_member.IsVerified = true;
-                    }
-                    t_hy_member.State = stateType;
-
-                    db.Entry(t_hy_member).State = EntityState.Modified;
-                    count = db.SaveChanges();
-                    count++;
+                    t_hy_member.IsVerified = true;
                 }
+                t_hy_member.State = stateType;
 
-                if (count == strIds.Length)
-                    return ReturnJson(true, "批量操作成功", "", "UnVerified", false, "");
-                else
-                    return ReturnJson(false, "批量操作失败", "", "", false, "");
+                db.Entry(t_hy_member).State = EntityState.Modified;
             }
-
+            if (db.SaveChanges() == strIds.Length)
+                return ReturnJson(true, "批量操作成功", "", "", false, "");
+            else
+                return ReturnJson(false, "批量操作失败", "", "", false, "");
             
         }
 
+        /// <summary>
+        /// 撤销审核、撤销驳回
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult UnVerify(int id)
         {
             T_HY_Member t_hy_member = db.T_HY_Member.Find(id);
             t_hy_member.IsVerified = false;
+            t_hy_member.State = 0;
             db.Entry(t_hy_member).State = EntityState.Modified;
 
             if (db.SaveChanges() > 0)
-                return ReturnJson(true, "撤销审核成功", "", "UnVerified", false, "");
+                return ReturnJson(true, "撤销成功", "", "UnVerified", false, "");
             else
-                return ReturnJson(false, "撤销审核失败", "", "", false, "");
+                return ReturnJson(false, "撤销失败", "", "", false, "");
 
         }
 

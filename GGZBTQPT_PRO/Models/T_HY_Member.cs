@@ -73,6 +73,23 @@ namespace GGZBTQPT_PRO.Models
             }
         }
 
+        public string StateName
+        {
+            get
+            {
+                switch (this.State)
+                {
+                    case 0:
+                        return "待审核";
+                    case 1:
+                        return "通过";
+                    case 2:
+                        return "驳回";
+                }
+                return "";
+            }
+        }
+
         public virtual ICollection<T_HY_Attention> Attentions { get; set; }//会员能够关注多个人（企业），也能被多个人（企业）关注 
         public virtual ICollection<T_HY_Favorite> Favorites { get; set; }//会员能够收藏多个项目、资本、服务
 
