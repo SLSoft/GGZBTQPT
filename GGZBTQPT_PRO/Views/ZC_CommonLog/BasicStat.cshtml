@@ -1,0 +1,16 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_ZC_CommonLog>
+@using GGZBTQPT_PRO.Enums
+@{
+    Layout = null;
+}
+
+会员管理系统总共的操作日志条数： @Model.Count()
+其中： 
+访问操作： @Model.Where( m => m.OperateType == (int)OperateTypes.Visit).Count()
+添加操作： @Model.Where( m => m.OperateType == (int)OperateTypes.Add).Count()
+删除操作： @Model.Where( m => m.OperateType == (int)OperateTypes.Delete).Count()
+更新操作： @Model.Where( m => m.OperateType == (int)OperateTypes.Edit).Count()
+发布操作： @Model.Where( m => m.OperateType == (int)OperateTypes.Publish).Count() 
+关注操作： @Model.Where( m => m.OperateType == (int)OperateTypes.Attention).Count()
+收藏操作： @Model.Where( m => m.OperateType == (int)OperateTypes.Favorite).Count()
+搜索操作：@Model.Where( m => m.OperateType == (int)OperateTypes.Search).Count()

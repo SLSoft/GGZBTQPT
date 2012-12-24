@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.Enums;
+using GGZBTQPT_PRO.Util;
 
 namespace GGZBTQPT_PRO.Controllers
 {
@@ -54,13 +55,12 @@ namespace GGZBTQPT_PRO.Controllers
                     db.T_ZC_System.Add(t_zc_system);
                     int result = db.SaveChanges();
                     if (result > 0)
-                    {
-                        Logging((int)LogLevels.operate, "成功新增了一条系统数据:" + t_zc_system.Name, (int)OperateTypes.Add, (int)GenerateTypes.FromUser);
+                    { 
+                        BusinessService.TransformatFromXM(1,"fefef",1,"fefef");
                         return ReturnJson(true, "操作成功", "", "", true, "");
                     }
                     else
                     {
-                        Logging((int)LogLevels.warn, "新增系统失败:" + t_zc_system.Name, (int)OperateTypes.Add, (int)GenerateTypes.FromUser);
                         return ReturnJson(false, "操作失败", "", "", false, "");
                     }
                 }

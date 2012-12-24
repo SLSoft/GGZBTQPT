@@ -80,6 +80,7 @@ namespace GGZBTQPT_PRO.Controllers
                 if (user != null && user.Password == password)
                 {
                     Session["UserID"] = user.ID;
+                    Session["UserName"] = user.UserName;
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -97,7 +98,8 @@ namespace GGZBTQPT_PRO.Controllers
 
         public ActionResult Logout()
         {
-            Session["UserID"] = null;
+            Session["UserID"] = null; 
+            Session["UserName"] = null;
             return RedirectToAction("Login", "Home");
         }
 

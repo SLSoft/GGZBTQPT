@@ -8,18 +8,17 @@ using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 using Webdiyer.WebControls.Mvc;
 using GGZBTQPT_PRO.Areas.MG.Filter;
+using GGZBTQPT_PRO.Enums;
 
 namespace GGZBTQPT_PRO.Areas.MG.Controllers
 {
     [MemberFilter()]
     public class RecommendController : BaseController
     {
- 
-        //
-        // GET: /Member/Publish/
 
         public ActionResult Index()
         { 
+            Logging((int)LogLevels.operate, "访问了金融推荐", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Recommend);
             return View(CurrentMember()); 
         }
 
@@ -30,6 +29,8 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// <returns></returns>
         public ActionResult RecommendFinancials(int id = 1)
         {
+            
+            Logging((int)LogLevels.operate, "访问了项目推荐", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Recommend);
             var member = CurrentMember();
 
             try
@@ -56,7 +57,8 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// <param name="member_id"></param>
         /// <returns></returns>
         public ActionResult RecommendInvestments(int id = 1)
-        {
+        { 
+            Logging((int)LogLevels.operate, "访问了资金推荐", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Recommend);
             var member = CurrentMember();
     
             try
@@ -80,6 +82,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// <returns></returns>
         public ActionResult RecommendProducts(int id = 1)
         {
+            Logging((int)LogLevels.operate, "访问了产品推荐", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Recommend);
             var member = CurrentMember();
            
             try
@@ -96,7 +99,6 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             }
         }
 
-
         /// <summary>
         /// 系统所推荐的金融机构
         /// </summary>
@@ -104,6 +106,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// <returns></returns>
         public ActionResult RecommendAgencies(int id = 1)
         {
+            Logging((int)LogLevels.operate, "访问了机构推荐", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Recommend);
             var member = CurrentMember();
          
             try
@@ -118,9 +121,5 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 return PartialView();
             }
         } 
-
-
-
-
     }
 }

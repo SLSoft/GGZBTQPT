@@ -49,9 +49,10 @@ namespace GGZBTQPT_PRO.Enums
     public enum OperateTypes : int
     {
         //操作日志类别
+        Visit,//访问
         Attention,//关注
         Favorite,//收藏
-        Release,//发布
+        Publish,//发布
         Edit,//编辑
         Add,//新增
         Delete,//删除

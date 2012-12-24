@@ -1,0 +1,13 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_ZC_CommonLog>
+@using GGZBTQPT_PRO.Enums
+@{
+    Layout = null;
+}
+按照功能模块分类统计如下：
+金融推荐： @Model.Where(m => m.GenerateSystem == (int)GenerateSystem.Recommend).Count()
+找项目： @Model.Where(m => m.GenerateSystem == (int)GenerateSystem.FindFinancial).Count()
+找资金： @Model.Where(m => m.GenerateSystem == (int)GenerateSystem.FindInvestment).Count()
+找服务： @Model.Where(m => m.GenerateSystem == (int)GenerateSystem.FindService).Count()
+我的关注： @Model.Where(m => m.GenerateSystem == (int)GenerateSystem.Attention).Count() 
+我的收藏： @Model.Where(m => m.GenerateSystem == (int)GenerateSystem.Favorite).Count()
+我的发布： @Model.Where(m => m.GenerateSystem == (int)GenerateSystem.Publish).Count()

@@ -102,7 +102,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         }
 
         //日志处理
-        public void Logging(int level, string message, int operate_type, int generate_type, string exception = "无")
+        public void Logging(int level, string message, int operate_type, int generate_type, int generate_system, string exception = "无")
         {
             log4net.ILog log = log4net.LogManager.GetLogger(this.GetType());
 
@@ -114,8 +114,9 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             {
                 log4net.LogicalThreadContext.Properties["user"] = "无";
             }
-            log4net.LogicalThreadContext.Properties["opeate_type"] = operate_type;
+            log4net.LogicalThreadContext.Properties["operate_type"] = operate_type;
             log4net.LogicalThreadContext.Properties["generate_type"] = generate_type;
+            log4net.LogicalThreadContext.Properties["generate_system"] = generate_system;
 
             switch (level)
             {

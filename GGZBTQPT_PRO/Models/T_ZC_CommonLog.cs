@@ -23,5 +23,6 @@ namespace GGZBTQPT_PRO.Models
         public string User { get; set; }//当前操作的人员
         public int OperateType { get; set; }//操作类型记录，详细参考枚举类
         public int GenerateType { get; set; }//操作来源 系统、用户、会员
+        public int GenerateSystem { get; set; }//操作所属的业务系统
     }
 }

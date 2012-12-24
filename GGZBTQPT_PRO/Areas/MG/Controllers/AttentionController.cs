@@ -115,6 +115,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         [HttpPost]
         public ActionResult Attentioned(int type, int id)
         { 
+            Logging((int)LogLevels.operate, "关注了XZXX", (int)OperateTypes.Attention, (int)GenerateTypes.FromMember, (int)GenerateSystem.Attention);
             var member = CurrentMember();
            
             var attentioned_item = new T_HY_Attention();
@@ -135,6 +136,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         [HttpPost]
         public ActionResult UnAttentioned(int id)
         {
+            Logging((int)LogLevels.operate, "取消关注了XZXX", (int)OperateTypes.Attention, (int)GenerateTypes.FromMember, (int)GenerateSystem.Attention);
             var member = CurrentMember(); 
 
             var unattentioned_item = member.Attentions.First( a => a.AttentionedMemberID == id);

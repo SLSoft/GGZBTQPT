@@ -165,6 +165,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 if (member != null && member.Password == password)
                 {
                     Session["MemberID"] = member.ID;
+                    Session["MemberName"] = member.MemberName;
                     RegisterLoginInfo();
                     if (Session["RedirectUrl"] != null && Session["RedirectUrl"].ToString() != "")
                     {
@@ -188,6 +189,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ActionResult Logout()
         {
             Session["MemberID"] = null;
+            Session["MemberName"] = null;
             RegisterLogoutInfo();
             return RedirectToAction("Index", "Home");
         }

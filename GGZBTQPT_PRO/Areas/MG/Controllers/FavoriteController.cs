@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 using Webdiyer.WebControls.Mvc;
 using GGZBTQPT_PRO.Areas.MG.Filter;
+using GGZBTQPT_PRO.Enums;
 
 namespace GGZBTQPT_PRO.Areas.MG.Controllers
 {
@@ -123,7 +124,8 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// <param name="id">项目、资金、服务ID</param>
         [HttpPost]
         public ActionResult Favored(int type_id, int id)
-        { 
+        {
+            Logging((int)LogLevels.operate, "取消收藏了XZXX", (int)OperateTypes.Favorite, (int)GenerateTypes.FromMember, (int)GenerateSystem.Favorite);
             var member = CurrentMember(); 
             var favored_item = CreateFavoredItem(type_id, id);
 
@@ -141,6 +143,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         [HttpPost]
         public ActionResult UnFavored(int id)
         {
+            Logging((int)LogLevels.operate, "取消收藏了XZXX", (int)OperateTypes.Favorite, (int)GenerateTypes.FromMember, (int)GenerateSystem.Favorite);
             var member = CurrentMember(); 
             var favored_item = member.Favorites.First( f => f.FinancialID == id);
 

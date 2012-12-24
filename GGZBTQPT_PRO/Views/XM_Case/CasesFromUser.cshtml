@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Case>
+@using GGZBTQPT_PRO.Enums
 @{
     Layout = null;
 }
@@ -37,7 +38,7 @@
         <ul class="toolBar">
             <li><a class="add" href="@Url.Action("create", "XM_Case")" rel="create" target="dialog" width="400"
                 height="250" title="添加新的案例" mask="true"><span>添加</span></a></li>
-            <li><a class="edit" href="@Url.Action("edit", "XM_Case", new { id = "{mid}" })" rel="edit" target="dialog" width="400"
+            <li><a class="edit" href="@Url.Action("edit", "XM_Case", new { id = "{mid}", generate_type = (int)GenerateTypes.FromUser })" rel="edit" target="dialog" width="400"
                 height="250" title="编辑案例信息" mask="true" warn="请选择一条案例数据"><span>编辑</span></a></li>
             <li><a class="delete" href="@Url.Action("delete", "XM_Case", new { id = "{mid}" })" rel="delete" target="ajaxTodo"
                 title="确定要删除吗？" warn="请选择一条案例数据"><span>删除</span></a></li>
@@ -89,7 +90,7 @@
                             @Html.DisplayFor(modelItem => item.Summary)
                         </td>
                         <td>
-                            @Html.ActionLink("文件下载","DownLoadFile",new { id = item.ID })
+                            @Html.ActionLink("文件下载", "DownLoadFile", new { id = item.ID })
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.CreatedAt)
@@ -98,7 +99,7 @@
                             @Html.DisplayFor(modelItem => item.UpdatedAt)
                         </td>
                         <td>
-                            @Html.ActionLink("发布到门户","PublishCaseToCMS",new { id = item.ID})
+                            @Html.ActionLink("发布到门户", "PublishCaseToCMS", new { id = item.ID })
                         </td>
                     </tr>
                 }

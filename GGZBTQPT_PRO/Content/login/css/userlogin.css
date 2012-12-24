@@ -1,0 +1,132 @@
+﻿@charset "utf-8";
+/* CSS Document */
+div {
+	FONT-SIZE: 12px;
+	COLOR: #666;
+	LINE-HEIGHT: 22px;
+	FONT-FAMILY: Arial
+}
+li {
+	FONT-SIZE: 12px;
+	COLOR: #666;
+	FONT-FAMILY: Arial
+}
+td {
+	FONT-SIZE: 12px;
+	COLOR: #666;
+	LINE-HEIGHT: 22px;
+	FONT-FAMILY: Arial;
+	LETTER-SPACING: 1px
+}
+.black {
+	COLOR: black
+}
+A {
+	FONT-SIZE: 12px;
+	COLOR: #666;
+	TEXT-DECORATION: none
+}
+A:link {
+	FONT-SIZE: 12px;
+	TEXT-DECORATION: none
+}
+A:visited {
+	FONT-SIZE: 12px;
+	TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #f02d2d;
+	TEXT-DECORATION: none
+}
+UL {
+	PADDING-RIGHT: 0px;
+	PADDING-LEFT: 0px;
+	PADDING-BOTTOM: 0px;
+	MARGIN: 0px;
+	PADDING-TOP: 0px;
+	LIST-STYLE-TYPE: none
+}
+INPUT {
+	FONT-SIZE: 12px;
+	FONT-FAMILY: Arial, Helvetica, sans-serif;
+	LETTER-SPACING: 1px
+}
+img {
+	border:0;
+}
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-image: url(../images/loginbody.jpg);
+	background-repeat: repeat-x;
+	background-position: left top;
+	background-color:#edf7fd;
+}
+html, body, #logincont {height: 100%;} 
+body > #logincont {height: auto; min-height: 100%;} 
+/*页面层容器*/
+#logincont{
+	width:100%;
+	height:100%;
+	}
+/*页面头部*/
+#loginhead{
+width:1002px;
+height:540px;
+font-size:13px; 
+font-weight:bold; 
+padding-bottom: 62px;
+margin:0 auto;
+text-align:center;
+color:#000000;
+
+}/* 必须使用和footer相同的高度 */ 
+#loginbottom {
+position: relative;
+background:#666666;
+margin-top: -62px; /* footer高度的负值 */ 
+font-size:12px;
+width:100%;
+color:#333333;
+text-align:center;
+line-height:26px;
+height:26px;
+padding-top:36px;
+background-image: url(../images/loginbbg.jpg);
+background-repeat: repeat-x;
+background-position: left bottom;
+clear:both;}
+.tbuttom3{
+width:95px;
+height:34px;
+background:url(../images/buttom.png) no-repeat;
+border:0;
+vertical-align:middle;
+padding-left:20px;
+margin-right:10px;
+}
+.ttype2{
+border:1px solid #a6a99f; 
+padding-left:10px;
+width:150px;
+height:21px;
+line-height:21px;
+background:url(../images/type-an.gif) repeat-x left bottom;
+vertical-align:middle;
+}
+.t-right{
+text-align:right;
+}
+
+.clearfix:after {content: "."; 
+display: block; 
+height: 0; 
+clear: both; 
+visibility: hidden;} 
+.clearfix {display: inline-block;} 
+/* Hides from IE-mac \*/ 
+* html .clearfix { height: 1%;} 
+.clearfix {display: block;} 
+/* End hide from IE-mac */注: 该方案测试于两栏悬浮布局，兼容各大主流浏览器，包括Google 

@@ -140,26 +140,22 @@ namespace GGZBTQPT_PRO.Controllers
             return View(t_zc_commonlog);
         }
 
-
-        //
-        // GET: /ZC_CommonLog/Delete/5
- 
-        public ActionResult Delete(int id)
-        {
-            T_ZC_CommonLog t_zc_commonlog = db.T_ZC_CommonLog.Find(id);
-            return View(t_zc_commonlog);
+        public ActionResult Analysis()
+        { 
+            var commonlogs = db.T_ZC_CommonLog.Where(l => l.GenerateType == (int)GenerateTypes.FromMember).ToList();
+            return PartialView(commonlogs);
         }
 
-        //
-        // POST: /ZC_CommonLog/Delete/5
+        public ActionResult BasicStat()
+        {
+            var commonlogs = db.T_ZC_CommonLog.Where(l => l.GenerateType == (int)GenerateTypes.FromMember).ToList();
+            return PartialView(commonlogs); 
+        }
 
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {            
-            T_ZC_CommonLog t_zc_commonlog = db.T_ZC_CommonLog.Find(id);
-            db.T_ZC_CommonLog.Remove(t_zc_commonlog);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+        public ActionResult FunctionStat()
+        {
+            var commonlogs = db.T_ZC_CommonLog.Where(l => l.GenerateType == (int)GenerateTypes.FromMember).ToList();
+            return PartialView(commonlogs);
         }
 
         protected override void Dispose(bool disposing)

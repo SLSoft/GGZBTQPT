@@ -98,12 +98,10 @@ namespace GGZBTQPT_PRO.Controllers
                     int result = db.SaveChanges();
                     if (result > 0)
                     {
-                        Logging((int)LogLevels.operate, "成功新增了一条系统数据:" + t_xm_case.Name, (int)OperateTypes.Add, (int)GenerateTypes.FromUser);
                         return ReturnJson(true, "操作成功", "", "", true, "");
                     }
                     else
                     {
-                        Logging((int)LogLevels.warn, "新增系统失败:" + t_xm_case.Name, (int)OperateTypes.Add, (int)GenerateTypes.FromUser);
                         return ReturnJson(false, "操作失败", "", "", false, "");
                     }
                 }
@@ -146,7 +144,7 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        public JsonResult Edit(T_XM_Case t_xm_case)
+        public JsonResult Edit(T_XM_Case t_xm_case, int generate_type)
         {
             if (Request.IsAjaxRequest())
             {
@@ -154,6 +152,7 @@ namespace GGZBTQPT_PRO.Controllers
                 {
                     t_xm_case.UpdatedAt = DateTime.Now;
                     t_xm_case.IsValid = true;
+                    t_xm_case.GenerateType = generate_type;
                     if (Session["CaseFile"] != null && Session["CaseFile"].ToString() != "")
                     {
                         Stream stream = (Stream)Session["CaseFile"];
