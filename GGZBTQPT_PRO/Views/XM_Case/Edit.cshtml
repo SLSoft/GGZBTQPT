@@ -6,7 +6,7 @@
     $.validator.unobtrusive.parse(document);
 </script>*@
 <div class="pageContent">
-    @using (Html.BeginForm("Edit", "XM_Case", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
+    @using (Html.BeginForm("Edit", "XM_Case", new { generate_type = ViewBag.GenerateType }, FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
     {
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.ID)

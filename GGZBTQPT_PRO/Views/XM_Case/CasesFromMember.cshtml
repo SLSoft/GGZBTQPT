@@ -66,6 +66,9 @@
                     <th>
                         更新时间
                     </th>
+                    <th>
+                        发布到门户
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -92,6 +95,9 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.UpdatedAt)
+                        </td>
+                        <td>
+                            @Html.ActionLink("发布到门户", "PublishCaseToCMS", new { id = item.ID })
                         </td>
                     </tr>
                 }

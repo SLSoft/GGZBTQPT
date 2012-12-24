@@ -1,6 +1,19 @@
 ﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Case>
+@using GGZBTQPT_PRO.Enums;
 @{
     Layout = null;
+}
+
+@helper GenerateLinkForXM(GGZBTQPT_PRO.Models.T_XM_Case xm_case)
+{
+    if(xm_case.Type == (int)CaseTypes.Financing)
+    {
+        @Html.ActionLink(xm_case.Name,"Details","XM_TZ", new { xm_id = xm_case.GenerateFromID, xm_type = xm_case.Type }, new { target = "dialog", max="true", width = "400", height = "250", title = "投资项目详情", mask = "true" })
+    }
+    else
+    {
+        @Html.ActionLink(xm_case.Name,"Details","XM_RZ", new { xm_id = xm_case.GenerateFromID, xm_type = xm_case.Type }, new { target = "dialog", max="true", width = "400", height = "250", title = "融资项目详情", mask = "true" })
+    } 
 }
 <div class="pageHeader">
     <form id="pagerForm" method="post" action="@Url.Action("Index")">
@@ -77,7 +90,7 @@
                             <input name="ids" type="checkbox" value="@item.ID" />
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Name)
+                            @GenerateLinkForXM(item)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Type)

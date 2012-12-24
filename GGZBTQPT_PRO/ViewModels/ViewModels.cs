@@ -44,4 +44,12 @@ namespace GGZBTQPT_PRO.ViewModels
         public int Type { get; set; }
         public T_HY_Member Member { get; set; }
     }
+
+    public class AnalysisResult
+    {
+        public Decimal Turnover { get; set; }//平均成交额
+        public Double ReturnRatio { get; set; }//平均回报率
+        public int Num { get; set; }//成交数量
+        public int TurnoverRatio { get; set; }//成交比例 
+    }
 }

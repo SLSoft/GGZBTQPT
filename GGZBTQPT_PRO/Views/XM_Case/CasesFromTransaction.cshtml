@@ -3,6 +3,18 @@
 @{
     Layout = null;
 }
+
+@helper GenerateLinkForXM(GGZBTQPT_PRO.Models.T_XM_Case xm_case)
+{
+    if(xm_case.Type == (int)CaseTypes.Financing)
+    {
+        @Html.ActionLink(xm_case.Name,"Details","XM_TZ", new { id = xm_case.GenerateFromID, xm_type = xm_case.Type }, new { target = "dialog", max="true", width = "400", height = "250", title = "投资项目详情", mask = "true" })
+    }
+    else
+    {
+        @Html.ActionLink(xm_case.Name,"Details","XM_RZ", new { id = xm_case.GenerateFromID, xm_type = xm_case.Type }, new { target = "dialog", max="true", width = "400", height = "250", title = "融资项目详情", mask = "true" })
+    } 
+}
 <div class="pageHeader">
     <form id="pagerForm" method="post" action="@Url.Action("CasesFromTransaction")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
@@ -65,6 +77,12 @@
                     </th>
                     <th>
                         更新时间
+                    </th> 
+                    <th>
+                        发布到门户
+                    </th>
+                    <th>
+                        案例分析
                     </th>
                 </tr>
             </thead>
@@ -76,7 +94,7 @@
                             <input name="ids" type="checkbox" value="@item.ID" />
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Name)
+                            @GenerateLinkForXM(item)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Type)
@@ -92,6 +110,12 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.UpdatedAt)
+                        </td>
+                        <td>
+                            @Html.ActionLink("发布到门户", "PublishCaseToCMS", new { id = item.ID })
+                        </td>
+                        <td>
+                            @Html.ActionLink("案例分析", "Analysis", new { xm_id = item.GenerateFromID, xm_type = item.Type }, new { target = "dialog", width="400", height="250", title="类似项目成交统计", mask="true" })
                         </td>
                     </tr>
                 }

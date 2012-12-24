@@ -9,6 +9,7 @@ using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.Enums;
 using System.IO;
 using GGZBTQPT_PRO.Util;
+using GGZBTQPT_PRO.ViewModels;
 
 namespace GGZBTQPT_PRO.Controllers
 {
@@ -137,9 +138,10 @@ namespace GGZBTQPT_PRO.Controllers
             return File(file, "application/msword");
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, int generate_type)
         {
             T_XM_Case t_xm_case = db.T_XM_Case.Find(id);
+            ViewBag.GenerateType = generate_type;
             return View(t_xm_case);
         }
 
@@ -153,6 +155,7 @@ namespace GGZBTQPT_PRO.Controllers
                     t_xm_case.UpdatedAt = DateTime.Now;
                     t_xm_case.IsValid = true;
                     t_xm_case.GenerateType = generate_type;
+                    BusinessService.TransformatFromXM(1,"xx",1,"xxx");
                     if (Session["CaseFile"] != null && Session["CaseFile"].ToString() != "")
                     {
                         Stream stream = (Stream)Session["CaseFile"];
@@ -189,34 +192,26 @@ namespace GGZBTQPT_PRO.Controllers
                     return ReturnJson(false, "操作失败", "", "", false, "");
             }
             return Json(new { });
+        } 
+        
+        public ActionResult Analysis(int xm_id, int xm_type)
+        {
+            AnalysisResult result = new AnalysisResult();
+            switch(xm_type)
+            {
+                case (int)CaseTypes.Financing:
+                    result = GetFinancingAnalysisResult(xm_id, result); 
+                    break;
+                case (int)CaseTypes.Investment:
+                    result = GetInvestmentAnalysisResult(xm_id, result);
+                    break;
+            }   
+            
+            return PartialView(result);  
         }
 
 
-        //
-        //-------------service-----------------//
-        public bool TransformatFromXM(int xm_id, string xm_name, int xm_type, string xm_summary)
-        {
-            try
-            {
-                T_XM_Case t_xm_case = new T_XM_Case();
-                t_xm_case.GenerateFromID = xm_id;
-                t_xm_case.GenerateType = xm_type;
-                t_xm_case.Name = xm_name;
-                t_xm_case.Summary = xm_summary;
-                t_xm_case.CreatedAt = DateTime.Now;
-                t_xm_case.UpdatedAt = DateTime.Now;
-
-                db.T_XM_Case.Add(t_xm_case);
-                db.SaveChanges();
-
-                return true;
-            }
-            catch
-            { 
-                return false;
-            }
-        } 
-
+        #region//外网相关
         public ActionResult PublishCaseToCMS(int id)
         {
             var xm_case = db.T_XM_Case.Find(id);
@@ -256,8 +251,44 @@ namespace GGZBTQPT_PRO.Controllers
                 return ReturnJson(false, "案例发布失败", "", "", false, "");
             }
         }
+        #endregion
+ 
+        #region//private method
+        private AnalysisResult GetFinancingAnalysisResult(int finacial_id, AnalysisResult result)
+        {
+            //to-do:
+            //添加成交项目的判断
+            var finacial = db.T_XM_Financing.Find(finacial_id); 
+            var finacial_list = db.T_XM_Financing
+                                  .Where(f => f.ItemType == finacial.ItemType && f.Industry == finacial.Industry && f.IsValid == true)
+                                  .ToList();
+
+            result.Turnover = (Decimal)finacial_list.Average(m => m.TotalInvestment);
+            result.ReturnRatio = (Double)finacial_list.Average(m => m.ReturnRatio);
+            result.Num = finacial_list.Count();
+            result.TurnoverRatio = finacial_list.Count() % db.T_XM_Financing.Where(f => f.IsValid == true).Count(); 
+            
+            return result;
+        }
 
 
+        private AnalysisResult GetInvestmentAnalysisResult(int investment_id, AnalysisResult result)
+        {
+            var investment = db.T_XM_Investment.Find(investment_id);
+            var investment_list = db.T_XM_Investment
+                                    .Where(i => i.AimIndustry.IndexOf((String)investment.AimIndustry) >= 0 && i.TeamworkType.IndexOf((String)investment.TeamworkType) >= 0)
+                                    .ToList();
+
+            result.Turnover = (Decimal)investment_list.Average(m => m.Investment);
+            result.ReturnRatio = (Double)investment_list.Average(m => m.ReturnRatio);
+            result.Num = investment_list.Count();
+            result.TurnoverRatio = investment_list.Count() % db.T_XM_Financing.Where(f => f.IsValid == true).Count(); 
+
+            return result;
+
+        }
+
+        #endregion
 
         protected override void Dispose(bool disposing)
         {
@@ -266,4 +297,5 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
     }
+
 }

@@ -11,7 +11,10 @@ namespace GGZBTQPT_PRO.Models
     {
         public T_XM_Case()
         {
-            
+            OP = 0;
+            IsPublished = false;
+            IsValid = true;
+            Analysis = " ";
         }
 
         public int ID { get; set; }

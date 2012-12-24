@@ -59,7 +59,7 @@ namespace GGZBTQPT_PRO.Enums
         Search//搜索 
     }
 
-
+    //生成类型，用于案例生成或其他相关类型
     public enum GenerateTypes : int
     { 
         [Display(Name = "用户生成")]

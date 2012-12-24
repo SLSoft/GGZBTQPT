@@ -6,9 +6,11 @@ using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.Enums;
 using System.IO;
 using GGZBTQPT_PRO.Util;
+using GGZBTQPT_PRO.Filter;
 
 namespace GGZBTQPT_PRO.Util
 {
+    [ActionAttributeFilter()]
     public class BusinessService
     {   
         
@@ -28,9 +30,11 @@ namespace GGZBTQPT_PRO.Util
                 {
                     T_XM_Case t_xm_case = new T_XM_Case();
                     t_xm_case.GenerateFromID = xm_id;
-                    t_xm_case.GenerateType = xm_type;
+                    t_xm_case.Type = xm_type;
+                    t_xm_case.GenerateType = (int)GenerateTypes.FromSystem;
                     t_xm_case.Name = xm_name;
                     t_xm_case.Summary = xm_summary;
+                    t_xm_case.Analysis = "无";
                     t_xm_case.CreatedAt = DateTime.Now;
                     t_xm_case.UpdatedAt = DateTime.Now;
 
