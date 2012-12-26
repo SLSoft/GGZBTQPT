@@ -100,6 +100,7 @@ namespace GGZBTQPT_PRO.Controllers
         // POST: /XM_RZ/Create
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Create(T_XM_Financing t_xm_financing, FormCollection collection)
         {
             if (ModelState.IsValid)
@@ -108,12 +109,14 @@ namespace GGZBTQPT_PRO.Controllers
                 if (checkedTransactionMode.Length > 1)
                     checkedTransactionMode = checkedTransactionMode.Remove(checkedTransactionMode.Length - 1);
                 t_xm_financing.TransactionMode = checkedTransactionMode;
+                t_xm_financing.ValidDate = Convert.ToDateTime(collection["ValidDate"]);
+                t_xm_financing.ItemContent = collection["ItemContent"];
                 t_xm_financing.City = collection["ddlCity"];
                 t_xm_financing.IsValid = true;
                 t_xm_financing.OP = 0;
                 t_xm_financing.CreateTime = DateTime.Now;
                 t_xm_financing.UpdateTime = DateTime.Now;
-                t_xm_financing.MemberID = 1;
+                t_xm_financing.MemberID = (int)Session["UserID"];
 
                 HttpPostedFileBase file = Request.Files[0];
                 //存入文件
@@ -151,6 +154,7 @@ namespace GGZBTQPT_PRO.Controllers
         // POST: /XM_RZ/Edit/5
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Edit(T_XM_Financing t_xm_financing, FormCollection collection)
         {
             if (ModelState.IsValid)
@@ -160,6 +164,8 @@ namespace GGZBTQPT_PRO.Controllers
                 if (checkedTransactionMode.Length > 1)
                     checkedTransactionMode = checkedTransactionMode.Remove(checkedTransactionMode.Length - 1);
                 t_xm_financing.TransactionMode = checkedTransactionMode;
+                t_xm_financing.ValidDate = Convert.ToDateTime(collection["ValidDate"]);
+                t_xm_financing.ItemContent = collection["ItemContent"];
                 t_xm_financing.City = collection["ddlCity"];
                 t_xm_financing.UpdateTime = DateTime.Now;
 

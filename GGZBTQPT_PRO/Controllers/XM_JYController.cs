@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
+using GGZBTQPT_PRO.Util;
+using GGZBTQPT_PRO.Enums;
 
 using System.Net;namespace GGZBTQPT_PRO.Controllers
 {
@@ -41,11 +43,12 @@ using System.Net;namespace GGZBTQPT_PRO.Controllers
         //
         // GET: /XM_JY/Create
 
-        public ActionResult Create(int id = 0)
+        public ActionResult Create(int id = 0,int itype=0)
         {
             var t_xm_tran = new T_XM_Transaction();
             t_xm_tran.ItemID = id;
             t_xm_tran.TranTitle = GetItemName(id);
+            ViewBag.itype = itype;
             return View(t_xm_tran);
         }
 
@@ -69,6 +72,9 @@ using System.Net;namespace GGZBTQPT_PRO.Controllers
         {
             if (ModelState.IsValid)
             {
+                int itype = 0;
+                if (fc["itype"]!=null||fc["itype"]!="")
+                    itype = Convert.ToInt32(fc["itype"]);
                 t_xm_transaction.TranTime = Convert.ToDateTime(fc["trantime"]);
                 t_xm_transaction.TranContent = fc["trancontent"];
                 t_xm_transaction.IsValid = true;
@@ -77,7 +83,8 @@ using System.Net;namespace GGZBTQPT_PRO.Controllers
                 t_xm_transaction.UpdateTime = DateTime.Now;
                 db.T_XM_Transaction.Add(t_xm_transaction);
 
-                //
+                //添加到案例库
+                BusinessService.TransformatFromXM(t_xm_transaction.ItemID, t_xm_transaction.TranTitle, itype, t_xm_transaction.TranContent);
 
                 int result = db.SaveChanges();
                 if (result > 0)

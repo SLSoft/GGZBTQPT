@@ -91,6 +91,8 @@ namespace GGZBTQPT_PRO.Controllers
                 string checkedcbTeamWorkType = (collection["cbTeamWorkType"] + ",").Replace("false,", "");
                 if (checkedcbTeamWorkType.Length > 1)
                     checkedcbTeamWorkType = checkedcbTeamWorkType.Remove(checkedcbTeamWorkType.Length - 1);
+                t_xm_investment.ValidDate = Convert.ToDateTime(collection["ValidDate"]);
+                t_xm_investment.Description = collection["Description"];
                 t_xm_investment.AimIndustry = checkedIndustry;
                 t_xm_investment.AjmArea = checkedProvince;
                 t_xm_investment.TeamworkType = checkedcbTeamWorkType;
@@ -99,6 +101,7 @@ namespace GGZBTQPT_PRO.Controllers
                 t_xm_investment.OP = 0;
                 t_xm_investment.CreateTime = DateTime.Now;
                 t_xm_investment.UpdateTime = DateTime.Now;
+                t_xm_investment.MemberID = (int)Session["MemberID"];
 
                 HttpPostedFileBase file = Request.Files[0];
                 //存入文件
@@ -148,6 +151,8 @@ namespace GGZBTQPT_PRO.Controllers
                 if (checkedcbTeamWorkType.Length > 1)
                     checkedcbTeamWorkType = checkedcbTeamWorkType.Remove(checkedcbTeamWorkType.Length - 1);
                 db.Entry(t_xm_investment).State = EntityState.Modified;
+                t_xm_investment.ValidDate = Convert.ToDateTime(collection["ValidDate"]);
+                t_xm_investment.Description = collection["Description"];
                 t_xm_investment.AimIndustry = checkedIndustry;
                 t_xm_investment.AjmArea = checkedProvince;
                 t_xm_investment.TeamworkType = checkedcbTeamWorkType;

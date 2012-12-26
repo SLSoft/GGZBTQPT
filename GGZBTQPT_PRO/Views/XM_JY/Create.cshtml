@@ -11,6 +11,7 @@
 {
     @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.ItemID)
+        <input name="itype" type="text" value="@ViewBag.itype" style="display:none"/>
         <table style="border-spacing:15px">
         <tr>
             <td width="80px">交易名称</td>
@@ -34,7 +35,7 @@
         <tr>
             <td>交易时间</td>
             <td>
-            <input type="text" name="trantime" class="date" [pattern="yyyy-MM-dd"] [yearstart="-80"] [yearend="5"]/>
+            <input type="text" name="ValidDate" class="date" [pattern="yyyy/MM/dd"] [yearstart="-80"] [yearend="5"]/>
             @Html.ValidationMessageFor(model => model.TranTime)</td>
         </tr>
         <tr>

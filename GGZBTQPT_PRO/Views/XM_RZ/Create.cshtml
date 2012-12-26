@@ -67,23 +67,23 @@
         }
 </script>
 
-@using (Html.BeginForm("Create", "XM_RZ", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return iframeCallback(this);", @class = "pageForm required-validate" }))
+@using (Html.BeginForm("Create", "XM_RZ", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return iframeCallback(this);"}))
 {
     @Html.ValidationSummary(true)
     
-        <br /><p>选择项目类别：
+        <p>选择项目类别：
         <input type="radio" name="itemtype" value="1" checked="checked" /><span>项目融资</span>
         <input type="radio" name="itemtype" value="2" /><span>资产交易</span>
         <input type="radio" name="itemtype" value="3" /><span>政府招商</span>
-        <input type="radio" name="itemtype" value="9" /><span>其他</span></p><br />
-        <div layoutH="40">
-        <table style="width:100%" class="list">
+        <input type="radio" name="itemtype" value="9" /><span>其他</span></p>
+        <div layoutH="20">
+        <table style="width: 100%; border-spacing:3px">
             <tr>
-                <td colspan="2" style="background-color:#666666; color:#ffffff">基本信息</td>
+                <td colspan="2" style="height:25px; font-weight:bold">基本信息</td>
             </tr>
             <tr>
                 <td style="width:80px">@Html.LabelFor(model => model.ItemName, "项目名称")</td>
-                <td>@Html.TextBoxFor(model => model.ItemName, new { style = "width:95%" })</td>
+                <td>@Html.TextBoxFor(model => model.ItemName, new { style = "width:80%" })</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Province, "所属区域")</td>
@@ -96,29 +96,21 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.ValidDate, "有效日期")</td>
-                <td>@Html.EditorFor(model => model.ValidDate)
+                <td><input type="text" name="ValidDate" class="date" [pattern="yyyy-MM-dd"] [yearstart="-80"] [yearend="5"]/>
             @Html.ValidationMessageFor(model => model.ValidDate)</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Keys, "关键词")</td>
-                <td>@Html.EditorFor(model => model.Keys)
-            @Html.ValidationMessageFor(model => model.Keys)</td>
+                <td>@Html.TextBoxFor(model => model.Keys, new { style = "width:80%" })</td>
             </tr>
             <tr>
-                <td>@Html.LabelFor(model => model.Pic, "项目图片")
-                </td>
-                <td>
-                    <input type="file" name="file1" />
-                </td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.ItemContent, "项目介绍")</td>
-                <td>@Html.TextAreaFor(model => model.ItemContent, new { rows = "5", style = "width:95%" })</td>
+                <td style="width:80px">@Html.LabelFor(model => model.ItemContent, "项目介绍")</td>
+                <td><textarea class="editor" name="ItemContent" rows="15" cols="30"></textarea></td>
             </tr>
         </table>
-        <table id="item1" style="width:100%" class="list">
+        <table id="item1" style="width:100%; border-spacing:3px">
             <tr>
-                <td colspan="4" style="background-color:#666666; color:#ffffff">项目融资</td>
+                <td colspan="4" style="height:25px; font-weight:bold">项目融资</td>
             </tr>
             <tr>
                 <td style="width:80px">@Html.LabelFor(model => model.FinancSum, "融资金额")</td>
@@ -160,9 +152,9 @@
                 <td colspan="3">@Html.TextAreaFor(model => model.PartnerRequirements, new { rows = "5", style = "width:95%" })</td>
             </tr>
         </table>
-        <table id="item2" style="width:100%" class="list">
+        <table id="item2" style="width:100%; border-spacing:3px">
             <tr>
-                <td colspan="4" style="background-color:#666666; color:#ffffff">资产交易</td>
+                <td colspan="4" style="height:25px; font-weight:bold">资产交易</td>
             </tr>
             <tr>
                 <td style="width:80px">@Html.LabelFor(model => model.AssetsType, "资产类别")</td>
@@ -187,9 +179,9 @@
                 <td>@GenerateTransactionMode()</td>
             </tr>
         </table>
-        <table id="item3" style="width:100%" class="list">
+        <table id="item3" style="width:100%; border-spacing:3px">
             <tr>
-                <td colspan="4" style="background-color:#666666; color:#ffffff">政府招商</td>
+                <td colspan="4" style="height:25px; font-weight:bold">政府招商</td>
             </tr>
             <tr>
                 <td style="width:80px">@Html.LabelFor(model => model.Investment, "招商投资总额")</td>
@@ -204,7 +196,7 @@
                 <td>@Html.EditorFor(model => model.ReturnCycle)</td>
             </tr>
         </table>
-        <table id="item4" style="width:100%" class="list">
+        <table id="item4" style="width:100%; border-spacing:3px">
             <tr>
                 <td colspan="4" style="background-color:#666666; color:#ffffff">其他项目</td>
             </tr>
@@ -215,9 +207,9 @@
                 <td>@Html.EditorFor(model => model.OtherItemFinancSum)</td>
             </tr>
         </table>
-        <table style="width:100%" class="list">
+        <table style="width: 100%; border-spacing:3px">
             <tr>
-                <td colspan="4" style="background-color:#666666; color:#ffffff">联系人信息</td>
+                <td colspan="4" style="height:25px; font-weight:bold">联系人信息</td>
             </tr>
             <tr>
                 <td style="width:80px">@Html.LabelFor(model => model.Linkman, "联系人")</td>
@@ -249,7 +241,15 @@
             @Html.ValidationMessageFor(model => model.QQ)</td>
             </tr>
         </table>
-
+        <table style="width: 100%; border-spacing:3px">
+        <tr>
+                <td style="width:80px">项目图片
+                </td>
+                <td>
+                    <input type="file" name="file1" />
+                </td>
+            </tr>
+        </table>
         <p>
             <input type="submit" value="提交" />
         </p>
