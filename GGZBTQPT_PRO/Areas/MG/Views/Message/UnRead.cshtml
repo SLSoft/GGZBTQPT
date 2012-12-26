@@ -52,7 +52,7 @@
                         } 
                     </div>
                     <h5 class="media-heading reply-to">
-                        @Ajax.ActionLink("回复该消息", "ReplyMessage", "Message", new { message_id = @_model.Message.RelateID },
+                        @Ajax.ActionLink("回复该消息", "ReplyMessage", "Message", new { message_id = @_model.Message.RelateID == 0 ? _model.Message.ID : _model.Message.RelateID },
                                         new AjaxOptions
                                         {
                                             HttpMethod = "GET",

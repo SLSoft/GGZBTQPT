@@ -1,35 +1,55 @@
-﻿ @helper CheckWhetherMemberLoginIn()
-    {
+﻿@using GGZBTQPT_PRO.Enums
+@helper GeneratePersonalLinks()
+{
     if (Session["MemberID"] != null && Session["MemberID"].ToString() != "")
-    { 
-    <li>
-        <div class="btn-group">
-            <a class="btn dropdown-toggle btn-success" data-toggle="dropdown" href="#">信息发布 <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li>@Html.ActionLink("发布融资项目", "Create", "Financial")</li>
-                <li>@Html.ActionLink("发布投资意向", "Create", "Investment")</li>
-            </ul>
-        </div>
-    </li>
-    <li class="divider-vertical"></li>
-    <li >
-        <div class="btn-group">
-            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">短消息 <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li>@Html.ActionLink("短消息列表", "Index", "Message")</li>
-                <li class="divider"></li>
-                <li>@Html.ActionLink("发新消息", "Create", "Message")</li>
-            </ul>
-        </div>
-    </li> 
-    <li>@Html.ActionLink("设置", "Config", "Member")</li>
-    <li>@Html.ActionLink("退出", "LogOut", "Member")</li>
-    <li><a href="http://www.ovcstf.com/">返回资本光谷</a></li>
+    {
+        <li>
+            <div class="btn-group">
+                <a class="btn dropdown-toggle btn-info" data-toggle="dropdown" href="#">信息查询 <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("找项目", "Financials", "InquireResources") </li>
+                    <li>@Html.ActionLink("找资金", "Investments", "InquireResources") </li>
+                    <li>@Html.ActionLink("找服务", "Index", "FindService") </li>
+                </ul>
+            </div>
+        </li>
+        if (Session["IsVerified"].ToString() == "True")
+        {
+                
+            <li class="divider-vertical"></li>
+            <li>
+                <div class="btn-group">
+                    <a class="btn dropdown-toggle btn-success" data-toggle="dropdown" href="#">信息发布 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("发布融资项目", "Create", "Financial")</li>
+                        <li>@Html.ActionLink("发布投资意向", "Create", "Investment")</li>
+                        @if (Model.Type == (int)MemberTypes.机构)
+                        {
+                            <li>@Html.ActionLink("发布金融产品", "Create", "Product")</li>
+                        }
+                    </ul>
+                </div>
+            </li>
+        }
+        <li class="divider-vertical"></li>
+        <li>
+            <div class="btn-group">
+                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">短消息 <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("短消息列表", "Index", "Message")</li>
+                    <li class="divider"></li>
+                    <li>@Html.ActionLink("发新消息", "Create", "Message")</li>
+                </ul>
+            </div>
+        </li> 
+        <li>@Html.ActionLink("设置", "Config", "Member")</li>
+        <li>@Html.ActionLink("退出", "LogOut", "Member")</li>
+        <li><a href="http://www.ovcstf.com/">返回资本光谷</a></li>
     }
     else
     {
-    <li>@Html.ActionLink("注册", "SignUp", "Member")</li>
-    <li>@Html.ActionLink("登陆", "Login", "Member")</li>
+        <li>@Html.ActionLink("注册", "SignUp", "Member")</li>
+        <li>@Html.ActionLink("登陆", "Login", "Member")</li>
     <li><a href="http://www.ovcstf.com/">返回资本光谷</a></li>
     }
 }
@@ -42,13 +62,10 @@
                 <li>@Html.ActionLink("我的发布", "Index", "Published") </li>
                 <li>@Html.ActionLink("我的收藏", "Index", "Favorite") </li>
                 <li>@Html.ActionLink("我的关注", "Index", "Attention") </li>
-                <li>@Html.ActionLink("找项目", "Financials", "InquireResources") </li>
-                <li>@Html.ActionLink("找资金", "Investments", "InquireResources") </li>
-                <li>@Html.ActionLink("找服务", "Index", "FindService") </li>
-                 
+
             </ul>
             <ul class="nav pull-right">
-                @CheckWhetherMemberLoginIn()
+                @GeneratePersonalLinks()
             </ul> 
         </div>
     </div>

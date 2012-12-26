@@ -166,6 +166,8 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 {
                     Session["MemberID"] = member.ID;
                     Session["MemberName"] = member.MemberName;
+                    Session["MemberType"] = member.Type;
+                    Session["IsVerified"] = member.IsVerified;
                     RegisterLoginInfo();
                     if (Session["RedirectUrl"] != null && Session["RedirectUrl"].ToString() != "")
                     {
@@ -277,10 +279,12 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             var current_member_membername = CurrentMember().MemberName;
             return Json(!db.T_HY_Member.Where(m => m.MemberName != current_member_membername).Any(m => m.MemberName == membername), JsonRequestBehavior.AllowGet);
         }
- 
+        
+        //用于短消息中的接收人验证，必须是系统中有的用户，并且不能是自己
         public JsonResult CheckMember([Bind(Prefix = "ReceiveMember")] string receivemembername)
         {
-            return Json(db.T_HY_Member.Any(m => m.MemberName == receivemembername), JsonRequestBehavior.AllowGet);
+            var current_member_membername = CurrentMember().MemberName;
+            return Json(db.T_HY_Member.Any(m => m.MemberName == receivemembername && m.MemberName != current_member_membername), JsonRequestBehavior.AllowGet);
         }
 
         public void RegisterLoginInfo()

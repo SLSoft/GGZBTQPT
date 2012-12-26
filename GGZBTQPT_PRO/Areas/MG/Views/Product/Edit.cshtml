@@ -1,0 +1,142 @@
+﻿@model GGZBTQPT_PRO.Models.T_JG_Product
+
+@{
+    ViewBag.Title = "Edit";
+}
+@helper GeneratePersonType()
+{
+    foreach (var item in ViewBag.CustomerType)
+    {
+        if (Model.CustomerType.Contains(item.ID.ToString()))
+        {
+            <input type="checkbox" id="checkboxType" name="checkboxType" value="@item.ID" checked="checked" /><span>@item.Name</span>
+        }
+        else
+        {
+            <input type="checkbox" id="checkboxType" name="checkboxType" value="@item.ID" /><span>@item.Name</span>
+        }
+    }
+}
+<h3>编辑产品信息</h3>
+@using (Html.BeginForm("Edit", "Product", FormMethod.Post, new {  enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.AgencyID)
+    @Html.HiddenFor(model => model.IsValid)
+    @Html.HiddenFor(model => model.OP)
+    @Html.HiddenFor(model => model.CreateTime)
+    @Html.HiddenFor(model => model.UpdateTime)
+    @Html.HiddenFor(model => model.Pic)
+    @Html.HiddenFor(model => model.MemberID)
+    <div layouth="20">
+        <table style="width: 100%" class="list">
+            <tr>
+                <td>@Html.LabelFor(model => model.ProductName, "产品名称")
+                </td>
+                <td>@Html.EditorFor(model => model.ProductName)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Pic, "产品图片")
+                </td>
+                <td>
+                    <input type="file" name="file1" />
+                    <div>
+                        <img id="logo_preview" src='@Url.Action("ShowPic", "Product", new { product_id = Model.ID })'  alt="@Model.ProductName" /></div>
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.AgencyID, "所属机构")
+                </td>
+                <td>@Html.DropDownList("AgencyList")
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.FinancingAmount, "最高融资额度")
+                </td>
+                <td>@Html.EditorFor(model => model.FinancingAmount)（万元）
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.FinancingLimit, "融资期限")
+                </td>
+                <td>@Html.EditorFor(model => model.FinancingLimit)（月）
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.InterestRate, "利率")
+                </td>
+                <td>@Html.EditorFor(model => model.InterestRate)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.CustomerType, "适用客户")
+                </td>
+                <td>@GeneratePersonType()
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Superiority, "产品优势")
+                </td>
+                <td>@Html.TextAreaFor(model => model.Superiority, new { rows = "5", cols = "60" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.RepaymentType, "还款方式")
+                </td>
+                <td>@Html.TextAreaFor(model => model.RepaymentType, new { rows = "5", cols = "60" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.AppCondition, "申请条件")
+                </td>
+                <td>@Html.TextAreaFor(model => model.AppCondition, new { rows = "5", cols = "60" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Process, "办理流程")
+                </td>
+                <td>@Html.TextAreaFor(model => model.Process, new { rows = "5", cols = "60" })
+                </td>
+            </tr>
+        </table>
+        <table style="width: 100%" class="list">
+            <tr>
+                <td style="width: 80px">@Html.LabelFor(model => model.Linkman, "联系人")
+                </td>
+                <td>@Html.EditorFor(model => model.Linkman)
+                </td>
+                <td>@Html.LabelFor(model => model.Position, "所属部门及职务")
+                </td>
+                <td>@Html.EditorFor(model => model.Position)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Phone, "固定电话")
+                </td>
+                <td>@Html.EditorFor(model => model.Phone)
+                </td>
+                <td>@Html.LabelFor(model => model.Mobile, "移动电话")
+                </td>
+                <td>@Html.EditorFor(model => model.Mobile)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Fax, "传真")
+                </td>
+                <td>@Html.EditorFor(model => model.Fax)
+                </td>
+                <td>@Html.LabelFor(model => model.Email, "电子邮箱")
+                </td>
+                <td>@Html.EditorFor(model => model.Email)
+                </td>
+            </tr>
+        </table>
+        <p>
+            <input type="submit" value="保存" />
+        </p>
+    </div>
+}
+

@@ -1,4 +1,4 @@
-@model GGZBTQPT_PRO.Models.T_ZC_User
+﻿@model GGZBTQPT_PRO.Models.T_ZC_User
 @{
     Layout = null;
 }
@@ -6,7 +6,9 @@
     @using (Html.BeginForm("Edit", "ZC_User", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
     {
         @Html.ValidationSummary(true)
-        <div class="pageFormContent" layouth="56">@Html.HiddenFor(model => model.CreatedAt)
+        @Html.HiddenFor( m => m.UseLevel)
+        @Html.HiddenFor(model => model.CreatedAt)
+        <div class="pageFormContent" layouth="56">
             <p>
                 @Html.LabelFor(model => model.DepartmentID, "所属部门")
                 @Html.DropDownList("DepartmentID", String.Empty)

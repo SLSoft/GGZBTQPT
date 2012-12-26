@@ -49,6 +49,7 @@ namespace GGZBTQPT_PRO.Enums
     public enum OperateTypes : int
     {
         //操作日志类别
+        manage,//系统管理级别
         Visit,//访问
         Attention,//关注
         Favorite,//收藏
@@ -72,6 +73,8 @@ namespace GGZBTQPT_PRO.Enums
 
     public enum GenerateSystem : int
     {
+        [Display(Name = "平台管理")]
+        Manage,
         [Display(Name = "金融推荐")]
         Recommend,
         [Display(Name = "找项目")]

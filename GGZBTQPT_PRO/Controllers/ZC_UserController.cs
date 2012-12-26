@@ -45,7 +45,7 @@ namespace GGZBTQPT_PRO.Controllers
                     db.T_ZC_User.Add(t_zc_user);
                     int result = db.SaveChanges();
                     if (result > 0)
-                        return ReturnJson(true, "操作成功", "", "", true, "");
+                        return ReturnJson(true, "操作成功", "", "userInfoBox", true, "");
                     else
                         return ReturnJson(false, "操作失败", "", "", false, "");
                 }
@@ -74,7 +74,7 @@ namespace GGZBTQPT_PRO.Controllers
                     db.Entry(t_zc_user).State = EntityState.Modified;
                     int result = db.SaveChanges();
                     if (result >= 0)
-                        return ReturnJson(true, "操作成功", "", "", true, "");
+                        return ReturnJson(true, "操作成功", "", "userInfoBox", true, "");
                     else
                         return ReturnJson(false, "操作失败", "", "", false, "");
                 }
@@ -92,7 +92,7 @@ namespace GGZBTQPT_PRO.Controllers
                 t_zc_user.IsValid = false;
                 int result = db.SaveChanges();
                 if (result > 0)
-                    return ReturnJson(true, "操作成功", "", "", false, "");
+                    return ReturnJson(true, "操作成功", "", "userInfoBox", false, "");
                 else
                     return ReturnJson(false, "操作失败", "", "", false, "");
             }
@@ -105,17 +105,18 @@ namespace GGZBTQPT_PRO.Controllers
             base.Dispose(disposing);
         }
 
-        public PartialViewResult UserInfo(int department_id, int pageNum = 1, int numPerPage = 15)
+        public PartialViewResult UserInfo(int id, int pageNum = 1, int numPerPage = 15)
         { 
             IList<GGZBTQPT_PRO.Models.T_ZC_User> list = db.T_ZC_User.Include("Department")
-                                                        .Where(m => m.DepartmentID == department_id).Where(p => p.IsValid == true)
+                                                        .Where(m => m.DepartmentID == id).Where(p => p.IsValid == true)
                                                         .OrderBy(s => s.ID)
                                                         .Skip(numPerPage * (pageNum - 1))
                                                         .Take(numPerPage).ToList();
-            ViewBag.recordCount = db.T_ZC_User.Where(m => m.DepartmentID == department_id && m.IsValid == true).Count();
+            ViewBag.recordCount = db.T_ZC_User.Where(m => m.DepartmentID == id && m.IsValid == true).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
-            ViewBag.DepartmentID = department_id;
+            ViewBag.ID = id;
+            ViewBag.DepartmentID = id;
             return PartialView(list);
         }
 

@@ -126,7 +126,7 @@ namespace GGZBTQPT_PRO.Areas.ViewModels
 
         [Required(ErrorMessage = "必须选择接收人")]
         [Display(Name = "接收人")]
-        [Remote("CheckMember", "Member", ErrorMessage = "不存在该用户")]
+        [Remote("CheckMember", "Member", ErrorMessage = "不能发送给自己或者不存在的用户")]
         public string ReceiveMember { get; set; }//接收短消息的会员ID 
 
     }

@@ -251,6 +251,32 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         //helper
+
+        public ActionResult UploadLogo(string qqfile, int corp_id)
+        {
+            var corp = db.T_QY_Corp.Find(corp_id);
+            db.Entry(corp).State = EntityState.Modified;
+
+            try
+            {
+                Stream stream = Request.Files.Count > 0
+                    ? Request.Files[0].InputStream
+                    : Request.InputStream;
+                //存入文件
+                if (stream.Length > 0)
+                {
+                    corp.Logo = new byte[stream.Length];
+                    stream.Read(corp.Logo, 0, corp.Logo.Length);
+                }
+                db.SaveChanges();
+                return Json(new { success = "true", message = "上传成功", logo = Convert.ToBase64String(corp.Logo) }, "text/x-json");
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, "text/x-json");
+            }
+        }
+
         public FileContentResult ShowLogo(int corp_id)
         { 
             return File(db.T_QY_Corp.Find(corp_id).Logo, "image/jpeg");

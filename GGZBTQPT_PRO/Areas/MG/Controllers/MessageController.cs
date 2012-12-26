@@ -88,7 +88,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                                                            {
                                                                Message = m,
                                                                RelateMessages = db.T_HY_Message.Where(g => 
-                                                                                                        (g.RelateID == m.RelateID && g.ID < m.ID) //与该消息相关的消息
+                                                                                                        (g.RelateID == m.RelateID && g.ID < m.ID && g.RelateID != 0) //与该消息相关的消息
                                                                                                         || 
                                                                                                         (g.RelateID == 0 && g.ID == m.RelateID ))//与该消息相关的主题消息
                                                                                                .OrderByDescending(g => g.CreatedTime)
@@ -140,7 +140,8 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
                 db.T_HY_Message.Add(message);
                 db.SaveChanges();
-                return Json(new { statusCode = "200", message = "消息发送成功！", type = "success" });
+
+                return RedirectToAction("Index");
             }
             return View();
         }

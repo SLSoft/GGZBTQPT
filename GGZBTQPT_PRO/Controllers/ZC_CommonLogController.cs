@@ -50,6 +50,22 @@ namespace GGZBTQPT_PRO.Controllers
             return View(list);
         }
 
+        public ViewResult ManageLog(string keywords, int pageNum = 1, int numPerPage = 15)
+        {
+            keywords = keywords == null ? "" : keywords;
+
+            IList<GGZBTQPT_PRO.Models.T_ZC_CommonLog> list = db.T_ZC_CommonLog.Where(l => (l.Level == "INFO" && l.GenerateSystem == (int)GenerateSystem.Manage) && l.Message.Contains(keywords)).ToList()
+                                                            .OrderBy(s => s.ID)
+                                                            .Skip(numPerPage * (pageNum - 1))
+                                                            .Take(numPerPage).ToList();
+
+            ViewBag.recordCount = db.T_ZC_CommonLog.Where(l => (l.Level == "INFO" || l.GenerateSystem == (int)GenerateSystem.Manage) && l.Message.Contains(keywords)).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+            ViewBag.keywords = keywords;
+            return View(list);
+        }
+
 
         #region//日志导出
         public ActionResult ExportErrorLogWithExcel()

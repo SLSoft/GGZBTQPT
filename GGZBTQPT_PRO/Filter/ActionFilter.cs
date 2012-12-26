@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 using System.Web.Routing;
+using GGZBTQPT_PRO.Util;
+using GGZBTQPT_PRO.Enums;
 
 namespace GGZBTQPT_PRO.Filter
 {
@@ -15,10 +17,15 @@ namespace GGZBTQPT_PRO.Filter
     {
 
         public string Message { get; set; } 
+        public Log log = new Log();
 
         //在Action执行之后执行  
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         { 
+            string controller = filterContext.RouteData.Values["controller"] as string;
+            string action = filterContext.RouteData.Values["action"] as string; 
+            
+            log.Logging((int)LogLevels.operate, log.GenerateLogMessage(controller, action), (int)OperateTypes.manage, (int)GenerateTypes.FromUser, (int)GenerateSystem.Manage);
             base.OnActionExecuted(filterContext); 
         } 
 
@@ -43,6 +50,7 @@ namespace GGZBTQPT_PRO.Filter
         //在Result执行之后  
         public override void OnResultExecuted(ResultExecutedContext filterContext)
         { 
+
             base.OnResultExecuted(filterContext); 
         } 
 

@@ -66,6 +66,7 @@ namespace GGZBTQPT_PRO.Controllers
             }
         }
 
+        //获取当前用户
         protected T_ZC_User CurrentUser()
         {
             if (Session["UserID"] != null && Session["UserID"].ToString() != "")

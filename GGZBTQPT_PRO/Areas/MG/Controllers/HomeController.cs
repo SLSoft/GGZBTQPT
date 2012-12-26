@@ -18,5 +18,5 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             var member = db.T_HY_Member.Find(CurrentMember().ID);
             return View(member); 
         } 
-    }
+    } 
 }

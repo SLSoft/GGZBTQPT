@@ -5,7 +5,7 @@
         <ul>
             @foreach (var department in Model)
             {
-                <li> @Html.ActionLink(department.Name,"UserInfo","ZC_User",new { department_id = department.ID},new { target = "ajax", rel = "userInfoBox" })</li>
+                <li> @Html.ActionLink(department.Name,"UserInfo","ZC_User",new { id = department.ID},new { target = "ajax", rel = "userInfoBox" })</li>
             }
         </ul>
     </li>

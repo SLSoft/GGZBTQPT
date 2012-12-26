@@ -1,0 +1,42 @@
+﻿@model GGZBTQPT_PRO.Models.T_HY_Member
+@using GGZBTQPT_PRO.Enums
+
+@if (Model != null)
+{ 
+    if(Model.IsVerified == true)
+    {
+        <li>
+            <div class="btn-group">
+                <a class="btn dropdown-toggle btn-success" data-toggle="dropdown" href="#">信息发布 <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("发布融资项目", "Create", "Financial")</li>
+                    <li>@Html.ActionLink("发布投资意向", "Create", "Investment")</li>
+                    @if (Model.Type == (int)MemberTypes.机构)
+                    {
+                        <li>@Html.ActionLink("发布金融产品", "Create", "Product")</li>
+                    }
+                </ul>
+            </div>
+        </li>
+    }
+    <li class="divider-vertical"></li>
+    <li>
+        <div class="btn-group">
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">短消息 <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("短消息列表", "Index", "Message")</li>
+                <li class="divider"></li>
+                <li>@Html.ActionLink("发新消息", "Create", "Message")</li>
+            </ul>
+        </div>
+    </li> 
+    <li>@Html.ActionLink("设置", "Config", "Member")</li>
+    <li>@Html.ActionLink("退出", "LogOut", "Member")</li>
+    <li><a href="http://www.ovcstf.com/">返回资本光谷</a></li>
+}
+else
+{
+    <li>@Html.ActionLink("注册", "SignUp", "Member")</li>
+    <li>@Html.ActionLink("登陆", "Login", "Member")</li>
+    <li><a href="http://www.ovcstf.com/">返回资本光谷</a></li>
+}
