@@ -1,18 +1,18 @@
-﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_NB_File>
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_NB_Meeting>
 
 @{
     Layout = null;
 }
 
 <div class="pageHeader">
-    <form id="pagerForm" method="post" action="@Url.Action("SendList")">
+    <form id="pagerForm" method="post" action="@Url.Action("MeetingApply")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
     <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />
     @*<input type="hidden" name="orderField" value="${param.orderField}" />
         <input type="hidden" name="orderDirection" value="${param.orderDirection}" />*@
     </form>
-    <form onsubmit="return navTabSearch(this);" action="@Url.Action("SendList")"
+    <form onsubmit="return navTabSearch(this);" action="@Url.Action("MeetingApply")"
     method="post">
     <div class="searchBar">
         <ul class="searchContent">
@@ -41,12 +41,12 @@
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-            <li><a class="add" href="@Url.Action("create", "NB_File")" rel="create" target="dialog" width="400"
-                height="300" title="添加新的文件" mask="true"><span>添加</span></a></li>
-            <li><a class="edit" href="@Url.Action("edit", "NB_File", new { id = "{mid}" })" rel="edit" target="dialog" width="400"
-                height="300" title="编辑文件信息" mask="true" warn="请选择一条文件数据"><span>编辑</span></a></li>
-            <li><a class="delete" href="@Url.Action("delete", "NB_File", new { id = "{mid}" })" rel="delete" target="ajaxTodo"
-                title="确定要删除吗？" warn="请选择一条文件数据"><span>删除</span></a></li>
+            <li><a class="add" href="@Url.Action("create", "NB_Meeting")" rel="create" target="dialog" width="400" 
+                height="300" title="会议预定" mask="true"><span>添加</span></a></li>
+            <li><a class="edit" href="@Url.Action("edit", "NB_Meeting", new { id = "{mid}" })" rel="edit" target="dialog" width="400" 
+                height="300" title="编辑会议信息" mask="true" warn="请选择一条会员数据"><span>编辑</span></a></li>
+            <li><a class="delete" href="@Url.Action("delete", "NB_Meeting", new { id = "{mid}" })" rel="delete" target="ajaxTodo" 
+                title="确定要删除吗？" warn="请选择一条会议数据"><span>删除</span></a></li>
             <li class="line">line</li>
         </ul>
     </div>
@@ -58,22 +58,34 @@
                     <input type="checkbox" group="ids" class="checkboxCtrl">
                 </th>
                 <th>
-                    标题
+                    会议主题
                 </th>
                 <th>
-                    文件名
+                    会议时间
                 </th>
                 <th>
-                    接收用户
+                    预定地址
                 </th>
                 <th>
-                    创建时间
+                    参与人数
                 </th>
                 <th>
-                    修改时间
+                    会议用时
                 </th>
                 <th>
-                    操作
+                    申请时间
+                </th>
+                <th>
+                    状态
+                </th>
+                <th>
+                    审核用户
+                </th>
+                <th>
+                    审核反馈
+                </th>
+                <th>
+                    审核时间
                 </th>
             </tr>
             </thead>
@@ -87,22 +99,31 @@
                     @item.Title
                 </td>
                 <td>
-                    @Html.ActionLink("文件下载", "DownLoadFile", new { id = item.ID })
+                    @String.Format("{0:g}", item.MeetingTime)
                 </td>
                 <td>
-                   @foreach (var user in item.ReceiveUsers)
-                   {
-                       <span style="margin-right:10px;">@user.UserName</span>
-                   }
+                    @item.Address
+                </td>
+                <td>
+                   @item.Number
+                </td>
+                <td>
+                   @item.UsedTime
                 </td>
                 <td>
                     @String.Format("{0:g}", item.CreatedTime)
                 </td>
                 <td>
-                    @String.Format("{0:g}", item.UpdatedTime)
+                   @item.StateName
                 </td>
                 <td>
-                    @Html.ActionLink("发送到用户", "SelectUser", "NB_File", new { id=item.ID}, new { target = "dialog", mask = "true" })
+                   @item.AuditUser
+                </td>
+                <td>
+                   @item.FeedBack
+                </td>
+                <td>
+                    @String.Format("{0:g}", item.AuditTime)
                 </td>
             </tr>
             }

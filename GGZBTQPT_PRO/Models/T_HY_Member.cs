@@ -22,7 +22,7 @@ namespace GGZBTQPT_PRO.Models
 
         [Required(ErrorMessage = "必须填写登录名")]
         [Display(Name = "登录名")]
-        [Remote("CheckLoginName", "Member", ErrorMessage = "该登录名已经被注册了")]
+        [Remote("CheckLoginName", "HY_Member", ErrorMessage = "该登录名已经被注册了")]
         public string LoginName { get; set; }
 
         [DataType(DataType.Password)]
@@ -31,9 +31,10 @@ namespace GGZBTQPT_PRO.Models
 
         [Required(ErrorMessage = "必须填写手机号码")]
         [Display(Name = "手机号码")]
-        [Remote("CheckCellPhone", "Member", ErrorMessage = "该手机已经被使用了，请尝试更改!")]
+        [Remote("CheckCellPhone", "HY_Member", ErrorMessage = "该手机已经被使用了，请尝试更改!")]
         public string CellPhone { get; set; }
 
+        [Required(ErrorMessage = "必须填写昵称")]
         [Display(Name = "昵称")]
         public string MemberName { get; set; }//默认是登录名，用户可以修改 
 
@@ -43,7 +44,7 @@ namespace GGZBTQPT_PRO.Models
         [Display(Name = "会员编号")] 
         public int Number { get; set; } //会员编号 
 
-        //[Required(ErrorMessage = "必须选择会员类型")]
+        [Required(ErrorMessage = "必须选择会员类型")]
         [Display(Name = "注册会员类型")]
         public int Type { get; set; }
 

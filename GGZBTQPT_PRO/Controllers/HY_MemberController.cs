@@ -9,6 +9,7 @@ using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.Enums;
 using GGZBTQPT_PRO.ViewModels;
 using Webdiyer.WebControls.Mvc;
+using GGZBTQPT_PRO.Areas.MG.Controllers;
 
 namespace GGZBTQPT_PRO.Controllers
 { 
@@ -39,18 +40,6 @@ namespace GGZBTQPT_PRO.Controllers
             return View(list);
         } 
 
-        //
-        // GET: /T_HY_Member/Details/5
-
-        public ViewResult Details(int id)
-        {
-            T_HY_Member t_hy_member = db.T_HY_Member.Find(id);
-            return View(t_hy_member);
-        }
-
-        //
-        // GET: /T_HY_Member/Create
-
         public ActionResult Create()
         {
             var types = from MemberTypes type in Enum.GetValues(typeof(MemberTypes))
@@ -59,9 +48,6 @@ namespace GGZBTQPT_PRO.Controllers
 
             return View();
         } 
-
-        //
-        // POST: /T_HY_Member/Create
 
         [HttpPost]
         public ActionResult Create(T_HY_Member t_hy_member)
@@ -89,7 +75,11 @@ namespace GGZBTQPT_PRO.Controllers
 
                     db.T_HY_Member.Add(member);
                     int result = db.SaveChanges();
-                    if (result > 0)
+
+                    MemberController m = new MemberController();
+                    bool boo = m.InitMemberDetail(member.Type, member.ID); 
+
+                    if (result > 0 && boo == true)
                         return ReturnJson(true, "操作成功", "", "", true, "");
                     else
                         return ReturnJson(false, "操作失败", "", "", false, "");
@@ -97,32 +87,45 @@ namespace GGZBTQPT_PRO.Controllers
             }
             return Json(new { });
         }
-        
-        //
-        // GET: /T_HY_Member/Edit/5
  
         public ActionResult Edit(int id)
         {
             T_HY_Member t_hy_member = db.T_HY_Member.Find(id);
-
-            var types = from MemberTypes mtype in Enum.GetValues(typeof(MemberTypes))
-                        select new { ID = (int)mtype, Name = mtype.ToString() };
-            ViewData["Types"] = new SelectList(types, "ID", "Name");
-            
-            return View(t_hy_member);
+            if (t_hy_member != null)
+            {
+                VM_EditMember member = new VM_EditMember();
+                member.ID = t_hy_member.ID;
+                member.MemberName = t_hy_member.MemberName;
+                member.CellPhone = t_hy_member.CellPhone;
+                member.Email = t_hy_member.Email;
+                return View(member);
+            }
+            return View();
         }
 
-        //
-        // POST: /T_HY_Member/Edit/5
-
         [HttpPost]
-        public ActionResult Edit(T_HY_Member t_hy_member)
+        public ActionResult Edit(int id,VM_EditMember member)
         {
             if (Request.IsAjaxRequest())
             {
                 if (ModelState.IsValid)
                 {
+                    T_HY_Member t_hy_member = db.T_HY_Member.Find(id);
+
+                    if (db.T_HY_Member.Where(m => m.ID != t_hy_member.ID).Any(m => m.MemberName == member.MemberName))
+                    {
+                        return ReturnJson(false, "该用户名已经被使用了，请尝试更改!", "", "", false, "");
+                    }
+
+                    if (db.T_HY_Member.Where(m => m.ID != t_hy_member.ID).Any(m => m.CellPhone == member.CellPhone))
+                    {
+                        return ReturnJson(false, "该手机号码已经被使用了，请尝试更改!", "", "", false, "");
+                    }
+
                     t_hy_member.UpdatedAt = Convert.ToDateTime(DateTime.Now.ToLongTimeString());
+                    t_hy_member.MemberName = member.MemberName;
+                    t_hy_member.CellPhone = member.CellPhone;
+                    t_hy_member.Email = member.Email;
                     db.Entry(t_hy_member).State = EntityState.Modified;
 
                     int result = db.SaveChanges();
@@ -132,20 +135,8 @@ namespace GGZBTQPT_PRO.Controllers
                         return ReturnJson(false, "操作失败", "", "", false, "");
                 }
             }
-            var types = from MemberTypes mtype in Enum.GetValues(typeof(MemberTypes))
-                        select new { ID = (int)mtype, Name = mtype.ToString() };
-            SelectList list = new SelectList(types, "ID", "Name");
-            List<SelectListItem> li = new List<SelectListItem>();
-            li.Add(new SelectListItem { Text="---请选择---",Value="", Selected=true});
-            li.AddRange(list);
-
-            ViewData["Types"] = li;
-
             return Json(new { });
         }
-
-        //
-        // POST: /T_HY_Member/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
@@ -163,6 +154,16 @@ namespace GGZBTQPT_PRO.Controllers
             return Json(new { });
         }
 
+        //----------------验证-----------------//
+        public JsonResult CheckLoginName(string loginname)
+        {
+            return Json(!db.T_HY_Member.Any(m => m.LoginName == loginname), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CheckCellPhone(string cellphone)
+        {
+            return Json(!db.T_HY_Member.Any(m => m.CellPhone == cellphone), JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         #region 会员审核
@@ -329,7 +330,8 @@ namespace GGZBTQPT_PRO.Controllers
             tqCount = tq.Count();
             tq = tq.OrderBy(s => s.ID).Skip(numPerPage * (pageNum - 1)).Take(numPerPage);
 
-            IList<VM_MemberStat> list = tq.Select(w => new VM_MemberStat{
+            IList<VM_MemberRelease> list = tq.Select(w => new VM_MemberRelease
+            {
                                                        FinancingCount = w.Financials.Count, 
                                                        InvestmentCount=w.Investments.Count,
                                                        ProductCount = w.Products.Count,
@@ -634,9 +636,9 @@ namespace GGZBTQPT_PRO.Controllers
         /// <returns></returns>
         public ActionResult MemberStatList()
         {
-            IList<VM_Member_Stat> list = db.T_HY_Member.Where(p => p.IsValid == true && p.IsVerified == true)
+            IList<VM_MemberStat> list = db.T_HY_Member.Where(p => p.IsValid == true && p.IsVerified == true)
                                                    .GroupBy(g => g.Type)
-                                                   .Select(s => new VM_Member_Stat
+                                                   .Select(s => new VM_MemberStat
                                                    {
                                                        MemberCount = s.Count(),
                                                        Type = s.Key
