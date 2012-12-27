@@ -16,9 +16,10 @@ namespace GGZBTQPT_PRO.Controllers
         //
         // GET: /QY_Person/
 
-        public ViewResult Index(int pageNum = 1, int numPerPage = 5)
+        public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 5)
         {
-            var t_qy_person = db.T_QY_Person.Where(p => p.IsValid == true).OrderBy(s => s.ID)
+            keywords = keywords == null ? "" : keywords;
+            var t_qy_person = db.T_QY_Person.Where(p => (p.IsValid == true && p.Name.Contains(keywords))).OrderBy(s => s.ID)
                                                                     .Skip(numPerPage * (pageNum - 1))
                                                                     .Take(numPerPage).ToList();
             ViewBag.recordCount = db.T_QY_Person.Where(c => c.IsValid == true).Count();
@@ -169,6 +170,24 @@ namespace GGZBTQPT_PRO.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        //产品查询功能
+        public ActionResult PersonQuery(FormCollection collection, int pageNum = 1, int numPerPage = 5)
+        {
+
+            string productname = collection["productname"] == null ? "" : collection["productname"]; ;
+
+            var t_jg_product = db.T_JG_Product.Where(c => c.IsValid == true && c.ProductName.Contains(productname));
+
+            IList<GGZBTQPT_PRO.Models.T_JG_Product> list = t_jg_product.OrderByDescending(s => s.CreateTime)
+                                                        .Skip(numPerPage * (pageNum - 1))
+                                                        .Take(numPerPage).ToList();
+            ViewBag.recordCount = t_jg_product.Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+
+            return PartialView(list);
         }
     }
 }

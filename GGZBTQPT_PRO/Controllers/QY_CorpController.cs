@@ -15,9 +15,10 @@ namespace GGZBTQPT_PRO.Controllers
         //
         // GET: /QY_Corp/
 
-        public ViewResult Index(int pageNum = 1, int numPerPage = 5)
+        public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 5)
         {
-            var t_qy_corp = db.T_QY_Corp.Where(c => c.IsValid == true).OrderBy(s => s.ID)
+            keywords = keywords == null ? "" : keywords;
+            var t_qy_corp = db.T_QY_Corp.Where(c => (c.IsValid == true && c.CorpName.Contains(keywords))).OrderBy(s => s.ID)
                                                                     .Skip(numPerPage * (pageNum - 1))
                                                                     .Take(numPerPage).ToList();
             ViewBag.recordCount = db.T_QY_Corp.Where(c => c.IsValid == true).Count();

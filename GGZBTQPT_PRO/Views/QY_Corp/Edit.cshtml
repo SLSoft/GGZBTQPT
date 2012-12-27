@@ -65,7 +65,8 @@
     }
 }
 
-@using (Ajax.BeginForm("Edit", null, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" }, new { enctype = "multipart/form-data" }))
+
+@using (Html.BeginForm("Edit", "QY_Corp", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return iframeCallback(this);" }))
 {
     @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.ID)
@@ -74,9 +75,10 @@
         @Html.HiddenFor(model => model.CreateTime)
 
         @Html.HiddenFor(model => model.MemberID)
-        @Html.HiddenFor(model => model.Logo)<div id="FormContainer" class="pageContent">
-            <div class="pageFormContent" layouth="56">
-                <table class="list" style="width: 100%">
+        @Html.HiddenFor(model => model.Logo)
+
+            <div  layouth="56">
+                <table style="width: 100%; border-spacing:3px">
                     <tr>
                         <td colspan="4">
                             <strong>基本信息</strong>
@@ -166,7 +168,7 @@
                         </td>
                     </tr>
                 </table>
-                <table class="list" style="width: 100%">
+                <table style="width: 100%; border-spacing:3px">
                     <tr>
                         <td colspan="4">
                             <strong>联系人信息</strong>
@@ -209,7 +211,7 @@
                         </td>
                     </tr>
                 </table>
-                <table class="list" style="width: 100%">
+                <table style="width: 100%; border-spacing:3px">
                     <tr>
                         <td colspan="4">
                             <strong>财务概况</strong>
@@ -217,7 +219,7 @@
                     </tr>
                     @QY_Financial(DateTime.Now.Year)
                 </table>
-                <table class="list" style="width: 100%">
+                <table style="width: 100%">
                     <tr>
                         <td colspan="4">
                             <strong>主要产品介绍</strong>
@@ -226,7 +228,6 @@
                     @QY_Product()
                 </table>
             </div>
-        </div>
         
     <div class="formBar">
         <ul>

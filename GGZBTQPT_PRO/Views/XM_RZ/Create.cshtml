@@ -96,8 +96,7 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.ValidDate, "有效日期")</td>
-                <td><input type="text" name="ValidDate" class="date" [pattern="yyyy-MM-dd"] [yearstart="-80"] [yearend="5"]/>
-            @Html.ValidationMessageFor(model => model.ValidDate)</td>
+                <td>@Html.TextBoxFor(m => m.ValidDate, new { @class = "date", @Value = string.Format("{0:yyyy-MM-dd}", Model.ValidDate) })</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Keys, "关键词")</td>
@@ -105,7 +104,7 @@
             </tr>
             <tr>
                 <td style="width:80px">@Html.LabelFor(model => model.ItemContent, "项目介绍")</td>
-                <td><textarea class="editor" name="ItemContent" rows="15" cols="30"></textarea></td>
+                <td>@Html.TextAreaFor(m => m.ItemContent, new { @class = "editor",@rows="15", @Value = Model.ItemContent })</td>
             </tr>
         </table>
         <table id="item1" style="width:100%; border-spacing:3px">

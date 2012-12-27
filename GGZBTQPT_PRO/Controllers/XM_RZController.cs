@@ -17,9 +17,10 @@ namespace GGZBTQPT_PRO.Controllers
         //
         // GET: /XM_RZ/
 
-        public ViewResult Index(int pageNum = 1, int numPerPage = 5)
+        public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 5)
         {
-            var t_xm_financing = db.T_XM_Financing.Where(p => p.IsValid == true).OrderBy(s => s.ID)
+            keywords = keywords == null ? "" : keywords;
+            var t_xm_financing = db.T_XM_Financing.Where(p => (p.IsValid == true && p.ItemName.Contains(keywords))).OrderBy(s => s.ID)
                                                                     .Skip(numPerPage * (pageNum - 1))
                                                                     .Take(numPerPage).ToList();
             ViewBag.recordCount = db.T_XM_Financing.Where(c => c.IsValid == true).Count();
@@ -109,14 +110,11 @@ namespace GGZBTQPT_PRO.Controllers
                 if (checkedTransactionMode.Length > 1)
                     checkedTransactionMode = checkedTransactionMode.Remove(checkedTransactionMode.Length - 1);
                 t_xm_financing.TransactionMode = checkedTransactionMode;
-                t_xm_financing.ValidDate = Convert.ToDateTime(collection["ValidDate"]);
-                t_xm_financing.ItemContent = collection["ItemContent"];
                 t_xm_financing.City = collection["ddlCity"];
                 t_xm_financing.IsValid = true;
                 t_xm_financing.OP = 0;
                 t_xm_financing.CreateTime = DateTime.Now;
-                t_xm_financing.UpdateTime = DateTime.Now;
-                t_xm_financing.MemberID = (int)Session["UserID"];
+                t_xm_financing.SubmitTime = DateTime.Now;
 
                 HttpPostedFileBase file = Request.Files[0];
                 //存入文件
@@ -164,8 +162,6 @@ namespace GGZBTQPT_PRO.Controllers
                 if (checkedTransactionMode.Length > 1)
                     checkedTransactionMode = checkedTransactionMode.Remove(checkedTransactionMode.Length - 1);
                 t_xm_financing.TransactionMode = checkedTransactionMode;
-                t_xm_financing.ValidDate = Convert.ToDateTime(collection["ValidDate"]);
-                t_xm_financing.ItemContent = collection["ItemContent"];
                 t_xm_financing.City = collection["ddlCity"];
                 t_xm_financing.UpdateTime = DateTime.Now;
 

@@ -122,7 +122,7 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.ValidDate, "有效日期")</td>
-                <td><input type="text" name="ValidDate" class="date" [pattern="yyyy-MM-dd"] [yearstart="-80"] [yearend="5"] value="@Model.ValidDate" /></td>
+                <td>@Html.TextBoxFor(m => m.ValidDate, new { @class = "date", @Value = string.Format("{0:yyyy-MM-dd}", Model.ValidDate) })</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Keys, "关键词")</td>
@@ -130,7 +130,7 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Description, "投资意向描述")</td>
-                <td><textarea class="editor" name="Description" rows="15" cols="30">@Model.Description</textarea></td>
+                <td>@Html.TextAreaFor(m => m.Description, new { @class = "editor", @rows = "15", @Value = Model.Description })</td>
             </tr>
         </table>
         <table style="width:100%; border-spacing:3px">
@@ -223,7 +223,7 @@
             <td>
                 <input type="file" name="file1" />
                 <div>
-                    <img id="logo_preview" src='@Url.Action("ShowPic", "XM_TZ", new { xm_id = Model.ID })'  alt="@Model.ItemName" /></div>
+                    <img width="200px" height="90px" id="logo_preview" src='@Url.Action("ShowPic", "XM_TZ", new { xm_id = Model.ID })'  alt="@Model.ItemName" /></div>
                
             </td>
         </tr>

@@ -16,9 +16,10 @@ namespace GGZBTQPT_PRO.Controllers
         //
         // GET: /JG_Product/
 
-        public ViewResult Index(int pageNum = 1, int numPerPage = 5)
+        public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 5)
         {
-            var t_jg_product = db.T_JG_Product.Where(p => p.IsValid == true).OrderBy(s => s.ID)
+            keywords = keywords == null ? "" : keywords;
+            var t_jg_product = db.T_JG_Product.Where(p => (p.IsValid == true && p.ProductName.Contains(keywords))).OrderBy(s => s.ID)
                                                                     .Skip(numPerPage * (pageNum - 1))
                                                                     .Take(numPerPage).ToList();
             ViewBag.recordCount = db.T_JG_Product.Where(c => c.IsValid == true).Count();

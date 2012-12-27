@@ -63,8 +63,8 @@
     });
 </script>
 
-<div class="pageContent j-resizeGrid" style="border-left: 1px #B8D0D6 solid; border-right: 1px #B8D0D6 solid">
-<form id="pagerForm" method="post" action="@Url.Action("RZQuery")">
+<div class="pageHeader">
+    <form id="pagerForm" method="post" action="@Url.Action("RZQuery")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
     </form>
@@ -162,23 +162,30 @@
                         </td>
                     </tr>
                 </table>
-                    <table width="728">
-                    <tr>
-                            <td align="right">
+        <div class="subBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
                             <button type="submit">
-                                检索</button>
-                            </td>
-                        </tr>
-                    </table>
+                                检索</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </form>
+</div>
+<div class="pageContent">
+  <div class="panelBar">
+    <ul class="toolBar">
+      <li><a class="add" href="@Url.Action("create", "XM_RZ")" rel="create" target="dialog" title="添加新项目" mask="true" width="650" height="620"><span>添加</span></a></li>
+      <li><a class="edit" href="@Url.Action("edit", "XM_RZ", new { id = "{mid}" })" rel="edit" target="dialog" title="编辑项目信息" mask="true" warn="请选择一个项目" width="800" height="620"><span>修改</span></a></li>
+      <li><a class="delete" href="@Url.Action("delete", "XM_RZ", new { id = "{mid}" })" rel="delete" target="ajaxTodo" title="确定要删除吗？"  warn="请选择一个项目"><span>删除</span></a></li>
+    </ul>
   </div>
-  </form>
-    <div layouth="230">
-            @if (ViewBag.Message != null)
-            {
-                <span style="font-weight:bold; font-size:large;">@ViewBag.Message</span>
-            }
-            
-            <table class="list" width="100%" asc="asc" desc="desc">
+  <div layouth="264">
+    <table class="list" width="100%" asc="asc" desc="desc">
       <thead>
         <tr>
             <th>
@@ -192,7 +199,7 @@
             </th>
             <th>
                 有效日期
-            </th>        
+            </th>         
     </tr>
       </thead>
       <tbody>
@@ -215,8 +222,8 @@
         }
       </tbody>
     </table>
-    </div>
-    <div class="panelBar">
+  </div>
+   <div class="panelBar">
         <div class="pages">
             <span>每页显示</span>
             <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value,pageNum:1})">
@@ -246,7 +253,5 @@
                 <input id="condition3" type="text" name="condition3" style="width:600px" value="@ViewBag.condition3" />
                 <input id="condition4" type="text" name="condition4" style="width:600px" value="@ViewBag.condition4" />
                 <input id="context" type="text" name="context" value="@ViewBag.context" /></div>
-
-
 </div>
 

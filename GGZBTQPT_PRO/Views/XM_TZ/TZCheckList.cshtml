@@ -50,7 +50,7 @@
                     @Html.DisplayFor(modelItem => item.SubmitTime)
                 </td>
                 <td>
-                    @Html.ActionLink("审核通过", "TZCheck", "XM_TZ", new { id = @item.ID, state = "2" }, new { rel = "TZCheckList", target = "ajaxTodo" })
+                    @Html.ActionLink("审核通过", "TZCheck", "XM_TZ", new { id = @item.ID, state = "2" }, new { onclick = "javascript:return confirm('您确定审核吗？');", rel = "TZCheckList", target = "ajaxTodo" })
                 </td>
             </tr>
         }

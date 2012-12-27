@@ -79,7 +79,7 @@
                 @Html.DisplayFor(modelItem => item.FinancingLimit)
             </td>
             <td>
-                @Html.ActionLink("审核通过", "CPCheck", "JG_Product", new { id = @item.ID, state = "2" }, new { rel = "CPUnCheckList", target = "ajaxTodo" })
+                @Html.ActionLink("审核通过", "CPCheck", "JG_Product", new { id = @item.ID, state = "2" }, new { onclick = "javascript:return confirm('您确定撤消吗？');", rel = "CPUnCheckList", target = "ajaxTodo" })
             </td>
             </tr>
         }

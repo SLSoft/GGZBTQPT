@@ -95,8 +95,7 @@
             <tr>
                 <td>@Html.LabelFor(model => model.ValidDate, "有效日期")
                 </td>
-                <td><input type="text" name="ValidDate" class="date" [pattern="yyyy-MM-dd"] [yearstart="-80"] [yearend="5"]/>
-                    @Html.ValidationMessageFor(model => model.ValidDate)
+                <td>@Html.TextBoxFor(m => m.ValidDate, new { @class = "date", @Value = string.Format("{0:yyyy-MM-dd}", Model.ValidDate) })
                 </td>
             </tr>
             <tr>
@@ -108,7 +107,7 @@
             <tr>
                 <td>@Html.LabelFor(model => model.Description, "投资意向描述")
                 </td>
-                <td><textarea class="editor" name="Description" rows="15" cols="30"></textarea>
+                <td>@Html.TextAreaFor(m => m.Description, new { @class = "editor", @rows = "15", @Value = Model.Description })
                 </td>
             </tr>
         </table>

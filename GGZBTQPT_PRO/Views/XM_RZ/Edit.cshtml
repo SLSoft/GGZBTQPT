@@ -94,7 +94,7 @@
                 <td>@Html.LabelFor(model => model.ValidDate, "有效日期")
                 </td>
                 <td>
-                @Html.TextBoxFor(m => m.ValidDate, new { @class = "date", @Value = string.Format("{0:yyyy-MM-dd}", Model.ValidDate) })
+                    @Html.TextBoxFor(m => m.ValidDate, new { @class = "date", @Value = string.Format("{0:yyyy-MM-dd}", Model.ValidDate) })
                 </td>
             </tr>
             <tr>
@@ -106,7 +106,7 @@
             <tr>
                 <td>@Html.LabelFor(model => model.ItemContent, "项目介绍")
                 </td>
-                <td><textarea class="editor" name="ItemContent" rows="15" cols="80">@Model.ItemContent</textarea>
+                <td>@Html.TextAreaFor(m => m.ItemContent, new { @class = "editor",@rows="15", @Value = Model.ItemContent })
                 </td>
             </tr>
         </table>
