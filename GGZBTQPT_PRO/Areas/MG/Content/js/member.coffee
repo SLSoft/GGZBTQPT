@@ -27,7 +27,7 @@
 
         viewAllReplies: ->
             $(".view_all_replies").click ->
-                $(this).parent().next().toggle() 
+                $(this).parent().prev().toggle() 
         
         replyTo: ->
             $("a[class='cancel']").click ->

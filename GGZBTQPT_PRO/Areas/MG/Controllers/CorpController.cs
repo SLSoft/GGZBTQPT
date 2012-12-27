@@ -7,15 +7,12 @@ using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 using System.IO;
+using GGZBTQPT_PRO.Enums;
 
 namespace GGZBTQPT_PRO.Areas.MG.Controllers
 { 
-    public class CorpController : Controller
+    public class CorpController : BaseController
     {
-        private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
-
-
-
         public void BindProperty(object select = null)
         {
             List<T_PTF_DicDetail> Property = db.T_PTF_DicDetail.Where(p => (p.DicType == "5")).ToList();
@@ -112,6 +109,8 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                     db.T_QY_Product.Add(Product);
                 }
                 db.SaveChanges();
+
+                Logging((int)LogLevels.operate, "更新了企业详细信息", (int)OperateTypes.Edit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Personal);
                 return Json(new { statusCode = "200", message = "信息保存成功！", type = "success" });
             }
             return Json(new { statusCode = "200", message = "信息保存失败！", type = "error" });

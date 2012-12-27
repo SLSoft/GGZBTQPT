@@ -27,7 +27,7 @@
       },
       viewAllReplies: function() {
         return $(".view_all_replies").click(function() {
-          return $(this).parent().next().toggle();
+          return $(this).parent().prev().toggle();
         });
       },
       replyTo: function() {

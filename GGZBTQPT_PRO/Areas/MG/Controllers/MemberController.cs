@@ -62,6 +62,8 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 db.T_HY_Member.Add(member);
                 db.SaveChanges();
 
+                Logging((int)LogLevels.operate, "注册了会员,登录名：" + member.LoginName, (int)OperateTypes.Create, (int)GenerateTypes.FromMember, (int)GenerateSystem.Authority);
+
                 //根据用户类型，往不同的业务用户数据表中初始化信息
                 InitMemberDetail(member.Type, member.ID); 
                 Session["MemberID"] = member.ID;
@@ -108,6 +110,8 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 member.Password = vm_edit_member.Password;
                 member.CellPhone = vm_edit_member.CellPhone;
                 db.SaveChanges();
+
+                Logging((int)LogLevels.operate, "更新了会员信息：", (int)OperateTypes.Edit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Personal);
                 return Json(new { statusCode = "200", message = "信息保存成功！", type = "success" });
             } 
 
@@ -168,7 +172,9 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                     Session["MemberName"] = member.MemberName;
                     Session["MemberType"] = member.Type;
                     Session["IsVerified"] = member.IsVerified;
+
                     RegisterLoginInfo();
+
                     if (Session["RedirectUrl"] != null && Session["RedirectUrl"].ToString() != "")
                     {
                         return Redirect(Session["RedirectUrl"].ToString());
@@ -193,6 +199,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             Session["MemberID"] = null;
             Session["MemberName"] = null;
             RegisterLogoutInfo();
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -299,6 +306,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 member.OnlineLogs.Add(online_log);
                 db.SaveChanges();
 
+                Logging((int)LogLevels.operate, "进行了登陆操作", (int)OperateTypes.Login, (int)GenerateTypes.FromMember, (int)GenerateSystem.Authority);
                 Session["OnlineID"] = online_log.ID;
             } 
         }
@@ -313,6 +321,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 member.OnlineLogs.Add(online_log);
                 db.SaveChanges();
 
+                Logging((int)LogLevels.operate, "进行了注销操作", (int)OperateTypes.Logout, (int)GenerateTypes.FromMember, (int)GenerateSystem.Authority);
                 Session["OnlineID"] = null; 
             } 
         }

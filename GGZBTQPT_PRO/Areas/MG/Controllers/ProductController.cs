@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
+using GGZBTQPT_PRO.Enums;
 
 namespace GGZBTQPT_PRO.Areas.MG.Controllers
 {
@@ -79,10 +80,13 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 db.T_JG_Product.Add(t_jg_product);
                 int result = db.SaveChanges();
                 if (result > 0)
-                    return RedirectToAction("Create", new { notice_type = "success" });
-                else
                 {
-
+                    Logging((int)LogLevels.operate, "发布了新的产品", (int)OperateTypes.Create, (int)GenerateTypes.FromMember, (int)GenerateSystem.Publish);
+                    return RedirectToAction("Create", new { notice_type = "success" });
+                }
+                else
+                { 
+                    Logging((int)LogLevels.warn, "金融产品发布失败", (int)OperateTypes.Create, (int)GenerateTypes.FromMember, (int)GenerateSystem.Publish);
                     ViewData["error"] = "金融产品发布失败!请检查输入信息或联系我们!";
                     return View(t_jg_product);
                 }
@@ -101,10 +105,12 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             {
                 return RedirectToAction("Login", "Member");
             }
+
             if (notice_type == "success")
             {
                 ViewData["notice"] = "金融产品更新成功，可进入我的发布中查阅！";
             }
+
             T_JG_Product t_jg_product = db.T_JG_Product.Find(id);
             BindAgency(t_jg_product.AgencyID);
             BindCustomerType();
@@ -134,9 +140,13 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
                 int result = db.SaveChanges();
                 if (result > 0)
-                    return RedirectToAction("Edit", new { notice_type = "success" });
-                else
                 {
+                    Logging((int)LogLevels.operate, "更新了金融产品信息", (int)OperateTypes.Create, (int)GenerateTypes.FromMember, (int)GenerateSystem.Publish);
+                    return RedirectToAction("Edit", new { notice_type = "success" });
+                }
+                else
+                { 
+                    Logging((int)LogLevels.warn, "更新了金融产品信息失败", (int)OperateTypes.Create, (int)GenerateTypes.FromMember, (int)GenerateSystem.Publish);
                     ViewData["error"] = "金融产品更新失败!请检查输入信息或联系我们!";
                     return View(t_jg_product);
                 }

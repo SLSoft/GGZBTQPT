@@ -9,6 +9,7 @@ using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.Areas.ViewModels;
 using Webdiyer.WebControls.Mvc;
 using GGZBTQPT_PRO.Areas.MG.Filter;
+using GGZBTQPT_PRO.Enums;
 
 namespace GGZBTQPT_PRO.Areas.MG.Controllers
 {
@@ -19,7 +20,8 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         // GET: /MG/Message/
 
         public ViewResult Index()
-        { 
+        {
+            Logging((int)LogLevels.operate, "访问了个人消息列表", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Message);
             T_HY_Member current_member = CurrentMember();
 
             string un_read = db.T_HY_Message.Where(m => (m.ReceiveMemberID == current_member.ID && m.IsValid == true && m.Readed == false)).Count().ToString();
@@ -30,6 +32,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
         public ActionResult Sended(int id = 1)
         {
+            Logging((int)LogLevels.operate, "访问了发件箱列表", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Message);
             T_HY_Member current_member = CurrentMember();
             ViewBag.current_member = current_member;
 
@@ -52,6 +55,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
         public PartialViewResult Received(int id = 1)
         {
+            Logging((int)LogLevels.operate, "访问了收件箱列表", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Message);
             T_HY_Member current_member = CurrentMember();
             ViewBag.current_member = current_member;
 
@@ -77,6 +81,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
         public PartialViewResult UnRead(int id = 1)
         {
+            Logging((int)LogLevels.operate, "访问了未读消息列表", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Message);
             T_HY_Member current_member = CurrentMember();
             ViewBag.current_member = current_member;
 
@@ -107,15 +112,6 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         }
 
         //
-        // GET: /MG/Message/Details/5
-
-        public ActionResult Details(int id)
-        {
-            T_HY_Message t_hy_message = db.T_HY_Message.Find(id);
-            return PartialView(t_hy_message);
-        }
-
-        //
         // GET: /MG/Message/Create
 
         public ActionResult Create()
@@ -141,6 +137,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 db.T_HY_Message.Add(message);
                 db.SaveChanges();
 
+                Logging((int)LogLevels.operate, "发送了新的消息", (int)OperateTypes.Create, (int)GenerateTypes.FromMember, (int)GenerateSystem.Message);
                 return RedirectToAction("Index");
             }
             return View();
@@ -149,26 +146,45 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         //
         // POST: /MG/Message/Delete/5
 
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpDelete]
+        public ActionResult Delete(int id)
         {            
-            T_HY_Message t_hy_message = db.T_HY_Message.Find(id);
-            db.T_HY_Message.Remove(t_hy_message);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            { 
+                T_HY_Message t_hy_message = db.T_HY_Message.Find(id);
+                db.T_HY_Message.Remove(t_hy_message);
+
+                db.SaveChanges();
+
+                Logging((int)LogLevels.operate, "删除了消息--" + t_hy_message.Title , (int)OperateTypes.Delete, (int)GenerateTypes.FromMember, (int)GenerateSystem.Message);
+                return Json(new { statusCode = "200", message = "消息删除成功！", type = "success", message_id = id });
+            }
+            catch
+            {
+                Logging((int)LogLevels.warn, "删除消息失败", (int)OperateTypes.Delete, (int)GenerateTypes.FromMember, (int)GenerateSystem.Message);
+                return Json(new { statusCode = "300", message = "消息删除失败！", type = "error" }); 
+            }
         }
 
         [HttpPost]
         public ActionResult SetReaded(int id)
         { 
-            T_HY_Message t_hy_message = db.T_HY_Message.Find(id);
+            try
+            {
+                T_HY_Message t_hy_message = db.T_HY_Message.Find(id);
 
-            db.Entry(t_hy_message).State = EntityState.Modified;
-            t_hy_message.Readed = true;
+                db.Entry(t_hy_message).State = EntityState.Modified;
+                t_hy_message.Readed = true;
 
-            db.SaveChanges();
+                db.SaveChanges();
 
-            return Json(new { statusCode = "200", message = "成功标记已读！", type = "success", message_id = id });
+                Logging((int)LogLevels.operate, "设置了消息" + t_hy_message.Title + "为已读", (int)OperateTypes.Readed, (int)GenerateTypes.FromMember, (int)GenerateSystem.Personal);
+                return Json(new { statusCode = "200", message = "成功标记已读！", type = "success", message_id = id });
+            }
+            catch
+            { 
+                return Json(new { statusCode = "300", message = "标记已读失败！", type = "error" });
+            }
         }
 
 
@@ -207,8 +223,11 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 db.T_HY_Message.Add(message);
                 db.SaveChanges();
 
+                Logging((int)LogLevels.operate, "回复了消息--" + relate_message.Title , (int)OperateTypes.Reply, (int)GenerateTypes.FromMember, (int)GenerateSystem.Message);
                 return Json(new { statusCode = "200", message = "消息发送成功！", type = "success", reply_id = message.ID, message_id = relate_id });
             }
+
+            Logging((int)LogLevels.operate, "回复消息失败", (int)OperateTypes.Reply, (int)GenerateTypes.FromMember, (int)GenerateSystem.Message); 
             return Json(new { statusCode = "300", message = "消息发送失败！", type = "error" });
         }
 

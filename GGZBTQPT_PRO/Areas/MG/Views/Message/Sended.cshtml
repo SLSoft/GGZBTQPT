@@ -16,34 +16,30 @@
     {
     if (@date_time.Year == DateTime.Now.Year)
     {
-        <h4>@date_time.Month - @date_time.Day</h4>
-        <span>@date_time.ToShortTimeString()</span>
+        <span>@date_time.Month - @date_time.Day  @date_time.ToShortTimeString()</span>
     }
     else
-    {
-        <h3>@date_time.Year</h3>
-        <h4>@date_time.Month - @date_time.Day</h4>
-        <span>@date_time.ToShortTimeString()</span>
-    }
-
+    {        
+        <span> @date_time.Year - @date_time.Month - @date_time.Day @date_time.ToShortTimeString()</span>
+    } 
 }
 <div id="sended">
     @*发送消息信息*@
     <ul class="media-list">
         @foreach (var _model in Model)
         {    
-            <li class="media" ><a class="pull-left" href="#">@StyledDate(@_model.Message.CreatedTime)</a>
+            <li class="media" >
                 <div class="media-body message" id="@_model.Message.ID.ToString()message">
                     <h4 class="media-heading">@_model.Message.Title
                     <span class="pull-right view_all_replies">
-                        查看相关消息(@_model.RelateMessages.Count()条)
+                        @StyledDate(@_model.Message.CreatedTime) 
                     </span>
                     </h4>
                     @_model.Message.Content
-                    <div class="replies">
+                    <div class="replies well">
                         @foreach (var reply in _model.RelateMessages)
                         {
-                            <div class="media reply well">
+                            <div class="media reply">
                                 <div class="media-body">
                                     @FormatReply(@reply.SendMember.MemberName, @reply.CreatedTime.ToString())
                                     @reply.Content
@@ -52,13 +48,21 @@
                         } 
                     </div>
                     <h5 class="media-heading reply-to">
-                        @Ajax.ActionLink("回复该消息", "ReplyMessage", "Message", new { message_id = @_model.Message.RelateID },
+                        @Ajax.ActionLink("回复该消息", "ReplyMessage", "Message", new { message_id = @_model.Message.ID },
                                         new AjaxOptions
                                         {
                                             HttpMethod = "GET",
                                             UpdateTargetId = _model.Message.ID.ToString() + "replying",
                                             LoadingElementId = "Loading"
                                         })
+                        @Ajax.ActionLink("删除该消息", "Delete", "Message", new { id = _model.Message.ID },
+                                        new AjaxOptions
+                                        {
+                                            HttpMethod = "Delete",
+                                            LoadingElementId = "Loading",
+                                            OnSuccess = "setDeleted"
+                                        })
+                        <span class="pull-right view_all_replies">查看相关消息(@_model.RelateMessages.Count()条)</span>
                     </h5>
                     <div id="@_model.Message.ID.ToString()replying">
                     </div>
@@ -84,6 +88,11 @@
     function notice(data) {
         $.Member.notice(data);
         updateReplies(data.reply_id, data.message_id);
+    }
+
+    function setDeleted(data) {
+        $.Member.notice(data);
+        $("#" + data.message_id + "message").parent.fadeOut();
     }
 
     function updateReplies(reply_id, message_id) {

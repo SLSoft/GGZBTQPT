@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
+using GGZBTQPT_PRO.Enums;
+
 namespace GGZBTQPT_PRO.Areas.MG.Controllers
 {
     public class InvestmentController : BaseController
@@ -115,6 +117,8 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 t_xm_investment.MemberID = CurrentMember().ID;
                 db.T_XM_Investment.Add(t_xm_investment);
                 db.SaveChanges(); 
+
+                Logging((int)LogLevels.operate, "发布了新的投资意向--" + t_xm_investment.ItemName , (int)OperateTypes.Create, (int)GenerateTypes.FromMember, (int)GenerateSystem.Publish);
                 return RedirectToAction("Create", new { notice_type = "success" });
             }
             ViewData["error"] = "投资项目发布失败!请检查输入信息或联系我们!";
@@ -178,6 +182,8 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 t_xm_investment.UpdateTime = DateTime.Now;
                 db.SaveChanges();
 
+
+                Logging((int)LogLevels.operate, "更新了投资意向--" + t_xm_investment.ItemName, (int)OperateTypes.Edit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Publish);
                 return RedirectToAction("Edit", new { notice_type = "success" });
             }
             ViewData["error"] = "投资项目更新失败!请检查输入信息或联系我们!";

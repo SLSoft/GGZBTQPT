@@ -19,6 +19,9 @@ namespace GGZBTQPT_PRO.Util
             ControllerType = new StringDictionary();
             ActionType = new StringDictionary();
 
+            //Type generate_system = typeof(GenerateSystem);
+            //foreach (string type in Enum.GetNames(generate_system))
+
             ControllerType.Add("ZC_System", "系统管理");
             ControllerType.Add("ZC_Role", "角色管理");
             ControllerType.Add("ZC_User", "用户管理");

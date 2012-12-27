@@ -50,14 +50,27 @@ namespace GGZBTQPT_PRO.Enums
     {
         //操作日志类别
         manage,//系统管理级别
+
+        //----会员专区操作类别-------//
         Visit,//访问
+
+        Login,//验证操作
+        Logout,//验证操作
+
         Attention,//关注
         Favorite,//收藏
         Publish,//发布
+
+        //-----通用操作
         Edit,//编辑
-        Add,//新增
+        Create,//新增
         Delete,//删除
-        Search//搜索 
+        Search,//搜索 
+
+        //-----消息操作
+        Readed, //设置已读
+        Reply //回复消息
+
     }
 
     //生成类型，用于案例生成或其他相关类型
@@ -88,7 +101,14 @@ namespace GGZBTQPT_PRO.Enums
         [Display(Name = "我的收藏")]
         Favorite,
         [Display(Name = "我的发布")]
-        Publish
+        Publish,
+        [Display(Name = "我的消息")]
+        Message,
+        [Display(Name = "会员认证")]
+        Authority,
+        [Display(Name = "信息管理")]
+        Personal
+
     }
 
 
