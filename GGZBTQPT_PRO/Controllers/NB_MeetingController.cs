@@ -54,19 +54,19 @@ namespace GGZBTQPT_PRO.Controllers
                 if (ModelState.IsValid)
                 {
                     t_nb_meeting.CreateUserId = CurrentUser().ID;
-                    t_nb_meeting.MeetingTime = Convert.ToDateTime(t_nb_meeting.MeetingTime.ToLongTimeString());
+                    t_nb_meeting.MeetingTime = Convert.ToDateTime(t_nb_meeting.MeetingTime);
 
                     db.T_NB_Meeting.Add(t_nb_meeting);
 
                     int result = db.SaveChanges();
                     if (result > 0)
                     {
-                        Logging((int)LogLevels.operate, "成功新增了一条内部会议申请:" + t_nb_meeting.Title, (int)OperateTypes.Add, (int)GenerateTypes.FromUser);
+                        Logging((int)LogLevels.operate, "成功新增了一条内部会议申请:" + t_nb_meeting.Title, (int)OperateTypes.Create, (int)GenerateTypes.FromUser);
                         return ReturnJson(true, "操作成功", "", "", true, "");
                     }
                     else
                     {
-                        Logging((int)LogLevels.warn, "新增会议失败:" + t_nb_meeting.Title, (int)OperateTypes.Add, (int)GenerateTypes.FromUser);
+                        Logging((int)LogLevels.warn, "新增会议失败:" + t_nb_meeting.Title, (int)OperateTypes.Create, (int)GenerateTypes.FromUser);
                         return ReturnJson(false, "操作失败", "", "", false, "");
                     }
                 }

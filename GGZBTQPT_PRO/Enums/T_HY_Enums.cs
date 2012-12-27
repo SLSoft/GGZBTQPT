@@ -9,8 +9,6 @@ namespace GGZBTQPT_PRO.Enums
     //会员类别
     public enum MemberTypes : int
     {
-        [Display(Name = "全部")]
-        全部 = -1,
         [Display(Name = "个人")]
         个人 = 1,
         [Display(Name = "企业")]
@@ -22,8 +20,6 @@ namespace GGZBTQPT_PRO.Enums
     //会员状态
     public enum MemberStates : int
     {
-        [Display(Name = "全部")]
-        全部 = -1,
         //[Display(Name = "待审核")]
         //待审核 = 0,
         [Display(Name = "通过")]
@@ -123,4 +119,3 @@ namespace GGZBTQPT_PRO.Enums
         Manage
     }
 }
-

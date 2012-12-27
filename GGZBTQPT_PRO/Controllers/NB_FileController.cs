@@ -110,12 +110,12 @@ namespace GGZBTQPT_PRO.Controllers
                     int result = db.SaveChanges();
                     if (result > 0)
                     {
-                        Logging((int)LogLevels.operate, "成功新增了一条内部文件:" + t_nb_file.Title, (int)OperateTypes.Add, (int)GenerateTypes.FromUser);
+                        Logging((int)LogLevels.operate, "成功新增了一条内部文件:" + t_nb_file.Title, (int)OperateTypes.Create, (int)GenerateTypes.FromUser);
                         return ReturnJson(true, "操作成功", "", "", true, "");
                     }
                     else
                     {
-                        Logging((int)LogLevels.warn, "新增文件失败:" + t_nb_file.Title, (int)OperateTypes.Add, (int)GenerateTypes.FromUser);
+                        Logging((int)LogLevels.warn, "新增文件失败:" + t_nb_file.Title, (int)OperateTypes.Create, (int)GenerateTypes.FromUser);
                         return ReturnJson(false, "操作失败", "", "", false, "");
                     }
                 }

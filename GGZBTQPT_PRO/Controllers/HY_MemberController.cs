@@ -200,10 +200,6 @@ namespace GGZBTQPT_PRO.Controllers
         /// <returns></returns>
         public ActionResult HasVerified(string keywords, int state = -1, int pageNum = 1, int numPerPage = 15)
         {
-            var States = from MemberStates mstate in Enum.GetValues(typeof(MemberStates))
-                         select new { ID = (int)mstate, Name = mstate.ToString() };
-            ViewData["States"] = new SelectList(States, "ID", "Name");
-
             keywords = keywords == null ? "" : keywords;
             var tqCount = 0;
             var tq = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords)).Where(p => p.IsValid == true);
@@ -226,6 +222,7 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
             ViewBag.state = state;
+            ViewBag.States = GetMemberState();
 
             return View(list);
         } 
@@ -307,6 +304,19 @@ namespace GGZBTQPT_PRO.Controllers
 
         }
 
+        public List<SelectListItem> GetMemberState()
+        {
+            var States = from MemberStates mstate in Enum.GetValues(typeof(MemberStates))
+                         select new { ID = (int)mstate, Name = mstate.ToString() };
+            SelectList list = new SelectList(States, "ID", "Name");
+
+            List<SelectListItem> li = new List<SelectListItem>();
+            li.Add(new SelectListItem { Text = "---请选择---", Value = "-1" });
+            li.AddRange(list);
+
+            return li;
+        }
+
         #endregion
 
         #region 会员查询
@@ -347,19 +357,19 @@ namespace GGZBTQPT_PRO.Controllers
 
             return View(list);
         }
-
-        public SelectList GetMemberType()
+        
+        public List<SelectListItem> GetMemberType()
         {
             var types = from MemberTypes mtype in Enum.GetValues(typeof(MemberTypes))
                         select new { ID = (int)mtype, Name = mtype.ToString() };
 
             SelectList list = new SelectList(types, "ID", "Name");
 
-            //List<SelectListItem> li = new List<SelectListItem>();
-            //li.Add(new SelectListItem { Text = "---请选择---", Value = "-1" });
-            //li.AddRange(list);
+            List<SelectListItem> li = new List<SelectListItem>();
+            li.Add(new SelectListItem { Text = "---请选择---", Value = "-1" });
+            li.AddRange(list);
 
-            return list;
+            return li;
         }
 
         /// <summary>
