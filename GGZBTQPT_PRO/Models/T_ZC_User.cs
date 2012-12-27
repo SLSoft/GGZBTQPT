@@ -16,19 +16,15 @@ namespace GGZBTQPT_PRO.Models
     public int ID { get; set; }
 
     [Required(ErrorMessage = "必须填写用户名称")]
-    [Display(Name = "用户名称")]
     public string UserName { get; set; }
 
     [Required(ErrorMessage = "必须填写登录名称")]
-    [Display(Name = "登录名称")]
     public string LoginName { get; set; }
 
     [Required(ErrorMessage = "必须填写登录密码")]
-    [Display(Name = "登录密码")]
     public string Password { get; set; }
 
     [Required(ErrorMessage = "必须填写手机号码")]
-    [Display(Name = "手机号码")]
     public string CellPhone { get; set; }
 
     public Boolean IsValid { get; set; }
@@ -43,5 +39,10 @@ namespace GGZBTQPT_PRO.Models
     public virtual T_ZC_Department Department { get; set; }
 
     public virtual ICollection<T_ZC_Role> Roles { get; set; }
+    public virtual ICollection<T_NB_File> SendFiles { get; set; } //用户所发送的文件
+    public virtual ICollection<T_NB_File> ReceiveFiles { get; set; } //用户所接收的文件
+    public virtual ICollection<T_NB_Meeting> CreateMeetings { get; set; }//用户申请会议
+    public virtual ICollection<T_NB_Meeting> PartakeMeetings { get; set; } //参与会议用户
+
   }
 }

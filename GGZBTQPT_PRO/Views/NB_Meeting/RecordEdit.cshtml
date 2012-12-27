@@ -1,30 +1,21 @@
-﻿@model GGZBTQPT_PRO.ViewModels.VM_EditMember
+﻿@model GGZBTQPT_PRO.Models.T_NB_Meeting
 @{
     Layout = null;
 }
-<script type="text/javascript">
-    $.validator.unobtrusive.parse(document);
-</script>
 <div id="FormContainer" class="pageContent">
-    @using (Html.BeginForm("Edit", "HY_Member", new { id=Model.ID}, FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
+    @using (Html.BeginForm("RecordEdit", "NB_Meeting", new { id = Model.ID}, FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
     {
         @Html.ValidationSummary(true)
         <div class="pageFormContent" layouth="56">
             @Html.HiddenFor(model => model.ID)
             <p>
-                @Html.LabelFor(model => model.MemberName)
-                @Html.EditorFor(model => model.MemberName)
-                @Html.ValidationMessageFor(model => model.MemberName)
+                @Html.LabelFor(model => model.Title, "会议主题")
+                @Html.EditorFor(model => model.Title)
+                @Html.ValidationMessageFor(model => model.Title)
             </p>
             <p>
-                @Html.LabelFor(model => model.CellPhone)
-                @Html.EditorFor(model => model.CellPhone)
-                @Html.ValidationMessageFor(model => model.CellPhone)
-            </p>
-            <p>
-                @Html.LabelFor(model => model.Email)
-                @Html.EditorFor(model => model.Email)
-                @Html.ValidationMessageFor(model => model.Email)
+                @Html.LabelFor(model => model.Content,"会议内容")
+                @Html.TextAreaFor(model => model.Content)
             </p>
         </div>
         

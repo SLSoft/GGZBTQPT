@@ -21,7 +21,7 @@ namespace GGZBTQPT_PRO.ViewModels
     }
 
    /// <summary>
-    /// 会员查询
+    /// 会员查询(关联项目、意向、产品列表)
     /// </summary>
     public class VM_SelectMember
     {
@@ -30,7 +30,10 @@ namespace GGZBTQPT_PRO.ViewModels
         public PagedList<T_JG_Product> Products { get; set; }
     }
 
-    public class VM_MemberStat
+    /// <summary>
+    /// 会员查询(项目、意向、产品发布条数)
+    /// </summary>
+    public class VM_MemberRelease
     {
         public int FinancingCount { get; set; }
         public int InvestmentCount { get; set; }
@@ -38,7 +41,10 @@ namespace GGZBTQPT_PRO.ViewModels
         public T_HY_Member Member { get; set; }
     }
 
-    public class VM_Member_Stat
+    /// <summary>
+    /// 会员统计
+    /// </summary>
+    public class VM_MemberStat
     {
         public int MemberCount { get; set; }
         public int Type { get; set; }
@@ -52,4 +58,26 @@ namespace GGZBTQPT_PRO.ViewModels
         public int Num { get; set; }//成交数量
         public int TurnoverRatio { get; set; }//成交比例 
     }
+
+    public class VM_EditMember
+    {
+        public int ID { get; set; }
+
+        [Required(ErrorMessage = "必须填写昵称")]
+        [Display(Name = "昵称")]
+        public string MemberName { get; set; }
+
+        [Required(ErrorMessage = "必须填写手机号码")]
+        [Display(Name = "手机号码")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "手机格式不正确")]
+        [DataType(DataType.PhoneNumber)]
+        public string CellPhone { get; set; }
+
+        [Display(Name = "邮箱")]
+        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "邮件格式不正确")]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
+    }
 }
+

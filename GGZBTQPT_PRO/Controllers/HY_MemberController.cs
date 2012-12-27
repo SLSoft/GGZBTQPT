@@ -9,6 +9,7 @@ using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.Enums;
 using GGZBTQPT_PRO.ViewModels;
 using Webdiyer.WebControls.Mvc;
+using GGZBTQPT_PRO.Areas.MG.Controllers;
 
 namespace GGZBTQPT_PRO.Controllers
 { 
@@ -26,30 +27,18 @@ namespace GGZBTQPT_PRO.Controllers
         {
             keywords = keywords == null ? "" : keywords;
 
-            IList<GGZBTQPT_PRO.Models.T_HY_Member> list = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords)).Where(p => p.IsValid == true)
+            IList<GGZBTQPT_PRO.Models.T_HY_Member> list = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords) && p.IsValid == true && p.IsVerified == true)
                                                             .OrderBy(s => s.ID)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
 
-            ViewBag.recordCount = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords)).Where(p => p.IsValid == true).Count();
+            ViewBag.recordCount = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords) && p.IsValid == true && p.IsVerified == true).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
 
             return View(list);
         } 
-
-        //
-        // GET: /T_HY_Member/Details/5
-
-        public ViewResult Details(int id)
-        {
-            T_HY_Member t_hy_member = db.T_HY_Member.Find(id);
-            return View(t_hy_member);
-        }
-
-        //
-        // GET: /T_HY_Member/Create
 
         public ActionResult Create()
         {
@@ -59,9 +48,6 @@ namespace GGZBTQPT_PRO.Controllers
 
             return View();
         } 
-
-        //
-        // POST: /T_HY_Member/Create
 
         [HttpPost]
         public ActionResult Create(T_HY_Member t_hy_member)
@@ -89,7 +75,11 @@ namespace GGZBTQPT_PRO.Controllers
 
                     db.T_HY_Member.Add(member);
                     int result = db.SaveChanges();
-                    if (result > 0)
+
+                    MemberController m = new MemberController();
+                    bool boo = m.InitMemberDetail(member.Type, member.ID); 
+
+                    if (result > 0 && boo == true)
                         return ReturnJson(true, "操作成功", "", "", true, "");
                     else
                         return ReturnJson(false, "操作失败", "", "", false, "");
@@ -97,32 +87,45 @@ namespace GGZBTQPT_PRO.Controllers
             }
             return Json(new { });
         }
-        
-        //
-        // GET: /T_HY_Member/Edit/5
  
         public ActionResult Edit(int id)
         {
             T_HY_Member t_hy_member = db.T_HY_Member.Find(id);
-
-            var types = from MemberTypes mtype in Enum.GetValues(typeof(MemberTypes))
-                        select new { ID = (int)mtype, Name = mtype.ToString() };
-            ViewData["Types"] = new SelectList(types, "ID", "Name");
-            
-            return View(t_hy_member);
+            if (t_hy_member != null)
+            {
+                VM_EditMember member = new VM_EditMember();
+                member.ID = t_hy_member.ID;
+                member.MemberName = t_hy_member.MemberName;
+                member.CellPhone = t_hy_member.CellPhone;
+                member.Email = t_hy_member.Email;
+                return View(member);
+            }
+            return View();
         }
 
-        //
-        // POST: /T_HY_Member/Edit/5
-
         [HttpPost]
-        public ActionResult Edit(T_HY_Member t_hy_member)
+        public ActionResult Edit(int id,VM_EditMember member)
         {
             if (Request.IsAjaxRequest())
             {
                 if (ModelState.IsValid)
                 {
+                    T_HY_Member t_hy_member = db.T_HY_Member.Find(id);
+
+                    if (db.T_HY_Member.Where(m => m.ID != t_hy_member.ID).Any(m => m.MemberName == member.MemberName))
+                    {
+                        return ReturnJson(false, "该用户名已经被使用了，请尝试更改!", "", "", false, "");
+                    }
+
+                    if (db.T_HY_Member.Where(m => m.ID != t_hy_member.ID).Any(m => m.CellPhone == member.CellPhone))
+                    {
+                        return ReturnJson(false, "该手机号码已经被使用了，请尝试更改!", "", "", false, "");
+                    }
+
                     t_hy_member.UpdatedAt = Convert.ToDateTime(DateTime.Now.ToLongTimeString());
+                    t_hy_member.MemberName = member.MemberName;
+                    t_hy_member.CellPhone = member.CellPhone;
+                    t_hy_member.Email = member.Email;
                     db.Entry(t_hy_member).State = EntityState.Modified;
 
                     int result = db.SaveChanges();
@@ -132,20 +135,8 @@ namespace GGZBTQPT_PRO.Controllers
                         return ReturnJson(false, "操作失败", "", "", false, "");
                 }
             }
-            var types = from MemberTypes mtype in Enum.GetValues(typeof(MemberTypes))
-                        select new { ID = (int)mtype, Name = mtype.ToString() };
-            SelectList list = new SelectList(types, "ID", "Name");
-            List<SelectListItem> li = new List<SelectListItem>();
-            li.Add(new SelectListItem { Text="---请选择---",Value="", Selected=true});
-            li.AddRange(list);
-
-            ViewData["Types"] = li;
-
             return Json(new { });
         }
-
-        //
-        // POST: /T_HY_Member/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
@@ -163,11 +154,21 @@ namespace GGZBTQPT_PRO.Controllers
             return Json(new { });
         }
 
+        //----------------验证-----------------//
+        public JsonResult CheckLoginName(string loginname)
+        {
+            return Json(!db.T_HY_Member.Any(m => m.LoginName == loginname), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CheckCellPhone(string cellphone)
+        {
+            return Json(!db.T_HY_Member.Any(m => m.CellPhone == cellphone), JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         #region 会员审核
         /// <summary>
-        /// 待审核会员
+        /// 待审核会员列表
         /// </summary>
         /// <param name="keywords"></param>
         /// <param name="pageNum"></param>
@@ -177,12 +178,12 @@ namespace GGZBTQPT_PRO.Controllers
         {
             keywords = keywords == null ? "" : keywords;
 
-            IList<GGZBTQPT_PRO.Models.T_HY_Member> list = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords)).Where(p => p.IsValid == true && p.IsVerified == false && p.State == 0)
+            IList<GGZBTQPT_PRO.Models.T_HY_Member> list = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords) && p.IsValid == true && p.State == 0)
                                                             .OrderBy(s => s.ID)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
 
-            ViewBag.recordCount = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords)).Where(p => p.IsValid == true && p.IsVerified == false && p.State==0).Count();
+            ViewBag.recordCount = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords) && p.IsValid == true && p.State==0).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
@@ -191,30 +192,40 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         /// <summary>
-        /// 已审核会员查询
+        /// 已审核会员列表
         /// </summary>
         /// <param name="keywords"></param>
         /// <param name="pageNum"></param>
         /// <param name="numPerPage"></param>
         /// <returns></returns>
-        public ActionResult HasVerified(string keywords, int state = 1, int pageNum = 1, int numPerPage = 15)
+        public ActionResult HasVerified(string keywords, int state = -1, int pageNum = 1, int numPerPage = 15)
         {
             var States = from MemberStates mstate in Enum.GetValues(typeof(MemberStates))
                          select new { ID = (int)mstate, Name = mstate.ToString() };
-            ViewData["State"] = new SelectList(States, "ID", "Name");
+            ViewData["States"] = new SelectList(States, "ID", "Name");
 
             keywords = keywords == null ? "" : keywords;
+            var tqCount = 0;
+            var tq = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords)).Where(p => p.IsValid == true);
+            if (state == -1)
+            {
+                tq = tq.Where(p=>p.State != 0);
+            }
+            else
+            {
+                tq = tq.Where(p => p.State == state);
+            }
+            tqCount = tq.Count();
 
-            IList<GGZBTQPT_PRO.Models.T_HY_Member> list = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords)).Where(p => p.IsValid == true && p.State == state)
-                                                            .OrderBy(s => s.ID)
-                                                            .Skip(numPerPage * (pageNum - 1))
-                                                            .Take(numPerPage).ToList();
+            IList<T_HY_Member> list = tq.OrderBy(s => s.ID)
+                                                       .Skip(numPerPage * (pageNum - 1))
+                                                       .Take(numPerPage).ToList();
 
-            ViewBag.recordCount = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords)).Where(p => p.IsValid == true && p.State==state).Count();
+            ViewBag.recordCount = tqCount;
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
-            ViewBag.states = States;
+            ViewBag.state = state;
 
             return View(list);
         } 
@@ -245,54 +256,54 @@ namespace GGZBTQPT_PRO.Controllers
 
         }
 
+        /// <summary>
+        /// 批量审核、驳回会员
+        /// </summary>
+        /// <param name="stateType"></param>
+        /// <param name="checkedIds"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult batch_Verify(int stateType,string checkedIds)
         {
-            if (checkedIds == null)
-            {
-                return ReturnJson(false, "请选择一条会员数据", "", "UnVerified", false, "");
-            }
-            else
-            {
-                var Ids = checkedIds;
-                string[] strIds = Ids.Split(',');
+            checkedIds = RemoveTheLastComma(checkedIds);
+            string[] strIds = checkedIds.Split(',');
 
-                var count = 0;
-                foreach (var id in strIds)
+            foreach (string id in strIds)
+            {
+                T_HY_Member t_hy_member = db.T_HY_Member.Find(Convert.ToInt32(id));
+
+                if (stateType == 1)
                 {
-                    T_HY_Member t_hy_member = db.T_HY_Member.Find(id);
-
-                    if (stateType == 1)
-                    {
-                        t_hy_member.IsVerified = true;
-                    }
-                    t_hy_member.State = stateType;
-
-                    db.Entry(t_hy_member).State = EntityState.Modified;
-                    count = db.SaveChanges();
-                    count++;
+                    t_hy_member.IsVerified = true;
                 }
+                t_hy_member.State = stateType;
 
-                if (count == strIds.Length)
-                    return ReturnJson(true, "批量操作成功", "", "UnVerified", false, "");
-                else
-                    return ReturnJson(false, "批量操作失败", "", "", false, "");
+                db.Entry(t_hy_member).State = EntityState.Modified;
             }
-
+            if (db.SaveChanges() == strIds.Length)
+                return ReturnJson(true, "批量操作成功", "", "", false, "");
+            else
+                return ReturnJson(false, "批量操作失败", "", "", false, "");
             
         }
 
+        /// <summary>
+        /// 撤销审核、撤销驳回
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult UnVerify(int id)
         {
             T_HY_Member t_hy_member = db.T_HY_Member.Find(id);
             t_hy_member.IsVerified = false;
+            t_hy_member.State = 0;
             db.Entry(t_hy_member).State = EntityState.Modified;
 
             if (db.SaveChanges() > 0)
-                return ReturnJson(true, "撤销审核成功", "", "UnVerified", false, "");
+                return ReturnJson(true, "撤销成功", "", "UnVerified", false, "");
             else
-                return ReturnJson(false, "撤销审核失败", "", "", false, "");
+                return ReturnJson(false, "撤销失败", "", "", false, "");
 
         }
 
@@ -319,7 +330,8 @@ namespace GGZBTQPT_PRO.Controllers
             tqCount = tq.Count();
             tq = tq.OrderBy(s => s.ID).Skip(numPerPage * (pageNum - 1)).Take(numPerPage);
 
-            IList<VM_MemberStat> list = tq.Select(w => new VM_MemberStat{
+            IList<VM_MemberRelease> list = tq.Select(w => new VM_MemberRelease
+            {
                                                        FinancingCount = w.Financials.Count, 
                                                        InvestmentCount=w.Investments.Count,
                                                        ProductCount = w.Products.Count,
@@ -624,9 +636,9 @@ namespace GGZBTQPT_PRO.Controllers
         /// <returns></returns>
         public ActionResult MemberStatList()
         {
-            IList<VM_Member_Stat> list = db.T_HY_Member.Where(p => p.IsValid == true && p.IsVerified == true)
+            IList<VM_MemberStat> list = db.T_HY_Member.Where(p => p.IsValid == true && p.IsVerified == true)
                                                    .GroupBy(g => g.Type)
-                                                   .Select(s => new VM_Member_Stat
+                                                   .Select(s => new VM_MemberStat
                                                    {
                                                        MemberCount = s.Count(),
                                                        Type = s.Key

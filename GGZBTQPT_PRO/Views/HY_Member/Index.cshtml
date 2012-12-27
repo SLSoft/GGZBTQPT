@@ -58,16 +58,19 @@
                     <th width="40">
                         <input type="checkbox" group="ids" class="checkboxCtrl">
                     </th>
-                    <th orderfield="name" class="asc">
+                    <th>
                         登录名
                     </th>
-                    <th orderfield="name" class="asc">
+                    <th>
                         用户名
                     </th>
-                    <th orderfield="name" class="asc">
+                    <th>
                         手机
                     </th>
-                    <th orderfield="name" class="asc">
+                    <th>
+                        邮箱
+                    </th>
+                    <th>
                         用户类型
                     </th>
                     <th>
@@ -93,6 +96,9 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.CellPhone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.TypeName)
