@@ -57,6 +57,7 @@
                 <th>
                     联系电话
                 </th>
+                <th></th>
             </tr>
         </tr>
       </thead>
@@ -73,6 +74,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Phone, "联系电话")
                 </td>
+                <td>
+                <a href="@Url.Action("AgencyProductList", "JG_Product", new { agencyid = item.ID })" target="dialog" title="产品一览表" mask="true" width="600" height="400">发布的产品</a>
+            </td>
             </tr>
         }
       </tbody>

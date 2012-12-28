@@ -1,0 +1,50 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Financing>
+@{
+    Layout = null;
+}
+<div class="pageContent">
+    <form id="pagerForm" method="post" action="@Url.Action("Index")">
+    <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
+    <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
+    <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />
+    </form>
+  <div layouth="30">
+    <table class="list" width="100%" asc="asc" desc="desc">
+      <thead>
+        <tr>
+            <th>
+                项目名称
+            </th>
+            <th>
+                项目类别
+            </th>
+            <th>
+                所属行业
+            </th>
+            <th>
+                有效日期
+            </th>        
+    </tr>
+      </thead>
+      <tbody>
+        @foreach (var item in Model)
+        {
+            <tr target="mid" rel=@item.ID>
+                <td>
+                @Html.DisplayFor(modelItem => item.ItemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IndustryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValidDate)
+            </td>
+            </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

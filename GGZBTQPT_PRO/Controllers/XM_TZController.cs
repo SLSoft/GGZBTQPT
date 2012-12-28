@@ -21,7 +21,7 @@ namespace GGZBTQPT_PRO.Controllers
         public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 5)
         {
             keywords = keywords == null ? "" : keywords;
-            var t_xm_investment = db.T_XM_Investment.Where(p => (p.IsValid == true && p.ItemName.Contains(keywords))).OrderBy(s => s.ID)
+            var t_xm_investment = db.T_XM_Investment.Where(p => (p.IsValid == true && p.ItemName.Contains(keywords))).OrderByDescending(p => p.CreateTime)
                                                                     .Skip(numPerPage * (pageNum - 1))
                                                                     .Take(numPerPage).ToList();
             ViewBag.recordCount = db.T_XM_Investment.Where(c => c.IsValid == true).Count();
@@ -393,6 +393,16 @@ namespace GGZBTQPT_PRO.Controllers
             if (investments.Count == 0)
                 ViewBag.Message = "未找到符合要求的项目!";
             return View(investments); 
+        }
+
+        //指定会员发布的意向
+        public ActionResult MemberInvestmentList(int memberid, int pageNum = 1, int numPerPage = 10)
+        {
+            var t_xm_investment = db.T_XM_Investment.Where(p => (p.IsValid == true && p.MemberID == memberid)).OrderByDescending(p => p.CreateTime);
+            ViewBag.recordCount = db.T_XM_Investment.Where(p => (p.IsValid == true && p.MemberID == memberid)).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+            return View(t_xm_investment);
         }
     }
 }

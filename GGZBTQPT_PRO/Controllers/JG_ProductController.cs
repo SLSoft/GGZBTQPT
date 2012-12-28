@@ -19,7 +19,7 @@ namespace GGZBTQPT_PRO.Controllers
         public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 5)
         {
             keywords = keywords == null ? "" : keywords;
-            var t_jg_product = db.T_JG_Product.Where(p => (p.IsValid == true && p.ProductName.Contains(keywords))).OrderBy(s => s.ID)
+            var t_jg_product = db.T_JG_Product.Where(p => (p.IsValid == true && p.ProductName.Contains(keywords))).OrderByDescending(s => s.CreateTime)
                                                                     .Skip(numPerPage * (pageNum - 1))
                                                                     .Take(numPerPage).ToList();
             ViewBag.recordCount = db.T_JG_Product.Where(c => c.IsValid == true).Count();
@@ -268,6 +268,16 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.pageNum = pageNum;
 
             return PartialView(list);
+        }
+
+        //机构发布的产品一览表
+        public ViewResult AgencyProductList(int agencyid=1, int pageNum = 1, int numPerPage = 10)
+        {
+            var t_jg_product = db.T_JG_Product.Where(p => (p.IsValid == true && p.AgencyID == agencyid)).OrderByDescending(s => s.CreateTime);
+            ViewBag.recordCount = db.T_JG_Product.Where(c => (c.IsValid == true && c.AgencyID == agencyid)).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+            return View(t_jg_product);
         }
     }
 }

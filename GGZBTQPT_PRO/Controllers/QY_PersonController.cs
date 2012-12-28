@@ -19,7 +19,7 @@ namespace GGZBTQPT_PRO.Controllers
         public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 5)
         {
             keywords = keywords == null ? "" : keywords;
-            var t_qy_person = db.T_QY_Person.Where(p => (p.IsValid == true && p.Name.Contains(keywords))).OrderBy(s => s.ID)
+            var t_qy_person = db.T_QY_Person.Where(p => (p.IsValid == true && p.Name.Contains(keywords))).OrderByDescending(p => p.CreateTime)
                                                                     .Skip(numPerPage * (pageNum - 1))
                                                                     .Take(numPerPage).ToList();
             ViewBag.recordCount = db.T_QY_Person.Where(c => c.IsValid == true).Count();
@@ -172,18 +172,30 @@ namespace GGZBTQPT_PRO.Controllers
             base.Dispose(disposing);
         }
 
-        //产品查询功能
+        //创业者查询功能
         public ActionResult PersonQuery(FormCollection collection, int pageNum = 1, int numPerPage = 5)
         {
+            BindEducation();
+            string personname = collection["personname"] == null ? "" : collection["personname"];
+            string cardid = collection["cardid"] == null ? "" : collection["cardid"];
+            string gender = collection["gender"] == null ? "" : collection["gender"];
+            int edu = collection["Education"] == null || collection["Education"] == "" ? 0 : Convert.ToInt32(collection["Education"]);
 
-            string productname = collection["productname"] == null ? "" : collection["productname"]; ;
+            var t_qy_person = db.T_QY_Person.Where(p => (p.IsValid == true && p.Name.Contains(personname) && p.CardID.Contains(cardid)));
 
-            var t_jg_product = db.T_JG_Product.Where(c => c.IsValid == true && c.ProductName.Contains(productname));
+            if (gender != "")
+            {
+                t_qy_person = t_qy_person.Where(p => p.Gender == gender);
+            }
+            if (edu != 0)
+            {
+                t_qy_person = t_qy_person.Where(p => p.Education == edu);
+            }
 
-            IList<GGZBTQPT_PRO.Models.T_JG_Product> list = t_jg_product.OrderByDescending(s => s.CreateTime)
+            IList<GGZBTQPT_PRO.Models.T_QY_Person> list = t_qy_person.OrderByDescending(s => s.CreateTime)
                                                         .Skip(numPerPage * (pageNum - 1))
                                                         .Take(numPerPage).ToList();
-            ViewBag.recordCount = t_jg_product.Count();
+            ViewBag.recordCount = t_qy_person.Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
 

@@ -20,7 +20,7 @@ namespace GGZBTQPT_PRO.Controllers
         public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 5)
         {
             keywords = keywords == null ? "" : keywords;
-            var t_xm_financing = db.T_XM_Financing.Where(p => (p.IsValid == true && p.ItemName.Contains(keywords))).OrderBy(s => s.ID)
+            var t_xm_financing = db.T_XM_Financing.Where(p => (p.IsValid == true && p.ItemName.Contains(keywords))).OrderByDescending(p => p.ID)
                                                                     .Skip(numPerPage * (pageNum - 1))
                                                                     .Take(numPerPage).ToList();
             ViewBag.recordCount = db.T_XM_Financing.Where(c => c.IsValid == true).Count();
@@ -366,6 +366,17 @@ namespace GGZBTQPT_PRO.Controllers
             if (financials.Count == 0)
                 ViewBag.Message = "未找到符合要求的项目!";
             return View(financials);
+        }
+
+
+        //指定会员发布的项目
+        public ActionResult MemberFinancingList(int memberid, int pageNum = 1, int numPerPage = 10)
+        {
+            var t_xm_financing = db.T_XM_Financing.Where(p => (p.IsValid == true && p.MemberID == memberid)).OrderBy(p => p.CreateTime);
+            ViewBag.recordCount = db.T_XM_Financing.Where(p => (p.IsValid == true && p.MemberID == memberid)).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+            return View(t_xm_financing);
         }
     }
 }
