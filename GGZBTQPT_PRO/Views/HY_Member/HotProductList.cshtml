@@ -19,7 +19,7 @@
             <li>
                 <label>
                     会员类型：</label>
-                    @Html.DropDownList("memberType", (SelectList)@ViewData["Types"])
+                    @Html.DropDownList("memberType", (IEnumerable<SelectListItem>)@ViewData["Types"])
             </li>
         </ul>
         <div class="subBar">

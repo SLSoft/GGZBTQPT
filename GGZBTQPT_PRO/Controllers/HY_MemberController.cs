@@ -439,8 +439,6 @@ namespace GGZBTQPT_PRO.Controllers
                     return GetHotFinancingList(keywords, memberType, pageNum, numPerPage);
                 case 3://投资意向
                     return GetHotInvestmentList(keywords, memberType, pageNum, numPerPage);
-                case 4://金融服务(暂无实现)
-                    return GetHotInvestmentList(keywords, memberType, pageNum, numPerPage);
             }
             return PartialView();
         }
@@ -633,7 +631,6 @@ namespace GGZBTQPT_PRO.Controllers
             types.Add("1","金融产品");
             types.Add("2","投资项目");
             types.Add("3","投资意向");
-            types.Add("4","金融服务");
             return types;
         }
 
