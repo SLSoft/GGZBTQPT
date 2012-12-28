@@ -454,7 +454,7 @@ namespace GGZBTQPT_PRO.Controllers
                 tq = tq.Where(s => s.Member.Type == memberType);
             }
             tqCount = tq.Count();
-            IList<T_JG_Product> list = tq.OrderBy(o => o.ID)
+            IList<T_JG_Product> list = tq.OrderByDescending(o => o.Clicks)
                                              .Skip(numPerPage * (pageNum - 1))
                                              .Take(numPerPage)
                                              .ToList();
@@ -476,7 +476,7 @@ namespace GGZBTQPT_PRO.Controllers
                 tq = tq.Where(s => s.Member.Type == memberType);
             }
             tqCount = tq.Count();
-            IList<T_XM_Financing> list = tq.OrderBy(o => o.ID)
+            IList<T_XM_Financing> list = tq.OrderByDescending(o => o.Clicks)
                                                .Skip(numPerPage * (pageNum - 1))
                                                .Take(numPerPage)
                                                .ToList();
@@ -498,7 +498,7 @@ namespace GGZBTQPT_PRO.Controllers
                 tq = tq.Where(s => s.Member.Type == memberType);
             }
             tqCount = tq.Count();
-            IList<T_XM_Investment> list = tq.OrderBy(o => o.ID)
+            IList<T_XM_Investment> list = tq.OrderByDescending(o => o.Clicks)
                                                 .Skip(numPerPage * (pageNum - 1))
                                                 .Take(numPerPage)
                                                 .ToList();

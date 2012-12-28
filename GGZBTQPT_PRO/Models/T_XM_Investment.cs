@@ -46,6 +46,7 @@ namespace GGZBTQPT_PRO.Models
             UpdateTime = DateTime.Now;
             Pic = new Byte[0];
             MemberID = 9999;
+            Clicks = 0;
 
         }
         public int ID { get; set; }
@@ -84,6 +85,7 @@ namespace GGZBTQPT_PRO.Models
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
         public byte[] Pic { get; set; }
+        public int Clicks { get; set; }
 
         public int MemberID { get; set; }
         public virtual T_HY_Member Member { get; set; }

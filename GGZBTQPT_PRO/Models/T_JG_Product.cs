@@ -33,6 +33,7 @@ namespace GGZBTQPT_PRO.Models
             PublicStatus = "1";
             PublicTime = DateTime.Now;
             SubmitTime = DateTime.Now;
+            Clicks = 0;
         }
         public int ID { get; set; }
         public string ProductName { get; set; }
@@ -61,6 +62,7 @@ namespace GGZBTQPT_PRO.Models
         public string PublicStatus { get; set; }
         public DateTime PublicTime { get; set; }
         public DateTime SubmitTime { get; set; }
+        public int Clicks { get; set; }
 
         public string AgencyName
         {
