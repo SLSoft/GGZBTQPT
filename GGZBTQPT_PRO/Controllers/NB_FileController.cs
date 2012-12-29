@@ -215,15 +215,25 @@ namespace GGZBTQPT_PRO.Controllers
         public ActionResult SelectUser(int id, string select_users)
         {
             T_NB_File current_file = db.T_NB_File.Find(id);
-            select_users = select_users.TrimEnd(',');
-            string[] user_ids = select_users.Split(',');
 
-            if (current_file.ReceiveUsers.Count == 0)//选择用户
+            if (current_file.ReceiveUsers.Count == 0 && select_users == "")
             {
-                if (select_users == "")
+                return ReturnJson(false, "请选择用户", "", "", false, "");
+            }
+
+            for (int i = current_file.ReceiveUsers.Count - 1; i >= 0; i--)
+            {
+                var receive_user = current_file.ReceiveUsers.ElementAtOrDefault(i);
+                if (receive_user != null)
                 {
-                    return ReturnJson(false, "请选择用户", "", "", false, "");
+                    current_file.ReceiveUsers.Remove(receive_user);
                 }
+            }
+            if (select_users != "")
+            {
+                select_users = select_users.TrimEnd(',');
+                string[] user_ids = select_users.Split(',');
+
                 foreach (string user_id in user_ids)
                 {
                     T_ZC_User _user = db.T_ZC_User.Find(Convert.ToInt32(user_id));
@@ -233,41 +243,10 @@ namespace GGZBTQPT_PRO.Controllers
                     }
                 }
             }
-            else //修改选择的用户
-            {
-                if (select_users == "")
-                {
-                    for (int i = current_file.ReceiveUsers.Count - 1; i >= 0; i--)
-                    {
-                        var receive_user = current_file.ReceiveUsers.ElementAtOrDefault(i);
-                        if (receive_user != null)
-                        {
-                            current_file.ReceiveUsers.Remove(receive_user);
-                        }
-                    }
-                }
-                else
-                {
-                    foreach (string user_id in user_ids)
-                    {
-                        T_ZC_User _user = db.T_ZC_User.Find(Convert.ToInt32(user_id));
-
-                        for (int i = current_file.ReceiveUsers.Count - 1; i >= 0; i--)
-                        {
-                            var receive_user = current_file.ReceiveUsers.ElementAtOrDefault(i);
-
-                            if (receive_user != null && receive_user.ID != int.Parse(user_id))
-                            {
-                                current_file.ReceiveUsers.Remove(receive_user);
-                            }
-                        }
-                    }
-                }
-            }
             try
             {
                 db.SaveChanges();
-                return ReturnJson(true, "操作成功", "", "", false, "");
+                return ReturnJson(true, "操作成功", "", "", true, "");
             }
             catch
             {

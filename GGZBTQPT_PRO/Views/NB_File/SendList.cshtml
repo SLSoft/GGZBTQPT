@@ -102,7 +102,7 @@
                     @String.Format("{0:g}", item.UpdatedTime)
                 </td>
                 <td>
-                    @Html.ActionLink("发送到用户", "SelectUser", "NB_File", new { id=item.ID}, new { target = "dialog", mask = "true",Callback="SendList" })
+                    @Html.ActionLink("发送到用户", "SelectUser", "NB_File", new { id=item.ID}, new { target = "dialog", mask = "true"})
                 </td>
             </tr>
             }

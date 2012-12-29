@@ -30,20 +30,6 @@ namespace GGZBTQPT_PRO.Controllers
             return Json(new { statusCode = _statusCode, message = _message, navTabId = _navTabId, rel = _rel, callbackType = _callbackType, forwardUrl = _forwardUrl }, "text/html", JsonRequestBehavior.AllowGet);
         }
 
-        //"statusCode":"返回的状态值，200--success 300--fail 301--timeout",
-        //"message":"提示信息",
-        //"navTabId":"定navTab页面标记为需要“重新载入”。注意navTabId不能是当前navTab页面的",
-        //"rel":"指定ID",该ID用于指定回调后,需要局部刷新的页面元素ID
-        //"callbackType":"closeCurrent或forward", 关闭当前页面/转发到其他页面
-        //"forwardUrl":"跳转的URL，callbackType是forward时使用"
-        //"confirmMsg":"需要确定的信息"
-        public JsonResult ReturnJson(bool if_success, string message, string nav_tabid, string rel, string callback_type, bool if_colse, string forward_url)//批量删除会自动刷新所在的navTab。 
-        {
-            string status_code = if_success ? "200" : "300";
-            callback_type = if_colse ? "closeCurrent" : callback_type;
-            return Json(new { StatusCode = status_code, message = message, navTabId = nav_tabid, rel = rel, CallbackType = callback_type, forwardUrl = forward_url }, "text/html", JsonRequestBehavior.AllowGet);
-        } 
-
         //日志处理
         public void Logging(int level, string message, int operate_type, int generate_type, string exception = "无")
         {
