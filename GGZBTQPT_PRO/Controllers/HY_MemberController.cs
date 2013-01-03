@@ -200,10 +200,6 @@ namespace GGZBTQPT_PRO.Controllers
         /// <returns></returns>
         public ActionResult HasVerified(string keywords, int state = -1, int pageNum = 1, int numPerPage = 15)
         {
-            var States = from MemberStates mstate in Enum.GetValues(typeof(MemberStates))
-                         select new { ID = (int)mstate, Name = mstate.ToString() };
-            ViewData["States"] = new SelectList(States, "ID", "Name");
-
             keywords = keywords == null ? "" : keywords;
             var tqCount = 0;
             var tq = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords)).Where(p => p.IsValid == true);
@@ -226,6 +222,7 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
             ViewBag.state = state;
+            ViewBag.States = GetMemberState();
 
             return View(list);
         } 
@@ -307,6 +304,19 @@ namespace GGZBTQPT_PRO.Controllers
 
         }
 
+        public List<SelectListItem> GetMemberState()
+        {
+            var States = from MemberStates mstate in Enum.GetValues(typeof(MemberStates))
+                         select new { ID = (int)mstate, Name = mstate.ToString() };
+            SelectList list = new SelectList(States, "ID", "Name");
+
+            List<SelectListItem> li = new List<SelectListItem>();
+            li.Add(new SelectListItem { Text = "---请选择---", Value = "-1" });
+            li.AddRange(list);
+
+            return li;
+        }
+
         #endregion
 
         #region 会员查询
@@ -347,19 +357,19 @@ namespace GGZBTQPT_PRO.Controllers
 
             return View(list);
         }
-
-        public SelectList GetMemberType()
+        
+        public List<SelectListItem> GetMemberType()
         {
             var types = from MemberTypes mtype in Enum.GetValues(typeof(MemberTypes))
                         select new { ID = (int)mtype, Name = mtype.ToString() };
 
             SelectList list = new SelectList(types, "ID", "Name");
 
-            //List<SelectListItem> li = new List<SelectListItem>();
-            //li.Add(new SelectListItem { Text = "---请选择---", Value = "-1" });
-            //li.AddRange(list);
+            List<SelectListItem> li = new List<SelectListItem>();
+            li.Add(new SelectListItem { Text = "---请选择---", Value = "-1" });
+            li.AddRange(list);
 
-            return list;
+            return li;
         }
 
         /// <summary>
@@ -429,8 +439,6 @@ namespace GGZBTQPT_PRO.Controllers
                     return GetHotFinancingList(keywords, memberType, pageNum, numPerPage);
                 case 3://投资意向
                     return GetHotInvestmentList(keywords, memberType, pageNum, numPerPage);
-                case 4://金融服务(暂无实现)
-                    return GetHotInvestmentList(keywords, memberType, pageNum, numPerPage);
             }
             return PartialView();
         }
@@ -446,7 +454,7 @@ namespace GGZBTQPT_PRO.Controllers
                 tq = tq.Where(s => s.Member.Type == memberType);
             }
             tqCount = tq.Count();
-            IList<T_JG_Product> list = tq.OrderBy(o => o.ID)
+            IList<T_JG_Product> list = tq.OrderByDescending(o => o.Clicks)
                                              .Skip(numPerPage * (pageNum - 1))
                                              .Take(numPerPage)
                                              .ToList();
@@ -468,7 +476,7 @@ namespace GGZBTQPT_PRO.Controllers
                 tq = tq.Where(s => s.Member.Type == memberType);
             }
             tqCount = tq.Count();
-            IList<T_XM_Financing> list = tq.OrderBy(o => o.ID)
+            IList<T_XM_Financing> list = tq.OrderByDescending(o => o.Clicks)
                                                .Skip(numPerPage * (pageNum - 1))
                                                .Take(numPerPage)
                                                .ToList();
@@ -490,7 +498,7 @@ namespace GGZBTQPT_PRO.Controllers
                 tq = tq.Where(s => s.Member.Type == memberType);
             }
             tqCount = tq.Count();
-            IList<T_XM_Investment> list = tq.OrderBy(o => o.ID)
+            IList<T_XM_Investment> list = tq.OrderByDescending(o => o.Clicks)
                                                 .Skip(numPerPage * (pageNum - 1))
                                                 .Take(numPerPage)
                                                 .ToList();
@@ -623,7 +631,6 @@ namespace GGZBTQPT_PRO.Controllers
             types.Add("1","金融产品");
             types.Add("2","投资项目");
             types.Add("3","投资意向");
-            types.Add("4","金融服务");
             return types;
         }
 

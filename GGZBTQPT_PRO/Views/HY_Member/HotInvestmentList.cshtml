@@ -19,7 +19,7 @@
             <li>
                 <label>
                     会员类型：</label>
-                    @Html.DropDownList("memberType", (SelectList)@ViewData["Types"])
+                    @Html.DropDownList("memberType", (IEnumerable<SelectListItem>)@ViewData["Types"])
             </li>
         </ul>
         <div class="subBar">
@@ -66,6 +66,9 @@
                     <th>
                         发布时间
                     </th>
+                    <th>
+                        点击量
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -86,6 +89,9 @@
                         </td>
                         <td>
                             @item.CreateTime
+                        </td>
+                        <td>
+                            @item.Clicks
                         </td>
                     </tr>
                 }

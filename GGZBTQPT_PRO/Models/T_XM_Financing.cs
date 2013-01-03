@@ -16,7 +16,7 @@ namespace GGZBTQPT_PRO.Models
             City = "0";
             Region = "0";
             Industry = 0;
-            ValidDate = DateTime.MaxValue;
+            ValidDate = DateTime.Now;
             Keys = " ";
             ItemContent = " ";
             ItemType = 0;
@@ -60,6 +60,7 @@ namespace GGZBTQPT_PRO.Models
             UpdateTime = DateTime.MaxValue;
             Pic = new Byte[0]; 
             MemberID = 9999;
+            Clicks = 0;
         }
 
         
@@ -114,11 +115,27 @@ namespace GGZBTQPT_PRO.Models
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
         public byte[] Pic { get; set; }
+        public int Clicks { get; set; }
 
         public int MemberID { get; set; } 
         public virtual T_HY_Member Member { get; set; }
 
         public virtual ICollection<T_HY_Favorite> Favoites { get; set; }//每个项目都对应多个收藏
+
+
+        //所属区域
+        public string AreaName
+        {
+            get
+            {
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                List<T_PTF_DicTreeDetail> dic = db.T_PTF_DicTreeDetail.Where(d => (d.DicType == "34" && d.Code == this.Province)).ToList();
+                if (dic.Count > 0)
+                    return dic[0].Name;
+                else
+                    return "";
+            }
+        }
 
         //所属行业
         public string IndustryName 

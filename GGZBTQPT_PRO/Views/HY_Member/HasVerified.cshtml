@@ -23,7 +23,7 @@
             <li>
                 <label>
                     会员状态：</label>
-                @Html.DropDownList("State", (SelectList)ViewData["States"])
+                @Html.DropDownList("State", (IEnumerable<SelectListItem>)ViewData["States"])
             </li>   
         </ul>
         <div class="subBar">

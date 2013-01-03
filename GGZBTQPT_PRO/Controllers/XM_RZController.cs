@@ -17,9 +17,10 @@ namespace GGZBTQPT_PRO.Controllers
         //
         // GET: /XM_RZ/
 
-        public ViewResult Index(int pageNum = 1, int numPerPage = 5)
+        public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 5)
         {
-            var t_xm_financing = db.T_XM_Financing.Where(p => p.IsValid == true).OrderBy(s => s.ID)
+            keywords = keywords == null ? "" : keywords;
+            var t_xm_financing = db.T_XM_Financing.Where(p => (p.IsValid == true && p.ItemName.Contains(keywords))).OrderByDescending(p => p.ID)
                                                                     .Skip(numPerPage * (pageNum - 1))
                                                                     .Take(numPerPage).ToList();
             ViewBag.recordCount = db.T_XM_Financing.Where(c => c.IsValid == true).Count();
@@ -100,6 +101,7 @@ namespace GGZBTQPT_PRO.Controllers
         // POST: /XM_RZ/Create
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Create(T_XM_Financing t_xm_financing, FormCollection collection)
         {
             if (ModelState.IsValid)
@@ -112,8 +114,7 @@ namespace GGZBTQPT_PRO.Controllers
                 t_xm_financing.IsValid = true;
                 t_xm_financing.OP = 0;
                 t_xm_financing.CreateTime = DateTime.Now;
-                t_xm_financing.UpdateTime = DateTime.Now;
-                t_xm_financing.MemberID = 1;
+                t_xm_financing.SubmitTime = DateTime.Now;
 
                 HttpPostedFileBase file = Request.Files[0];
                 //存入文件
@@ -151,6 +152,7 @@ namespace GGZBTQPT_PRO.Controllers
         // POST: /XM_RZ/Edit/5
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Edit(T_XM_Financing t_xm_financing, FormCollection collection)
         {
             if (ModelState.IsValid)
@@ -364,6 +366,17 @@ namespace GGZBTQPT_PRO.Controllers
             if (financials.Count == 0)
                 ViewBag.Message = "未找到符合要求的项目!";
             return View(financials);
+        }
+
+
+        //指定会员发布的项目
+        public ActionResult MemberFinancingList(int memberid, int pageNum = 1, int numPerPage = 10)
+        {
+            var t_xm_financing = db.T_XM_Financing.Where(p => (p.IsValid == true && p.MemberID == memberid)).OrderBy(p => p.CreateTime);
+            ViewBag.recordCount = db.T_XM_Financing.Where(p => (p.IsValid == true && p.MemberID == memberid)).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+            return View(t_xm_financing);
         }
     }
 }

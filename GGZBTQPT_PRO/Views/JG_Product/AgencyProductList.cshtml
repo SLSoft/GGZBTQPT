@@ -1,0 +1,50 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_JG_Product>
+@{
+    Layout = null;
+}
+
+<div class="pageContent">
+<form id="pagerForm" method="post" action="@Url.Action("AgencyProductList")">
+    <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
+    <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
+    </form>
+  <div layouth="30">
+    <table class="list" width="100%" asc="asc" desc="desc">
+      <thead>
+        <tr>
+            <th>
+            产品名称
+        </th>
+        <th>
+            所属机构
+        </th>
+        <th>
+            最高融资额度
+        </th>
+        <th>
+            融资期限
+        </th>
+    </tr>
+      </thead>
+      <tbody>
+        @foreach (var item in Model)
+        {
+            <tr target="mid" rel=@item.ID>
+                 <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AgencyName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FinancingAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FinancingLimit)
+        </td>
+       </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -432,6 +432,13 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             return View(paged_products);
         }
 
+        public void BindAgencyType(object select = null)
+        {
+            List<T_PTF_DicDetail> AgencyType = db.T_PTF_DicDetail.Where(p => (p.DicType == "JG01" && p.IsValid == "1")).ToList();
+
+            ViewData["AgencyType"] = new SelectList(AgencyType, "ID", "Name", select);
+        }
+
         /// <summary>
         /// 找机构
         /// </summary>
@@ -439,19 +446,94 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// <returns></returns>
         public ActionResult zjg(int id = 1)
         {
+            BindAgencyType();
             var agencylist = db.T_JG_Agency.Where(p => p.IsValid == true).OrderBy(p => p.CreateTime).ToPagedList(id, 5);
 
             return View(agencylist);
         }
 
+        [HttpPost]
+        public ActionResult zjg(FormCollection collection, int id = 1)
+        {
+            BindAgencyType();
+            string agencyname = collection["agencyname"] == null ? "" : collection["agencyname"];
+            int agencytype = collection["AgencyType"] == null || collection["AgencyType"] == "" ? 0 : Convert.ToInt32(collection["AgencyType"]);
+
+
+            var t_jg_agency = db.T_JG_Agency.Where(c => c.IsValid == true && c.AgencyName.Contains(agencyname));
+            if (agencytype != 0)
+            {
+                t_jg_agency = t_jg_agency.Where(c => c.AgencyType == agencytype);
+            }
+
+            var agencylist = t_jg_agency.OrderBy(p => p.CreateTime).ToPagedList(id, 5);
+
+            return View(agencylist);
+        }
+
+        public void BindProperty(object select = null)
+        {
+            List<T_PTF_DicDetail> Property = db.T_PTF_DicDetail.Where(p => (p.DicType == "5" && p.IsValid == "1")).ToList();
+
+            ViewData["Property"] = new SelectList(Property, "ID", "Name", select);
+        }
+        public void BindIndustry(object select = null)
+        {
+            List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
+
+            ViewData["Industry"] = new SelectList(Industry, "ID", "Name", select);
+        }
+
+        public ActionResult zqy(int id = 1)
+        {
+            BindProperty();
+            BindIndustry();
+            var corplist = db.T_QY_Corp.Where(p => p.IsValid == true).OrderBy(p => p.CreateTime).ToPagedList(id, 5);
+
+            return View(corplist);
+        }
         /// <summary>
         /// 找企业
         /// </summary>
         /// <param name="collection"></param>
         /// <returns></returns>
-        public ActionResult zqy(int id = 1)
+        [HttpPost]
+        public ActionResult zqy(FormCollection collection, int id = 1)
         {
-            var corplist = db.T_QY_Corp.Where(p => p.IsValid == true).OrderBy(p => p.CreateTime).ToPagedList(id, 5);
+            BindProperty();
+            BindIndustry();
+            string corpname = collection["corpname"] == null ? "" : collection["corpname"];
+            string property = collection["cbProperty"] == null ? "" : collection["cbProperty"];
+            decimal regcapital = collection["regcapital"] == null || collection["regcapital"] == "" ? 0 : Convert.ToDecimal(collection["regcapital"]);
+            string industry = collection["cbIndustry"] == null ? "" : collection["cbIndustry"];
+
+            var t_qy_corp = db.T_QY_Corp.Where(c => c.IsValid == true && c.CorpName.Contains(corpname));
+            if (property != "")
+            {
+                int[] temp1 = new int[property.Split(',').Length];
+                for (int i = 0; i < property.Split(',').Length; i++)
+                {
+                    temp1[i] = Convert.ToInt32(property.Split(',')[i]);
+                }
+                t_qy_corp = t_qy_corp.Where(c => temp1.Contains((int)c.Property));
+            }
+            if (regcapital != 0)
+            {
+                if (collection["regkey"] == "1")
+                    t_qy_corp = t_qy_corp.Where(c => c.RegCapital > regcapital);
+                else
+                    t_qy_corp = t_qy_corp.Where(c => c.RegCapital < regcapital);
+            }
+            if (industry != "")
+            {
+                int[] temp = new int[industry.Split(',').Length];
+                for (int i = 0; i < industry.Split(',').Length; i++)
+                {
+                    temp[i] = Convert.ToInt32(industry.Split(',')[i]);
+                }
+                t_qy_corp = t_qy_corp.Where(c => temp.Contains((int)c.Industry));
+            }
+            var corplist = t_qy_corp.OrderBy(p => p.CreateTime).ToPagedList(id, 5);
 
             return View(corplist);
         }

@@ -5,6 +5,9 @@
 <script type="text/javascript">
     $.validator.unobtrusive.parse(document);
 </script>
+
+<script src="@Url.Content("~/Public/Calendar/WebCalendar.js")" type="text/javascript"></script>
+
 <div id="FormContainer" class="pageContent">
     @using (Html.BeginForm("Edit", "NB_Meeting",new {id=Model.ID}, FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
     {
@@ -28,7 +31,7 @@
             </p>
             <p>
                 @Html.LabelFor(model => model.MeetingTime,"会议日期")
-                @Html.EditorFor(model => model.MeetingTime)
+                <input type="text" name="MeetingTime" onclick="SelectDate(this,'yyyy-MM-dd hh:mm:ss')" style="width:130px" value="@Model.MeetingTime"/>
                 @Html.ValidationMessageFor(model => model.MeetingTime)
             </p>
             <p>

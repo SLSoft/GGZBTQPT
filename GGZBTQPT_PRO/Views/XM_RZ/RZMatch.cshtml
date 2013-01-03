@@ -40,7 +40,7 @@
       <li><a class="delete" href="@Url.Action("delete", "XM_RZ", new { id = "{mid}" })" rel="delete" target="ajaxTodo" title="确定要删除吗？"  warn="请选择一个项目"><span>删除</span></a></li>
     </ul>
   </div>
-  <div layouth="115">
+  <div layouth="56">
     <table class="list" width="100%" asc="asc" desc="desc">
       <thead>
         <tr>
@@ -79,7 +79,7 @@
             </td>
             <td>
                 <a href="@Url.Action("RZMatchResult", "XM_RZ", new { id = item.ID})" target="navtab" title="匹配意向" mask="true" width="690" height="800"><span>交易分析</span></a>|
-                <a class="add" href="@Url.Action("create", "XM_JY", new { id = item.ID})" rel="create" target="dialog" title="添加新交易" mask="true" width="850" height="580">交易管理</a>
+                <a class="add" href="@Url.Action("create", "XM_JY", new { id = item.ID,itype = 0})" rel="create" target="dialog" title="添加新交易" mask="true" width="850" height="580">交易管理</a>
             </td>
             </tr>
         }

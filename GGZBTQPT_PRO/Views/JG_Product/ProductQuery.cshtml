@@ -2,21 +2,30 @@
 @{
     Layout = null;
 }
+<link href="@Url.Content("~/Content/css/Style.css")" rel="stylesheet" type="text/css" />
 <div class="pageHeader">
-    <form id="pagerForm" method="post" action="@Url.Action("Index")">
+<form id="pagerForm" method="post" action="@Url.Action("ProductQuery")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
-    <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />
     </form>
-    <form onsubmit="return navTabSearch(this);" action="@Url.Action("Index")" method="post">
+    <form onsubmit="return navTabSearch(this);" action="@Url.Action("ProductQuery")" method="post">
     <div class="searchBar">
-        <ul class="searchContent">
-            <li>
-                <label>
-                    产品名称：</label>
-                <input type="text" name="keywords" value="@ViewData["keywords"]" />
-            </li>
-        </ul>
+        <table style="width:100%; border-spacing:5px;" >
+            <tr>
+                <td width="100px;">产品名称：</td>
+                <td><input type="text" name="productname" value="@ViewData["productname"]" style="width:300px"/></td>
+            </tr>
+            <tr>
+                <td>机构名称：</td>
+                <td><input type="text" name="agencyname" value="@ViewData["agencyname"]" style="width:300px"/></td>
+            </tr>
+            <tr>
+                <td>最高融资额度：</td>
+                <td><select name="regkey"><option value="1">大于</option><option value="0">小于</option></select>
+                <input type="text" name="amount" value="@ViewData["amount"]" />万元
+                </td>
+            </tr>
+        </table>
         <div class="subBar">
             <ul>
                 <li>
@@ -39,46 +48,46 @@
       <li><a class="delete" href="@Url.Action("delete", "JG_Product", new { id = "{mid}" })" rel="delete" target="ajaxTodo" title="确定要删除吗？"  warn="请选择一个产品"><span>删除</span></a></li>
     </ul>
   </div>
-  <div layouth="115">
+  <div layouth="176">
     <table class="list" width="100%" asc="asc" desc="desc">
       <thead>
         <tr>
             <th>
-            产品名称
-        </th>
-        <th>
-            所属机构
-        </th>
-        <th>
-            最高融资额度
-        </th>
-        <th>
-            融资期限
-        </th>
+                产品名称
+            </th>
+            <th>
+                所属机构
+            </th>
+            <th>
+                最高融资额度
+            </th>
+            <th>
+                融资期限
+            </th>
     </tr>
       </thead>
       <tbody>
         @foreach (var item in Model)
         {
             <tr target="mid" rel=@item.ID>
-                 <td>
-            @Html.DisplayFor(modelItem => item.ProductName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AgencyName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FinancingAmount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FinancingLimit)
-        </td>
-       </tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AgencyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FinancingAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FinancingLimit)
+            </td>
+           </tr>
         }
       </tbody>
     </table>
   </div>
-  <div class="panelBar">
+   <div class="panelBar">
         <div class="pages">
             <span>每页显示</span>
             <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value,pageNum:1})">

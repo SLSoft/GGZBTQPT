@@ -16,9 +16,10 @@ namespace GGZBTQPT_PRO.Controllers
         //
         // GET: /JG_Agency/
 
-        public ViewResult Index(int pageNum = 1, int numPerPage = 5)
+        public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 5)
         {
-            var t_jg_agency = db.T_JG_Agency.Where(c => c.IsValid == true).OrderBy(s => s.ID)
+            keywords = keywords == null ? "" : keywords;
+            var t_jg_agency = db.T_JG_Agency.Where(c => (c.IsValid == true && c.AgencyName.Contains(keywords))).OrderBy(s => s.ID)
                                                                     .Skip(numPerPage * (pageNum - 1))
                                                                     .Take(numPerPage).ToList();
             ViewBag.recordCount = db.T_JG_Agency.Where(c => c.IsValid == true).Count();
@@ -179,7 +180,7 @@ namespace GGZBTQPT_PRO.Controllers
             base.Dispose(disposing);
         }
 
-        //企业查询功能
+        //机构查询功能
         public ActionResult AgencyQuery(FormCollection collection, int pageNum = 1, int numPerPage = 5)
         {
             BindAgencyType();

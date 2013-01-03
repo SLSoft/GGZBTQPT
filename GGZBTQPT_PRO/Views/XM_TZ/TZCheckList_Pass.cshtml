@@ -27,7 +27,7 @@
             最高投资额度(万元)
         </th>
         <th>
-            提交时间
+            审核时间
         </th>
         <th>
             操作
@@ -47,10 +47,10 @@
                     @Html.DisplayFor(modelItem => item.Investment)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SubmitTime)
+                    @Html.DisplayFor(modelItem => item.PublicTime)
                 </td>
                 <td>
-                    @Html.ActionLink("撤销审核", "UnTZCheck", "XM_TZ", new { id = @item.ID, state = "2" }, new { rel = "TZCheckList", target = "ajaxTodo" })
+                    @Html.ActionLink("撤销审核", "UnTZCheck", "XM_TZ", new { id = @item.ID, state = "2" }, new { onclick = "javascript:return confirm('您确定撤消吗？');", rel = "TZCheckList", target = "ajaxTodo" })
                 </td>
             </tr>
         }

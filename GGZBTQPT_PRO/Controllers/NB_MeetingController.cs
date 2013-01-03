@@ -54,7 +54,7 @@ namespace GGZBTQPT_PRO.Controllers
                 if (ModelState.IsValid)
                 {
                     t_nb_meeting.CreateUserId = CurrentUser().ID;
-                    t_nb_meeting.MeetingTime = Convert.ToDateTime(t_nb_meeting.MeetingTime.ToLongTimeString());
+                    t_nb_meeting.MeetingTime = Convert.ToDateTime(t_nb_meeting.MeetingTime);
 
                     db.T_NB_Meeting.Add(t_nb_meeting);
 

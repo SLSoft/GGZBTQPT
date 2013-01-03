@@ -24,7 +24,7 @@
             <li>
                 <label>
                     会员类型：</label>
-                    @Html.DropDownList("Type",(SelectList) @ViewData["Types"])
+                    @Html.DropDownList("Type", (IEnumerable<SelectListItem>)@ViewData["Types"])
             </li>
         </ul>
         <div class="subBar">
@@ -73,7 +73,8 @@
         </tr>
         </thead>
         <tbody>
-        @foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Member.LoginName)
@@ -94,7 +95,7 @@
             {
             <td>
                 
-                <a href="@Url.Action("QueryDetails", "HY_Member", new { member_id = @item.Member.ID,type=1 })"  target="dialog" width="550"
+                <a href="@Url.Action("QueryDetails", "HY_Member", new { member_id = @item.Member.ID, type = 1 })"  target="dialog" width="550"
                 height="300" title="项目详情" mask="true"><span>@item.FinancingCount</span></a>
             </td>
             }

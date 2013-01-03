@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace GGZBTQPT_PRO.Models
@@ -13,7 +16,7 @@ namespace GGZBTQPT_PRO.Models
             City = "0";
             Region = "0";
             Industry = 0;
-            ValidDate = DateTime.MaxValue;
+            ValidDate = DateTime.Now;
             Keys = " ";
             Description = " ";
             Linkman = " ";
@@ -43,6 +46,7 @@ namespace GGZBTQPT_PRO.Models
             UpdateTime = DateTime.Now;
             Pic = new Byte[0];
             MemberID = 9999;
+            Clicks = 0;
 
         }
         public int ID { get; set; }
@@ -81,6 +85,7 @@ namespace GGZBTQPT_PRO.Models
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
         public byte[] Pic { get; set; }
+        public int Clicks { get; set; }
 
         public int MemberID { get; set; }
         public virtual T_HY_Member Member { get; set; }
@@ -98,6 +103,8 @@ namespace GGZBTQPT_PRO.Models
                     return "";
             }
         }
+
+        //投资行业
         public string AimIndustryName
         {
             get
@@ -110,6 +117,50 @@ namespace GGZBTQPT_PRO.Models
                 foreach (string strInd in aimInd)
                 {
                     result += db.T_PTF_DicDetail.Find(Convert.ToInt32(strInd)).Name + ',';
+                }
+                if (result.Length > 0)
+                    result = result.Substring(0, result.Length - 1);
+                return result;
+            }
+        }
+
+        //投资地区
+        public string AjmAreaName
+        {
+            get
+            {
+                string result = "";
+                if (this.AjmArea.Length < 2)
+                    return result;
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                string[] Area = this.AjmArea.Split(',');
+                foreach (string strarea in Area)
+                {
+                    List<T_PTF_DicTreeDetail> dic = db.T_PTF_DicTreeDetail.Where(d => (d.DicType == "34" && d.Code == strarea)).ToList();
+                    if (dic.Count > 0)
+                    {
+                        result += dic[0].Name + ',';
+                    }
+                }
+                if (result.Length > 0)
+                    result = result.Substring(0, result.Length - 1);
+                return result;
+            }
+        }
+
+        //合作方式
+        public string TeamworkTypeText
+        {
+            get
+            {
+                string result = "";
+                if (TeamworkType.Length < 2)
+                    return result;
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                string[] twt = this.TeamworkType.Split(',');
+                foreach (string str in twt)
+                {
+                    result += db.T_PTF_DicDetail.Find(Convert.ToInt32(str)).Name + ',';
                 }
                 if (result.Length > 0)
                     result = result.Substring(0, result.Length - 1);

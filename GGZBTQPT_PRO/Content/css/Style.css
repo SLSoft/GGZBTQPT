@@ -2,4 +2,16 @@
 {
     float:left;
     width:100px;
-    }
+}
+
+.tb-detail
+{
+    width:90%;
+    border-spacing:5px;
+}
+
+.title_detail
+{
+    font-size: 12pt;
+    font-weight: bold;
+}

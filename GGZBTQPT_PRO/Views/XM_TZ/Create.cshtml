@@ -22,7 +22,7 @@
     var i = 0;
     foreach (var item in ViewData["Province"] as SelectList)
     {
-        if (i % 6 == 0 && i != 0)
+        if (i % 5 == 0 && i != 0)
         {
             @:</tr><tr>
         }
@@ -63,20 +63,20 @@
     }
 </script>
 
-@using (Html.BeginForm("Create", "XM_TZ", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Create", "XM_TZ", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return iframeCallback(this);" }))
 {
     @Html.ValidationSummary(true)
     <div layoutH="20">
-        <table style="width: 100%" class="list">
+        <table style="width: 100%; border-spacing:3px">
             <tr>
-                <td colspan="2" style="background-color: #666666; color: #ffffff">
+                <td colspan="2" style="height:25px; font-weight:bold">
                     基本信息
                 </td>
             </tr>
             <tr>
                 <td style="width: 80px">@Html.LabelFor(model => model.ItemName, "投资意向标题")
                 </td>
-                <td>@Html.TextBoxFor(model => model.ItemName, new { style = "width:95%" })
+                <td>@Html.TextBoxFor(model => model.ItemName, new { style = "width:80%" })
                 </td>
             </tr>
             <tr>
@@ -95,34 +95,25 @@
             <tr>
                 <td>@Html.LabelFor(model => model.ValidDate, "有效日期")
                 </td>
-                <td>@Html.EditorFor(model => model.ValidDate)
-                    @Html.ValidationMessageFor(model => model.ValidDate)
+                <td>@Html.TextBoxFor(m => m.ValidDate, new { @class = "date", @Value = string.Format("{0:yyyy-MM-dd}", Model.ValidDate) })
                 </td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Keys, "关键词")
                 </td>
-                <td>@Html.EditorFor(model => model.Keys)
-                    @Html.ValidationMessageFor(model => model.Keys)
-                </td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.Pic, "项目图片")
-                </td>
-                <td>
-                    <input type="file" name="file1" />
+                <td>@Html.TextBoxFor(model => model.Keys, new { style = "width:80%" })
                 </td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Description, "投资意向描述")
                 </td>
-                <td>@Html.TextAreaFor(model => model.Description, new { rows = "8", style = "width:95%" })
+                <td>@Html.TextAreaFor(m => m.Description, new { @class = "editor", @rows = "15", @Value = Model.Description })
                 </td>
             </tr>
         </table>
-        <table style="width: 100%" class="list">
+        <table style="width: 100%; border-spacing:3px">
             <tr>
-                <td colspan="4" style="background-color: #666666; color: #ffffff">
+                <td colspan="4" style="height:25px; font-weight:bold">
                     投资信息
                 </td>
             </tr>
@@ -190,9 +181,9 @@
                 </td>
             </tr>
         </table>
-        <table style="width: 100%" class="list">
+        <table style="width: 100%; border-spacing:3px">
             <tr>
-                <td colspan="4" style="background-color: #666666; color: #ffffff">
+                <td colspan="4" style="height:25px; font-weight:bold">
                     联系人信息
                 </td>
             </tr>
@@ -240,10 +231,9 @@
                 </td>
             </tr>
         </table>
-        <table style="width: 100%" class="list">
+        <table style="width: 100%; border-spacing:3px">
             <tr>
-                <td>
-                    展示图片
+                <td style="width: 80px">项目图片
                 </td>
                 <td>
                     <input type="file" name="file1" />
