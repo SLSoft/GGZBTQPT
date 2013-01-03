@@ -23,7 +23,7 @@
                     <ul class="dropdown-menu">
                         <li>@Html.ActionLink("发布融资项目", "Create", "Financial")</li>
                         <li>@Html.ActionLink("发布投资意向", "Create", "Investment")</li>
-                        @if (Model.Type == (int)MemberTypes.机构)
+                        @if (Session["MemberType"].ToString() == MemberTypes.机构.ToString())
                         {
                             <li>@Html.ActionLink("发布金融产品", "Create", "Product")</li>
                         }

@@ -83,7 +83,6 @@
                     result += value + ",";
                 }
             });
-            alert("@Url.Action("SelectUser","ZC_Role", new { id = @ViewBag.RoleID})");
             $.post("@Url.Action("SelectUser","ZC_Role", new { id = @ViewBag.RoleID})",{ select_users: result },function(data){ DWZ.ajaxDone(data);},"json");
         }); 
     }); 

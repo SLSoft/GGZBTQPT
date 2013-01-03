@@ -22,6 +22,7 @@ namespace GGZBTQPT_PRO.Util
             //Type generate_system = typeof(GenerateSystem);
             //foreach (string type in Enum.GetNames(generate_system))
 
+            //注册所有的controller名称；
             ControllerType.Add("ZC_System", "系统管理");
             ControllerType.Add("ZC_Role", "角色管理");
             ControllerType.Add("ZC_User", "用户管理");
@@ -30,13 +31,55 @@ namespace GGZBTQPT_PRO.Util
 
             ControllerType.Add("XM_TZ", "投资管理");
             ControllerType.Add("XM_RZ", "融资管理");
-            ControllerType.Add("XM_Case", "案例管理");
+            ControllerType.Add("XM_Case", "案例管理"); 
 
-
+            //注册所有的Action操作；
+            //通用操作：
             ActionType.Add("Create", "创建");
             ActionType.Add("Edit", "编辑");
             ActionType.Add("Delete", "删除");
             ActionType.Add("Index", "访问");
+
+            //各个业务系统特有Action操作：
+            //系统管理
+
+            //角色管理
+            ActionType.Add("CheckUser", "");
+            ActionType.Add("SelectUser", "角色所属用户选择");
+            ActionType.Add("SetPurview", "角色对应菜单选择");
+            
+            //用户管理
+            ActionType.Add("SelectUsers", "访问部门用户");
+            ActionType.Add("UserInfo", "用户详情");
+
+            //功能菜单管理
+            ActionType.Add("SystemLinks", "系统菜单");
+            ActionType.Add("SystemLinks", "菜单详情");
+
+
+            //部门管理
+            
+            //案例管理
+            ActionType.Add("CasesFromUser", "用户提交案例");
+            ActionType.Add("CasesFromMember", "会员提交案例");
+            ActionType.Add("CasesFromTransaction", "项目转化案例");
+            ActionType.Add("DownLoadFile", "案例文件下载");
+            ActionType.Add("Analysis", "案例分析");
+            ActionType.Add("PublishCaseToCMS", "案例发布");
+
+
+            //会员管理
+
+
+            //投资管理
+            //融资管理 
+
+            //企业管理
+            //机构管理 
+            //创业者管理
+
+            //文件管理
+            //会议管理
 
         }
         private StringDictionary ControllerType { get; set; }
@@ -78,7 +121,7 @@ namespace GGZBTQPT_PRO.Util
         {
             if(ControllerType[controller] != null && ActionType[action] != null)
             {
-                return "模块:" + ControllerType[controller] + "     \n操作:" + ActionType[action];
+                return "模块:" + ControllerType[controller] + "[" + controller + "]" + "     \n操作:" + ActionType[action] + "[" + action + "]";
             }
             return "模块:" + controller + "     \n操作:" + action;
         } 

@@ -128,7 +128,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             member.Attentions.Add(attentioned_item);
             db.SaveChanges();
 
-            Logging((int)LogLevels.operate, "关注了XZXX", (int)OperateTypes.Attention, (int)GenerateTypes.FromMember, (int)GenerateSystem.Attention);
+            Logging((int)LogLevels.operate, "关注了" + AttentionedMemberName(id), (int)OperateTypes.Attention, (int)GenerateTypes.FromMember, (int)GenerateSystem.Attention);
             return Json(new { statusCode = "200", message = "关注成功", type = "success" });
         }
 
@@ -148,8 +148,17 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             db.T_HY_Attention.Remove(unattentioned_item);
             db.SaveChanges();
 
-            Logging((int)LogLevels.operate, "取消关注了XZXX", (int)OperateTypes.Attention, (int)GenerateTypes.FromMember, (int)GenerateSystem.Attention);
+            Logging((int)LogLevels.operate, "取消关注了" + AttentionedMemberName(id), (int)OperateTypes.Attention, (int)GenerateTypes.FromMember, (int)GenerateSystem.Attention);
             return Json(new { statusCode = "200", message = "取消关注成功", type = "success" });
+        }
+
+
+        //
+        //AttentionHelper
+
+        public string AttentionedMemberName(int member_id)
+        {
+            return db.T_HY_Member.Find(member_id).MemberName;
         }
 
     }

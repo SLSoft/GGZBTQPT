@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.Enums;
 using GGZBTQPT_PRO.Areas.ViewModels; 
+using GGZBTQPT_PRO.Util;
  
 
 namespace GGZBTQPT_PRO.Areas.MG.Controllers
@@ -62,7 +63,9 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 db.T_HY_Member.Add(member);
                 db.SaveChanges();
 
-                Logging((int)LogLevels.operate, "注册了会员,登录名：" + member.LoginName, (int)OperateTypes.Create, (int)GenerateTypes.FromMember, (int)GenerateSystem.Authority);
+                Logging((int)LogLevels.operate, "注册了会员,登录名：" + member.LoginName, (int)OperateTypes.Create, (int)GenerateTypes.FromMember, (int)GenerateSystem.Authority); 
+                Mail.SendEmail(member.Email, "欢迎您注册光谷资本特区会员！", Welcome(member.LoginName, member.Password));
+                BusinessService.SendMessageFromManage(member,"感谢您注册光谷资本特区，我们将在24小时内对您的资料进行审核！", "欢迎您注册光谷资本特区");
 
                 //根据用户类型，往不同的业务用户数据表中初始化信息
                 InitMemberDetail(member.Type, member.ID); 
@@ -192,6 +195,26 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 ViewData["error"] = "登陆名错误，请检查后重新尝试!";
                 return View();
             } 
+        }
+
+        public string Welcome(string member_name, string member_pwd)
+        {
+            string welcome = "<h3>欢迎注册光谷资本特区会员</h3>";
+            welcome += "<strong>尊敬的" + member_name + ":</strong>";
+            welcome += "<p>非常感谢您注册成为光谷资本特区会员！您能享受到的服务如下：</p>";
+            welcome += "<ul><li>优质的项目、资金及产品推荐</li>" + 
+                           "<li>定期的会员活动和期刊</li>" + 
+                           "<li>多样的会员互动环境</li>" + 
+                           "<li>成熟、完善的金融服务支持</li>" + 
+                           "</ul>";
+            welcome += "<hr />";
+            welcome += "<h3>以下是您注册的会员名和密码：</h3>";
+            welcome += "<ul><li>会员名：" + member_name + "</li>" + 
+                           "<li>密码：" + member_pwd + "</li>" + 
+                           "</ul>";
+
+            return welcome;
+                            
         }
 
         public ActionResult Logout()

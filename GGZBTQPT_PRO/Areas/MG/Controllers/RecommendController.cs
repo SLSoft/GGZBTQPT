@@ -88,7 +88,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             try
             {
                 PagedList<T_JG_Product> products = db.T_JG_Product.OrderByDescending(p => p.CreateTime).ToPagedList(id, 5);
-                ViewBag.FavoredInvestments = FavoredItems(3);
+                ViewBag.FavoredProducts = FavoredItems(3);
                 ViewBag.AttentionedMembers = AttentionedMembers();
                 ViewBag.CurrentMember = member.ID;
                 return PartialView(products);

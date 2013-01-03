@@ -1,1 +1,45 @@
-﻿
+﻿@model Webdiyer.WebControls.Mvc.PagedList<GGZBTQPT_PRO.Models.T_JG_Product>
+
+@*收藏的产品信息*@
+<div id="favored">
+    @foreach (var _model in Model)
+    {
+        <div class="row-fluid">
+            <div class="span2">
+                <div class="favored-link">
+                    <div class="unfavored rounded">
+                        <span><i class="icon-heart icon-white"></i>@Ajax.ActionLink("取消收藏", "UnFavored", "Favorite", new { id = _model.ID }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" }) </span>
+                    </div>
+                    <div class="favorited-people">
+                        <span class="text-info">【@_model.Favoites.Count() 人收藏】</span></div>
+                </div>
+            </div>
+            <div class="recommend-content span10">
+                <h4>
+                    @Html.ActionLink(_model.ProductName, "Details", "Product", new { id = _model.ID }, null)<span class="pub-time pull-right">@_model.CreateTime</span></h4>
+                @*摘要*@
+                <p class="summary">
+                    @_model.Superiority
+                </p>
+                @*附属信息*@
+                <div class="recommend-info">
+                    <span class="amount text-error">贷款额度：@_model.FinancingAmount 万元</span><span class="published-member pull-right">发布人：<a href="#">@_model.Member.MemberName</a> </span>
+                </div>
+            </div>
+        </div>
+            
+    }
+    <div class="pagination pagination-left clear">
+        @Html.AjaxPager(Model, new PagerOptions { PageIndexParameterName = "id", ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details" }) 
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function notice(data) {
+        $("#favored li.active a").click();
+        $.Member.notice(data);
+    }
+    $.Member.replaceBlankForMVCPager();
+    $.Member.rounded();
+</script>

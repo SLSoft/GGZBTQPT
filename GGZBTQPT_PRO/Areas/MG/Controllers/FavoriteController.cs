@@ -102,12 +102,12 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             try
             {
                 IList<T_JG_Product> products = member.Favorites.Where(a => a.FavoriteType == 3)
-                                .Join(db.T_JG_Product, a => a.FinancialID, p => p.ID,
+                                .Join(db.T_JG_Product, a => a.ProductID, p => p.ID,
                                     (a, p) => new T_JG_Product { 
                                         ProductName = p.ProductName, RepaymentType = p.RepaymentType,
-                                        Favoites = p.Favoites,
+                                        Favoites = p.Favoites, ID = p.ID, Member = p.Member,
                                         CreateTime = p.CreateTime,
-                                        UpdateTime = p.UpdateTime 
+                                        UpdateTime = p.UpdateTime,
                                     })
                                 .OrderByDescending(p => p.CreateTime)
                                 .ToList();
@@ -136,7 +136,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             member.Favorites.Add(favored_item);
             db.SaveChanges();
 
-            Logging((int)LogLevels.operate, "收藏了", (int)OperateTypes.Favorite, (int)GenerateTypes.FromMember, (int)GenerateSystem.Favorite);
+            Logging((int)LogLevels.operate, "收藏了" + FavoredItemName(type_id, favored_item), (int)OperateTypes.Favorite, (int)GenerateTypes.FromMember, (int)GenerateSystem.Favorite);
 
             return Json(new { statusCode = "200", message = "项目收藏成功", type = "success" });
         } 
@@ -152,11 +152,11 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             var member = CurrentMember(); 
             var favored_item = member.Favorites.First( f => f.FinancialID == id);
 
+            Logging((int)LogLevels.operate, "取消了对" + FavoredItemName(favored_item.FavoriteType, favored_item) + "的收藏", (int)OperateTypes.Favorite, (int)GenerateTypes.FromMember, (int)GenerateSystem.Favorite);
             member.Favorites.Remove(favored_item);
             db.T_HY_Favorite.Remove(favored_item);
             db.SaveChanges();
 
-            Logging((int)LogLevels.operate, "取消收藏了XZXX", (int)OperateTypes.Favorite, (int)GenerateTypes.FromMember, (int)GenerateSystem.Favorite);
             return Json(new { statusCode = "200", message = "项目取消收藏成功", type = "success" });
         }
 
@@ -168,16 +168,33 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             switch (type_id)
             {
                 case 1:
-                    favored_item.FinancialID = id;
+                    
+                    favored_item.Financial = db.T_XM_Financing.Find(id);
                     break;
                 case 2:
-                    favored_item.InvestmentID = id;
+                    favored_item.Investment = db.T_XM_Investment.Find(id);
                     break;
                 case 3:
+                    favored_item.Product = db.T_JG_Product.Find(id);
                     break;
             }
             favored_item.FavoriteType = type_id;
             return favored_item;
+        }
+
+        public string FavoredItemName(int type_id, T_HY_Favorite favored_item)
+        {
+            switch (type_id)
+            {
+                case 1:
+                    return favored_item.Financial.ItemName;
+                case 2:
+                    return favored_item.Investment.ItemName;
+                case 3:
+                    return favored_item.Product.ProductName;
+                default:
+                    return "无当前项目";
+            }
         }
 
         //-----------------为门户提供收藏功能----------------//

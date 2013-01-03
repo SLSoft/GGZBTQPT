@@ -23,9 +23,9 @@
     <li>
         @Ajax.ActionLink("收藏的资本", "FavoredInvestments", "Favorite", new { member_id = Model.ID }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
     </li>
-@*    <li>
+    <li>
         @Ajax.ActionLink("收藏的产品", "FavoredProducts", "Favorite", new { member_id = Model.ID }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
-    </li>*@
+    </li>
 </ul>
 
 <div id="details">

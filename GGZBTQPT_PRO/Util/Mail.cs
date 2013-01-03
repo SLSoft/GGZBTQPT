@@ -13,28 +13,30 @@ namespace GGZBTQPT_PRO.Util
 {
     public class Mail
     { 
-        public static void SendEmail(string customerName, string customerRequest, string[] filesPaths = null) 
-        { 
+        public static void SendEmail(string receiver, string subject, string body, string[] filesPaths = null) 
+        {
             WebMail.SmtpServer = "192.168.1.97";//获取或设置要用于发送电子邮件的 SMTP 中继邮件服务器的名称。
             WebMail.SmtpPort = 25;//发送端口
-            WebMail.EnableSsl = false;//是否启用 SSL GMAIL 需要 而其他都不需要 具体看你在邮箱中的配置
+            WebMail.EnableSsl = false;//是否启用 SSL 
             WebMail.UserName = "admin";//账号名
             WebMail.From = "admin@ovcstf.com";//邮箱名
             WebMail.Password = "!?gg2012";//密码
 
-            try {
-            WebMail.Send(to: "12160571@qq.com",
-                         subject: customerName,
-                         body: customerRequest
+            try
+            {
+                WebMail.Send(to: receiver,
+                             subject: subject,
+                             body: body
 
-                //,cc: "抄送"
-                //   ,filesToAttach: filesPaths
-                //      , isBodyHtml: true,
-                //additionalHeaders:new string[] { "additionalHeaders1", "additionalHeaders2" }
-                );
-            } catch (Exception e) {
+                    //,cc: "抄送"
+                    //   ,filesToAttach: filesPaths
+                    //      , isBodyHtml: true,
+                    //additionalHeaders:new string[] { "additionalHeaders1", "additionalHeaders2" }
+                    );
+            }
+            catch (Exception e)
+            {
 
-                
             }
         }
 

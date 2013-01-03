@@ -29,6 +29,9 @@
     <li>
         @Ajax.ActionLink("优质服务推荐", "RecommendAgencies", "Recommend", new { member_id = 1 }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details", LoadingElementId = "Loading" })
     </li>
+    <li>
+        @Ajax.ActionLink("优质产品推荐", "RecommendProducts", "Recommend", new { member_id = 1 }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details",  LoadingElementId = "loading" })
+    </li>
 </ul>
 
 <div id="details">

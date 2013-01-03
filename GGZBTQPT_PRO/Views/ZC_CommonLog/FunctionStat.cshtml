@@ -3,11 +3,50 @@
 @{
     Layout = null;
 }
-按照功能模块分类统计如下：
-金融推荐： @Model.Where(m => m.GenerateSystem == (int)GenerateSystem.Recommend).Count()
-找项目： @Model.Where(m => m.GenerateSystem == (int)GenerateSystem.FindFinancial).Count()
-找资金： @Model.Where(m => m.GenerateSystem == (int)GenerateSystem.FindInvestment).Count()
-找服务： @Model.Where(m => m.GenerateSystem == (int)GenerateSystem.FindService).Count()
-我的关注： @Model.Where(m => m.GenerateSystem == (int)GenerateSystem.Attention).Count() 
-我的收藏： @Model.Where(m => m.GenerateSystem == (int)GenerateSystem.Favorite).Count()
-我的发布： @Model.Where(m => m.GenerateSystem == (int)GenerateSystem.Publish).Count()
+<div style="float: left; display: block; overflow: auto; width: 240px; height: 300px; line-height: 21px; background: #fff">
+    <h3>
+        按照功能模块分类统计如下：
+    </h3>
+    <ul>
+        <li>金融推荐： @Model.Where(m => m.GenerateSystem == (int)GenerateSystem.Recommend).Count()</li>
+        <li>找项目： @Model.Where(m => m.GenerateSystem == (int)GenerateSystem.FindFinancial).Count()</li>
+        <li>找资金： @Model.Where(m => m.GenerateSystem == (int)GenerateSystem.FindInvestment).Count()</li>
+        <li>找服务： @Model.Where(m => m.GenerateSystem == (int)GenerateSystem.FindService).Count()</li>
+        <li>我的关注： @Model.Where(m => m.GenerateSystem == (int)GenerateSystem.Attention).Count()</li>
+        <li>我的收藏： @Model.Where(m => m.GenerateSystem == (int)GenerateSystem.Favorite).Count()</li>
+        <li>我的发布： @Model.Where(m => m.GenerateSystem == (int)GenerateSystem.Publish).Count()</li>
+    </ul>
+</div>
+<div class="unitBox" style="margin-left: 246px;">
+    <div id="function_stat" style="height: 400px; width: 600px;">
+    </div>
+</div>
+<script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.pieRenderer.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.donutRenderer.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.getJSON("@Url.Action("FunctionStatData", "ZC_CommonLog")", function(data){
+        
+            var statData = [];
+            $.each(data.statData, function(key, value){
+                var _temp = [key, value];
+                statData.push(_temp);
+            }); 
+            
+            jQuery.jqplot('function_stat', [statData],
+                {
+                    seriesDefaults: {
+                        // Make this a pie chart.
+                        renderer: jQuery.jqplot.PieRenderer,
+                        rendererOptions: {
+                            // Put data labels on the pie slices.
+                            // By default, labels show the percentage of the slice.
+                            showDataLabels: true
+                            }
+                        },
+                    legend: { show: true, location: 'e' }
+                }
+            );
+        });
+    });
+</script>

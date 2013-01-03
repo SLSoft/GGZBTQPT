@@ -49,5 +49,32 @@ namespace GGZBTQPT_PRO.Util
                 }
             }
         } 
+
+
+        public static bool SendMessageFromManage(T_HY_Member receive_member, string content, string title)
+        {            
+            using(GGZBTQPT_PRO.Models.GGZBTQPTDBContext db = new GGZBTQPT_PRO.Models.GGZBTQPTDBContext())
+            {
+                try
+                {
+                    T_HY_Member send_member = db.T_HY_Member.Find(9999);
+                    T_HY_Message message = new T_HY_Message();
+                    message.RelateID = 0;
+                    message.Content = content;
+                    message.SendMember = send_member;
+                    message.ReceiveMember = receive_member;
+                    message.Title = title;
+
+                    db.T_HY_Message.Add(message);
+                    db.SaveChanges();
+
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
     }
 }

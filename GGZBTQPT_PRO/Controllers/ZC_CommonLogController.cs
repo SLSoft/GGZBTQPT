@@ -54,7 +54,23 @@ namespace GGZBTQPT_PRO.Controllers
         {
             keywords = keywords == null ? "" : keywords;
 
-            IList<GGZBTQPT_PRO.Models.T_ZC_CommonLog> list = db.T_ZC_CommonLog.Where(l => (l.Level == "INFO" && l.GenerateSystem == (int)GenerateSystem.Manage) && l.Message.Contains(keywords)).ToList()
+            IList<GGZBTQPT_PRO.Models.T_ZC_CommonLog> list = db.T_ZC_CommonLog.Where(l => ((l.Level == "INFO" || l.Level == "WARN") && l.GenerateSystem == (int)GenerateSystem.Manage) && l.Message.Contains(keywords)).ToList()
+                                                            .OrderBy(s => s.ID)
+                                                            .Skip(numPerPage * (pageNum - 1))
+                                                            .Take(numPerPage).ToList();
+
+            ViewBag.recordCount = db.T_ZC_CommonLog.Where(l => (l.Level == "INFO" || l.GenerateSystem == (int)GenerateSystem.Manage) && l.Message.Contains(keywords)).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+            ViewBag.keywords = keywords;
+            return View(list);
+        }
+        
+        public ViewResult MemberDynamic(string keywords, int pageNum = 1, int numPerPage = 15)
+        { 
+            keywords = keywords == null ? "" : keywords;
+
+            IList<GGZBTQPT_PRO.Models.T_ZC_CommonLog> list = db.T_ZC_CommonLog.Where(l => (l.Level == "INFO" && l.GenerateSystem != (int)GenerateSystem.Manage) && l.Message.Contains(keywords)).ToList()
                                                             .OrderBy(s => s.ID)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
@@ -164,14 +180,46 @@ namespace GGZBTQPT_PRO.Controllers
 
         public ActionResult BasicStat()
         {
-            var commonlogs = db.T_ZC_CommonLog.Where(l => l.GenerateType == (int)GenerateTypes.FromMember).ToList();
+            var commonlogs = db.T_ZC_CommonLog.Where(l => l.GenerateType == (int)GenerateTypes.FromMember).ToList();  
             return PartialView(commonlogs); 
+        }
+
+        public ActionResult BasicStatData()
+        {
+            var commonlogs = db.T_ZC_CommonLog.Where(l => l.GenerateType == (int)GenerateTypes.FromMember).ToList();
+
+            Dictionary<String, int> dic = new Dictionary<string, int>();
+            dic.Add("访问操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Visit).Count());
+            dic.Add("添加操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Create).Count());
+            dic.Add("删除操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Delete).Count());
+            dic.Add("更新操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Edit).Count());
+            dic.Add("发布操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Publish).Count());
+            dic.Add("关注操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Attention).Count());
+            dic.Add("收藏操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Favorite).Count());
+            dic.Add("搜索操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Search).Count()); 
+
+            return Json(new { statData = dic }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult FunctionStat()
         {
             var commonlogs = db.T_ZC_CommonLog.Where(l => l.GenerateType == (int)GenerateTypes.FromMember).ToList();
             return PartialView(commonlogs);
+        }
+
+        public ActionResult FunctionStatData()
+        {
+            var commonlogs = db.T_ZC_CommonLog.Where(l => l.GenerateType == (int)GenerateTypes.FromMember).ToList();
+
+            Dictionary<String, int> dic = new Dictionary<string, int>();
+            dic.Add("找项目", commonlogs.Where(m => m.OperateType == (int)GenerateSystem.FindFinancial).Count());
+            dic.Add("找资金", commonlogs.Where(m => m.OperateType == (int)GenerateSystem.FindInvestment).Count());
+            dic.Add("找服务", commonlogs.Where(m => m.OperateType == (int)GenerateSystem.FindService).Count());
+            dic.Add("我的关注", commonlogs.Where(m => m.OperateType == (int)GenerateSystem.Attention).Count());
+            dic.Add("我的收藏", commonlogs.Where(m => m.OperateType == (int)GenerateSystem.Favorite).Count());
+            dic.Add("我的发布", commonlogs.Where(m => m.OperateType == (int)GenerateSystem.Publish).Count());
+
+            return Json(new { statData = dic }, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
