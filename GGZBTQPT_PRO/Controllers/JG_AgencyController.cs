@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
+using GGZBTQPT_PRO.ViewModels;
 
 namespace GGZBTQPT_PRO.Controllers
 {
@@ -202,6 +203,53 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.pageNum = pageNum;
 
             return PartialView(list);
+        }
+
+        public ActionResult AgencyReportData()
+        {
+            var up = db.T_JG_Agency.Where(p=>p.IsValid == true).GroupBy(g => g.AgencyType)
+                                    .Select(s => new { cnt = s.Count(), type = (int)s.Key });
+                                    
+
+            var list = from u in db.T_PTF_DicDetail
+                       where u.DicType == "JG01"
+                       join p in up on u.ID equals p.type into gj                      
+                       from x in gj.DefaultIfEmpty()
+                       orderby u.ID
+                       select new VM_AgencyReport
+                       {
+                           TypeName = u.Name,
+                           AgencyCount = x.type==null ? 0 : x.cnt
+                       };
+
+            Dictionary<String, int> dic = new Dictionary<string, int>();
+            foreach (VM_AgencyReport vma in list.ToList())
+            {
+                dic.Add(vma.TypeName, vma.AgencyCount);
+            }
+
+            return Json(new { statData = dic }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult AgencyReport()
+        {
+            var agencys = db.T_JG_Agency.Where(p => p.IsValid == true).ToList();
+            ViewBag.AgencyCount = agencys.Count;
+            var up = db.T_JG_Agency.Where(p => p.IsValid == true).GroupBy(g => g.AgencyType)
+                                    .Select(s => new { cnt = s.Count(), type = (int)s.Key });
+
+
+            var list = from u in db.T_PTF_DicDetail
+                       where u.DicType == "JG01"
+                       join p in up on u.ID equals p.type into gj
+                       from x in gj.DefaultIfEmpty()
+                       orderby u.ID
+                       select new VM_AgencyReport
+                       {
+                           TypeName = u.Name,
+                           AgencyCount = x.type == null ? 0 : x.cnt
+                       };
+            return PartialView(list.ToList()); 
         }
     }
 }

@@ -31,7 +31,12 @@ namespace GGZBTQPT_PRO.Util
 
             ControllerType.Add("XM_TZ", "投资管理");
             ControllerType.Add("XM_RZ", "融资管理");
-            ControllerType.Add("XM_Case", "案例管理"); 
+            ControllerType.Add("XM_Case", "案例管理");
+            ControllerType.Add("QY_Corp", "企业管理");
+            ControllerType.Add("QY_Person", "创业者管理");
+            ControllerType.Add("JG_Agency", "机构管理");
+            ControllerType.Add("JG_Product", "产品管理");
+            ControllerType.Add("XM_JY", "项目交易管理"); 
 
             //注册所有的Action操作；
             //通用操作：
@@ -44,7 +49,7 @@ namespace GGZBTQPT_PRO.Util
             //系统管理
 
             //角色管理
-            ActionType.Add("CheckUser", "用户审核");
+            ActionType.Add("CheckUser", "");
             ActionType.Add("SelectUser", "角色所属用户选择");
             ActionType.Add("SetPurview", "角色对应菜单选择");
             
@@ -55,12 +60,6 @@ namespace GGZBTQPT_PRO.Util
             //功能菜单管理
             ActionType.Add("SystemLinks", "系统菜单");
             ActionType.Add("MenuInfo", "菜单详情");
-
-            //日志管理
-            ActionType.Add("ManageLog", "管理操作日志");
-            ActionType.Add("ErrorLog", "错误日志");
-            ActionType.Add("MemberDynamic", "会员动态");
-
 
 
             //部门管理
@@ -78,11 +77,28 @@ namespace GGZBTQPT_PRO.Util
 
 
             //投资管理
-            //融资管理 
+            ActionType.Add("TZCheck", "投资信息审核");
+            ActionType.Add("TZMatch", "投资项目分析");
+            ActionType.Add("TZMatchResult", "根据投资意向匹配项目");
+            ActionType.Add("TZQuery", "投资项目查询");
+
+            //融资管理
+            ActionType.Add("RZCheck", "融资信息审核");
+            ActionType.Add("RZMatch", "融资项目分析");
+            ActionType.Add("RZMatchResult", "根据项目匹配资金");
+            ActionType.Add("RZQuery", "融资项目查询");
+
+            //交易管理
 
             //企业管理
+            ActionType.Add("CorpQuery", "企业信息查询");
             //机构管理 
+            ActionType.Add("AgencyQuery", "机构信息查询");
             //创业者管理
+            ActionType.Add("PersonQuery", "创业者信息查询");
+            //产品管理
+            ActionType.Add("CPCheck", "产品审核");
+            ActionType.Add("ProductQuery", "产品信息查询");
 
             //文件管理
             //会议管理
@@ -122,6 +138,7 @@ namespace GGZBTQPT_PRO.Util
             }
         }
 
+        //private
         public string GenerateLogMessage(string controller, string action)
         {
             if(ControllerType[controller] != null && ActionType[action] != null)
