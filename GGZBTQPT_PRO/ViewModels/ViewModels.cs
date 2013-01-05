@@ -79,5 +79,14 @@ namespace GGZBTQPT_PRO.ViewModels
         public string Email { get; set; }
 
     }
+
+    //个人办公主页信息汇总
+    public class VM_InformationCollect
+    {
+        public ICollection<T_NB_File> Files { get; set; }//发送给我的文件
+        public ICollection<T_NB_Meeting> Meetings { get; set; }//最新的会议
+        public ICollection<T_XM_Financing> Financials { get; set; }//最新的投资项目
+        public ICollection<T_XM_Investment> Investments { get; set; }//最新的融资意向
+    }
 }
 

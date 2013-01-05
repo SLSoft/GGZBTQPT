@@ -1,0 +1,29 @@
+﻿#analysis {
+    background-color: #eee;
+    padding: 10px;
+    margin: 10px 20px;
+    border: solid 1px #ddd;
+}
+
+#analysis .stat-summary {
+    font-size: 20px;
+    font-weight: bold;
+    height: 20px;
+    margin:0px auto 10px auto;
+}
+
+#analysis .stat-number {
+    float: left; 
+    display: block; 
+    overflow: auto; 
+    width: 240px; 
+    height: 300px; 
+    line-height: 21px;
+    padding: 10px;
+}
+
+#analysis .stat-container {
+    height: 400px;
+    margin: 20px auto;
+}
+

@@ -83,6 +83,35 @@ namespace GGZBTQPT_PRO.Controllers
             return Json(new { });
         }
 
+        //个人设置修改
+        public ActionResult PersonalSet(int id)
+        {
+            T_ZC_User t_zc_user = db.T_ZC_User.Find(id);
+            ViewBag.DepartmentID = new SelectList(db.T_ZC_Department, "ID", "Name", t_zc_user.DepartmentID);
+            return View(t_zc_user); 
+        }
+
+        [HttpPost]
+        public ActionResult PersonalSet(T_ZC_User t_zc_user)
+        {
+            if (Request.IsAjaxRequest())
+            {
+                if (ModelState.IsValid)
+                {
+                    t_zc_user.UpdatedAt = DateTime.Now;
+                    t_zc_user.UseLevel = (int)UseLevel.System;
+                    t_zc_user.IsValid = true;
+                    db.Entry(t_zc_user).State = EntityState.Modified;
+                    int result = db.SaveChanges();
+                    if (result >= 0)
+                        return ReturnJson(true, "个人信息设置成功", "", "userInfoBox", true, "");
+                    else
+                        return ReturnJson(false, "个人信息设置失败", "", "", false, "");
+                }
+            }
+            return Json(new { });
+        }
+
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {  
@@ -120,6 +149,8 @@ namespace GGZBTQPT_PRO.Controllers
             return PartialView(list);
         }
 
+
+        //Helper
         public PartialViewResult DepartmentLinks()
         {
             var links = db.T_ZC_Department.Where(p => p.IsValid == true && p.UseLevel == (int)UseLevel.System).ToList();

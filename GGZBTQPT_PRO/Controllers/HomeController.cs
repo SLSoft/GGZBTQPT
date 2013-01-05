@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.Util;
+using GGZBTQPT_PRO.Enums;
+using GGZBTQPT_PRO.ViewModels;
 
 
 namespace GGZBTQPT_PRO.Controllers
@@ -20,7 +22,7 @@ namespace GGZBTQPT_PRO.Controllers
             {
                 return RedirectToAction("Login");
             }
-            return View();
+            return View(current_user);
         }
 
         public ActionResult SystemLink()
@@ -63,6 +65,24 @@ namespace GGZBTQPT_PRO.Controllers
 
             return PartialView(menu_links);
         }
+
+        #region//用户个人办公主页信息汇总
+        
+        public ActionResult Home()
+        {
+            T_ZC_User user = CurrentUser(); 
+            VM_InformationCollect information_collect = new VM_InformationCollect();
+
+            information_collect.Files = user.ReceiveFiles.Count() > 5 ? user.ReceiveFiles.Take(5).ToList() : user.ReceiveFiles;
+            information_collect.Meetings = db.T_NB_Meeting.OrderBy(m => m.AuditTime).Count() > 5  ? db.T_NB_Meeting.OrderBy(m => m.AuditTime).Take(5).ToList() : db.T_NB_Meeting.OrderBy(m => m.AuditTime).ToList();
+            information_collect.Financials = db.T_XM_Financing.OrderByDescending(f => f.CreateTime).Count() > 5 ? db.T_XM_Financing.OrderByDescending(f => f.CreateTime).Take(5).ToList() : db.T_XM_Financing.OrderByDescending(f => f.CreateTime).ToList();
+            information_collect.Investments = db.T_XM_Investment.OrderByDescending(f => f.CreateTime).Count() > 5 ? db.T_XM_Investment.OrderByDescending(f => f.CreateTime).Take(5).ToList() : db.T_XM_Investment.OrderByDescending(f => f.CreateTime).ToList();
+
+
+            return View(information_collect);
+        }
+
+        #endregion
 
         #region//登陆登出相关功能
         //登录

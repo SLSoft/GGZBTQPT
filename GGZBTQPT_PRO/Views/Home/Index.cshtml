@@ -1,18 +1,18 @@
-﻿@{
+﻿@model GGZBTQPT_PRO.Models.T_ZC_User
+@{
     ViewBag.Title = "Index";
 }
-
 <div id="layout">
-  <div id="header">
-    <div class="headerNav">
-      <a class="logo2" href="#">内网logo</a>
-      <ul class="nav">
-        <li><a href="#" target="dialog" width="600">欢迎你，熊博！</a></li>
-        <li><a href="changepwd.html" target="dialog" width="600">设置</a></li>
-        <li><a href="http://weibo.com/dwzui" target="_blank">短信（10）</a></li>
-        <li>@Html.ActionLink("注销","Logout")</li>
-      </ul>
-      @*<ul class="themeList" id="themeList">
+    <div id="header">
+        <div class="headerNav">
+            <a class="logo2" href="#"></a>
+            <ul class="nav">
+                <li><a href="#" target="dialog" width="600">欢迎你，@Model.UserName！</a></li>
+                <li><a class="add" href="@Url.Action("PersonalSet","ZC_User", new { id = Model.ID })" rel="create" target="dialog" width="400"
+                height="250" title="设置个人信息" mask="true"><span>个人设置</span></a></li>
+                <li>@Html.ActionLink("注销", "Logout")</li>
+            </ul>
+            @*<ul class="themeList" id="themeList">
         <li theme="default">
           <div class="selected">
             蓝色</div>
@@ -34,63 +34,60 @@
             天蓝</div>
         </li>
       </ul>*@
+        </div>
+        <div id="navMenu">
+            @Html.Action("SystemLink")
+        </div>
     </div>
-    <div id="navMenu">
-        @Html.Action("SystemLink")
-  </div>
-  </div>
-  
 </div>
 <div id="leftside">
-  <div id="sidebar_s">
-    <div class="collapse">
-      <div class="toggleCollapse">
-        <div>
+    <div id="sidebar_s">
+        <div class="collapse">
+            <div class="toggleCollapse">
+                <div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  <div id="sidebar">
-    <div class="toggleCollapse">
-      <h2>
-        功能菜单</h2>
-      <div>
-        收缩</div>
+    <div id="sidebar">
+        <div class="toggleCollapse">
+            <h2>
+                功能菜单</h2>
+            <div>
+                收缩</div>
+        </div>
+        @Html.Action("SystemMenus")
     </div>
-
-    @Html.Action("SystemMenus")
-
-  </div>
 </div>
 <div id="container">
-  <div id="navTab" class="tabsPage">
-    <div class="tabsPageHeader">
-      <div class="tabsPageHeaderContent">
-        <!-- 显示左右控制时添加 class="tabsPageHeaderMargin" -->
-        <ul class="navTab-tab">
-          <li tabid="main" class="main"><a href="javascript:;"><span><span class="home_icon">办公主页</span></span></a></li>
-        </ul>
-      </div>
-      <div class="tabsLeft">
-        left</div>
-      <!-- 禁用只需要添加一个样式 class="tabsLeft tabsLeftDisabled" -->
-      <div class="tabsRight">
-        right</div>
-      <!-- 禁用只需要添加一个样式 class="tabsRight tabsRightDisabled" -->
-      <div class="tabsMore">
-        more</div>
-    </div>
-    <ul class="tabsMoreList">
-      <li><a href="javascript:;">我的主页</a></li>
-    </ul>
-    <div class="navTab-panel tabsPageContent layoutBox">
-      <div class="page unitBox">
-        <div class="pageFormContent" layouth="80" style="margin-right: 230px">
-
+    <div id="navTab" class="tabsPage">
+        <div class="tabsPageHeader">
+            <div class="tabsPageHeaderContent">
+                <!-- 显示左右控制时添加 class="tabsPageHeaderMargin" -->
+                <ul class="navTab-tab">
+                    <li tabid="main" class="main"><a href="javascript:;"><span><span class="home_icon">办公主页</span></span></a></li>
+                </ul>
+            </div>
+            <div class="tabsLeft">
+                left</div>
+            <!-- 禁用只需要添加一个样式 class="tabsLeft tabsLeftDisabled" -->
+            <div class="tabsRight">
+                right</div>
+            <!-- 禁用只需要添加一个样式 class="tabsRight tabsRightDisabled" -->
+            <div class="tabsMore">
+                more</div>
         </div>
-      </div>
+        <ul class="tabsMoreList">
+            <li><a href="javascript:;">我的主页</a></li>
+        </ul>
+        <div class="navTab-panel tabsPageContent layoutBox">
+            <div class="page unitBox">
+                <div class="pageFormContent sortDrag" selector="h1" layouth="0" style="margin-right: 230px">
+                    @Html.Action("Home")
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <div id="footer">
-  Copyright &copy; 2012 <a href="#" target="dialog">武汉神路信息咨询有限公司</a></div>
+    Copyright &copy; 2012 <a href="#" target="dialog">武汉神路信息咨询有限公司</a></div>

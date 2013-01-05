@@ -9,6 +9,7 @@ using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.Enums;
 using GGZBTQPT_PRO.Areas.ViewModels; 
 using GGZBTQPT_PRO.Util;
+using GGZBTQPT_PRO.APIModels;
  
 
 namespace GGZBTQPT_PRO.Areas.MG.Controllers
@@ -444,6 +445,25 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         {
             Session["MemberID"] = null; 
         }
+
+        //为外网返回会员信息
+        public ActionResult MemberInfo()
+        {
+            try
+            {
+                return Json(db.T_HY_Member.Select(m => new { 
+                                                                name = m.MemberName, 
+                                                                email = m.Email, 
+                                                                cell_phone = m.CellPhone  
+                                                            })
+                                          .ToList(),JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception e)
+            {
+                return Json(new {});
+            }
+        }
+
         #endregion
 
         protected override void Dispose(bool disposing)

@@ -172,7 +172,8 @@ namespace GGZBTQPT_PRO.Controllers
             return View(t_zc_commonlog);
         }
 
-        public ActionResult Analysis()
+        #region//会员动态分析
+        public ActionResult MemberAnalysis()
         { 
             var commonlogs = db.T_ZC_CommonLog.Where(l => l.GenerateType == (int)GenerateTypes.FromMember).ToList();
             return PartialView(commonlogs);
@@ -186,19 +187,33 @@ namespace GGZBTQPT_PRO.Controllers
 
         public ActionResult BasicStatData()
         {
-            var commonlogs = db.T_ZC_CommonLog.Where(l => l.GenerateType == (int)GenerateTypes.FromMember).ToList();
+            try
+            {
+                var commonlogs = db.T_ZC_CommonLog.Where(l => l.GenerateType == (int)GenerateTypes.FromMember).ToList(); 
+                Dictionary<String, int> dic = new Dictionary<string, int>();
 
-            Dictionary<String, int> dic = new Dictionary<string, int>();
-            dic.Add("访问操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Visit).Count());
-            dic.Add("添加操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Create).Count());
-            dic.Add("删除操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Delete).Count());
-            dic.Add("更新操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Edit).Count());
-            dic.Add("发布操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Publish).Count());
-            dic.Add("关注操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Attention).Count());
-            dic.Add("收藏操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Favorite).Count());
-            dic.Add("搜索操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Search).Count()); 
+                if(commonlogs != null)
+                {
+                    dic.Add("访问操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Visit).Count());
+                    dic.Add("添加操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Create).Count());
+                    dic.Add("删除操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Delete).Count());
+                    dic.Add("更新操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Edit).Count());
+                    dic.Add("发布操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Publish).Count());
+                    dic.Add("关注操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Attention).Count());
+                    dic.Add("收藏操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Favorite).Count());
+                    dic.Add("搜索操作", commonlogs.Where(m => m.OperateType == (int)OperateTypes.Search).Count()); 
+                }
+                else
+                {
+                    dic.Add("操作数", 0);
+                }
 
-            return Json(new { statData = dic }, JsonRequestBehavior.AllowGet);
+                return Json(new { statData = dic, statusCode = "200" }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json(new { statusCode = "300" }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public ActionResult FunctionStat()
@@ -208,19 +223,35 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         public ActionResult FunctionStatData()
-        {
-            var commonlogs = db.T_ZC_CommonLog.Where(l => l.GenerateType == (int)GenerateTypes.FromMember).ToList();
+        { 
+            try
+            {
+                var commonlogs = db.T_ZC_CommonLog.Where(l => l.GenerateType == (int)GenerateTypes.FromMember).ToList();
+                Dictionary<String, int> dic = new Dictionary<string, int>();
 
-            Dictionary<String, int> dic = new Dictionary<string, int>();
-            dic.Add("找项目", commonlogs.Where(m => m.OperateType == (int)GenerateSystem.FindFinancial).Count());
-            dic.Add("找资金", commonlogs.Where(m => m.OperateType == (int)GenerateSystem.FindInvestment).Count());
-            dic.Add("找服务", commonlogs.Where(m => m.OperateType == (int)GenerateSystem.FindService).Count());
-            dic.Add("我的关注", commonlogs.Where(m => m.OperateType == (int)GenerateSystem.Attention).Count());
-            dic.Add("我的收藏", commonlogs.Where(m => m.OperateType == (int)GenerateSystem.Favorite).Count());
-            dic.Add("我的发布", commonlogs.Where(m => m.OperateType == (int)GenerateSystem.Publish).Count());
+                if(commonlogs != null)
+                {
+                    dic.Add("金融推荐", commonlogs.Where(m => m.OperateType == (int)GenerateSystem.Recommend).Count()); 
+                    dic.Add("找项目", commonlogs.Where(m => m.OperateType == (int)GenerateSystem.FindFinancial).Count());
+                    dic.Add("找资金", commonlogs.Where(m => m.OperateType == (int)GenerateSystem.FindInvestment).Count());
+                    dic.Add("找服务", commonlogs.Where(m => m.OperateType == (int)GenerateSystem.FindService).Count());
+                    dic.Add("我的关注", commonlogs.Where(m => m.OperateType == (int)GenerateSystem.Attention).Count());
+                    dic.Add("我的收藏", commonlogs.Where(m => m.OperateType == (int)GenerateSystem.Favorite).Count());
+                    dic.Add("我的发布", commonlogs.Where(m => m.OperateType == (int)GenerateSystem.Publish).Count());
+                }
+                else
+                { 
+                    dic.Add("操作数", 0);
+                }
 
-            return Json(new { statData = dic }, JsonRequestBehavior.AllowGet);
+                return Json(new { statData = dic, statusCode = "200" }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json(new { statusCode = "300" }, JsonRequestBehavior.AllowGet);
+            }
         }
+        #endregion
 
         protected override void Dispose(bool disposing)
         {

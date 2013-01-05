@@ -44,7 +44,7 @@ namespace GGZBTQPT_PRO.Util
             //系统管理
 
             //角色管理
-            ActionType.Add("CheckUser", "");
+            ActionType.Add("CheckUser", "用户审核");
             ActionType.Add("SelectUser", "角色所属用户选择");
             ActionType.Add("SetPurview", "角色对应菜单选择");
             
@@ -54,7 +54,13 @@ namespace GGZBTQPT_PRO.Util
 
             //功能菜单管理
             ActionType.Add("SystemLinks", "系统菜单");
-            ActionType.Add("SystemLinks", "菜单详情");
+            ActionType.Add("MenuInfo", "菜单详情");
+
+            //日志管理
+            ActionType.Add("ManageLog", "管理操作日志");
+            ActionType.Add("ErrorLog", "错误日志");
+            ActionType.Add("MemberDynamic", "会员动态");
+
 
 
             //部门管理
@@ -116,7 +122,6 @@ namespace GGZBTQPT_PRO.Util
             }
         }
 
-        //private
         public string GenerateLogMessage(string controller, string action)
         {
             if(ControllerType[controller] != null && ActionType[action] != null)
