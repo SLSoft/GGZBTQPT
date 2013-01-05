@@ -82,7 +82,7 @@
                     result += value + ",";
                 }
             });
-            $.post("@Url.Action("SelectUser","NB_Meeting", new { id = @ViewBag.MeetingId})",{ select_users: result },function(data){ DWZ.ajaxDone(data);},"json");
+            $.post("@Url.Action("SelectUser","NB_Meeting", new { id = @ViewBag.MeetingId})",{ select_users: result },function(data){ navTabAjaxDone(data);},"json");
         }); 
     }); 
 </script>
