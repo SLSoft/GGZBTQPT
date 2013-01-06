@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 using System.IO;
+using GGZBTQPT_PRO.ViewModels;
 
 namespace GGZBTQPT_PRO.Controllers
 {
@@ -377,6 +378,55 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             return View(t_xm_financing);
+        }
+
+        //项目统计
+        public ActionResult RZXMReport()
+        {
+            var rzxm = db.T_XM_Financing.Where(p => p.IsValid == true).ToList();
+            ViewBag.RZXMCount = rzxm.Count;//登记项目总量
+            
+            var up = db.T_XM_Financing.Where(p => p.IsValid == true).GroupBy(g => g.Industry)
+                                    .Select(s => new { cnt = s.Count(), type = (int)s.Key });
+
+
+            var list = from u in db.T_PTF_DicDetail
+                       where u.DicType == "XM01"
+                       join p in up on u.ID equals p.type into gj
+                       from x in gj.DefaultIfEmpty()
+                       orderby u.ID
+                       select new VM_XMReport
+                       {
+                           TypeName = u.Name,
+                           Count = x.type == null ? 0 : x.cnt
+                       };
+            return PartialView(list.ToList());
+        }
+        //项目按行业统计
+        public ActionResult RZXMReportbyIndustry()
+        {
+            var up = db.T_XM_Financing.Where(p => p.IsValid == true).GroupBy(g => g.Industry)
+                                    .Select(s => new { cnt = s.Count(), type = (int)s.Key });
+
+
+            var list = from u in db.T_PTF_DicDetail
+                       where u.DicType == "XM01"
+                       join p in up on u.ID equals p.type into gj
+                       from x in gj.DefaultIfEmpty()
+                       orderby u.ID
+                       select new VM_XMReport
+                       {
+                           TypeName = u.Name,
+                           Count = x.type == null ? 0 : x.cnt
+                       };
+
+            Dictionary<String, int> dic = new Dictionary<string, int>();
+            foreach (VM_XMReport vmx in list.ToList())
+            {
+                dic.Add(vmx.TypeName, vmx.Count);
+            }
+
+            return Json(new { statData = dic }, JsonRequestBehavior.AllowGet);
         }
     }
 }

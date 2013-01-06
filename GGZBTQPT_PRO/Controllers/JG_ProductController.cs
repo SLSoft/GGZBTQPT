@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
+using GGZBTQPT_PRO.ViewModels;
 
 namespace GGZBTQPT_PRO.Controllers
 {
@@ -278,6 +279,31 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             return View(t_jg_product);
+        }
+
+        //产品统计
+        public ActionResult ProductReport()
+        {
+            var cp = db.T_JG_Product.Where(p => (p.IsValid == true && p.PublicStatus == "2")).ToList();
+            ViewBag.CPCount = cp.Count();
+            var list = db.T_JG_Product.Where(p => (p.IsValid == true && p.PublicStatus == "2")).GroupBy(g => g.AgencyID)
+                                    .Select(s => new { cnt = s.Count(), type = (int)s.Key })
+                                    .Join(db.T_JG_Agency, s => s.type, g => g.ID, (s, g) => new VM_CPReport { TypeName=g.SubName, Count=s.cnt });
+
+            return PartialView(list.ToList());
+        }
+
+        public ActionResult ProductReportData()
+        {
+            var list = db.T_JG_Product.Where(p => (p.IsValid == true && p.PublicStatus == "2")).GroupBy(g => g.AgencyID)
+                                    .Select(s => new { cnt = s.Count(), type = (int)s.Key });
+            Dictionary<String, int> dic = new Dictionary<string, int>();
+            foreach (var li in list.ToList())
+            {
+                dic.Add(db.T_JG_Agency.Find(li.type).SubName, li.cnt);
+            }
+
+            return Json(new { statData = dic }, JsonRequestBehavior.AllowGet);
         }
     }
 }

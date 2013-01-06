@@ -1,0 +1,13 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_QY_Corp>
+@{
+    Layout = null;
+}
+<link href="@Url.Content("~/Content/css/Style.css")" rel="stylesheet" type="text/css" />
+<div style="margin:10px 10px;" class="pageContent" layouth="30">
+<h2>注册企业统计</h2>
+<hr />
+<p style="font-size:14pt">注册企业总数：@ViewBag.CorpCount </p>
+<p style="font-size:14pt; margin-left:30px">本年注册企业：@ViewBag.YearSum</p>
+<p style="font-size:14pt; margin-left:30px">本月注册企业：@ViewBag.MountSum</p>
+<p style="font-size:14pt; margin-left:30px">今日注册企业：@ViewBag.DaySum</p>
+<br />

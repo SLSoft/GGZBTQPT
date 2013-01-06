@@ -404,5 +404,33 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.pageNum = pageNum;
             return View(t_xm_investment);
         }
+
+        //投资意向统计
+        public ActionResult XMTZReport()
+        {
+            var tzxm = db.T_XM_Investment.Where(p=>(p.IsValid==true && p.PublicStatus=="2")).ToList();
+            ViewBag.RZXMCount = tzxm.Count();
+            ViewBag.RZXMSum = tzxm.Sum(s => s.Investment);
+            return PartialView(tzxm);
+        }
+
+        public ActionResult XMTZReportData()
+        {
+            var tzxm = db.T_XM_Investment.Where(p => (p.IsValid == true && p.PublicStatus == "2")).ToList();
+            Dictionary<String, int> dic = new Dictionary<string, int>();
+
+            if (tzxm != null)
+            {
+                dic.Add("10万以下", tzxm.Where(t => t.Investment<=10).Count());
+                dic.Add("10-100万", tzxm.Where(t => (t.Investment > 10 && t.Investment <=100)).Count());
+                dic.Add("100-500万", tzxm.Where(t => (t.Investment > 100 && t.Investment <= 500)).Count());
+                dic.Add("500-1000万", tzxm.Where(t => (t.Investment > 500 && t.Investment <= 1000)).Count());
+                dic.Add("1000-5000万", tzxm.Where(t => (t.Investment > 1000 && t.Investment <= 5000)).Count());
+                dic.Add("5000万-1亿", tzxm.Where(t => (t.Investment > 5000 && t.Investment <= 10000)).Count());
+                dic.Add("大于1亿", tzxm.Where(t => t.Investment > 10000).Count());
+            }
+
+            return Json(new { statData = dic}, JsonRequestBehavior.AllowGet);
+        }
     }
 }

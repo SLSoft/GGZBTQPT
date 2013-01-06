@@ -104,5 +104,23 @@ namespace GGZBTQPT_PRO.ViewModels
         public string TypeName { get; set; }
         public int AgencyCount { get; set; }
     }
+
+    /// <summary>
+    /// 项目统计
+    /// </summary>
+    public class VM_XMReport
+    {
+        public string TypeName { get; set; }
+        public int Count { get; set; }
+    }
+
+    /// <summary>
+    /// 项目统计
+    /// </summary>
+    public class VM_CPReport
+    {
+        public string TypeName { get; set; }
+        public int Count { get; set; }
+    }
 }
 

@@ -335,5 +335,16 @@ namespace GGZBTQPT_PRO.Controllers
 
             return PartialView(list);
         }
+
+        //企业统计
+        public ActionResult CorpReport()
+        {
+            var qy = db.T_QY_Corp.Where(p => p.IsValid == true).ToList();
+            ViewBag.CorpCount = qy.Count();
+            ViewBag.YearSum = qy.Where(p => p.CreateTime.Value.Year == DateTime.Now.Year).Count();
+            ViewBag.MountSum = qy.Where(p => (p.CreateTime.Value.Year == DateTime.Now.Year && p.CreateTime.Value.Month == DateTime.Now.Month)).Count();
+            ViewBag.DaySum = qy.Where(p => (p.CreateTime.Value.Year == DateTime.Now.Year && p.CreateTime.Value.Month == DateTime.Now.Month && p.CreateTime.Value.Day == DateTime.Now.Day)).Count();
+            return PartialView(qy);
+        }
     }
 }
