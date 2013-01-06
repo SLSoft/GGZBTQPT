@@ -41,7 +41,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             try
             {
                 IList<T_XM_Financing> financials = member.Favorites.Where(a => a.FavoriteType == 1)
-                                .Join(db.T_XM_Financing, a => a.FinancialID, p => p.ID, 
+                                .Join(db.T_XM_Financing.DefaultIfEmpty(), a => a.FinancialID, p => p.ID, 
                                     (a, p) => new T_XM_Financing {  
                                         ItemName = p.ItemName, Investment = p.Investment, 
                                         TotalInvestment = p.TotalInvestment, 

@@ -88,5 +88,14 @@ namespace GGZBTQPT_PRO.ViewModels
         public ICollection<T_XM_Financing> Financials { get; set; }//最新的投资项目
         public ICollection<T_XM_Investment> Investments { get; set; }//最新的融资意向
     }
+
+    /// <summary>
+    /// 机构类别统计
+    /// </summary>
+    public class VM_AgencyReport
+    {
+        public string TypeName { get; set; }
+        public int AgencyCount { get; set; }
+    }
 }
 
