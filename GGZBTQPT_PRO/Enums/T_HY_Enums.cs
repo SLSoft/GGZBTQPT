@@ -28,6 +28,21 @@ namespace GGZBTQPT_PRO.Enums
         驳回 = 2
     }
 
+    //考勤类别
+    public enum AttendanceStates : int
+    {
+        [Display(Name = "迟到")]
+        迟到 = 0,
+        [Display(Name = "正常")]
+        正常 = 1,
+        [Display(Name = "早退")]
+        早退 = 2,
+        [Display(Name = "请假")]
+        请假 = 3,
+        [Display(Name = "事假")]
+        事假 = 4
+    }
+
     public enum CaseTypes : int
     {
         [Display(Name = "融资项目")]

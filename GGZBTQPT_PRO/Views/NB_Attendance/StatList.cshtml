@@ -1,0 +1,69 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.ViewModels.VM_AttendanceStat>
+
+@{
+    Layout = null;
+}
+
+<div class="pageHeader">
+    <form id="pagerForm" method="post" action="@Url.Action("StatList")">
+    <input type="hidden" name="beginTime" value="@ViewData["BeginTime"]"  />
+    <input type="hidden" name="endTime" value="@ViewData["EndTime"]"  />
+    </form>
+    <form onsubmit="return navTabSearch(this);" action="@Url.Action("StatList")"
+    method="post">
+    <div class="searchBar">
+        <ul class="searchContent">
+            <li style="width:400px">
+                <label>
+                    按时间查询：</label>
+                <input type="text" name="beginTime" class="date" style="width:130px" value="@ViewData["BeginTime"]"/>--<input type="text" name="endTime" class="date" style="width:130px" value="@ViewData["EndTime"]" />
+            </li>
+        </ul>
+        <div class="subBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">
+                                检索</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </form>
+</div>
+<div class="pageContent">
+    <div layouth="88" id="divList">
+        <table  class="list" width="100%" asc="asc" desc="desc">
+            <thead>
+            <tr>
+                <th>
+                    考勤状态
+                </th>
+                <th>
+                    数量
+                </th>
+                <th>
+                    操作
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => new GGZBTQPT_PRO.Models.T_NB_Attendance { State = item.State }.StateName)
+                </td>
+                <td>
+                    @item.StateCount
+                </td>
+                <td>
+                    <a href="@Url.Action("StateDetails", "NB_Attendance", new { state = @item.State, beginTime = @ViewData["BeginTime"], endTime = @ViewData["EndTime"] })"  target="dialog" width="550"
+                    height="350" title="考勤详情" mask="true"><span>详情</span></a></td>
+            </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

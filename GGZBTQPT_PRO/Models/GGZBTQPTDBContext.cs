@@ -43,6 +43,7 @@ namespace GGZBTQPT_PRO.Models
         public DbSet<T_HY_Message> T_HY_Message { get; set; }
         public DbSet<T_NB_File> T_NB_File { get; set; }
         public DbSet<T_NB_Meeting> T_NB_Meeting { get; set; }
+        public DbSet<T_NB_Attendance> T_NB_Attendance { get; set; }
         
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -72,6 +73,7 @@ namespace GGZBTQPT_PRO.Models
             modelBuilder.Configurations.Add(new T_HY_MessageMap());           
             modelBuilder.Configurations.Add(new T_NB_FileMap());
             modelBuilder.Configurations.Add(new T_NB_MeetingMap());
+            modelBuilder.Configurations.Add(new T_NB_AttendanceMap());
         }
 
     }
