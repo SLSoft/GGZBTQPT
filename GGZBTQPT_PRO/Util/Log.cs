@@ -130,6 +130,10 @@ namespace GGZBTQPT_PRO.Util
             ActionType.Add("MeetingRecord", "记录列表");
             ActionType.Add("RecordEdit", "会议记录");
 
+            //考勤管理
+            ActionType.Add("StatList","考勤统计");
+            ActionType.Add("StateDetails", "统计详情");
+
         }
         private StringDictionary ControllerType { get; set; }
         private StringDictionary ActionType { get; set; }

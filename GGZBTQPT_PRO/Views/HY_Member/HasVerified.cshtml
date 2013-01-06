@@ -9,7 +9,7 @@
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
     <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />
-    <input type="hidden" name="state" value="@ViewData["States"]"  />
+    <input type="hidden" name="state" value="@ViewData["state"]"  />
     </form>
     <form onsubmit="return navTabSearch(this);" action="@Url.Action("HasVerified")"
     method="post">
@@ -23,7 +23,7 @@
             <li>
                 <label>
                     会员状态：</label>
-                @Html.DropDownList("State", (IEnumerable<SelectListItem>)ViewData["States"])
+                @Html.DropDownList("state", "---请选择---")
             </li>   
         </ul>
         <div class="subBar">

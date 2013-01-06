@@ -7,7 +7,7 @@
     <form id="pagerForm" method="post" action="@Url.Action("HotList")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
-    <input type="hidden" name="memberType" value="@ViewData["Types"]"  />
+    <input type="hidden" name="memberType" value="@ViewData["memberType"]"  />
     </form>
     <form onsubmit="return navTabSearch(this);" action="@Url.Action("HotList", new { type=3})" method="post">
     <div class="searchBar">
@@ -19,7 +19,7 @@
             <li>
                 <label>
                     会员类型：</label>
-                    @Html.DropDownList("memberType", (IEnumerable<SelectListItem>)@ViewData["Types"])
+                    @Html.DropDownList("memberType", "---请选择---")
             </li>
         </ul>
         <div class="subBar">

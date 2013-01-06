@@ -42,10 +42,7 @@ namespace GGZBTQPT_PRO.Controllers
 
         public ActionResult Create()
         {
-            var types = from MemberTypes type in Enum.GetValues(typeof(MemberTypes))
-                        select new { ID = (int)type, Name = type.ToString() };
-            ViewData["Type"] = new SelectList(types, "ID", "Name");
-
+            ViewBag.Type = GetMemberType();
             return View();
         } 
 
@@ -81,9 +78,7 @@ namespace GGZBTQPT_PRO.Controllers
                         return ReturnJson(false, "操作失败", "", "", false, "");
                 }
             }
-            var types = from MemberTypes type in Enum.GetValues(typeof(MemberTypes))
-                        select new { ID = (int)type, Name = type.ToString() };
-            ViewData["Type"] = new SelectList(types, "ID", "Name");
+            ViewBag.Type = GetMemberType();
             return Json(new { });
         }
  
@@ -220,8 +215,7 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
-            ViewBag.state = state;
-            ViewBag.States = GetMemberState();
+            ViewBag.state = GetMemberState();
 
             return View(list);
         } 
@@ -303,17 +297,12 @@ namespace GGZBTQPT_PRO.Controllers
 
         }
 
-        public List<SelectListItem> GetMemberState()
+        public SelectList GetMemberState()
         {
             var States = from MemberStates mstate in Enum.GetValues(typeof(MemberStates))
                          select new { ID = (int)mstate, Name = mstate.ToString() };
             SelectList list = new SelectList(States, "ID", "Name");
-
-            List<SelectListItem> li = new List<SelectListItem>();
-            li.Add(new SelectListItem { Text = "---请选择---", Value = "-1" });
-            li.AddRange(list);
-
-            return li;
+            return list;
         }
 
         #endregion
@@ -351,24 +340,18 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
-            ViewBag.type = type;
-            ViewBag.Types = GetMemberType();
+            ViewBag.type = GetMemberType();
 
             return View(list);
         }
         
-        public List<SelectListItem> GetMemberType()
+        public SelectList GetMemberType()
         {
             var types = from MemberTypes mtype in Enum.GetValues(typeof(MemberTypes))
                         select new { ID = (int)mtype, Name = mtype.ToString() };
 
             SelectList list = new SelectList(types, "ID", "Name");
-
-            List<SelectListItem> li = new List<SelectListItem>();
-            li.Add(new SelectListItem { Text = "---请选择---", Value = "-1" });
-            li.AddRange(list);
-
-            return li;
+            return list;
         }
 
         /// <summary>
@@ -461,8 +444,7 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
-            ViewBag.memberType = memberType;
-            ViewBag.Types = GetMemberType();
+            ViewBag.memberType = GetMemberType();
             return PartialView("HotProductList", list);
         }
 
@@ -483,8 +465,7 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
-            ViewBag.memberType = memberType;
-            ViewBag.Types = GetMemberType();
+            ViewBag.memberType = GetMemberType();
             return PartialView("HotFinancingList", list);
         }
 
@@ -505,8 +486,7 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
-            ViewBag.memberType = memberType;
-            ViewBag.Types = GetMemberType();
+            ViewBag.memberType = GetMemberType();
             return PartialView("HotInvestmentList", list);
         }
         #endregion
@@ -642,15 +622,27 @@ namespace GGZBTQPT_PRO.Controllers
         /// <returns></returns>
         public ActionResult MemberStatList()
         {
-            IList<VM_MemberStat> list = db.T_HY_Member.Where(p => p.IsValid == true && p.IsVerified == true)
-                                                   .GroupBy(g => g.Type)
-                                                   .Select(s => new VM_MemberStat
-                                                   {
-                                                       MemberCount = s.Count(),
-                                                       Type = s.Key
-                                                   }).ToList();
-
+            var list = db.T_HY_Member.Where(p => p.IsValid == true && p.IsVerified == true).ToList();
             return View(list);
+        }
+
+        public ActionResult MemberStatData()
+        {
+            var members = db.T_HY_Member.Where(p => p.IsValid == true && p.IsVerified == true);
+
+            Dictionary<String, int> dic = new Dictionary<string, int>();
+            if (members != null)
+            {
+                dic.Add("个人", members.Where(m => m.Type == (int)MemberTypes.个人).Count());
+                dic.Add("企业", members.Where(m => m.Type == (int)MemberTypes.企业).Count());
+                dic.Add("机构", members.Where(m => m.Type == (int)MemberTypes.机构).Count());
+            }
+            else
+            {
+                dic.Add("会员数", 0);
+            }
+
+            return Json(new { statData = dic }, JsonRequestBehavior.AllowGet);
         }
         #endregion
 

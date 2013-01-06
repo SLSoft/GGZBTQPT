@@ -10,7 +10,7 @@
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
     <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />
-    <input type="hidden" name="type" value="@ViewData["Types"]"  />
+    <input type="hidden" name="type" value="@ViewData["type"]"  />
     </form>
     <form onsubmit="return navTabSearch(this);" action="@Url.Action("Query")"
     method="post">
@@ -24,7 +24,7 @@
             <li>
                 <label>
                     会员类型：</label>
-                    @Html.DropDownList("Type", (IEnumerable<SelectListItem>)@ViewData["Types"])
+                    @Html.DropDownList("type", "---请选择---")
             </li>
         </ul>
         <div class="subBar">
