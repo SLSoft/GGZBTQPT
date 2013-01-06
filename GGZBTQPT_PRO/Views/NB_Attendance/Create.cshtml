@@ -1,0 +1,39 @@
+﻿@model GGZBTQPT_PRO.Models.T_NB_Attendance
+@{
+    Layout = null;
+}
+
+<div class="pageContent">
+    @using (Html.BeginForm("Create", "NB_Attendance", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
+    {
+        <div class="pageFormContent" layouth="56">
+            <p>
+                @Html.LabelFor(model => model.UserId, "人员")
+                @Html.DropDownList("UserId","---请选择---")
+            </p>
+            <p>
+                @Html.LabelFor(model => model.State,"状态")
+                @Html.DropDownList("State", "---请选择---")
+            </p>
+        </div>
+        
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">
+                                保存</button></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close">
+                                取消</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    }
+</div>

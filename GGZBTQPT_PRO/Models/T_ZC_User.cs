@@ -43,6 +43,7 @@ namespace GGZBTQPT_PRO.Models
     public virtual ICollection<T_NB_File> ReceiveFiles { get; set; } //用户所接收的文件
     public virtual ICollection<T_NB_Meeting> CreateMeetings { get; set; }//用户申请会议
     public virtual ICollection<T_NB_Meeting> PartakeMeetings { get; set; } //参与会议用户
+    public virtual ICollection<T_NB_Attendance> Attendances { get; set; }//用户考勤
 
   }
 }

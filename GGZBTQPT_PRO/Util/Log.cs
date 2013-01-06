@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -38,6 +38,11 @@ namespace GGZBTQPT_PRO.Util
             ControllerType.Add("JG_Product", "产品管理");
             ControllerType.Add("XM_JY", "项目交易管理"); 
 
+            ControllerType.Add("HY_Member","会员管理");
+            ControllerType.Add("NB_File", "文件管理");
+            ControllerType.Add("NB_Meeting", "会议管理");
+            ControllerType.Add("NB_Attendance", "考勤管理");
+
             //注册所有的Action操作；
             //通用操作：
             ActionType.Add("Create", "创建");
@@ -74,6 +79,19 @@ namespace GGZBTQPT_PRO.Util
 
 
             //会员管理
+            ActionType.Add("UnVerified", "待审核");
+            ActionType.Add("HasVerified", "已审核");
+            ActionType.Add("Verify", "审核、驳回");
+            ActionType.Add("batch_Verify", "批量审核、驳回");
+            ActionType.Add("UnVerify", "撤销审核、驳回");
+            ActionType.Add("Query", "会员查询");
+            ActionType.Add("QueryDetails", "会员发布详细");
+            ActionType.Add("HotInformation", "热门信息列表");
+            ActionType.Add("HotList", "热门信息分类列表");
+            ActionType.Add("HotProductEdit", "产品编辑");
+            ActionType.Add("HotFinancingEdit", "项目编辑");
+            ActionType.Add("HotInvestmentEdit", "意向编辑");
+            ActionType.Add("MemberStatList", "会员统计");
 
 
             //投资管理
@@ -101,7 +119,16 @@ namespace GGZBTQPT_PRO.Util
             ActionType.Add("ProductQuery", "产品信息查询");
 
             //文件管理
+            ActionType.Add("SendList", "发送列表");
+            ActionType.Add("ReceivedList", "接收列表");
+            ActionType.Add("FileList", "分类管理");
+
             //会议管理
+            ActionType.Add("MeetingApply", "预定列表");
+            ActionType.Add("MeetingAudit", "审核列表");
+            ActionType.Add("Audit", "审核");
+            ActionType.Add("MeetingRecord", "记录列表");
+            ActionType.Add("RecordEdit", "会议记录");
 
         }
         private StringDictionary ControllerType { get; set; }

@@ -51,6 +51,13 @@ namespace GGZBTQPT_PRO.ViewModels
         public T_HY_Member Member { get; set; }
     }
 
+    public class VM_AttendanceStat
+    {
+        public int StateCount { get; set; }
+        public int State { get; set; }
+        public T_NB_Attendance Attendance { get; set; }
+    }
+
     public class AnalysisResult
     {
         public Decimal Turnover { get; set; }//平均成交额

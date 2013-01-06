@@ -54,10 +54,6 @@ namespace GGZBTQPT_PRO.Controllers
         {
             if (Request.IsAjaxRequest())
             {
-                var types = from MemberTypes type in Enum.GetValues(typeof(MemberTypes))
-                            select new { ID = (int)type, Name = type.ToString() };
-                ViewData["Type"] = new SelectList(types, "ID", "Name");
-
                 if (ModelState.IsValid)
                 {
                     var member = new T_HY_Member();
@@ -85,6 +81,9 @@ namespace GGZBTQPT_PRO.Controllers
                         return ReturnJson(false, "操作失败", "", "", false, "");
                 }
             }
+            var types = from MemberTypes type in Enum.GetValues(typeof(MemberTypes))
+                        select new { ID = (int)type, Name = type.ToString() };
+            ViewData["Type"] = new SelectList(types, "ID", "Name");
             return Json(new { });
         }
  
