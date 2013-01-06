@@ -9,7 +9,7 @@
     @using (Html.BeginForm("Create", "XM_Case", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
     {
         @Html.ValidationSummary(true)
-        <div class="pageFormContent" layouth="106">
+        <div class="pageFormContent" layouth="60">
             <p>
                 @Html.LabelFor(model => model.Name)
                 @Html.EditorFor(model => model.Name)

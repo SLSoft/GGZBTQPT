@@ -36,8 +36,7 @@
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-            <li><a class="edit" href="@Url.Action("edit", "XM_Case", new { id = "{mid}", generate_type = (int)GenerateTypes.FromMember })" rel="edit" target="dialog" width="400"
-                height="250" title="编辑案例信息" mask="true" warn="请选择一条案例数据"><span>编辑</span></a></li>
+            <li><a class="edit" href="@Url.Action("edit", "XM_Case", new { id = "{mid}", generate_type = (int)GenerateTypes.FromMember })" rel="edit" target="dialog" max="true" title="编辑案例信息" mask="true" warn="请选择一条案例数据"><span>编辑</span></a></li>
             <li><a class="delete" href="@Url.Action("delete", "XM_Case", new { id = "{mid}" })" rel="delete" target="ajaxTodo"
                 title="确定要删除吗？" warn="请选择一条案例数据"><span>删除</span></a></li>
             <li class="line">line</li>

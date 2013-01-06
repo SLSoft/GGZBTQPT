@@ -20,10 +20,20 @@
     height: 300px; 
     line-height: 21px;
     padding: 10px;
+    font-size: 14px;
+}
+#analysis .stat-number ul li {
+    margin-top:5px;
+}
+
+#analysis .stat-number h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
 }
 
 #analysis .stat-container {
     height: 400px;
-    margin: 20px auto;
+    margin: 10px auto 80px auto;
+
 }
 

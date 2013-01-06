@@ -2,16 +2,16 @@
 @{
     Layout = null;
 }
-@*<script type="text/javascript">
+<script type="text/javascript">
     $.validator.unobtrusive.parse(document);
-</script>*@
+</script>
 <div class="pageContent">
     @using (Html.BeginForm("Edit", "XM_Case", new { generate_type = ViewBag.GenerateType }, FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
     {
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.ID)
         @Html.HiddenFor(model => model.CreatedAt)
-        <div class="pageFormContent" layouth="106">
+        <div class="pageFormContent" layouth="60">
             <p>
                 @Html.LabelFor(model => model.Name)
                 @Html.EditorFor(model => model.Name)

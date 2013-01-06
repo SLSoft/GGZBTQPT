@@ -1,187 +1,229 @@
 ﻿@model GGZBTQPT_PRO.Models.T_QY_Corp
-
 @{
     ViewBag.Title = "Create";
     Layout = null;
 }
 @helper QY_Financial(int CYear)
-{
+    {
     <tr>
-        <td style="width:80px">年度</td>
-        <td><select name="FYear">
-        <option value=@(CYear-1)>@(CYear-1)年度</option>
-        <option value=@(CYear-2)>@(CYear-2)年度</option>
-        <option value=@(CYear-3)>@(CYear-3)年度</option>
-    </select></td>
+        <td style="width: 80px">
+            年度
+        </td>
+        <td>
+            <select name="FYear">
+                <option value=@(CYear - 1)>@(CYear - 1)年度</option>
+                <option value=@(CYear - 2)>@(CYear - 2)年度</option>
+                <option value=@(CYear - 3)>@(CYear - 3)年度</option>
+            </select>
+        </td>
     </tr>
     <tr>
-        <td>年末总资产：</td>
-        <td><input type="text" name="TotalAssets" /></td>
+        <td>
+            年末总资产：
+        </td>
+        <td>
+            <input type="text" name="TotalAssets" />
+        </td>
     </tr>
     <tr>
-        <td>业务总收入：</td>
-        <td><input type="text" name="Revenue" /></td>
+        <td>
+            业务总收入：
+        </td>
+        <td>
+            <input type="text" name="Revenue" />
+        </td>
     </tr>
 }
 @helper QY_Product()
-{
+    {
     <tr>
-        <td style="width:80px">产品名称：</td>
-        <td><input type="text" name="ProductName" style="width:40%" /></td>
+        <td style="width: 80px">
+            产品名称：
+        </td>
+        <td>
+            <input type="text" name="ProductName" style="width: 40%" />
+        </td>
     </tr>
     <tr>
-        <td>产品介绍：</td>
-        <td><textarea name="Content" rows="5" style="width:95%"></textarea></td>
+        <td>
+            产品介绍：
+        </td>
+        <td>
+            <textarea name="Content" rows="5" style="width: 95%"></textarea>
+        </td>
     </tr>
 }
-@using (Html.BeginForm("Create", "QY_Corp", FormMethod.Post, new { onsubmit = "return iframeCallback(this);", @class = "pageForm required-validate", enctype = "multipart/form-data" }))
-{
-    @Html.ValidationSummary(true)
-    <div layoutH="40">
-        <table style="width: 100%" class="list">
-            <tr>
-                <td colspan="4" style="background-color: #666666; color: #ffffff">
-                    基本信息
-                </td>
-            </tr>
-            <tr>
-                <td style="width: 80px">@Html.LabelFor(model => model.CorpName, "企业名称")
-                </td>
-                <td>@Html.EditorFor(model => model.CorpName)
-                </td>
-                <td>@Html.LabelFor(model => model.CorpCode, "机构代码")
-                </td>
-                <td>@Html.EditorFor(model => model.CorpCode)
-                </td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.RegTime, "成立时间")
-                </td>
-                <td>@Html.EditorFor(model => model.RegTime)
-                </td>
-                <td>@Html.LabelFor(model => model.Property, "企业性质")
-                </td>
-                <td>@Html.DropDownList("Property")
-                </td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.Province, "注册地区")
-                </td>
-                <td>@Html.DropDownList("Province")
-                </td>
-                <td>@Html.LabelFor(model => model.RegCapital, "注册资金")
-                </td>
-                <td>@Html.EditorFor(model => model.RegCapital)
-                </td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.Industry, "所属行业")
-                </td>
-                <td>@Html.DropDownList("Industry")
-                </td>
-                <td>@Html.LabelFor(model => model.Stage, "发展阶段")
-                </td>
-                <td>@Html.DropDownList("Stage")
-                </td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.LegalPerson, "法人")
-                </td>
-                <td>@Html.EditorFor(model => model.LegalPerson)
-                </td>
-                <td>@Html.LabelFor(model => model.Employees, "员工总数")
-                </td>
-                <td>@Html.EditorFor(model => model.Employees)
-                </td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.Website, "企业网站")
-                </td>
-                <td colspan="3">@Html.EditorFor(model => model.Website)
-                </td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.Website, "企业LOGO")
-                </td>
-                <td colspan="3">
-                    <input type="file" name="file1" />
-                </td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.Range, "详细地址")</td>
-                <td colspan="3">@Html.TextBoxFor(model => model.Address, new { style = "width:95%" })</td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.Range, "经营范围")</td>
-                <td colspan="3">@Html.TextBoxFor(model => model.Range, new { style = "width:95%" })</td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.Remark, "企业简介")</td>
-                <td colspan="3">@Html.TextAreaFor(model => model.Remark, new { rows = "5", style = "width:95%" })</td>
-
-            </tr>
-        </table>
-        <table style="width: 100%" class="list">
-            <tr>
-                <td colspan="4" style="background-color: #666666; color: #ffffff">
-                    联系人信息
-                </td>
-            </tr>
-            <tr>
-                <td style="width: 80px">@Html.LabelFor(model => model.Linkman, "联系人")
-                </td>
-                <td>@Html.EditorFor(model => model.Linkman)
-                </td>
-                <td>@Html.LabelFor(model => model.Position, "部门&职务")
-                </td>
-                <td>@Html.EditorFor(model => model.Position)
-                </td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.Phone, "固定电话")
-                </td>
-                <td>@Html.EditorFor(model => model.Phone)
-                </td>
-                <td>@Html.LabelFor(model => model.Mobile, "移动电话")
-                </td>
-                <td>@Html.EditorFor(model => model.Mobile)
-                </td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.Fax, "传真")
-                </td>
-                <td>@Html.EditorFor(model => model.Fax)
-                </td>
-                <td>@Html.LabelFor(model => model.Email, "电子邮箱")
-                </td>
-                <td>@Html.EditorFor(model => model.Email)
-                </td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.QQ, "QQ")
-                </td>
-                <td colspan="3">@Html.EditorFor(model => model.QQ)
-                </td>
-            </tr>
-        </table>
-        <table style="width: 100%" class="list">
-            <tr>
-                <td colspan="4" style="background-color: #666666; color: #ffffff">
-                    财务概况
-                </td>
-            </tr>
-            @QY_Financial(DateTime.Now.Year)
-        </table>
-        <table style="width: 100%" class="list">
-            <tr>
-                <td colspan="4" style="background-color: #666666; color: #ffffff">
-                    主要产品介绍
-                </td>
-            </tr>
-            @QY_Product()
-        </table>
-        <p>
-            <input type="submit" value="提交" />
-        </p>
-    </div>
-}
+<div class="pageContent">
+    @using (Html.BeginForm("Create", "QY_Corp", FormMethod.Post, new { onsubmit = "return iframeCallback(this);", @class = "pageForm required-validate", enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary(true)
+        <div class="pageFormContent" layouth="60">
+            <table style="width: 100%" class="list">
+                <tr>
+                    <td colspan="4" style="background-color: #666666; color: #ffffff">
+                        基本信息
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px">@Html.LabelFor(model => model.CorpName, "企业名称")
+                    </td>
+                    <td>@Html.EditorFor(model => model.CorpName)
+                    </td>
+                    <td>@Html.LabelFor(model => model.CorpCode, "机构代码")
+                    </td>
+                    <td>@Html.EditorFor(model => model.CorpCode)
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.RegTime, "成立时间")
+                    </td>
+                    <td>@Html.EditorFor(model => model.RegTime)
+                    </td>
+                    <td>@Html.LabelFor(model => model.Property, "企业性质")
+                    </td>
+                    <td>@Html.DropDownList("Property")
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.Province, "注册地区")
+                    </td>
+                    <td>@Html.DropDownList("Province")
+                    </td>
+                    <td>@Html.LabelFor(model => model.RegCapital, "注册资金")
+                    </td>
+                    <td>@Html.EditorFor(model => model.RegCapital)
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.Industry, "所属行业")
+                    </td>
+                    <td>@Html.DropDownList("Industry")
+                    </td>
+                    <td>@Html.LabelFor(model => model.Stage, "发展阶段")
+                    </td>
+                    <td>@Html.DropDownList("Stage")
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.LegalPerson, "法人")
+                    </td>
+                    <td>@Html.EditorFor(model => model.LegalPerson)
+                    </td>
+                    <td>@Html.LabelFor(model => model.Employees, "员工总数")
+                    </td>
+                    <td>@Html.EditorFor(model => model.Employees)
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.Website, "企业网站")
+                    </td>
+                    <td colspan="3">@Html.EditorFor(model => model.Website)
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.Website, "企业LOGO")
+                    </td>
+                    <td colspan="3">
+                        <input type="file" name="file1" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.Range, "详细地址")
+                    </td>
+                    <td colspan="3">@Html.TextBoxFor(model => model.Address, new { style = "width:95%" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.Range, "经营范围")
+                    </td>
+                    <td colspan="3">@Html.TextBoxFor(model => model.Range, new { style = "width:95%" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.Remark, "企业简介")
+                    </td>
+                    <td colspan="3">@Html.TextAreaFor(model => model.Remark, new { rows = "5", style = "width:95%" })
+                    </td>
+                </tr>
+            </table>
+            <table style="width: 100%" class="list">
+                <tr>
+                    <td colspan="4" style="background-color: #666666; color: #ffffff">
+                        联系人信息
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px">@Html.LabelFor(model => model.Linkman, "联系人")
+                    </td>
+                    <td>@Html.EditorFor(model => model.Linkman)
+                    </td>
+                    <td>@Html.LabelFor(model => model.Position, "部门&职务")
+                    </td>
+                    <td>@Html.EditorFor(model => model.Position)
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.Phone, "固定电话")
+                    </td>
+                    <td>@Html.EditorFor(model => model.Phone)
+                    </td>
+                    <td>@Html.LabelFor(model => model.Mobile, "移动电话")
+                    </td>
+                    <td>@Html.EditorFor(model => model.Mobile)
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.Fax, "传真")
+                    </td>
+                    <td>@Html.EditorFor(model => model.Fax)
+                    </td>
+                    <td>@Html.LabelFor(model => model.Email, "电子邮箱")
+                    </td>
+                    <td>@Html.EditorFor(model => model.Email)
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.QQ, "QQ")
+                    </td>
+                    <td colspan="3">@Html.EditorFor(model => model.QQ)
+                    </td>
+                </tr>
+            </table>
+            <table style="width: 100%" class="list">
+                <tr>
+                    <td colspan="4" style="background-color: #666666; color: #ffffff">
+                        财务概况
+                    </td>
+                </tr>
+                @QY_Financial(DateTime.Now.Year)
+            </table>
+            <table style="width: 100%" class="list">
+                <tr>
+                    <td colspan="4" style="background-color: #666666; color: #ffffff">
+                        主要产品介绍
+                    </td>
+                </tr>
+                @QY_Product()
+            </table>
+        </div>
+    
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit" value="提交">
+                                提交</button></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close" value="取消">
+                                取消</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    }
+</div>
