@@ -6,7 +6,8 @@
     @using (Html.BeginForm("Edit", "ZC_Role", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
     {
         @Html.ValidationSummary(true)
-        <div class="pageFormContent" layouth="56">@Html.HiddenFor(model => model.CreatedAt)
+        @Html.HiddenFor(model => model.CreatedAt)
+        <div class="pageFormContent" layouth="60">
             <p>
                 @Html.LabelFor(model => model.Name, "角色名称")
                 @Html.EditorFor(model => model.Name)

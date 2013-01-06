@@ -27,6 +27,7 @@
 
         viewAllReplies: ->
             $(".view_all_replies").click ->
+                return if $(this).parent().prev().children().length <= 0
                 $(this).parent().prev().toggle() 
         
         replyTo: ->
@@ -35,6 +36,7 @@
 
 
     $.Member.rounded()
+
     $('#loading')
     .hide()
     .ajaxStart -> 

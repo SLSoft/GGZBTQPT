@@ -15,10 +15,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 {
     [MemberFilter()]
     public class MessageController : BaseController
-    {
-        //
-        // GET: /MG/Message/
-
+    { 
         public ViewResult Index()
         {
             Logging((int)LogLevels.operate, "访问了个人消息列表", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Message);
@@ -110,18 +107,12 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 return PartialView();
             }
         }
-
-        //
-        // GET: /MG/Message/Create
-
+ 
         public ActionResult Create()
         {   
             VM_CreateMessage vm_create_message = new VM_CreateMessage();
             return View(vm_create_message);
         }
-
-        //
-        // POST: /MG/Message/Create
 
         [HttpPost]
         public ActionResult Create(VM_CreateMessage vm_create_message)
@@ -142,9 +133,6 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             }
             return View();
         }
-
-        //
-        // POST: /MG/Message/Delete/5
 
         [HttpDelete]
         public ActionResult Delete(int id)
@@ -186,8 +174,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 return Json(new { statusCode = "300", message = "标记已读失败！", type = "error" });
             }
         }
-
-
+ 
         //
         //回复消息相关
 
@@ -231,8 +218,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             return Json(new { statusCode = "300", message = "消息发送失败！", type = "error" });
         }
 
-
-
+ 
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

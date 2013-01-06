@@ -79,7 +79,7 @@ namespace GGZBTQPT_PRO.Controllers
         //去掉字符串最后的逗号
         public string RemoveTheLastComma(string str)
         {
-            if(str.Last() == ',')
+            if(str != "" && str.Last() == ',')
             {
                 str = str.Substring(0,str.Length - 1);
             }

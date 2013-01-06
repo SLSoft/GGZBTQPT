@@ -136,6 +136,9 @@ span.unattentioned {
 .replying {
   display: none; }
 
+.view_all_replies {
+  cursor: pointer; }
+
 .pub-time {
   color: #999;
   font-size: 14px; }
@@ -218,3 +221,4 @@ span.unattentioned {
     text-align: center;
     line-height: 100px;
     background-color: #eee; }
+

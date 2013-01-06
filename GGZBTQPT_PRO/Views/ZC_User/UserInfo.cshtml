@@ -10,16 +10,16 @@
     <div class="panelBar">
         <ul class="toolBar">
             <li><a class="add" href="@Url.Action("create","ZC_User")" rel="create" target="dialog" title="添加新的用户"
-                mask="true" width="320" height="330"><span>添加</span></a></li>
+                mask="true" width="500" height="330"><span>添加</span></a></li>
             <li><a class="edit" href="@Url.Action("edit","ZC_User", new { id = "{mid}"})" rel="edit" target="dialog" title="编辑用户信息"
-                mask="true" width="320" height="330" warn="请选择一条用户信息"><span>修改</span></a></li>
+                mask="true" width="500" height="330" warn="请选择一条用户信息"><span>修改</span></a></li>
             <li><a class="delete" href="@Url.Action("delete","ZC_User", new { id = "{mid}"})" rel="delete" target="ajaxTodo"
                 title="确定要删除吗？" warn="请选择一条用户信息"><span>删除</span></a></li>
             <li class="line">line</li>
             @*<li><a class="icon" href="#"><span>导入EXCEL</span></a></li>*@
         </ul>
     </div>
-    <div layouth="116">
+    <div layouth="64">
         <table class="list" width="98%" asc="asc" desc="desc">
             <thead>
                 <tr>

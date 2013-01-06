@@ -15,7 +15,7 @@ namespace GGZBTQPT_PRO.Controllers
     {
         public ViewResult Index()
         {
-            var t_zc_user = db.T_ZC_User.Include(t => t.Department).Where(p => p.IsValid == true && p.UseLevel == (int)UseLevel.System).ToList();
+            var t_zc_user = db.T_ZC_User.Include(t => t.Department).Where(p => p.IsValid == true && p.UseLevel == (int)UseLevel.System).OrderByDescending(u => u.CreatedAt).ToList();
             return View(t_zc_user);
         }
 
@@ -127,13 +127,7 @@ namespace GGZBTQPT_PRO.Controllers
             }
             return Json(new { });
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
-
+ 
         public PartialViewResult UserInfo(int id, int pageNum = 1, int numPerPage = 15)
         { 
             IList<GGZBTQPT_PRO.Models.T_ZC_User> list = db.T_ZC_User.Include("Department")
@@ -148,8 +142,7 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.DepartmentID = id;
             return PartialView(list);
         }
-
-
+ 
         //Helper
         public PartialViewResult DepartmentLinks()
         {
@@ -163,6 +156,12 @@ namespace GGZBTQPT_PRO.Controllers
             depart_user.Departments = db.T_ZC_Department.Where(p => p.IsValid == true && p.UseLevel == (int)UseLevel.System).ToList();
             depart_user.Users = db.T_ZC_User.Where(p => p.IsValid == true && p.UseLevel == (int)UseLevel.System).Include("Department").ToList();
             return PartialView(depart_user);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
         }
 
     }

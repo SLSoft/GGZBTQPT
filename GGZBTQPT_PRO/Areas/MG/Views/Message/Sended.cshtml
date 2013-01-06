@@ -1,14 +1,14 @@
 ﻿@model Webdiyer.WebControls.Mvc.PagedList<GGZBTQPT_PRO.Areas.ViewModels.VM_Message>
 
-@helper FormatReply(string member_name, string date_time)
+@helper FormatReply(string sender, string receiver, string date_time)
     {
-        if (member_name == ViewBag.current_member.MemberName)
+        if (sender == ViewBag.current_member.MemberName)
         {
-        <h4>你在 @date_time 说道:</h4>
+        <h4>你在 @date_time 对 @receiver 说道:</h4>
         }
         else
         {
-        <h4>@member_name 在 @date_time 回复道:</h4>
+        <h4>@receiver 在 @date_time 对你说:</h4>
         }
 }
 
@@ -41,7 +41,7 @@
                         {
                             <div class="media reply">
                                 <div class="media-body">
-                                    @FormatReply(@reply.SendMember.MemberName, @reply.CreatedTime.ToString())
+                                    @FormatReply(@reply.SendMember.MemberName, @reply.ReceiveMember.MemberName, @reply.CreatedTime.ToString())
                                     @reply.Content
                                 </div>
                             </div>

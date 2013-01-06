@@ -11,7 +11,7 @@
     {
 
         @Html.ValidationSummary(true)
-        <div class="pageFormContent" layouth="56">@Html.HiddenFor(model => model.CreatedAt)
+        <div class="pageFormContent" layouth="60">@Html.HiddenFor(model => model.CreatedAt)
             <p>@Html.LabelFor(model => model.SystemID, "所属系统")
                 @Html.DropDownList("SystemID", "请选择所属系统")
                 @Html.ValidationMessageFor(model => model.SystemID)

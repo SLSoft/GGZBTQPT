@@ -20,7 +20,7 @@ namespace GGZBTQPT_PRO.Controllers
             keywords = keywords == null ? "" : keywords;
 
             IList<GGZBTQPT_PRO.Models.T_XM_Case> list = db.T_XM_Case.Where(p => p.Name.Contains(keywords)).Where(p => p.IsValid == true && p.GenerateType == (int)GenerateTypes.FromUser)
-                                                            .OrderBy(s => s.ID)
+                                                            .OrderByDescending(c => c.CreatedAt)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
 
@@ -37,7 +37,7 @@ namespace GGZBTQPT_PRO.Controllers
             keywords = keywords == null ? "" : keywords;
 
             IList<GGZBTQPT_PRO.Models.T_XM_Case> list = db.T_XM_Case.Where(p => p.Name.Contains(keywords)).Where(p => p.IsValid == true && p.GenerateType == (int)GenerateTypes.FromMember)
-                                                            .OrderBy(s => s.ID)
+                                                            .OrderByDescending(c => c.CreatedAt)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
 
@@ -54,7 +54,7 @@ namespace GGZBTQPT_PRO.Controllers
             keywords = keywords == null ? "" : keywords;
 
             IList<GGZBTQPT_PRO.Models.T_XM_Case> list = db.T_XM_Case.Where(p => p.Name.Contains(keywords)).Where(p => p.IsValid == true && p.GenerateType == (int)GenerateTypes.FromSystem)
-                                                            .OrderBy(s => s.ID)
+                                                            .OrderByDescending(c => c.CreatedAt)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
 

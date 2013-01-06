@@ -6,7 +6,8 @@
     @using (Html.BeginForm("Edit", "ZC_Department", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
     {
         @Html.ValidationSummary(true)
-        <div class="pageFormContent" layouth="56">@Html.HiddenFor(model => model.CreatedAt)
+        @Html.HiddenFor(model => model.CreatedAt)
+        <div class="pageFormContent" layouth="60">
             <p>
                 @Html.LabelFor(model => model.ParentID, "所属部门")
                  @Html.DropDownList("ParentID", "请选择上级部门")

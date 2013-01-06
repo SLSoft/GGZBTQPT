@@ -29,7 +29,7 @@
     }        
 }
 <div id="FormContainer" class="pageContent">
-<div class="pageFormContent" layouth="56">
+<div class="pageFormContent" layouth="60">
 <ul class="tree treeFolder treeCheck select-tree">
     <li><a>内部平台系统功能列表</a>
         <ul >
@@ -73,7 +73,7 @@
                     result += value + ",";
                 }
             });
-            $.post("@Url.Action("SetPurview","ZC_Role", new { id = @ViewBag.RoleID})", { select_menus: result }, function(data){ DWZ.ajaxDone(data);}, "json");
+            $.post("@Url.Action("SetPurview","ZC_Role", new { id = @ViewBag.RoleID})", { select_menus: result }, function(data){ dialogAjaxDone(data);}, "json");
         }); 
     }); 
 </script>

@@ -158,8 +158,13 @@ namespace GGZBTQPT_PRO.Controllers
             select_users = RemoveTheLastComma(select_users);
             string[] user_ids = select_users.Split(','); 
 
+            current_role.Users.Clear();
+
             foreach( string user_id in user_ids)
             {
+                if (select_users == "")
+                    break;
+
                 T_ZC_User _user = db.T_ZC_User.Find(Convert.ToInt32(user_id));
                 current_role.Users.Add(_user);
             }
@@ -209,8 +214,13 @@ namespace GGZBTQPT_PRO.Controllers
             select_menus = RemoveTheLastComma(select_menus);
             string[] menu_ids = select_menus.Split(',');
 
+            current_role.Menus.Clear();
+
             foreach (string menu_id in menu_ids)
             {
+                if (select_menus == "")
+                    break;
+
                 T_ZC_Menu _menu = db.T_ZC_Menu.Find(Convert.ToInt32(menu_id));
                 current_role.Menus.Add(_menu);
             }

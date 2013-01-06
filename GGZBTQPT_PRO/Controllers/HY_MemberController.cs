@@ -10,6 +10,7 @@ using GGZBTQPT_PRO.Enums;
 using GGZBTQPT_PRO.ViewModels;
 using Webdiyer.WebControls.Mvc;
 using GGZBTQPT_PRO.Areas.MG.Controllers;
+using GGZBTQPT_PRO.Util;
 
 namespace GGZBTQPT_PRO.Controllers
 { 
@@ -247,7 +248,10 @@ namespace GGZBTQPT_PRO.Controllers
             db.Entry(t_hy_member).State = EntityState.Modified;
 
             if (db.SaveChanges() > 0)
+            {
+                BusinessService.SendMessageFromManage(t_hy_member,"您的信息已经通过审核，您现在可以登陆会员专区发布各类金融信息了！", "您的信息已经通过审核!");
                 return ReturnJson(true, "操作成功", "", "UnVerified", false, "");
+            }
             else
                 return ReturnJson(false, "操作失败", "", "", false, ""); 
 
@@ -276,6 +280,8 @@ namespace GGZBTQPT_PRO.Controllers
                 t_hy_member.State = stateType;
 
                 db.Entry(t_hy_member).State = EntityState.Modified;
+
+                BusinessService.SendMessageFromManage(t_hy_member, "您的信息已经通过审核，您现在可以登陆会员专区发布各类金融信息了！", "您的信息已经通过审核!");
             }
             if (db.SaveChanges() == strIds.Length)
                 return ReturnJson(true, "批量操作成功", "", "", false, "");

@@ -27,6 +27,9 @@
       },
       viewAllReplies: function() {
         return $(".view_all_replies").click(function() {
+          if ($(this).parent().prev().children().length <= 0) {
+            return;
+          }
           return $(this).parent().prev().toggle();
         });
       },

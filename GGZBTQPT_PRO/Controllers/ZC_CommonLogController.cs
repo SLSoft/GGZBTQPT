@@ -22,7 +22,7 @@ namespace GGZBTQPT_PRO.Controllers
             keywords = keywords == null ? "" : keywords;
 
             IList<GGZBTQPT_PRO.Models.T_ZC_CommonLog> list = db.T_ZC_CommonLog.Where(l => (l.Level == "INFO" || l.Level == "WARN") && l.Message.Contains(keywords)).ToList()
-                                                            .OrderBy(s => s.ID)
+                                                            .OrderByDescending(l => l.Date)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
 
@@ -39,7 +39,7 @@ namespace GGZBTQPT_PRO.Controllers
             keywords = keywords == null ? "" : keywords;
 
             IList<GGZBTQPT_PRO.Models.T_ZC_CommonLog> list = db.T_ZC_CommonLog.Where(l => l.Level == "ERROR" && l.Message.Contains(keywords)).ToList()
-                                                            .OrderBy(s => s.ID)
+                                                            .OrderByDescending(l => l.Date)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
 
@@ -55,7 +55,7 @@ namespace GGZBTQPT_PRO.Controllers
             keywords = keywords == null ? "" : keywords;
 
             IList<GGZBTQPT_PRO.Models.T_ZC_CommonLog> list = db.T_ZC_CommonLog.Where(l => ((l.Level == "INFO" || l.Level == "WARN") && l.GenerateSystem == (int)GenerateSystem.Manage) && l.Message.Contains(keywords)).ToList()
-                                                            .OrderBy(s => s.ID)
+                                                            .OrderByDescending(l => l.Date)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
 
@@ -71,7 +71,7 @@ namespace GGZBTQPT_PRO.Controllers
             keywords = keywords == null ? "" : keywords;
 
             IList<GGZBTQPT_PRO.Models.T_ZC_CommonLog> list = db.T_ZC_CommonLog.Where(l => (l.Level == "INFO" && l.GenerateSystem != (int)GenerateSystem.Manage) && l.Message.Contains(keywords)).ToList()
-                                                            .OrderBy(s => s.ID)
+                                                            .OrderByDescending(l => l.Date)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
 
