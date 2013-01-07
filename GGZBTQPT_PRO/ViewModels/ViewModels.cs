@@ -20,16 +20,6 @@ namespace GGZBTQPT_PRO.ViewModels
         public ICollection<T_ZC_Menu> Menus { get; set; } 
     }
 
-   /// <summary>
-    /// 会员查询(关联项目、意向、产品列表)
-    /// </summary>
-    public class VM_SelectMember
-    {
-        public PagedList<T_XM_Financing> Financings { get; set; }
-        public PagedList<T_XM_Investment> Investments { get; set; }
-        public PagedList<T_JG_Product> Products { get; set; }
-    }
-
     /// <summary>
     /// 会员查询(项目、意向、产品发布条数)
     /// </summary>
@@ -38,16 +28,6 @@ namespace GGZBTQPT_PRO.ViewModels
         public int FinancingCount { get; set; }
         public int InvestmentCount { get; set; }
         public int ProductCount { get; set; }
-        public T_HY_Member Member { get; set; }
-    }
-
-    /// <summary>
-    /// 会员统计
-    /// </summary>
-    public class VM_MemberStat
-    {
-        public int MemberCount { get; set; }
-        public int Type { get; set; }
         public T_HY_Member Member { get; set; }
     }
 

@@ -263,17 +263,11 @@ namespace GGZBTQPT_PRO.Controllers
         }
         #endregion
 
-        #region 选择用户 发送用户
-        /// <summary>
-        /// 选择发送用户
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        #region 选择用户
         public PartialViewResult SelectUser(int id)
         {
             ZC_RoleController zc_role = new ZC_RoleController();
 
-            //查询接收改文件的用户
             string selected_users = zc_role.GenerateStringFromList(db.T_NB_Meeting.Find(id).PartakeUsers.Where(p => p.IsValid == true).ToList());
             ViewBag.selected_users = selected_users;
 

@@ -94,9 +94,8 @@
             @if (@item.FinancingCount > 0)
             {
             <td>
-                
-                <a href="@Url.Action("QueryDetails", "HY_Member", new { member_id = @item.Member.ID, type = 1 })"  target="dialog" width="550"
-                height="300" title="项目详情" mask="true"><span>@item.FinancingCount</span></a>
+                <a href="@Url.Action("FinancingList", "HY_Member", new { memberId = @item.Member.ID})"  target="dialog" width="550"
+                height="350" title="项目详情" mask="true"><span>@item.FinancingCount</span></a>
             </td>
             }
             else
@@ -106,8 +105,8 @@
             @if (@item.InvestmentCount > 0)
             {
                 <td>
-                    <a href="@Url.Action("QueryDetails", "HY_Member", new { member_id = @item.Member.ID, type = 2 })"  target="dialog" width="550"
-                    height="300" title="意向详情" mask="true"><span>@item.InvestmentCount</span></a>
+                    <a href="@Url.Action("InvestmentList", "HY_Member", new { memberId = @item.Member.ID})"  target="dialog" width="550"
+                    height="350" title="意向详情" mask="true"><span>@item.InvestmentCount</span></a>
                 </td>
             }
             else
@@ -119,8 +118,8 @@
             @if (@item.ProductCount > 0)
             {
                 <td>
-                    <a href="@Url.Action("QueryDetails", "HY_Member", new { member_id = @item.Member.ID, type = 3 })"  target="dialog" width="550"
-                    height="300" title="产品详情" mask="true"><span>@item.ProductCount</span></a>
+                    <a href="@Url.Action("ProductList", "HY_Member", new { memberId = @item.Member.ID})"  target="dialog" width="550"
+                    height="350" title="产品详情" mask="true"><span>@item.ProductCount</span></a>
                 </td>
             }
             else

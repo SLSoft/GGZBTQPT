@@ -246,7 +246,7 @@ namespace GGZBTQPT_PRO.Controllers
             try
             {
                 db.SaveChanges();
-                return ReturnJson(true, "操作成功", "", "", true, "");
+                return ReturnJson(true, "操作成功", "", "", false, "");
             }
             catch
             {

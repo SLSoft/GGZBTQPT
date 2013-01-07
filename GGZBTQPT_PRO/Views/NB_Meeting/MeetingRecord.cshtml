@@ -35,21 +35,10 @@
     </form>
 </div>
 <div class="pageContent">
-    <div class="panelBar">
-        <ul class="toolBar">
-            <li><a class="edit" href="@Url.Action("RecordEdit", "NB_Meeting", new { id = "{mid}" })" rel="RecordEdit" target="dialog" width="400" 
-                height="300" title="编辑会议信息" mask="true" warn="请选择一条会员数据"><span>编辑</span></a></li>
-            <li class="line">line</li>
-        </ul>
-    </div>
-    <div layouth="116" id="divList">
+    <div layouth="88" id="divList">
         <table  class="list" width="100%" asc="asc" desc="desc">
             <thead>
             <tr>
-                <th width="40">
-                    <input type="checkbox" group="ids" class="checkboxCtrl">
-                </th>
-
                 <th>
                     会议主题
                 </th>
@@ -74,15 +63,14 @@
                 <th>
                     选择用户
                 </th>
+                <th>
+                    会议记录
+                </th>
             </tr>
             </thead>
             <tbody>
             @foreach (var item in Model) {
-            <tr target="mid" rel=@item.ID>
-                <td>
-                    <input name="ids" type="checkbox" value="@item.ID" />
-                </td>
-                
+            <tr>
                 <td>
                     @item.Title
                 </td>
@@ -116,6 +104,9 @@
                 </td>
                 <td>
                     @Html.ActionLink("参与人员", "SelectUser", "NB_Meeting", new { id = item.ID }, new { target = "dialog", mask = "true" })
+                </td>
+                <td>
+                    @Html.ActionLink("记录", "RecordEdit", "NB_Meeting", new { id = item.ID }, new { target = "dialog", mask = "true" })
                 </td>
             </tr>
             }

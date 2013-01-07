@@ -39,36 +39,39 @@
         }
     }        
 }
-
-<ul class="tree treeFolder treeCheck select-tree">
-    <li><a>内部平台系统用户列表</a>
-        <ul >
-            @foreach (var department in Model.Departments.Where(d => d.ParentID == 0 || d.ParentID == null))
-            { 
-                <li><a>@department.Name </a> 
-                    @GenerateDeparts(department, Model.Departments.Where(d => d.ParentID == department.ID).ToList())
-                </li> 
-            }
+<div id="FormContainer" class="pageContent">
+    <div class="pageFormContent" layouth="60">
+        <ul class="tree treeFolder treeCheck select-tree">
+            <li><a>内部平台系统用户列表</a>
+                <ul >
+                    @foreach (var department in Model.Departments.Where(d => d.ParentID == 0 || d.ParentID == null))
+                    { 
+                        <li><a>@department.Name </a> 
+                            @GenerateDeparts(department, Model.Departments.Where(d => d.ParentID == department.ID).ToList())
+                        </li> 
+                    }
+                </ul>
+            </li>
         </ul>
-    </li>
-</ul>
-<div class="formBar">
-    <ul>
-        <li>
-            <div class="buttonActive">
-                <div class="buttonContent">
-                    <button type="submit" id="select_user">
-                        保存</button></div>
-            </div>
-        </li>
-        <li>
-            <div class="button">
-                <div class="buttonContent">
-                    <button type="button" class="close">
-                        取消</button></div>
-            </div>
-        </li>
-    </ul>
+    </div>
+    <div class="formBar">
+        <ul>
+            <li>
+                <div class="buttonActive">
+                    <div class="buttonContent">
+                        <button type="submit" id="select_user">
+                            保存</button></div>
+                </div>
+            </li>
+            <li>
+                <div class="button">
+                    <div class="buttonContent">
+                        <button type="button" class="close">
+                            取消</button></div>
+                </div>
+            </li>
+        </ul>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -82,7 +85,7 @@
                     result += value + ",";
                 }
             });
-            $.post("@Url.Action("SelectUser","NB_Meeting", new { id = @ViewBag.MeetingId})",{ select_users: result },function(data){ navTabAjaxDone(data);},"json");
+            $.post("@Url.Action("SelectUser","NB_Meeting", new { id = @ViewBag.MeetingId})",{ select_users: result },function(data){ dialogAjaxDone(data);},"json");
         }); 
     }); 
 </script>

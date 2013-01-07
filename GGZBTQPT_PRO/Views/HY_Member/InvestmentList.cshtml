@@ -1,7 +1,19 @@
-﻿@model GGZBTQPT_PRO.ViewModels.VM_SelectMember
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_XM_Investment>
 
-<div id="dvInvestment">
-    <div style="height:140px; background-color:#ffffff">
+@{
+    Layout = null;
+}
+
+<div class="pageHeader">
+    <form id="pagerForm" method="post" action="@Url.Action("InvestmentList")">
+    <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
+    <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
+    <input type="hidden" name="memberId" value="@ViewData["memberId"]"  />
+    </form>
+</div>
+
+<div class="pageContent">
+    <div layouth="50" id="divList">
         <table class="list" width="100%" asc="asc" desc="desc">
             <tr>
                 <th>
@@ -12,7 +24,7 @@
                 </th>
             </tr>
 
-            @foreach (var item in Model.Investments)
+            @foreach (var item in Model)
             {
                 <tr>
                     <td>
@@ -25,8 +37,28 @@
             }
         </table>
     </div>
-    @Ajax.Pager(Model.Investments, new PagerOptions { PageIndexParameterName = "pageNum" ,ShowPageIndexBox=true,PageIndexBoxType=PageIndexBoxType.DropDownList,
-                                               ShowGoButton = false,
-                                               PageIndexBoxWrapperFormatString = "跳转到第{0}页"
-}, new AjaxOptions() { UpdateTargetId = "dvInvestment" })
+    <div class="panelBar">
+        <div class="pages">
+            <span>每页显示</span>
+            <select class="combox" name="numPerPage" onchange="dialogPageBreak({numPerPage:this.value,pageNum:1})">
+                @{  
+                    int[] nums = new int[] { 10, 15, 25, 50, 100, 200 };
+                    foreach (var num in nums)
+                    {
+                        if (Int32.Parse(ViewData["numPerPage"].ToString()) == num)
+                        {  
+                    <option value="@num" selected="selected">@num</option>       
+                        }
+                        else
+                        {<option value="@num">@num</option>    }
+
+                    }  
+                }
+            </select>
+            <span>条，共 @ViewData["recordCount"] 条</span>
+        </div>
+        <div class="pagination" targettype="dialog" totalcount="@ViewData["recordCount"]" numperpage="@ViewData["numPerPage"]" pagenumshown="10"  
+               currentpage="@ViewData["pageNum"]">
+        </div>
+    </div>
 </div>
