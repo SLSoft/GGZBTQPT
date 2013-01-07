@@ -21,7 +21,7 @@ namespace GGZBTQPT_PRO.Controllers
         public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 5)
         {
             keywords = keywords == null ? "" : keywords;
-            var t_xm_financing = db.T_XM_Financing.Where(p => (p.IsValid == true && p.ItemName.Contains(keywords))).OrderByDescending(p => p.ID)
+            var t_xm_financing = db.T_XM_Financing.Where(p => (p.IsValid == true && p.ItemName.Contains(keywords))).OrderByDescending(p => p.CreateTime)
                                                                     .Skip(numPerPage * (pageNum - 1))
                                                                     .Take(numPerPage).ToList();
             ViewBag.recordCount = db.T_XM_Financing.Where(c => c.IsValid == true).Count();
@@ -82,6 +82,12 @@ namespace GGZBTQPT_PRO.Controllers
 
             ViewData["TransactionMode"] = new SelectList(TransactionMode, "ID", "Name", select);
         }
+        public void BindCooperationMode(object select = null)
+        {
+            List<T_PTF_DicDetail> CooperationMode = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM06")).ToList();
+
+            ViewData["CooperationMode"] = new SelectList(CooperationMode, "ID", "Name", select);
+        }
         
         //
         // GET: /XM_RZ/Create
@@ -94,6 +100,7 @@ namespace GGZBTQPT_PRO.Controllers
             BindItemStage();
             BindAssetsType();
             BindTransactionMode();
+            BindCooperationMode();
             var t_xm_financing = new T_XM_Financing();
             return View(t_xm_financing);
         } 
@@ -146,6 +153,7 @@ namespace GGZBTQPT_PRO.Controllers
             BindItemStage(t_xm_financing.ItemStage);
             BindAssetsType(t_xm_financing.AssetsType);
             BindTransactionMode(t_xm_financing.TransactionMode);
+            BindCooperationMode(t_xm_financing.CooperationMode);
             return View(t_xm_financing);
         }
 

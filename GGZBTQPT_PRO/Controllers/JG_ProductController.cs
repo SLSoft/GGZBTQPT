@@ -62,6 +62,7 @@ namespace GGZBTQPT_PRO.Controllers
         // POST: /JG_Product/Create
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Create(T_JG_Product t_jg_product, FormCollection collection)
         {
             if (ModelState.IsValid)
@@ -110,6 +111,7 @@ namespace GGZBTQPT_PRO.Controllers
         // POST: /JG_Product/Edit/5
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Edit(T_JG_Product t_jg_product, FormCollection collection)
         {
             if (ModelState.IsValid)

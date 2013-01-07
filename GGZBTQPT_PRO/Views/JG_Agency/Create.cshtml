@@ -4,27 +4,21 @@
     ViewBag.Title = "Create";
     Layout = null;
 }
-
-@using (Html.BeginForm("Create", "JG_Agency", FormMethod.Post, new { onsubmit = "return iframeCallback(this);", @class = "pageForm required-validate", enctype = "multipart/form-data" }))
+<div class="pageContent">
+@using (Html.BeginForm("Create", "JG_Agency", FormMethod.Post, new { onsubmit = "return iframeCallback(this,dialogAjaxDone);", @class = "pageForm required-validate", enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true)
-    <div layouth="20">
-        <table width="100%">
+    <div class="pageFormContent" layouth="60">
+        <table style="width: 100%; border-spacing:3px">
             <tr>
-                <td>@Html.LabelFor(model => model.AgencyName, "机构名称")
+                <td style="width:140px">@Html.LabelFor(model => model.AgencyName, "机构名称")
                 </td>
-                <td>@Html.EditorFor(model => model.AgencyName)@Html.EditorFor(model => model.IsIn)是否大厦入驻机构
-                </td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.AgencyType, "机构类别")
-                </td>
-                <td>@Html.DropDownList("AgencyType")
+                <td>@Html.TextBoxFor(model => model.AgencyName, new { style = "width:300px" })@Html.EditorFor(model => model.IsIn)是否大厦入驻机构
                 </td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.SubName, "机构简称")</td>
-                <td>@Html.EditorFor(model => model.SubName)</td>
+                <td>@Html.TextBoxFor(model => model.SubName, new { style = "width:300px" })</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.AgencyType, "机构类别")</td>
@@ -33,14 +27,7 @@
             <tr>
                 <td>@Html.LabelFor(model => model.Address, "详细地址")
                 </td>
-                <td>@Html.EditorFor(model => model.Address)
-                </td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.Pic, "机构图片")
-                </td>
-                <td>
-                    <input type="file" name="file1" />
+                <td>@Html.TextBoxFor(model => model.Address, new { style = "width:300px" })
                 </td>
             </tr>
             <tr>
@@ -58,24 +45,49 @@
             <tr>
                 <td>@Html.LabelFor(model => model.Phone, "联系电话")
                 </td>
-                <td>@Html.EditorFor(model => model.Phone)
+                <td>@Html.TextBoxFor(model => model.Phone, new { style = "width:300px" })
                 </td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Services, "机构服务内容")
                 </td>
-                <td>@Html.TextAreaFor(model => model.Services, new { rows = "5", cols = "60" })
+                <td>@Html.TextAreaFor(m => m.Services, new { @class = "editor", @rows = "15", @Value = Model.Services })
                 </td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Remark, "机构简介")
                 </td>
-                <td>@Html.TextAreaFor(model => model.Remark, new { rows = "5", cols = "60" })
+                <td>@Html.TextAreaFor(m => m.Remark, new { @class = "editor", @rows = "15", @Value = Model.Remark })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Pic, "机构图片")
+                </td>
+                <td>
+                    <input type="file" name="file1" />
                 </td>
             </tr>
         </table>
-        <p>
-            <input type="submit" value="提交" />
-        </p>
+      
     </div>
+    
+    <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit" value="提交">
+                                提交</button></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close" value="取消">
+                                取消</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
 }
+</div>

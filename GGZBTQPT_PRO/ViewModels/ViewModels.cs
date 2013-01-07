@@ -31,6 +31,16 @@ namespace GGZBTQPT_PRO.ViewModels
         public T_HY_Member Member { get; set; }
     }
 
+    /// <summary>
+    /// 会员统计
+    /// </summary>
+    public class VM_MemberStat
+    {
+        public int MemberCount { get; set; }
+        public int Type { get; set; }
+        public T_HY_Member Member { get; set; }
+    }
+
     public class VM_AttendanceStat
     {
         public int StateCount { get; set; }
@@ -95,7 +105,7 @@ namespace GGZBTQPT_PRO.ViewModels
     }
 
     /// <summary>
-    /// 项目统计
+    /// 产品统计
     /// </summary>
     public class VM_CPReport
     {

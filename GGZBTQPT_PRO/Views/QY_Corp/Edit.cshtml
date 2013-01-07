@@ -6,9 +6,9 @@
     {
     <tr>
         <td style="width: 90px">
-            年度
+            <label>年度</label>
         </td>
-        <td>
+        <td colspan="3">
             <select name="FYear">
                 <option value=@(CYear - 1)>@(CYear - 1)年度</option>
                 <option value=@(CYear - 2)>@(CYear - 2)年度</option>
@@ -20,18 +20,18 @@
     if (Model.Financials.Where(p => p.CurYear == (CYear - 1).ToString()).Count() > 0)
     {
     <tr>
-        <td style="width: 90px">
-            年末总资产：
+        <td style="width: 140px">
+            <label>年末总资产</label>
         </td>
-        <td>
+        <td colspan="3">
             <input type="text" name="TotalAssets" value=@Model.Financials.Where(p => p.CurYear == (CYear - 1).ToString()).First().TotalAssets />
         </td>
     </tr>
     <tr>
         <td>
-            业务总收入：
+            <label>业务总收入</label>
         </td>
-        <td>
+        <td colspan="3">
             <input type="text" name="Revenue" value=@Model.Financials.Where(p => p.CurYear == (CYear - 1).ToString()).First().Revenue />
         </td>
     </tr>
@@ -39,18 +39,18 @@
     else
     {
     <tr>
-        <td style="width: 90px">
-            年末总资产：
+        <td style="width: 140px">
+            <label>年末总资产</label>
         </td>
-        <td>
+        <td colspan="3">
             <input type="text" name="TotalAssets" />
         </td>
     </tr>
     <tr>
         <td>
-            业务总收入：
+            <label>业务总收入</label>
         </td>
-        <td>
+        <td colspan="3">
             <input type="text" name="Revenue" />
         </td>
     </tr>
@@ -61,44 +61,44 @@
     if (Model.Products.Count() > 0)
     {
     <tr>
-        <td style="width: 90px">
-            产品名称：
+        <td style="width: 140px">
+            <label>产品名称：
         </td>
-        <td>
-            <input type="text" name="ProductName" value="@Model.Products.FirstOrDefault().ProductName" style="width:40%"  />
+        <td colspan="3">
+            <input type="text" name="ProductName" value="@Model.Products.FirstOrDefault().ProductName" style="width:780px"  />
         </td>
     </tr>
     <tr>
         <td>
-            产品介绍：
+            <label>产品介绍</label>
         </td>
-        <td>
-            <textarea name="Content" rows="5" style="width: 90%">@Model.Products.FirstOrDefault().Content</textarea>
+        <td colspan="3">
+            <textarea name="Content" rows="5" style="width: 780px">@Model.Products.FirstOrDefault().Content</textarea>
         </td>
     </tr>
     }
     else
     {
     <tr>
-        <td style="width: 90px">
-            产品名称：
+        <td style="width: 140px">
+            <label>产品名称</label>
         </td>
-        <td>
-            <input type="text" name="ProductName" style="width: 40%" />
+        <td colspan="3">
+            <input type="text" name="ProductName" style="width: 780px" />
         </td>
     </tr>
     <tr>
         <td>
-            产品介绍：
+            <label>产品介绍</label>
         </td>
-        <td>
-            <textarea name="Content" rows="5" style="width: 95%"></textarea>
+        <td colspan="3">
+            <textarea name="Content" rows="5" style="width: 780px"></textarea>
         </td>
     </tr>
     }
 }
 <div class="pageContent">
-    @using (Html.BeginForm("Edit", "QY_Corp", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return iframeCallback(this);" }))
+    @using (Html.BeginForm("Edit", "QY_Corp", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return iframeCallback(this,dialogAjaxDone);" }))
     {
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.ID)
@@ -110,18 +110,18 @@
         @Html.HiddenFor(model => model.Logo)
         
         <div class="pageFormContent" layouth="60">
-            <table  style="width: 100%" class="list">
+            <table style="width: 100%; border-spacing:3px">
                 <tr>
-                    <td colspan="4">
-                        <strong>基本信息</strong>
+                    <td colspan="4" style="height:25px; font-weight:bold">
+                       基本信息
                     </td>
                 </tr>
                 <tr>
-                    <td style="width: 90px">@Html.LabelFor(model => model.CorpName, "企业名称")
+                    <td style="width: 140px">@Html.LabelFor(model => model.CorpName, "企业名称")
                     </td>
-                    <td>@Html.EditorFor(model => model.CorpName)
+                    <td style="width: 240px">@Html.EditorFor(model => model.CorpName)
                     </td>
-                    <td>@Html.LabelFor(model => model.CorpCode, "机构代码")
+                    <td style="width: 140px">@Html.LabelFor(model => model.CorpCode, "机构代码")
                     </td>
                     <td>@Html.EditorFor(model => model.CorpCode)
                     </td>
@@ -129,7 +129,7 @@
                 <tr>
                     <td>@Html.LabelFor(model => model.RegTime, "成立时间")
                     </td>
-                    <td>@Html.EditorFor(model => model.RegTime)
+                    <td>@Html.TextBoxFor(m => m.RegTime, new { @class = "date", @Value = string.Format("{0:yyyy-MM-dd}", Model.RegTime) })
                     </td>
                     <td>@Html.LabelFor(model => model.Property, "企业性质")
                     </td>
@@ -184,34 +184,34 @@
                 <tr>
                     <td>@Html.LabelFor(model => model.Range, "详细地址")
                     </td>
-                    <td colspan="3">@Html.TextBoxFor(model => model.Address, new { style = "width:90%" })
+                    <td colspan="3">@Html.TextBoxFor(model => model.Address, new { style = "width:780px" })
                     </td>
                 </tr>
                 <tr>
                     <td>@Html.LabelFor(model => model.Range, "经营范围")
                     </td>
-                    <td colspan="3">@Html.TextBoxFor(model => model.Range, new { style = "width:90%" })
+                    <td colspan="3">@Html.TextBoxFor(model => model.Range, new { style = "width:780px" })
                     </td>
                 </tr>
                 <tr>
                     <td>@Html.LabelFor(model => model.Remark, "企业简介")
                     </td>
-                    <td colspan="3">@Html.TextAreaFor(model => model.Remark, new { rows = "5", style = "width:90%" })
+                    <td colspan="3">@Html.TextAreaFor(m => m.Remark, new { @class = "editor", @rows = "15", @Value = Model.Remark })
                     </td>
                 </tr>
             </table>
-            <table  style="width: 100%" class="list">
+            <table style="width: 100%; border-spacing:3px">
                 <tr>
-                    <td colspan="4">
-                        <strong>联系人信息</strong>
+                    <td colspan="4" style="height:25px; font-weight:bold">
+                        联系人信息
                     </td>
                 </tr>
                 <tr>
-                    <td style="width: 90px">@Html.LabelFor(model => model.Linkman, "联系人")
+                    <td style="width: 140px">@Html.LabelFor(model => model.Linkman, "联系人")
                     </td>
-                    <td>@Html.EditorFor(model => model.Linkman)
+                    <td style="width: 240px">@Html.EditorFor(model => model.Linkman)
                     </td>
-                    <td>@Html.LabelFor(model => model.Position, "部门&职务")
+                    <td style="width: 140px">@Html.LabelFor(model => model.Position, "部门&职务")
                     </td>
                     <td>@Html.EditorFor(model => model.Position)
                     </td>
@@ -243,18 +243,18 @@
                     </td>
                 </tr>
             </table>
-            <table  style="width: 100%" class="list">
+            <table style="width: 100%; border-spacing:3px">
                 <tr>
-                    <td colspan="4">
-                        <strong>财务概况</strong>
+                    <td colspan="4" style="height:25px; font-weight:bold">
+                        财务概况
                     </td>
                 </tr>
                 @QY_Financial(DateTime.Now.Year)
             </table>
-            <table  style="width: 100%" class="list">
+            <table style="width: 100%; border-spacing:3px">
                 <tr>
-                    <td colspan="4">
-                        <strong>主要产品介绍</strong>
+                    <td colspan="4" style="height:25px; font-weight:bold">
+                        主要产品介绍
                     </td>
                 </tr>
                 @QY_Product()

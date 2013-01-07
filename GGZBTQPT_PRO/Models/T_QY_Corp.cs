@@ -9,7 +9,7 @@ namespace GGZBTQPT_PRO.Models
         {
             CorpName = " ";
             CorpCode = " ";
-            RegTime = DateTime.MaxValue;
+            RegTime = DateTime.Now;
             Property = 0;
             Province = "0";
             City = "0";

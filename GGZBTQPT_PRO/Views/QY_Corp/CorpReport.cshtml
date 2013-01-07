@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_QY_Corp>
+﻿@model IEnumerable<GGZBTQPT_PRO.ViewModels.VM_CPReport>
 @{
     Layout = null;
 }
@@ -11,3 +11,61 @@
 <p style="font-size:14pt; margin-left:30px">本月注册企业：@ViewBag.MountSum</p>
 <p style="font-size:14pt; margin-left:30px">今日注册企业：@ViewBag.DaySum</p>
 <br />
+<div style="width:200px; float:left">
+<table cellpadding="5" cellspacing="5" class="report_tb">
+    <tr>
+        <td>所属行业</td>
+        <td>数量</td>
+    </tr>
+    @foreach (var item in Model)
+    { 
+        <tr>
+            <td>@item.TypeName</td>
+            <td>@item.Count</td>
+        </tr>
+    }
+</table>
+</div>
+<div id="qychart" style="height: 560px; width: 600px; float:left"></div>
+
+</div>
+<script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.barRenderer.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.categoryAxisRenderer.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.pointLabels.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.getJSON("@Url.Action("CorpReportData", "QY_Corp")", function(data){
+        
+            var statData = [];
+            var ticks = [];
+            $.each(data.statData, function(key, value){
+                statData.push(value);
+                ticks.push(key);
+            }); 
+
+            
+            var plot1b = $.jqplot('qychart', [statData], 
+             {
+                    seriesDefaults: {
+                        renderer:$.jqplot.BarRenderer,
+                        rendererOptions: {
+                            fillToZero: true,        
+                            barDirection: 'horizontal', // vertical or horizontal.
+                            barWidth: 15     // width of the bars.  null to calculate automatically.
+                            }
+                    },
+                    axes: {
+                        xaxis: {
+                            tickOptions: { formatString: '%.1f' }
+                        },
+                        yaxis: {
+                            renderer: $.jqplot.CategoryAxisRenderer,
+                            ticks: ticks
+                        }
+                    }
+                });
+
+        });
+    });
+</script>

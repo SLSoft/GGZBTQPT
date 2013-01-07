@@ -67,23 +67,25 @@
         }
 </script>
 
-@using (Html.BeginForm("Create", "XM_RZ", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return iframeCallback(this);"}))
+<div class="pageContent">
+@using (Html.BeginForm("Create", "XM_RZ", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return iframeCallback(this,dialogAjaxDone);" }))
 {
     @Html.ValidationSummary(true)
     
+        
+        <div class="pageFormContent" layouth="60">
         <p>选择项目类别：
         <input type="radio" name="itemtype" value="1" checked="checked" /><span>项目融资</span>
         <input type="radio" name="itemtype" value="2" /><span>资产交易</span>
         <input type="radio" name="itemtype" value="3" /><span>政府招商</span>
         <input type="radio" name="itemtype" value="9" /><span>其他</span></p>
-        <div layoutH="20">
         <table style="width: 100%; border-spacing:3px">
             <tr>
                 <td colspan="2" style="height:25px; font-weight:bold">基本信息</td>
             </tr>
             <tr>
                 <td style="width:80px">@Html.LabelFor(model => model.ItemName, "项目名称")</td>
-                <td>@Html.TextBoxFor(model => model.ItemName, new { style = "width:80%" })</td>
+                <td>@Html.TextBoxFor(model => model.ItemName, new { style = "width:780px" })</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Province, "所属区域")</td>
@@ -100,7 +102,7 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Keys, "关键词")</td>
-                <td>@Html.TextBoxFor(model => model.Keys, new { style = "width:80%" })</td>
+                <td>@Html.TextBoxFor(model => model.Keys, new { style = "width:780px" })</td>
             </tr>
             <tr>
                 <td style="width:80px">@Html.LabelFor(model => model.ItemContent, "项目介绍")</td>
@@ -112,10 +114,10 @@
                 <td colspan="4" style="height:25px; font-weight:bold">项目融资</td>
             </tr>
             <tr>
-                <td style="width:80px">@Html.LabelFor(model => model.FinancSum, "融资金额")</td>
-                <td>@Html.EditorFor(model => model.FinancSum)（万元）
+                <td style="width:140px">@Html.LabelFor(model => model.FinancSum, "融资金额")</td>
+                <td style="width:240px">@Html.EditorFor(model => model.FinancSum)（万元）
             @Html.ValidationMessageFor(model => model.FinancSum)</td>
-                <td>@Html.LabelFor(model => model.FinancType, "融资方式")</td>
+                <td style="width:140px">@Html.LabelFor(model => model.FinancType, "融资方式")</td>
                 <td>@Html.DropDownList("FinancType")</td>
             </tr>
             <tr>
@@ -148,7 +150,7 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.PartnerRequirements, "合作方要求")</td>
-                <td colspan="3">@Html.TextAreaFor(model => model.PartnerRequirements, new { rows = "5", style = "width:95%" })</td>
+                <td colspan="3">@Html.TextAreaFor(model => model.PartnerRequirements, new { rows = "5", style = "width:780px" })</td>
             </tr>
         </table>
         <table id="item2" style="width:100%; border-spacing:3px">
@@ -156,9 +158,9 @@
                 <td colspan="4" style="height:25px; font-weight:bold">资产交易</td>
             </tr>
             <tr>
-                <td style="width:80px">@Html.LabelFor(model => model.AssetsType, "资产类别")</td>
-                <td>@Html.DropDownList("AssetsType")</td>
-                <td>@Html.LabelFor(model => model.AssetsCost, "资产估价")</td>
+                <td style="width:140px">@Html.LabelFor(model => model.AssetsType, "资产类别")</td>
+                <td style="width:240px">@Html.DropDownList("AssetsType")</td>
+                <td style="width:140px">@Html.LabelFor(model => model.AssetsCost, "资产估价")</td>
                 <td>@Html.EditorFor(model => model.AssetsCost)万元</td>
             </tr>
             <tr>
@@ -183,26 +185,26 @@
                 <td colspan="4" style="height:25px; font-weight:bold">政府招商</td>
             </tr>
             <tr>
-                <td style="width:80px">@Html.LabelFor(model => model.Investment, "招商投资总额")</td>
-                <td>@Html.EditorFor(model => model.Investment)万元</td>
-                <td>@Html.LabelFor(model => model.CooperationMode, "合作方式")</td>
-                <td>@Html.EditorFor(model => model.CooperationMode)</td>
+                <td style="width:140px">@Html.LabelFor(model => model.Investment, "招商投资总额")</td>
+                <td style="width:240px">@Html.EditorFor(model => model.Investment) 万元</td>
+                <td style="width:140px">@Html.LabelFor(model => model.CooperationMode, "合作方式")</td>
+                <td>@Html.DropDownList("CooperationMode")</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.BuildCycle, "预计项目所用时间")</td>
-                <td>@Html.EditorFor(model => model.BuildCycle)万元</td>
+                <td>@Html.EditorFor(model => model.BuildCycle) 月</td>
                 <td>@Html.LabelFor(model => model.ReturnCycle, "投资回收期")</td>
-                <td>@Html.EditorFor(model => model.ReturnCycle)</td>
+                <td>@Html.EditorFor(model => model.ReturnCycle) 月</td>
             </tr>
         </table>
         <table id="item4" style="width:100%; border-spacing:3px">
             <tr>
-                <td colspan="4" style="background-color:#666666; color:#ffffff">其他项目</td>
+                <td colspan="4" style="height:25px; font-weight:bold">其他项目</td>
             </tr>
             <tr>
-                <td style="width:80px">@Html.LabelFor(model => model.OtherItemFinancSum, "融资金额")</td>
-                <td>@Html.EditorFor(model => model.OtherItemFinancSum)万元</td>
-                <td>@Html.LabelFor(model => model.OtherItemFinancSum, "融资期限")</td>
+                <td style="width:140px">@Html.LabelFor(model => model.OtherItemFinancSum, "融资金额")</td>
+                <td style="width:240px">@Html.EditorFor(model => model.OtherItemFinancSum)万元</td>
+                <td style="width:140px">@Html.LabelFor(model => model.OtherItemFinancSum, "融资期限")</td>
                 <td>@Html.EditorFor(model => model.OtherItemFinancSum)</td>
             </tr>
         </table>
@@ -211,10 +213,10 @@
                 <td colspan="4" style="height:25px; font-weight:bold">联系人信息</td>
             </tr>
             <tr>
-                <td style="width:80px">@Html.LabelFor(model => model.Linkman, "联系人")</td>
-                <td>@Html.EditorFor(model => model.Linkman)
+                <td style="width:140px">@Html.LabelFor(model => model.Linkman, "联系人")</td>
+                <td style="width:240px">@Html.EditorFor(model => model.Linkman)
             @Html.ValidationMessageFor(model => model.Linkman)</td>
-                <td>@Html.LabelFor(model => model.Position, "部门&职务")</td>
+                <td style="width:140px">@Html.LabelFor(model => model.Position, "部门&职务")</td>
                 <td>@Html.EditorFor(model => model.Position)
             @Html.ValidationMessageFor(model => model.Position)</td>
             </tr>
@@ -242,16 +244,32 @@
         </table>
         <table style="width: 100%; border-spacing:3px">
         <tr>
-                <td style="width:80px">项目图片
+                <td style="width:140px">项目图片
                 </td>
                 <td>
                     <input type="file" name="file1" />
                 </td>
             </tr>
         </table>
-        <p>
-            <input type="submit" value="提交" />
-        </p>
+        </div>
+    
+    <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit" value="提交">
+                                提交</button></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close" value="取消">
+                                取消</button></div>
+                    </div>
+                </li>
+            </ul>
         </div>
 }
-
+</div>

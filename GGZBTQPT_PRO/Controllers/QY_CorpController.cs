@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 using System.IO;
+using GGZBTQPT_PRO.ViewModels;
 
 namespace GGZBTQPT_PRO.Controllers
 {
@@ -18,7 +19,7 @@ namespace GGZBTQPT_PRO.Controllers
         public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 5)
         {
             keywords = keywords == null ? "" : keywords;
-            var t_qy_corp = db.T_QY_Corp.Where(c => (c.IsValid == true && c.CorpName.Contains(keywords))).OrderBy(s => s.ID)
+            var t_qy_corp = db.T_QY_Corp.Where(c => (c.IsValid == true && c.CorpName.Contains(keywords))).OrderByDescending(p => p.CreateTime)
                                                                     .Skip(numPerPage * (pageNum - 1))
                                                                     .Take(numPerPage).ToList();
             ViewBag.recordCount = db.T_QY_Corp.Where(c => c.IsValid == true).Count();
@@ -80,6 +81,7 @@ namespace GGZBTQPT_PRO.Controllers
         // POST: /QY_Corp/Create
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Create(T_QY_Corp t_qy_corp, FormCollection collection)
         {
             if (ModelState.IsValid)
@@ -163,6 +165,7 @@ namespace GGZBTQPT_PRO.Controllers
         // POST: /QY_Corp/Edit/5
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Edit(T_QY_Corp t_qy_corp, FormCollection collection)
         {
             if (ModelState.IsValid)
@@ -344,7 +347,48 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.YearSum = qy.Where(p => p.CreateTime.Value.Year == DateTime.Now.Year).Count();
             ViewBag.MountSum = qy.Where(p => (p.CreateTime.Value.Year == DateTime.Now.Year && p.CreateTime.Value.Month == DateTime.Now.Month)).Count();
             ViewBag.DaySum = qy.Where(p => (p.CreateTime.Value.Year == DateTime.Now.Year && p.CreateTime.Value.Month == DateTime.Now.Month && p.CreateTime.Value.Day == DateTime.Now.Day)).Count();
-            return PartialView(qy);
+
+            var up = db.T_QY_Corp.Where(p => p.IsValid == true).GroupBy(g => g.Industry)
+                                    .Select(s => new { cnt = s.Count(), type = (int)s.Key });
+
+
+            var list = from u in db.T_PTF_DicDetail
+                       where u.DicType == "XM01"
+                       join p in up on u.ID equals p.type into gj
+                       from x in gj.DefaultIfEmpty()
+                       orderby u.ID
+                       select new VM_CPReport
+                       {
+                           TypeName = u.Name,
+                           Count = x.type == null ? 0 : x.cnt
+                       };
+            return PartialView(list.ToList());
+        }
+
+        public ActionResult CorpReportData()
+        {
+            var up = db.T_QY_Corp.Where(p => p.IsValid == true).GroupBy(g => g.Industry)
+                                    .Select(s => new { cnt = s.Count(), type = (int)s.Key });
+
+
+            var list = from u in db.T_PTF_DicDetail
+                       where u.DicType == "XM01"
+                       join p in up on u.ID equals p.type into gj
+                       from x in gj.DefaultIfEmpty()
+                       orderby u.ID
+                       select new VM_CPReport
+                       {
+                           TypeName = u.Name,
+                           Count = x.type == null ? 0 : x.cnt
+                       };
+
+            Dictionary<String, int> dic = new Dictionary<string, int>();
+            foreach (VM_CPReport vmx in list.ToList())
+            {
+                dic.Add(vmx.TypeName, vmx.Count);
+            }
+
+            return Json(new { statData = dic }, JsonRequestBehavior.AllowGet);
         }
     }
 }

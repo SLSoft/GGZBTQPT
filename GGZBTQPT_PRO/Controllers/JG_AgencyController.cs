@@ -20,7 +20,7 @@ namespace GGZBTQPT_PRO.Controllers
         public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 5)
         {
             keywords = keywords == null ? "" : keywords;
-            var t_jg_agency = db.T_JG_Agency.Where(c => (c.IsValid == true && c.AgencyName.Contains(keywords))).OrderBy(s => s.ID)
+            var t_jg_agency = db.T_JG_Agency.Where(c => (c.IsValid == true && c.AgencyName.Contains(keywords))).OrderByDescending(p => p.CreateTime)
                                                                     .Skip(numPerPage * (pageNum - 1))
                                                                     .Take(numPerPage).ToList();
             ViewBag.recordCount = db.T_JG_Agency.Where(c => c.IsValid == true).Count();
@@ -67,6 +67,7 @@ namespace GGZBTQPT_PRO.Controllers
         // POST: /JG_Agency/Create
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Create(T_JG_Agency t_jg_agency)
         {
             if (ModelState.IsValid)
@@ -113,6 +114,7 @@ namespace GGZBTQPT_PRO.Controllers
         // POST: /JG_Agency/Edit/5
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Edit(T_JG_Agency t_jg_agency)
         {
             if (ModelState.IsValid)

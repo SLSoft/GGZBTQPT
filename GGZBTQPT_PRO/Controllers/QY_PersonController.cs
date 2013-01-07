@@ -201,5 +201,17 @@ namespace GGZBTQPT_PRO.Controllers
 
             return PartialView(list);
         }
+
+        //创业者统计
+        public ActionResult personReport()
+        {
+            var ps = db.T_QY_Person.Where(p => p.IsValid == true).ToList();
+            ViewBag.CorpCount = ps.Count();
+            ViewBag.YearSum = ps.Where(p => p.CreateTime.Value.Year == DateTime.Now.Year).Count();
+            ViewBag.MountSum = ps.Where(p => (p.CreateTime.Value.Year == DateTime.Now.Year && p.CreateTime.Value.Month == DateTime.Now.Month)).Count();
+            ViewBag.DaySum = ps.Where(p => (p.CreateTime.Value.Year == DateTime.Now.Year && p.CreateTime.Value.Month == DateTime.Now.Month && p.CreateTime.Value.Day == DateTime.Now.Day)).Count();
+
+            return PartialView(ps);
+        }
     }
 }

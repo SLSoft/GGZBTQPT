@@ -88,6 +88,8 @@
     }
 </script>
 
+<div class="pageContent">
+
 @using (Html.BeginForm("Edit", "XM_TZ", FormMethod.Post, new { onsubmit = "return iframeCallback(this,dialogAjaxDone);", enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true)
@@ -102,7 +104,7 @@
         @Html.HiddenFor(model => model.UpdateTime)
         @Html.HiddenFor(model => model.MemberID)
         @Html.HiddenFor(model => model.Pic)
-        <div layoutH="20">
+        <div class="pageFormContent" layouth="60">
 
         <table style="width:100%; border-spacing:3px">
             <tr>
@@ -110,7 +112,7 @@
             </tr>
             <tr>
                 <td style="width:80px">@Html.LabelFor(model => model.ItemName, "投资意向标题")</td>
-                <td>@Html.TextBoxFor(model => model.ItemName, new { style = "width:80%" })</td>
+                <td>@Html.TextBoxFor(model => model.ItemName, new { style = "width:780px" })</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Province, "所属区域")</td>
@@ -126,7 +128,7 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Keys, "关键词")</td>
-                <td>@Html.TextBoxFor(model => model.Keys, new { style = "width:80%" })</td>
+                <td>@Html.TextBoxFor(model => model.Keys, new { style = "width:780px" })</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Description, "投资意向描述")</td>
@@ -138,15 +140,15 @@
                 <td colspan="4" style="height:25px; font-weight:bold">投资信息</td>
             </tr>
             <tr>
-                <td style="width:80px">@Html.LabelFor(model => model.Investment, "可投资金额")</td>
-                <td>@Html.EditorFor(model => model.Investment)（万元）</td>
-                <td>@Html.LabelFor(model => model.StartInvestment, "起始投资金额")</td>
+                <td style="width:140px">@Html.LabelFor(model => model.Investment, "可投资金额")</td>
+                <td style="width:300px">@Html.EditorFor(model => model.Investment)（万元）</td>
+                <td style="width:140px">@Html.LabelFor(model => model.StartInvestment, "起始投资金额")</td>
                 <td>@Html.EditorFor(model => model.StartInvestment)（万元）</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.AimIndustry, "意向行业")</td>
                 <td colspan="3">
-                <table width="100%">
+                <table width="800px">
                     <tr>
                     @GenerateIndustry(Model.AimIndustry)
                     </tr>
@@ -162,7 +164,7 @@
             <tr>
                 <td>@Html.LabelFor(model => model.AjmArea, "投资地区")</td>
                 <td colspan="3">
-                <table width="100%">
+                <table width="800px">
                     <tr>
                     @GenerateProvince(Model.AjmArea)
                     </tr>
@@ -171,7 +173,8 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.TeamworkType, "合作方式")</td>
-                <td colspan="3"><table width="100%">
+                <td colspan="3">
+                <table width="800px">
                     <tr>
                     @GenerateTeamWorkType(Model.TeamworkType)
                     </tr>
@@ -179,7 +182,7 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.PartnerRequirements, "合作方要求")</td>
-                <td colspan="3">@Html.TextAreaFor(model => model.PartnerRequirements, new { rows = "5", style = "width:95%" })</td>
+                <td colspan="3">@Html.TextAreaFor(model => model.PartnerRequirements, new { rows = "5", style = "width:780px" })</td>
             </tr>
         </table>
         <table style="width:100%; border-spacing:3px">
@@ -187,10 +190,10 @@
                 <td colspan="4" style="height:25px; font-weight:bold">联系人信息</td>
             </tr>
             <tr>
-                <td style="width:80px">@Html.LabelFor(model => model.Linkman, "联系人")</td>
-                <td>@Html.EditorFor(model => model.Linkman)
+                <td style="width:140px">@Html.LabelFor(model => model.Linkman, "联系人")</td>
+                <td style="width:300px">@Html.EditorFor(model => model.Linkman)
             @Html.ValidationMessageFor(model => model.Linkman)</td>
-                <td>@Html.LabelFor(model => model.Position, "部门&职务")</td>
+                <td style="width:140px">@Html.LabelFor(model => model.Position, "部门&职务")</td>
                 <td>@Html.EditorFor(model => model.Position)
             @Html.ValidationMessageFor(model => model.Position)</td>
             </tr>
@@ -218,7 +221,7 @@
         </table>
         <table style="width:100%; border-spacing:3px">
         <tr>
-            <td style="width:80px">@Html.LabelFor(model => model.Pic, "项目图片")
+            <td style="width: 140px">项目图片
             </td>
             <td>
                 <input type="file" name="file1" />
@@ -228,8 +231,25 @@
             </td>
         </tr>
         </table>
-        <p>
-            <input type="submit" value="保存" />
-        </p>
-                </div>
+    </div>
+    
+    <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit" value="保存设置">
+                                保存设置</button></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close" value="取消">
+                                取消</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
 }
+</div>

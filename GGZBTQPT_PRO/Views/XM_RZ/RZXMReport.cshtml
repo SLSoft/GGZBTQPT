@@ -23,7 +23,7 @@
     }
 </table>
 </div>
-<div id="chart1" style="height: 560px; width: 500px; float:left"></div>
+<div id="rzchart" style="height: 560px; width: 500px; float:left"></div>
 
 </div>
 <script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.barRenderer.min.js")" type="text/javascript"></script>
@@ -42,7 +42,7 @@
             }); 
 
             
-            var plot1b = $.jqplot('chart1', [statData], 
+            var plot1b = $.jqplot('rzchart', [statData], 
              {
                     seriesDefaults: {
                         renderer:$.jqplot.BarRenderer,
