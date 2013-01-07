@@ -9,10 +9,8 @@
     <form id="pagerForm" method="post" action="@Url.Action("Query")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
-    <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />
-    <input type="hidden" name="type" value="@ViewData["type"]"  />
     </form>
-    <form onsubmit="return navTabSearch(this);" action="@Url.Action("Query")"
+    <form onsubmit="return navTabSearch(this);" rel="pagerForm" action="@Url.Action("Query")"
     method="post">
     <div class="searchBar">
         <ul class="searchContent">
@@ -94,8 +92,7 @@
             @if (@item.FinancingCount > 0)
             {
             <td>
-                <a href="@Url.Action("FinancingList", "HY_Member", new { memberId = @item.Member.ID})"  target="dialog" width="550"
-                height="350" title="项目详情" mask="true"><span>@item.FinancingCount</span></a>
+                @Html.ActionLink(@item.FinancingCount.ToString(), "FinancingList", "HY_Member", new { memberId = item.Member.ID }, new { target = "dialog", mask = "true",title="项目详情",width = "500", height = "350" })
             </td>
             }
             else
@@ -105,8 +102,7 @@
             @if (@item.InvestmentCount > 0)
             {
                 <td>
-                    <a href="@Url.Action("InvestmentList", "HY_Member", new { memberId = @item.Member.ID})"  target="dialog" width="550"
-                    height="350" title="意向详情" mask="true"><span>@item.InvestmentCount</span></a>
+                    @Html.ActionLink(@item.InvestmentCount.ToString(), "InvestmentList", "HY_Member", new { memberId = item.Member.ID }, new { target = "dialog", mask = "true", title = "意向详情", width = "500", height = "350" })
                 </td>
             }
             else
@@ -118,8 +114,7 @@
             @if (@item.ProductCount > 0)
             {
                 <td>
-                    <a href="@Url.Action("ProductList", "HY_Member", new { memberId = @item.Member.ID})"  target="dialog" width="550"
-                    height="350" title="产品详情" mask="true"><span>@item.ProductCount</span></a>
+                    @Html.ActionLink(@item.ProductCount.ToString(), "ProductList", "HY_Member", new { memberId = item.Member.ID }, new { target = "dialog", mask = "true", title = "产品详情", width = "500", height = "350" })
                 </td>
             }
             else

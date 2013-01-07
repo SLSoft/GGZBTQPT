@@ -106,7 +106,7 @@
                     @Html.ActionLink("参与人员", "SelectUser", "NB_Meeting", new { id = item.ID }, new { target = "dialog", mask = "true" })
                 </td>
                 <td>
-                    @Html.ActionLink("记录", "RecordEdit", "NB_Meeting", new { id = item.ID }, new { target = "dialog", mask = "true" })
+                    @Html.ActionLink(@item.IsRecord ? "修改":"记录", "RecordEdit", "NB_Meeting", new { id = item.ID }, new { target = "dialog", mask = "true", width = "500", height = "350" })
                 </td>
             </tr>
             }

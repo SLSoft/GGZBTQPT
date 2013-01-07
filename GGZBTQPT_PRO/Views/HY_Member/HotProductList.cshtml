@@ -2,19 +2,13 @@
 @{
     Layout = null;
 }
-<div rel="hotInfoBox">
 <div class="pageHeader" style="border-left: 1px #B8D0D6 solid; border-right: 1px #B8D0D6 solid; border-top:1px #B8D0D6 solid;">
-    
     <form id="pagerForm" method="post" action="@Url.Action("HotList")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
-    <input type="hidden" name="memberType" value="@ViewData["memberType"]"  />
-    <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />
     <input type="hidden" name="type" value="@ViewData["type"]"  />
     </form>
-    <form onsubmit="return navTabSearch(this);" action="@Url.Action("HotList", new { type = 1 })" rel="hotInfoBox"  method="post">
-    @*@using (Ajax.BeginForm("HotList", new { type = 1 }, new AjaxOptions { UpdateTargetId = "hotInfoBox", HttpMethod = "post", OnSuccess = "" }))
-    {*@
+    <form onsubmit="return divSearch(this,'hotInfoBox');" action="@Url.Action("HotList", new { type = 1 })" rel="pagerForm"  method="post">
     <div class="searchBar">
         <ul class="searchContent">
             <li>
@@ -39,8 +33,7 @@
             </ul>
         </div>
     </div>
-   @*  }*@
-   </form>
+  </form>
 </div>
 <div class="pageContent j-resizeGrid" style="border-left: 1px #B8D0D6 solid; border-right: 1px #B8D0D6 solid">
     <div class="panelBar">
@@ -134,5 +127,4 @@
                currentpage="@ViewData["pageNum"]">
         </div>
     </div>
-</div>
 </div>

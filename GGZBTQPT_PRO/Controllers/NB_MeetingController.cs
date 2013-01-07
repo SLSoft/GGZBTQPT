@@ -61,12 +61,10 @@ namespace GGZBTQPT_PRO.Controllers
                     int result = db.SaveChanges();
                     if (result > 0)
                     {
-                        Logging((int)LogLevels.operate, "成功新增了一条内部会议申请:" + t_nb_meeting.Title, (int)OperateTypes.Create, (int)GenerateTypes.FromUser);
                         return ReturnJson(true, "操作成功", "", "", true, "");
                     }
                     else
                     {
-                        Logging((int)LogLevels.warn, "新增会议失败:" + t_nb_meeting.Title, (int)OperateTypes.Create, (int)GenerateTypes.FromUser);
                         return ReturnJson(false, "操作失败", "", "", false, "");
                     }
                 }
@@ -246,17 +244,11 @@ namespace GGZBTQPT_PRO.Controllers
                     t_nb_meeting.RecordTime = DateTime.Now;
 
                     db.Entry(t_nb_meeting).State = EntityState.Modified;
-                    try
-                    {
-                        int result = db.SaveChanges();
-                        if (result >= 0)
-                            return ReturnJson(true, "操作成功", "", "", true, "");
-                        else
-                            return ReturnJson(false, "操作失败", "", "", false, "");
-                    }
-                    catch (Exception ex)
-                    {
-                    }
+                    int result = db.SaveChanges();
+                    if (result >= 0)
+                        return ReturnJson(true, "操作成功", "", "", true, "");
+                    else
+                        return ReturnJson(false, "操作失败", "", "", false, "");
                 }
             }
             return Json("");

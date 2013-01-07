@@ -211,7 +211,6 @@ namespace GGZBTQPT_PRO.Controllers
             IList<T_HY_Member> list = tq.OrderBy(s => s.ID)
                                                        .Skip(numPerPage * (pageNum - 1))
                                                        .Take(numPerPage).ToList();
-
             ViewBag.recordCount = tqCount;
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
@@ -310,7 +309,6 @@ namespace GGZBTQPT_PRO.Controllers
             SelectList list = new SelectList(States, "ID", "Name");
             return list;
         }
-
         #endregion
 
         #region 会员查询
@@ -427,9 +425,9 @@ namespace GGZBTQPT_PRO.Controllers
                 case 1://金融产品
                     return GetHotProductList(keywords,type, memberType, pageNum, numPerPage);
                 case 2://投资项目
-                    return GetHotFinancingList(keywords, memberType, pageNum, numPerPage);
+                    return GetHotFinancingList(keywords,type, memberType, pageNum, numPerPage);
                 case 3://投资意向
-                    return GetHotInvestmentList(keywords, memberType, pageNum, numPerPage);
+                    return GetHotInvestmentList(keywords,type, memberType, pageNum, numPerPage);
             }
             return PartialView();
         }
@@ -438,7 +436,7 @@ namespace GGZBTQPT_PRO.Controllers
         public PartialViewResult GetHotProductList(string keywords, int type, int memberType, int pageNum, int numPerPage)
         {
             var tqCount = 0;
-            var tq = db.T_JG_Product.Where(p => p.ProductName.Contains(keywords)).Include(t => t.Member);
+            var tq = db.T_JG_Product.Where(p => p.ProductName.Contains(keywords) && p.IsValid == true).Include(t => t.Member);
             
             if (memberType != -1)
             {
@@ -456,45 +454,43 @@ namespace GGZBTQPT_PRO.Controllers
             return PartialView("HotProductList", list);
         }
 
-        public PartialViewResult GetHotFinancingList(string keywords, int memberType, int pageNum, int numPerPage)
+        public PartialViewResult GetHotFinancingList(string keywords, int type, int memberType, int pageNum, int numPerPage)
         {
             var tqCount = 0;
-            var tq = db.T_XM_Financing.Where(p => p.ItemName.Contains(keywords)).Include(t => t.Member);
+            var tq = db.T_XM_Financing.Where(p => p.ItemName.Contains(keywords) && p.IsValid == true).Include(t => t.Member);
             if (memberType != -1)
             {
                 tq = tq.Where(s => s.Member.Type == memberType);
             }
             tqCount = tq.Count();
-            IList<T_XM_Financing> list = tq.OrderByDescending(o => o.Clicks)
-                                               .Skip(numPerPage * (pageNum - 1))
-                                               .Take(numPerPage)
-                                               .ToList();
+            IList<T_XM_Financing> list = tq.OrderByDescending(o => o.Clicks).Skip(numPerPage * (pageNum - 1)).Take(numPerPage).ToList();
+
             ViewBag.recordCount = tqCount;
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
             ViewBag.memberType = GetMemberType();
+            ViewBag.type = type;
             return PartialView("HotFinancingList", list);
         }
 
-        public PartialViewResult GetHotInvestmentList(string keywords, int memberType, int pageNum, int numPerPage)
+        public PartialViewResult GetHotInvestmentList(string keywords, int type, int memberType, int pageNum, int numPerPage)
         {
             var tqCount = 0;
-            var tq = db.T_XM_Investment.Where(p => p.ItemName.Contains(keywords)).Include(t => t.Member);
+            var tq = db.T_XM_Investment.Where(p => p.ItemName.Contains(keywords) && p.IsValid == true).Include(t => t.Member);
             if (memberType != -1)
             {
                 tq = tq.Where(s => s.Member.Type == memberType);
             }
             tqCount = tq.Count();
-            IList<T_XM_Investment> list = tq.OrderByDescending(o => o.Clicks)
-                                                .Skip(numPerPage * (pageNum - 1))
-                                                .Take(numPerPage)
-                                                .ToList();
+            IList<T_XM_Investment> list = tq.OrderByDescending(o => o.Clicks).Skip(numPerPage * (pageNum - 1)).Take(numPerPage).ToList();
+
             ViewBag.recordCount = tqCount;
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
             ViewBag.memberType = GetMemberType();
+            ViewBag.type = type;
             return PartialView("HotInvestmentList", list);
         }
         #endregion

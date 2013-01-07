@@ -88,7 +88,7 @@
     }
 </script>
 
-@using (Html.BeginForm("Edit", "XM_TZ", FormMethod.Post, new { onsubmit = "return iframeCallback(this);", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Edit", "XM_TZ", FormMethod.Post, new { onsubmit = "return iframeCallback(this,dialogAjaxDone);", enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.ID)

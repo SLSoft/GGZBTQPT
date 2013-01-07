@@ -2,6 +2,11 @@
 @{
     Layout = null;
 }
+
+<script type="text/javascript">
+    $.validator.unobtrusive.parse(document);
+</script>
+
 <div id="FormContainer" class="pageContent">
     @using (Html.BeginForm("RecordEdit", "NB_Meeting", new { id = Model.ID}, FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
     {
@@ -15,7 +20,7 @@
             </p>
             <p>
                 @Html.LabelFor(model => model.Content,"会议内容")
-                @Html.TextAreaFor(model => model.Content)
+                @Html.TextAreaFor(model => model.Content, new { rows = "5", style = "width:50%" })
             </p>
         </div>
         

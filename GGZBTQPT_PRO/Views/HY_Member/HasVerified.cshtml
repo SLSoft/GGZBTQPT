@@ -8,10 +8,8 @@
     <form id="pagerForm" method="post" action="@Url.Action("HasVerified")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
-    <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />
-    <input type="hidden" name="state" value="@ViewData["state"]"  />
     </form>
-    <form onsubmit="return navTabSearch(this);" action="@Url.Action("HasVerified")"
+    <form onsubmit="return navTabSearch(this);" rel="pagerForm" action="@Url.Action("HasVerified")"
     method="post">
     <div class="searchBar">
         <ul class="searchContent">

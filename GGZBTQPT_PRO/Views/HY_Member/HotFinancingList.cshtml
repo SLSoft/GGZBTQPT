@@ -7,9 +7,9 @@
     <form id="pagerForm" method="post" action="@Url.Action("HotList")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
-    <input type="hidden" name="memberType" value="@ViewData["memberType"]"  />
+    <input type="hidden" name="type" value="@ViewData["type"]"  />
     </form>
-    <form onsubmit="return navTabSearch(this);" action="@Url.Action("HotList", new { type=2})"
+    <form onsubmit="return divSearch(this,'hotInfoBox');" rel="pagerForm" action="@Url.Action("HotList", new { type=2})"
     method="post">
     <div class="searchBar">
         <ul class="searchContent">
