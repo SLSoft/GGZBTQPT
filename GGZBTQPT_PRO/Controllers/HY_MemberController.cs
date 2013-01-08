@@ -211,7 +211,6 @@ namespace GGZBTQPT_PRO.Controllers
             IList<T_HY_Member> list = tq.OrderBy(s => s.ID)
                                                        .Skip(numPerPage * (pageNum - 1))
                                                        .Take(numPerPage).ToList();
-
             ViewBag.recordCount = tqCount;
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
@@ -310,7 +309,6 @@ namespace GGZBTQPT_PRO.Controllers
             SelectList list = new SelectList(States, "ID", "Name");
             return list;
         }
-
         #endregion
 
         #region 会员查询
@@ -336,12 +334,11 @@ namespace GGZBTQPT_PRO.Controllers
 
             IList<VM_MemberRelease> list = tq.Select(w => new VM_MemberRelease
             {
-                                                       FinancingCount = w.Financials.Count, 
-                                                       InvestmentCount=w.Investments.Count,
-                                                       ProductCount = w.Products.Count,
+                                                       FinancingCount = w.Financials.Where(f=>f.IsValid == true).Count(), 
+                                                       InvestmentCount=w.Investments.Where(f=>f.IsValid == true).Count(),
+                                                       ProductCount = w.Products.Where(f=>f.IsValid == true).Count(),
                                                        Member=w }
                                                   ).ToList();
-
             ViewBag.recordCount = tqCount;
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
@@ -360,46 +357,50 @@ namespace GGZBTQPT_PRO.Controllers
             return list;
         }
 
-        /// <summary>
-        /// 查询会员详细信息(如：发布项目、投资意向、金融产品)
-        /// </summary>
-        /// <param name="member_id"></param>
-        /// <returns></returns>
-        public ActionResult QueryDetails(int member_id,int type, int pageNum=1)
+        // 查询会员(发布项目、投资意向、金融产品)详细信息
+        public ActionResult FinancingList(int memberId, int pageNum = 1, int numPerPage = 10)
         {
-            VM_SelectMember member_Details = new VM_SelectMember(); 
-            switch (type)
-            {
-                case 1:
-                    List<T_XM_Financing> fs = new List<T_XM_Financing>();
-                    fs = db.T_XM_Financing.OrderByDescending(f => f.CreateTime).Where(f => f.MemberID == member_id).ToList();
-                    member_Details.Financings = new PagedList<T_XM_Financing>(fs, pageNum, 10);
-                    if (Request.IsAjaxRequest())
-                    {
-                        return PartialView("FinancingList", member_Details);
-                    }
-                    break;
-                case 2:
-                    List<T_XM_Investment> Investments = new List<T_XM_Investment>();
-                    Investments = db.T_XM_Investment.OrderByDescending(f => f.CreateTime).Where(f => f.MemberID == member_id).ToList();
-                    member_Details.Investments = new PagedList<T_XM_Investment>(Investments, pageNum, 10);
-                    if (Request.IsAjaxRequest())
-                    {
-                        return PartialView("InvestmentList", member_Details);
-                    }
-                    break;
-                case 3:
-                    List<T_JG_Product> Products = new List<T_JG_Product>();
-                    Products = db.T_JG_Product.OrderByDescending(p => p.CreateTime).Where(p => p.MemberID == member_id).ToList();
-                    member_Details.Products = new PagedList<T_JG_Product>(Products, pageNum, 10);
-                    if (Request.IsAjaxRequest())
-                    {
-                        return PartialView("ProductList", member_Details);
-                    }
-                    break;
-            }
- 
-            return View(member_Details);
+            IList<T_XM_Financing> list = db.T_XM_Financing.Where(f => f.IsValid == true && f.MemberID == memberId)
+                                                         .OrderByDescending(f => f.CreateTime)
+                                                         .Skip(numPerPage * (pageNum - 1))
+                                                         .Take(numPerPage)
+                                                         .ToList();
+            ViewBag.recordCount = db.T_XM_Financing.Where(f => f.IsValid == true && f.MemberID == memberId).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+            ViewBag.memberId = memberId;
+
+            return View(list);
+        }
+
+        public ActionResult InvestmentList(int memberId, int pageNum = 1, int numPerPage = 10)
+        {
+            IList<T_XM_Investment> list = db.T_XM_Investment.Where(f => f.IsValid == true && f.MemberID == memberId)
+                                                           .OrderByDescending(f => f.CreateTime)
+                                                           .Skip(numPerPage * (pageNum - 1))
+                                                           .Take(numPerPage)
+                                                           .ToList();
+            ViewBag.recordCount = db.T_XM_Investment.Where(f => f.IsValid == true && f.MemberID == memberId).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+            ViewBag.memberId = memberId;
+
+            return View(list);
+        }
+
+        public ActionResult ProductList(int memberId, int pageNum = 1, int numPerPage = 10)
+        {
+            IList<T_JG_Product> list = db.T_JG_Product.Where(f => f.IsValid == true && f.MemberID == memberId)
+                                                     .OrderByDescending(p => p.CreateTime)
+                                                     .Skip(numPerPage * (pageNum - 1))
+                                                     .Take(numPerPage)
+                                                     .ToList();
+            ViewBag.recordCount = db.T_JG_Product.Where(f => f.IsValid == true && f.MemberID == memberId).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+            ViewBag.memberId = memberId;
+
+            return View(list);
         }
         #endregion
 
@@ -422,77 +423,74 @@ namespace GGZBTQPT_PRO.Controllers
             switch (type)
             {
                 case 1://金融产品
-                    return GetHotProductList(keywords, memberType, pageNum, numPerPage);
+                    return GetHotProductList(keywords,type, memberType, pageNum, numPerPage);
                 case 2://投资项目
-                    return GetHotFinancingList(keywords, memberType, pageNum, numPerPage);
+                    return GetHotFinancingList(keywords,type, memberType, pageNum, numPerPage);
                 case 3://投资意向
-                    return GetHotInvestmentList(keywords, memberType, pageNum, numPerPage);
+                    return GetHotInvestmentList(keywords,type, memberType, pageNum, numPerPage);
             }
             return PartialView();
         }
 
         #region 获取列表
-        public PartialViewResult GetHotProductList(string keywords, int memberType, int pageNum, int numPerPage)
+        public PartialViewResult GetHotProductList(string keywords, int type, int memberType, int pageNum, int numPerPage)
         {
             var tqCount = 0;
-            var tq = db.T_JG_Product.Where(p => p.ProductName.Contains(keywords)).Include(t => t.Member);
+            var tq = db.T_JG_Product.Where(p => p.ProductName.Contains(keywords) && p.IsValid == true).Include(t => t.Member);
             
             if (memberType != -1)
             {
                 tq = tq.Where(s => s.Member.Type == memberType);
             }
             tqCount = tq.Count();
-            IList<T_JG_Product> list = tq.OrderByDescending(o => o.Clicks)
-                                             .Skip(numPerPage * (pageNum - 1))
-                                             .Take(numPerPage)
-                                             .ToList();
+            IList<T_JG_Product> list = tq.OrderByDescending(o => o.Clicks).Skip(numPerPage * (pageNum - 1)).Take(numPerPage).ToList();
+
             ViewBag.recordCount = tqCount;
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
             ViewBag.memberType = GetMemberType();
+            ViewBag.type = type;
             return PartialView("HotProductList", list);
         }
 
-        public PartialViewResult GetHotFinancingList(string keywords, int memberType, int pageNum, int numPerPage)
+        public PartialViewResult GetHotFinancingList(string keywords, int type, int memberType, int pageNum, int numPerPage)
         {
             var tqCount = 0;
-            var tq = db.T_XM_Financing.Where(p => p.ItemName.Contains(keywords)).Include(t => t.Member);
+            var tq = db.T_XM_Financing.Where(p => p.ItemName.Contains(keywords) && p.IsValid == true).Include(t => t.Member);
             if (memberType != -1)
             {
                 tq = tq.Where(s => s.Member.Type == memberType);
             }
             tqCount = tq.Count();
-            IList<T_XM_Financing> list = tq.OrderByDescending(o => o.Clicks)
-                                               .Skip(numPerPage * (pageNum - 1))
-                                               .Take(numPerPage)
-                                               .ToList();
+            IList<T_XM_Financing> list = tq.OrderByDescending(o => o.Clicks).Skip(numPerPage * (pageNum - 1)).Take(numPerPage).ToList();
+
             ViewBag.recordCount = tqCount;
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
             ViewBag.memberType = GetMemberType();
+            ViewBag.type = type;
             return PartialView("HotFinancingList", list);
         }
 
-        public PartialViewResult GetHotInvestmentList(string keywords, int memberType, int pageNum, int numPerPage)
+        public PartialViewResult GetHotInvestmentList(string keywords, int type, int memberType, int pageNum, int numPerPage)
         {
             var tqCount = 0;
-            var tq = db.T_XM_Investment.Where(p => p.ItemName.Contains(keywords)).Include(t => t.Member);
+            var tq = db.T_XM_Investment.Where(p => p.ItemName.Contains(keywords) && p.IsValid == true).Include(t => t.Member);
             if (memberType != -1)
             {
                 tq = tq.Where(s => s.Member.Type == memberType);
             }
             tqCount = tq.Count();
-            IList<T_XM_Investment> list = tq.OrderByDescending(o => o.Clicks)
-                                                .Skip(numPerPage * (pageNum - 1))
-                                                .Take(numPerPage)
-                                                .ToList();
+            IList<T_XM_Investment> list = tq.OrderByDescending(o => o.Clicks).Skip(numPerPage * (pageNum - 1)).Take(numPerPage).ToList();
+
             ViewBag.recordCount = tqCount;
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
             ViewBag.memberType = GetMemberType();
+            ViewBag.type = type;
             return PartialView("HotInvestmentList", list);
         }
         #endregion

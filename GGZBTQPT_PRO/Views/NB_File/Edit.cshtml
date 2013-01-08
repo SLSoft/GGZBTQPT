@@ -2,6 +2,11 @@
 @{
     Layout = null;
 }
+
+<script type="text/javascript">
+    $.validator.unobtrusive.parse(document);
+</script>
+
 <div id="FormContainer" class="pageContent">
     @using (Html.BeginForm("Edit", "NB_File", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
     {

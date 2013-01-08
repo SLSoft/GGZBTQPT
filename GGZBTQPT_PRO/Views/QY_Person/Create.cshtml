@@ -4,18 +4,19 @@
     ViewBag.Title = "Create";
     Layout = null;
 }
-
+<div class="pageContent">
 @using (Html.BeginForm("Create", "QY_Person", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
 {
     @Html.ValidationSummary(true)
-    <table style="width:100%">
+    <div class="pageFormContent" layouth="60">
+    <table style="width: 100%; border-spacing:3px">
             <tr>
-                <td colspan="4" style="background-color:#666666; color:#ffffff">基本信息</td>
+                <td colspan="4" style="height:25px; font-weight:bold">基本信息</td>
             </tr>
             <tr>
-                <td style="width:80px">@Html.LabelFor(model => model.Name, "姓名")</td>
-                <td>@Html.EditorFor(model => model.Name)</td>
-                <td>@Html.LabelFor(model => model.Gender, "性别")</td>
+                <td style="width:140px">@Html.LabelFor(model => model.Name, "姓名")</td>
+                <td style="width:300px">@Html.EditorFor(model => model.Name)</td>
+                <td style="width:140px">@Html.LabelFor(model => model.Gender, "性别")</td>
                 <td>@Html.RadioButtonFor(model => model.Gender, "1", new { @id = "radio2", @name = "Gender" })男
                     @Html.RadioButtonFor(model => model.Gender, "2", new { @id = "radio1", @name = "Gender" })女</td>
             </tr>
@@ -58,14 +59,14 @@
                 <td>@Html.EditorFor(model => model.Remark)</td>
             </tr>
     </table>
-    <table style="width:100%">
+    <table style="width: 100%; border-spacing:3px">
             <tr>
-                <td colspan="4" style="background-color:#666666; color:#ffffff">联系方式</td>
+                <td colspan="4" style="height:25px; font-weight:bold">联系方式</td>
             </tr>
             <tr>
-                <td style="width:80px">@Html.LabelFor(model => model.Phone, "固定电话")</td>
-                <td>@Html.EditorFor(model => model.Phone)</td>
-                <td>@Html.LabelFor(model => model.Mobile, "移动电话")</td>
+                <td style="width:140px">@Html.LabelFor(model => model.Phone, "固定电话")</td>
+                <td style="width:300px">@Html.EditorFor(model => model.Phone)</td>
+                <td style="width:140px">@Html.LabelFor(model => model.Mobile, "移动电话")</td>
                 <td>@Html.EditorFor(model => model.Mobile)</td>
             </tr>
             <tr>
@@ -79,31 +80,47 @@
                 <td colspan="3">@Html.EditorFor(model => model.QQ)</td>
             </tr>
     </table>
-    <table style="width:100%">
+    <table style="width: 100%; border-spacing:3px">
             <tr>
-                <td colspan="2" style="background-color:#666666; color:#ffffff">教育/工作经历</td>
+                <td colspan="2" style="height:25px; font-weight:bold">教育/工作经历</td>
             </tr>
             <tr>
-                <td style="width:80px">@Html.LabelFor(model => model.EduExperience, "教育经历")</td>
-                <td>@Html.TextAreaFor(model => model.EduExperience, new { rows = "5", cols = "60" })</td>
+                <td style="width:140px">@Html.LabelFor(model => model.EduExperience, "教育经历")</td>
+                <td>@Html.TextAreaFor(model => model.EduExperience, new { rows = "5", cols = "100" })</td>
             </tr>
             <tr>
-                <td style="width:80px">@Html.LabelFor(model => model.WorkExperience, "工作经历")</td>
-                <td>@Html.TextAreaFor(model => model.WorkExperience, new { rows = "5", cols = "60" })</td>
-            </tr>
-    </table>
-    <table style="width:100%">
-            <tr>
-                <td colspan="2" style="background-color:#666666; color:#ffffff">其他说明</td>
-            </tr>
-            <tr>
-                <td style="width:80px">其他说明</td>
-                <td>@Html.TextAreaFor(model => model.Remark, new { rows = "5", cols = "60" })</td>
+                <td>@Html.LabelFor(model => model.WorkExperience, "工作经历")</td>
+                <td>@Html.TextAreaFor(model => model.WorkExperience, new { rows = "5", cols = "100" })</td>
             </tr>
     </table>
-
-        <p>
-            <input type="submit" value="提交" />
-        </p>
+    <table style="width: 100%; border-spacing:3px">
+            <tr>
+                <td colspan="2" style="height:25px; font-weight:bold">其他说明</td>
+            </tr>
+            <tr>
+                <td style="width:140px"><label>其他说明</label></td>
+                <td>@Html.TextAreaFor(model => model.Remark, new { rows = "5", cols = "100" })</td>
+            </tr>
+    </table>
+    </div>
+    
+    <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit" value="提交">
+                                提交</button></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close" value="取消">
+                                取消</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
 }
-
+</div>

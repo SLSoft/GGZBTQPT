@@ -34,8 +34,8 @@
 <div class="pageContent">
   <div class="panelBar">
     <ul class="toolBar">
-      <li><a class="add" href="@Url.Action("create", "QY_Person")" rel="create" target="dialog" title="添加创业者" mask="true" width="600" height="600"><span>添加</span></a></li>
-      <li><a class="edit" href="@Url.Action("edit", "QY_Person", new { id = "{mid}" })" rel="edit" target="dialog" title="编辑创业者信息" mask="true" warn="请选择一个创业者" width="600" height="600"><span>修改</span></a></li>
+      <li><a class="add" href="@Url.Action("create", "QY_Person")" rel="create" target="dialog" title="添加创业者" mask="true" max="true"><span>添加</span></a></li>
+      <li><a class="edit" href="@Url.Action("edit", "QY_Person", new { id = "{mid}" })" rel="edit" target="dialog" title="编辑创业者信息" mask="true" warn="请选择一个创业者" max="true"><span>修改</span></a></li>
       <li><a class="delete" href="@Url.Action("delete", "QY_Person", new { id = "{mid}" })" rel="delete" target="ajaxTodo" title="确定要删除吗？"  warn="请选择一个创业者"><span>删除</span></a></li>
     </ul>
   </div>

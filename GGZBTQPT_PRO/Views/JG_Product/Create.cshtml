@@ -9,23 +9,16 @@
         <input type="checkbox" id="checkboxType" name="checkboxType" value="@item.ID" /><span>@item.Name</span>
     }
 }
-
-@using (Html.BeginForm("Create", "JG_Product", FormMethod.Post, new { onsubmit = "return iframeCallback(this);", @class = "pageForm required-validate", enctype = "multipart/form-data" }))
+<div class="pageContent">
+@using (Html.BeginForm("Create", "JG_Product", FormMethod.Post, new { onsubmit = "return iframeCallback(this,dialogAjaxDone);", @class = "pageForm required-validate", enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true)
-    <div layouth="20">
-        <table style="width: 100%" class="list">
+    <div class="pageFormContent" layouth="60">
+        <table style="width: 100%; border-spacing:3px">
             <tr>
-                <td style="width: 80px">@Html.LabelFor(model => model.ProductName, "产品名称")
+                <td style="width: 140px">@Html.LabelFor(model => model.ProductName, "产品名称")
                 </td>
-                <td>@Html.EditorFor(model => model.ProductName)
-                </td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.Pic, "产品图片")
-                </td>
-                <td>
-                    <input type="file" name="file1" />
+                <td>@Html.TextBoxFor(model => model.ProductName, new { style = "width:300px" })
                 </td>
             </tr>
             <tr>
@@ -49,7 +42,7 @@
             <tr>
                 <td>@Html.LabelFor(model => model.InterestRate, "利率")
                 </td>
-                <td>@Html.EditorFor(model => model.InterestRate)
+                <td>@Html.EditorFor(model => model.InterestRate)（%/年）
                 </td>
             </tr>
             <tr>
@@ -61,35 +54,35 @@
             <tr>
                 <td>@Html.LabelFor(model => model.Superiority, "产品优势")
                 </td>
-                <td>@Html.TextAreaFor(model => model.Superiority, new { rows = "5", cols = "60" })
+                <td>@Html.TextAreaFor(m => m.Superiority, new { @class = "editor", @rows = "10", @Value = Model.Superiority })
                 </td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.RepaymentType, "还款方式")
                 </td>
-                <td>@Html.TextAreaFor(model => model.RepaymentType, new { rows = "5", cols = "60" })
+                <td>@Html.TextAreaFor(m => m.RepaymentType, new { @class = "editor", @rows = "10", @Value = Model.RepaymentType })
                 </td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.AppCondition, "申请条件")
                 </td>
-                <td>@Html.TextAreaFor(model => model.AppCondition, new { rows = "5", cols = "60" })
+                <td>@Html.TextAreaFor(m => m.AppCondition, new { @class = "editor", @rows = "10", @Value = Model.AppCondition })
                 </td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Process, "办理流程")
                 </td>
-                <td>@Html.TextAreaFor(model => model.Process, new { rows = "5", cols = "60" })
+                <td>@Html.TextAreaFor(m => m.Process, new { @class = "editor", @rows = "10", @Value = Model.Process })
                 </td>
             </tr>
         </table>
-        <table style="width: 100%" class="list">
+        <table style="width: 100%; border-spacing:3px">
             <tr>
-                <td style="width: 80px">@Html.LabelFor(model => model.Linkman, "联系人")
+                <td style="width: 140px">@Html.LabelFor(model => model.Linkman, "联系人")
                 </td>
-                <td>@Html.EditorFor(model => model.Linkman)
+                <td style="width: 300px">@Html.EditorFor(model => model.Linkman)
                 </td>
-                <td>@Html.LabelFor(model => model.Position, "所属部门及职务")
+                <td style="width: 140px">@Html.LabelFor(model => model.Position, "所属部门及职务")
                 </td>
                 <td>@Html.EditorFor(model => model.Position)
                 </td>
@@ -114,9 +107,33 @@
                 <td>@Html.EditorFor(model => model.Email)
                 </td>
             </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Pic, "产品图片")
+                </td>
+                <td colspan="3">
+                    <input type="file" name="file1" />
+                </td>
+            </tr>
         </table>
-        <p>
-            <input type="submit" value="提交" />
-        </p>
     </div>
+    
+    <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit" value="提交">
+                                提交</button></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close" value="取消">
+                                取消</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
 }
+</div>

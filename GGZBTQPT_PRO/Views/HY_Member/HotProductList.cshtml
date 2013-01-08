@@ -2,14 +2,13 @@
 @{
     Layout = null;
 }
-
-<div class="pageHeader">
+<div class="pageHeader" style="border-left: 1px #B8D0D6 solid; border-right: 1px #B8D0D6 solid; border-top:1px #B8D0D6 solid;">
     <form id="pagerForm" method="post" action="@Url.Action("HotList")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
-    <input type="hidden" name="memberType" value="@ViewData["memberType"]"  />
+    <input type="hidden" name="type" value="@ViewData["type"]"  />
     </form>
-    <form onsubmit="return navTabSearch(this);" action="@Url.Action("HotList", new { type = 1 })" method="post">
+    <form onsubmit="return divSearch(this,'hotInfoBox');" action="@Url.Action("HotList", new { type = 1 })" rel="pagerForm"  method="post">
     <div class="searchBar">
         <ul class="searchContent">
             <li>
@@ -34,7 +33,7 @@
             </ul>
         </div>
     </div>
-    </form>
+  </form>
 </div>
 <div class="pageContent j-resizeGrid" style="border-left: 1px #B8D0D6 solid; border-right: 1px #B8D0D6 solid">
     <div class="panelBar">
@@ -44,7 +43,7 @@
             <li class="line">line</li>
         </ul>
     </div>
-    <div layouth="116">
+    <div layouth="121">
         <table class="list" width="98%" asc="asc" desc="desc">
             <thead>
                 <tr>
@@ -106,9 +105,9 @@
     <div class="panelBar">
         <div class="pages">
             <span>每页显示</span>
-            <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value,pageNum:1},'menuInfoBox')">
+            <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value,pageNum:1},'hotInfoBox')">
                 @{  
-                    int[] nums = new int[] { 5, 15, 20, 50, 100, 200 };
+                    int[] nums = new int[] { 15, 20, 50, 100, 200 };
                     foreach (var num in nums)
                     {
                         if (Int32.Parse(ViewData["numPerPage"].ToString()) == num)
@@ -124,7 +123,7 @@
             </select>
             <span>条，共 @ViewData["recordCount"] 条</span>
         </div>
-        <div rel="menuInfoBox" class="pagination" targettype="navTab" totalcount="@ViewData["recordCount"]" numperpage="@ViewData["numPerPage"]" pagenumshown="10"  
+        <div rel="hotInfoBox" class="pagination" targettype="navTab" totalcount="@ViewData["recordCount"]" numperpage="@ViewData["numPerPage"]" pagenumshown="10"  
                currentpage="@ViewData["pageNum"]">
         </div>
     </div>

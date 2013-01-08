@@ -9,7 +9,7 @@ namespace GGZBTQPT_PRO.Models
         {
             AgencyName = " ";
             AgencyType = 0;
-            RegTime = DateTime.MaxValue;
+            RegTime = DateTime.Now;
             Address = " ";
             RegCapital = 0;
             Province = "0";
