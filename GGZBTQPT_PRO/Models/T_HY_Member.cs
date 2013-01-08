@@ -102,6 +102,8 @@ namespace GGZBTQPT_PRO.Models
 
         public virtual ICollection<T_HY_Message> SendedMessages { get; set; }//会员发送的站内消息
         public virtual ICollection<T_HY_Message> ReceivedMessages { get; set; }//会员接收的站内消息
+
+        public virtual ICollection<T_ZC_MemberLog> MemberLogs { get; set; }//会员的操作日志
         
         
         // Validate method

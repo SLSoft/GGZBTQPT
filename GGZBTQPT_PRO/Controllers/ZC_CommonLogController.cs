@@ -10,6 +10,7 @@ using GGZBTQPT_PRO.Enums;
 using GGZBTQPT_PRO.Util;
 using ExcelGenerator.SpreadSheet; 
 using LinqToExcel;
+using System.ComponentModel.DataAnnotations;
 
 namespace GGZBTQPT_PRO.Controllers
 { 
@@ -66,20 +67,15 @@ namespace GGZBTQPT_PRO.Controllers
             return View(list);
         }
         
-        public ViewResult MemberDynamic(string keywords, int pageNum = 1, int numPerPage = 15)
-        { 
-            keywords = keywords == null ? "" : keywords;
 
-            IList<GGZBTQPT_PRO.Models.T_ZC_CommonLog> list = db.T_ZC_CommonLog.Where(l => (l.Level == "INFO" && l.GenerateSystem != (int)GenerateSystem.Manage) && l.Message.Contains(keywords)).ToList()
-                                                            .OrderByDescending(l => l.Date)
-                                                            .Skip(numPerPage * (pageNum - 1))
-                                                            .Take(numPerPage).ToList();
+        private SelectList GetSystemType()
+        {
+            var types = from GenerateSystem systemType in Enum.GetValues(typeof(GenerateSystem))
+                        where systemType != 0
+                        select new { ID = (int)systemType, Name = ((DisplayAttribute[])typeof(GenerateSystem).GetField(systemType.ToString()).GetCustomAttributes(typeof(DisplayAttribute), false)).First().Name };
 
-            ViewBag.recordCount = db.T_ZC_CommonLog.Where(l => (l.Level == "INFO" && l.GenerateSystem != (int)GenerateSystem.Manage) && l.Message.Contains(keywords)).Count();
-            ViewBag.numPerPage = numPerPage;
-            ViewBag.pageNum = pageNum;
-            ViewBag.keywords = keywords;
-            return View(list);
+            SelectList list = new SelectList(types, "ID", "Name");
+            return list;
         }
 
 

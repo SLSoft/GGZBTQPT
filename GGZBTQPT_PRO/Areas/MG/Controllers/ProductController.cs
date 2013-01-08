@@ -81,12 +81,12 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 int result = db.SaveChanges();
                 if (result > 0)
                 {
-                    Logging((int)LogLevels.operate, "发布了新的产品", (int)OperateTypes.Create, (int)GenerateTypes.FromMember, (int)GenerateSystem.Publish);
+                    Logging("发布了新的产品", (int)OperateTypes.Create, (int)GenerateSystem.Publish);
                     return RedirectToAction("Create", new { notice_type = "success" });
                 }
                 else
                 { 
-                    Logging((int)LogLevels.warn, "金融产品发布失败", (int)OperateTypes.Create, (int)GenerateTypes.FromMember, (int)GenerateSystem.Publish);
+                    LoggingError((int)LogLevels.warn, "金融产品发布失败", (int)OperateTypes.Create, (int)GenerateTypes.FromMember, (int)GenerateSystem.Publish);
                     ViewData["error"] = "金融产品发布失败!请检查输入信息或联系我们!";
                     return View(t_jg_product);
                 }
@@ -141,12 +141,12 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 int result = db.SaveChanges();
                 if (result > 0)
                 {
-                    Logging((int)LogLevels.operate, "更新了金融产品信息", (int)OperateTypes.Create, (int)GenerateTypes.FromMember, (int)GenerateSystem.Publish);
+                    Logging("更新了金融产品信息", (int)OperateTypes.Create, (int)GenerateSystem.Publish);
                     return RedirectToAction("Edit", new { notice_type = "success" });
                 }
                 else
                 { 
-                    Logging((int)LogLevels.warn, "更新了金融产品信息失败", (int)OperateTypes.Create, (int)GenerateTypes.FromMember, (int)GenerateSystem.Publish);
+                    LoggingError((int)LogLevels.warn, "更新了金融产品信息失败", (int)OperateTypes.Create, (int)GenerateTypes.FromMember, (int)GenerateSystem.Publish);
                     ViewData["error"] = "金融产品更新失败!请检查输入信息或联系我们!";
                     return View(t_jg_product);
                 }

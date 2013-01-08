@@ -69,7 +69,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 db.Entry(t_qy_person).State = EntityState.Modified;
                 db.SaveChanges();
 
-                Logging((int)LogLevels.operate, "更新了详细信息", (int)OperateTypes.Edit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Personal);
+                Logging("更新了详细信息", (int)OperateTypes.Edit,(int)GenerateSystem.Personal);
                 return Json(new { statusCode = "200", message = "信息保存成功！", type = "success" });
 
             }
@@ -79,8 +79,6 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             BindDegree(t_qy_person.Degree);
             BindTitles(t_qy_person.Titles);
             BindTitlesGrade(t_qy_person.TitlesGrade);
-
-            Logging((int)LogLevels.warn, "详细信息更新失败", (int)OperateTypes.Edit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Personal);
             return Json(new { statusCode = "200", message = "信息保存失败！", type = "error" });
         } 
 

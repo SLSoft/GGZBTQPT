@@ -23,7 +23,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
         public ActionResult Index()
         {
-            Logging((int)LogLevels.operate, "访问了我的关注", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Attention);
+            Logging("访问了我的关注", (int)OperateTypes.Visit, (int)GenerateSystem.Attention);
             var member = db.T_HY_Member.Find(CurrentMember().ID);
             return View(member);
            
@@ -36,7 +36,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// <returns></returns>
         public ActionResult AttentionedAgencies(int id = 1)
         {
-            Logging((int)LogLevels.operate, "访问了我关注的机构", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Attention);
+            Logging("访问了我关注的机构", (int)OperateTypes.Visit, (int)GenerateSystem.Attention);
             var member = CurrentMember();
            
             try
@@ -62,7 +62,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// <returns></returns>
         public ActionResult AttentionedCorps(int id = 1)
         {
-            Logging((int)LogLevels.operate, "访问了我关注的企业", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Attention);
+            Logging("访问了我关注的企业", (int)OperateTypes.Visit, (int)GenerateSystem.Attention);
             var member = CurrentMember();
             
             try
@@ -89,7 +89,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// <returns></returns>
         public ActionResult AttentionedPersons(int id = 1)
         {
-            Logging((int)LogLevels.operate, "访问了我关注的创业者", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Attention);
+            Logging("访问了我关注的创业者", (int)OperateTypes.Visit, (int)GenerateSystem.Attention);
             var member = CurrentMember();
             
             try
@@ -128,7 +128,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             member.Attentions.Add(attentioned_item);
             db.SaveChanges();
 
-            Logging((int)LogLevels.operate, "关注了" + AttentionedMemberName(id), (int)OperateTypes.Attention, (int)GenerateTypes.FromMember, (int)GenerateSystem.Attention);
+            Logging("关注了" + AttentionedMemberName(id), (int)OperateTypes.Attention, (int)GenerateSystem.Attention);
             return Json(new { statusCode = "200", message = "关注成功", type = "success" });
         }
 
@@ -148,7 +148,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             db.T_HY_Attention.Remove(unattentioned_item);
             db.SaveChanges();
 
-            Logging((int)LogLevels.operate, "取消关注了" + AttentionedMemberName(id), (int)OperateTypes.Attention, (int)GenerateTypes.FromMember, (int)GenerateSystem.Attention);
+            Logging("取消关注了" + AttentionedMemberName(id), (int)OperateTypes.Attention, (int)GenerateSystem.Attention);
             return Json(new { statusCode = "200", message = "取消关注成功", type = "success" });
         }
 

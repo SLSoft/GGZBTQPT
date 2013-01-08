@@ -16,7 +16,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Filter
         //在Action执行之后执行  
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         { 
-            //记录用户的操作时间，写入用户的在线记录
+            //更新用户的操作时间，写入用户的在线记录
             if(filterContext.HttpContext.Session["OnlineID"] != null)
             {
                 using(GGZBTQPTDBContext db = new GGZBTQPTDBContext())

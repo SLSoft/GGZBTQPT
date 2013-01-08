@@ -21,7 +21,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
         public ActionResult Index()
         { 
-            Logging((int)LogLevels.operate, "访问了我的发布", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Publish);
+            Logging("访问了我的发布", (int)OperateTypes.Visit,  (int)GenerateSystem.Publish);
             var member = db.T_HY_Member.Find(CurrentMember().ID);
             return View(member);
 
@@ -34,7 +34,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// <returns></returns>
         public ActionResult PublishedFinancials(int member_id, int id = 1)
         {
-            Logging((int)LogLevels.operate, "访问了所发布的项目", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Publish);
+            Logging( "访问了所发布的项目", (int)OperateTypes.Visit, (int)GenerateSystem.Publish);
             var member = CurrentMember();
             
             try
@@ -56,7 +56,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// <returns></returns>
         public ActionResult PublishedInvestments(int member_id, int id = 1)
         {
-            Logging((int)LogLevels.operate, "访问了所发布的意向", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Publish);
+            Logging( "访问了所发布的意向", (int)OperateTypes.Visit, (int)GenerateSystem.Publish);
             var member = CurrentMember();
             
             try
@@ -77,7 +77,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// <returns></returns>
         public ActionResult PublishedProducts(int member_id, int id = 1 )
         {
-            Logging((int)LogLevels.operate, "访问了所发布的产品", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Publish);
+            Logging( "访问了所发布的产品", (int)OperateTypes.Visit, (int)GenerateSystem.Publish);
             var member = CurrentMember();
            
             try

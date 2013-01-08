@@ -23,7 +23,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ActionResult Index()
         {
 
-            Logging((int)LogLevels.operate, "访问了我的收藏", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Favorite);
+            Logging("访问了我的收藏", (int)OperateTypes.Visit, (int)GenerateSystem.Favorite);
             var member = db.T_HY_Member.Find(CurrentMember().ID);
             return View(member); 
         }
@@ -35,7 +35,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// <returns></returns>
         public ActionResult FavoredFinancials(int member_id, int id = 1)
         {
-            Logging((int)LogLevels.operate, "访问了我收藏的融资项目", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Favorite);
+            Logging("访问了我收藏的融资项目", (int)OperateTypes.Visit, (int)GenerateSystem.Favorite);
             var member = CurrentMember();
            
             try
@@ -65,7 +65,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// <returns></returns>
         public ActionResult FavoredInvestments(int member_id, int id = 1)
         {
-            Logging((int)LogLevels.operate, "访问了我收藏的投资意向", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Favorite);
+            Logging("访问了我收藏的投资意向", (int)OperateTypes.Visit, (int)GenerateSystem.Favorite);
             var member = CurrentMember();
            
             try
@@ -96,7 +96,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// <returns></returns>
         public ActionResult FavoredProducts(int member_id, int id = 1)
         {
-            Logging((int)LogLevels.operate, "访问了我收藏的金融产品", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Favorite);
+            Logging("访问了我收藏的金融产品", (int)OperateTypes.Visit, (int)GenerateSystem.Favorite);
             var member = CurrentMember();
             
             try
@@ -136,7 +136,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             member.Favorites.Add(favored_item);
             db.SaveChanges();
 
-            Logging((int)LogLevels.operate, "收藏了" + FavoredItemName(type_id, favored_item), (int)OperateTypes.Favorite, (int)GenerateTypes.FromMember, (int)GenerateSystem.Favorite);
+            Logging("收藏了" + FavoredItemName(type_id, favored_item), (int)OperateTypes.Favorite, (int)GenerateSystem.Favorite);
 
             return Json(new { statusCode = "200", message = "项目收藏成功", type = "success" });
         } 
@@ -152,7 +152,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             var member = CurrentMember(); 
             var favored_item = member.Favorites.First( f => f.FinancialID == id);
 
-            Logging((int)LogLevels.operate, "取消了对" + FavoredItemName(favored_item.FavoriteType, favored_item) + "的收藏", (int)OperateTypes.Favorite, (int)GenerateTypes.FromMember, (int)GenerateSystem.Favorite);
+            Logging( "取消了对" + FavoredItemName(favored_item.FavoriteType, favored_item) + "的收藏", (int)OperateTypes.Favorite, (int)GenerateSystem.Favorite);
             member.Favorites.Remove(favored_item);
             db.T_HY_Favorite.Remove(favored_item);
             db.SaveChanges();

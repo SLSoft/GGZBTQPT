@@ -18,7 +18,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
         public ActionResult Index()
         { 
-            Logging((int)LogLevels.operate, "访问了金融推荐", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Recommend);
+            Logging("访问了金融推荐", (int)OperateTypes.Visit, (int)GenerateSystem.Recommend);
             return View(CurrentMember()); 
         }
 
@@ -30,7 +30,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ActionResult RecommendFinancials(int id = 1)
         {
             
-            Logging((int)LogLevels.operate, "访问了项目推荐", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Recommend);
+            Logging("访问了项目推荐", (int)OperateTypes.Visit,(int)GenerateSystem.Recommend);
             var member = CurrentMember();
 
             try
@@ -58,7 +58,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// <returns></returns>
         public ActionResult RecommendInvestments(int id = 1)
         { 
-            Logging((int)LogLevels.operate, "访问了资金推荐", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Recommend);
+            Logging("访问了资金推荐", (int)OperateTypes.Visit, (int)GenerateSystem.Recommend);
             var member = CurrentMember();
     
             try
@@ -82,7 +82,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// <returns></returns>
         public ActionResult RecommendProducts(int id = 1)
         {
-            Logging((int)LogLevels.operate, "访问了产品推荐", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Recommend);
+            Logging("访问了产品推荐", (int)OperateTypes.Visit, (int)GenerateSystem.Recommend);
             var member = CurrentMember();
            
             try
@@ -106,7 +106,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// <returns></returns>
         public ActionResult RecommendAgencies(int id = 1)
         {
-            Logging((int)LogLevels.operate, "访问了机构推荐", (int)OperateTypes.Visit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Recommend);
+            Logging("访问了机构推荐", (int)OperateTypes.Visit, (int)GenerateSystem.Recommend);
             var member = CurrentMember();
          
             try

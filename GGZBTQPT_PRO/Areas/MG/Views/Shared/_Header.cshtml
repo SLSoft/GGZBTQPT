@@ -34,7 +34,7 @@
         <li class="divider-vertical"></li>
         <li>
             <div class="btn-group">
-                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">短消息 <span class="caret"></span></a>
+                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">短消息 @{ var message_num = "[" + Session["UnReadMsg"].ToString() + "]";}<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li>@Html.ActionLink("短消息列表", "Index", "Message")</li>
                     <li class="divider"></li>

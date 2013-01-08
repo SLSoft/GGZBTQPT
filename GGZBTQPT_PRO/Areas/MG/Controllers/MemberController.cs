@@ -27,6 +27,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             return PartialView(t_hy_member);
         } 
 
+        #region SignUP
         public ActionResult SignUp()
         {
             var types = from MemberTypes type in Enum.GetValues(typeof(MemberTypes))
@@ -64,7 +65,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 db.T_HY_Member.Add(member);
                 db.SaveChanges();
 
-                Logging((int)LogLevels.operate, "注册了会员,登录名：" + member.LoginName, (int)OperateTypes.Create, (int)GenerateTypes.FromMember, (int)GenerateSystem.Authority); 
+                Logging("注册了会员,登录名：" + member.LoginName, (int)OperateTypes.Create, (int)GenerateSystem.Authority); 
                 Mail.SendEmail(member.Email, "欢迎您注册光谷资本特区会员！", Welcome(member.LoginName, member.Password));
                 BusinessService.SendMessageFromManage(member,"感谢您注册光谷资本特区，我们将在24小时内对您的资料进行审核！", "欢迎您注册光谷资本特区");
 
@@ -81,8 +82,9 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
             return View(vm_signup);
         }
+        #endregion
 
-
+        #region Edit
         public PartialViewResult Edit()
         { 
             var member = CurrentMember();
@@ -115,16 +117,16 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 member.CellPhone = vm_edit_member.CellPhone;
                 db.SaveChanges();
 
-                Logging((int)LogLevels.operate, "更新了会员信息：", (int)OperateTypes.Edit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Personal);
+                Logging("更新了会员信息：", (int)OperateTypes.Edit, (int)GenerateSystem.Personal);
+
                 return Json(new { statusCode = "200", message = "信息保存成功！", type = "success" });
             } 
 
             return Json(new { statusCode = "200", message = "信息保存失败！", type = "error" });
         }
+        #endregion
 
-        //
-        // GET: /Member/Member/Delete/5
- 
+        #region Delete
         public ActionResult Delete(int id)
         {
             T_HY_Member t_hy_member = db.T_HY_Member.Find(id);
@@ -142,9 +144,9 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        #endregion
 
-        //------------ViewAction---------------//
-        //个人设置
+        #region Config
         public ActionResult Config()
         {
             var member = CurrentMember();
@@ -157,8 +159,9 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             ViewBag.MemberDetailID = FindIDForDetail(member.Type);
             return View();
         }
+        #endregion
  
-        //登录
+        #region Login
         public ActionResult Login()
         { 
             return View();
@@ -176,6 +179,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                     Session["MemberName"] = member.MemberName;
                     Session["MemberType"] = member.Type;
                     Session["IsVerified"] = member.IsVerified;
+                    Session["UnReadMsg"] = member.ReceivedMessages.Count();
 
                     RegisterLoginInfo();
 
@@ -226,12 +230,13 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
-        //-----------msgHelper-------------------// 
+        #endregion
+ 
+        #region Msg
         public bool SendVerifyCodeToPhone(string phone_number)
         {
             Random r = new Random();
-            string verify_code = r.Next(100000,999999).ToString();
+            string verify_code = r.Next(100000, 999999).ToString();
 
             if (SendMsg(verify_code, phone_number))
             {
@@ -239,7 +244,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 Session[phone_number] = "123456";
                 return true;
             }
-            return false; 
+            return false;
         }
 
         //根据用户提交的验证码进行身份验证
@@ -287,8 +292,9 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             }
             return Json("发送失败!", "text/html", JsonRequestBehavior.AllowGet);
         } 
- 
-        //----------------验证-----------------//
+        #endregion
+        
+        #region Authorition
         public JsonResult CheckLoginName(string loginname)
         { 
             return Json(!db.T_HY_Member.Any(m => m.LoginName == loginname), JsonRequestBehavior.AllowGet);
@@ -330,7 +336,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 member.OnlineLogs.Add(online_log);
                 db.SaveChanges();
 
-                Logging((int)LogLevels.operate, "进行了登陆操作", (int)OperateTypes.Login, (int)GenerateTypes.FromMember, (int)GenerateSystem.Authority);
+                Logging("进行了登陆操作", (int)OperateTypes.Login, (int)GenerateSystem.Authority);
                 Session["OnlineID"] = online_log.ID;
             } 
         }
@@ -345,15 +351,20 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 member.OnlineLogs.Add(online_log);
                 db.SaveChanges();
 
-                Logging((int)LogLevels.operate, "进行了注销操作", (int)OperateTypes.Logout, (int)GenerateTypes.FromMember, (int)GenerateSystem.Authority);
+                Logging("进行了注销操作", (int)OperateTypes.Logout, (int)GenerateSystem.Authority);
+                UpdateEndDateTimeWithMemberLog();
+
                 Session["OnlineID"] = null; 
+                Session["MemberLogID"] = null;
             } 
         }
+        #endregion
 
-
-        //
-        //----------------三类用户的信息维护-----------//
-
+        /**
+        * 用于对注册会员的分类信息进行初始化
+        * 包括企业、创业者、机构等
+        */
+        #region MemberDetailInit 
         public bool InitMemberDetail(int type, int member_id)
         {
             bool result = false;
@@ -430,6 +441,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             }
             return result;
         }
+        #endregion
 
         #region//为外网服务
         public string CurrentMemberForPortal()

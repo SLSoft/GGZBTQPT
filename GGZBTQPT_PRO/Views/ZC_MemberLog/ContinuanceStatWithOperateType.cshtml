@@ -1,0 +1,62 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_ZC_MemberLog>
+@using GGZBTQPT_PRO.Enums
+@{
+    Layout = null;
+}
+<div  class="stat-container" >
+    <hr />
+    <div class="stat-number">
+        <h3>
+            按照操作类型统计操作时间如下：</h3>
+        <ul>
+            <li>访问操作： @Model.Where(m => m.OperateType == (int)OperateTypes.Visit).Sum(m => m.Continuance.TotalMinutes)</li>
+            <li>添加操作： @Model.Where(m => m.OperateType == (int)OperateTypes.Create).Sum(m => m.Continuance.TotalMinutes)</li>
+            <li>删除操作： @Model.Where(m => m.OperateType == (int)OperateTypes.Delete).Sum(m => m.Continuance.TotalMinutes)</li>
+            <li>更新操作： @Model.Where(m => m.OperateType == (int)OperateTypes.Edit).Sum(m => m.Continuance.TotalMinutes)</li>
+            <li>发布操作： @Model.Where(m => m.OperateType == (int)OperateTypes.Publish).Sum(m => m.Continuance.TotalMinutes)</li>
+            <li>关注操作： @Model.Where(m => m.OperateType == (int)OperateTypes.Attention).Sum(m => m.Continuance.TotalMinutes)</li>
+            <li>收藏操作： @Model.Where(m => m.OperateType == (int)OperateTypes.Favorite).Sum(m => m.Continuance.TotalMinutes)</li>
+            <li>搜索操作：@Model.Where(m => m.OperateType == (int)OperateTypes.Search).Sum(m => m.Continuance.TotalMinutes)</li>
+        </ul>
+    </div>
+    <div class="unitBox" style="margin-left: 246px;">
+        <div id="continuance_with_operate_type_stat" style="height: 400px; width: 600px;">
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.barRenderer.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.categoryAxisRenderer.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.pointLabels.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.getJSON("@Url.Action("ContinuanceStatWithOperateTypeData", "ZC_MemberLog")", function(data){
+        
+            var statData = [];
+            var ticks = [];
+            $.each(data.statData, function(key, value){
+                statData.push(value);
+                ticks.push(key);
+            }); 
+            
+            jQuery.jqplot('continuance_with_operate_type_stat', [statData],
+                {
+                    seriesDefaults: {
+                        renderer:$.jqplot.BarRenderer,
+                        rendererOptions: {
+                                fillToZero: true
+                            }
+                    },
+                    axes: {
+                        yaxis: {
+                            pad: 1,
+                            tickOptions: { formatString: '%.2f(分钟)' }
+                        },
+                        xaxis: {
+                            renderer: $.jqplot.CategoryAxisRenderer,
+                            ticks: ticks
+                        }
+                    }
+                });
+        });
+    });
+</script>

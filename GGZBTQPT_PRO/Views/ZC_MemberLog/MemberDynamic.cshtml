@@ -1,4 +1,5 @@
-﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_ZC_CommonLog>
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_ZC_MemberLog>
+@using GGZBTQPT_PRO.Enums;
 @{
     Layout = null;
 }
@@ -70,7 +71,10 @@
                         操作时间
                     </th>
                     <th>
-                        来源
+                        持续时间
+                    </th>
+                    <th>
+                        模块
                     </th>
                     <th>
                         会员名称
@@ -88,13 +92,16 @@
                             @Html.DisplayFor(modelItem => item.Message)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Date)
+                            @Html.DisplayFor(modelItem => item.StartDateTime)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Logger)
+                            @Html.DisplayFor(modelItem => item.Continuance)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.User)
+                            @Enum.GetName(typeof(GenerateSystem),item.GenerateModule)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Member.MemberName)
                         </td>
                     </tr>
                 }

@@ -110,7 +110,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 }
                 db.SaveChanges();
 
-                Logging((int)LogLevels.operate, "更新了企业详细信息", (int)OperateTypes.Edit, (int)GenerateTypes.FromMember, (int)GenerateSystem.Personal);
+                Logging("更新了企业详细信息", (int)OperateTypes.Edit,  (int)GenerateSystem.Personal);
                 return Json(new { statusCode = "200", message = "信息保存成功！", type = "success" });
             }
             return Json(new { statusCode = "200", message = "信息保存失败！", type = "error" });

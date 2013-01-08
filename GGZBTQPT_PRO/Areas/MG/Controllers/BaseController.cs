@@ -102,7 +102,16 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         }
 
         //日志处理
-        public void Logging(int level, string message, int operate_type, int generate_type, int generate_system, string exception = "无")
+        /// <summary>
+        /// 会员错误日志
+        /// </summary>
+        /// <param name="level"></param>
+        /// <param name="message"></param>
+        /// <param name="operate_type"></param>
+        /// <param name="generate_type"></param>
+        /// <param name="generate_system"></param>
+        /// <param name="exception"></param>
+        public void LoggingError(int level, string message, int operate_type, int generate_type, int generate_system, string exception = "无")
         {
             log4net.ILog log = log4net.LogManager.GetLogger(this.GetType());
 
@@ -133,6 +142,46 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 case (int)LogLevels.operate:
                     log.Info(message);
                     break;
+            }
+        }
+
+        /// <summary>
+        /// 会员操作日志
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="operate_type"></param>
+        /// <param name="generate_module"></param>
+        public void Logging(string message, int operate_type, int generate_module)
+        {
+            UpdateEndDateTimeWithMemberLog();
+            T_ZC_MemberLog member_log = new T_ZC_MemberLog();
+
+            member_log.Message = message;
+            member_log.Member = CurrentMember();
+            member_log.OperateType = operate_type;
+            member_log.GenerateModule = generate_module;
+
+            //为了避免用户的意外退出，造成最后一个操作无法记录结束的时间，这里近似的给一个结束时间
+            member_log.EndDateTime = DateTime.Now;
+            member_log.Continuance = member_log.EndDateTime - member_log.StartDateTime;
+
+            db.T_ZC_MemberLog.Add(member_log);
+            db.SaveChanges();
+
+            Session["MemberLogID"] = member_log.ID;
+        }
+
+        public void UpdateEndDateTimeWithMemberLog()
+        {
+            if (Session["MemberLogID"] != null && Session["MemberLogID"].ToString() != "")
+            {
+                var member_log = db.T_ZC_MemberLog.Find((int)Session["MemberLogID"]);
+
+                db.Entry(member_log).State = EntityState.Modified;
+                member_log.EndDateTime = DateTime.Now;
+                member_log.Continuance = member_log.EndDateTime - member_log.StartDateTime;
+
+                db.SaveChanges();
             }
         }
     }
