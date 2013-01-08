@@ -12,6 +12,10 @@
                 @Html.DropDownList("UserId","---请选择---")
             </p>
             <p>
+                @Html.LabelFor(model => model.WorkTime,"日期")
+                <input type="text" name="WorkTime" class="date" value="@ViewBag.WorkTime" style="width:100px" />
+            </p>
+            <p>
                 @Html.LabelFor(model => model.State,"状态")
                 @Html.DropDownList("State", "---请选择---")
             </p>

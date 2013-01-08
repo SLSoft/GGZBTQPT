@@ -46,6 +46,7 @@ namespace GGZBTQPT_PRO.Controllers
         {
             ViewBag.UserId = GetUser();
             ViewBag.State = GetAttendanceState();
+            ViewBag.WorkTime =DateTime.Now.ToString("yyyy-MM-dd");
             return View();
         }
 
