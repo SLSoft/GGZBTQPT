@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
+using GGZBTQPT_PRO.ViewModels;
 
 namespace GGZBTQPT_PRO.Controllers
 { 
@@ -203,15 +204,55 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         //创业者统计
-        public ActionResult personReport()
+        public ActionResult PersonReport()
         {
             var ps = db.T_QY_Person.Where(p => p.IsValid == true).ToList();
-            ViewBag.CorpCount = ps.Count();
+            ViewBag.PersonCount = ps.Count();
             ViewBag.YearSum = ps.Where(p => p.CreateTime.Value.Year == DateTime.Now.Year).Count();
             ViewBag.MountSum = ps.Where(p => (p.CreateTime.Value.Year == DateTime.Now.Year && p.CreateTime.Value.Month == DateTime.Now.Month)).Count();
             ViewBag.DaySum = ps.Where(p => (p.CreateTime.Value.Year == DateTime.Now.Year && p.CreateTime.Value.Month == DateTime.Now.Month && p.CreateTime.Value.Day == DateTime.Now.Day)).Count();
 
-            return PartialView(ps);
+            var up = db.T_QY_Person.Where(p => p.IsValid == true).GroupBy(g => g.Education)
+                                    .Select(s => new { cnt = s.Count(), type = (int)s.Key });
+
+
+            var list = from u in db.T_PTF_DicDetail
+                       where u.DicType == "22"
+                       join p in up on u.ID equals p.type into gj
+                       from x in gj.DefaultIfEmpty()
+                       orderby u.ID
+                       select new VM_CPReport
+                       {
+                           TypeName = u.Name,
+                           Count = x.type == null ? 0 : x.cnt
+                       };
+            return PartialView(list.ToList());
+        }
+
+        public ActionResult PersonReportData()
+        {
+            var up = db.T_QY_Person.Where(p => p.IsValid == true).GroupBy(g => g.Education)
+                                    .Select(s => new { cnt = s.Count(), type = (int)s.Key });
+
+
+            var list = from u in db.T_PTF_DicDetail
+                       where u.DicType == "22"
+                       join p in up on u.ID equals p.type into gj
+                       from x in gj.DefaultIfEmpty()
+                       orderby u.ID
+                       select new VM_CPReport
+                       {
+                           TypeName = u.Name,
+                           Count = x.type == null ? 0 : x.cnt
+                       };
+
+            Dictionary<String, int> dic = new Dictionary<string, int>();
+            foreach (VM_CPReport vmx in list.ToList())
+            {
+                dic.Add(vmx.TypeName, vmx.Count);
+            }
+
+            return Json(new { statData = dic }, JsonRequestBehavior.AllowGet);
         }
     }
 }
