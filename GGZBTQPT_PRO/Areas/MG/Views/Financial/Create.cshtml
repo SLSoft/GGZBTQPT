@@ -11,7 +11,7 @@
         {
             <br />
         }
-        <input type="checkbox" name="TransactionMode" value="@item.Value" /><span>@item.Text</span>
+        <input type="checkbox" name="TransactionMode" value="@item.Value" style="vertical-align: middle;"/><span style="vertical-align: middle;font-size:12pt">@item.Text</span>
         i++;
     }
 }
@@ -83,7 +83,7 @@
             </tr>
             <tr>
                 <td style="width:90px">@Html.LabelFor(model => model.ItemName, "项目名称")</td>
-                <td>@Html.TextBoxFor(model => model.ItemName, new { style = "width:60%" })</td>
+                <td>@Html.TextBoxFor(model => model.ItemName, new { style = "width:95%" })</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Province, "所属区域")</td>
@@ -111,7 +111,7 @@
         </table>
         <table id="item1" style="width:100%">
             <tr>
-                <td colspan="4">
+                <td colspan="2">
                 <div class= "form-title">
                     <strong>项目融资</strong>
                 </div>
@@ -121,6 +121,8 @@
                 <td style="width:90px">@Html.LabelFor(model => model.FinancSum, "融资金额")</td>
                 <td>@Html.EditorFor(model => model.FinancSum)（万元）
             @Html.ValidationMessageFor(model => model.FinancSum)</td>
+            </tr>
+            <tr>
                 <td>@Html.LabelFor(model => model.FinancType, "融资方式")</td>
                 <td>@Html.DropDownList("FinancType")</td>
             </tr>
@@ -128,6 +130,8 @@
                 <td>@Html.LabelFor(model => model.FinancCycle, "融资期限")</td>
                 <td>@Html.EditorFor(model => model.FinancCycle)（月）
             @Html.ValidationMessageFor(model => model.FinancCycle)</td>
+            </tr>
+            <tr>
                 <td>@Html.LabelFor(model => model.TotalInvestment, "项目总投资")</td>
                 <td>@Html.EditorFor(model => model.TotalInvestment)（万元）
             @Html.ValidationMessageFor(model => model.TotalInvestment)</td>
@@ -136,6 +140,8 @@
                 <td>@Html.LabelFor(model => model.ReturnRatio, "预计回报率")</td>
                 <td>@Html.EditorFor(model => model.ReturnRatio)（%/年）
             @Html.ValidationMessageFor(model => model.ReturnRatio)</td>
+            </tr>
+            <tr>
                 <td>@Html.LabelFor(model => model.ItemStage, "项目阶段")</td>
                 <td>@Html.DropDownList("ItemStage")</td>
             </tr>
@@ -143,23 +149,25 @@
                 <td>@Html.LabelFor(model => model.ItemValue, "项目评估价值")</td>
                 <td>@Html.EditorFor(model => model.ItemValue)（万元）
             @Html.ValidationMessageFor(model => model.ItemValue)</td>
+            </tr>
+            <tr>
                 <td>@Html.LabelFor(model => model.Assure, "担保说明")</td>
                 <td>@Html.EditorFor(model => model.Assure)
             @Html.ValidationMessageFor(model => model.Assure)</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Collateral, "抵质押物")</td>
-                <td colspan="3">@Html.EditorFor(model => model.Collateral)
+                <td>@Html.EditorFor(model => model.Collateral)
             @Html.ValidationMessageFor(model => model.Collateral)</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.PartnerRequirements, "合作方要求")</td>
-                <td colspan="3">@Html.TextAreaFor(model => model.PartnerRequirements, new { rows = "5", style = "width:95%" })</td>
+                <td>@Html.TextAreaFor(model => model.PartnerRequirements, new { rows = "5", style = "width:95%" })</td>
             </tr>
         </table>
         <table id="item2" style="width:100%">
             <tr>
-                <td colspan="4">
+                <td colspan="2">
                 <div class= "form-title">
                     <strong>资产交易</strong>
                 </div>
@@ -168,29 +176,35 @@
             <tr>
                 <td style="width:90px">@Html.LabelFor(model => model.AssetsType, "资产类别")</td>
                 <td>@Html.DropDownList("AssetsType")</td>
+            </tr>
+            <tr>
                 <td>@Html.LabelFor(model => model.AssetsCost, "资产估价")</td>
                 <td>@Html.EditorFor(model => model.AssetsCost)万元</td>
             </tr>
-            <tr>
+            <tr style="vertical-align:top">
                 <td>@Html.LabelFor(model => model.IsMortgage, "是否抵质押")</td>
                 <td>@Html.RadioButtonFor(model => model.IsMortgage, 1, new { @id = "radio2", @name = "IsMortgage" })是
                     @Html.RadioButtonFor(model => model.IsMortgage, 2, new { @id = "radio1", @name = "IsMortgage" })否
                 </td>
+            </tr>
+            <tr>
                 <td>@Html.LabelFor(model => model.TransferPrice, "转让价格")</td>
                 <td>@Html.EditorFor(model => model.TransferPrice)万元</td>
             </tr>
-            <tr>
+            <tr style="vertical-align:top">
                 <td>@Html.LabelFor(model => model.TransferType, "转让形式")</td>
                 <td>@Html.RadioButtonFor(model => model.TransferType, 1, new { @id = "radio2", @name = "rdolstState" })整体
                     @Html.RadioButtonFor(model => model.TransferType, 2, new { @id = "radio1", @name = "rdolstState" })部分
                 </td>
+            </tr>
+            <tr style="vertical-align:top">
                 <td>@Html.LabelFor(model => model.TransactionMode, "交易方式")</td>
-                <td>@GenerateTransactionMode()</td>
+                <td style="line-height:0">@GenerateTransactionMode()</td>
             </tr>
         </table>
         <table id="item3" style="width:100%">
             <tr>
-                <td colspan="4">
+                <td colspan="2">
                 <div class= "form-title">
                     <strong>政府招商</strong>
                 </div>
@@ -199,19 +213,23 @@
             <tr>
                 <td style="width:90px">@Html.LabelFor(model => model.Investment, "招商投资总额")</td>
                 <td>@Html.EditorFor(model => model.Investment)万元</td>
+            </tr>
+            <tr>
                 <td>@Html.LabelFor(model => model.CooperationMode, "合作方式")</td>
                 <td>@Html.EditorFor(model => model.CooperationMode)</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.BuildCycle, "预计项目所用时间")</td>
                 <td>@Html.EditorFor(model => model.BuildCycle)万元</td>
+            </tr>
+            <tr>
                 <td>@Html.LabelFor(model => model.ReturnCycle, "投资回收期")</td>
                 <td>@Html.EditorFor(model => model.ReturnCycle)</td>
             </tr>
         </table>
         <table id="item4" style="width:100%">
             <tr>
-                <td colspan="4">
+                <td colspan="2">
                 <div class= "form-title">
                     <strong>其他项目</strong>
                 </div>
@@ -220,8 +238,10 @@
             <tr>
                 <td style="width:90px">@Html.LabelFor(model => model.OtherItemFinancSum, "融资金额")</td>
                 <td>@Html.EditorFor(model => model.OtherItemFinancSum)万元</td>
+            </tr>
+            <tr>
                 <td>@Html.LabelFor(model => model.OtherItemFinancSum, "融资期限")</td>
-                <td>@Html.EditorFor(model => model.OtherItemFinancSum)</td>
+                <td>@Html.EditorFor(model => model.OtherItemFinancSum)月</td>
             </tr>
         </table>
         <table style="width:100%">

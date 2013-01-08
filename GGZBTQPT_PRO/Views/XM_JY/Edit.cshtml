@@ -18,7 +18,7 @@
         @Html.HiddenFor(model => model.OP)
         @Html.HiddenFor(model => model.CreateTime)
         @Html.HiddenFor(model => model.UpdateTime)
-        
+        <div class="pageFormContent" layouth="60">
         <table style="border-spacing:15px">
         <tr>
             <td width="80px">交易名称</td>
@@ -55,8 +55,24 @@
         </tr>
         </table>
     
-        <p>
-            <input type="submit" value="保 存" />
-        </p>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit" value="保存设置">
+                                保存设置</button></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close" value="取消">
+                                取消</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
 }
 </div>

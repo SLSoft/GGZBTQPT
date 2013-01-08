@@ -38,8 +38,8 @@
 <div class="pageContent">
   <div class="panelBar">
     <ul class="toolBar">
-      <li><a class="add" href="@Url.Action("create", "JG_Agency")" rel="create" target="dialog" title="添加新机构" mask="true" width="500" height="400"><span>添加</span></a></li>
-      <li><a class="edit" href="@Url.Action("edit", "JG_Agency", new { id = "{mid}" })" rel="edit" target="dialog" title="编辑机构信息" mask="true" warn="请选择一个机构" width="500" height="400"><span>修改</span></a></li>
+      <li><a class="add" href="@Url.Action("create", "JG_Agency")" rel="create" target="dialog" title="添加新机构" mask="true" max="true"><span>添加</span></a></li>
+      <li><a class="edit" href="@Url.Action("edit", "JG_Agency", new { id = "{mid}" })" rel="edit" target="dialog" title="编辑机构信息" mask="true" warn="请选择一个机构" max="true"><span>修改</span></a></li>
       <li><a class="delete" href="@Url.Action("delete", "JG_Agency", new { id = "{mid}" })" rel="delete" target="ajaxTodo" title="确定要删除吗？"  warn="请选择一个机构"><span>删除</span></a></li>
     </ul>
   </div>
