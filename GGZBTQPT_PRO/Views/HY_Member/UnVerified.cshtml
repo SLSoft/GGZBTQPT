@@ -39,8 +39,8 @@
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-            <li><a class="edit" id="Batch_Audit" href="#" title="确定批量通过吗？"><span>批量审核</span></a></li>
-            <li><a class="edit" id="Batch_Overrule" href="#" title="确定批量驳回吗？"><span>批量驳回</span></a></li>
+            <li><a class="edit" id="Batch_Audit" href="#"><span>批量审核</span></a></li>
+            <li><a class="edit" id="Batch_Overrule" href="#"><span>批量驳回</span></a></li>
             <li class="line">line</li>
         </ul>
     </div>
@@ -106,8 +106,8 @@
                             @Html.DisplayFor(modelItem => item.UpdatedAt)
                         </td>
                         <td>
-                            @Html.ActionLink("通过", "Verify", "HY_Member", new { id = @item.ID,stateType = 1 }, new { rel = "UnVerified", target = "ajaxTodo" })
-                            @Html.ActionLink("驳回", "Verify", "HY_Member", new { id = @item.ID,stateType = 2 }, new { rel = "UnVerified", target = "ajaxTodo" })
+                            @Html.ActionLink("通过", "Verify", "HY_Member", new { id = @item.ID, stateType = 1 }, new { rel = "UnVerified", target = "ajaxTodo", title = "确定审核通过吗？" })
+                            @Html.ActionLink("驳回", "Verify", "HY_Member", new { id = @item.ID, stateType = 2 }, new { rel = "UnVerified", target = "ajaxTodo", title = "确定审核驳回吗？" })
                         </td>
                     </tr>
                 }
@@ -166,7 +166,7 @@
             });
             if (result == "")
             {
-                alert("请选择一条会员数据");
+                alert("请至少选择一条会员数据");
                 return;
             }
             
