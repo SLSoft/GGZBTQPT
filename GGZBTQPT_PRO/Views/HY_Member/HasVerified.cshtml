@@ -108,7 +108,7 @@
                             @Html.DisplayFor(modelItem => item.UpdatedAt)
                         </td>
                         <td>
-                            @Html.ActionLink((item.State == 1) ? "撤销通过" : "撤销驳回", "UnVerify", "HY_Member", new { id = @item.ID }, new { rel = "HasVerified", target = "ajaxTodo" })
+                            @Html.ActionLink((item.State == 1) ? "撤销通过" : "撤销驳回", "UnVerify", "HY_Member", new { id = @item.ID }, new { rel = "HasVerified", target = "ajaxTodo", title = "确定操作吗？" })
                         </td>
                     </tr>
                 }
