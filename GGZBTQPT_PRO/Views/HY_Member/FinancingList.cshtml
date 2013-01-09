@@ -4,7 +4,7 @@
     Layout = null;
 }
 
-<div class="pageHeader">
+<div class="pageHeader" style="display:none">
     <form id="pagerForm" method="post" action="@Url.Action("FinancingList")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
@@ -12,8 +12,9 @@
     </form>
 </div>
 <div class="pageContent">
-    <div layouth="50" id="divList">
+    <div layouth="40" id="divList" style="border-top: 1px #B8D0D6 solid;">
         <table class="list" width="100%" asc="asc" desc="desc">
+            <thead>
             <tr>
                 <th>
                     项目名称
@@ -25,7 +26,8 @@
                     项目类别
                 </th>
             </tr>
-
+            </thead>
+            <tbody>
             @foreach (var item in Model)
             {
                 <tr>
@@ -40,6 +42,7 @@
                     </td>
                 </tr>
             }
+            </tbody>
         </table>
     </div>
     <div class="panelBar">

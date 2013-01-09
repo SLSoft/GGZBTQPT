@@ -92,7 +92,7 @@
             @if (@item.FinancingCount > 0)
             {
             <td>
-                @Html.ActionLink(@item.FinancingCount.ToString(), "FinancingList", "HY_Member", new { memberId = item.Member.ID }, new { target = "dialog", mask = "true",title="项目详情",width = "500", height = "350" })
+                @Html.ActionLink(@item.FinancingCount.ToString(), "FinancingList", "HY_Member", new { memberId = item.Member.ID }, new { target = "dialog", mask = "true",title="项目详情",width = "550", height = "350" })
             </td>
             }
             else
@@ -102,7 +102,7 @@
             @if (@item.InvestmentCount > 0)
             {
                 <td>
-                    @Html.ActionLink(@item.InvestmentCount.ToString(), "InvestmentList", "HY_Member", new { memberId = item.Member.ID }, new { target = "dialog", mask = "true", title = "意向详情", width = "500", height = "350" })
+                    @Html.ActionLink(@item.InvestmentCount.ToString(), "InvestmentList", "HY_Member", new { memberId = item.Member.ID }, new { target = "dialog", mask = "true", title = "意向详情", width = "550", height = "350" })
                 </td>
             }
             else
@@ -114,7 +114,7 @@
             @if (@item.ProductCount > 0)
             {
                 <td>
-                    @Html.ActionLink(@item.ProductCount.ToString(), "ProductList", "HY_Member", new { memberId = item.Member.ID }, new { target = "dialog", mask = "true", title = "产品详情", width = "500", height = "350" })
+                    @Html.ActionLink(@item.ProductCount.ToString(), "ProductList", "HY_Member", new { memberId = item.Member.ID }, new { target = "dialog", mask = "true", title = "产品详情", width = "550", height = "350" })
                 </td>
             }
             else
