@@ -15,7 +15,7 @@
             </p>
             <p>
                 @Html.LabelFor(model => model.FeedBack,"审核反馈")
-                @Html.TextAreaFor(model => model.FeedBack)
+                @Html.TextAreaFor(model => model.FeedBack, new { rows = "5", style = "width:50%" })
             </p>
         </div>
         
