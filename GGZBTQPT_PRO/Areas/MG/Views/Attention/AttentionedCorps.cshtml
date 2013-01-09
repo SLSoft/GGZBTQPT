@@ -35,7 +35,9 @@
                     <label>注册资金：<span>@_model.Corp.RegCapital</span></label>
                     <label>企业网站：<span>@_model.Corp.Website</span></label>
                     <label>企业描述:</label>
-                    <p>@_model.Corp.Remark</p>
+                    <p>
+                    @Html.Raw((_model.Corp.Remark.Length > 200 ? _model.Corp.Remark.Substring(0, 200) + "..." : _model.Corp.Remark))
+                    </p>
                 </p>
 @*                <p>
                     <label>发布项目：<span>3个</span></label>

@@ -105,6 +105,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         // POST: /XM_RZ/Create
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Create(T_XM_Financing t_xm_financing, FormCollection collection)
         {
             var member = CurrentMember();
@@ -164,6 +165,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         //
         // POST: /XM_RZ/Edit/5
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Edit(T_XM_Financing t_xm_financing, FormCollection collection)
         {
             var member = CurrentMember();

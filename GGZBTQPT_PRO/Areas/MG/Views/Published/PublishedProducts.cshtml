@@ -16,7 +16,7 @@
                    @Html.ActionLink(_model.ProductName, "Edit", "Product", new { id = _model.ID }, null)<span class="pub-time pull-right">@_model.CreateTime</span></h4>
                 @*摘要*@
                 <p class="summary">
-                    @_model.Superiority
+                    @Html.Raw((_model.Superiority.Length > 200 ? _model.Superiority.Substring(0, 200) + "..." : _model.Superiority))
                 </p>
                 @*附属信息*@
                 <div class="published-info">
