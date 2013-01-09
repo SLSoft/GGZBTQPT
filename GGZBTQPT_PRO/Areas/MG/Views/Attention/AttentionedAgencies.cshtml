@@ -23,9 +23,13 @@
                     <label>所在城市：<span>@_model.Agency.City</span></label>
                     <label>注册资金：<span>@_model.Agency.RegCapital</span></label>
                     <label>机构介绍:</label>
-                    <p>@_model.Agency.Remark</p>
+                    <p>
+                    @Html.Raw((_model.Agency.Remark.Length > 200 ? _model.Agency.Remark.Substring(0, 200) + "..." : _model.Agency.Remark))
+                    </p>
                     <label>服务介绍:</label>
-                    <p>@_model.Agency.Services</p>
+                    <p>
+                    @Html.Raw((_model.Agency.Services.Length > 200 ? _model.Agency.Services.Substring(0, 200) + "..." : _model.Agency.Services))
+                    </p>
                 </div> 
                 </div>
                 @*隐私信息*@

@@ -278,7 +278,7 @@
     <div id="pager">
         @Html.AjaxPager(Model, new PagerOptions { PageIndexParameterName = "id", ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }, new AjaxOptions { HttpMethod = "GET" })
     </div>
-    <div style="visibility:hidden">
+    <div style="display:none">
                 <input id="condition1" type="text" name="condition1" value="@ViewBag.condition1" />
                 <input id="condition2" type="text" name="condition2" value="@ViewBag.condition2" />
                 <input id="condition3" type="text" name="condition3" value="@ViewBag.condition3" />

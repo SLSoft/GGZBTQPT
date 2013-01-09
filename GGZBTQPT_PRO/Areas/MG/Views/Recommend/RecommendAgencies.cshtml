@@ -32,7 +32,7 @@
                     @Html.ActionLink(_model.AgencyName, "Details", "Agency", new { id = _model.ID }, null)<span class="pub-time pull-right">加入时间:@_model.CreateTime</span></h4>
                 @*摘要*@
                 <p class="summary">
-                    @_model.Remark
+                    @Html.Raw((_model.Remark.Length > 200 ? _model.Remark.Substring(0, 200) + "..." : _model.Remark))
                 </p>
                 @*附属信息*@
                 <div class="recommend-info">
