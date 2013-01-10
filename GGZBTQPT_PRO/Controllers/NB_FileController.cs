@@ -44,7 +44,7 @@ namespace GGZBTQPT_PRO.Controllers
             T_ZC_User current_user = CurrentUser();
 
             IList<T_NB_File> list = current_user.ReceiveFiles.Where(p => p.Title.Contains(keywords) && p.IsValid == true)
-                                                            .OrderBy(s => s.ID)
+                                                            .OrderByDescending(s => s.ID)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
 
