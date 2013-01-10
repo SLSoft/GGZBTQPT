@@ -96,7 +96,7 @@
                             @Html.DisplayFor(modelItem => item.UpdatedAt)
                         </td>
                         <td>
-                            @Html.ActionLink("发布到门户", "PublishCaseToCMS", new { id = item.ID })
+                            @Ajax.ActionLink("发布到门户", "PublishCaseToCMS", new { id = item.ID }, new AjaxOptions { HttpMethod = "POST", OnSuccess = "DWZ.ajaxDone(data)" })
                         </td>
                     </tr>
                 }

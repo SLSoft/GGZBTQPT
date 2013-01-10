@@ -41,16 +41,6 @@
                         </div>
                     </div>
                 </li>
-
-                <li>
-                    <div class="buttonActive">
-                        <div class="buttonContent">
-                        <a href="@Url.Action("ImportOperateLogWithExcel")" target="dwzExport" targetType="navTab" title="确定导入这些记录吗?">导入EXCEL</a>
-                        </div>
-                    </div>
-                </li>
-                @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框">
-                    <span>高级检索</span></a></li>*@
             </ul>
         </div>
     </div>
@@ -61,9 +51,6 @@
         <table class="list" width="100%" asc="asc" desc="desc">
             <thead>
                 <tr>
-                    <th width="40">
-                        <input type="checkbox" group="ids" class="checkboxCtrl">
-                    </th>
                     <th orderfield="name" class="asc">
                         会员动态
                     </th>
@@ -85,9 +72,6 @@
                 @foreach (var item in Model)
                 {
                     <tr target="mid" rel=@item.ID>
-                        <td>
-                            <input name="ids" type="checkbox" value="@item.ID" />
-                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Message)
                         </td>

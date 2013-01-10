@@ -9,14 +9,14 @@
         <h3>
             按照操作类型统计操作时间如下：</h3>
         <ul>
-            <li>访问操作： @Model.Where(m => m.OperateType == (int)OperateTypes.Visit).Sum(m => m.Continuance.TotalMinutes)</li>
-            <li>添加操作： @Model.Where(m => m.OperateType == (int)OperateTypes.Create).Sum(m => m.Continuance.TotalMinutes)</li>
-            <li>删除操作： @Model.Where(m => m.OperateType == (int)OperateTypes.Delete).Sum(m => m.Continuance.TotalMinutes)</li>
-            <li>更新操作： @Model.Where(m => m.OperateType == (int)OperateTypes.Edit).Sum(m => m.Continuance.TotalMinutes)</li>
-            <li>发布操作： @Model.Where(m => m.OperateType == (int)OperateTypes.Publish).Sum(m => m.Continuance.TotalMinutes)</li>
-            <li>关注操作： @Model.Where(m => m.OperateType == (int)OperateTypes.Attention).Sum(m => m.Continuance.TotalMinutes)</li>
-            <li>收藏操作： @Model.Where(m => m.OperateType == (int)OperateTypes.Favorite).Sum(m => m.Continuance.TotalMinutes)</li>
-            <li>搜索操作：@Model.Where(m => m.OperateType == (int)OperateTypes.Search).Sum(m => m.Continuance.TotalMinutes)</li>
+            <li>访问操作： @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Visit).Sum(m => m.Continuance.TotalMinutes),2)</li>
+            <li>添加操作： @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Create).Sum(m => m.Continuance.TotalMinutes),2)</li>
+            <li>删除操作： @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Delete).Sum(m => m.Continuance.TotalMinutes),2)</li>
+            <li>更新操作： @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Edit).Sum(m => m.Continuance.TotalMinutes),2)</li>
+            <li>发布操作： @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Publish).Sum(m => m.Continuance.TotalMinutes),2)</li>
+            <li>关注操作： @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Attention).Sum(m => m.Continuance.TotalMinutes),2)</li>
+            <li>收藏操作： @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Favorite).Sum(m => m.Continuance.TotalMinutes),2)</li>
+            <li>搜索操作： @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Search).Sum(m => m.Continuance.TotalMinutes),2)</li>
         </ul>
     </div>
     <div class="unitBox" style="margin-left: 246px;">

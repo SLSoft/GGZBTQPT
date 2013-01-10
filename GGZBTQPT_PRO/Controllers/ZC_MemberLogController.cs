@@ -9,7 +9,7 @@ using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.Enums;
 using GGZBTQPT_PRO.Util;
 using ExcelGenerator.SpreadSheet;
-using LinqToExcel;
+using GGZBTQPT_PRO.ViewModels;
 using System.ComponentModel.DataAnnotations;
 
 namespace GGZBTQPT_PRO.Controllers
@@ -32,7 +32,7 @@ namespace GGZBTQPT_PRO.Controllers
         public ViewResult MemberDynamic(string keywords, int systemType = -1, int pageNum = 1, int numPerPage = 15)
         {
             keywords = keywords == null ? "" : keywords;
-            IList<GGZBTQPT_PRO.Models.T_ZC_MemberLog> list = db.T_ZC_MemberLog.Where(l => l.Message.Contains(keywords)).ToList();
+            IList<GGZBTQPT_PRO.Models.T_ZC_MemberLog> list = db.T_ZC_MemberLog.Include("Member").Where(l => l.Message.Contains(keywords)).ToList();
 
             if (systemType != -1)
             {
@@ -209,6 +209,47 @@ namespace GGZBTQPT_PRO.Controllers
             {
                 return Json(new { statusCode = "300" }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public ActionResult ContinuanceStatWithMember()
+        {
+            var member_logs = db.T_ZC_MemberLog.Include("Member").ToList().GroupBy(m => m.Member).Select(m => new VM_OnlineContinuance { MemberName = m.Key.MemberName, Continuance = m.Aggregate(new TimeSpan(), (sum, nextData) => sum.Add(nextData.Continuance)) });
+            member_logs = member_logs.OrderByDescending(m => m.Continuance).Take(10);
+            return PartialView(member_logs);
+        }
+
+        public double ConverTimeSpanToDouble(TimeSpan time_span)
+        {
+            return time_span.TotalMinutes;
+        }
+
+        public ActionResult ContinuanceStatWithMemberData()
+        {
+            try
+            {
+                var member_logs = db.T_ZC_MemberLog.Include("Member").ToList().GroupBy(m => m.Member).Select(m => new VM_OnlineContinuance { MemberName = m.Key.MemberName, Continuance = m.Aggregate(new TimeSpan(), (sum, nextData) => sum.Add(nextData.Continuance)) });
+
+                member_logs = member_logs.OrderByDescending(m => m.Continuance).Take(10);
+                Dictionary<string, double> dic = new Dictionary<string, double>();
+
+                if (member_logs != null)
+                {
+                    foreach (var member_log in member_logs)
+                    {
+                        dic.Add(member_log.MemberName, member_log.Continuance.TotalMinutes); 
+                    }
+                }
+                else
+                {
+                    dic.Add("", 0);
+                }
+
+                return Json(new { statData = dic, statusCode = "200" }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json(new { statusCode = "300" }, JsonRequestBehavior.AllowGet);
+            } 
         }
     }
 }

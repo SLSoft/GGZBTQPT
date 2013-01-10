@@ -28,6 +28,10 @@ namespace GGZBTQPT_PRO.Util
             ControllerType.Add("ZC_User", "用户管理");
             ControllerType.Add("ZC_Menu", "功能菜单管理");
             ControllerType.Add("ZC_Department", "部门管理");
+            ControllerType.Add("ZC_CommonLog", "平台日志管理");
+            ControllerType.Add("ZC_OnlineLog", "在线日志管理");
+            ControllerType.Add("ZC_MemberLog", "会员日志管理");
+            
 
             ControllerType.Add("XM_TZ", "投资管理");
             ControllerType.Add("XM_RZ", "融资管理");

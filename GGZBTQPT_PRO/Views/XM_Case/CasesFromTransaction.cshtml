@@ -111,7 +111,7 @@
                             @Html.DisplayFor(modelItem => item.UpdatedAt)
                         </td>
                         <td>
-                            @Html.ActionLink("发布到门户", "PublishCaseToCMS", new { id = item.ID })
+                            @Ajax.ActionLink("发布到门户", "PublishCaseToCMS", new { id = item.ID }, new AjaxOptions{ HttpMethod = "POST", OnSuccess = "DWZ.ajaxDone(data)" })
                         </td>
                         <td>
                             @Html.ActionLink("案例分析", "Analysis", new { xm_id = item.GenerateFromID, xm_type = item.Type }, new { target = "dialog", width="400", height="250", title="类似项目成交统计", mask="true" })

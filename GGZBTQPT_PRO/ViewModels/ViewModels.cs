@@ -112,5 +112,14 @@ namespace GGZBTQPT_PRO.ViewModels
         public string TypeName { get; set; }
         public int Count { get; set; }
     }
+
+    /// <summary>
+    /// 在线时长统计（按照会员排名）
+    /// </summary>
+    public class VM_OnlineContinuance
+    {
+        public string MemberName { get; set; }
+        public TimeSpan Continuance { get; set; }
+    }
 }
 

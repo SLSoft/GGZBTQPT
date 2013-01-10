@@ -9,13 +9,13 @@
         <h3>
             按照功能类型统计操作时间如下：</h3>
         <ul>
-            <li>金融推荐： @Model.Where(m => m.GenerateModule == (int)GenerateSystem.Recommend).Sum(m => m.Continuance.TotalMinutes)</li>
-            <li>找项目： @Model.Where(m => m.GenerateModule == (int)GenerateSystem.FindFinancial).Sum(m => m.Continuance.TotalMinutes)</li>
-            <li>找资金： @Model.Where(m => m.GenerateModule == (int)GenerateSystem.FindInvestment).Sum(m => m.Continuance.TotalMinutes)</li>
-            <li>找服务： @Model.Where(m => m.GenerateModule == (int)GenerateSystem.FindService).Sum(m => m.Continuance.TotalMinutes)</li>
-            <li>我的关注： @Model.Where(m => m.GenerateModule == (int)GenerateSystem.Attention).Sum(m => m.Continuance.TotalMinutes)</li>
-            <li>我的收藏： @Model.Where(m => m.GenerateModule == (int)GenerateSystem.Favorite).Sum(m => m.Continuance.TotalMinutes)</li>
-            <li>我的发布： @Model.Where(m => m.GenerateModule == (int)GenerateSystem.Publish).Sum(m => m.Continuance.TotalMinutes)</li>
+            <li>金融推荐： @Math.Round(Model.Where(m => m.GenerateModule == (int)GenerateSystem.Recommend).Sum(m => m.Continuance.TotalMinutes),2)</li>
+            <li>找项目： @Math.Round(Model.Where(m => m.GenerateModule == (int)GenerateSystem.FindFinancial).Sum(m => m.Continuance.TotalMinutes),2)</li>
+            <li>找资金： @Math.Round(Model.Where(m => m.GenerateModule == (int)GenerateSystem.FindInvestment).Sum(m => m.Continuance.TotalMinutes),2)</li>
+            <li>找服务： @Math.Round(Model.Where(m => m.GenerateModule == (int)GenerateSystem.FindService).Sum(m => m.Continuance.TotalMinutes),2)</li>
+            <li>我的关注： @Math.Round(Model.Where(m => m.GenerateModule == (int)GenerateSystem.Attention).Sum(m => m.Continuance.TotalMinutes),2)</li>
+            <li>我的收藏： @Math.Round(Model.Where(m => m.GenerateModule == (int)GenerateSystem.Favorite).Sum(m => m.Continuance.TotalMinutes),2)</li>
+            <li>我的发布： @Math.Round(Model.Where(m => m.GenerateModule == (int)GenerateSystem.Publish).Sum(m => m.Continuance.TotalMinutes), 2)</li>
         </ul>
     </div>
     <div class="unitBox" style="margin-left: 246px;">

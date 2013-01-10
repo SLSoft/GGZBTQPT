@@ -7,6 +7,11 @@ using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.Enums;
+using GGZBTQPT_PRO.Util;
+using ExcelGenerator.SpreadSheet;
+using LinqToExcel;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace GGZBTQPT_PRO.Controllers
 { 
@@ -28,8 +33,7 @@ namespace GGZBTQPT_PRO.Controllers
             return View(list); 
         }
 
-        //
-        // GET: /ZC_CommonLog/Details/5
+
 
         public ViewResult LogDetails(int id)
         {
