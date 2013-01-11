@@ -218,7 +218,43 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.state = GetMemberState();
 
             return View(list);
-        } 
+        }
+
+        public ActionResult VerifyDetails(int memberId, int memberType)
+        {
+            int id = 0;
+            switch (memberType)
+            {
+                case 1:
+                    var Person = db.T_QY_Person.Where(t=>t.MemberID == memberId).FirstOrDefault();
+                    if (Person != null)
+                    {
+                        id = Person.ID;
+                    }
+                    break;
+                case 2:
+                    var Corp = db.T_QY_Corp.Where(t => t.MemberID == memberId).FirstOrDefault();
+                    if (Corp != null)
+                    {
+                        id = Corp.ID;
+                    }
+                    break;
+                case 3:
+                    var Agency = db.T_JG_Agency.Where(t => t.MemberID == memberId).FirstOrDefault();
+                    if (Agency != null)
+                    {
+                        id = Agency.ID;
+                    }
+                    break;
+            }
+            if (id == 0)
+            {
+                return ReturnJson(false, "未查找到该用户详细信息", "", "", true, ""); 
+            }
+            ViewBag.id = id;
+            ViewBag.memberType = memberType;
+            return View();
+        }
 
         /// <summary>
         /// 审核、驳回会员
