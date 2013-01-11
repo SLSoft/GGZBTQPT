@@ -1,0 +1,21 @@
+﻿@{
+    Layout = null;
+}
+
+@switch ((int)ViewBag.memberType)
+{
+    case 1:
+       @Html.Action("Edit", "QY_Person", new { id = @ViewBag.id })
+       break;
+    case 2:
+       @Html.Action("Edit", "QY_Corp", new { id = @ViewBag.id })
+       break;
+    case 3:
+       @Html.Action("Edit", "JG_Agency", new { id = @ViewBag.id })
+       break;
+       
+       
+}
+
+
+
