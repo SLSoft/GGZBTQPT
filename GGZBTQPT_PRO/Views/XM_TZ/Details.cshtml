@@ -6,9 +6,8 @@
 }
 
 <link href="@Url.Content("~/Content/css/Style.css")" rel="stylesheet" type="text/css" />
-<br />
+<div class="pageFormContent" layouth="30">
 <p class="title_detail">@Html.DisplayFor(model => model.ItemName)</p>
-<hr />
 
 <fieldset style="width:90%; margin-left:20px; margin-top:20px;">
     <legend>基本情况</legend>  
@@ -47,7 +46,7 @@
             </tr>
             <tr>
                 <td>投资意向描述：</td>
-                <td>@Html.DisplayFor(model => model.Description)</td>
+                <td>@Html.Raw(Model.Description)</td>
             </tr>
         </table>
 
@@ -81,3 +80,4 @@
             </tr>
         </table>
 </fieldset>
+</div>

@@ -34,6 +34,7 @@ namespace GGZBTQPT_PRO.Models
             PublicTime = DateTime.Now;
             SubmitTime = DateTime.Now;
             Clicks = 0;
+            MemberID = 9999;
         }
         public int ID { get; set; }
         public string ProductName { get; set; }

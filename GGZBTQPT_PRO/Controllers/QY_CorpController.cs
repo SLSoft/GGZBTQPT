@@ -22,7 +22,7 @@ namespace GGZBTQPT_PRO.Controllers
             var t_qy_corp = db.T_QY_Corp.Where(c => (c.IsValid == true && c.CorpName.Contains(keywords))).OrderByDescending(p => p.CreateTime)
                                                                     .Skip(numPerPage * (pageNum - 1))
                                                                     .Take(numPerPage).ToList();
-            ViewBag.recordCount = db.T_QY_Corp.Where(c => c.IsValid == true).Count();
+            ViewBag.recordCount = db.T_QY_Corp.Where(c => (c.IsValid == true && c.CorpName.Contains(keywords))).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             return View(t_qy_corp);
@@ -247,7 +247,7 @@ namespace GGZBTQPT_PRO.Controllers
                 t_qy_corp.IsValid = false;
                 int result = db.SaveChanges();
                 if (result > 0)
-                    return ReturnJson(true, "操作成功", "", "", true, "");
+                    return ReturnJson(true, "操作成功", "", "", false, "");
                 else
                     return ReturnJson(false, "操作失败", "", "", false, "");
             }

@@ -3,6 +3,7 @@
     ViewBag.Title = "Create";
     Layout = null;
 }
+
 @helper QY_Financial(int CYear)
     {
     <tr>
@@ -53,6 +54,7 @@
         </td>
     </tr>
 }
+
 <div class="pageContent">
     @using (Html.BeginForm("Create", "QY_Corp", FormMethod.Post, new { onsubmit = "return iframeCallback(this,dialogAjaxDone);", @class = "pageForm required-validate", enctype = "multipart/form-data" }))
     {

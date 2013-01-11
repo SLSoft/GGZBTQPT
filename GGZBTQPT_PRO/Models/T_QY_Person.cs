@@ -5,6 +5,34 @@ namespace GGZBTQPT_PRO.Models
 {
     public class T_QY_Person
     {
+        public T_QY_Person()
+        {
+            Name = " ";
+            HomeTown = " ";
+            CardType = 0;
+            CardID = " ";
+            Gender = " ";
+            Birth = DateTime.Now;
+            College = " ";
+            Specialty = " ";
+            Education = 0;
+            Degree = 0;
+            Titles = 0;
+            TitlesGrade = 0;
+            Address = " ";
+            Phone = " ";
+            Mobile = " ";
+            Email = " ";
+            MSN = " ";
+            QQ = " ";
+            EduExperience = " ";
+            WorkExperience = " ";
+            Remark = " ";
+            IsValid = true;
+            OP = 9999;
+            CreateTime = DateTime.Now;
+            UpdateTime = DateTime.Now;
+        }
         public int ID { get; set; }
 
         public string Name { get; set; }

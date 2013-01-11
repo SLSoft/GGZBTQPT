@@ -23,7 +23,7 @@ namespace GGZBTQPT_PRO.Controllers
             var t_jg_agency = db.T_JG_Agency.Where(c => (c.IsValid == true && c.AgencyName.Contains(keywords))).OrderByDescending(p => p.CreateTime)
                                                                     .Skip(numPerPage * (pageNum - 1))
                                                                     .Take(numPerPage).ToList();
-            ViewBag.recordCount = db.T_JG_Agency.Where(c => c.IsValid == true).Count();
+            ViewBag.recordCount = db.T_JG_Agency.Where(c => (c.IsValid == true && c.AgencyName.Contains(keywords))).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             return View(t_jg_agency);
@@ -164,7 +164,7 @@ namespace GGZBTQPT_PRO.Controllers
                 t_jg_agency.IsValid = false;
                 int result = db.SaveChanges();
                 if (result > 0)
-                    return ReturnJson(true, "操作成功", "", "", true, "");
+                    return ReturnJson(true, "操作成功", "", "", false, "");
                 else
                     return ReturnJson(false, "操作失败", "", "", false, "");
             }
@@ -174,7 +174,12 @@ namespace GGZBTQPT_PRO.Controllers
         //helper
         public FileContentResult ShowPic(int Agency_id)
         {
-            return File(db.T_JG_Agency.Find(Agency_id).Pic, "image/jpeg");
+            byte[] pic;
+            if (db.T_JG_Agency.Find(Agency_id).Pic != null)
+                pic = db.T_JG_Agency.Find(Agency_id).Pic;
+            else
+                pic = new byte[1];
+            return File(pic, "image/jpeg");
         }
 
         protected override void Dispose(bool disposing)

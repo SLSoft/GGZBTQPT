@@ -167,7 +167,37 @@ namespace GGZBTQPT_PRO.Models
                 return result;
             }
         }
-
+        //投资性质
+        public string InvestmentNatureText
+        {
+            get
+            {
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                if (db.T_PTF_DicDetail.Find(this.InvestmentNature) != null)
+                    return db.T_PTF_DicDetail.Find(this.InvestmentNature).Name;
+                else
+                    return "";
+            }
+        }
+        //投资阶段
+        public string InvestmentStageText
+        {
+            get
+            {
+                string result = "";
+                if (InvestmentStage.Length < 2)
+                    return result;
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                string[] twt = this.InvestmentStage.Split(',');
+                foreach (string str in twt)
+                {
+                    result += db.T_PTF_DicDetail.Find(Convert.ToInt32(str)).Name + ',';
+                }
+                if (result.Length > 0)
+                    result = result.Substring(0, result.Length - 1);
+                return result;
+            }
+        }
         public string MemberName
         {
             get

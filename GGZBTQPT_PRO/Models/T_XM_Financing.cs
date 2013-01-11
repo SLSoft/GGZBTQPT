@@ -32,9 +32,9 @@ namespace GGZBTQPT_PRO.Models
             PartnerRequirements = " ";
             AssetsType = 0;
             AssetsCost = 0;
-            IsMortgage = " ";
+            IsMortgage = "1";
             TransferPrice = 0;
-            TransferType = 0;
+            TransferType = 1;
             TransactionMode = " ";
             Investment = 0;
             CooperationMode = 0;
@@ -256,11 +256,39 @@ namespace GGZBTQPT_PRO.Models
         {
             get
             {
+                string result = "";
                 GGZBTQPTDBContext db = new GGZBTQPTDBContext();
-                if (db.T_PTF_DicDetail.Find(this.TransactionMode) != null)
-                    return db.T_PTF_DicDetail.Find(this.TransactionMode).Name;
+                if (this.TransactionMode.Length > 1)
+                {
+                    string[] temp = TransactionMode.Split(',');
+                    foreach(string t in temp)
+                    {
+                         if(db.T_PTF_DicDetail.Find(t) != null)
+                             result += db.T_PTF_DicDetail.Find(t).Name + " ";
+                    }
+                }
+                return result;
+            }
+        }
+
+        //合作方式
+        public string CooperationModeText
+        {
+            get
+            {
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                if (db.T_PTF_DicDetail.Find(this.CooperationMode) != null)
+                    return db.T_PTF_DicDetail.Find(this.CooperationMode).Name;
                 else
                     return "";
+            }
+        }
+        //转让形式
+        public string TransferTypeText
+        {
+            get
+            {
+                return this.TransferType == 1 ? "整体" : "部分";
             }
         }
     }

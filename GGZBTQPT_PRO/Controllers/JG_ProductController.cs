@@ -23,7 +23,7 @@ namespace GGZBTQPT_PRO.Controllers
             var t_jg_product = db.T_JG_Product.Where(p => (p.IsValid == true && p.ProductName.Contains(keywords))).OrderByDescending(s => s.CreateTime)
                                                                     .Skip(numPerPage * (pageNum - 1))
                                                                     .Take(numPerPage).ToList();
-            ViewBag.recordCount = db.T_JG_Product.Where(c => c.IsValid == true).Count();
+            ViewBag.recordCount = db.T_JG_Product.Where(p => (p.IsValid == true && p.ProductName.Contains(keywords))).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             return View(t_jg_product);
@@ -118,7 +118,7 @@ namespace GGZBTQPT_PRO.Controllers
             {
                 db.Entry(t_jg_product).State = EntityState.Modified;
                 t_jg_product.AgencyID = Convert.ToInt32(collection["AgencyList"]);
-                t_jg_product.CustomerType = collection["checkboxType"];
+                t_jg_product.CustomerType = collection["checkboxType"] == null ? "" : collection["checkboxType"];
                 t_jg_product.UpdateTime = DateTime.Now;
 
                 HttpPostedFileBase file = Request.Files[0];
@@ -159,7 +159,7 @@ namespace GGZBTQPT_PRO.Controllers
                 t_jg_product.IsValid = false;
                 int result = db.SaveChanges();
                 if (result > 0)
-                    return ReturnJson(true, "操作成功", "", "", true, "");
+                    return ReturnJson(true, "操作成功", "", "", false, "");
                 else
                     return ReturnJson(false, "操作失败", "", "", false, "");
             }
@@ -169,7 +169,12 @@ namespace GGZBTQPT_PRO.Controllers
         //helper
         public FileContentResult ShowPic(int product_id)
         {
-            return File(db.T_JG_Product.Find(product_id).Pic, "image/jpeg");
+            byte[] pic;
+            if (db.T_JG_Product.Find(product_id).Pic != null)
+                pic = db.T_JG_Product.Find(product_id).Pic;
+            else
+                pic = new byte[1];
+            return File(pic, "image/jpeg");
         }
 
         protected override void Dispose(bool disposing)

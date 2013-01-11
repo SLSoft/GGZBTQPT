@@ -27,52 +27,10 @@ input,span {font:12px/24px verdana;vertical-align:middle;}
         @:</ul>
 }
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("input[type=checkbox]").click(function () {
-            var str = "";
-            if ($(this).attr("checked")) {
-                $("#message").append($(this).next().html() + "|");
-                if ($(this).attr("name") == "cbItemType") {
-                    $("#condition1").attr("value", $("#condition1").val() + "," + $(this).val());
-                }
-                if ($(this).attr("name") == "cbIndustry") {
-                    $("#condition2").attr("value", $("#condition2").val() + "," + $(this).val());
-                }
-                if ($(this).attr("name") == "cbItemStage") {
-                    $("#condition3").attr("value", $("#condition3").val() + "," + $(this).val());
-                }
-                if ($(this).attr("name") == "cbFinancial") {
-                    $("#condition4").attr("value", $("#condition4").val() + "," + $(this).val());
-                }
-            }
-            else {
-                $("#message").text($("#message").text().replace($(this).next().html() + "|", ""));
-                if ($(this).attr("name") == "cbItemType") {
-                    $("#condition1").attr("value", $("#condition1").val().replace("," + $(this).val(), ""));
-                }
-                if ($(this).attr("name") == "cbIndustry") {
-                    $("#condition2").attr("value", $("#condition2").val().replace("," + $(this).val(), ""));
-                }
-                if ($(this).attr("name") == "cbItemStage") {
-                    $("#condition3").attr("value", $("#condition3").val().replace("," + $(this).val(), ""));
-                }
-                if ($(this).attr("name") == "cbFinancial") {
-                    $("#condition4").attr("value", $("#condition4").val().replace("," + $(this).val(), ""));
-                }
-            }
-            $("#context").attr("value", $("#message").text());
-        });
-        var filter = $("#condition1").val() + $("#condition2").val() + $("#condition3").val() + $("#condition4").val();
-        var list = filter.split(",");
-        $("input[type=checkbox]").each(function () {
-            $(this).attr("checked", $.inArray(this.value, list) > -1);
-        });
-    });
-</script>
+
 
 <h3 class="content-title">找项目</h3>
-@using (Html.BeginForm())
+@using (Html.BeginForm("Financials", "InquireResources", FormMethod.Post, new { id = "query" }))
 {
 <div id="inquire-options" class="inquire-options well well-small">
     <div class="container-fluid">
@@ -126,46 +84,108 @@ input,span {font:12px/24px verdana;vertical-align:middle;}
     </table> 
     </div>
 </div>
-               
+ if (ViewBag.Message != null)
+    {
+        <span style="font-weight:bold; font-size:large;">@ViewBag.Message</span>
+    }              
 <div id="published">
+    @*项目信息*@
     @foreach (var _model in Model)
     {
-        <div class="row-fluid">
-            @*项目信息*@
-            <div class="published-content ">
-                <h4>
-                    @Html.ActionLink(_model.ItemName, "Details", "Financial", new { id = _model.ID }, null)<span class="pub-time pull-right">@_model.CreateTime.Value.ToString("yyyy年MM月dd日")</span></h4>
-                @*摘要*@
-                <p class="summary">
-                    <span>@Html.Raw((_model.ItemContent.Length > 200 ? _model.ItemContent.Substring(0, 200) + "..." : _model.ItemContent))</span>
-                </p>
-                @*附属信息*@
-                <div class="published-info">
-                   <span class="amount text-error">总投资：@_model.Amount 万元</span><span class="favorite pull-right text-info">【@_model.Favoites.Count() 人收藏】</span>
-                </div>
+        <div class="recommend-content ">
+            <h4>
+                <a href="#">@_model.ItemName</a></h4>
+            @*摘要*@
+            <p class="summary">
+                @if (_model.ItemContent.Length > 300)
+                {
+                    <span>@_model.ItemContent.Substring(0, 300)...</span>
+                }
+                else
+                {
+                    <span>@_model.ItemContent.Substring(0, _model.ItemContent.Length)</span>
+                }
+            </p>
+            @*附属信息*@
+            <div class="recommend-info">
+                <span class="pub-time">@_model.CreateTime</span> <span class="pro-type">总投资：@_model.TotalInvestment</span>
+                <span class="favorite"><a href="#">【@_model.Favoites.Count() 人收藏】</a></span>
             </div>
         </div>
     }
-    
 </div>
-    if (ViewBag.Message != null)
-    {
-        <span style="font-weight:bold; font-size:large;">@ViewBag.Message</span>
-    }
-    <div class="pagination pagination-right clear">
-        @Html.AjaxPager(Model, new PagerOptions { PageIndexParameterName = "id", ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "details" }) 
-    </div>
+    
+    <div id="pager" class="pagination pagination-right pagination-small">
+    @Html.Pager(Model, new PagerOptions {  PageIndexParameterName = "id", ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a onclick='form1.submit();'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }, new { FormMethod = FormMethod.Post })
+    </div>    
     <div style="display:none">
                 <input id="condition1" type="text" name="condition1" style="width:1px" value="@ViewBag.condition1" />
                 <input id="condition2" type="text" name="condition2" style="width:1px" value="@ViewBag.condition2" />
                 <input id="condition3" type="text" name="condition3" style="width:1px" value="@ViewBag.condition3" />
                 <input id="condition4" type="text" name="condition4" style="width:1px" value="@ViewBag.condition4" />
-                <input id="context" type="text" name="context" value="@ViewBag.context" /></div>
+                <input id="context" type="text" name="context" value="@ViewBag.context" />
+                <input id="current_page_id" name="current_page_id" value="@ViewBag.current_page_id" /></div>
+          
 }
 
-<script type="text/javascript">
-    function notice(data) {
-        $("#recommend li.active a").click();
-        $.Member.notice(data);
+@*<script type="text/jscript">
+    function modifyPagelist() {
+        $("#published ul li a").each(function () {
+            if ($(this).attr("href") != null && $(this).attr("href") != "" && $(this).attr("href") != "#") {
+                $(this).attr("href",$(this).attr("href").replace("Financials", "InquiredFinancials"));
+            }
+        });
     }
+</script>*@
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("input[type=checkbox]").click(function () {
+            var str = "";
+            if ($(this).attr("checked")) {
+                $("#message").append($(this).next().html() + "|");
+                if ($(this).attr("name") == "cbItemType") {
+                    $("#condition1").attr("value", $("#condition1").val() + "," + $(this).val());
+                }
+                if ($(this).attr("name") == "cbIndustry") {
+                    $("#condition2").attr("value", $("#condition2").val() + "," + $(this).val());
+                }
+                if ($(this).attr("name") == "cbItemStage") {
+                    $("#condition3").attr("value", $("#condition3").val() + "," + $(this).val());
+                }
+                if ($(this).attr("name") == "cbFinancial") {
+                    $("#condition4").attr("value", $("#condition4").val() + "," + $(this).val());
+                }
+            }
+            else {
+                $("#message").text($("#message").text().replace($(this).next().html() + "|", ""));
+                if ($(this).attr("name") == "cbItemType") {
+                    $("#condition1").attr("value", $("#condition1").val().replace("," + $(this).val(), ""));
+                }
+                if ($(this).attr("name") == "cbIndustry") {
+                    $("#condition2").attr("value", $("#condition2").val().replace("," + $(this).val(), ""));
+                }
+                if ($(this).attr("name") == "cbItemStage") {
+                    $("#condition3").attr("value", $("#condition3").val().replace("," + $(this).val(), ""));
+                }
+                if ($(this).attr("name") == "cbFinancial") {
+                    $("#condition4").attr("value", $("#condition4").val().replace("," + $(this).val(), ""));
+                }
+            }
+            $("#context").attr("value", $("#message").text());
+        });
+        var filter = $("#condition1").val() + $("#condition2").val() + $("#condition3").val() + $("#condition4").val();
+        var list = filter.split(",");
+        $("input[type=checkbox]").each(function () {
+            $(this).attr("checked", $.inArray(this.value, list) > -1);
+        });
+
+        $("#pager ul li a").click(function () {
+            if ($(this).attr("href") != null && $(this).attr("href") != "" && $(this).attr("href") != "#") {
+                $("#current_page_id").attr("value", $(this).attr("href").substr($(this).attr("href").lastIndexOf("/")+1));
+                document.forms[0].submit();
+                return false;
+            }
+        });
+    });
 </script>

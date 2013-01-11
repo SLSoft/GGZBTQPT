@@ -21,14 +21,16 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// 找项目
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult Financials(int id = 1)
         {
             List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
             ViewData["Industry"] = new SelectList(Industry, "ID", "Name");
             List<T_PTF_DicDetail> ItemStage = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM04")).ToList();
             ViewData["ItemStage"] = new SelectList(ItemStage, "ID", "Name");
+            ViewBag.current_page_id = id;
             //var financials = db.T_XM_Financing.OrderBy(p => p.CreateTime);
-            PagedList<T_XM_Financing> financials = db.T_XM_Financing.OrderBy(p => p.CreateTime).ToPagedList(id, 5);
+            PagedList<T_XM_Financing> financials = db.T_XM_Financing.OrderByDescending(p => p.CreateTime).ToPagedList(id, 5);
             return View(financials); 
         } 
 
@@ -44,6 +46,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             ViewBag.condition3 = collection["condition3"];
             ViewBag.condition4 = collection["condition4"];
             ViewBag.context = collection["context"];
+            ViewBag.current_page_id = collection["current_page_id"];
             List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
             ViewData["Industry"] = new SelectList(Industry, "ID", "Name");
             List<T_PTF_DicDetail> ItemStage = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM04")).ToList();
@@ -52,7 +55,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             string select_itemtype = "";
             string select_industry = "";
             string select_Financial = "";
-            if (collection["keys"].ToString().Trim() != "")
+            if (collection["keys"] != null && collection["keys"].ToString().Trim() != "")
                 keys = collection["keys"].ToString();
             if (collection["cbItemType"] != null)
                 select_itemtype = collection["cbItemType"];
@@ -71,17 +74,69 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             }
             string order = "ID";
             System.Data.SqlClient.SqlParameter[] selparms = new System.Data.SqlClient.SqlParameter[5];
-            selparms[0] = new System.Data.SqlClient.SqlParameter("@keys",keys);
+            selparms[0] = new System.Data.SqlClient.SqlParameter("@keys", keys);
+            selparms[1] = new System.Data.SqlClient.SqlParameter("@ItemType", select_itemtype);
+            selparms[2] = new System.Data.SqlClient.SqlParameter("@Industry", select_industry);
+            selparms[3] = new System.Data.SqlClient.SqlParameter("@FinancSum", select_Financial);
+            selparms[4] = new System.Data.SqlClient.SqlParameter("@Order", order);
+            IList<T_XM_Financing> financials = (from p in db.T_XM_Financing.SqlQuery("exec dbo.P_GetRZXMByCondition @keys,@ItemType,@Industry,@FinancSum,@Order", selparms) select p).ToList();
+            PagedList<T_XM_Financing> paged_financials = new PagedList<T_XM_Financing>(financials, Convert.ToInt32(collection["current_page_id"]), 5);
+            if (paged_financials.Count == 0)
+                ViewBag.Message = "未找到符合要求的项目!";
+            return View(paged_financials);
+        }
+
+        #region 作废
+        [HttpPost]
+        public ActionResult InquiredFinancials(FormCollection collection, string condition1, int id = 1)
+        {
+            ViewBag.condition1 = collection["condition1"];
+            ViewBag.condition2 = collection["condition2"];
+            ViewBag.condition3 = collection["condition3"];
+            ViewBag.condition4 = collection["condition4"];
+            ViewBag.context = collection["context"];
+            List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
+            ViewData["Industry"] = new SelectList(Industry, "ID", "Name");
+            List<T_PTF_DicDetail> ItemStage = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM04")).ToList();
+            ViewData["ItemStage"] = new SelectList(ItemStage, "ID", "Name");
+            string keys = "";
+            string select_itemtype = "";
+            string select_industry = "";
+            string select_Financial = "";
+            if (collection["keys"] != null && collection["keys"].ToString().Trim() != "")
+                keys = collection["keys"].ToString();
+            if (collection["cbItemType"] != null)
+                select_itemtype = collection["cbItemType"];
+            if (collection["cbIndustry"] != null)
+                select_industry = collection["cbIndustry"];
+            if (collection["cbFinancial"] != null)
+            {
+                string[] temp = collection["cbFinancial"].Split(',');
+                select_Financial += " and (";
+                foreach (string str in temp)
+                {
+                    select_Financial += " FinancSum " + str + " or";
+                }
+                select_Financial = select_Financial.Substring(0, select_Financial.Length - 3);
+                select_Financial += ")";
+            }
+            string order = "ID";
+            System.Data.SqlClient.SqlParameter[] selparms = new System.Data.SqlClient.SqlParameter[5];
+            selparms[0] = new System.Data.SqlClient.SqlParameter("@keys", keys);
             selparms[1] = new System.Data.SqlClient.SqlParameter("@ItemType", select_itemtype);
             selparms[2] = new System.Data.SqlClient.SqlParameter("@Industry", select_industry);
             selparms[3] = new System.Data.SqlClient.SqlParameter("@FinancSum", select_Financial);
             selparms[4] = new System.Data.SqlClient.SqlParameter("@Order", order);
             IList<T_XM_Financing> financials = (from p in db.T_XM_Financing.SqlQuery("exec dbo.P_GetRZXMByCondition @keys,@ItemType,@Industry,@FinancSum,@Order", selparms) select p).ToList();
             PagedList<T_XM_Financing> paged_financials = new PagedList<T_XM_Financing>(financials, id, 5);
+
+            ViewBag.Financials = paged_financials;
             if (paged_financials.Count == 0)
                 ViewBag.Message = "未找到符合要求的项目!";
-            return View(paged_financials);
-        } 
+            return PartialView(paged_financials);
+        }
+        #endregion
+
 
         /// <summary>
         /// 找资金
@@ -97,6 +152,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             ViewData["InvestmentNature"] = new SelectList(InvestmentNature, "ID", "Name");
             List<T_PTF_DicDetail> InvestmentStage = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM04")).ToList();
             ViewData["InvestmentStage"] = new SelectList(InvestmentStage, "ID", "Name");
+            ViewBag.current_page_id = id;
             var investments = db.T_XM_Investment.OrderByDescending(f => f.CreateTime).ToPagedList(id, 5);
             return View(investments);
         }
@@ -109,6 +165,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             ViewBag.condition4 = collection["condition4"];
             ViewBag.condition5 = collection["condition5"];
             ViewBag.context = collection["context"];
+            ViewBag.current_page_id = collection["current_page_id"];
             List<T_PTF_DicDetail> TeamworkType = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM06")).ToList();
             ViewData["TeamworkType"] = new SelectList(TeamworkType, "ID", "Name");
             List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
@@ -122,7 +179,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             string select_TeamworkType = "";
             string select_industry = "";
             string select_Investment = "";
-            if (collection["keys"].ToString().Trim() != "")
+            if (collection["keys"] != null && collection["keys"].ToString().Trim() != "")
                 keys = collection["keys"].ToString();
             if (collection["cbTeamworkType"] != null)
             {
@@ -166,7 +223,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             selparms[4] = new System.Data.SqlClient.SqlParameter("@Order", order);
 
             IList<T_XM_Investment> investments = (from p in db.T_XM_Investment.SqlQuery("exec dbo.P_GetTZXMByCondition @keys,@TeamworkType,@Industry,@FinancSum,@Order", selparms) select p).ToList();
-            PagedList<T_XM_Investment> paged_inverstments = new PagedList<T_XM_Investment>(investments, id, 5);
+            PagedList<T_XM_Investment> paged_inverstments = new PagedList<T_XM_Investment>(investments, Convert.ToInt32(collection["current_page_id"]), 5);
             if (paged_inverstments.Count == 0)
                 ViewBag.Message = "未找到符合要求的项目!";
             return View(paged_inverstments); 
@@ -199,7 +256,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             var financials = db.T_XM_Financing.OrderByDescending(f => f.CreateTime).ToPagedList(id, 5);
 
             ViewBag.FavoredFinacials = FavoredItems(1);
-
+            ViewBag.current_page_id = id;
             if (Session["MemberID"] != null && Session["MemberID"].ToString() != "")
             {
                 ViewBag.CurrentMember = Session["MemberID"].ToString();
@@ -219,6 +276,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             ViewBag.condition3 = collection["condition3"];
             ViewBag.condition4 = collection["condition4"];
             ViewBag.context = collection["context"];
+            ViewBag.current_page_id = collection["current_page_id"];
             List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
             ViewData["Industry"] = new SelectList(Industry, "ID", "Name");
             List<T_PTF_DicDetail> ItemStage = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM04")).ToList();
@@ -252,7 +310,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             selparms[3] = new System.Data.SqlClient.SqlParameter("@FinancSum", select_Financial);
             selparms[4] = new System.Data.SqlClient.SqlParameter("@Order", order);
             IList<T_XM_Financing> financials = (from p in db.T_XM_Financing.SqlQuery("exec dbo.P_GetRZXMByCondition @keys,@ItemType,@Industry,@FinancSum,@Order", selparms) select p).ToList();
-            PagedList<T_XM_Financing> paged_financials = new PagedList<T_XM_Financing>(financials, id, 5);
+            PagedList<T_XM_Financing> paged_financials = new PagedList<T_XM_Financing>(financials, Convert.ToInt32(collection["current_page_id"]), 5);
             if (paged_financials.Count == 0)
                 ViewBag.Message = "未找到符合要求的项目!";
             return View(paged_financials);
@@ -271,6 +329,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             ViewBag.condition4 = collection["condition4"];
             ViewBag.condition5 = collection["condition5"];
             ViewBag.context = collection["context"];
+            ViewBag.current_page_id = collection["current_page_id"];
             List<T_PTF_DicDetail> TeamworkType = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM06")).ToList();
             ViewData["TeamworkType"] = new SelectList(TeamworkType, "ID", "Name");
             List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
@@ -327,7 +386,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             selparms[3] = new System.Data.SqlClient.SqlParameter("@FinancSum", select_Investment);
             selparms[4] = new System.Data.SqlClient.SqlParameter("@Order", order);
             IList<T_XM_Investment> investments = (from p in db.T_XM_Investment.SqlQuery("exec dbo.P_GetTZXMByCondition @keys,@TeamworkType,@Industry,@FinancSum,@Order", selparms) select p).ToList();
-            PagedList<T_XM_Investment> paged_inverstments = new PagedList<T_XM_Investment>(investments, id, 5);
+            PagedList<T_XM_Investment> paged_inverstments = new PagedList<T_XM_Investment>(investments, Convert.ToInt32(collection["current_page_id"]), 5);
             if (paged_inverstments.Count == 0)
                 ViewBag.Message = "未找到符合要求的项目!";
             return View(paged_inverstments);

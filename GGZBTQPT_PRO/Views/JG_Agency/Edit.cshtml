@@ -35,7 +35,7 @@
             <tr>
                 <td>@Html.LabelFor(model => model.RegTime, "成立日期")
                 </td>
-                <td>@Html.EditorFor(model => model.RegTime)
+                <td>@Html.TextBoxFor(m => m.RegTime, new { @class = "date", @Value = string.Format("{0:yyyy-MM-dd}", Model.RegTime) })
                 </td>
             </tr>
             <tr>

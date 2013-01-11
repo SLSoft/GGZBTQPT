@@ -47,20 +47,26 @@ using System.Net;namespace GGZBTQPT_PRO.Controllers
         {
             var t_xm_tran = new T_XM_Transaction();
             t_xm_tran.ItemID = id;
-            t_xm_tran.TranTitle = GetItemName(id);
+            t_xm_tran.TranTitle = GetItemName(id,itype);
             ViewBag.itype = itype;
             return View(t_xm_tran);
         }
 
-        private string GetItemName(int id)
+        private string GetItemName(int id,int itype)
         {
             string result = "";
-            var fin = db.T_XM_Financing.Find(id);
-            if (fin != null)
-                result = fin.ItemName;
-            var inv = db.T_XM_Investment.Find(id);
-            if (inv != null)
-                result = inv.ItemName;
+            if (itype == 0)
+            {
+                var fin = db.T_XM_Financing.Find(id);
+                if (fin != null)
+                    result = fin.ItemName;
+            }
+            else
+            {
+                var inv = db.T_XM_Investment.Find(id);
+                if (inv != null)
+                    result = inv.ItemName;
+            }
             return result;
         }
         //
