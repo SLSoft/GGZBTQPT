@@ -18,7 +18,7 @@ namespace GGZBTQPT_PRO.Controllers
         //
         // GET: /XM_TZ/
 
-        public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 5)
+        public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 15)
         {
             keywords = keywords == null ? "" : keywords;
             var t_xm_investment = db.T_XM_Investment.Where(p => (p.IsValid == true && p.ItemName.Contains(keywords))).OrderByDescending(p => p.CreateTime)
@@ -240,7 +240,7 @@ namespace GGZBTQPT_PRO.Controllers
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
 
-            ViewBag.recordCount = db.T_XM_Investment.Where(p => (p.IsValid == true && p.PublicStatus == "1")).Count();
+            ViewBag.recordCount = db.T_XM_Investment.Where(p => (p.IsValid == true && p.PublicStatus == "2")).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
 
