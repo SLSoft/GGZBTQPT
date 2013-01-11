@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.Util;
 using GGZBTQPT_PRO.Enums;
+using GGZBTQPT_PRO.ViewModels;
 
 using System.Net;namespace GGZBTQPT_PRO.Controllers
 {
@@ -152,6 +153,49 @@ using System.Net;namespace GGZBTQPT_PRO.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        //交易统计
+        public ActionResult JYReport()
+        {
+            var xmjy = db.T_XM_Transaction.Where(p => p.IsValid == true).ToList();
+            ViewBag.JYCount = xmjy.Count;//项目交易总量
+            ViewBag.JYSum = xmjy.Sum(p => p.Amount);//项目交易总额
+
+            var up = db.T_XM_Transaction.Where(p => (p.IsValid == true && p.TranTime.Year == DateTime.Now.Year)).GroupBy(g => g.TranTime.Month)
+                                    .Select(s => new { um = s.Sum(m => m.Amount), cnt = s.Count(), type = (int)s.Key });
+            var list = from u in db.T_XM_Alendar
+                       join p in up on u.ID equals p.type into gj
+                       from x in gj.DefaultIfEmpty()
+                       orderby u.ID
+                       select new VM_JYReport
+                       {
+                           TypeName = u.month,
+                           Count = x.type == null ? 0 : x.cnt,
+                           Sum = x.type == null ? 0 : x.um,
+                       };
+            return PartialView(list.ToList());
+        }
+        public ActionResult JYReportData()
+        {
+            var up = db.T_XM_Transaction.Where(p => (p.IsValid == true && p.TranTime.Year == DateTime.Now.Year)).GroupBy(g => g.TranTime.Month)
+                                    .Select(s => new { cnt = s.Count(), type = (int)s.Key });
+            var list = from u in db.T_XM_Alendar
+                       join p in up on u.ID equals p.type into gj
+                       from x in gj.DefaultIfEmpty()
+                       orderby u.ID
+                       select new VM_CPReport
+                       {
+                           TypeName = u.month,
+                           Count = x.type == null ? 0 : x.cnt,
+                       };
+            Dictionary<String, int> dic = new Dictionary<string, int>();
+            foreach (VM_CPReport vmx in list.ToList())
+            {
+                dic.Add(vmx.TypeName, vmx.Count);
+            }
+
+            return Json(new { statData = dic }, JsonRequestBehavior.AllowGet);
         }
     }
 }
