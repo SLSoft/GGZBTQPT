@@ -73,6 +73,9 @@
                         更新时间
                     </th>
                     <th>
+                        查看详情
+                    </th>
+                    <th>
                         审核
                     </th>
                 </tr>
@@ -104,6 +107,9 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.UpdatedAt)
+                        </td>
+                        <td>
+                            @Html.ActionLink("详细信息", "VerifyDetails", "HY_Member", new { memberId = @item.ID, memberType = @item.Type }, new { max = "true", target = "dialog", mask = "true" })
                         </td>
                         <td>
                             @Html.ActionLink("通过", "Verify", "HY_Member", new { id = @item.ID, stateType = 1 }, new { rel = "UnVerified", target = "ajaxTodo", title = "确定审核通过吗？" })

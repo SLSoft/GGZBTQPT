@@ -41,7 +41,6 @@
                 );
             }
         });
-
         $("#item2").hide();
         $("#item3").hide();
         $("#item4").hide();
@@ -107,7 +106,7 @@
             </tr>
             <tr>
                 <td style="width:90px">@Html.LabelFor(model => model.ItemName, "项目名称")</td>
-                <td>@Html.TextBoxFor(model => model.ItemName, new { style = "width:95%" })</td>
+                <td>@Html.TextBoxFor(model => model.ItemName, new {style = "width:95%" })</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Province, "所属区域")</td>

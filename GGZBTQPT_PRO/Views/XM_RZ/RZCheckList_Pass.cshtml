@@ -54,7 +54,7 @@
                     @Html.DisplayFor(modelItem => item.PublicTime)
                 </td>
                 <td>
-                    @Html.ActionLink("审核驳回", "RZCheck", "XM_RZ", new { id = @item.ID, state = "1" }, new { onclick = "javascript:return confirm('您确定撤消吗？');", rel = "RZCheckList", target = "ajaxTodo" })
+                    @Html.ActionLink("审核驳回", "RZCheck", "XM_RZ", new { id = @item.ID, state = "1" }, new { title = "您确定撤消吗？", rel = "RZCheckList", target = "ajaxTodo" })
                 </td>
             </tr>
         }

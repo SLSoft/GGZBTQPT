@@ -23,7 +23,7 @@ namespace GGZBTQPT_PRO.Controllers
             var t_qy_person = db.T_QY_Person.Where(p => (p.IsValid == true && p.Name.Contains(keywords))).OrderByDescending(p => p.CreateTime)
                                                                     .Skip(numPerPage * (pageNum - 1))
                                                                     .Take(numPerPage).ToList();
-            ViewBag.recordCount = db.T_QY_Person.Where(c => c.IsValid == true).Count();
+            ViewBag.recordCount = db.T_QY_Person.Where(p => (p.IsValid == true && p.Name.Contains(keywords))).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             return View(t_qy_person);
@@ -80,7 +80,8 @@ namespace GGZBTQPT_PRO.Controllers
             BindDegree(); 
             BindTitles(); 
             BindTitlesGrade();
-            return View();
+            var t_qy_person = new T_QY_Person();
+            return View(t_qy_person);
         } 
 
         //
@@ -160,7 +161,7 @@ namespace GGZBTQPT_PRO.Controllers
                 t_qy_person.IsValid = false;
                 int result = db.SaveChanges();
                 if (result > 0)
-                    return ReturnJson(true, "操作成功", "", "", true, "");
+                    return ReturnJson(true, "操作成功", "", "", false, "");
                 else
                     return ReturnJson(false, "操作失败", "", "", false, "");
             }

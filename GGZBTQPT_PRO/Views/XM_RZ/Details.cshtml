@@ -5,9 +5,9 @@
     Layout = null;
 }
 <link href="@Url.Content("~/Content/css/Style.css")" rel="stylesheet" type="text/css" />
-<br />
+<div class="pageFormContent" layouth="30">
+
 <p class="title_detail">@Html.DisplayFor(model => model.ItemName)</p>
-<hr />
 
 <fieldset style="width:90%; margin-left:20px; margin-top:20px;">
     <legend>融资信息</legend>
@@ -36,6 +36,10 @@
             <tr>
                 <td>有效日期</td>
                 <td>@Html.DisplayFor(model => model.ValidDate)</td>
+            </tr>
+            <tr>
+                <td>项目介绍</td>
+                <td>@Html.Raw(Model.ItemContent)</td>
             </tr>
         @if (Model.ItemType == 1)
         {
@@ -78,10 +82,6 @@
             <tr>
                 <td>合作方要求</td>
                 <td>@Html.DisplayFor(model => model.PartnerRequirements)</td>
-            </tr>
-            <tr>
-                <td>项目介绍</td>
-                <td>@Html.DisplayFor(model => model.ItemContent)</td>
             </tr>
         }
         @if (Model.ItemType == 2)
@@ -178,3 +178,4 @@
             </tr>
         </table>
 </fieldset>
+</div>

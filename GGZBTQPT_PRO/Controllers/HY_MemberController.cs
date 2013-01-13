@@ -218,7 +218,43 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.state = GetMemberState();
 
             return View(list);
-        } 
+        }
+
+        public ActionResult VerifyDetails(int memberId, int memberType)
+        {
+            int id = 0;
+            switch (memberType)
+            {
+                case 1:
+                    var Person = db.T_QY_Person.Where(t=>t.MemberID == memberId).FirstOrDefault();
+                    if (Person != null)
+                    {
+                        id = Person.ID;
+                    }
+                    break;
+                case 2:
+                    var Corp = db.T_QY_Corp.Where(t => t.MemberID == memberId).FirstOrDefault();
+                    if (Corp != null)
+                    {
+                        id = Corp.ID;
+                    }
+                    break;
+                case 3:
+                    var Agency = db.T_JG_Agency.Where(t => t.MemberID == memberId).FirstOrDefault();
+                    if (Agency != null)
+                    {
+                        id = Agency.ID;
+                    }
+                    break;
+            }
+            if (id == 0)
+            {
+                return ReturnJson(false, "未查找到该用户详细信息", "", "", true, ""); 
+            }
+            ViewBag.id = id;
+            ViewBag.memberType = memberType;
+            return View();
+        }
 
         /// <summary>
         /// 审核、驳回会员
@@ -333,12 +369,12 @@ namespace GGZBTQPT_PRO.Controllers
             tq = tq.OrderBy(s => s.ID).Skip(numPerPage * (pageNum - 1)).Take(numPerPage);
 
             IList<VM_MemberRelease> list = tq.Select(w => new VM_MemberRelease
-            {
-                                                       FinancingCount = w.Financials.Where(f=>f.IsValid == true).Count(), 
-                                                       InvestmentCount=w.Investments.Where(f=>f.IsValid == true).Count(),
-                                                       ProductCount = w.Products.Where(f=>f.IsValid == true).Count(),
-                                                       Member=w }
-                                                  ).ToList();
+                                                    {
+                                                        FinancingCount = w.Financials.Where(f => f.IsValid == true && f.PublicStatus == "2").Count(),
+                                                        InvestmentCount = w.Investments.Where(f => f.IsValid == true && f.PublicStatus == "2").Count(),
+                                                        ProductCount = w.Products.Where(f => f.IsValid == true && f.PublicStatus == "2").Count(),
+                                                        Member=w }
+                                                    ).ToList();
             ViewBag.recordCount = tqCount;
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
@@ -360,12 +396,12 @@ namespace GGZBTQPT_PRO.Controllers
         // 查询会员(发布项目、投资意向、金融产品)详细信息
         public ActionResult FinancingList(int memberId, int pageNum = 1, int numPerPage = 10)
         {
-            IList<T_XM_Financing> list = db.T_XM_Financing.Where(f => f.IsValid == true && f.MemberID == memberId)
+            IList<T_XM_Financing> list = db.T_XM_Financing.Where(f => f.IsValid == true && f.PublicStatus == "2" && f.MemberID == memberId)
                                                          .OrderByDescending(f => f.CreateTime)
                                                          .Skip(numPerPage * (pageNum - 1))
                                                          .Take(numPerPage)
                                                          .ToList();
-            ViewBag.recordCount = db.T_XM_Financing.Where(f => f.IsValid == true && f.MemberID == memberId).Count();
+            ViewBag.recordCount = db.T_XM_Financing.Where(f => f.IsValid == true && f.PublicStatus == "2" && f.MemberID == memberId).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.memberId = memberId;
@@ -375,12 +411,12 @@ namespace GGZBTQPT_PRO.Controllers
 
         public ActionResult InvestmentList(int memberId, int pageNum = 1, int numPerPage = 10)
         {
-            IList<T_XM_Investment> list = db.T_XM_Investment.Where(f => f.IsValid == true && f.MemberID == memberId)
+            IList<T_XM_Investment> list = db.T_XM_Investment.Where(f => f.IsValid == true && f.PublicStatus == "2" && f.MemberID == memberId)
                                                            .OrderByDescending(f => f.CreateTime)
                                                            .Skip(numPerPage * (pageNum - 1))
                                                            .Take(numPerPage)
                                                            .ToList();
-            ViewBag.recordCount = db.T_XM_Investment.Where(f => f.IsValid == true && f.MemberID == memberId).Count();
+            ViewBag.recordCount = db.T_XM_Investment.Where(f => f.IsValid == true && f.PublicStatus == "2" && f.MemberID == memberId).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.memberId = memberId;
@@ -390,12 +426,12 @@ namespace GGZBTQPT_PRO.Controllers
 
         public ActionResult ProductList(int memberId, int pageNum = 1, int numPerPage = 10)
         {
-            IList<T_JG_Product> list = db.T_JG_Product.Where(f => f.IsValid == true && f.MemberID == memberId)
+            IList<T_JG_Product> list = db.T_JG_Product.Where(f => f.IsValid == true && f.PublicStatus == "2" && f.MemberID == memberId)
                                                      .OrderByDescending(p => p.CreateTime)
                                                      .Skip(numPerPage * (pageNum - 1))
                                                      .Take(numPerPage)
                                                      .ToList();
-            ViewBag.recordCount = db.T_JG_Product.Where(f => f.IsValid == true && f.MemberID == memberId).Count();
+            ViewBag.recordCount = db.T_JG_Product.Where(f => f.IsValid == true && f.PublicStatus == "2" && f.MemberID == memberId).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.memberId = memberId;
@@ -436,7 +472,7 @@ namespace GGZBTQPT_PRO.Controllers
         public PartialViewResult GetHotProductList(string keywords, int type, int memberType, int pageNum, int numPerPage)
         {
             var tqCount = 0;
-            var tq = db.T_JG_Product.Where(p => p.ProductName.Contains(keywords) && p.IsValid == true).Include(t => t.Member);
+            var tq = db.T_JG_Product.Where(p => p.ProductName.Contains(keywords) && p.IsValid == true && p.PublicStatus == "2").Include(t => t.Member);
             
             if (memberType != -1)
             {
@@ -457,7 +493,7 @@ namespace GGZBTQPT_PRO.Controllers
         public PartialViewResult GetHotFinancingList(string keywords, int type, int memberType, int pageNum, int numPerPage)
         {
             var tqCount = 0;
-            var tq = db.T_XM_Financing.Where(p => p.ItemName.Contains(keywords) && p.IsValid == true).Include(t => t.Member);
+            var tq = db.T_XM_Financing.Where(p => p.ItemName.Contains(keywords) && p.IsValid == true && p.PublicStatus == "2").Include(t => t.Member);
             if (memberType != -1)
             {
                 tq = tq.Where(s => s.Member.Type == memberType);
@@ -477,7 +513,7 @@ namespace GGZBTQPT_PRO.Controllers
         public PartialViewResult GetHotInvestmentList(string keywords, int type, int memberType, int pageNum, int numPerPage)
         {
             var tqCount = 0;
-            var tq = db.T_XM_Investment.Where(p => p.ItemName.Contains(keywords) && p.IsValid == true).Include(t => t.Member);
+            var tq = db.T_XM_Investment.Where(p => p.ItemName.Contains(keywords) && p.IsValid == true && p.PublicStatus == "2").Include(t => t.Member);
             if (memberType != -1)
             {
                 tq = tq.Where(s => s.Member.Type == memberType);

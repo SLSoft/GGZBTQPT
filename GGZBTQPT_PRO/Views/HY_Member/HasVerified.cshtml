@@ -72,6 +72,9 @@
                         更新时间
                     </th>
                     <th>
+                        查看详细
+                    </th>
+                    <th>
                         操作
                     </th>
                 </tr>
@@ -106,6 +109,9 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.UpdatedAt)
+                        </td>
+                        <td>
+                            @Html.ActionLink("详细信息", "VerifyDetails", "HY_Member", new { memberId = @item.ID, memberType = @item.Type }, new {max="true",target = "dialog",mask="true" })
                         </td>
                         <td>
                             @Html.ActionLink((item.State == 1) ? "撤销通过" : "撤销驳回", "UnVerify", "HY_Member", new { id = @item.ID }, new { rel = "HasVerified", target = "ajaxTodo", title = "确定操作吗？" })

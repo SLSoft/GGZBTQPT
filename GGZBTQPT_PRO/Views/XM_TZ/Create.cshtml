@@ -62,7 +62,9 @@
         });
     }
 </script>
-
+<script type="text/javascript">
+    $.validator.unobtrusive.parse(document);
+</script>
 <div class="pageContent">
 @using (Html.BeginForm("Create", "XM_TZ", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return iframeCallback(this,dialogAjaxDone);" }))
 {
@@ -78,6 +80,7 @@
                 <td style="width: 80px">@Html.LabelFor(model => model.ItemName, "投资意向标题")
                 </td>
                 <td>@Html.TextBoxFor(model => model.ItemName, new { style = "width:780px" })
+                @Html.ValidationMessageFor(model => model.ItemName)
                 </td>
             </tr>
             <tr>

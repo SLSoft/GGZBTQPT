@@ -1,0 +1,2 @@
+﻿@model Webdiyer.WebControls.Mvc.PagedList<GGZBTQPT_PRO.Models.T_XM_Financing>
+@Html.AjaxPager(Model, new PagerOptions { PageIndexParameterName = "id", ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "published" })

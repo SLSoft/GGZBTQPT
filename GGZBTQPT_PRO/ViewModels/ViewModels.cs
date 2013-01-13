@@ -121,5 +121,15 @@ namespace GGZBTQPT_PRO.ViewModels
         public string MemberName { get; set; }
         public TimeSpan Continuance { get; set; }
     }
+
+    /// <summary>
+    /// 交易统计
+    /// </summary>
+    public class VM_JYReport
+    {
+        public string TypeName { get; set; }
+        public int Count { get; set; }
+        public decimal Sum { get; set; }
+    }
 }
 

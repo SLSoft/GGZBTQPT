@@ -18,13 +18,13 @@ namespace GGZBTQPT_PRO.Controllers
         //
         // GET: /XM_RZ/
 
-        public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 5)
+        public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 15)
         {
             keywords = keywords == null ? "" : keywords;
             var t_xm_financing = db.T_XM_Financing.Where(p => (p.IsValid == true && p.ItemName.Contains(keywords))).OrderByDescending(p => p.CreateTime)
                                                                     .Skip(numPerPage * (pageNum - 1))
                                                                     .Take(numPerPage).ToList();
-            ViewBag.recordCount = db.T_XM_Financing.Where(c => c.IsValid == true).Count();
+            ViewBag.recordCount = db.T_XM_Financing.Where(p => (p.IsValid == true && p.ItemName.Contains(keywords))).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             return View(t_xm_financing);
@@ -211,7 +211,7 @@ namespace GGZBTQPT_PRO.Controllers
                 t_xm_financing.IsValid = false;
                 int result = db.SaveChanges();
                 if (result > 0)
-                    return ReturnJson(true, "操作成功", "", "", true, "");
+                    return ReturnJson(true, "操作成功", "", "", false, "");
                 else
                     return ReturnJson(false, "操作失败", "", "", false, "");
             }
@@ -246,7 +246,7 @@ namespace GGZBTQPT_PRO.Controllers
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
 
-            ViewBag.recordCount = db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == "1")).Count();
+            ViewBag.recordCount = db.T_XM_Financing.Where(p => (p.IsValid == true && p.PublicStatus == "2")).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
 
@@ -282,7 +282,12 @@ namespace GGZBTQPT_PRO.Controllers
         //helper
         public FileContentResult ShowPic(int xm_id)
         {
-            return File(db.T_XM_Financing.Find(xm_id).Pic, "image/jpeg");
+            byte[] pic;
+            if (db.T_XM_Financing.Find(xm_id).Pic != null)
+                pic = db.T_XM_Financing.Find(xm_id).Pic;
+            else
+                pic = new byte[1];
+            return File(pic, "image/jpeg");
         }
 
         //项目分析--项目列表
