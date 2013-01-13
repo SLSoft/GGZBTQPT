@@ -2,7 +2,6 @@
 @{
     Layout = null;
 }
-
 <div class="panel collapse" minh="100" defh="160">
     <h1>
         最新的融资项目</h1>
@@ -26,7 +25,7 @@
                 {
                     <tr>
                         <td>
-                            <a href="@Url.Action("Details", "XM_RZ", new { id = financial.ID })"  target="navTab" rel="financial_content" title="融资项目信息" fresh="true">@Html.DisplayFor(modelItem => financial.ItemName)</a> 
+                            <a href="@Url.Action("Details", "XM_RZ", new { id = financial.ID })"  target="navTab" rel="financial_content" title="融资项目信息" fresh="true">@Html.DisplayFor(modelItem => financial.ItemName)</a>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => financial.IndustryName)
@@ -66,8 +65,8 @@
                 @foreach (var investment in Model.Financials)
                 {
                     <tr>
-                        <td> 
-                            <a href="@Url.Action("Details", "XM_TZ", new { id = investment.ID })"  target="navTab" rel="investment_content" title="投资项目信息" fresh="true">@Html.DisplayFor(modelItem => investment.ItemName)</a> 
+                        <td>
+                            <a href="@Url.Action("Details", "XM_TZ", new { id = investment.ID })"  target="navTab" rel="investment_content" title="投资项目信息" fresh="true">@Html.DisplayFor(modelItem => investment.ItemName)</a>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => investment.ItemText)
@@ -85,25 +84,137 @@
     </div>
 </div>
 <br />
-<div class="panel collapse" minh="100" defh="150">
+<div class="panel collapse" minh="100" defh="160">
     <h1>
         发给我的文件</h1>
     <div>
-        @foreach (var file in Model.Files)
-        {
-            <p>@file.Title</p>
-        }
+        <table class="list" width="100%" asc="asc" desc="desc">
+            <thead>
+                <tr>
+                    <th>
+                        发送用户
+                    </th>
+                    <th>
+                        标题
+                    </th>
+                    <th>
+                        文件名
+                    </th>
+                    <th>
+                        创建时间
+                    </th>
+                    <th>
+                        修改时间
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Files)
+                {
+                    <tr>
+                        <td>
+                            @item.SendUser.UserName
+                        </td>
+                        <td>
+                            @item.Title
+                        </td>
+                        <td>
+                            @Html.ActionLink("文件下载", "DownLoadFile", new { id = item.ID })
+                        </td>
+                        <td>
+                            @String.Format("{0:g}", item.CreatedTime)
+                        </td>
+                        <td>
+                            @String.Format("{0:g}", item.UpdatedTime)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
 <br />
-<div class="panel collapse" minh="100" defh="150">
+<div class="panel collapse" minh="100" defh="160">
     <h1>
         最新的会议</h1>
     <div>
-        @foreach (var meeting in Model.Meetings)
-        {
-            <p>@meeting.Title</p>
-        }
+        <table class="list" width="100%" asc="asc" desc="desc">
+            <thead>
+                <tr>
+                    <th>
+                        会议主题
+                    </th>
+                    <th>
+                        会议内容
+                    </th>
+                    <th>
+                        会议时间
+                    </th>
+                    <th>
+                        会议地址
+                    </th>
+                    <th>
+                        参与人员
+                    </th>
+                    <th>
+                        记录人
+                    </th>
+                    <th>
+                        记录状态
+                    </th>
+                    <th>
+                        选择用户
+                    </th>
+                    <th>
+                        会议记录
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Meetings)
+                {
+                    <tr>
+                        <td>
+                            @item.Title
+                        </td>
+                        <td>
+                            @item.Content
+                        </td>
+                        <td>
+                            @String.Format("{0:g}", item.MeetingTime)
+                        </td>
+                        <td>
+                            @item.Address
+                        </td>
+                        <td>
+                            @foreach (var user in item.PartakeUsers)
+                            {
+                                <span style="margin-right: 10px;">@user.UserName</span>
+                            }
+                        </td>
+                        <td>
+                            @item.RecordUser
+                        </td>
+                        <td>
+                            @if (item.IsRecord)
+                            {
+                                <span>已记录</span>
+                            }
+                            else
+                            {
+                                <span>未记录</span>
+                            }
+                        </td>
+                        <td>
+                            @Html.ActionLink("参与人员", "SelectUser", "NB_Meeting", new { id = item.ID }, new { target = "dialog", mask = "true" })
+                        </td>
+                        <td>
+                            @Html.ActionLink(@item.IsRecord ? "修改" : "记录", "RecordEdit", "NB_Meeting", new { id = item.ID }, new { target = "dialog", mask = "true", width = "500", height = "350" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
 <br />

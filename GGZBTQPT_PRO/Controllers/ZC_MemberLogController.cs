@@ -9,6 +9,7 @@ using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.Enums;
 using GGZBTQPT_PRO.Util;
 using ExcelGenerator.SpreadSheet;
+using LinqToExcel;
 using GGZBTQPT_PRO.ViewModels;
 using System.ComponentModel.DataAnnotations;
 
@@ -251,5 +252,84 @@ namespace GGZBTQPT_PRO.Controllers
                 return Json(new { statusCode = "300" }, JsonRequestBehavior.AllowGet);
             } 
         }
+
+
+        #region //会员操作日志导入
+        public ActionResult ImportOperateLogWithExcel()
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult ImportOperateLogWithExcel(HttpPostedFileBase excel_file)
+        {
+            string file_name = System.IO.Path.GetFileName(excel_file.FileName); 
+            
+            try
+            {
+                string filePhysicalPath = Server.MapPath("~/TempFile/" + file_name);
+                excel_file.SaveAs(filePhysicalPath);
+                var excel = new ExcelQueryFactory(filePhysicalPath); 
+
+                var logs = from c in excel.WorksheetNoHeader()
+                           select c;
+
+                foreach (var log in logs)
+                {
+                    T_ZC_MemberLog member_log = new T_ZC_MemberLog();
+                    member_log.StartDateTime = Convert.ToDateTime(log[1]);
+                    member_log.EndDateTime = Convert.ToDateTime(log[2]);
+                    member_log.Message = log[3].ToString();
+                    member_log.OperateType = GetValueOfEnumByName(log[4].ToString(),typeof(OperateTypes));
+                    member_log.GenerateModule = GetValueOfEnumByName(log[5].ToString(), typeof(GenerateSystem));
+                    member_log.MemberID = Convert.ToInt32(log[6]);
+                    db.T_ZC_MemberLog.Add(member_log);
+                }
+                db.SaveChanges();
+                return ReturnJson(true, "导入成功", "", "", true, "");
+            }
+            catch(Exception e)
+            {
+                return ReturnJson(false, e.Message, "", "", false, ""); 
+            }
+        }
+
+        private int GetValueOfEnumByName(string name, Type type)
+        {
+            Array ary = Enum.GetValues(type);
+            foreach(int i in ary)
+            {
+                if(ary.GetValue(i).ToString() == name)
+                    return i;
+            }
+            return 0;
+        }
+        #endregion
+
+        #region 日志导出
+        public ActionResult ExportOperateLogWithExcel()
+        {
+            Workbook workbook = new Workbook();
+            Worksheet worksheet = new Worksheet("Sheet1");
+
+            var list = db.T_ZC_MemberLog.ToList();
+            foreach (var log in list)
+            {
+                ExcelGenerator.SpreadSheet.Row row = new ExcelGenerator.SpreadSheet.Row();
+
+                row.Cells.Add(new ExcelGenerator.SpreadSheet.Cell(log.ID.ToString()));
+                row.Cells.Add(new ExcelGenerator.SpreadSheet.Cell(log.StartDateTime.ToString()));
+                row.Cells.Add(new ExcelGenerator.SpreadSheet.Cell(log.EndDateTime.ToString()));
+                row.Cells.Add(new ExcelGenerator.SpreadSheet.Cell(log.Message.ToString()));
+                row.Cells.Add(new ExcelGenerator.SpreadSheet.Cell(Enum.GetName(typeof(OperateTypes),log.OperateType)));
+                row.Cells.Add(new ExcelGenerator.SpreadSheet.Cell(Enum.GetName(typeof(GenerateSystem),log.GenerateModule)));
+                row.Cells.Add(new ExcelGenerator.SpreadSheet.Cell(log.MemberID.ToString()));
+
+                worksheet.Rows.Add(row);
+            }
+            workbook.Worksheets.Add(worksheet);
+            return new ExcelResult(workbook.getBytes(), "Export.xls");
+        }
+        #endregion
     }
 }

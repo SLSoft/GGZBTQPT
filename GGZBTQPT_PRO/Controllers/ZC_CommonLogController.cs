@@ -143,21 +143,6 @@ namespace GGZBTQPT_PRO.Controllers
         }
         #endregion
 
-        #region //日志导入
-        public ActionResult ImportOperateLogWithExcel()
-        {
-            var excel = new ExcelQueryFactory(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Public/Excel/Import.xls"));
-
-            var logs = from c in excel.Worksheet()
-                        select c; 
-
-            foreach(var log in logs)
-            {
-                var x = log["Message"];
-            }
-            return ReturnJson(true, "导入成功", "", "", true, "");
-        }
-        #endregion
 
         //
         // GET: /ZC_CommonLog/Details/5

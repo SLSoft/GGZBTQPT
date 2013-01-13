@@ -7,8 +7,6 @@
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
     <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />
-    @*<input type="hidden" name="orderField" value="${param.orderField}" />
-        <input type="hidden" name="orderDirection" value="${param.orderDirection}" />*@
     </form>
     <form onsubmit="return navTabSearch(this);" action="@Url.Action("OperateLog")"
     method="post">
@@ -44,8 +42,6 @@
                         </div>
                     </div>
                 </li>
-                @*<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框">
-                    <span>高级检索</span></a></li>*@
             </ul>
         </div>
     </div>
