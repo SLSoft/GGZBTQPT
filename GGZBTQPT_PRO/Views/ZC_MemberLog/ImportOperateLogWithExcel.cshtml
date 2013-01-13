@@ -1,0 +1,28 @@
+﻿@using (Html.BeginForm("ImportOperateLogWithExcel", "ZC_MemberLog", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="pageContent">
+        <div class="pageFormContent" layouth="56">
+            <h3>
+                请选择需要导入的文件：</h3>
+            <input type="file" name="excel_file" id="excel_file"/>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">
+                                导入</button></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close">
+                                取消</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+}
