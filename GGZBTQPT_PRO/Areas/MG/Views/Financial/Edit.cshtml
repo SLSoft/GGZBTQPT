@@ -51,7 +51,8 @@
 
     function GetPlant() {
         $("#ddlCity").empty();
-        var url = "/Financial/GetCity/?ParentCode=" + $("#Province").val();
+        //var url = "/Financial/GetCity/?ParentCode=" + $("#Province").val();
+        var url = "@Url.Action("GetCity", "Financial")" + "?ParentCode=" + $("#Province").val();
         $.ajaxSettings.async = false;
         $.getJSON(url, function (data) {
             $.each(data, function (i, item) {

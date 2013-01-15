@@ -86,6 +86,7 @@ namespace GGZBTQPT_PRO.Controllers
         {
             if (ModelState.IsValid)
             {
+                t_qy_corp.Remark = t_qy_corp.Remark == null ? "" : t_qy_corp.Remark;
                 t_qy_corp.MemberID = Convert.ToInt32(Session["MemberID"] == null ? 0 : Session["MemberID"]);
                 t_qy_corp.IsValid = true;
                 t_qy_corp.OP = 0;
@@ -171,6 +172,7 @@ namespace GGZBTQPT_PRO.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(t_qy_corp).State = EntityState.Modified;
+                t_qy_corp.Remark = t_qy_corp.Remark == null ? "" : t_qy_corp.Remark;
                 t_qy_corp.UpdateTime = DateTime.Now;
 
                 HttpPostedFileBase file = Request.Files[0];

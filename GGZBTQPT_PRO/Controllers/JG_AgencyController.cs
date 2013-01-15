@@ -72,6 +72,8 @@ namespace GGZBTQPT_PRO.Controllers
         {
             if (ModelState.IsValid)
             {
+                t_jg_agency.Services = t_jg_agency.Services == null ? "" : t_jg_agency.Services;
+                t_jg_agency.Remark = t_jg_agency.Remark == null ? "" : t_jg_agency.Remark;
                 t_jg_agency.MemberID = Convert.ToInt32(Session["MemberID"] == null ? 0 : Session["MemberID"]);
                 t_jg_agency.IsValid = true;
                 t_jg_agency.OP = 0;
@@ -120,7 +122,8 @@ namespace GGZBTQPT_PRO.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(t_jg_agency).State = EntityState.Modified;
-
+                t_jg_agency.Services = t_jg_agency.Services == null ? "" : t_jg_agency.Services;
+                t_jg_agency.Remark = t_jg_agency.Remark == null ? "" : t_jg_agency.Remark;
                 if (t_jg_agency.RegTime == null)
                     t_jg_agency.RegTime = DateTime.MaxValue;
                 t_jg_agency.UpdateTime = DateTime.Now;

@@ -109,7 +109,8 @@ input,span {font:12px/24px verdana;vertical-align:middle;}
 
     function GetPlant() {
         $("#ddlCity").empty();
-        var url = "/Investment/GetCity/?ParentCode=" + $("#Province").val();
+        //var url = "/Investment/GetCity/?ParentCode=" + $("#Province").val();
+        var url = "@Url.Action("GetCity", "Investment")" + "?ParentCode=" + $("#Province").val();
         $.ajaxSettings.async = false;
         $.getJSON(url, function (data) {
             $.each(data, function (i, item) {

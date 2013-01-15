@@ -119,6 +119,7 @@ namespace GGZBTQPT_PRO.Controllers
                     checkedTransactionMode = checkedTransactionMode.Remove(checkedTransactionMode.Length - 1);
                 t_xm_financing.TransactionMode = checkedTransactionMode;
                 t_xm_financing.City = collection["ddlCity"];
+                t_xm_financing.ItemContent = t_xm_financing.ItemContent == null ? "" : t_xm_financing.ItemContent;
                 t_xm_financing.IsValid = true;
                 t_xm_financing.OP = 0;
                 t_xm_financing.CreateTime = DateTime.Now;
@@ -172,6 +173,7 @@ namespace GGZBTQPT_PRO.Controllers
                     checkedTransactionMode = checkedTransactionMode.Remove(checkedTransactionMode.Length - 1);
                 t_xm_financing.TransactionMode = checkedTransactionMode;
                 t_xm_financing.City = collection["ddlCity"];
+                t_xm_financing.ItemContent = t_xm_financing.ItemContent == null ? "" : t_xm_financing.ItemContent;
                 t_xm_financing.UpdateTime = DateTime.Now;
 
                 HttpPostedFileBase file = Request.Files[0];
