@@ -58,17 +58,11 @@
         <table class="list" width="100%" asc="asc" desc="desc">
             <thead>
                 <tr>
-                    <th width="40">
-                        <input type="checkbox" group="ids" class="checkboxCtrl">
-                    </th>
                     <th orderfield="name" class="asc">
                         案例名称
                     </th>
                     <th>
                         案例类型
-                    </th>
-                    <th>
-                        案例摘要
                     </th>
                     <th>文件下载</th>
                     <th>
@@ -78,10 +72,11 @@
                         更新时间
                     </th> 
                     <th>
-                        发布到门户
-                    </th>
-                    <th>
                         案例分析
+                    </th>
+                    <th>编辑详情</th>
+                    <th>
+                        发布到门户
                     </th>
                 </tr>
             </thead>
@@ -90,16 +85,10 @@
                 {
                     <tr target="mid" rel=@item.ID>
                         <td>
-                            <input name="ids" type="checkbox" value="@item.ID" />
-                        </td>
-                        <td>
                             @GenerateLinkForXM(item)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Type)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Summary)
                         </td>
                         <td>
                             @Html.ActionLink("文件下载", "DownLoadFile", new { id = item.ID })
@@ -111,10 +100,13 @@
                             @Html.DisplayFor(modelItem => item.UpdatedAt)
                         </td>
                         <td>
-                            @Ajax.ActionLink("发布到门户", "PublishCaseToCMS", new { id = item.ID }, new AjaxOptions{ HttpMethod = "POST", OnSuccess = "DWZ.ajaxDone(data)" })
+                            @Html.ActionLink("案例分析", "Analysis", new { xm_id = item.GenerateFromID, xm_type = item.Type }, new { target = "dialog", width="400", height="250", title="类似项目成交统计", mask="true" })
                         </td>
                         <td>
-                            @Html.ActionLink("案例分析", "Analysis", new { xm_id = item.GenerateFromID, xm_type = item.Type }, new { target = "dialog", width="400", height="250", title="类似项目成交统计", mask="true" })
+                            <a class="edit" href="@Url.Action("Edit", "XM_Case", new { id = item.ID, generate_type = (int)GenerateTypes.FromMember})" rel="edit" target="dialog" max="true" title="编辑案例信息" mask="true" warn="请选择一条案例数据"><span>编辑详情</span></a> 
+                        </td>
+                        <td>
+                            @Ajax.ActionLink("发布到门户", "PublishCaseToCMS", new { id = item.ID }, new AjaxOptions{ HttpMethod = "POST", OnSuccess = "navTabAjaxDone(data)" })
                         </td>
                     </tr>
                 }

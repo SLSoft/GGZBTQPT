@@ -46,9 +46,6 @@
         <table class="list" width="100%" asc="asc" desc="desc">
             <thead>
                 <tr>
-                    <th width="40">
-                        <input type="checkbox" group="ids" class="checkboxCtrl">
-                    </th>
                     <th orderfield="name" class="asc">
                         案例名称
                     </th>
@@ -74,9 +71,6 @@
                 @foreach (var item in Model)
                 {
                     <tr target="mid" rel=@item.ID>
-                        <td>
-                            <input name="ids" type="checkbox" value="@item.ID" />
-                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>

@@ -56,7 +56,6 @@ namespace GGZBTQPT_PRO.Controllers
                     int result = db.SaveChanges();
                     if (result > 0)
                     { 
-                        BusinessService.TransformatFromXM(1,"fefef",1,"fefef");
                         return ReturnJson(true, "操作成功", "", "", true, "");
                     }
                     else

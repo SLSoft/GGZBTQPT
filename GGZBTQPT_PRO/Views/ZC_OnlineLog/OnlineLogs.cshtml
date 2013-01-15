@@ -40,13 +40,16 @@
                         会员名称
                     </th>
                     <th>
+                        IP地址
+                    </th>
+                    <th>
                         登陆时间
                     </th>
                     <th>
                         离开时间
                     </th>
                     <th>
-                        IP地址
+                        在线时间
                     </th>
                 </tr>
             </thead>
@@ -58,13 +61,17 @@
                             @Html.DisplayFor(modelItem => item.Member.MemberName)
                         </td>
                         <td>
+                            @Html.DisplayFor(modelItem => item.IpAddress)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.LoginInDate)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.LoginOutDate)
                         </td>
+                        
                         <td>
-                            @Html.DisplayFor(modelItem => item.IpAddress)
+                           @(item.LoginOutDate - item.LoginInDate)
                         </td>
                     </tr>
                 }

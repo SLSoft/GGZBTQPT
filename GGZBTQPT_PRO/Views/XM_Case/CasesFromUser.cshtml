@@ -47,17 +47,11 @@
         <table class="list" width="100%" asc="asc" desc="desc">
             <thead>
                 <tr>
-                    <th width="40">
-                        <input type="checkbox" group="ids" class="checkboxCtrl">
-                    </th>
                     <th orderfield="name" class="asc">
                         案例名称
                     </th>
                     <th>
                         案例类型
-                    </th>
-                    <th>
-                        案例摘要
                     </th>
                     <th>文件下载</th>
                     <th>
@@ -66,6 +60,8 @@
                     <th>
                         更新时间
                     </th>
+                    <th>
+                    编辑</th>
                     <th>
                         发布到门户
                     </th>
@@ -76,16 +72,10 @@
                 {
                     <tr target="mid" rel=@item.ID>
                         <td>
-                            <input name="ids" type="checkbox" value="@item.ID" />
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Type)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Summary)
                         </td>
                         <td>
                             @Html.ActionLink("文件下载", "DownLoadFile", new { id = item.ID })
@@ -95,6 +85,10 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.UpdatedAt)
+                        </td>
+                        
+                        <td>
+                            <a class="edit" href="@Url.Action("edit", "XM_Case", new { id = item.ID, generate_type = (int)GenerateTypes.FromMember })" rel="edit" target="dialog" max="true" title="编辑案例信息" mask="true" warn="请选择一条案例数据"><span>编辑详情</span></a> 
                         </td>
                         <td>
                             @Ajax.ActionLink("发布到门户", "PublishCaseToCMS", new { id = item.ID }, new AjaxOptions { HttpMethod = "POST", OnSuccess = "DWZ.ajaxDone(data)" })

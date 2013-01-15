@@ -71,8 +71,13 @@ function _iframeResponse(iframe, callback) {
             response = doc.XMLDocument;
         } else if (doc.body) {
             try {
+
+                alert(response);
                 response = $iframe.contents().find("body").html();
+
+                alert(response);
                 response = jQuery.parseJSON(response);
+                alert(response);
             } catch (e) { // response is html document or plain text
                 response = doc.body.innerHTML;
             }
@@ -80,7 +85,6 @@ function _iframeResponse(iframe, callback) {
             // response is a xml document
             response = doc;
         }
-
         callback(response);
     });
 }

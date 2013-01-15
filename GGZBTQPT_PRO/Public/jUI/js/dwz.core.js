@@ -72,6 +72,9 @@ var DWZ = {
         }
     },
     ajaxDone: function (json) {
+        if (typeof (json) == "string") {
+            json = jQuery.parseJSON(json);
+        }
         if (json.statusCode === undefined && json.message === undefined) { // for iframeCallback
             if (alertMsg) return alertMsg.error(json);
             else return alert(json);

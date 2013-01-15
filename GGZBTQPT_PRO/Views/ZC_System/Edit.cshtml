@@ -9,13 +9,17 @@
     @using (Html.BeginForm("Edit", "ZC_System", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
     {
         @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.CreatedAt)
         <div class="pageFormContent" layouth="60">
             <p>
-                @*@Html.LabelFor(model => model.Name)*@
-                @Html.LabelFor(model => model.Name, "系统名称")
+                @Html.LabelFor(model => model.Name)
                 @Html.EditorFor(model => model.Name)
                 @Html.ValidationMessageFor(model => model.Name)
-                @Html.HiddenFor(model => model.CreatedAt)
+            </p>
+            <p>
+                @Html.LabelFor(model => model.Index)
+                @Html.EditorFor(model => model.Index)
+                @Html.ValidationMessageFor(model => model.Index)
             </p>
         </div>
         <div class="formBar">

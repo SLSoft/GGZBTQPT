@@ -1,4 +1,4 @@
-﻿@charset "utf-8";
+﻿@charset "gb2312";
 /* CSS Document */
 div {
 	FONT-SIZE: 12px;
@@ -83,6 +83,7 @@ text-align:center;
 color:#000000;
 
 }/* 必须使用和footer相同的高度 */ 
+
 #loginbottom {
 position: relative;
 background:#666666;

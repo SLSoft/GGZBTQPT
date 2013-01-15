@@ -52,6 +52,10 @@
         <table class="list" width="100%" asc="asc" desc="desc">
             <thead>
                 <tr>
+
+                    <th>
+                        操作人
+                    </th>
                     <th orderfield="name" class="asc">
                         错误日志记录
                     </th>
@@ -60,10 +64,6 @@
                     </th>
                     <th>
                         来源
-                    </th>
-
-                    <th>
-                        操作人
                     </th>
                     <th>
                         详细堆栈信息
@@ -74,6 +74,10 @@
                 @foreach (var item in Model)
                 {
                     <tr target="mid" rel=@item.ID>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User)
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Message).ToString().Substring(0,30)
                         </td>
@@ -82,10 +86,6 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Logger)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.User)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Exception).ToString().Substring(0, 50)

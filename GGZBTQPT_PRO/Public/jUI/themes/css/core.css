@@ -361,9 +361,9 @@ table.nowrap tbody tr {border-bottom:solid 1px #ededed;}
 
 /* ProgressBar */
 .progressBar { display:block; width:148px; height:28px; position:fixed; top:50%; left:50%; margin-left:-74px; margin-top:-14px; padding:10px 10px 10px 50px; text-align:left; line-height:27px; font-weight:bold; position:absolute; z-index:2001;}
-.background { display:block; width:100%; height:100%; opacity:0.4; filter:alpha(opacity=40); background:#FFF; position:absolute; top:0; left:0; z-index:2000;}
-.alertBackground { display:none; width:100%; height:100%; opacity:0.4; filter:alpha(opacity=40); background:#FFF; position:absolute; top:0; left:0; z-index:1010;}
-.dialogBackground { display:none; width:100%; height:100%; opacity:0.4; filter:alpha(opacity=40); background:#FFF; position:absolute; top:0; left:0; z-index:900;}
+.background { display:block; width:100%; height:100%; opacity:0; filter:alpha(opacity=0); background:#FFF; position:absolute; top:0; left:0; z-index:2000;}
+.alertBackground { display:none; width:100%; height:100%; opacity:0; filter:alpha(opacity=0); background:#FFF; position:absolute; top:0; left:0; z-index:1010;}
+.dialogBackground { display:none; width:100%; height:100%; opacity:0; filter:alpha(opacity=0); background:#FFF; position:absolute; top:0; left:0; z-index:900;}
 
 /* ----------------------------------------------------------------- Form */
 /* TextInput */

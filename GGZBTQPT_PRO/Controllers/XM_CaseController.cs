@@ -244,7 +244,7 @@ namespace GGZBTQPT_PRO.Controllers
                 xm_case.IsPublished = true;
                 db.Entry(xm_case).State = EntityState.Modified;
                 db.SaveChanges();
-                return ReturnJson(true, "成功发布案例成功", "", "", false, "");
+                return ReturnJson(true, "成功发布案例成功", "", "", true, "");
             }
             else
             {

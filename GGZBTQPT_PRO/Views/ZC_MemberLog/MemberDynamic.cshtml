@@ -58,6 +58,9 @@
         <table class="list" width="100%" asc="asc" desc="desc">
             <thead>
                 <tr>
+                    <th>
+                        会员名称
+                    </th>
                     <th orderfield="name" class="asc">
                         会员动态
                     </th>
@@ -70,15 +73,15 @@
                     <th>
                         模块
                     </th>
-                    <th>
-                        会员名称
-                    </th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
                     <tr target="mid" rel=@item.ID>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Member.MemberName)
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Message)
                         </td>
@@ -90,9 +93,6 @@
                         </td>
                         <td>
                             @Enum.GetName(typeof(GenerateSystem),item.GenerateModule)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Member.MemberName)
                         </td>
                     </tr>
                 }

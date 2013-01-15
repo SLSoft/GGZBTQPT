@@ -53,9 +53,6 @@
         <table class="list" width="100%" asc="asc" desc="desc">
             <thead>
                 <tr>
-                    <th width="40">
-                        <input type="checkbox" group="ids" class="checkboxCtrl">
-                    </th>
                     <th orderfield="name" class="asc">
                         系统名称
                     </th>
@@ -65,15 +62,16 @@
                     <th>
                         更新时间
                     </th>
+                    
+                    <th>
+                        系统序号
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
                     <tr target="mid" rel=@item.ID>
-                        <td>
-                            <input name="ids" type="checkbox" value="@item.ID" />
-                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
@@ -82,6 +80,9 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.UpdatedAt)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Index)
                         </td>
                     </tr>
                 }

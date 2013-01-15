@@ -28,7 +28,7 @@ namespace GGZBTQPT_PRO.Controllers
         public ActionResult SystemLink()
         {
             var current_user = CurrentUser();
-            var system_links = db.T_ZC_System.OrderBy(s => s.ID)
+            var system_links = db.T_ZC_System.OrderBy(s => s.Index)
                                  .Where(s => s.IsValid == true)
                                  .ToList();
 
@@ -48,7 +48,7 @@ namespace GGZBTQPT_PRO.Controllers
         { 
             var current_user = CurrentUser();
             var system = db.T_ZC_System.Find(id);
-            var menu_links = system.Menus.OrderBy(m => m.ID)
+            var menu_links = system.Menus.OrderBy(m => m.Index)
                        .Where(m => m.IsValid == true)
                        .ToList();
 

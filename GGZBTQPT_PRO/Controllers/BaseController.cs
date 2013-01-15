@@ -27,7 +27,7 @@ namespace GGZBTQPT_PRO.Controllers
         {
             string _statusCode = _IfSuccess ? "200" : "300";
             string _callbackType = _IfColse ? "closeCurrent" : null;
-            return Json(new { statusCode = _statusCode, message = _message, navTabId = _navTabId, rel = _rel, callbackType = _callbackType, forwardUrl = _forwardUrl }, JsonRequestBehavior.AllowGet);
+            return Json(new { statusCode = _statusCode, message = _message, navTabId = _navTabId, rel = _rel, callbackType = _callbackType, forwardUrl = _forwardUrl }, "text/html", JsonRequestBehavior.AllowGet);
         }
 
         //日志处理

@@ -13,24 +13,30 @@
         @Html.ValidationSummary(true)
 
         <div class="pageFormContent" layouth="60"> 
-            <p>@Html.LabelFor(model => model.SystemID, "所属系统")
+            <p>@Html.LabelFor(model => model.SystemID)
                 @Html.DropDownList("SystemID")
                 @Html.ValidationMessageFor(model => model.SystemID)
             </p>
-            <p>@Html.LabelFor(model => model.ParentID, "上级菜单")
+            <p>@Html.LabelFor(model => model.ParentID)
                 @Html.DropDownList("ParentID", "请选择上级菜单")
                 @Html.ValidationMessageFor(model => model.ParentID)
             </p>
             <p>
-                @Html.LabelFor(model => model.Name, "菜单名称")
+                @Html.LabelFor(model => model.Name)
                 @Html.EditorFor(model => model.Name)
                 @Html.ValidationMessageFor(model => model.Name)
             </p>
             <p>
-                @Html.LabelFor(model => model.Url, "菜单路径")
+                @Html.LabelFor(model => model.Url)
                 @Html.EditorFor(model => model.Url)
                 @Html.ValidationMessageFor(model => model.Url)
-            </p>            
+            </p>   
+            
+            <p>
+                @Html.LabelFor(model => model.Index)
+                @Html.EditorFor(model => model.Index)
+                @Html.ValidationMessageFor(model => model.Index)
+            </p>           
         </div>
 
         <div class="formBar">

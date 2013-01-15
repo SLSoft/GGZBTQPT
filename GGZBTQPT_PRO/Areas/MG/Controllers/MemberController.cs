@@ -271,6 +271,32 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             return true;
         }
 
+        public bool SendPwdByEmail(string random_pwd, T_HY_Member member)
+        {
+            try
+            {
+                Mail.SendEmail(member.Email, "光谷资本特区密码重置！", ForgetPwd(member.LoginName, random_pwd));
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public string ForgetPwd(string member_name, string member_pwd)
+        {
+            string welcome = "<h2>密码重置</h2>";
+            welcome += "<strong>尊敬的" + member_name + ":</strong>";
+            welcome += "<h3>我们已经为您设置了临时登陆密码，请尽快登陆专区，并进行修改：</h3>";
+            welcome += "<ul><li>会员名：" + member_name + "</li>" +
+                           "<li>密码：" + member_pwd + "</li>" +
+                           "</ul>";
+
+            return welcome;
+
+        }
+
         //
         //发送随机的登录密码，用于忘记密码的用户临时登录用 
         public JsonResult SendRandomPwd(string loginname)
@@ -283,12 +309,21 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 return Json("不存在该用户!!", JsonRequestBehavior.AllowGet);
 
             //if (SendMsg(random_pwd, member.CellPhone))
-            if (SendMsg("123456", member.CellPhone))
+            //if (SendMsg("123456", member.CellPhone))
+            //{
+            //    member.Password = T_HY_Member.EncryptPwd(random_pwd);
+            //    db.Entry(member).State = EntityState.Modified;
+            //    db.SaveChanges();
+            //    return Json("已向该用户名所绑定的手机号发送了临时登陆密码，请及时登陆并修改密码！", JsonRequestBehavior.AllowGet);
+            //}
+
+            if(SendPwdByEmail(random_pwd, member))
             {
                 member.Password = T_HY_Member.EncryptPwd(random_pwd);
                 db.Entry(member).State = EntityState.Modified;
-                db.SaveChanges();
-                return Json("已向该用户名所绑定的手机号发送了临时登陆密码，请及时登陆并修改密码！", JsonRequestBehavior.AllowGet);
+                db.SaveChanges(); 
+                return Json("已向该用户名所绑定的邮件发送了临时登陆密码，请及时登陆并修改密码！", JsonRequestBehavior.AllowGet);
+                
             }
             return Json("发送失败!", "text/html", JsonRequestBehavior.AllowGet);
         } 
