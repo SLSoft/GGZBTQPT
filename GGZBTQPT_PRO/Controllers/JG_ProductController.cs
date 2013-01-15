@@ -73,6 +73,10 @@ namespace GGZBTQPT_PRO.Controllers
                     t_jg_product.CustomerType = strType;
                 }
                 t_jg_product.AgencyID = Convert.ToInt32(collection["AgencyList"]);
+                t_jg_product.Superiority = t_jg_product.Superiority == null ? "" : t_jg_product.Superiority;
+                t_jg_product.RepaymentType = t_jg_product.RepaymentType == null ? "" : t_jg_product.RepaymentType;
+                t_jg_product.AppCondition = t_jg_product.AppCondition == null ? "" : t_jg_product.AppCondition;
+                t_jg_product.Process = t_jg_product.Process == null ? "" : t_jg_product.Process;
                 t_jg_product.IsValid = true;
                 t_jg_product.OP = 0;
                 t_jg_product.CreateTime = DateTime.Now;
@@ -118,6 +122,10 @@ namespace GGZBTQPT_PRO.Controllers
             {
                 db.Entry(t_jg_product).State = EntityState.Modified;
                 t_jg_product.AgencyID = Convert.ToInt32(collection["AgencyList"]);
+                t_jg_product.Superiority = t_jg_product.Superiority == null ? "" : t_jg_product.Superiority;
+                t_jg_product.RepaymentType = t_jg_product.RepaymentType == null ? "" : t_jg_product.RepaymentType;
+                t_jg_product.AppCondition = t_jg_product.AppCondition == null ? "" : t_jg_product.AppCondition;
+                t_jg_product.Process = t_jg_product.Process == null ? "" : t_jg_product.Process;
                 t_jg_product.CustomerType = collection["checkboxType"] == null ? "" : collection["checkboxType"];
                 t_jg_product.UpdateTime = DateTime.Now;
 

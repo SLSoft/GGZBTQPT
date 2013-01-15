@@ -111,6 +111,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 t_xm_investment.TeamworkType = checkedcbTeamWorkType;
                 t_xm_investment.InvestmentStage = checkedcbInvestmentStage;
                 t_xm_investment.City = collection["ddlCity"];
+                t_xm_investment.Description = t_xm_investment.Description == null ? "" : t_xm_investment.Description;
                 t_xm_investment.IsValid = true;
                 t_xm_investment.OP = 0;
                 t_xm_investment.CreateTime = DateTime.Now;
@@ -181,6 +182,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 t_xm_investment.TeamworkType = checkedcbTeamWorkType;
                 t_xm_investment.InvestmentStage = checkedcbInvestmentStage;
                 t_xm_investment.City = collection["ddlCity"];
+                t_xm_investment.Description = t_xm_investment.Description == null ? "" : t_xm_investment.Description;
                 t_xm_investment.UpdateTime = DateTime.Now;
                 db.SaveChanges();
 

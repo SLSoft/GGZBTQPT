@@ -19,6 +19,7 @@
 }
 <script type="text/javascript">
     $(function () {
+        GetPlant();
         $("#item2").hide();
         $("#item3").hide();
         $("#item4").hide();
@@ -54,7 +55,10 @@
 
         function GetPlant() {
             $("#ddlCity").empty();
-            var url = "/XM_RZ/GetCity/?ParentCode=" + $("#Province").val();
+
+            //var url = "/XM_RZ/GetCity/?ParentCode=" + $("#Province").val();
+            var url = "@Url.Action("GetCity", "XM_RZ")" + "?ParentCode=" + $("#Province").val();
+
             $.getJSON(url, function (data) {
                 $.each(data, function (i, item) {
                     $("<option></option>")
