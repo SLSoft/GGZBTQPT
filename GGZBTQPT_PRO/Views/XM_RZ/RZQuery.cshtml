@@ -75,7 +75,7 @@
     <input type="hidden" name="context" value="@ViewBag.context"  />
     <input type="hidden" name="keys"  value="@ViewBag.keys"  />
     </form>
-    <form onsubmit="return navTabSearch(this);" rel="pagerForm" action="@Url.Action("RZQuery")" method="post">
+    <form onsubmit="return navTabSearch(this);" action="@Url.Action("RZQuery")" method="post">
     <div class="searchBar">
                 <input type="hidden" id="condition1" name="condition1" value="@ViewBag.condition1"  />
                 <input type="hidden" id="condition2" name="condition2" value="@ViewBag.condition2"  />
