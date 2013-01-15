@@ -14,7 +14,7 @@
         <ul class="searchContent">
             <li>
                 <label>
-                    产品名称：</label>
+                    意向名称：</label>
                 <input type="text" name="keywords" value="@ViewData["keywords"]" /> </li>
             <li>
                 <label>
@@ -55,6 +55,9 @@
                         意向名称
                     </th>
                     <th>
+                        所属行业
+                    </th>
+                    <th>
                         投资金额
                     </th>
                     <th>
@@ -79,6 +82,9 @@
                         </td>
                         <td>
                             @item.ItemName
+                        </td>
+                        <td>
+                            @item.IndustryName
                         </td>
                         <td>
                             @String.Format("{0:F}", item.Investment)
