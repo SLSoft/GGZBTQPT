@@ -3,55 +3,82 @@
     Layout = null;
 }
 <link href="@Url.Content("~/Content/css/Style.css")" rel="stylesheet" type="text/css" />
-<div style="margin:10px 10px;" class="pageContent" layouth="30">
-<h2>投资意向统计</h2>
-<hr />
-<p style="font-size:14pt">登记投资意向数量：@ViewBag.RZXMCount</p>
-<p style="font-size:14pt">登记投资意向总额：@ViewBag.RZXMSum 万元</p>
-<br />
-<div style="width:200px; float:left">
-<table cellpadding="5" cellspacing="5" class="report_tb">
-    <tr>
-        <td>投资额度</td>
-        <td>数量</td>
-    </tr>
-    <tr>
-        <td>10万以下</td>
-        <td>@Model.Where(t => t.Investment<=10).Count()</td>
-    </tr>
-    <tr>
-        <td>10-100万</td>
-        <td>@Model.Where(t => (t.Investment > 10 && t.Investment <=100)).Count()</td>
-    </tr>
-    <tr>
-        <td>100-500万</td>
-        <td>@Model.Where(t => (t.Investment > 100 && t.Investment <= 500)).Count()</td>
-    </tr>
-    <tr>
-        <td>500-1000万</td>
-        <td>@Model.Where(t => (t.Investment > 500 && t.Investment <= 1000)).Count()</td>
-    </tr>
-    <tr>
-        <td>1000-5000万</td>
-        <td>@Model.Where(t => (t.Investment > 1000 && t.Investment <= 5000)).Count()</td>
-    </tr>
-    <tr>
-        <td>5000万-1亿</td>
-        <td>@Model.Where(t => (t.Investment > 5000 && t.Investment <= 10000)).Count()</td>
-    </tr>
-    <tr>
-        <td>大于1亿</td>
-        <td>@Model.Where(t => t.Investment > 10000).Count()</td>
-    </tr>
-</table>
-</div>
-<div id="tzchart" style="height: 300px; width: 500px; float:left"></div>
-
+<div style="margin: 10px 10px;" class="pageContent" layouth="30">
+    <h2>
+        投资意向统计</h2>
+    <hr />
+    <p style="font-size: 14pt">
+        登记投资意向数量：@ViewBag.RZXMCount</p>
+    <p style="font-size: 14pt">
+        登记投资意向总额：@ViewBag.RZXMSum 万元</p>
+    <br />
+    <div style="width: 200px; float: left">
+        <table cellpadding="5" cellspacing="5" class="report_tb">
+            <tr>
+                <td>
+                    投资额度
+                </td>
+                <td>
+                    数量
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    10万以下
+                </td>
+                <td>@Model.Where(t => t.Investment <= 10).Count()
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    10-100万
+                </td>
+                <td>@Model.Where(t => (t.Investment > 10 && t.Investment <= 100)).Count()
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    100-500万
+                </td>
+                <td>@Model.Where(t => (t.Investment > 100 && t.Investment <= 500)).Count()
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    500-1000万
+                </td>
+                <td>@Model.Where(t => (t.Investment > 500 && t.Investment <= 1000)).Count()
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    1000-5000万
+                </td>
+                <td>@Model.Where(t => (t.Investment > 1000 && t.Investment <= 5000)).Count()
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    5000万-1亿
+                </td>
+                <td>@Model.Where(t => (t.Investment > 5000 && t.Investment <= 10000)).Count()
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    大于1亿
+                </td>
+                <td>@Model.Where(t => t.Investment > 10000).Count()
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="tzchart" style="height: 300px; width: 500px; float: left">
+    </div>
 </div>
 <script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.barRenderer.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.categoryAxisRenderer.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.pointLabels.min.js")" type="text/javascript"></script>
-
 <script type="text/javascript">
     $(document).ready(function () {
         $.getJSON("@Url.Action("XMTZReportData", "XM_TZ")", function(data){

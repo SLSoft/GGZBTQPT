@@ -3,30 +3,93 @@
 @{
     Layout = null;
 }
-<div  class="stat-container" >
-    <hr />
-    <div class="stat-number">
-        <h3>
-            按照操作类型统计操作时间如下：</h3>
-        <ul>
-            <li>访问操作： @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Visit).Sum(m => m.Continuance.TotalMinutes),2)</li>
-            <li>添加操作： @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Create).Sum(m => m.Continuance.TotalMinutes),2)</li>
-            <li>删除操作： @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Delete).Sum(m => m.Continuance.TotalMinutes),2)</li>
-            <li>更新操作： @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Edit).Sum(m => m.Continuance.TotalMinutes),2)</li>
-            <li>发布操作： @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Publish).Sum(m => m.Continuance.TotalMinutes),2)</li>
-            <li>关注操作： @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Attention).Sum(m => m.Continuance.TotalMinutes),2)</li>
-            <li>收藏操作： @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Favorite).Sum(m => m.Continuance.TotalMinutes),2)</li>
-            <li>搜索操作： @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Search).Sum(m => m.Continuance.TotalMinutes),2)</li>
-        </ul>
-    </div>
-    <div class="unitBox" style="margin-left: 246px;">
-        <div id="continuance_with_operate_type_stat" style="height: 400px; width: 600px;">
+<div class="row-fluid top-line pdv20">
+    <div id="accomplishment_sum" class="span8 fnormal">
+        <div id="continuance_with_operate_type_stat">
         </div>
     </div>
+    <div id="accomplishment_num" class="span4 fnormal">
+        <p class="down-line ">
+            <span class="label">按照功能类型统计操作时间如下：</span></p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        操作类型
+                    </th>
+                    <th>
+                        操作时间（分钟）
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        访问操作
+                    </td>
+                    <td>
+                        @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Visit).Sum(m => m.Continuance.TotalMinutes), 2)（分钟）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        添加操作
+                    </td>
+                    <td>
+                        @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Create).Sum(m => m.Continuance.TotalMinutes), 2)（分钟）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        删除操作
+                    </td>
+                    <td>
+                        @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Delete).Sum(m => m.Continuance.TotalMinutes), 2)（分钟）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        更新操作
+                    </td>
+                    <td>
+                        @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Edit).Sum(m => m.Continuance.TotalMinutes), 2)（分钟）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        发布操作
+                    </td>
+                    <td>
+                        @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Publish).Sum(m => m.Continuance.TotalMinutes), 2)（分钟）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        关注操作
+                    </td>
+                    <td>
+                        @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Attention).Sum(m => m.Continuance.TotalMinutes), 2)（分钟）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        收藏操作
+                    </td>
+                    <td>
+                        @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Favorite).Sum(m => m.Continuance.TotalMinutes), 2)（分钟）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        搜索操作
+                    </td>
+                    <td>
+                        @Math.Round(Model.Where(m => m.OperateType == (int)OperateTypes.Search).Sum(m => m.Continuance.TotalMinutes), 2)（分钟）
+                    </td>
+                </tr>
+        </table>
+    </div>
 </div>
-<script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.barRenderer.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.categoryAxisRenderer.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.pointLabels.min.js")" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $.getJSON("@Url.Action("ContinuanceStatWithOperateTypeData", "ZC_MemberLog")", function(data){

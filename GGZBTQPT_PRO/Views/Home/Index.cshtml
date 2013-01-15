@@ -12,28 +12,6 @@
                 height="250" title="设置个人信息" mask="true"><span>个人设置</span></a></li>
                 <li>@Html.ActionLink("注销", "Logout")</li>
             </ul>
-            @*<ul class="themeList" id="themeList">
-        <li theme="default">
-          <div class="selected">
-            蓝色</div>
-        </li>
-        <li theme="green">
-          <div>
-            绿色</div>
-        </li>
-        <li theme="purple">
-          <div>
-            紫色</div>
-        </li>
-        <li theme="silver">
-          <div>
-            银色</div>
-        </li>
-        <li theme="azure">
-          <div>
-            天蓝</div>
-        </li>
-      </ul>*@
         </div>
         <div id="navMenu">
             @Html.Action("SystemLink")
@@ -56,7 +34,7 @@
             <div>
                 收缩</div>
         </div>
-        @Html.Action("SystemMenus")
+        @Html.Action("SystemMenus", new { id = 3})
     </div>
 </div>
 <div id="container">

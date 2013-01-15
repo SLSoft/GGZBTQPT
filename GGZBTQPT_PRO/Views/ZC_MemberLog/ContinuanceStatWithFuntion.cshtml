@@ -3,29 +3,89 @@
 @{
     Layout = null;
 }
-<div  class="stat-container" >
-    <hr />
-    <div class="stat-number">
-        <h3>
-            按照功能类型统计操作时间如下：</h3>
-        <ul>
-            <li>金融推荐： @Math.Round(Model.Where(m => m.GenerateModule == (int)GenerateSystem.Recommend).Sum(m => m.Continuance.TotalMinutes),2)</li>
-            <li>找项目： @Math.Round(Model.Where(m => m.GenerateModule == (int)GenerateSystem.FindFinancial).Sum(m => m.Continuance.TotalMinutes),2)</li>
-            <li>找资金： @Math.Round(Model.Where(m => m.GenerateModule == (int)GenerateSystem.FindInvestment).Sum(m => m.Continuance.TotalMinutes),2)</li>
-            <li>找服务： @Math.Round(Model.Where(m => m.GenerateModule == (int)GenerateSystem.FindService).Sum(m => m.Continuance.TotalMinutes),2)</li>
-            <li>我的关注： @Math.Round(Model.Where(m => m.GenerateModule == (int)GenerateSystem.Attention).Sum(m => m.Continuance.TotalMinutes),2)</li>
-            <li>我的收藏： @Math.Round(Model.Where(m => m.GenerateModule == (int)GenerateSystem.Favorite).Sum(m => m.Continuance.TotalMinutes),2)</li>
-            <li>我的发布： @Math.Round(Model.Where(m => m.GenerateModule == (int)GenerateSystem.Publish).Sum(m => m.Continuance.TotalMinutes), 2)</li>
-        </ul>
-    </div>
-    <div class="unitBox" style="margin-left: 246px;">
-        <div id="continuance_with_function_stat" style="height: 400px; width: 600px;">
+<div class="row-fluid">
+    <p class="bg-lightgreen fnormal">
+        截止到 @DateTime.Now.ToLongDateString(), 会员在线时间共计 <em class="red fbig">@Math.Round(Model.Sum(m => m.Continuance.TotalMinutes),2)</em>分钟, 计<em class="red fbigger">@Math.Round(Model.Sum(m => m.Continuance.TotalHours),2)</em>小时</p>
+</div>
+<div class="row-fluid top-line pdv20">
+    <div id="accomplishment_sum" class="span8 fnormal">
+        <div id="continuance_with_function_stat">
         </div>
     </div>
+    <div id="accomplishment_num" class="span4 fnormal">
+        <p class="down-line ">
+            <span class="label">按照功能类型统计操作时间如下：</span></p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        功能类型
+                    </th>
+                    <th>
+                        操作时间（分钟）
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        金融推荐
+                    </td>
+                    <td>
+                        @Math.Round(Model.Where(m => m.GenerateModule == (int)GenerateSystem.Recommend).Sum(m => m.Continuance.TotalMinutes), 2) （分钟）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        找项目
+                    </td>
+                    <td>
+                        @Math.Round(Model.Where(m => m.GenerateModule == (int)GenerateSystem.FindFinancial).Sum(m => m.Continuance.TotalMinutes), 2)（分钟）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        找资金
+                    </td>
+                    <td>
+                        @Math.Round(Model.Where(m => m.GenerateModule == (int)GenerateSystem.FindInvestment).Sum(m => m.Continuance.TotalMinutes), 2)（分钟）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        找服务
+                    </td>
+                    <td>
+                        @Math.Round(Model.Where(m => m.GenerateModule == (int)GenerateSystem.FindService).Sum(m => m.Continuance.TotalMinutes), 2)（分钟）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        我的关注
+                    </td>
+                    <td>
+                        @Math.Round(Model.Where(m => m.GenerateModule == (int)GenerateSystem.Attention).Sum(m => m.Continuance.TotalMinutes), 2)（分钟）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        我的收藏
+                    </td>
+                    <td>
+                        @Math.Round(Model.Where(m => m.GenerateModule == (int)GenerateSystem.Favorite).Sum(m => m.Continuance.TotalMinutes), 2)（分钟）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        我的发布
+                    </td>
+                    <td>
+                        @Math.Round(Model.Where(m => m.GenerateModule == (int)GenerateSystem.Publish).Sum(m => m.Continuance.TotalMinutes), 2)（分钟）
+                    </td>
+                </tr>
+        </table>
+    </div>
 </div>
-<script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.barRenderer.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.categoryAxisRenderer.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.pointLabels.min.js")" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $.getJSON("@Url.Action("ContinuanceStatWithFuntionData", "ZC_MemberLog")", function(data){

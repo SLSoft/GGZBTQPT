@@ -12,6 +12,7 @@ namespace GGZBTQPT_PRO.Models
             CreatedAt = DateTime.Now;
             UpdatedAt = DateTime.Now;
             Index = 0;
+            IsExternal = false;
         }
 
         public int ID { get; set; }
@@ -31,6 +32,10 @@ namespace GGZBTQPT_PRO.Models
 
         [Display(Name = "上级菜单")]
         public int ParentID { get; set; }
+
+        [Display(Name = "是否外部链接")]
+        public bool IsExternal { get; set; }
+
         public Boolean IsValid { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }

@@ -36,7 +36,12 @@
                 @Html.LabelFor(model => model.Index)
                 @Html.EditorFor(model => model.Index)
                 @Html.ValidationMessageFor(model => model.Index)
-            </p>           
+            </p>  
+            <p>
+                @Html.LabelFor(model => model.IsExternal)
+                @Html.EditorFor(model => model.IsExternal)
+                @Html.ValidationMessageFor(model => model.IsExternal)
+            </p>          
         </div>
 
         <div class="formBar">

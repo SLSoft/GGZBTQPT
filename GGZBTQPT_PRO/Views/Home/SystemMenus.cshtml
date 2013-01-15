@@ -8,26 +8,30 @@
     if (menu.ParentID == ParentMenu.ID)
     { 
         var paths = menu.Url != null ? menu.Url.Split('/') : new string[0];//转化路径地址
-      <li>
-        @if(paths.Length > 1)
-        {
-            <a href="@Url.Action(paths[1],paths[0])"  target="navTab" title="@menu.Name" rel="@menu.ID">@menu.Name</a> 
-        }
-        else
-        {
-            <a href="#"  target="navTab" title="@menu.Name" rel="@menu.ID">@menu.Name</a> 
-        }
-        @if (Model.Where(m => m.ParentID == menu.ID).Count() > 0)
-        {
-          <ul>
-            @GenerateChildMenu(menu)
-          </ul>
-        }
-        else
-        {
-          @GenerateChildMenu(menu)
-        }
-      </li>
+          <li>
+            @if(paths.Length > 1 && menu.IsExternal == false)
+            {
+                <a href="@Url.Action(paths[1],paths[0])"  target="navTab" title="@menu.Name" rel="@menu.ID"  >@menu.Name</a> 
+            }
+            else if(paths.Length > 1 && menu.IsExternal == true)
+            {
+                <a href="@Url.Action(paths[1], paths[0])"  target="navTab" title="@menu.Name" rel="@menu.ID" external="true" >@menu.Name</a> 
+            }
+            else
+            {
+                <a href="#"  target="navTab" title="@menu.Name" rel="@menu.ID">@menu.Name</a> 
+            }
+            @if (Model.Where(m => m.ParentID == menu.ID).Count() > 0)
+            {
+              <ul>
+                @GenerateChildMenu(menu)
+              </ul>
+            }
+            else
+            {
+              @GenerateChildMenu(menu)
+            }
+          </li>
     }
   }
 }
