@@ -91,7 +91,7 @@
             <span>每页显示</span>
             <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value,pageNum:1})">
                 @{  
-                    int[] nums = new int[] { 5, 10, 20, 50, 100, 200 };
+                    int[] nums = new int[] { 15, 25, 50, 100, 200 };
                     foreach (var num in nums)
                     {
                         if (Int32.Parse(ViewData["numPerPage"].ToString()) == num)

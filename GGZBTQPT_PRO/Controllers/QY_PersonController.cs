@@ -17,7 +17,7 @@ namespace GGZBTQPT_PRO.Controllers
         //
         // GET: /QY_Person/
 
-        public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 5)
+        public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 15)
         {
             keywords = keywords == null ? "" : keywords;
             var t_qy_person = db.T_QY_Person.Where(p => (p.IsValid == true && p.Name.Contains(keywords))).OrderByDescending(p => p.CreateTime)
@@ -26,6 +26,7 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.recordCount = db.T_QY_Person.Where(p => (p.IsValid == true && p.Name.Contains(keywords))).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
+            ViewBag.keywords = keywords;
             return View(t_qy_person);
         }
 
@@ -175,7 +176,7 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         //创业者查询功能
-        public ActionResult PersonQuery(FormCollection collection, int pageNum = 1, int numPerPage = 5)
+        public ActionResult PersonQuery(FormCollection collection, int pageNum = 1, int numPerPage = 15)
         {
             BindEducation();
             string personname = collection["personname"] == null ? "" : collection["personname"];

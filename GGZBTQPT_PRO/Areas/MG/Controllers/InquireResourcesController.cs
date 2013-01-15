@@ -30,7 +30,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             ViewData["ItemStage"] = new SelectList(ItemStage, "ID", "Name");
             ViewBag.current_page_id = id;
             //var financials = db.T_XM_Financing.OrderBy(p => p.CreateTime);
-            PagedList<T_XM_Financing> financials = db.T_XM_Financing.OrderByDescending(p => p.CreateTime).ToPagedList(id, 5);
+            PagedList<T_XM_Financing> financials = db.T_XM_Financing.Where(f=>(f.IsValid==true && f.PublicStatus=="2")).OrderByDescending(p => p.CreateTime).ToPagedList(id, 5);
             return View(financials); 
         } 
 
@@ -153,7 +153,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             List<T_PTF_DicDetail> InvestmentStage = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM04")).ToList();
             ViewData["InvestmentStage"] = new SelectList(InvestmentStage, "ID", "Name");
             ViewBag.current_page_id = id;
-            var investments = db.T_XM_Investment.OrderByDescending(f => f.CreateTime).ToPagedList(id, 5);
+            var investments = db.T_XM_Investment.Where(f => (f.IsValid == true && f.PublicStatus == "2")).OrderByDescending(f => f.CreateTime).ToPagedList(id, 5);
             return View(investments);
         }
         [HttpPost]
@@ -253,7 +253,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             List<T_PTF_DicDetail> ItemStage = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM04")).ToList();
             ViewData["ItemStage"] = new SelectList(ItemStage, "ID", "Name");
 
-            var financials = db.T_XM_Financing.OrderByDescending(f => f.CreateTime).ToPagedList(id, 5);
+            var financials = db.T_XM_Financing.Where(f=>(f.IsValid==true && f.PublicStatus=="2")).OrderByDescending(f => f.CreateTime).ToPagedList(id, 5);
 
             ViewBag.FavoredFinacials = FavoredItems(1);
             ViewBag.current_page_id = id;
@@ -407,7 +407,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             ViewData["InvestmentNature"] = new SelectList(InvestmentNature, "ID", "Name");
             List<T_PTF_DicDetail> InvestmentStage = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM04")).ToList();
             ViewData["InvestmentStage"] = new SelectList(InvestmentStage, "ID", "Name");
-            var investments = db.T_XM_Investment.OrderByDescending(f => f.CreateTime).ToPagedList(id, 5);
+            var investments = db.T_XM_Investment.Where(f=>(f.IsValid == true && f.PublicStatus=="2")).OrderByDescending(f => f.CreateTime).ToPagedList(id, 5);
             return View(investments);
         }
 
@@ -422,7 +422,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             ViewData["AgencyList"] = new SelectList(AgencyList, "ID", "SubName");
             List<T_PTF_DicDetail> CustomerType = db.T_PTF_DicDetail.Where(p => (p.DicType == "JG02")).ToList();
             ViewData["CustomerType"] = new SelectList(CustomerType, "ID", "Name");
-            var products = db.T_JG_Product.Where(p => p.IsValid == true).OrderBy(p => p.CreateTime).ToPagedList(id, 5);
+            var products = db.T_JG_Product.Where(p => (p.IsValid == true && p.PublicStatus=="2")).OrderBy(p => p.CreateTime).ToPagedList(id, 5);
             return View(products);
         }
         [HttpPost]

@@ -16,7 +16,7 @@ namespace GGZBTQPT_PRO.Controllers
         //
         // GET: /QY_Corp/
 
-        public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 5)
+        public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 15)
         {
             keywords = keywords == null ? "" : keywords;
             var t_qy_corp = db.T_QY_Corp.Where(c => (c.IsValid == true && c.CorpName.Contains(keywords))).OrderByDescending(p => p.CreateTime)
@@ -25,6 +25,7 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.recordCount = db.T_QY_Corp.Where(c => (c.IsValid == true && c.CorpName.Contains(keywords))).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
+            ViewBag.keywords = keywords;
             return View(t_qy_corp);
         }
 
@@ -296,7 +297,7 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         //企业查询功能
-        public ActionResult CorpQuery(FormCollection collection, int pageNum = 1, int numPerPage = 5)
+        public ActionResult CorpQuery(FormCollection collection, int pageNum = 1, int numPerPage = 15)
         {
             BindProperty();
             BindIndustry();
