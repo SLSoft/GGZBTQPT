@@ -351,6 +351,18 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.MountSum = qy.Where(p => (p.CreateTime.Value.Year == DateTime.Now.Year && p.CreateTime.Value.Month == DateTime.Now.Month)).Count();
             ViewBag.DaySum = qy.Where(p => (p.CreateTime.Value.Year == DateTime.Now.Year && p.CreateTime.Value.Month == DateTime.Now.Month && p.CreateTime.Value.Day == DateTime.Now.Day)).Count();
 
+            return View();
+        }
+
+        #region 注册企业行业分类统计
+        public ActionResult DataReportbyIndustry()
+        {
+            var qy = db.T_QY_Corp.Where(p => p.IsValid == true).ToList();
+            ViewBag.CorpCount = qy.Count();
+            ViewBag.YearSum = qy.Where(p => p.CreateTime.Value.Year == DateTime.Now.Year).Count();
+            ViewBag.MountSum = qy.Where(p => (p.CreateTime.Value.Year == DateTime.Now.Year && p.CreateTime.Value.Month == DateTime.Now.Month)).Count();
+            ViewBag.DaySum = qy.Where(p => (p.CreateTime.Value.Year == DateTime.Now.Year && p.CreateTime.Value.Month == DateTime.Now.Month && p.CreateTime.Value.Day == DateTime.Now.Day)).Count();
+
             var up = db.T_QY_Corp.Where(p => p.IsValid == true).GroupBy(g => g.Industry)
                                     .Select(s => new { cnt = s.Count(), type = (int)s.Key });
 
@@ -368,7 +380,7 @@ namespace GGZBTQPT_PRO.Controllers
             return PartialView(list.ToList());
         }
 
-        public ActionResult CorpReportData()
+        public ActionResult ChartReportbyIndustry()
         {
             var up = db.T_QY_Corp.Where(p => p.IsValid == true).GroupBy(g => g.Industry)
                                     .Select(s => new { cnt = s.Count(), type = (int)s.Key });
@@ -393,5 +405,6 @@ namespace GGZBTQPT_PRO.Controllers
 
             return Json(new { statData = dic }, JsonRequestBehavior.AllowGet);
         }
+        #endregion
     }
 }

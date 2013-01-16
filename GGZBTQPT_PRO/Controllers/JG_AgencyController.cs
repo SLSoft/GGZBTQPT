@@ -193,17 +193,18 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         //机构查询功能
-        public ActionResult AgencyQuery(FormCollection collection, int pageNum = 1, int numPerPage = 15)
+        public ActionResult AgencyQuery(string keywords, int AgencyType = -1, int pageNum = 1, int numPerPage = 15)
         {
             BindAgencyType();
-            string agencyname = collection["agencyname"] == null ? "" : collection["agencyname"];
-            int agencytype = collection["AgencyType"] == null || collection["AgencyType"] == "" ? 0 : Convert.ToInt32(collection["AgencyType"]);
+            keywords = keywords == null ? "" : keywords;
+            //string agencyname = collection["agencyname"] == null ? "" : collection["agencyname"];
+            //int agencytype = collection["AgencyType"] == null || collection["AgencyType"] == "" ? 0 : Convert.ToInt32(collection["AgencyType"]);
 
 
-            var t_jg_agency = db.T_JG_Agency.Where(c => c.IsValid == true && c.AgencyName.Contains(agencyname));
-            if (agencytype != 0)
+            var t_jg_agency = db.T_JG_Agency.Where(c => c.IsValid == true && c.AgencyName.Contains(keywords));
+            if (AgencyType != -1)
             {
-                t_jg_agency = t_jg_agency.Where(c => c.AgencyType == agencytype);
+                t_jg_agency = t_jg_agency.Where(c => c.AgencyType == AgencyType);
             }
 
             IList<GGZBTQPT_PRO.Models.T_JG_Agency> list = t_jg_agency.OrderByDescending(s => s.CreateTime)
@@ -212,37 +213,19 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.recordCount = t_jg_agency.Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
-
+            ViewBag.keywords = keywords;
             return PartialView(list);
         }
 
-        public ActionResult AgencyReportData()
+        public ActionResult AgencyReport()
         {
-            var up = db.T_JG_Agency.Where(p=>p.IsValid == true).GroupBy(g => g.AgencyType)
-                                    .Select(s => new { cnt = s.Count(), type = (int)s.Key });
-                                    
-
-            var list = from u in db.T_PTF_DicDetail
-                       where u.DicType == "JG01"
-                       join p in up on u.ID equals p.type into gj                      
-                       from x in gj.DefaultIfEmpty()
-                       orderby u.ID
-                       select new VM_AgencyReport
-                       {
-                           TypeName = u.Name,
-                           AgencyCount = x.type==null ? 0 : x.cnt
-                       };
-
-            Dictionary<String, int> dic = new Dictionary<string, int>();
-            foreach (VM_AgencyReport vma in list.ToList())
-            {
-                dic.Add(vma.TypeName, vma.AgencyCount);
-            }
-
-            return Json(new { statData = dic }, JsonRequestBehavior.AllowGet);
+            var agencys = db.T_JG_Agency.Where(p => p.IsValid == true).ToList();
+            ViewBag.AgencyCount = agencys.Count;
+            return View();
         }
 
-        public ActionResult AgencyReport()
+        #region 机构类别统计
+        public ActionResult DataReportbyType()
         {
             var agencys = db.T_JG_Agency.Where(p => p.IsValid == true).ToList();
             ViewBag.AgencyCount = agencys.Count;
@@ -262,5 +245,31 @@ namespace GGZBTQPT_PRO.Controllers
                        };
             return PartialView(list.ToList()); 
         }
+        public ActionResult ChartReportbyType()
+        {
+            var up = db.T_JG_Agency.Where(p => p.IsValid == true).GroupBy(g => g.AgencyType)
+                                    .Select(s => new { cnt = s.Count(), type = (int)s.Key });
+
+
+            var list = from u in db.T_PTF_DicDetail
+                       where u.DicType == "JG01"
+                       join p in up on u.ID equals p.type into gj
+                       from x in gj.DefaultIfEmpty()
+                       orderby u.ID
+                       select new VM_AgencyReport
+                       {
+                           TypeName = u.Name,
+                           AgencyCount = x.type == null ? 0 : x.cnt
+                       };
+
+            Dictionary<String, int> dic = new Dictionary<string, int>();
+            foreach (VM_AgencyReport vma in list.ToList())
+            {
+                dic.Add(vma.TypeName, vma.AgencyCount);
+            }
+
+            return Json(new { statData = dic }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion 
     }
 }

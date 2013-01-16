@@ -251,13 +251,10 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         //产品查询功能
-        public ActionResult ProductQuery(FormCollection collection, int pageNum = 1, int numPerPage = 15)
+        public ActionResult ProductQuery(string productname, string agencyname, int regkey = 1, int amount = 0, int pageNum = 1, int numPerPage = 15)
         {
-            string productname = collection["productname"] == null ? "" : collection["productname"];
-            string agencyname = collection["agencyname"] == null ? "" : collection["agencyname"];
-            decimal amount = collection["amount"] == null || collection["amount"] == "" ? 0 : Convert.ToDecimal(collection["amount"]);
-
-
+            productname = productname == null ? "" : productname;
+            agencyname = agencyname == null ? "" : agencyname;
             var t_jg_product = db.T_JG_Product.Where(p => p.IsValid == true && p.ProductName.Contains(productname));
             if (agencyname != "")
             {
@@ -271,7 +268,7 @@ namespace GGZBTQPT_PRO.Controllers
             }
             if(amount!=0)
             {
-                if (collection["regkey"] == "1")
+                if (regkey == 1)
                     t_jg_product = t_jg_product.Where(p=> p.FinancingAmount>amount);
                 else
                     t_jg_product = t_jg_product.Where(p=> p.FinancingAmount<amount);    
@@ -283,7 +280,10 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.recordCount = t_jg_product.Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
-
+            ViewBag.productname = productname;
+            ViewBag.agencyname = agencyname;
+            ViewBag.amount = amount;
+            ViewBag.regkey = regkey;
             return PartialView(list);
         }
 
@@ -302,14 +302,23 @@ namespace GGZBTQPT_PRO.Controllers
         {
             var cp = db.T_JG_Product.Where(p => (p.IsValid == true && p.PublicStatus == "2")).ToList();
             ViewBag.CPCount = cp.Count();
+
+            return View();
+        }
+
+        #region 机构登记产品数量统计
+        public ActionResult DataReportbyAgency()
+        {
+            var cp = db.T_JG_Product.Where(p => (p.IsValid == true && p.PublicStatus == "2")).ToList();
+            ViewBag.CPCount = cp.Count();
             var list = db.T_JG_Product.Where(p => (p.IsValid == true && p.PublicStatus == "2")).GroupBy(g => g.AgencyID)
                                     .Select(s => new { cnt = s.Count(), type = (int)s.Key })
-                                    .Join(db.T_JG_Agency, s => s.type, g => g.ID, (s, g) => new VM_CPReport { TypeName=g.SubName, Count=s.cnt });
+                                    .Join(db.T_JG_Agency, s => s.type, g => g.ID, (s, g) => new VM_CPReport { TypeName = g.SubName, Count = s.cnt });
 
             return PartialView(list.ToList());
         }
 
-        public ActionResult ProductReportData()
+        public ActionResult ChartReportbyAgency()
         {
             var list = db.T_JG_Product.Where(p => (p.IsValid == true && p.PublicStatus == "2")).GroupBy(g => g.AgencyID)
                                     .Select(s => new { cnt = s.Count(), type = (int)s.Key });
@@ -321,5 +330,6 @@ namespace GGZBTQPT_PRO.Controllers
 
             return Json(new { statData = dic }, JsonRequestBehavior.AllowGet);
         }
+        #endregion
     }
 }

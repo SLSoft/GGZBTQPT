@@ -415,10 +415,19 @@ namespace GGZBTQPT_PRO.Controllers
             var tzxm = db.T_XM_Investment.Where(p=>(p.IsValid==true && p.PublicStatus=="2")).ToList();
             ViewBag.RZXMCount = tzxm.Count();
             ViewBag.RZXMSum = tzxm.Sum(s => s.Investment);
+            return View();
+        }
+
+        #region 投资额度范围统计
+        public ActionResult DataReportbyInvestment()
+        {
+            var tzxm = db.T_XM_Investment.Where(p => (p.IsValid == true && p.PublicStatus == "2")).ToList();
+            ViewBag.RZXMCount = tzxm.Count();
+            ViewBag.RZXMSum = tzxm.Sum(s => s.Investment);
             return PartialView(tzxm);
         }
 
-        public ActionResult XMTZReportData()
+        public ActionResult ChartReportbyInvestment()
         {
             var tzxm = db.T_XM_Investment.Where(p => (p.IsValid == true && p.PublicStatus == "2")).ToList();
             Dictionary<String, int> dic = new Dictionary<string, int>();
@@ -435,6 +444,7 @@ namespace GGZBTQPT_PRO.Controllers
             }
 
             return Json(new { statData = dic}, JsonRequestBehavior.AllowGet);
-        }
+        }     
+        #endregion
     }
 }

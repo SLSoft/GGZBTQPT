@@ -3,6 +3,10 @@
     Layout = null;
 }
 <link href="@Url.Content("~/Content/css/Style.css")" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+    $("#regkey").val("@ViewBag.regkey");
+</script>
+
 <div class="pageHeader">
 <form id="pagerForm" method="post" action="@Url.Action("ProductQuery")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
@@ -21,7 +25,7 @@
             </tr>
             <tr>
                 <td>最高融资额度：</td>
-                <td><select name="regkey"><option value="1">大于</option><option value="0">小于</option></select>
+                <td><select id="regkey" name="regkey"><option value="1">大于</option><option value="0">小于</option></select>
                 <input type="text" name="amount" value="@ViewData["amount"]" />万元
                 </td>
             </tr>
@@ -59,10 +63,10 @@
                 所属机构
             </th>
             <th>
-                最高融资额度
+                最高融资额度（万元）
             </th>
             <th>
-                融资期限
+                融资期限（月）
             </th>
     </tr>
       </thead>

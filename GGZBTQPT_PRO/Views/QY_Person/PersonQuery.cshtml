@@ -2,6 +2,12 @@
 @{
     Layout = null;
 }
+<script type="text/javascript">
+    if(@ViewBag.gender == "1")
+        $("#gender1").attr("checked", "checked");
+    else
+        $("#gender2").attr("checked", "checked");
+</script>
 <div class="pageHeader">
     <form id="pagerForm" method="post" action="@Url.Action("PersonQuery")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
@@ -12,15 +18,15 @@
         <table style="width:100%; border-spacing:5px;" >
             <tr>
                 <td width="80px;">姓名：</td>
-                <td><input type="text" name="personname"/></td>
+                <td><input type="text" name="personname" value="@ViewData["personname"]"/></td>
             </tr>
             <tr>
                 <td>证件号码：</td>
-                <td><input type="text" name="cardid"/></td>
+                <td><input type="text" name="cardid" value="@ViewData["cardid"]"/></td>
             </tr>
             <tr>
                 <td>性别：</td>
-                <td><input name="gender" type="radio" value="1"/>男<input name="gender" type="radio" value="2"/>女</td>
+                <td><input id="gender1" name="gender" type="radio" value="1"/>男<input id="gender2" name="gender" type="radio" value="2"/>女</td>
             </tr>
             <tr>
                 <td>学历：</td>

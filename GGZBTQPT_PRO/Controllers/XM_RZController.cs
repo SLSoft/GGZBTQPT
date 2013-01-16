@@ -401,8 +401,17 @@ namespace GGZBTQPT_PRO.Controllers
         public ActionResult RZXMReport()
         {
             var rzxm = db.T_XM_Financing.Where(p => p.IsValid == true).ToList();
-            ViewBag.RZXMCount = rzxm.Count;//登记项目总量
+            ViewBag.RZXMCount = rzxm.Count;//登记项目总量          
             
+            return View();
+        }
+
+        #region 项目按行业统计
+        public ActionResult DataReportbyIndustry()
+        {
+            var rzxm = db.T_XM_Financing.Where(p => p.IsValid == true).ToList();
+            ViewBag.RZXMCount = rzxm.Count;//登记项目总量
+
             var up = db.T_XM_Financing.Where(p => p.IsValid == true).GroupBy(g => g.Industry)
                                     .Select(s => new { cnt = s.Count(), type = (int)s.Key });
 
@@ -419,8 +428,8 @@ namespace GGZBTQPT_PRO.Controllers
                        };
             return PartialView(list.ToList());
         }
-        //项目按行业统计
-        public ActionResult RZXMReportbyIndustry()
+
+        public ActionResult ChartReportbyIndustry()
         {
             var up = db.T_XM_Financing.Where(p => p.IsValid == true).GroupBy(g => g.Industry)
                                     .Select(s => new { cnt = s.Count(), type = (int)s.Key });
@@ -445,5 +454,6 @@ namespace GGZBTQPT_PRO.Controllers
 
             return Json(new { statData = dic }, JsonRequestBehavior.AllowGet);
         }
+        #endregion
     }
 }

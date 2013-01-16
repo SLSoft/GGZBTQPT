@@ -1,0 +1,67 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.ViewModels.VM_JYReport>
+@{
+    Layout = null;
+}
+<div class="row-fluid top-line pdv20">
+    <div id="accomplishment_sum" class="span8 fnormal">
+        <div id="jymonthchart" style="height: 540px;">
+        </div>
+    </div>
+    <div id="accomplishment_num" class="span4 fnormal">
+        <p class="down-line ">
+            <span class="label">每月交易情况如下：</span></p>
+        <table class="table table-striped">
+            <tr>
+                <td>月份</td>
+                <td>交易数量</td>
+                <td>交易总额</td>
+            </tr>
+            @foreach (var item in Model)
+            { 
+                <tr>
+                    <td>@item.TypeName</td>
+                    <td>@item.Count</td>
+                    <td>@item.Sum</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.getJSON("@Url.Action("ChartReportbyMonth", "XM_JY")", function(data){
+        
+            var statData = [];
+            var ticks = [];
+            $.each(data.statData, function(key, value){
+                statData.push(value);
+                ticks.push(key);
+            }); 
+
+            
+            var plot1b = $.jqplot('jymonthchart', [statData], 
+             {
+                    title: '年度交易情况',
+                    seriesDefaults: {
+                        renderer:$.jqplot.BarRenderer,
+                        rendererOptions: {
+                            fillToZero: true,        
+                            barDirection: 'vertical', // vertical or horizontal.
+                            barWidth: 15     // width of the bars.  null to calculate automatically.
+                            }
+                    },
+                    axes: {
+                        xaxis: {
+                            renderer: $.jqplot.CategoryAxisRenderer,
+                            ticks: ticks
+                        },
+                        yaxis: {
+                            tickOptions: { formatString: '%.1f' }
+                        }
+                    }
+                });
+
+        });
+    });
+</script>

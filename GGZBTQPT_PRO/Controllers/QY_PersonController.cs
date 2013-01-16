@@ -176,23 +176,21 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         //创业者查询功能
-        public ActionResult PersonQuery(FormCollection collection, int pageNum = 1, int numPerPage = 15)
+        public ActionResult PersonQuery(string personname, string cardid, string gender, int Education = -1, int pageNum = 1, int numPerPage = 15)
         {
             BindEducation();
-            string personname = collection["personname"] == null ? "" : collection["personname"];
-            string cardid = collection["cardid"] == null ? "" : collection["cardid"];
-            string gender = collection["gender"] == null ? "" : collection["gender"];
-            int edu = collection["Education"] == null || collection["Education"] == "" ? 0 : Convert.ToInt32(collection["Education"]);
-
+            personname = personname == null ? "" : personname;
+            cardid = cardid == null ? "" : cardid;
+            gender = gender == null ? "" : gender;
             var t_qy_person = db.T_QY_Person.Where(p => (p.IsValid == true && p.Name.Contains(personname) && p.CardID.Contains(cardid)));
 
             if (gender != "")
             {
                 t_qy_person = t_qy_person.Where(p => p.Gender == gender);
             }
-            if (edu != 0)
+            if (Education != -1)
             {
-                t_qy_person = t_qy_person.Where(p => p.Education == edu);
+                t_qy_person = t_qy_person.Where(p => p.Education == Education);
             }
 
             IList<GGZBTQPT_PRO.Models.T_QY_Person> list = t_qy_person.OrderByDescending(s => s.CreateTime)
@@ -201,12 +199,26 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.recordCount = t_qy_person.Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
-
+            ViewBag.personname = personname;
+            ViewBag.cardid = cardid;
+            ViewBag.gender = gender;
             return PartialView(list);
         }
 
         //创业者统计
         public ActionResult PersonReport()
+        {
+            var ps = db.T_QY_Person.Where(p => p.IsValid == true).ToList();
+            ViewBag.PersonCount = ps.Count();
+            ViewBag.YearSum = ps.Where(p => p.CreateTime.Value.Year == DateTime.Now.Year).Count();
+            ViewBag.MountSum = ps.Where(p => (p.CreateTime.Value.Year == DateTime.Now.Year && p.CreateTime.Value.Month == DateTime.Now.Month)).Count();
+            ViewBag.DaySum = ps.Where(p => (p.CreateTime.Value.Year == DateTime.Now.Year && p.CreateTime.Value.Month == DateTime.Now.Month && p.CreateTime.Value.Day == DateTime.Now.Day)).Count();
+
+            return View();
+        }
+
+        #region 创业者学历分类统计
+        public ActionResult DataReportbyEducation()
         {
             var ps = db.T_QY_Person.Where(p => p.IsValid == true).ToList();
             ViewBag.PersonCount = ps.Count();
@@ -231,7 +243,7 @@ namespace GGZBTQPT_PRO.Controllers
             return PartialView(list.ToList());
         }
 
-        public ActionResult PersonReportData()
+        public ActionResult ChartReportbyEducation()
         {
             var up = db.T_QY_Person.Where(p => p.IsValid == true).GroupBy(g => g.Education)
                                     .Select(s => new { cnt = s.Count(), type = (int)s.Key });
@@ -256,5 +268,6 @@ namespace GGZBTQPT_PRO.Controllers
 
             return Json(new { statData = dic }, JsonRequestBehavior.AllowGet);
         }
+        #endregion
     }
 }

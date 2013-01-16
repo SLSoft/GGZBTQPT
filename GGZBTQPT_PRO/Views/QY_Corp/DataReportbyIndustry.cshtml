@@ -1,0 +1,65 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.ViewModels.VM_CPReport>
+@{
+    Layout = null;
+}
+<div class="row-fluid top-line pdv20">
+    <div id="accomplishment_sum" class="span8 fnormal">
+        <div id="qyindustrychart" style="height: 600px;">
+        </div>
+    </div>
+    <div id="accomplishment_num" class="span4 fnormal">
+        <p class="down-line ">
+            <span class="label">注册企业行业分类如下：</span></p>
+        <table class="table table-striped">
+            <tr>
+                <td>所属行业</td>
+                <td>数量</td>
+            </tr>
+            @foreach (var item in Model)
+            { 
+                <tr>
+                    <td>@item.TypeName</td>
+                    <td>@item.Count</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.getJSON("@Url.Action("ChartReportbyIndustry", "QY_Corp")", function(data){
+        
+            var statData = [];
+            var ticks = [];
+            $.each(data.statData, function(key, value){
+                statData.push(value);
+                ticks.push(key);
+            }); 
+
+            
+            var plot1b = $.jqplot('qyindustrychart', [statData], 
+             {
+                    title: '注册企业行业分类',
+                    seriesDefaults: {
+                        renderer:$.jqplot.BarRenderer,
+                        rendererOptions: {
+                            fillToZero: true,        
+                            barDirection: 'horizontal', // vertical or horizontal.
+                            barWidth: 15     // width of the bars.  null to calculate automatically.
+                            }
+                    },
+                    axes: {
+                        xaxis: {
+                            tickOptions: { formatString: '%.1f' }
+                        },
+                        yaxis: {
+                            renderer: $.jqplot.CategoryAxisRenderer,
+                            ticks: ticks
+                        }
+                    }
+                });
+
+        });
+    });
+</script>

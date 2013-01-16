@@ -164,6 +164,14 @@ using System.Net;namespace GGZBTQPT_PRO.Controllers
             var xmjy = db.T_XM_Transaction.Where(p => p.IsValid == true).ToList();
             ViewBag.JYCount = xmjy.Count;//项目交易总量
             ViewBag.JYSum = xmjy.Sum(p => p.Amount);//项目交易总额
+            return View();
+        }
+
+        public ActionResult DataReportbyMonth()
+        {
+            var xmjy = db.T_XM_Transaction.Where(p => p.IsValid == true).ToList();
+            ViewBag.JYCount = xmjy.Count;//项目交易总量
+            ViewBag.JYSum = xmjy.Sum(p => p.Amount);//项目交易总额
 
             var up = db.T_XM_Transaction.Where(p => (p.IsValid == true && p.TranTime.Year == DateTime.Now.Year)).GroupBy(g => g.TranTime.Month)
                                     .Select(s => new { um = s.Sum(m => m.Amount), cnt = s.Count(), type = (int)s.Key });
@@ -179,7 +187,9 @@ using System.Net;namespace GGZBTQPT_PRO.Controllers
                        };
             return PartialView(list.ToList());
         }
-        public ActionResult JYReportData()
+
+
+        public ActionResult ChartReportbyMonth()
         {
             var up = db.T_XM_Transaction.Where(p => (p.IsValid == true && p.TranTime.Year == DateTime.Now.Year)).GroupBy(g => g.TranTime.Month)
                                     .Select(s => new { cnt = s.Count(), type = (int)s.Key });

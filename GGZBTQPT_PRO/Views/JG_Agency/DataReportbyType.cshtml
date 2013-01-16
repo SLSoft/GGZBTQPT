@@ -1,0 +1,58 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.ViewModels.VM_AgencyReport>
+@{
+    Layout = null;
+}
+<div class="row-fluid top-line pdv20">
+    <div id="accomplishment_sum" class="span8 fnormal">
+        <div id="jgtypechart" style="height: 400px;">
+        </div>
+    </div>
+    <div id="accomplishment_num" class="span4 fnormal">
+        <p class="down-line ">
+            <span class="label">注册机构类别分类如下：</span></p>
+        <table class="table table-striped">
+            <tr>
+                <td>机构类别</td>
+                <td>数量</td>
+            </tr>
+            @foreach (var item in Model)
+            { 
+                <tr>
+                    <td>@item.TypeName</td>
+                    <td>@item.AgencyCount</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.getJSON("@Url.Action("ChartReportbyType", "JG_Agency")", function(data){
+        
+            var statData = [];
+            $.each(data.statData, function(key, value){
+                var _temp = [key, value];
+                statData.push(_temp);
+            }); 
+            
+            jQuery.jqplot('jgtypechart', [statData],
+                {
+                    title: '机构类别统计图表',
+                    seriesColors: [ "#74A474", "#EED205", "#C5DA01", "#4C4C4C", "#065FB9", "#ff981f",
+        "#BEC0C2", "#00CCFF", "#FF6600", "#D6E9FC"],
+                    seriesDefaults: {
+                        // Make this a pie chart.
+                        renderer: jQuery.jqplot.PieRenderer,
+                        rendererOptions: {
+                            // Put data labels on the pie slices.
+                            // By default, labels show the percentage of the slice.
+                            showDataLabels: true
+                            }
+                        },
+                    legend: { show: true, location: 'ne' }
+                }
+            );
+        });
+    });
+</script>
