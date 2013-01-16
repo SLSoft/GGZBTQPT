@@ -27,6 +27,7 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.recordCount = db.T_XM_Investment.Where(p => (p.IsValid == true && p.ItemName.Contains(keywords))).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
+            ViewBag.keywords = keywords;
             return View(t_xm_investment);
         }
 
@@ -278,7 +279,7 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         //项目分析--投资意向列表
-        public ActionResult TZMatch(string keywords, int pageNum = 1, int numPerPage = 5)
+        public ActionResult TZMatch(string keywords, int pageNum = 1, int numPerPage = 15)
         {
             keywords = keywords == null ? "" : keywords;
             IList<GGZBTQPT_PRO.Models.T_XM_Investment> list = db.T_XM_Investment.Where(p => (p.IsValid == true && p.ItemName.Contains(keywords) && p.PublicStatus == "2")).ToList()
@@ -289,12 +290,12 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.recordCount = db.T_XM_Investment.Where(p => (p.IsValid == true && p.ItemName.Contains(keywords) && p.PublicStatus == "2")).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
-
+            ViewBag.keywords = keywords;
             return View(list);
         }
 
         //根据投资意向匹配对应的项目
-        public ActionResult TZMatchResult(int id, int pageNum = 1, int numPerPage = 5)
+        public ActionResult TZMatchResult(int id, int pageNum = 1, int numPerPage = 15)
         {
             T_XM_Investment inverst = db.T_XM_Investment.Find(id);
             decimal investment = inverst.Investment == null ? 0 : (decimal)inverst.Investment;
@@ -317,7 +318,7 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         //意向查询
-        public ActionResult TZQuery(FormCollection collection, int pageNum = 1, int numPerPage = 5)
+        public ActionResult TZQuery(FormCollection collection, int pageNum = 1, int numPerPage = 15)
         {
             ViewBag.condition1 = collection["condition1"];
             ViewBag.condition2 = collection["condition2"];
@@ -325,6 +326,7 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.condition4 = collection["condition4"];
             ViewBag.condition5 = collection["condition5"];
             ViewBag.context = collection["context"];
+            ViewBag.keys = collection["keys"];
             List<T_PTF_DicDetail> TeamworkType = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM06")).ToList();
             ViewData["TeamworkType"] = new SelectList(TeamworkType, "ID", "Name");
             List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
@@ -338,11 +340,11 @@ namespace GGZBTQPT_PRO.Controllers
             string select_TeamworkType = "";
             string select_industry = "";
             string select_Investment = "";
-            if (collection["keys"] != null && collection["keys"].ToString().Trim() != "")
-                keys = collection["keys"].ToString();
-            if (collection["cbTeamworkType"] != null && collection["cbTeamworkType"] != null)
+            if (ViewBag.keys != null && ViewBag.keys.ToString().Trim() != "")
+                keys = ViewBag.keys.ToString();
+            if (ViewBag.condition2 != null && ViewBag.condition2.ToString().Trim() != "")
             {
-                string[] temp = collection["cbTeamworkType"].Split(',');
+                string[] temp = ViewBag.condition2.ToString().Substring(1).Split(',');
                 select_TeamworkType += " and (";
                 foreach (string str in temp)
                 {
@@ -351,9 +353,9 @@ namespace GGZBTQPT_PRO.Controllers
                 select_TeamworkType = select_TeamworkType.Substring(0, select_TeamworkType.Length - 3);
                 select_TeamworkType += ")";
             }
-            if (collection["cbIndustry"] != null && collection["cbIndustry"] != null)
+            if (ViewBag.condition3 != null && ViewBag.condition3.ToString().Trim() != "")
             {
-                string[] temp = collection["cbIndustry"].Split(',');
+                string[] temp = ViewBag.condition3.ToString().Substring(1).Split(',');
                 select_industry += " and (";
                 foreach (string str in temp)
                 {
@@ -362,9 +364,9 @@ namespace GGZBTQPT_PRO.Controllers
                 select_industry = select_industry.Substring(0, select_industry.Length - 3);
                 select_industry += ")";
             }
-            if (collection["cbFinancial"] != null && collection["cbFinancial"] != null)
+            if (ViewBag.condition5 != null && ViewBag.condition5.ToString().Trim() != "")
             {
-                string[] temp = collection["cbFinancial"].Split(',');
+                string[] temp = ViewBag.condition5.ToString().Substring(1).Split(',');
                 select_Investment += " and (";
                 foreach (string str in temp)
                 {

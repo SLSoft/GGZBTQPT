@@ -6,6 +6,9 @@
 <form id="pagerForm" method="post" action="@Url.Action("Index")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
+    <input type="hidden" name="title" value="@ViewData["title"]"  />
+    <input type="hidden" name="accept" value="@ViewData["accept"]"  />
+    <input type="hidden" name="give" value="@ViewData["give"]"  />
     </form>
     <form onsubmit="return navTabSearch(this);" action="@Url.Action("Index")" method="post">
     <div class="searchBar">
@@ -13,17 +16,17 @@
             <li>
                 <label>
                     交易标题：</label>
-                <input type="text" name="title" value="@ViewData["keywords"]" />
+                <input type="text" name="title" value="@ViewData["title"]" />
             </li>
             <li>
                 <label>
                     受资方：</label>
-                <input type="text" name="accept" value="@ViewData["keywords"]" />
+                <input type="text" name="accept" value="@ViewData["accept"]" />
             </li>
             <li>
                 <label>
                     投资方：</label>
-                <input type="text" name="give" value="@ViewData["keywords"]" />
+                <input type="text" name="give" value="@ViewData["give"]" />
             </li>
         </ul>
         <div class="subBar">
@@ -99,7 +102,7 @@
             <span>每页显示</span>
             <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value,pageNum:1})">
                 @{  
-                    int[] nums = new int[] { 5, 10, 20, 50, 100, 200 };
+                    int[] nums = new int[] { 15, 25, 50, 100, 200 };
                     foreach (var num in nums)
                     {
                         if (Int32.Parse(ViewData["numPerPage"].ToString()) == num)

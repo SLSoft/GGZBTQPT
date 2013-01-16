@@ -57,6 +57,7 @@
         });
         var filter = $("#condition1").val() + $("#condition2").val() + $("#condition3").val() + $("#condition4").val();
         var list = filter.split(",");
+
         $("input[type=checkbox]").each(function () {
             $(this).attr("checked", $.inArray(this.value, list) > -1);
         });
@@ -67,14 +68,25 @@
     <form id="pagerForm" method="post" action="@Url.Action("RZQuery")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
+    <input type="hidden" name="condition1" value="@ViewBag.condition1"  />
+    <input type="hidden" name="condition2" value="@ViewBag.condition2"  />
+    <input type="hidden" name="condition3" value="@ViewBag.condition3"  />
+    <input type="hidden" name="condition4" value="@ViewBag.condition4"  />
+    <input type="hidden" name="context" value="@ViewBag.context"  />
+    <input type="hidden" name="keys"  value="@ViewBag.keys"  />
     </form>
     <form onsubmit="return navTabSearch(this);" action="@Url.Action("RZQuery")" method="post">
     <div class="searchBar">
+                <input type="hidden" id="condition1" name="condition1" value="@ViewBag.condition1"  />
+                <input type="hidden" id="condition2" name="condition2" value="@ViewBag.condition2"  />
+                <input type="hidden" id="condition3" name="condition3" value="@ViewBag.condition3"  />
+                <input type="hidden" id="condition4" name="condition4" value="@ViewBag.condition4"  />
+                <input type="hidden" id="context" name="context" value="@ViewBag.context"  />
                 <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item form-tb">
                     <tr>
                         <td width="91">
                             按项目名称：</td>
-                        <td  align="left"><input type="text" name="keys"  />（输入项目名称关键字）
+                        <td  align="left"><input type="text" id="keys" name="keys" value="@ViewBag.keys"  />（输入项目名称关键字）
                         </td>
                         </tr>
                 </table>
@@ -176,6 +188,7 @@
     </div>
     </form>
 </div>
+
 <div class="pageContent">
   <div class="panelBar">
     <ul class="toolBar">
@@ -228,7 +241,7 @@
             <span>每页显示</span>
             <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value,pageNum:1})">
                 @{  
-                    int[] nums = new int[] { 5, 10, 20, 50, 100, 200 };
+                    int[] nums = new int[] { 15, 25, 50, 100, 200 };
                     foreach (var num in nums)
                     {
                         if (Int32.Parse(ViewData["numPerPage"].ToString()) == num)
@@ -247,11 +260,6 @@
                currentpage="@ViewData["pageNum"]">
         </div>
     </div>
-    <div style="visibility:hidden">
-                <input id="condition1" type="text" name="condition1" style="width:600px" value="@ViewBag.condition1" />
-                <input id="condition2" type="text" name="condition2" style="width:600px" value="@ViewBag.condition2" />
-                <input id="condition3" type="text" name="condition3" style="width:600px" value="@ViewBag.condition3" />
-                <input id="condition4" type="text" name="condition4" style="width:600px" value="@ViewBag.condition4" />
-                <input id="context" type="text" name="context" value="@ViewBag.context" /></div>
+    
 </div>
 

@@ -18,7 +18,7 @@ using System.Net;namespace GGZBTQPT_PRO.Controllers
         //
         // GET: /XM_JY/
 
-        public ViewResult Index(string title, string accept, string give, int pageNum = 1, int numPerPage = 10)
+        public ViewResult Index(string title, string accept, string give, int pageNum = 1, int numPerPage = 15)
         {
             title = title == null ? "" : title;
             accept = accept == null ? "" : accept;
@@ -29,6 +29,9 @@ using System.Net;namespace GGZBTQPT_PRO.Controllers
             ViewBag.recordCount = db.T_XM_Transaction.Where(p => (p.IsValid == true && p.TranTitle.Contains(title) && p.AcceptMember.Contains(accept) && p.GiveMember.Contains(give))).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
+            ViewBag.title = title;
+            ViewBag.accept = accept;
+            ViewBag.give = give;
             return View(t_xm_transaction);
         }
 

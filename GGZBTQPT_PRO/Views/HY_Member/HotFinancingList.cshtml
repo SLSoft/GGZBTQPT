@@ -15,7 +15,7 @@
         <ul class="searchContent">
             <li>
                 <label>
-                    产品名称：</label>
+                    项目名称：</label>
                 <input type="text" name="keywords" value="@ViewData["keywords"]" /> </li>
             <li>
                 <label>
@@ -56,6 +56,12 @@
                         项目名称
                     </th>
                     <th>
+                        项目类别
+                    </th>
+                    <th>
+                        所属行业
+                    </th>
+                    <th>
                         总投资
                     </th>
                     <th>
@@ -80,6 +86,12 @@
                         </td>
                         <td>
                             @item.ItemName
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemText)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IndustryName)
                         </td>
                         <td>
                             @String.Format("{0:F}", item.FinancSum)

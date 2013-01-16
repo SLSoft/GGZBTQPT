@@ -17,7 +17,7 @@ namespace GGZBTQPT_PRO.Controllers
         //
         // GET: /JG_Agency/
 
-        public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 5)
+        public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 15)
         {
             keywords = keywords == null ? "" : keywords;
             var t_jg_agency = db.T_JG_Agency.Where(c => (c.IsValid == true && c.AgencyName.Contains(keywords))).OrderByDescending(p => p.CreateTime)
@@ -26,6 +26,7 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.recordCount = db.T_JG_Agency.Where(c => (c.IsValid == true && c.AgencyName.Contains(keywords))).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
+            ViewBag.keywords = keywords;
             return View(t_jg_agency);
         }
 
@@ -192,7 +193,7 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         //机构查询功能
-        public ActionResult AgencyQuery(FormCollection collection, int pageNum = 1, int numPerPage = 5)
+        public ActionResult AgencyQuery(FormCollection collection, int pageNum = 1, int numPerPage = 15)
         {
             BindAgencyType();
             string agencyname = collection["agencyname"] == null ? "" : collection["agencyname"];

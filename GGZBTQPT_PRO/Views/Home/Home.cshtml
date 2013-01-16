@@ -13,6 +13,9 @@
                         项目名称
                     </th>
                     <th>
+                        项目类别
+                    </th>
+                    <th>
                         所属行业
                     </th>
                     <th>
@@ -21,17 +24,20 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var financial in Model.Investments)
+                @foreach (var investment in Model.Financials)
                 {
                     <tr>
                         <td>
-                            <a href="@Url.Action("Details", "XM_RZ", new { id = financial.ID })"  target="navTab" rel="financial_content" title="融资项目信息" fresh="true">@Html.DisplayFor(modelItem => financial.ItemName)</a>
+                            <a href="@Url.Action("Details", "XM_RZ", new { id = investment.ID })"  target="navTab" rel="investment_content" title="投资项目信息" fresh="true">@Html.DisplayFor(modelItem => investment.ItemName)</a>
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => financial.IndustryName)
+                            @Html.DisplayFor(modelItem => investment.ItemText)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => financial.ValidDate)
+                            @Html.DisplayFor(modelItem => investment.IndustryName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => investment.ValidDate)
                         </td>
                     </tr>
                 }
@@ -51,10 +57,7 @@
                         意向名称
                     </th>
                     <th>
-                        项目类别
-                    </th>
-                    <th>
-                        所属行业
+                        发布会员
                     </th>
                     <th>
                         有效日期
@@ -62,20 +65,17 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var investment in Model.Financials)
+                @foreach (var financial in Model.Investments)
                 {
                     <tr>
                         <td>
-                            <a href="@Url.Action("Details", "XM_TZ", new { id = investment.ID })"  target="navTab" rel="investment_content" title="投资项目信息" fresh="true">@Html.DisplayFor(modelItem => investment.ItemName)</a>
+                            <a href="@Url.Action("Details", "XM_TZ", new { id = financial.ID })"  target="navTab" rel="financial_content" title="融资项目信息" fresh="true">@Html.DisplayFor(modelItem => financial.ItemName)</a>
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => investment.ItemText)
+                            @Html.DisplayFor(modelItem => financial.MemberName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => investment.IndustryName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => investment.ValidDate)
+                            @Html.DisplayFor(modelItem => financial.ValidDate)
                         </td>
                     </tr>
                 }

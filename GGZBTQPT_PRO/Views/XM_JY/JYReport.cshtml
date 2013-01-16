@@ -26,7 +26,7 @@
     }
 </table>
 </div>
-<div id="jychart" style="height: 560px; width: 600px; float:left"></div>
+<div id="jychart" style="height: 460px; width: 600px; float:left"></div>
 
 </div>
 <script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.barRenderer.min.js")" type="text/javascript"></script>
@@ -51,17 +51,17 @@
                         renderer:$.jqplot.BarRenderer,
                         rendererOptions: {
                             fillToZero: true,        
-                            barDirection: 'horizontal', // vertical or horizontal.
+                            barDirection: 'vertical', // vertical or horizontal.
                             barWidth: 15     // width of the bars.  null to calculate automatically.
                             }
                     },
                     axes: {
                         xaxis: {
-                            tickOptions: { formatString: '%.1f' }
-                        },
-                        yaxis: {
                             renderer: $.jqplot.CategoryAxisRenderer,
                             ticks: ticks
+                        },
+                        yaxis: {
+                            tickOptions: { formatString: '%.1f' }
                         }
                     }
                 });

@@ -27,6 +27,7 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.recordCount = db.T_XM_Financing.Where(p => (p.IsValid == true && p.ItemName.Contains(keywords))).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
+            ViewBag.keywords = keywords;
             return View(t_xm_financing);
         }
 
@@ -293,7 +294,7 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         //项目分析--项目列表
-        public ActionResult RZMatch(string keywords, int pageNum = 1, int numPerPage = 5)
+        public ActionResult RZMatch(string keywords, int pageNum = 1, int numPerPage = 15)
         {
             keywords = keywords == null ? "" : keywords;
             IList<GGZBTQPT_PRO.Models.T_XM_Financing> list = db.T_XM_Financing.Where(p => (p.IsValid == true && p.ItemName.Contains(keywords) && p.PublicStatus == "2")).ToList()
@@ -304,12 +305,12 @@ namespace GGZBTQPT_PRO.Controllers
             ViewData["recordCount"] = db.T_XM_Financing.Where(p => (p.IsValid == true && p.ItemName.Contains(keywords) && p.PublicStatus == "2")).Count();
             ViewData["numPerPage"] = numPerPage;
             ViewData["pageNum"] = pageNum;
-
+            ViewBag.keywords = keywords;
             return View(list);
         }
 
         //根据项目匹配对应的资金
-        public ActionResult RZMatchResult(int id, int pageNum = 1, int numPerPage = 5)
+        public ActionResult RZMatchResult(int id, int pageNum = 1, int numPerPage = 15)
         {
             T_XM_Financing financing = db.T_XM_Financing.Find(id);
             decimal amount = Convert.ToDecimal(financing.Amount);
@@ -327,13 +328,14 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         //项目查询
-        public ActionResult RZQuery(FormCollection collection, int pageNum = 1, int numPerPage = 5)
+        public ActionResult RZQuery(FormCollection collection, int pageNum = 1, int numPerPage = 15)
         {
             ViewBag.condition1 = collection["condition1"];
             ViewBag.condition2 = collection["condition2"];
             ViewBag.condition3 = collection["condition3"];
             ViewBag.condition4 = collection["condition4"];
             ViewBag.context = collection["context"];
+            ViewBag.keys = collection["keys"];
             List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
             ViewData["Industry"] = new SelectList(Industry, "ID", "Name");
             List<T_PTF_DicDetail> ItemStage = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM04")).ToList();
@@ -342,15 +344,15 @@ namespace GGZBTQPT_PRO.Controllers
             string select_itemtype = "";
             string select_industry = "";
             string select_Financial = "";
-            if (collection["keys"]!=null && collection["keys"].ToString().Trim() != "")
-                keys = collection["keys"].ToString();
-            if (collection["cbItemType"] != null && collection["cbItemType"] != null)
-                select_itemtype = collection["cbItemType"];
-            if (collection["cbIndustry"] != null && collection["cbIndustry"] != null)
-                select_industry = collection["cbIndustry"];
-            if (collection["cbFinancial"] != null && collection["cbFinancial"] != null)
+            if (ViewBag.keys != null && ViewBag.keys.ToString().Trim() != "")
+                keys = ViewBag.keys.ToString();
+            if (ViewBag.condition1 != null && ViewBag.condition1.ToString().Trim() != "")
+                select_itemtype = ViewBag.condition1.ToString().Substring(1);
+            if (ViewBag.condition2 != null && ViewBag.condition2.ToString().Trim() != "")
+                select_industry = ViewBag.condition2.ToString().Substring(1);
+            if (ViewBag.condition4 != null && ViewBag.condition4.ToString().Trim() != "")
             {
-                string[] temp = collection["cbFinancial"].Split(',');
+                string[] temp = ViewBag.condition4.ToString().Substring(1).Split(',');
                 select_Financial += " and (";
                 foreach (string str in temp)
                 {

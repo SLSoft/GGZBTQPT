@@ -17,7 +17,7 @@ namespace GGZBTQPT_PRO.Controllers
         //
         // GET: /JG_Product/
 
-        public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 5)
+        public ViewResult Index(string keywords, int pageNum = 1, int numPerPage = 15)
         {
             keywords = keywords == null ? "" : keywords;
             var t_jg_product = db.T_JG_Product.Where(p => (p.IsValid == true && p.ProductName.Contains(keywords))).OrderByDescending(s => s.CreateTime)
@@ -26,6 +26,7 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.recordCount = db.T_JG_Product.Where(p => (p.IsValid == true && p.ProductName.Contains(keywords))).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
+            ViewBag.keywords = keywords;
             return View(t_jg_product);
         }
         public void BindCustomerType()
@@ -192,7 +193,7 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         //待审核产品一览
-        public ActionResult CPUnCheckList(string keywords, int pageNum = 1, int numPerPage = 10)
+        public ActionResult CPUnCheckList(string keywords, int pageNum = 1, int numPerPage = 15)
         {
             keywords = keywords == null ? "" : keywords;
             IList<GGZBTQPT_PRO.Models.T_JG_Product> list = db.T_JG_Product.Where(p => (p.IsValid == true && p.PublicStatus == "1" && p.ProductName.Contains(keywords))).ToList()
@@ -208,7 +209,7 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         //已审核产品一览
-        public ActionResult CPCheckList(string keywords, int pageNum = 1, int numPerPage = 10)
+        public ActionResult CPCheckList(string keywords, int pageNum = 1, int numPerPage = 15)
         {
             keywords = keywords == null ? "" : keywords;
             IList<GGZBTQPT_PRO.Models.T_JG_Product> list = db.T_JG_Product.Where(p => (p.IsValid == true && p.PublicStatus == "2" && p.ProductName.Contains(keywords))).ToList()
@@ -250,7 +251,7 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         //产品查询功能
-        public ActionResult ProductQuery(FormCollection collection, int pageNum = 1, int numPerPage = 5)
+        public ActionResult ProductQuery(FormCollection collection, int pageNum = 1, int numPerPage = 15)
         {
             string productname = collection["productname"] == null ? "" : collection["productname"];
             string agencyname = collection["agencyname"] == null ? "" : collection["agencyname"];
