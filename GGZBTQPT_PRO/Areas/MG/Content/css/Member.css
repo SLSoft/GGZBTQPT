@@ -188,17 +188,14 @@ span.unattentioned {
 
 #loading {
   position: absolute;
-  width: 60px;
-  height: 60px;
-  color: #fff;
-  padding: 5px;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
-  top: 90px;
+  width: 30px;
+  height: 30px;
+  padding: 0px;
+  top: 3px;
   left: 50%;
-  margin-left: -30px;
-  display: none; }
+  margin-left: -15px;
+  display: none;
+  z-index: 9999; }
 
 .checkbox {
   vertical-align: middle; }
