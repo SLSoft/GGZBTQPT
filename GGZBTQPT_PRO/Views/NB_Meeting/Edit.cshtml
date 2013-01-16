@@ -31,11 +31,11 @@
             </p>
             <p>
                 @Html.LabelFor(model => model.MeetingTime,"会议日期")
-                <input type="text" name="MeetingTime" onclick="SelectDate(this,'yyyy-MM-dd hh:mm:ss')" style="width:130px" value="@Model.MeetingTime"/>
+                @Html.TextBoxFor(model => model.MeetingTime, new { style = "width:130px", @Value = string.Format("{0:yyyy-MM-dd hh:mm:ss}", Model.MeetingTime), onclick = "SelectDate(this,'yyyy-MM-dd hh:mm:ss')" })
                 @Html.ValidationMessageFor(model => model.MeetingTime)
             </p>
             <p>
-                @Html.LabelFor(model => model.UsedTime,"会议用时")
+                @Html.LabelFor(model => model.UsedTime,"会议用时(小时)")
                 @Html.EditorFor(model => model.UsedTime)
                 @Html.ValidationMessageFor(model => model.UsedTime)
             </p>

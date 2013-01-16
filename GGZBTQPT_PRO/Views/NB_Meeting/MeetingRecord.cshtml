@@ -36,13 +36,16 @@
 </div>
 <div class="pageContent">
     <div layouth="88" id="divList">
-        <table  class="list" width="100%" asc="asc" desc="desc">
+        <table  class="list" width="100%" asc="asc" desc="desc" style="table-layout:fixed">
             <thead>
             <tr>
                 <th>
-                    会议主题
+                    会议主持
                 </th>
                 <th>
+                    会议主题
+                </th>
+                <th >
                     会议内容
                 </th>
                 <th>
@@ -72,9 +75,12 @@
             @foreach (var item in Model) {
             <tr>
                 <td>
-                    @item.Title
+                    @item.CreateUser.UserName
                 </td>
                 <td>
+                    @item.Title
+                </td>
+                <td title="@item.Content"  style="overflow:hidden;text-overflow:ellipsis;white-space: nowrap;">
                     @item.Content
                 </td>
                 <td>

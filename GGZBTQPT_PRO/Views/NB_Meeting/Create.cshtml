@@ -31,7 +31,7 @@
             </p>
             <p>
                 @Html.LabelFor(model => model.MeetingTime,"会议日期")
-                <input type="text" name="MeetingTime" onclick="SelectDate(this,'yyyy-MM-dd hh:mm:ss')" style="width:130px"/>
+                @Html.TextBoxFor(model => model.MeetingTime, new { style = "width:130px",onclick = "SelectDate(this,'yyyy-MM-dd hh:mm:ss')" })
                 @Html.ValidationMessageFor(model => model.MeetingTime)
             </p>
             <p>

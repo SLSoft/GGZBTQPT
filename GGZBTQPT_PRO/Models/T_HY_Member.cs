@@ -31,6 +31,7 @@ namespace GGZBTQPT_PRO.Models
 
         [Required(ErrorMessage = "必须填写手机号码")]
         [Display(Name = "手机号码")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "手机格式不正确")]
         [Remote("CheckCellPhone", "HY_Member", ErrorMessage = "该手机已经被使用了，请尝试更改!")]
         public string CellPhone { get; set; }
 
@@ -38,7 +39,8 @@ namespace GGZBTQPT_PRO.Models
         [Display(Name = "昵称")]
         public string MemberName { get; set; }//默认是登录名，用户可以修改 
 
-        [Display(Name = "邮箱")] 
+        [Display(Name = "邮箱")]
+        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "邮件格式不正确")]
         public string Email { get; set; }
 
         [Display(Name = "会员编号")] 

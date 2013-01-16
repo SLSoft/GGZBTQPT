@@ -131,8 +131,8 @@ namespace GGZBTQPT_PRO.Controllers
 
         public ActionResult StatList(string beginTime,string endTime)
         {
-            beginTime = beginTime == null ? DateTime.Now.AddDays(-7).ToShortDateString() : beginTime;
-            endTime = endTime == null ? DateTime.Now.ToShortDateString() : endTime;
+            beginTime = beginTime == null ? DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd") : beginTime;
+            endTime = endTime == null ? DateTime.Now.ToString("yyyy-MM-dd") : endTime;
 
             if (beginTime == "" || endTime == "")
                 return ReturnJson(false, "请选择日期", "", "", false, "");
