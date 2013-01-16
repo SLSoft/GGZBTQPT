@@ -3,33 +3,103 @@
 @{
     Layout = null;
 }
-<div  class="stat-container" >
-    <div class="stat-summary">
-        会员专区操作统计数合计： @Model.Count()
-    </div>
-    <hr />
-    <div class="stat-number">
-        <h3>
-            按照操作类型统计如下：</h3>
-        <ul>
-            <li>访问操作： @Model.Where(m => m.OperateType == (int)OperateTypes.Visit).Count()</li>
-            <li>添加操作： @Model.Where(m => m.OperateType == (int)OperateTypes.Create).Count()</li>
-            <li>删除操作： @Model.Where(m => m.OperateType == (int)OperateTypes.Delete).Count()</li>
-            <li>更新操作： @Model.Where(m => m.OperateType == (int)OperateTypes.Edit).Count()</li>
-            <li>发布操作： @Model.Where(m => m.OperateType == (int)OperateTypes.Publish).Count()</li>
-            <li>关注操作： @Model.Where(m => m.OperateType == (int)OperateTypes.Attention).Count()</li>
-            <li>收藏操作： @Model.Where(m => m.OperateType == (int)OperateTypes.Favorite).Count()</li>
-            <li>搜索操作：@Model.Where(m => m.OperateType == (int)OperateTypes.Search).Count()</li>
-        </ul>
-    </div>
-    <div class="unitBox" style="margin-left: 246px;">
-        <div id="operate_num_with_operate_type_stat" style="height: 400px; width: 600px;">
+
+<div class="row-fluid top-line pdv20">
+    <div id="accomplishment_sum" class="span8 fnormal">
+        <div id="operate_num_with_operate_type_stat">
         </div>
     </div>
+    <div id="accomplishment_num" class="span4 fnormal">
+        <p class="down-line ">
+            <span class="label">按照操作类型统计操作次数如下：</span></p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        操作类型
+                    </th>
+                    <th>
+                        操作时间（次）
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        登陆操作
+                    </td>
+                    <td>
+                        @Model.Where(m => m.OperateType == (int)OperateTypes.Login || m.GenerateModule == (int)OperateTypes.Logout).Count() （次）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        访问操作
+                    </td>
+                    <td>
+                        @Model.Where(m => m.OperateType == (int)OperateTypes.Visit).Count()（次）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        添加操作
+                    </td>
+                    <td>
+                        @Model.Where(m => m.OperateType == (int)OperateTypes.Create).Count()（次）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        删除操作
+                    </td>
+                    <td>
+                        @Model.Where(m => m.OperateType == (int)OperateTypes.Delete).Count()（次）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        更新操作
+                    </td>
+                    <td>
+                        @Model.Where(m => m.OperateType == (int)OperateTypes.Edit).Count()（次）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        发布操作
+                    </td>
+                    <td>
+                        @Model.Where(m => m.OperateType == (int)OperateTypes.Publish).Count()（次）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        关注操作
+                    </td>
+                    <td>
+                        @Model.Where(m => m.OperateType == (int)OperateTypes.Attention).Count()（次）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        收藏操作
+                    </td>
+                    <td>
+                        @Model.Where(m => m.OperateType == (int)OperateTypes.Favorite).Count()（次）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        搜索操作
+                    </td>
+                    <td>
+                        @Model.Where(m => m.OperateType == (int)OperateTypes.Search).Count()（次）
+                    </td>
+                </tr>
+        </table>
+    </div>
 </div>
-<script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.barRenderer.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.categoryAxisRenderer.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.pointLabels.min.js")" type="text/javascript"></script>
+
 <script type="text/javascript">
     $(document).ready(function () {
         $.getJSON("@Url.Action("OperateNumStatWithOperateTypeData", "ZC_MemberLog")", function(data){

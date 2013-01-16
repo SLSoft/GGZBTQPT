@@ -2,29 +2,92 @@
 @using GGZBTQPT_PRO.Enums
 @{
     Layout = null;
-}
-<div class="stat-container" >
-    <div class="stat-number">
-        <h3>
-            按照功能模块分类统计如下：
-        </h3>
-        <ul>
-            <li>金融推荐： @Model.Where(m => m.GenerateModule == (int)GenerateSystem.Recommend).Count()</li>
-            <li>找项目： @Model.Where(m => m.GenerateModule == (int)GenerateSystem.FindFinancial).Count()</li>
-            <li>找资金： @Model.Where(m => m.GenerateModule == (int)GenerateSystem.FindInvestment).Count()</li>
-            <li>找服务： @Model.Where(m => m.GenerateModule == (int)GenerateSystem.FindService).Count()</li>
-            <li>我的关注： @Model.Where(m => m.GenerateModule == (int)GenerateSystem.Attention).Count()</li>
-            <li>我的收藏： @Model.Where(m => m.GenerateModule == (int)GenerateSystem.Favorite).Count()</li>
-            <li>我的发布： @Model.Where(m => m.GenerateModule == (int)GenerateSystem.Publish).Count()</li>
-        </ul>
-    </div>
-    <div class="unitBox" style="margin-left: 246px;">
-        <div id="operate_num_with_function" style="height: 400px; width: 600px;">
+} 
+
+<div class="row-fluid">
+    <p class="bg-lightgreen fnormal">
+        截止到 @DateTime.Now.ToLongDateString(), 会员操作次数共计 <em class="red fbig">@Model.Count()</em>次</p>
+</div>
+<div class="row-fluid top-line pdv20">
+    <div id="accomplishment_sum" class="span8 fnormal">
+        <div id="operate_num_with_function">
         </div>
     </div>
+    <div id="accomplishment_num" class="span4 fnormal">
+        <p class="down-line ">
+            <span class="label">按照功能类型统计操作次数如下：</span></p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        功能类型
+                    </th>
+                    <th>
+                        操作次数（次）
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        金融推荐
+                    </td>
+                    <td>
+                        @Model.Where(m => m.GenerateModule == (int)GenerateSystem.Recommend).Count() （次）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        找项目
+                    </td>
+                    <td>
+                        @Model.Where(m => m.GenerateModule == (int)GenerateSystem.FindFinancial).Count()（次）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        找资金
+                    </td>
+                    <td>
+                        @Model.Where(m => m.GenerateModule == (int)GenerateSystem.FindInvestment).Count()（次）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        找服务
+                    </td>
+                    <td>
+                        @Model.Where(m => m.GenerateModule == (int)GenerateSystem.FindService).Count()（次）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        我的关注
+                    </td>
+                    <td>
+                        @Model.Where(m => m.GenerateModule == (int)GenerateSystem.Attention).Count()（次）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        我的收藏
+                    </td>
+                    <td>
+                        @Model.Where(m => m.GenerateModule == (int)GenerateSystem.Favorite).Count()（次）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        我的发布
+                    </td>
+                    <td>
+                        @Model.Where(m => m.GenerateModule == (int)GenerateSystem.Publish).Count()（次）
+                    </td>
+                </tr>
+                </tbody>
+        </table>
+    </div>
 </div>
-<script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.pieRenderer.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Public/jqPlot/plugins/jqplot.donutRenderer.min.js")" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $.getJSON("@Url.Action("OperateNumStatWithFuntionData", "ZC_MemberLog")", function(data){

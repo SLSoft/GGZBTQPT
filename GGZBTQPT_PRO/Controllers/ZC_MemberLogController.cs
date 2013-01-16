@@ -116,6 +116,8 @@ namespace GGZBTQPT_PRO.Controllers
 
                 if(Memberlogs != null)
                 {
+
+                    dic.Add("登陆操作", Memberlogs.Where(m => m.OperateType == (int)OperateTypes.Login || m.OperateType == (int)OperateTypes.Logout).Count());
                     dic.Add("访问操作", Memberlogs.Where(m => m.OperateType == (int)OperateTypes.Visit).Count());
                     dic.Add("添加操作", Memberlogs.Where(m => m.OperateType == (int)OperateTypes.Create).Count());
                     dic.Add("删除操作", Memberlogs.Where(m => m.OperateType == (int)OperateTypes.Delete).Count());
