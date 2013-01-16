@@ -1,3 +1,24 @@
+.clear {
+  clear: both; }
+
+.alert {
+  text-align: center; }
+
+.container .brand {
+  padding: 0; }
+
+#deploy {
+  text-align: center; }
+  #deploy ul.nav-pills img {
+    margin-right: 10px; }
+  #deploy ul.nav-pills a {
+    width: 110px;
+    height: 110px;
+    border: 1px solid #eee;
+    text-align: center;
+    line-height: 100px;
+    background-color: #eee; }
+
 body {
   background-color: #333; }
   body .header-link {
@@ -139,6 +160,21 @@ span.unattentioned {
 .view_all_replies {
   cursor: pointer; }
 
+.sidebar {
+  color: #555; }
+  .sidebar .member-info {
+    margin-bottom: 30px; }
+  .sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 30px; }
+    .sidebar ul li {
+      margin-left: 0px;
+      padding-top: 5px; }
+  .sidebar h4 {
+    color: #555; }
+
 .pub-time {
   color: #999;
   font-size: 14px; }
@@ -186,49 +222,12 @@ span.unattentioned {
   #signup .input-row {
     margin-top: 10px; }
 
-.sidebar {
-  color: #555; }
-  .sidebar .member-info {
-    margin-bottom: 30px; }
-  .sidebar ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    margin-bottom: 30px; }
-    .sidebar ul li {
-      margin-left: 0px;
-      padding-top: 5px; }
-  .sidebar h4 {
-    color: #555; }
+.nothing {
+  margin: 20px;
+  padding: 50px;
+  text-align: center;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  border: dashed 5px #ddd; }
 
-.clear {
-  clear: both; }
-
-.alert {
-  text-align: center; }
-
-.container .brand {
-  padding: 0; }
-
-#deploy {
-  text-align: center; }
-  #deploy ul.nav-pills img {
-    margin-right: 10px; }
-  #deploy ul.nav-pills a {
-    width: 110px;
-    height: 110px;
-    border: 1px solid #eee;
-    text-align: center;
-    line-height: 100px;
-    background-color: #eee; }
-
-.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
-.ui-timepicker-div dl { text-align: left; }
-.ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
-.ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
-.ui-timepicker-div td { font-size: 90%; }
-.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
-
-.ui-timepicker-rtl{ direction: rtl; }
-.ui-timepicker-rtl dl { text-align: right; }
-.ui-timepicker-rtl dl dd { margin: 0 65px 10px 10px; }

@@ -1,3 +1,46 @@
+//overide bootstrap
+.clear
+{
+    clear: both;
+}
+.alert
+{
+    text-align: center;
+}
+.container
+{
+    .brand
+    {
+        padding:0;
+    }
+}
+.row
+{
+   
+}
+#deploy 
+{
+    text-align: center;
+    ul.nav-pills
+    {
+        img
+        {
+            margin-right: 10px;
+        }
+        a
+        {
+            width: 110px;
+            height: 110px;
+            border: 1px solid #eee;
+            text-align: center;
+            line-height: 100px;
+            background-color: #eee;
+        }
+    }
+}
+
+
+//--------------------------------------------
 body
 {
     background-color: #333; 
@@ -242,6 +285,38 @@ span.unattentioned
 {
     cursor: pointer;
 }
+
+
+//sidebar
+.sidebar
+{
+    color: #555;
+    .member-info
+    {
+        margin-bottom: 30px;
+    }
+    ul 
+    {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        margin-bottom: 30px;
+
+        li
+        {
+            margin-left: 0px;
+            padding-top: 5px;
+
+
+        }
+    }
+    h4
+    {
+        color: #555;
+    }
+
+}
+
 //little component 
 .pub-time
 {
@@ -305,76 +380,18 @@ span.unattentioned
     .input-row 
     {
         margin-top: 10px;
-    }
-
+    } 
 }
-//sidebar
-.sidebar
-{
-    color: #555;
-    .member-info
-    {
-        margin-bottom: 30px;
-    }
-    ul 
-    {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        margin-bottom: 30px;
 
-        li
-        {
-            margin-left: 0px;
-            padding-top: 5px;
-
-
-        }
-    }
-    h4
-    {
-        color: #555;
-    }
-
-}
-//overide bootstrap
-.clear
-{
-    clear: both;
-}
-.alert
-{
+.nothing {
+    margin: 20px;
+    padding: 50px;
     text-align: center;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px; 
+
+    border: dashed 5px #ddd;
 }
-.container
-{
-    .brand
-    {
-        padding:0;
-    }
-}
-.row
-{
-   
-}
-#deploy 
-{
-    text-align: center;
-    ul.nav-pills
-    {
-        img
-        {
-            margin-right: 10px;
-        }
-        a
-        {
-            width: 110px;
-            height: 110px;
-            border: 1px solid #eee;
-            text-align: center;
-            line-height: 100px;
-            background-color: #eee;
-        }
-    }
-}
+
 
