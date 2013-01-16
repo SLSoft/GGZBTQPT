@@ -10,7 +10,7 @@
             @*关注的创业者的头像和基本信息*@
             <div class="attentioned-link span2">
                 <div class="unattentioned rounded">
-                    <span><i class="icon-eye-close icon-white"></i>@Ajax.ActionLink("取消关注", "UnAttentioned", "Attention", new { id = _model.Agency.MemberID }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" })</span>
+                    <span><i class="icon-eye-close icon-white"></i>@Ajax.ActionLink("取消", "UnAttentioned", "Attention", new { id = _model.Agency.MemberID }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" })</span>
                 </div>
             </div>
             @*完整信息*@

@@ -14,7 +14,7 @@
             <div class="span2">
                 <div class="favored-link">
                     <div class="unfavored rounded">
-                        <span><i class="icon-heart icon-white"></i>@Ajax.ActionLink("取消收藏", "UnFavored", "Favorite", new { id = _model.ID }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" }) </span>
+                        <span><i class="icon-heart icon-white"></i>@Ajax.ActionLink("取消", "UnFavored", "Favorite", new { id = _model.ID }, new AjaxOptions { HttpMethod = "post", OnSuccess = "notice" }) </span>
                     </div>
                     <div class="favorited-people">
                         <span class="text-info">【@_model.Favoites.Count() 人收藏】</span></div>
