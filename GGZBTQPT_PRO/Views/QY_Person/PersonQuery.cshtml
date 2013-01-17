@@ -12,6 +12,10 @@
     <form id="pagerForm" method="post" action="@Url.Action("PersonQuery")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
+    <input type="hidden" name="personname" value="@ViewData["personname"]"  />
+    <input type="hidden" name="cardid" value="@ViewData["cardid"]"  />
+    <input type="hidden" name="gender" value="@ViewData["gender"]"  />
+    <input type="hidden" name="txtedu" value="@ViewData["Education"]"  />
     </form>
     <form onsubmit="return navTabSearch(this);" action="@Url.Action("PersonQuery")" method="post">
     <div class="searchBar">

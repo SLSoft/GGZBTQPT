@@ -11,7 +11,7 @@ namespace GGZBTQPT_PRO.Models
             HomeTown = " ";
             CardType = 0;
             CardID = " ";
-            Gender = " ";
+            Gender = "1";
             Birth = DateTime.Now;
             College = " ";
             Specialty = " ";

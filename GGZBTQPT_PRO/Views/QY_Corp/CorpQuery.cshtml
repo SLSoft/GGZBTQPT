@@ -17,14 +17,50 @@
             <li><input type="checkbox" name="cbIndustry" value="@item.Value" /><span>@item.Text</span></li>
         }
 }
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("input[type=checkbox]").click(function () {
+            var str = "";
+            if ($(this).attr("checked")) {
+                if ($(this).attr("name") == "cbProperty") {
+                    $("#txtProperty").attr("value", $("#txtProperty").val() + "," + $(this).val());
+                }
+                if ($(this).attr("name") == "cbIndustry") {
+                    $("#txtIndustry").attr("value", $("#txtIndustry").val() + "," + $(this).val());
+                }
+            }
+            else {
+                if ($(this).attr("name") == "cbProperty") {
+                    $("#txtProperty").attr("value", $("#txtProperty").val().replace("," + $(this).val(), ""));
+                }
+                if ($(this).attr("name") == "cbIndustry") {
+                    $("#txtIndustry").attr("value", $("#txtIndustry").val().replace("," + $(this).val(), ""));
+                }
+            }
+        });
+        $("#regkey").val("@ViewBag.regkey");
+        var filter = $("#txtProperty").val() + $("#txtIndustry").val();
+        var list = filter.split(",");
+
+        $("input[type=checkbox]").each(function () {
+            $(this).attr("checked", $.inArray(this.value, list) > -1);
+        });
+    });
+</script>
 <div class="pageHeader">
 <form id="pagerForm" method="post" action="@Url.Action("CorpQuery")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
     <input type="hidden" name="corpname" value="@ViewData["corpname"]"  />
+    <input type="hidden" name="txtProperty" value="@ViewData["txtProperty"]"  />
+    <input type="hidden" name="txtIndustry" value="@ViewData["txtIndustry"]"  />
+    <input type="hidden" name="regkey" value="@ViewData["regkey"]"  />
+    <input type="hidden" name="regcapital" value="@ViewData["regcapital"]"  />
     </form>
     <form onsubmit="return navTabSearch(this);" action="@Url.Action("CorpQuery")" method="post">
     <div class="searchBar">
+        <input type="hidden" id="txtProperty" name="txtProperty" value="@ViewData["txtProperty"]"  />
+        <input type="hidden" id="txtIndustry" name="txtIndustry" value="@ViewData["txtIndustry"]"  />
         <table style="width:100%; border-spacing:5px;" >
             <tr>
                 <td width="80px;">企业名称：</td>
@@ -42,7 +78,7 @@
             </tr>
             <tr>
                 <td>注册资本：</td>
-                <td><select name="regkey"><option value="1">大于</option><option value="0">小于</option></select>
+                <td><select id="regkey" name="regkey"><option value="1">大于</option><option value="0">小于</option></select>
                 <input type="text" name="regcapital" value="@ViewData["regcapital"]" />万元
                 </td>
             </tr>

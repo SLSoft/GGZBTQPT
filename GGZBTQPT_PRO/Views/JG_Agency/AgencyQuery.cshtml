@@ -8,6 +8,8 @@
 <form id="pagerForm" method="post" action="@Url.Action("AgencyQuery")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
+    <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />
+    <input type="hidden" name="AgencyType" value="@ViewData["txttype"]"  />
     </form>
     <form onsubmit="return navTabSearch(this);" action="@Url.Action("AgencyQuery")" method="post">
     <div class="searchBar">

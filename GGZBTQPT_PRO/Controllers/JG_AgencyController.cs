@@ -193,18 +193,16 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         //机构查询功能
-        public ActionResult AgencyQuery(string keywords, int AgencyType = -1, int pageNum = 1, int numPerPage = 15)
+        public ActionResult AgencyQuery(FormCollection collection, string keywords, int pageNum = 1, int numPerPage = 15)
         {
             BindAgencyType();
             keywords = keywords == null ? "" : keywords;
-            //string agencyname = collection["agencyname"] == null ? "" : collection["agencyname"];
-            //int agencytype = collection["AgencyType"] == null || collection["AgencyType"] == "" ? 0 : Convert.ToInt32(collection["AgencyType"]);
-
-
+            ViewBag.txttype = collection["AgencyType"];
             var t_jg_agency = db.T_JG_Agency.Where(c => c.IsValid == true && c.AgencyName.Contains(keywords));
-            if (AgencyType != -1)
+            if (collection["AgencyType"] != null && collection["AgencyType"] != "")
             {
-                t_jg_agency = t_jg_agency.Where(c => c.AgencyType == AgencyType);
+                int itype = Convert.ToInt32(collection["AgencyType"]);
+                t_jg_agency = t_jg_agency.Where(c => c.AgencyType == itype);
             }
 
             IList<GGZBTQPT_PRO.Models.T_JG_Agency> list = t_jg_agency.OrderByDescending(s => s.CreateTime)
@@ -214,6 +212,7 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
+
             return PartialView(list);
         }
 
