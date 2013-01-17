@@ -1,0 +1,71 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_HY_Member>
+@using GGZBTQPT_PRO.Enums
+@{
+    Layout = null;
+}
+<div class="row-fluid top-line pdv20">
+    <div id="accomplishment_sum" class="span8 fnormal">
+        <div id="member_stat" style="height: 400px;">
+        </div>
+    </div>
+    <div id="accomplishment_num" class="span4 fnormal">
+        <p class="down-line ">
+            <span class="label">注册会员类别如下：</span></p>
+        <table class="table table-striped">
+            <tr>
+                <td>
+                    会员类别
+                </td>
+                <td>
+                    数量
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    个人
+                </td>
+                <td>@Model.Where(m => m.Type == (int)MemberTypes.个人).Count()
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    企业
+                </td>
+                <td>@Model.Where(m => m.Type == (int)MemberTypes.企业).Count()
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    机构
+                </td>
+                <td>@Model.Where(m => m.Type == (int)MemberTypes.机构).Count()
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.getJSON("@Url.Action("MemberStatData", "HY_Member")", function(data){
+            var statData = [];
+            $.each(data.statData, function(key, value){
+                var _temp = [key, value];
+                statData.push(_temp);
+            }); 
+            
+            jQuery.jqplot('member_stat', [statData],
+                {
+                    title: '会员类别统计图表',
+                    seriesColors: [ "#74A474", "#EED205", "#00CCFF"],
+                    seriesDefaults: {
+                        renderer: jQuery.jqplot.PieRenderer,
+                        rendererOptions: {
+                            showDataLabels: true
+                            }
+                        },
+                    legend: { show: true, location: 'ne' }
+                }
+            );
+        });
+    });
+</script>
