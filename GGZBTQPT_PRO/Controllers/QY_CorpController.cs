@@ -297,38 +297,37 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         //企业查询功能
-        public ActionResult CorpQuery(FormCollection collection, int pageNum = 1, int numPerPage = 15)
+        public ActionResult CorpQuery(FormCollection collection, string corpname, int regkey = 1, decimal regcapital = 0, int pageNum = 1, int numPerPage = 15)
         {
             BindProperty();
-            BindIndustry();
-            string corpname = collection["corpname"] == null ? "" : collection["corpname"];
-            string property = collection["cbProperty"] == null ? "" : collection["cbProperty"];
-            decimal regcapital = collection["regcapital"] == null || collection["regcapital"] == "" ? 0 : Convert.ToDecimal(collection["regcapital"]);
-            string industry = collection["cbIndustry"] == null ? "" : collection["cbIndustry"];
-
+            BindIndustry();           
+            corpname = corpname == null ? "" : corpname;
+            ViewBag.txtProperty = collection["txtProperty"];
+            ViewBag.txtIndustry = collection["txtIndustry"];
             var t_qy_corp = db.T_QY_Corp.Where(c => c.IsValid == true && c.CorpName.Contains(corpname));
-            if (property != "")
+
+            if (collection["txtProperty"] != null && collection["txtProperty"] != "")
             {
-                int[] temp1 = new int[property.Split(',').Length];
-                for (int i = 0; i < property.Split(',').Length; i++)
+                int[] temp1 = new int[collection["txtProperty"].Split(',').Length];
+                for (int i = 1; i < collection["txtProperty"].Split(',').Length; i++)
                 {
-                    temp1[i] = Convert.ToInt32(property.Split(',')[i]);
+                    temp1[i] = Convert.ToInt32(collection["txtProperty"].Split(',')[i]);
                 }
                 t_qy_corp = t_qy_corp.Where(c => temp1.Contains((int)c.Property));
             }
             if (regcapital != 0)
             {
-                if (collection["regkey"] == "1")
+                if (regkey == 1)
                     t_qy_corp = t_qy_corp.Where(c => c.RegCapital > regcapital);
                 else
                     t_qy_corp = t_qy_corp.Where(c => c.RegCapital < regcapital);
             }
-            if (industry != "")
+            if (collection["txtIndustry"] != null && collection["txtIndustry"] != "")
             {
-                int[] temp = new int[industry.Split(',').Length];
-                for (int i = 0; i < industry.Split(',').Length; i++)
+                int[] temp = new int[collection["txtIndustry"].Split(',').Length];
+                for (int i = 1; i < collection["txtIndustry"].Split(',').Length; i++)
                 {
-                    temp[i] = Convert.ToInt32(industry.Split(',')[i]);
+                    temp[i] = Convert.ToInt32(collection["txtIndustry"].Split(',')[i]);
                 }
                 t_qy_corp = t_qy_corp.Where(c => temp.Contains((int)c.Industry));
             }
@@ -338,7 +337,9 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.recordCount = t_qy_corp.Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
-
+            ViewBag.corpname = corpname;
+            ViewBag.regkey = regkey;
+            ViewBag.regcapital = regcapital;
             return PartialView(list);
         }
 

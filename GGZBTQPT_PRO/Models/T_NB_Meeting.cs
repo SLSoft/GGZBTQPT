@@ -35,6 +35,7 @@ namespace GGZBTQPT_PRO.Models
         public int UsedTime { get; set; }
 
         [Required(ErrorMessage = "必须填会议日期")]
+        [DataType(DataType.DateTime)]
         public DateTime MeetingTime { get; set; }
 
         public Boolean IsValid { get; set; }

@@ -251,10 +251,11 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         //产品查询功能
-        public ActionResult ProductQuery(string productname, string agencyname, int regkey = 1, int amount = 0, int pageNum = 1, int numPerPage = 15)
+        public ActionResult ProductQuery(FormCollection collection, string productname, string agencyname, decimal amount = 0, int pageNum = 1, int numPerPage = 15)
         {
             productname = productname == null ? "" : productname;
             agencyname = agencyname == null ? "" : agencyname;
+            ViewBag.regkey = collection["regkey"];
             var t_jg_product = db.T_JG_Product.Where(p => p.IsValid == true && p.ProductName.Contains(productname));
             if (agencyname != "")
             {
@@ -268,7 +269,7 @@ namespace GGZBTQPT_PRO.Controllers
             }
             if(amount!=0)
             {
-                if (regkey == 1)
+                if (collection["regkey"] == "1")
                     t_jg_product = t_jg_product.Where(p=> p.FinancingAmount>amount);
                 else
                     t_jg_product = t_jg_product.Where(p=> p.FinancingAmount<amount);    
@@ -283,7 +284,6 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.productname = productname;
             ViewBag.agencyname = agencyname;
             ViewBag.amount = amount;
-            ViewBag.regkey = regkey;
             return PartialView(list);
         }
 

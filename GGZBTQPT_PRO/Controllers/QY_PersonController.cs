@@ -94,6 +94,7 @@ namespace GGZBTQPT_PRO.Controllers
             if (ModelState.IsValid)
             {
                 t_qy_person.MemberID = Convert.ToInt32(Session["MemberID"] == null ? 0 : Session["MemberID"]);
+                t_qy_person.CardType = t_qy_person.CardType == null ? -1 : t_qy_person.CardType;
                 t_qy_person.IsValid = true;
                 t_qy_person.OP = 0;
                 t_qy_person.CreateTime = DateTime.Now;
@@ -176,21 +177,22 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         //创业者查询功能
-        public ActionResult PersonQuery(string personname, string cardid, string gender, int Education = -1, int pageNum = 1, int numPerPage = 15)
+        public ActionResult PersonQuery(FormCollection collection, string personname, string cardid, string gender, int Education = -1, int pageNum = 1, int numPerPage = 15)
         {
             BindEducation();
             personname = personname == null ? "" : personname;
             cardid = cardid == null ? "" : cardid;
-            gender = gender == null ? "" : gender;
+            
             var t_qy_person = db.T_QY_Person.Where(p => (p.IsValid == true && p.Name.Contains(personname) && p.CardID.Contains(cardid)));
 
-            if (gender != "")
+            if (gender != null && gender != "")
             {
                 t_qy_person = t_qy_person.Where(p => p.Gender == gender);
             }
-            if (Education != -1)
+            if (collection["Education"] != null && collection["Education"] != "")
             {
-                t_qy_person = t_qy_person.Where(p => p.Education == Education);
+                int iedu = Convert.ToInt32(collection["Education"]);
+                t_qy_person = t_qy_person.Where(p => p.Education == iedu);
             }
 
             IList<GGZBTQPT_PRO.Models.T_QY_Person> list = t_qy_person.OrderByDescending(s => s.CreateTime)

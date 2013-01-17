@@ -11,6 +11,10 @@
 <form id="pagerForm" method="post" action="@Url.Action("ProductQuery")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
+    <input type="hidden" name="productname" value="@ViewData["productname"]"  />
+    <input type="hidden" name="regkey" value="@ViewData["regkey"]"  />
+    <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
+    <input type="hidden" name="amount" value="@ViewData["amount"]"  />
     </form>
     <form onsubmit="return navTabSearch(this);" action="@Url.Action("ProductQuery")" method="post">
     <div class="searchBar">

@@ -663,7 +663,14 @@ namespace GGZBTQPT_PRO.Controllers
         public ActionResult MemberStatList()
         {
             var list = db.T_HY_Member.Where(p => p.IsValid == true && p.IsVerified == true).ToList();
+            ViewBag.MemberCount = list.Count;
             return View(list);
+        }
+
+        public ActionResult MemberReport()
+        {
+            var members = db.T_HY_Member.Where(p => p.IsValid == true && p.IsVerified == true).ToList();
+            return View(members);
         }
 
         public ActionResult MemberStatData()
