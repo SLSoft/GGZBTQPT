@@ -4,13 +4,16 @@
     Layout = null;
 }
 <div class="row-fluid top-line pdv20">
-    <div id="accomplishment_sum" class="span6 fnormal">
+    <div id="accomplishment_sum" class="span12 fnormal">
         <div id="continuance_with_member_stat">
         </div>
     </div>
-    <div id="accomplishment_num" class="span6 fnormal">
+    
+</div>
+<div class="row-fluid top-line pdv20">
+<div id="accomplishment_num" class="span12 fnormal">
         <p class="down-line ">
-            <span class="label">按照会员在线排名时间统计如下：</span></p>
+            <span class="label">按照会员在线排名时间（TOP 10）统计如下：</span></p>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -53,15 +56,17 @@
                     seriesDefaults: {
                         renderer:$.jqplot.BarRenderer,
                         rendererOptions: {
-                                fillToZero: true
+                                fillToZero: true,
+                                barDirection: 'horizontal', // vertical or horizontal.
+                                barWidth: 10     // width of the bars.  null to calculate automatically.
                             }
                     },
                     axes: {
-                        yaxis: {
-                            pad: 1,
-                            tickOptions: { formatString: '%.1f(分钟)' }
-                        },
                         xaxis: {
+                            pad: 1,
+                            tickOptions: { formatString: '%.1f' }
+                        },
+                        yaxis: {
                             renderer: $.jqplot.CategoryAxisRenderer,
                             ticks: ticks
                         }

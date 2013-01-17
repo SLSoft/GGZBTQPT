@@ -76,17 +76,17 @@ namespace GGZBTQPT_PRO.Controllers
             try
             {
                 var Memberlogs = db.T_ZC_MemberLog.ToList();
-                Dictionary<String, int> dic = new Dictionary<string, int>();
+                Dictionary<string, int> dic = new Dictionary<string, int>();
 
                 if (Memberlogs != null)
                 {
-                    dic.Add("金融推荐", Memberlogs.Where(m => m.OperateType == (int)GenerateSystem.Recommend).Count());
-                    dic.Add("找项目", Memberlogs.Where(m => m.OperateType == (int)GenerateSystem.FindFinancial).Count());
-                    dic.Add("找资金", Memberlogs.Where(m => m.OperateType == (int)GenerateSystem.FindInvestment).Count());
-                    dic.Add("找服务", Memberlogs.Where(m => m.OperateType == (int)GenerateSystem.FindService).Count());
-                    dic.Add("我的关注", Memberlogs.Where(m => m.OperateType == (int)GenerateSystem.Attention).Count());
-                    dic.Add("我的收藏", Memberlogs.Where(m => m.OperateType == (int)GenerateSystem.Favorite).Count());
-                    dic.Add("我的发布", Memberlogs.Where(m => m.OperateType == (int)GenerateSystem.Publish).Count());
+                    dic.Add("金融推荐", Memberlogs.Where(m => m.GenerateModule == (int)GenerateSystem.Recommend).Count());
+                    dic.Add("找项目", Memberlogs.Where(m => m.GenerateModule == (int)GenerateSystem.FindFinancial).Count());
+                    dic.Add("找资金", Memberlogs.Where(m => m.GenerateModule == (int)GenerateSystem.FindInvestment).Count());
+                    dic.Add("找服务", Memberlogs.Where(m => m.GenerateModule == (int)GenerateSystem.FindService).Count());
+                    dic.Add("我的关注", Memberlogs.Where(m => m.GenerateModule == (int)GenerateSystem.Attention).Count());
+                    dic.Add("我的收藏", Memberlogs.Where(m => m.GenerateModule == (int)GenerateSystem.Favorite).Count());
+                    dic.Add("我的发布", Memberlogs.Where(m => m.GenerateModule == (int)GenerateSystem.Publish).Count());
                 }
                 else
                 {
@@ -112,7 +112,7 @@ namespace GGZBTQPT_PRO.Controllers
             try
             {
                 var Memberlogs = db.T_ZC_MemberLog.ToList();
-                Dictionary<String, int> dic = new Dictionary<string, int>();
+                Dictionary<string, int> dic = new Dictionary<string, int>();
 
                 if(Memberlogs != null)
                 {
@@ -151,7 +151,7 @@ namespace GGZBTQPT_PRO.Controllers
             try
             {
                 var Memberlogs = db.T_ZC_MemberLog.ToList();
-                Dictionary<String, double> dic = new Dictionary<string, double>();
+                Dictionary<string, double> dic = new Dictionary<string, double>();
 
                 if (Memberlogs != null)
                 {
@@ -189,17 +189,17 @@ namespace GGZBTQPT_PRO.Controllers
             try
             {
                 var Memberlogs = db.T_ZC_MemberLog.ToList();
-                Dictionary<String, double> dic = new Dictionary<string, double>();
+                Dictionary<string, double> dic = new Dictionary<string,double>();
 
                 if (Memberlogs != null)
                 {
-                    dic.Add("金融推荐", Memberlogs.Where(m => m.OperateType == (int)GenerateSystem.Recommend).Sum(m => m.Continuance.TotalMinutes));
-                    dic.Add("找项目", Memberlogs.Where(m => m.OperateType == (int)GenerateSystem.FindFinancial).Sum(m => m.Continuance.TotalMinutes));
-                    dic.Add("找资金", Memberlogs.Where(m => m.OperateType == (int)GenerateSystem.FindInvestment).Sum(m => m.Continuance.TotalMinutes));
-                    dic.Add("找服务", Memberlogs.Where(m => m.OperateType == (int)GenerateSystem.FindService).Sum(m => m.Continuance.TotalMinutes));
-                    dic.Add("我的关注", Memberlogs.Where(m => m.OperateType == (int)GenerateSystem.Attention).Sum(m => m.Continuance.TotalMinutes));
-                    dic.Add("我的收藏", Memberlogs.Where(m => m.OperateType == (int)GenerateSystem.Favorite).Sum(m => m.Continuance.TotalMinutes));
-                    dic.Add("我的发布", Memberlogs.Where(m => m.OperateType == (int)GenerateSystem.Publish).Sum(m => m.Continuance.TotalMinutes));
+                    dic.Add("金融推荐", Memberlogs.Where(m => m.GenerateModule == (int)GenerateSystem.Recommend).Sum(m => m.Continuance.TotalMinutes));
+                    dic.Add("找项目", Memberlogs.Where(m => m.GenerateModule == (int)GenerateSystem.FindFinancial).Sum(m => m.Continuance.TotalMinutes));
+                    dic.Add("找资金", Memberlogs.Where(m => m.GenerateModule == (int)GenerateSystem.FindInvestment).Sum(m => m.Continuance.TotalMinutes));
+                    dic.Add("找服务", Memberlogs.Where(m => m.GenerateModule == (int)GenerateSystem.FindService).Sum(m => m.Continuance.TotalMinutes));
+                    dic.Add("我的关注", Memberlogs.Where(m => m.GenerateModule == (int)GenerateSystem.Attention).Sum(m => m.Continuance.TotalMinutes));
+                    dic.Add("我的收藏", Memberlogs.Where(m => m.GenerateModule == (int)GenerateSystem.Favorite).Sum(m => m.Continuance.TotalMinutes));
+                    dic.Add("我的发布", Memberlogs.Where(m => m.GenerateModule == (int)GenerateSystem.Publish).Sum(m => m.Continuance.TotalMinutes));
                 }
                 else
                 {
