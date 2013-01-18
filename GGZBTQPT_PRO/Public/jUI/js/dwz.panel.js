@@ -12,13 +12,11 @@
 				var collapse = $panel.hasClass("collapse");
 				
 				var $content = $(">div", $panel).addClass(op.content);				
-				var title = $(">h1",$panel).wrap("<div><div></div></div>");
+				var title = $(">h1",$panel).wrap('<div class="'+op.header+'"><div class="'+op.headerC+'"></div></div>');
 				if(collapse)$("<a href=\"\"></a>").addClass(close?op.exp:op.coll).insertAfter(title);
 
-				var header = $(">div:first", $panel).addClass(op.header);
-				$(">div", header).addClass(op.headerC);
-				var footer = $("<div><div></div></div>").appendTo($panel).addClass(op.footer);
-				$(">div", footer).addClass(op.footerC);
+				var header = $(">div:first", $panel);
+				var footer = $('<div class="'+op.footer+'"><div class="'+op.footerC+'"></div></div>').appendTo($panel);
 				
 				var defaultH = $panel.attr("defH")?$panel.attr("defH"):0;
 				var minH = $panel.attr("minH")?$panel.attr("minH"):0;
@@ -28,7 +26,6 @@
 						display: "none"
 					});
 				else {
-					$content.css("height","auto");
 					if (defaultH > 0) 
 						$content.height(defaultH + "px");
 					else if(minH > 0){

@@ -22,7 +22,7 @@
 					if ($.History._currentHash == '') {
 						$.History._currentHash = '#';
 					}
-					$("body").prepend('<iframe id="jQuery_history" style="display: none;"></iframe>');
+					$("body").append('<iframe id="jQuery_history" style="display: none;" src="about:blank"></iframe>');
 					var ihistory = $("#jQuery_history")[0];
 					var iframe = ihistory.contentDocument || ihistory.contentWindow.document;
 					iframe.open();

@@ -13,7 +13,7 @@ function initEnv() {
 
 	$(window).resize(function(){
 		initLayout();
-		$(this).trigger("resizeGrid");
+		$(this).trigger(DWZ.eventType.resizeGrid);
 	});
 
 	var ajaxbg = $("#background,#progressBar");
@@ -56,6 +56,8 @@ function initLayout(){
 
 function initUI(_box){
 	var $p = $(_box || document);
+
+	$("div.panel", $p).jPanel();
 
 	//tables
 	$("table.table", $p).jTable();
@@ -113,12 +115,14 @@ function initUI(_box){
 			var options = {
 				uploader: $this.attr("uploader"),
 				script: $this.attr("script"),
+				buttonImg: $this.attr("buttonImg"),
 				cancelImg: $this.attr("cancelImg"),
 				queueID: $this.attr("fileQueue") || "fileQueue",
-				fileDesc: $this.attr("fileDesc") || "*.jpg;*.jpeg;*.gif;*.png;*.pdf",
-				fileExt : $this.attr("fileExt") || "*.jpg;*.jpeg;*.gif;*.png;*.pdf",
+				fileDesc: $this.attr("fileDesc"),
+				fileExt : $this.attr("fileExt"),
 				folder	: $this.attr("folder"),
-				auto: true,
+				fileDataName: $this.attr("name") || "file",
+				auto: $this.attr("auto") || false,
 				multi: true,
 				onError:uploadifyError,
 				onComplete: uploadifyComplete,
@@ -154,12 +158,12 @@ function initUI(_box){
 	
 	//tabsPageHeader
 	$("div.tabsHeader li, div.tabsPageHeader li, div.accordionHeader, div.accordion", $p).hoverClass("hover");
-	
-	$("div.panel", $p).jPanel();
 
 	//validate form
 	$("form.required-validate", $p).each(function(){
-		$(this).validate({
+		var $form = $(this);
+		$form.validate({
+			onsubmit: false,
 			focusInvalid: false,
 			focusCleanup: true,
 			errorElement: "span",
@@ -172,15 +176,24 @@ function initUI(_box){
 				} 
 			}
 		});
+		
+		$form.find('input[customvalid]').each(function(){
+			var $input = $(this);
+			$input.rules("add", {
+				customvalid: $input.attr("customvalid")
+			})
+		});
 	});
 
 	if ($.fn.datepicker){
 		$('input.date', $p).each(function(){
 			var $this = $(this);
 			var opts = {};
-			if ($this.attr("format")) opts.pattern = $this.attr("format");
-			if ($this.attr("yearstart")) opts.yearstart = $this.attr("yearstart");
-			if ($this.attr("yearend")) opts.yearend = $this.attr("yearend");
+			if ($this.attr("dateFmt")) opts.pattern = $this.attr("dateFmt");
+			if ($this.attr("minDate")) opts.minDate = $this.attr("minDate");
+			if ($this.attr("maxDate")) opts.maxDate = $this.attr("maxDate");
+			if ($this.attr("mmStep")) opts.mmStep = $this.attr("mmStep");
+			if ($this.attr("ssStep")) opts.ssStep = $this.attr("ssStep");
 			$this.datepicker(opts);
 		});
 	}
@@ -263,18 +276,20 @@ function initUI(_box){
 			currentPage:$this.attr("currentPage")
 		});
 	});
-	
+
+	if ($.fn.sortDrag) $("div.sortDrag", $p).sortDrag();
+
 	// dwz.ajax.js
-	if ($.fn.ajaxTodo) $("a[target=ajaxTodo]", $p).ajaxTodo($p);
-	if ($.fn.dwzExport) $("a[target=dwzExport]", $p).dwzExport($p);
+	if ($.fn.ajaxTodo) $("a[target=ajaxTodo]", $p).ajaxTodo();
+	if ($.fn.dwzExport) $("a[target=dwzExport]", $p).dwzExport();
 
 	if ($.fn.lookup) $("a[lookupGroup]", $p).lookup();
-	if ($.fn.multLookup) $("[multLookup]:button").multLookup();
+	if ($.fn.multLookup) $("[multLookup]:button", $p).multLookup();
 	if ($.fn.suggest) $("input[suggestFields]", $p).suggest();
 	if ($.fn.itemDetail) $("table.itemDetail", $p).itemDetail();
 	if ($.fn.selectedTodo) $("a[target=selectedTodo]", $p).selectedTodo();
 	if ($.fn.pagerForm) $("form[rel=pagerForm]", $p).pagerForm({parentBox:$p});
-	
+
 	// 这里放其他第三方jQuery插件...
 }
 

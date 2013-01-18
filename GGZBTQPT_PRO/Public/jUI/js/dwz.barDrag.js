@@ -24,7 +24,7 @@
 					bar.animate({left: barleft}, 500, function(){
 						bar.hide();
 						sbar.show().css("left", -50).animate({left: 5}, 200);
-						$(window).trigger("resizeGrid");
+						$(window).trigger(DWZ.eventType.resizeGrid);
 					});
 				});
 				$(op.collapse,sbar).click(function(){
@@ -62,7 +62,7 @@
 					var cwidth = $(op.container).outerWidth() - (cleft - $(op.container).cssv("left"));
 					$(op.container).css({left: cleft,width: cwidth});
 					$(op.collapse, sbar).unbind('click');
-					$(window).trigger("resizeGrid");
+					$(window).trigger(DWZ.eventType.resizeGrid);
 				});
 				return false;
 			});

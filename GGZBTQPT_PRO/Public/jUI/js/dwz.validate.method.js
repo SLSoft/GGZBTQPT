@@ -24,13 +24,24 @@
 			value = value.replace(/\s+/g, "");
 			if (String.prototype.parseDate){
 				var $input = $(element);
-				var pattern = $input.attr('format') || 'yyyy-MM-dd';
+				var pattern = $input.attr('dateFmt') || 'yyyy-MM-dd';
 	
 				return !$input.val() || $input.val().parseDate(pattern);
 			} else {
 				return this.optional(element) || value.match(/^\d{4}[\/-]\d{1,2}[\/-]\d{1,2}$/);
 			}
 		}, "Please enter a valid date.");
+		
+		/*自定义js函数验证
+		 * <input type="text" name="xxx" customvalid="xxxFn(element)" title="xxx" />
+		 */
+		$.validator.addMethod("customvalid", function(value, element, params) {
+			try{
+				return eval('(' + params + ')');
+			}catch(e){
+				return false;
+			}
+		}, "Please fix this field.");
 		
 		$.validator.addClassRules({
 			date: {date: true},

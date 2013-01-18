@@ -59,7 +59,7 @@
 					
 					var $input = $("select", box);
 					if ($input.val() != $this.attr("value")) {
-						$("select", box).val($this.attr("value")).trigger("refChange").trigger("change");
+						$("select", box).val($this.attr("value")).trigger("change");
 					}
 				});
 			});
@@ -79,7 +79,7 @@
 			return this.each(function(i){
 				var $this = $(this).removeClass("combox");
 				var name = $this.attr("name");
-				var value= $this.attr("value");
+				var value= $this.val();
 				var label = $("option[value=" + value + "]",$this).text();
 				var ref = $this.attr("ref");
 				var refUrl = $this.attr("refUrl") || "";
@@ -99,12 +99,11 @@
 				$("div.select", $this.next()).comboxSelect().append($this);
 				
 				if (ref && refUrl) {
-					
-					$this.unbind("refChange").bind("refChange", function(event){
+					function _onchange(event){
 						var $ref = $("#"+ref);
 						if ($ref.size() == 0) return false;
 						$.ajax({
-							type:'GET', dataType:"json", url:refUrl.replace("{value}", $this.attr("value")), cache: false,
+							type:'POST', dataType:"json", url:refUrl.replace("{value}", encodeURIComponent($this.attr("value"))), cache: false,
 							data:{},
 							success: function(json){
 								if (!json) return;
@@ -119,11 +118,13 @@
 								var $refCombox = $ref.parents("div.combox:first");
 								$ref.html(html).insertAfter($refCombox);
 								$refCombox.remove();
-								$ref.trigger("refChange").trigger("change").combox();
+								$ref.trigger("change").combox();
 							},
 							error: DWZ.ajaxError
 						});
-					});
+					}
+					
+					$this.unbind("change", _onchange).bind("change", _onchange);
 				}
 				
 			});

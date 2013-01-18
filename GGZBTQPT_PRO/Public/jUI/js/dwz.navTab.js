@@ -56,6 +56,7 @@ var navTab = {
 				$this._switchTab(iTabIndex);
 			});
 		});
+
 		this._switchTab(this._currentIndex);
 	},
 	_contextmenu:function($obj){ // navTab右键菜单
@@ -113,7 +114,7 @@ var navTab = {
 		var index = this._indexTabId(tabid);
 		if (index >= 0) return this._getTabs().eq(index);
 	},
-	_getPanel: function(tabid){
+	getPanel: function(tabid){
 		var index = this._indexTabId(tabid);
 		if (index >= 0) return this._getPanels().eq(index);
 	},
@@ -217,11 +218,18 @@ var navTab = {
 		this._reload($tab);
 	},
 			
-	_closeTab: function(index){
+	_closeTab: function(index, openTabid){
+
 		this._getTabs().eq(index).remove();
-		this._getPanels().eq(index).remove();
+		this._getPanels().eq(index).trigger(DWZ.eventType.pageClear).remove();
 		this._getMoreLi().eq(index).remove();
 		if (this._currentIndex >= index) this._currentIndex--;
+		
+		if (openTabid) {
+			var openIndex = this._indexTabId(openTabid);
+			if (openIndex > 0) this._currentIndex = openIndex;
+		}
+		
 		this._init();
 		this._scrollCurrent();
 		this._reload(this._getTabs().eq(this._currentIndex));
@@ -230,12 +238,12 @@ var navTab = {
 		var index = this._indexTabId(tabid);
 		if (index > 0) { this._closeTab(index); }
 	},
-	closeCurrentTab: function(){
-		if (this._currentIndex > 0) {this._closeTab(this._currentIndex);}
+	closeCurrentTab: function(openTabid){ //openTabid 可以为空，默认关闭当前tab后，打开最后一个tab
+		if (this._currentIndex > 0) {this._closeTab(this._currentIndex, openTabid);}
 	},
 	closeAllTab: function(){
 		this._getTabs().filter(":gt(0)").remove();
-		this._getPanels().filter(":gt(0)").remove();
+		this._getPanels().filter(":gt(0)").trigger(DWZ.eventType.pageClear).remove();
 		this._getMoreLi().filter(":gt(0)").remove();
 		this._currentIndex = 0;
 		this._init();
@@ -244,9 +252,9 @@ var navTab = {
 	_closeOtherTab: function(index){
 		index = index || this._currentIndex;
 		if (index > 0) {
-			var str$ = ":eq("+index+")"
+			var str$ = ":eq("+index+")";
 			this._getTabs().not(str$).filter(":gt(0)").remove();
-			this._getPanels().not(str$).filter(":gt(0)").remove();
+			this._getPanels().not(str$).filter(":gt(0)").trigger(DWZ.eventType.pageClear).remove();
 			this._getMoreLi().not(str$).filter(":gt(0)").remove();
 			this._currentIndex = 1;
 			this._init();
@@ -267,12 +275,16 @@ var navTab = {
 		var url = $tab.attr("url");
 		if (flag && url) {
 			$tab.data("reloadFlag", null);
-			var $panel = this._getPanel($tab.attr("tabid"));
+			var $panel = this.getPanel($tab.attr("tabid"));
 			
 			if ($tab.hasClass("external")){
 				navTab.openExternal(url, $panel);
 			}else {
-				$panel.loadUrl(url, {}, function(){navTab._loadUrlCallback($panel);});
+				//获取pagerForm参数
+				var $pagerForm = $("#pagerForm", $panel);
+				var args = $pagerForm.size()>0 ? $pagerForm.serializeArray() : {}
+				
+				$panel.loadUrl(url, args, function(){navTab._loadUrlCallback($panel);});
 			}
 		}
 	},
@@ -286,7 +298,7 @@ var navTab = {
 	reload: function(url, options){
 		var op = $.extend({data:{}, navTabId:"", callback:null}, options);
 		var $tab = op.navTabId ? this._getTab(op.navTabId) : this._getTabs().eq(this._currentIndex);
-		var $panel =  op.navTabId ? this._getPanel(op.navTabId) : this._getPanels().eq(this._currentIndex);
+		var $panel =  op.navTabId ? this.getPanel(op.navTabId) : this._getPanels().eq(this._currentIndex);
 		
 		if ($panel){
 			if (!url) {
@@ -296,6 +308,11 @@ var navTab = {
 				if ($tab.hasClass("external")) {
 					navTab.openExternal(url, $panel);
 				} else {
+					if ($.isEmptyObject(op.data)) { //获取pagerForm参数
+						var $pagerForm = $("#pagerForm", $panel);
+						op.data = $pagerForm.size()>0 ? $pagerForm.serializeArray() : {}
+					}
+					
 					$panel.ajaxUrl({
 						type:"POST", url:url, data:op.data, callback:function(response){
 							navTab._loadUrlCallback($panel);
@@ -349,8 +366,8 @@ var navTab = {
 			}
 			this._currentIndex = iOpenIndex;
 		} else {
-			var tabFrag = '<li tabid="#tabid#"><a href="javascript:" title="#title#"><span>#title#</span></a><a href="javascript:;" class="close">close</a></li>';
-			this._tabBox.append(tabFrag.replace("#tabid#", tabid).replaceAll("#title#", op.title));
+			var tabFrag = '<li tabid="#tabid#"><a href="javascript:" title="#title#" class="#tabid#"><span>#title#</span></a><a href="javascript:;" class="close">close</a></li>';
+			this._tabBox.append(tabFrag.replaceAll("#tabid#", tabid).replaceAll("#title#", op.title));
 			this._panelBox.append('<div class="page unitBox"></div>');
 			this._moreBox.append('<li><a href="javascript:" title="#title#">#title#</a></li>'.replaceAll("#title#", op.title));
 			

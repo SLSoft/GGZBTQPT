@@ -66,20 +66,20 @@
 			return this.each(function(){
 				$(">li", this).each(function(){
 					var $this = $(this);
-					setTimeout(function(){
-						var isLast = ($this.next()[0]?false:true);
-						$this.genTree({
-							icon:op.icon,
-							ckbox:op.ckbox,
-							exp:isLast?op.options.lastExp:op.options.exp,
-							coll:isLast?op.options.lastColl:op.options.coll,
-							options:op.options,
-							level:level,
-							space:isLast?null:op.space,
-							showSub:op.showSub,
-							isLast:isLast
-						});
-					},1);		
+					
+					var isLast = ($this.next()[0]?false:true);
+					$this.genTree({
+						icon:op.icon,
+						ckbox:op.ckbox,
+						exp:isLast?op.options.lastExp:op.options.exp,
+						coll:isLast?op.options.lastColl:op.options.coll,
+						options:op.options,
+						level:level,
+						space:isLast?null:op.space,
+						showSub:op.showSub,
+						isLast:isLast
+					});
+					
 				});
 			});
 		},
@@ -174,8 +174,7 @@
 				$(node)._checkParent();
 				return false;
 			});
-			var cAttr = $input.attr("checked");
-			if(cAttr) cAttr = eval(cAttr);
+			var cAttr = $input.attr("checked") || false;
 			if (cAttr) {
 				ckbox.find("input").attr("checked", true);
 				ckbox.removeClass("unchecked").addClass("checked");

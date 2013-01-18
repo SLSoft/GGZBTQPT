@@ -38,12 +38,12 @@
 						if ($(this).hasClass(op.ajaxClass)) {
 							$(this).click(function(event){
 								var jGroup = jGroups.eq(iTabIndex);
-								if (this.href) jGroup.loadUrl(this.href,{},function(){
+								if (this.href && !jGroup.attr("loaded")) jGroup.loadUrl(this.href,{},function(){
 									jGroup.find("[layoutH]").layoutH();
+									jGroup.attr("loaded",true);
 								});
 								event.preventDefault();
 							});
-							if (op.currentIndex == iTabIndex) { $(this).trigger("click"); }
 							
 						} else if ($(this).hasClass(op.closeClass)) {
 							$(this).click(function(event){

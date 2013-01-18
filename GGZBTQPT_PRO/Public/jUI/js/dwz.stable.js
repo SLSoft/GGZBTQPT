@@ -37,6 +37,7 @@
 				$th.addClass(style[1]).hoverClass("hover").removeAttr("align").removeAttr("width").width(style[0]);
 			}).filter("[orderField]").orderBy({
 				targetType: $table.attr("targetType"),
+				rel:$table.attr("rel"),
 				asc: $table.attr("asc") || "asc",
 				desc:  $table.attr("desc") || "desc"
 			});
@@ -153,7 +154,7 @@
 					}
 				});
 			}
-			$(window).unbind("resizeGrid").bind("resizeGrid", _resizeGrid);
+			$(window).unbind(DWZ.eventType.resizeGrid).bind("resizeGrid", _resizeGrid);
 		});
 	};
 	

@@ -293,8 +293,9 @@ $.extend($.dwz.accordion, {
 				easing: options.easing,
 				complete: function() {
 					if ( !options.autoheight ) {
-						options.toShow.css("height", "auto");
+						options.toShow.css({height:"auto"});
 					}
+					options.toShow.css({overflow:"auto"});
 					options.complete();
 				}
 			});

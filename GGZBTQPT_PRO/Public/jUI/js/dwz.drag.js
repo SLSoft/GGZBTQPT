@@ -66,12 +66,17 @@
 			} else if (data.options.move == 'vertical') {
 					current.el.style.top = top + 'px';
 			} else {
-				var selector = $(data.options.selector, $(data.options.obj));
+				var selector = data.options.selector ? $(data.options.selector, data.options.obj) : $(data.options.obj);
 				if (left >= -selector.outerWidth() * 2 / 3 && top >= 0 && (left + selector.outerWidth() / 3 < $(window).width()) && (top + selector.outerHeight() < $(window).height())) {
 					current.el.style.left = left + 'px';
 					current.el.style.top = top + 'px';
 				}
 			}
+			
+			if (data.options.drag) {
+				data.options.drag.apply(current.el, [current.el]);
+			}
+			
 			return $.rwdrag.preventEvent(e);
 		},
 		stop: function(e){

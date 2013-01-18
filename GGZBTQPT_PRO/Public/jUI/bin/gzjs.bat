@@ -1,4 +1,4 @@
-cd D:\workspace\UI\UI_soulou\dwz-ria\bin
+cd D:\workspace\UI\dev\dwz-ria\bin
 
 REM -------------- start package javascript --------------
 
@@ -20,6 +20,7 @@ type ..\js\dwz.tab.js >> dwzESC.js
 type ..\js\dwz.resize.js >> dwzESC.js
 type ..\js\dwz.dialog.js >> dwzESC.js
 type ..\js\dwz.dialogDrag.js >> dwzESC.js
+type ..\js\dwz.sortDrag.js >> dwzESC.js
 type ..\js\dwz.cssTable.js >> dwzESC.js
 type ..\js\dwz.stable.js >> dwzESC.js
 type ..\js\dwz.taskBar.js >> dwzESC.js
@@ -32,6 +33,7 @@ type ..\js\dwz.panel.js >> dwzESC.js
 type ..\js\dwz.checkbox.js >> dwzESC.js
 type ..\js\dwz.combox.js >> dwzESC.js
 type ..\js\dwz.history.js >> dwzESC.js
+type ..\js\dwz.print.js >> dwzESC.js
 
 cscript ESC.wsf -l 1 -ow dwzESC1.js dwzESC.js
 cscript ESC.wsf -l 2 -ow dwzESC2.js dwzESC1.js

@@ -11,6 +11,7 @@
 					$("#sidebar").find(".accordion").remove().end().append(html).initUI();
 					$box.find("li").removeClass("selected");
 					$a.parent().addClass("selected");
+					navTab.closeAllTab();
 				});
 				return false;
 			});

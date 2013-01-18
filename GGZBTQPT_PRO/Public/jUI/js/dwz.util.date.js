@@ -128,7 +128,7 @@ function parseDate(val,format) {
 	var token="";
 	var token2="";
 	var x,y;
-	var now=new Date();
+	var now=new Date(1900,0,1);
 	var year=now.getYear();
 	var month=now.getMonth()+1;
 	var date=1;
@@ -238,12 +238,47 @@ function parseDate(val,format) {
 	return new Date(year,month-1,date,hh,mm,ss);
 }
 
-Date.prototype.formatDate = function(format) {
-	return formatDate(this, format);
+Date.prototype.formatDate = function(dateFmt) {
+	return formatDate(this, dateFmt);
 };
-String.prototype.parseDate = function(format) {
-	return parseDate(this, format);
+String.prototype.parseDate = function(dateFmt) {
+	if (this.length < dateFmt.length) {
+		dateFmt = dateFmt.slice(0,this.length);
+	}
+	return parseDate(this, dateFmt);
+};
+
+/**
+ * replaceTmEval("{1+2}-{2-1}")
+ */
+function replaceTmEval(data){
+	return data.replace(RegExp("({[A-Za-z0-9_+-]*})","g"), function($1){
+		return eval('(' + $1.replace(/[{}]+/g, "") + ')');
+	});
 }
+/**
+ * dateFmt:%y-%M-%d
+ * %y-%M-{%d+1}
+ * ex: new Date().formatDateTm('%y-%M-{%d-1}')
+ * 	new Date().formatDateTm('2012-1')
+ */
+Date.prototype.formatDateTm = function(dateFmt) {
+	var y = this.getFullYear();
+	var m = this.getMonth()+1;
+	var d = this.getDate();
+
+	var sDate = dateFmt.replaceAll("%y",y).replaceAll("%M",m).replaceAll("%d",d);
+	sDate = replaceTmEval(sDate);
+	
+	var _y=1900, _m=0, _d=1;
+	var aDate = sDate.split('-');
+	
+	if (aDate.length > 0) _y = aDate[0];
+	if (aDate.length > 1) _m = aDate[1]-1;
+	if (aDate.length > 2) _d = aDate[2];
+	
+	return new Date(_y,_m,_d).formatDate('yyyy-MM-dd');
+};
 
 })();
 

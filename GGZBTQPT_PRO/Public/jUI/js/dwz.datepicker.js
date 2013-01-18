@@ -40,11 +40,12 @@
 			if (!((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode == DWZ.keyCode.DELETE || e.keyCode == DWZ.keyCode.BACKSPACE))) { return false; }
 		}
 		function changeTm($input, type){
-			var ivalue = parseInt($input.val()), istart = parseInt($input.attr("start")), iend = parseInt($input.attr("end"));
+			var ivalue = parseInt($input.val()), istart = parseInt($input.attr("start")) || 0, iend = parseInt($input.attr("end"));
+			var istep = parseInt($input.attr('step') || 1);
 			if (type == 1) {
-				if (ivalue < iend){$input.val(ivalue + 1);}
+				if (ivalue <= iend-istep){$input.val(ivalue + istep);}
 			} else if (type == -1){
-				if (ivalue > istart){$input.val(ivalue - 1);}
+				if (ivalue >= istart+istep){$input.val(ivalue - istep);}
 			} else if (ivalue > iend) {
 				$input.val(iend);
 			} else if (ivalue < istart) {
@@ -58,6 +59,8 @@
 			
 			function generateCalendar(dp){
 				var dw = dp.getDateWrap();
+				var minDate = dp.getMinDate();
+				var maxDate = dp.getMaxDate();
 
 				var monthStart = new Date(dw.year,dw.month-1,1);
 				var startDay = monthStart.getDay();
@@ -66,26 +69,34 @@
 					monthStart.setMonth(monthStart.getMonth() - 1);
 					var prevDateWrap = dp.getDateWrap(monthStart);
 					for(var t=prevDateWrap.days-startDay+1;t<=prevDateWrap.days;t++) {
-						dayStr+='<dd class="other" chMonth="-1" day="' + t + '">'+t+'</dd>';
+						var _date = new Date(dw.year,dw.month-2,t);
+						var _ctrClass = (_date >= minDate && _date <= maxDate) ? '' : 'disabled';
+						dayStr+='<dd class="other '+_ctrClass+'" chMonth="-1" day="' + t + '">'+t+'</dd>';
 					}
 				}
 				for(var t=1;t<=dw.days;t++){
+					var _date = new Date(dw.year,dw.month-1,t);
+					var _ctrClass = (_date >= minDate && _date <= maxDate) ? '' : 'disabled';
 					if(t==dw.day){
-						dayStr+='<dd class="slt" day="' + t + '">'+t+'</dd>';
+						dayStr+='<dd class="slt '+_ctrClass+'" day="' + t + '">'+t+'</dd>';
 					}else{
-						dayStr+='<dd day="' + t + '">'+t+'</dd>';
+						dayStr+='<dd class="'+_ctrClass+'" day="' + t + '">'+t+'</dd>';
 					}
 				}
 				for(var t=1;t<=42-startDay-dw.days;t++){
-					dayStr+='<dd class="other" chMonth="1" day="' + t + '">'+t+'</dd>';
+					var _date = new Date(dw.year,dw.month,t);
+					var _ctrClass = (_date >= minDate && _date <= maxDate) ? '' : 'disabled';
+					dayStr+='<dd class="other '+_ctrClass+'" chMonth="1" day="' + t + '">'+t+'</dd>';
 				}
 				
 				var $days = $(setting.days$).html(dayStr).find("dd");
-				$days.click(function(){
+				$days.not('.disabled').click(function(){
 					var $day = $(this);
-					$this.val(dp.formatDate(dp.changeDay($day.attr("day"), $day.attr("chMonth"))));
-					if (!dp.hasTime()) { closeCalendar(); }
-					else {
+					
+					if (!dp.hasTime()) {
+						$this.val(dp.formatDate(dp.changeDay($day.attr("day"), $day.attr("chMonth"))));
+						closeCalendar(); 
+					} else {
 						$days.removeClass("slt");
 						$day.addClass("slt");
 					}
@@ -99,12 +110,14 @@
 					var $hour = $(setting.hour$).val(dw.hour).focus(function(){
 						changeTmMenu("hh");
 					});
-					var $minute = $(setting.minute$).val(dw.minute).focus(function(){
+					var iMinute = parseInt(dw.minute / dp.opts.mmStep) * dp.opts.mmStep;
+					var $minute = $(setting.minute$).val(iMinute).attr('step',dp.opts.mmStep).focus(function(){
 						changeTmMenu("mm");
 					});
-					var $second = $(setting.second$).val(dw.second).focus(function(){
+					var $second = $(setting.second$).val(dp.hasSecond() ? dw.second : 0).attr('step',dp.opts.ssStep).focus(function(){
 						changeTmMenu("ss");
 					});
+					
 					$hour.add($minute).add($second).click(function(){return false});
 					
 					clickTmMenu($hour,"hh");
@@ -166,8 +179,8 @@
 				
 				var dw = dp.getDateWrap();
 				var $year = $(setting.year$);
-				var yearstart = dw.year+parseInt(dp.get("yearstart"));
-				var yearend = dw.year+parseInt(dp.get("yearend"));
+				var yearstart = dp.getMinDate().getFullYear();
+				var yearend = dp.getMaxDate().getFullYear();
 				for(y=yearstart; y<=yearend; y++){
 					$year.append('<option value="'+ y +'"'+ (dw.year==y ? 'selected="selected"' : '') +'>'+ y +'</option>');
 				}
@@ -199,6 +212,9 @@
 				});
 				$(setting.okBut$).click(function(){
 					var $dd = $(setting.days$).find("dd.slt");
+					
+					if ($dd.hasClass("disabled")) return false;
+					
 					var date = dp.changeDay($dd.attr("day"), $dd.attr("chMonth"));
 					
 					if (dp.hasTime()) {
@@ -225,9 +241,16 @@
 	var Datepicker = function(sDate, opts) {
 		this.opts = $.extend({
 			pattern:'yyyy-MM-dd',
-			yearstart:-10,
-			yearend:10
+			minDate:"1900-01-01",
+			maxDate:"2099-12-31",
+			mmStep:1,
+			ssStep:1
 		}, opts);
+		
+		//动态minDate、maxDate
+		var now = new Date();
+		this.opts.minDate = now.formatDateTm(this.opts.minDate);
+		this.opts.maxDate = now.formatDateTm(this.opts.maxDate);
 		
 		this.sDate = sDate.trim();
 	}
@@ -240,6 +263,32 @@
 			return m==2?(y%4||!(y%100)&&y%400?28:29):(/4|6|9|11/.test(m)?30:31);
 		},
 
+		_minMaxDate: function(sDate){
+			var _count = sDate.split('-').length -1;
+			var _format = 'y-M-d';
+			if (_count == 1) _format = 'y-M';
+			else if (_count == 0) _format = 'y';
+			
+			return sDate.parseDate(_format);
+		},
+		getMinDate: function(){
+			return this._minMaxDate(this.opts.minDate);
+		},
+		getMaxDate: function(){
+			var _sDate = this.opts.maxDate;
+			var _count = _sDate.split('-').length -1;
+			var _date = this._minMaxDate(_sDate);
+			
+			if (_count < 2) { //format:y-M、y
+				var _day = this._getDays(_date.getFullYear(), _date.getMonth()+1);
+				_date.setDate(_day);
+				if (_count == 0) {//format:y
+					_date.setMonth(11);
+				}
+			}
+
+			return _date;
+		},
 		getDateWrap: function(date){ //得到年,月,日
 			if (!date) date = this.parseDate(this.sDate) || new Date();
 			var y = date.getFullYear();
@@ -265,6 +314,7 @@
 			return this.changeDate(dw.year, dw.month+parseInt(chMonth), day);
 		},
 		parseDate: function(sDate){
+			if (!sDate) return null;
 			return sDate.parseDate(this.opts.pattern);
 		},
 		formatDate: function(date){

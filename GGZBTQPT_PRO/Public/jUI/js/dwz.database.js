@@ -2,17 +2,17 @@
  * @author ZhangHuihua@msn.com
  */
 (function($){
-	var _lookup = {currentGroup:"", suffix:false, $target:null, pk:"id"};
+	var _lookup = {currentGroup:"", suffix:"", $target:null, pk:"id"};
 	var _util = {
 		_lookupPrefix: function(key){
 			var strDot = _lookup.currentGroup ? "." : "";
-			return _lookup.currentGroup + strDot + key;
+			return _lookup.currentGroup + strDot + key + _lookup.suffix;
 		},
 		lookupPk: function(key){
-			return this._lookupPrefix(key) + (_lookup.suffix ? "[]" : "");
+			return this._lookupPrefix(key);
 		},
 		lookupField: function(key){
-			return "dwz." + this.lookupPk(key);
+			return this.lookupPk(key);
 		}
 	};
 	
@@ -24,6 +24,7 @@
 				
 				for (var key in args) {
 					var name = (_lookup.pk == key) ? _util.lookupPk(key) : _util.lookupField(key);
+
 					if (name == inputName) {
 						$input.val(args[key]);
 						break;
@@ -48,7 +49,7 @@
 				$this.click(function(event){
 					_lookup = $.extend(_lookup, {
 						currentGroup: $this.attr("lookupGroup") || "",
-						suffix: $this.attr("suffix") || false,
+						suffix: $this.attr("suffix") || "",
 						$target: $this,
 						pk: $this.attr("lookupPk") || "id"
 					});
@@ -90,7 +91,7 @@
 			var selectedIndex = -1;
 			return this.each(function(){
 				var $input = $(this).attr('autocomplete', 'off').keydown(function(event){
-					if (event.keyCode == DWZ.keyCode.ENTER) return false; //屏蔽回车提交
+					if (event.keyCode == DWZ.keyCode.ENTER && $(op.suggest$).is(':visible')) return false; //屏蔽回车提交
 				});
 				
 				var suggestFields=$input.attr('suggestFields').split(",");
@@ -108,7 +109,7 @@
 					
 					_lookup = $.extend(_lookup, {
 						currentGroup: $input.attr("lookupGroup") || "",
-						suffix: $input.attr("suffix") || false,
+						suffix: $input.attr("suffix") || "",
 						$target: $input,
 						pk: $input.attr("lookupPk") || "id"
 					});
@@ -118,10 +119,14 @@
 						alertMsg.error($input.attr("warn") || DWZ.msg("alertSelectMsg"));
 						return false;
 					}
-			
+					
+					var postData = {};
+					postData[$input.attr("postField")||"inputValue"] = $input.val();
+
 					$.ajax({
+						global:false,
 						type:'POST', dataType:"json", url:url, cache: false,
-						data:{inputValue:$input.val()},
+						data: postData,
 						success: function(response){
 							if (!response) return;
 							var html = '';
@@ -134,15 +139,33 @@
 									if (str) {
 										if (liLabel) liLabel += '-';
 										liLabel += str;
-										if (liAttr) liAttr += ',';
-										liAttr += suggestFields[i]+":'"+str+"'";
 									}
 								}
-								html += '<li lookupId="'+this["id"]+'" lookupAttrs="'+liAttr+'">' + liLabel + '</li>';
+								for (var key in this) {
+									if (liAttr) liAttr += ',';
+									liAttr += key+":'"+this[key]+"'";
+								}
+								html += '<li lookupAttrs="'+liAttr+'">' + liLabel + '</li>';
 							});
-							$suggest.html('<ul>'+html+'</ul>').find("li").hoverClass("selected").click(function(){
+							
+							var $lis = $suggest.html('<ul>'+html+'</ul>').find("li");
+							$lis.hoverClass("selected").click(function(){
 								_select($(this));
 							});
+							if ($lis.size() == 1 && event.keyCode != DWZ.keyCode.BACKSPACE) {
+								_select($lis.eq(0));
+							} else if ($lis.size() == 0){
+								var jsonStr = "";
+								for (var i=0; i<suggestFields.length; i++){
+									if (_util.lookupField(suggestFields[i]) == event.target.name) {
+										break;
+									}
+									if (jsonStr) jsonStr += ',';
+									jsonStr += suggestFields[i]+":''";
+								}
+								jsonStr = "{"+_lookup.pk+":''," + jsonStr +"}";
+								$.bringBackSuggest(DWZ.jsonEval(jsonStr));
+							}
 						},
 						error: function(){
 							$suggest.html('');
@@ -153,7 +176,8 @@
 					return false;
 				}
 				function _select($item){
-					var jsonStr = "{id:'"+$item.attr('lookupId')+"'," + $item.attr('lookupAttrs') +"}";
+					var jsonStr = "{"+ $item.attr('lookupAttrs') +"}";
+					
 					$.bringBackSuggest(DWZ.jsonEval(jsonStr));
 				}
 				function _close(){
@@ -199,32 +223,44 @@
 		itemDetail: function(){
 			return this.each(function(){
 				var $table = $(this).css("clear","both"), $tbody = $table.find("tbody");
-				var fields=[], suffix = $table.attr("suffix") || false;
+				var fields=[];
 
-				$table.find("tr:first th[type]").each(function(){
+				$table.find("tr:first th[type]").each(function(i){
 					var $th = $(this);
 					var field = {
 						type: $th.attr("type") || "text",
 						patternDate: $th.attr("format") || "yyyy-MM-dd",
 						name: $th.attr("name") || "",
+						defaultVal: $th.attr("defaultVal") || "",
 						size: $th.attr("size") || "12",
 						enumUrl: $th.attr("enumUrl") || "",
 						lookupGroup: $th.attr("lookupGroup") || "",
 						lookupUrl: $th.attr("lookupUrl") || "",
+						lookupPk: $th.attr("lookupPk") || "id",
 						suggestUrl: $th.attr("suggestUrl"),
 						suggestFields: $th.attr("suggestFields"),
-						fieldClass: $th.attr("fieldClass") || ""
+						postField: $th.attr("postField") || "",
+						fieldClass: $th.attr("fieldClass") || "",
+						fieldAttrs: $th.attr("fieldAttrs") || ""
 					};
 					fields.push(field);
 				});
 				
 				$tbody.find("a.btnDel").click(function(){
 					var $btnDel = $(this);
+					
+					if ($btnDel.is("[href^=javascript:]")){
+						$btnDel.parents("tr:first").remove();
+						initSuffix($tbody);
+						return false;
+					}
+					
 					function delDbData(){
 						$.ajax({
 							type:'POST', dataType:"json", url:$btnDel.attr('href'), cache: false,
 							success: function(){
 								$btnDel.parents("tr:first").remove();
+								initSuffix($tbody);
 							},
 							error: DWZ.ajaxError
 						});
@@ -246,7 +282,7 @@
 					
 					var trTm = "";
 					$addBut.click(function(){
-						if (! trTm) trTm = trHtml(fields, suffix);
+						if (! trTm) trTm = trHtml(fields);
 						var rowNum = 1;
 						try{rowNum = parseInt($rowNum.val())} catch(e){}
 
@@ -254,15 +290,51 @@
 							var $tr = $(trTm);
 							$tr.appendTo($tbody).initUI().find("a.btnDel").click(function(){
 								$(this).parents("tr:first").remove();
+								initSuffix($tbody);
 								return false;
 							});
 						}
+						initSuffix($tbody);
 					});
 				}
 			});
 			
-			function tdHtml(field, suffix){
-				var html = '', suffixFrag = suffix ? ' suffix="true" ' : '';
+			/**
+			 * 删除时重新初始化下标
+			 */
+			function initSuffix($tbody) {
+				$tbody.find('>tr').each(function(i){
+					$(':input, a.btnLook', this).each(function(){
+						var $this = $(this), name = $this.attr('name'), val = $this.val();
+
+						if (name) $this.attr('name', name.replaceSuffix(i));
+						
+						var lookupGroup = $this.attr('lookupGroup');
+						if (lookupGroup) {$this.attr('lookupGroup', lookupGroup.replaceSuffix(i));}
+						
+						var suffix = $this.attr("suffix");
+						if (suffix) {$this.attr('suffix', suffix.replaceSuffix(i));}
+						
+						if (val && val.indexOf("#index#") >= 0) $this.val(val.replace('#index#',i+1));
+					});
+				});
+			}
+			
+			function tdHtml(field){
+				var html = '', suffix = '';
+				
+				if (field.name.endsWith("[#index#]")) suffix = "[#index#]";
+				else if (field.name.endsWith("[]")) suffix = "[]";
+				
+				var suffixFrag = suffix ? ' suffix="' + suffix + '" ' : '';
+				
+				var attrFrag = '';
+				if (field.fieldAttrs){
+					var attrs = DWZ.jsonEval(field.fieldAttrs);
+					for (var key in attrs) {
+						attrFrag += key+'="'+attrs[key]+'"';
+					}
+				}
 				switch(field.type){
 					case 'del':
 						html = '<a href="javascript:void(0)" class="btnDel '+ field.fieldClass + '">删除</a>';
@@ -270,17 +342,17 @@
 					case 'lookup':
 						var suggestFrag = '';
 						if (field.suggestFields) {
-							suggestFrag = 'autocomplete="off" lookupGroup="'+field.lookupGroup+'"'+suffixFrag+' suggestUrl="'+field.suggestUrl+'" suggestFields="'+field.suggestFields+'"';
+							suggestFrag = 'autocomplete="off" lookupGroup="'+field.lookupGroup+'"'+suffixFrag+' suggestUrl="'+field.suggestUrl+'" suggestFields="'+field.suggestFields+'"' + ' postField="'+field.postField+'"';
 						}
 
-						html = '<input type="hidden" name="'+field.lookupGroup+'.id"/>'
-							+ '<input type="text" name="'+field.name+'"'+suggestFrag+' size="'+field.size+'" class="'+field.fieldClass+'"/>'
-							+ '<a class="btnLook" href="'+field.lookupUrl+'" lookupGroup="'+field.lookupGroup+'"'+suffixFrag+' title="查找带回">查找带回</a>';
+						html = '<input type="hidden" name="'+field.lookupGroup+'.'+field.lookupPk+suffix+'"/>'
+							+ '<input type="text" name="'+field.name+'"'+suggestFrag+' lookupPk="'+field.lookupPk+'" size="'+field.size+'" class="'+field.fieldClass+'"/>'
+							+ '<a class="btnLook" href="'+field.lookupUrl+'" lookupGroup="'+field.lookupGroup+'" '+suggestFrag+' lookupPk="'+field.lookupPk+'" title="查找带回">查找带回</a>';
 						break;
 					case 'attach':
-						html = '<input type="hidden" name="'+field.lookupGroup+'.id"/>'
+						html = '<input type="hidden" name="'+field.lookupGroup+'.'+field.lookupPk+suffix+'"/>'
 							+ '<input type="text" name="'+field.name+'" size="'+field.size+'" readonly="readonly" class="'+field.fieldClass+'"/>'
-							+ '<a class="btnAttach" href="'+field.lookupUrl+'" lookupGroup="'+field.lookupGroup+'"'+suffixFrag+' width="560" height="300" title="查找带回">查找带回</a>';
+							+ '<a class="btnAttach" href="'+field.lookupUrl+'" lookupGroup="'+field.lookupGroup+'" '+suggestFrag+' lookupPk="'+field.lookupPk+'" width="560" height="300" title="查找带回">查找带回</a>';
 						break;
 					case 'enum':
 						$.ajax({
@@ -293,19 +365,19 @@
 						});
 						break;
 					case 'date':
-						html = '<input type="text" name="'+field.name+'" class="date '+field.fieldClass+'" format="'+field.patternDate+'" size="'+field.size+'"/>'
+						html = '<input type="text" name="'+field.name+'" value="'+field.defaultVal+'" class="date '+field.fieldClass+'" format="'+field.patternDate+'" size="'+field.size+'"/>'
 							+'<a class="inputDateButton" href="javascript:void(0)">选择</a>';
 						break;
 					default:
-						html = '<input type="text" name="'+field.name+'" size="'+field.size+'" class="'+field.fieldClass+'"/>';
+						html = '<input type="text" name="'+field.name+'" value="'+field.defaultVal+'" size="'+field.size+'" class="'+field.fieldClass+'" '+attrFrag+'/>';
 						break;
 				}
 				return '<td>'+html+'</td>';
 			}
-			function trHtml(fields, suffix){
+			function trHtml(fields){
 				var html = '';
 				$(fields).each(function(){
-					html += tdHtml(this, suffix);
+					html += tdHtml(this);
 				});
 				return '<tr class="unitBox">'+html+'</tr>';
 			}
@@ -328,11 +400,16 @@
 				var postType = $this.attr("postType") || "map";
 
 				$this.click(function(){
-					var ids = _getIds(selectedIds, $this.attr("targetType"));
+					var targetType = $this.attr("targetType");
+					var ids = _getIds(selectedIds, targetType);
 					if (!ids) {
 						alertMsg.error($this.attr("warn") || DWZ.msg("alertSelectMsg"));
 						return false;
 					}
+					
+					var _callback = $this.attr("callback") || (targetType == "dialog" ? dialogAjaxDone : navTabAjaxDone);
+					if (! $.isFunction(_callback)) _callback = eval('(' + _callback + ')');
+					
 					function _doPost(){
 						$.ajax({
 							type:'POST', url:$this.attr('href'), dataType:'json', cache: false,
@@ -347,7 +424,7 @@
 									return _data;
 								}
 							}(),
-							success: navTabAjaxDone,
+							success: _callback,
 							error: DWZ.ajaxError
 						});
 					}
