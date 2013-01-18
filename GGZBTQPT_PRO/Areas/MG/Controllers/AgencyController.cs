@@ -43,7 +43,10 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             T_JG_Agency t_jg_agency = db.T_JG_Agency.Find(id);
             BindArea(t_jg_agency.Province);
             BindAgencyType(t_jg_agency.AgencyType);
-
+            if (t_jg_agency.RegTime > DateTime.Now)
+            {
+                t_jg_agency.RegTime = DateTime.Now;
+            }
             return PartialView(t_jg_agency);
         }
 
@@ -51,11 +54,14 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         // POST: /JG_Agency/Edit/5
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Edit(T_JG_Agency t_jg_agency)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(t_jg_agency).State = EntityState.Modified;
+                t_jg_agency.Services = t_jg_agency.Services == null ? "" : t_jg_agency.Services;
+                t_jg_agency.Remark = t_jg_agency.Remark == null ? "" : t_jg_agency.Remark;
                 db.SaveChanges();
 
                 Logging("更新了机构详细信息", (int)OperateTypes.Edit, (int)GenerateSystem.Personal);

@@ -479,7 +479,7 @@ namespace GGZBTQPT_PRO.Controllers
                 tq = tq.Where(s => s.Member.Type == memberType);
             }
             tqCount = tq.Count();
-            IList<T_JG_Product> list = tq.OrderByDescending(o => o.Clicks).Skip(numPerPage * (pageNum - 1)).Take(numPerPage).ToList();
+            IList<T_JG_Product> list = tq.OrderByDescending(o => o.Clicks).ThenByDescending(o=>o.CreateTime).Skip(numPerPage * (pageNum - 1)).Take(numPerPage).ToList();
 
             ViewBag.recordCount = tqCount;
             ViewBag.numPerPage = numPerPage;
@@ -499,7 +499,7 @@ namespace GGZBTQPT_PRO.Controllers
                 tq = tq.Where(s => s.Member.Type == memberType);
             }
             tqCount = tq.Count();
-            IList<T_XM_Financing> list = tq.OrderByDescending(o => o.Clicks).Skip(numPerPage * (pageNum - 1)).Take(numPerPage).ToList();
+            IList<T_XM_Financing> list = tq.OrderByDescending(o => o.Clicks).ThenByDescending(o=>o.CreateTime).Skip(numPerPage * (pageNum - 1)).Take(numPerPage).ToList();
 
             ViewBag.recordCount = tqCount;
             ViewBag.numPerPage = numPerPage;
@@ -519,7 +519,7 @@ namespace GGZBTQPT_PRO.Controllers
                 tq = tq.Where(s => s.Member.Type == memberType);
             }
             tqCount = tq.Count();
-            IList<T_XM_Investment> list = tq.OrderByDescending(o => o.Clicks).Skip(numPerPage * (pageNum - 1)).Take(numPerPage).ToList();
+            IList<T_XM_Investment> list = tq.OrderByDescending(o => o.Clicks).ThenByDescending(o => o.CreateTime).Skip(numPerPage * (pageNum - 1)).Take(numPerPage).ToList();
 
             ViewBag.recordCount = tqCount;
             ViewBag.numPerPage = numPerPage;
@@ -544,6 +544,7 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult HotProductEdit(int id, FormCollection collection)
         {
             if (Request.IsAjaxRequest())
@@ -579,6 +580,7 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult HotFinancingEdit(int id,FormCollection collection)
         {
             if (Request.IsAjaxRequest())
@@ -614,6 +616,7 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult HotInvestmentEdit(int id,FormCollection collection)
         {
             if (Request.IsAjaxRequest())

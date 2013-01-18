@@ -331,5 +331,19 @@ namespace GGZBTQPT_PRO.Controllers
             return Json(new { statData = dic }, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
+        //查看产品增加点击量
+        public ActionResult ProductClicks(int id)
+        {
+            T_JG_Product t_jg_product = db.T_JG_Product.Find(id);
+            if (t_jg_product != null)
+            {
+                t_jg_product.Clicks = t_jg_product.Clicks + 1;
+
+                db.Entry(t_jg_product).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return Json(new { });
+        }
     }
 }

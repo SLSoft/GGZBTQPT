@@ -455,5 +455,19 @@ namespace GGZBTQPT_PRO.Controllers
             return Json(new { statData = dic }, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
+        //查看项目增加点击量
+        public ActionResult FinancingClicks(int id)
+        {
+            T_XM_Financing t_xm_financing = db.T_XM_Financing.Find(id);
+            if (t_xm_financing != null)
+            {
+                t_xm_financing.Clicks = t_xm_financing.Clicks + 1;
+
+                db.Entry(t_xm_financing).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return Json(new { });
+        }
     }
 }

@@ -2,6 +2,9 @@
 @{
     Layout = null;
 }
+<script type="text/javascript">
+    $.validator.unobtrusive.parse(document);
+</script>
 
 <div id="FormContainer" class="pageContent">
     @using (Html.BeginForm("HotFinancingEdit", "HY_Member", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
@@ -17,13 +20,12 @@
             </p>
             <p style="height:auto">
                 @Html.LabelFor(model => model.ItemContent, "项目描述")
-                @Html.TextAreaFor(model => model.ItemContent, new { rows = "8", style = "width:200px" })
+                @Html.TextAreaFor(model => model.ItemContent, new { @class = "editor", rows="15", style = "width:75%" })
                 @Html.ValidationMessageFor(model => model.ItemContent)
             </p>
             <p>
                 @Html.LabelFor(model => model.Linkman, "项目链接")
                 @Html.EditorFor(model => model.Linkman)
-                @Html.ValidationMessageFor(model => model.Linkman)
             </p>
         </div>
         
