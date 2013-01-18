@@ -46,7 +46,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         public ActionResult Edit(int id)
         {
             T_QY_Corp t_qy_corp = db.T_QY_Corp.Find(id);
-            
+            t_qy_corp.RegTime = t_qy_corp.RegTime == DateTime.MaxValue ? DateTime.Now : t_qy_corp.RegTime;
             BindStage(t_qy_corp.Stage);
             BindArea(t_qy_corp.Province);
             BindIndustry(t_qy_corp.Industry);
@@ -59,14 +59,16 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         // POST: /QY_Corp/Edit/5
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Edit(T_QY_Corp t_qy_corp, FormCollection collection)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(t_qy_corp).State = EntityState.Modified;
+                t_qy_corp.Remark = t_qy_corp.Remark == null ? "" : t_qy_corp.Remark;
                 t_qy_corp.UpdateTime = DateTime.Now;
                 if (collection["RegTime"].Trim() == "")
-                    t_qy_corp.RegTime = DateTime.MaxValue;
+                    t_qy_corp.RegTime = DateTime.Now;
                 string cyear = collection["FYear"].ToString();
                 if (db.T_QY_Financial.Where(f => (f.CorpID == t_qy_corp.ID && f.CurYear == cyear)).Count() > 0)
                 {
@@ -77,8 +79,8 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                     if (collection["Revenue"] != "")
                         revenue = Convert.ToDecimal(collection["Revenue"]);
 
-                    db.T_QY_Financial.Where(f => f.CurYear == cyear).FirstOrDefault().TotalAssets = assets;
-                    db.T_QY_Financial.Where(f => f.CurYear == cyear).FirstOrDefault().Revenue =revenue;
+                    db.T_QY_Financial.Where(f => (f.CorpID == t_qy_corp.ID && f.CurYear == cyear)).FirstOrDefault().TotalAssets = assets;
+                    db.T_QY_Financial.Where(f => (f.CorpID == t_qy_corp.ID && f.CurYear == cyear)).FirstOrDefault().Revenue = revenue;
                 }
                 else
                 {
