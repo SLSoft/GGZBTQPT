@@ -7,10 +7,8 @@
     <form id="pagerForm" method="post" action="@Url.Action("MemberDynamic")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
-    <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />
-    <input type="hidden" name="systemType" value="@ViewData["systemType"]"  />
     </form>
-    <form onsubmit="return navTabSearch(this);" action="@Url.Action("MemberDynamic")"
+    <form onsubmit="return navTabSearch(this);" rel="pagerForm" action="@Url.Action("MemberDynamic")"
     method="post">
     <div class="searchBar">
         <ul class="searchContent">

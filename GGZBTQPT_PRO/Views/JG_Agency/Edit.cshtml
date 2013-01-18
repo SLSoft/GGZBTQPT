@@ -65,13 +65,13 @@
             <tr>
                 <td>@Html.LabelFor(model => model.Services, "机构服务内容")
                 </td>
-                <td>@Html.TextAreaFor(m => m.Services, new { @class = "editor", @rows = "15", @Value = Model.Services })
+                <td>@Html.TextAreaFor(m => m.Services, new { @class = "editor", @rows = "15", @Value = Model.Services, style = "width:790px" })
                 </td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Remark, "机构简介")
                 </td>
-                <td>@Html.TextAreaFor(m => m.Remark, new { @class = "editor", @rows = "15", @Value = Model.Remark })
+                <td>@Html.TextAreaFor(m => m.Remark, new { @class = "editor", @rows = "15", @Value = Model.Remark, style = "width:790px" })
                 </td>
             </tr>
             <tr>
