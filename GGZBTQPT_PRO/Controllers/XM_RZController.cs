@@ -467,7 +467,7 @@ namespace GGZBTQPT_PRO.Controllers
                 db.Entry(t_xm_financing).State = EntityState.Modified;
                 db.SaveChanges();
             }
-            return Json(new { });
+            return Json(new { }, JsonRequestBehavior.AllowGet);
         }
     }
 }
