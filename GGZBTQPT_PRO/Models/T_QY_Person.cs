@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GGZBTQPT_PRO.Models
 {
@@ -34,7 +35,7 @@ namespace GGZBTQPT_PRO.Models
             UpdateTime = DateTime.Now;
         }
         public int ID { get; set; }
-
+        [Required(ErrorMessage = "姓名不能为空")]
         public string Name { get; set; }
         public string HomeTown { get; set; }
         public Nullable<int> CardType { get; set; }

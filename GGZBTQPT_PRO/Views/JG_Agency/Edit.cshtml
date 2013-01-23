@@ -4,6 +4,9 @@
     ViewBag.Title = "Edit";
     Layout = null;
 }
+<script type="text/javascript">
+    $.validator.unobtrusive.parse(document);
+</script>
 <div class="pageContent">
 @using (Html.BeginForm("Edit", "JG_Agency", FormMethod.Post, new { onsubmit = "return iframeCallback(this,dialogAjaxDone);", @class = "pageForm required-validate", enctype = "multipart/form-data" }))
 {
@@ -20,7 +23,7 @@
             <tr>
                 <td style="width:140px">@Html.LabelFor(model => model.AgencyName, "机构名称")
                 </td>
-                <td>@Html.TextBoxFor(model => model.AgencyName, new { style = "width:300px" })@Html.EditorFor(model => model.IsIn)是否大厦入驻机构
+                <td>@Html.TextBoxFor(model => model.AgencyName, new { style = "width:300px" })@Html.ValidationMessageFor(model => model.AgencyName)@Html.EditorFor(model => model.IsIn)是否大厦入驻机构
                 </td>
             </tr>
             <tr>

@@ -18,6 +18,9 @@
         }
     }
 }
+<script type="text/javascript">
+    $.validator.unobtrusive.parse(document);
+</script>
 <div class="pageContent">
 @using (Html.BeginForm("Edit", "JG_Product", FormMethod.Post, new { onsubmit = "return iframeCallback(this,dialogAjaxDone);", @class = "pageForm required-validate", enctype = "multipart/form-data" }))
 {
@@ -35,7 +38,7 @@
             <tr>
                 <td style="width: 140px">@Html.LabelFor(model => model.ProductName, "产品名称")
                 </td>
-                <td>@Html.TextBoxFor(model => model.ProductName, new { style = "width:300px" })
+                <td>@Html.TextBoxFor(model => model.ProductName, new { style = "width:300px" })@Html.ValidationMessageFor(model => model.ProductName)
                 </td>
             </tr>
             <tr>

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GGZBTQPT_PRO.Models
 {
@@ -37,6 +38,7 @@ namespace GGZBTQPT_PRO.Models
             MemberID = 9999;
         }
         public int ID { get; set; }
+        [Required(ErrorMessage = "产品名称不能为空")]
         public string ProductName { get; set; }
         public int AgencyID { get; set; }
         public Nullable<decimal> FinancingAmount { get; set; }
