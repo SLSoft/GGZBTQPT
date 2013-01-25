@@ -112,6 +112,16 @@ body {
 	vertical-align: middle;
 }
 
+.generate {
+    color: #fff;
+    text-decoration: none;
+}
+.generate:hover {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+}
+
 /* padding */
 .pdv50 {
 	padding-top: 50px;
@@ -155,11 +165,14 @@ body {
 .under-line {
 	text-decoration: underline;
 }
+em {
+    font-style: normal;
+}
 /* color */
 .red {
-	color: #DA891E;
+	color: red;
 }
 
 .lightblue {
-	color: #4499EE;
+	color: #4499EE; 
 }

@@ -18,22 +18,20 @@
     <style type="text/css">
     </style>
 </head>
-<body >
-    <div id="container" class="container">
-        <h3 class="span12"><span class="label label-info"><i class="icon-camera icon-white"></i><a id="generate_image" class="generate" href="#" target="_blank">生成预览图片</a></span></h3>
+<body style="background-color: #fff">
+    <div class="container">
         <h1 class="center pdv20">
-            会员操作计数<strong class='lightblue'>综合汇总</strong>统计
+            会员在线时间<strong class='lightblue'>综合汇总</strong>统计
         </h1>
-        
-        @Html.Action("OperateNumStatWithFuntion")
-        @Html.Action("OperateNumStatWithOperateType")
+
+        @Html.Action("ContinuanceStatWithFuntion")
+        @Html.Action("ContinuanceStatWithMember")
+        @Html.Action("ContinuanceStatWithOperateType")
 
         <h4 class="right under-line lightblue top-line pdv20">
             数据来源：截止到 @DateTime.Now.ToShortDateString() 会员专区汇总数据
-        </h4> 
-    </div> 
-    <script type="text/javascript">
-        $("#generate_image").attr("href", "@Url.Action("GenerateImage")" + "?width=" + $(document).width() + "&height=" + $(document).height() + "&action_name=PrintViewWithOperateNum");
-    </script>
+        </h4>
+    </div>
 </body>
 </html>
+

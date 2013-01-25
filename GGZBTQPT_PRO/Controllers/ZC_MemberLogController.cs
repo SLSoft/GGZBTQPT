@@ -12,11 +12,23 @@ using ExcelGenerator.SpreadSheet;
 using LinqToExcel;
 using GGZBTQPT_PRO.ViewModels;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
+using System.Threading;
+using System.Windows.Forms;
+using System.IO;
 
 namespace GGZBTQPT_PRO.Controllers
 {
-    public class ZC_MemberLogController : BaseController
-    { 
+    public class ZC_MemberLogController : Controller
+    {
+        public GGZBTQPT_PRO.Models.GGZBTQPTDBContext db = new GGZBTQPT_PRO.Models.GGZBTQPTDBContext();
+        public JsonResult ReturnJson(bool _IfSuccess, string _message, string _navTabId, string _rel, bool _IfColse, string _forwardUrl)//批量删除会自动刷新所在的navTab。 
+        {
+            string _statusCode = _IfSuccess ? "200" : "300";
+            string _callbackType = _IfColse ? "closeCurrent" : null;
+            return Json(new { statusCode = _statusCode, message = _message, navTabId = _navTabId, rel = _rel, callbackType = _callbackType, forwardUrl = _forwardUrl }, "text/html", JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult OperateNumAnalysis()
         {
             var commonlogs = db.T_ZC_MemberLog.ToList();
@@ -54,7 +66,7 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.keywords = keywords;
             return View(list);
         }
- 
+
         private SelectList GetSystemType()
         {
             var types = from GenerateSystem systemType in Enum.GetValues(typeof(GenerateSystem))
@@ -333,5 +345,26 @@ namespace GGZBTQPT_PRO.Controllers
             return new ExcelResult(workbook.getBytes(), "Export.xls");
         }
         #endregion
+
+        public ActionResult GenerateImage(int width, int height, string action_name)
+        {
+            Bitmap m_Bitmap = WebSiteThumbnail.GetWebSiteThumbnail("http://" + HttpContext.Request.ServerVariables["HTTP_HOST"] + Url.Action(action_name), width, height, width, height);
+            MemoryStream ms = new MemoryStream();
+            m_Bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);//JPG、GIF、PNG等均可
+            byte[] buff = ms.ToArray();
+
+            return File(buff, "image/jpeg");
+        }
+
+
+        public ActionResult PrintViewWithOperateNum()
+        {
+            return View();
+        }
+
+        public ActionResult PrintViewWithContinuance()
+        {
+            return View();
+        }
     }
 }

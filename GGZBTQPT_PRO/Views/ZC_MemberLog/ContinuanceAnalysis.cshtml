@@ -20,6 +20,7 @@
 </head>
 <body>
     <div class="container">
+        <h3 class="span12"><span class="label label-info"><i class="icon-camera icon-white"></i><a id="generate_image" class="generate" href="#" target="_blank">生成预览图片</a></span></h3>
         <h1 class="center pdv20">
             会员在线时间<strong class='lightblue'>综合汇总</strong>统计
         </h1>
@@ -32,5 +33,9 @@
             数据来源：截止到 @DateTime.Now.ToShortDateString() 会员专区汇总数据
         </h4>
     </div>
+    
+    <script type="text/javascript">
+        $("#generate_image").attr("href", "@Url.Action("GenerateImage")" + "?width=" + $(document).width() + "&height=" + ($(document).height() + 280) + "&action_name=PrintViewWithContinuance");
+    </script>
 </body>
 </html>
