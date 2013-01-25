@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GGZBTQPT_PRO.Models
 {
@@ -27,8 +28,8 @@ namespace GGZBTQPT_PRO.Models
             SubName = " ";
         }
 
-        public int ID { get; set; } 
-
+        public int ID { get; set; }
+        [Required(ErrorMessage = "机构名称不能为空")]
         public string AgencyName { get; set; }
         public Nullable<int> AgencyType { get; set; }
         public Nullable<System.DateTime> RegTime { get; set; }

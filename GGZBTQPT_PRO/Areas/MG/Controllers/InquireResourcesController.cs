@@ -55,12 +55,24 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             string select_itemtype = "";
             string select_industry = "";
             string select_Financial = "";
+            string select_itemstage = "";
             if (collection["keys"] != null && collection["keys"].ToString().Trim() != "")
                 keys = collection["keys"].ToString();
             if (collection["cbItemType"] != null)
                 select_itemtype = collection["cbItemType"];
             if (collection["cbIndustry"] != null)
                 select_industry = collection["cbIndustry"];
+            if (collection["cbItemStage"] != null)
+            {
+                string[] temp = collection["cbItemStage"].Split(',');
+                select_itemstage += " and (";
+                foreach (string str in temp)
+                {
+                    select_itemstage += " ItemStage = '" + str + "' or";
+                }
+                select_itemstage = select_itemstage.Substring(0, select_itemstage.Length - 3);
+                select_itemstage += ")";
+            }
             if (collection["cbFinancial"] != null)
             {
                 string[] temp = collection["cbFinancial"].Split(',');
@@ -73,13 +85,14 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 select_Financial += ")";
             }
             string order = "ID";
-            System.Data.SqlClient.SqlParameter[] selparms = new System.Data.SqlClient.SqlParameter[5];
+            System.Data.SqlClient.SqlParameter[] selparms = new System.Data.SqlClient.SqlParameter[6];
             selparms[0] = new System.Data.SqlClient.SqlParameter("@keys", keys);
             selparms[1] = new System.Data.SqlClient.SqlParameter("@ItemType", select_itemtype);
             selparms[2] = new System.Data.SqlClient.SqlParameter("@Industry", select_industry);
-            selparms[3] = new System.Data.SqlClient.SqlParameter("@FinancSum", select_Financial);
-            selparms[4] = new System.Data.SqlClient.SqlParameter("@Order", order);
-            IList<T_XM_Financing> financials = (from p in db.T_XM_Financing.SqlQuery("exec dbo.P_GetRZXMByCondition @keys,@ItemType,@Industry,@FinancSum,@Order", selparms) select p).ToList();
+            selparms[3] = new System.Data.SqlClient.SqlParameter("@ItemStage", select_itemstage);
+            selparms[4] = new System.Data.SqlClient.SqlParameter("@FinancSum", select_Financial);
+            selparms[5] = new System.Data.SqlClient.SqlParameter("@Order", order);
+            IList<T_XM_Financing> financials = (from p in db.T_XM_Financing.SqlQuery("exec dbo.P_GetRZXMByCondition @keys,@ItemType,@Industry,@ItemStage,@FinancSum,@Order", selparms) select p).ToList();
             PagedList<T_XM_Financing> paged_financials = new PagedList<T_XM_Financing>(financials, Convert.ToInt32(collection["current_page_id"]), 5);
             if (paged_financials.Count == 0)
                 ViewBag.Message = "未找到符合要求的项目!";
@@ -179,8 +192,32 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             string select_TeamworkType = "";
             string select_industry = "";
             string select_Investment = "";
+            string select_InvestmentStage = "";
+            string select_InvestmentNature = "";
             if (collection["keys"] != null && collection["keys"].ToString().Trim() != "")
                 keys = collection["keys"].ToString();
+            if (collection["cbInvestmentNature"] != null)
+            {
+                string[] temp = collection["cbInvestmentNature"].Split(',');
+                select_InvestmentNature += " and (";
+                foreach (string str in temp)
+                {
+                    select_InvestmentNature += " InvestmentNature = '" + str + "' or";
+                }
+                select_InvestmentNature = select_InvestmentNature.Substring(0, select_InvestmentNature.Length - 3);
+                select_InvestmentNature += ")";
+            }
+            if (collection["cbInvestmentStage"] != null)
+            {
+                string[] temp = collection["cbInvestmentStage"].Split(',');
+                select_InvestmentStage += " and (";
+                foreach (string str in temp)
+                {
+                    select_InvestmentStage += " InvestmentStage like '%" + str + "%' or";
+                }
+                select_InvestmentStage = select_InvestmentStage.Substring(0, select_InvestmentStage.Length - 3);
+                select_InvestmentStage += ")";
+            }
             if (collection["cbTeamworkType"] != null)
             {
                 string[] temp = collection["cbTeamworkType"].Split(',');
@@ -215,14 +252,16 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 select_Investment += ")";
             }
             string order = "ID";
-            System.Data.SqlClient.SqlParameter[] selparms = new System.Data.SqlClient.SqlParameter[5];
+            System.Data.SqlClient.SqlParameter[] selparms = new System.Data.SqlClient.SqlParameter[7];
             selparms[0] = new System.Data.SqlClient.SqlParameter("@keys", keys);
-            selparms[1] = new System.Data.SqlClient.SqlParameter("@TeamworkType", select_TeamworkType);
-            selparms[2] = new System.Data.SqlClient.SqlParameter("@Industry", select_industry);
-            selparms[3] = new System.Data.SqlClient.SqlParameter("@FinancSum", select_Investment);
-            selparms[4] = new System.Data.SqlClient.SqlParameter("@Order", order);
+            selparms[1] = new System.Data.SqlClient.SqlParameter("@InvestmentNature", select_InvestmentNature);
+            selparms[2] = new System.Data.SqlClient.SqlParameter("@TeamworkType", select_TeamworkType);
+            selparms[3] = new System.Data.SqlClient.SqlParameter("@Industry", select_industry);
+            selparms[4] = new System.Data.SqlClient.SqlParameter("@InvestmentStage", select_InvestmentStage);
+            selparms[5] = new System.Data.SqlClient.SqlParameter("@FinancSum", select_Investment);
+            selparms[6] = new System.Data.SqlClient.SqlParameter("@Order", order);
 
-            IList<T_XM_Investment> investments = (from p in db.T_XM_Investment.SqlQuery("exec dbo.P_GetTZXMByCondition @keys,@TeamworkType,@Industry,@FinancSum,@Order", selparms) select p).ToList();
+            IList<T_XM_Investment> investments = (from p in db.T_XM_Investment.SqlQuery("exec dbo.P_GetTZXMByCondition @keys,@InvestmentNature,@TeamworkType,@Industry,@InvestmentStage,@FinancSum,@Order", selparms) select p).ToList();
             PagedList<T_XM_Investment> paged_inverstments = new PagedList<T_XM_Investment>(investments, Convert.ToInt32(collection["current_page_id"]), 5);
             if (paged_inverstments.Count == 0)
                 ViewBag.Message = "未找到符合要求的项目!";
@@ -285,12 +324,24 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             string select_itemtype = "";
             string select_industry = "";
             string select_Financial = "";
+            string select_itemstage = "";
             if (collection["keys"].ToString().Trim() != "")
                 keys = collection["keys"].ToString();
             if (collection["cbItemType"] != null)
                 select_itemtype = collection["cbItemType"];
             if (collection["cbIndustry"] != null)
                 select_industry = collection["cbIndustry"];
+            if (collection["cbItemStage"] != null)
+            {
+                string[] temp = collection["cbItemStage"].Split(',');
+                select_itemstage += " and (";
+                foreach (string str in temp)
+                {
+                    select_itemstage += " ItemStage = '" + str + "' or";
+                }
+                select_itemstage = select_itemstage.Substring(0, select_itemstage.Length - 3);
+                select_itemstage += ")";
+            }
             if (collection["cbFinancial"] != null)
             {
                 string[] temp = collection["cbFinancial"].Split(',');
@@ -303,13 +354,14 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 select_Financial += ")";
             }
             string order = "ID";
-            System.Data.SqlClient.SqlParameter[] selparms = new System.Data.SqlClient.SqlParameter[5];
+            System.Data.SqlClient.SqlParameter[] selparms = new System.Data.SqlClient.SqlParameter[6];
             selparms[0] = new System.Data.SqlClient.SqlParameter("@keys", keys);
             selparms[1] = new System.Data.SqlClient.SqlParameter("@ItemType", select_itemtype);
             selparms[2] = new System.Data.SqlClient.SqlParameter("@Industry", select_industry);
-            selparms[3] = new System.Data.SqlClient.SqlParameter("@FinancSum", select_Financial);
-            selparms[4] = new System.Data.SqlClient.SqlParameter("@Order", order);
-            IList<T_XM_Financing> financials = (from p in db.T_XM_Financing.SqlQuery("exec dbo.P_GetRZXMByCondition @keys,@ItemType,@Industry,@FinancSum,@Order", selparms) select p).ToList();
+            selparms[3] = new System.Data.SqlClient.SqlParameter("@ItemStage", select_itemstage);
+            selparms[4] = new System.Data.SqlClient.SqlParameter("@FinancSum", select_Financial);
+            selparms[5] = new System.Data.SqlClient.SqlParameter("@Order", order);
+            IList<T_XM_Financing> financials = (from p in db.T_XM_Financing.SqlQuery("exec dbo.P_GetRZXMByCondition @keys,@ItemType,@Industry,@ItemStage,@FinancSum,@Order", selparms) select p).ToList();
             PagedList<T_XM_Financing> paged_financials = new PagedList<T_XM_Financing>(financials, Convert.ToInt32(collection["current_page_id"]), 5);
             if (paged_financials.Count == 0)
                 ViewBag.Message = "未找到符合要求的项目!";
@@ -343,8 +395,32 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             string select_TeamworkType = "";
             string select_industry = "";
             string select_Investment = "";
+            string select_InvestmentStage = "";
+            string select_InvestmentNature = "";
             if (collection["keys"].ToString().Trim() != "")
                 keys = collection["keys"].ToString();
+            if (collection["cbInvestmentNature"] != null)
+            {
+                string[] temp = collection["cbInvestmentNature"].Split(',');
+                select_InvestmentNature += " and (";
+                foreach (string str in temp)
+                {
+                    select_InvestmentNature += " InvestmentNature = '" + str + "' or";
+                }
+                select_InvestmentNature = select_InvestmentNature.Substring(0, select_InvestmentNature.Length - 3);
+                select_InvestmentNature += ")";
+            }
+            if (collection["cbInvestmentStage"] != null)
+            {
+                string[] temp = collection["cbInvestmentStage"].Split(',');
+                select_InvestmentStage += " and (";
+                foreach (string str in temp)
+                {
+                    select_InvestmentStage += " InvestmentStage like '%" + str + "%' or";
+                }
+                select_InvestmentStage = select_InvestmentStage.Substring(0, select_InvestmentStage.Length - 3);
+                select_InvestmentStage += ")";
+            }
             if (collection["cbTeamworkType"] != null)
             {
                 string[] temp = collection["cbTeamworkType"].Split(',');
@@ -379,13 +455,16 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 select_Investment += ")";
             }
             string order = "ID";
-            System.Data.SqlClient.SqlParameter[] selparms = new System.Data.SqlClient.SqlParameter[5];
+            System.Data.SqlClient.SqlParameter[] selparms = new System.Data.SqlClient.SqlParameter[7];
             selparms[0] = new System.Data.SqlClient.SqlParameter("@keys", keys);
-            selparms[1] = new System.Data.SqlClient.SqlParameter("@TeamworkType", select_TeamworkType);
-            selparms[2] = new System.Data.SqlClient.SqlParameter("@Industry", select_industry);
-            selparms[3] = new System.Data.SqlClient.SqlParameter("@FinancSum", select_Investment);
-            selparms[4] = new System.Data.SqlClient.SqlParameter("@Order", order);
-            IList<T_XM_Investment> investments = (from p in db.T_XM_Investment.SqlQuery("exec dbo.P_GetTZXMByCondition @keys,@TeamworkType,@Industry,@FinancSum,@Order", selparms) select p).ToList();
+            selparms[1] = new System.Data.SqlClient.SqlParameter("@InvestmentNature", select_InvestmentNature);
+            selparms[2] = new System.Data.SqlClient.SqlParameter("@TeamworkType", select_TeamworkType);
+            selparms[3] = new System.Data.SqlClient.SqlParameter("@Industry", select_industry);
+            selparms[4] = new System.Data.SqlClient.SqlParameter("@InvestmentStage", select_InvestmentStage);
+            selparms[5] = new System.Data.SqlClient.SqlParameter("@FinancSum", select_Investment);
+            selparms[6] = new System.Data.SqlClient.SqlParameter("@Order", order);
+
+            IList<T_XM_Investment> investments = (from p in db.T_XM_Investment.SqlQuery("exec dbo.P_GetTZXMByCondition @keys,@InvestmentNature,@TeamworkType,@Industry,@InvestmentStage,@FinancSum,@Order", selparms) select p).ToList();
             PagedList<T_XM_Investment> paged_inverstments = new PagedList<T_XM_Investment>(investments, Convert.ToInt32(collection["current_page_id"]), 5);
             if (paged_inverstments.Count == 0)
                 ViewBag.Message = "未找到符合要求的项目!";
@@ -407,6 +486,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             ViewData["InvestmentNature"] = new SelectList(InvestmentNature, "ID", "Name");
             List<T_PTF_DicDetail> InvestmentStage = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM04")).ToList();
             ViewData["InvestmentStage"] = new SelectList(InvestmentStage, "ID", "Name");
+            ViewBag.current_page_id = id;
             var investments = db.T_XM_Investment.Where(f=>(f.IsValid == true && f.PublicStatus=="2")).OrderByDescending(f => f.CreateTime).ToPagedList(id, 5);
             return View(investments);
         }

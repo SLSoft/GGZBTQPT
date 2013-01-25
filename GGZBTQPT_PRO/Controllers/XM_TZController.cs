@@ -64,6 +64,18 @@ namespace GGZBTQPT_PRO.Controllers
 
             return Json(City, JsonRequestBehavior.AllowGet);
         }
+        public void BindInvestmentStage(object select = null)
+        {
+            List<T_PTF_DicDetail> InvestmentStage = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM04")).ToList();
+
+            ViewData["InvestmentStage"] = new SelectList(InvestmentStage, "ID", "Name", select);
+        }
+        public void BindInvestmentNature(object select = null)
+        {
+            List<T_PTF_DicDetail> InvestmentNature = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM07")).ToList();
+
+            ViewData["InvestmentNature"] = new SelectList(InvestmentNature, "ID", "Name", select);
+        }
         //
         // GET: /XM_TZ/Create
 
@@ -72,6 +84,8 @@ namespace GGZBTQPT_PRO.Controllers
             BindArea();
             BindIndustry();
             BindTeamworkType();
+            BindInvestmentStage();
+            BindInvestmentNature();
             var t_xm_investment = new T_XM_Investment();
             return View(t_xm_investment);
         } 
@@ -93,9 +107,13 @@ namespace GGZBTQPT_PRO.Controllers
                 string checkedcbTeamWorkType = (collection["cbTeamWorkType"] + ",").Replace("false,", "");
                 if (checkedcbTeamWorkType.Length > 1)
                     checkedcbTeamWorkType = checkedcbTeamWorkType.Remove(checkedcbTeamWorkType.Length - 1);
+                string checkedcbInvestmentStage = (collection["cbInvestmentStage"] + ",").Replace("false,", "");
+                if (checkedcbInvestmentStage.Length > 1)
+                    checkedcbInvestmentStage = checkedcbInvestmentStage.Remove(checkedcbInvestmentStage.Length - 1);
                 t_xm_investment.AimIndustry = checkedIndustry;
                 t_xm_investment.AjmArea = checkedProvince;
                 t_xm_investment.TeamworkType = checkedcbTeamWorkType;
+                t_xm_investment.InvestmentStage = checkedcbInvestmentStage;
                 t_xm_investment.City = collection["ddlCity"];
                 t_xm_investment.Description = t_xm_investment.Description == null ? "" : t_xm_investment.Description;
                 t_xm_investment.IsValid = true;
@@ -130,6 +148,8 @@ namespace GGZBTQPT_PRO.Controllers
             BindArea(t_xm_investment.Province);
             BindIndustry(t_xm_investment.Industry);
             BindTeamworkType(t_xm_investment.TeamworkType);
+            BindInvestmentStage(t_xm_investment.InvestmentStage);
+            BindInvestmentNature(t_xm_investment.InvestmentNature);
             return View(t_xm_investment);
         }
 
@@ -150,10 +170,14 @@ namespace GGZBTQPT_PRO.Controllers
                 string checkedcbTeamWorkType = (collection["cbTeamWorkType"] + ",").Replace("false,", "");
                 if (checkedcbTeamWorkType.Length > 1)
                     checkedcbTeamWorkType = checkedcbTeamWorkType.Remove(checkedcbTeamWorkType.Length - 1);
+                string checkedcbInvestmentStage = (collection["cbInvestmentStage"] + ",").Replace("false,", "");
+                if (checkedcbInvestmentStage.Length > 1)
+                    checkedcbInvestmentStage = checkedcbInvestmentStage.Remove(checkedcbInvestmentStage.Length - 1);
                 db.Entry(t_xm_investment).State = EntityState.Modified;
                 t_xm_investment.AimIndustry = checkedIndustry;
                 t_xm_investment.AjmArea = checkedProvince;
                 t_xm_investment.TeamworkType = checkedcbTeamWorkType;
+                t_xm_investment.InvestmentStage = checkedcbInvestmentStage;
                 t_xm_investment.City = collection["ddlCity"];
                 t_xm_investment.Description = t_xm_investment.Description == null ? "" : t_xm_investment.Description;
                 t_xm_investment.UpdateTime = DateTime.Now;
@@ -340,8 +364,32 @@ namespace GGZBTQPT_PRO.Controllers
             string select_TeamworkType = "";
             string select_industry = "";
             string select_Investment = "";
+            string select_InvestmentStage = "";
+            string select_InvestmentNature = "";
             if (ViewBag.keys != null && ViewBag.keys.ToString().Trim() != "")
                 keys = ViewBag.keys.ToString();
+            if (ViewBag.condition1 != null && ViewBag.condition1.ToString().Trim() != "")
+            {
+                string[] temp = ViewBag.condition1.ToString().Substring(1).Split(',');
+                select_InvestmentNature += " and (";
+                foreach (string str in temp)
+                {
+                    select_InvestmentNature += " InvestmentNature = '" + str + "' or";
+                }
+                select_InvestmentNature = select_InvestmentNature.Substring(0, select_InvestmentNature.Length - 3);
+                select_InvestmentNature += ")";
+            }
+            if (ViewBag.condition4 != null && ViewBag.condition4.ToString().Trim() != "")
+            {
+                string[] temp = ViewBag.condition4.ToString().Substring(1).Split(',');
+                select_InvestmentStage += " and (";
+                foreach (string str in temp)
+                {
+                    select_InvestmentStage += " InvestmentStage like '%" + str + "%' or";
+                }
+                select_InvestmentStage = select_InvestmentStage.Substring(0, select_InvestmentStage.Length - 3);
+                select_InvestmentStage += ")";
+            }
             if (ViewBag.condition2 != null && ViewBag.condition2.ToString().Trim() != "")
             {
                 string[] temp = ViewBag.condition2.ToString().Substring(1).Split(',');
@@ -376,22 +424,24 @@ namespace GGZBTQPT_PRO.Controllers
                 select_Investment += ")";
             }
             string order = "ID";
-            System.Data.SqlClient.SqlParameter[] selparms = new System.Data.SqlClient.SqlParameter[5];
+            System.Data.SqlClient.SqlParameter[] selparms = new System.Data.SqlClient.SqlParameter[7];
             selparms[0] = new System.Data.SqlClient.SqlParameter("@keys", keys);
-            selparms[1] = new System.Data.SqlClient.SqlParameter("@TeamworkType", select_TeamworkType);
-            selparms[2] = new System.Data.SqlClient.SqlParameter("@Industry", select_industry);
-            selparms[3] = new System.Data.SqlClient.SqlParameter("@FinancSum", select_Investment);
-            selparms[4] = new System.Data.SqlClient.SqlParameter("@Order", order);
+            selparms[1] = new System.Data.SqlClient.SqlParameter("@InvestmentNature", select_InvestmentNature);
+            selparms[2] = new System.Data.SqlClient.SqlParameter("@TeamworkType", select_TeamworkType);
+            selparms[3] = new System.Data.SqlClient.SqlParameter("@Industry", select_industry);
+            selparms[4] = new System.Data.SqlClient.SqlParameter("@InvestmentStage", select_InvestmentStage);
+            selparms[5] = new System.Data.SqlClient.SqlParameter("@FinancSum", select_Investment);
+            selparms[6] = new System.Data.SqlClient.SqlParameter("@Order", order);
             System.Data.SqlClient.SqlParameter[] selparms_new = new System.Data.SqlClient.SqlParameter[selparms.Length];
 
             for (int i = 0, j = selparms.Length; i < j; i++)
             {
                 selparms_new[i] = (System.Data.SqlClient.SqlParameter)((ICloneable)selparms[i]).Clone();
             }
-            IList<T_XM_Investment> investments = (from p in db.T_XM_Investment.SqlQuery("exec dbo.P_GetTZXMByCondition @keys,@TeamworkType,@Industry,@FinancSum,@Order", selparms) select p).ToList().OrderByDescending(s => s.SubmitTime)
+            IList<T_XM_Investment> investments = (from p in db.T_XM_Investment.SqlQuery("exec dbo.P_GetTZXMByCondition @keys,@InvestmentNature,@TeamworkType,@Industry,@InvestmentStage,@FinancSum,@Order", selparms) select p).ToList().OrderByDescending(s => s.SubmitTime)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
-            ViewBag.recordCount = (from p in db.T_XM_Investment.SqlQuery("exec dbo.P_GetTZXMByCondition @keys,@TeamworkType,@Industry,@FinancSum,@Order", selparms_new) select p).Count();
+            ViewBag.recordCount = (from p in db.T_XM_Investment.SqlQuery("exec dbo.P_GetTZXMByCondition @keys,@InvestmentNature,@TeamworkType,@Industry,@InvestmentStage,@FinancSum,@Order", selparms_new) select p).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             if (investments.Count == 0)
@@ -458,7 +508,7 @@ namespace GGZBTQPT_PRO.Controllers
                 db.Entry(t_xm_investment).State = EntityState.Modified;
                 db.SaveChanges();
             }
-            return Json(new { });
+            return Json(new { }, JsonRequestBehavior.AllowGet);
         }
     }
 }

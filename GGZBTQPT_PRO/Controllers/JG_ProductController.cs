@@ -343,7 +343,7 @@ namespace GGZBTQPT_PRO.Controllers
                 db.Entry(t_jg_product).State = EntityState.Modified;
                 db.SaveChanges();
             }
-            return Json(new { });
+            return Json(new { }, JsonRequestBehavior.AllowGet);
         }
     }
 }

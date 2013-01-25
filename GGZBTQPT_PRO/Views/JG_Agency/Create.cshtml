@@ -4,6 +4,9 @@
     ViewBag.Title = "Create";
     Layout = null;
 }
+<script type="text/javascript">
+    $.validator.unobtrusive.parse(document);
+</script>
 <div class="pageContent">
 @using (Html.BeginForm("Create", "JG_Agency", FormMethod.Post, new { onsubmit = "return iframeCallback(this,dialogAjaxDone);", @class = "pageForm required-validate", enctype = "multipart/form-data" }))
 {
@@ -13,7 +16,7 @@
             <tr>
                 <td style="width:140px">@Html.LabelFor(model => model.AgencyName, "机构名称")
                 </td>
-                <td>@Html.TextBoxFor(model => model.AgencyName, new { style = "width:300px" })@Html.EditorFor(model => model.IsIn)是否大厦入驻机构
+                <td>@Html.TextBoxFor(model => model.AgencyName, new { style = "width:300px" })@Html.ValidationMessageFor(model => model.AgencyName)@Html.EditorFor(model => model.IsIn)是否大厦入驻机构
                 </td>
             </tr>
             <tr>
@@ -57,13 +60,13 @@
             <tr>
                 <td>@Html.LabelFor(model => model.Services, "机构服务内容")
                 </td>
-                <td>@Html.TextAreaFor(m => m.Services, new { @class = "editor", @rows = "15", @Value = Model.Services })
+                <td>@Html.TextAreaFor(m => m.Services, new { @class = "editor", @rows = "15", @Value = Model.Services, style = "width:790px" })
                 </td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Remark, "机构简介")
                 </td>
-                <td>@Html.TextAreaFor(m => m.Remark, new { @class = "editor", @rows = "15", @Value = Model.Remark })
+                <td>@Html.TextAreaFor(m => m.Remark, new { @class = "editor", @rows = "15", @Value = Model.Remark, style = "width:790px" })
                 </td>
             </tr>
             <tr>

@@ -22,12 +22,12 @@
             </p>
             <p>
                 @Html.LabelFor(model => model.Summary)
-                @Html.TextAreaFor(model => model.Summary, new { @class = "editor", rows = "10" })
+                @Html.TextAreaFor(model => model.Summary, new { @class = "editor", rows = "10", style = "width:790px" })
                 @Html.ValidationMessageFor(model => model.Summary)
             </p>
             <p>
                 @Html.LabelFor(model => model.Analysis)
-                @Html.TextAreaFor(model => model.Analysis, new { @class = "editor", rows = "10" })
+                @Html.TextAreaFor(model => model.Analysis, new { @class = "editor", rows = "10", style = "width:790px" })
                 @Html.ValidationMessageFor(model => model.Analysis)
             </p>
             <p>

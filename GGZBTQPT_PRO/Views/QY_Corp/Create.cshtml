@@ -54,7 +54,9 @@
         </td>
     </tr>
 }
-
+<script type="text/javascript">
+    $.validator.unobtrusive.parse(document);
+</script>
 <div class="pageContent">
     @using (Html.BeginForm("Create", "QY_Corp", FormMethod.Post, new { onsubmit = "return iframeCallback(this,dialogAjaxDone);", @class = "pageForm required-validate", enctype = "multipart/form-data" }))
     {
@@ -67,7 +69,7 @@
                 <tr>
                     <td style="width: 140px">@Html.LabelFor(model => model.CorpName, "企业名称")
                     </td>
-                    <td style="width: 240px">@Html.EditorFor(model => model.CorpName)
+                    <td style="width: 240px">@Html.EditorFor(model => model.CorpName)@Html.ValidationMessageFor(model => model.CorpName)
                     </td>
                     <td style="width: 140px">@Html.LabelFor(model => model.CorpCode, "机构代码")
                     </td>
@@ -142,7 +144,7 @@
                 <tr>
                     <td>@Html.LabelFor(model => model.Remark, "企业简介")
                     </td>
-                    <td colspan="3">@Html.TextAreaFor(m => m.Remark, new { @class = "editor", @rows = "15", @Value = Model.Remark })
+                    <td colspan="3">@Html.TextAreaFor(m => m.Remark, new { @class = "editor", @rows = "15", @Value = Model.Remark, style = "width:790px" })
                     </td>
                 </tr>
             </table>

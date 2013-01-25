@@ -18,6 +18,9 @@
         }
     }
 }
+<script type="text/javascript">
+    $.validator.unobtrusive.parse(document);
+</script>
 <div class="pageContent">
 @using (Html.BeginForm("Edit", "JG_Product", FormMethod.Post, new { onsubmit = "return iframeCallback(this,dialogAjaxDone);", @class = "pageForm required-validate", enctype = "multipart/form-data" }))
 {
@@ -35,7 +38,7 @@
             <tr>
                 <td style="width: 140px">@Html.LabelFor(model => model.ProductName, "产品名称")
                 </td>
-                <td>@Html.TextBoxFor(model => model.ProductName, new { style = "width:300px" })
+                <td>@Html.TextBoxFor(model => model.ProductName, new { style = "width:300px" })@Html.ValidationMessageFor(model => model.ProductName)
                 </td>
             </tr>
             <tr>
@@ -71,25 +74,25 @@
             <tr>
                 <td>@Html.LabelFor(model => model.Superiority, "产品优势")
                 </td>
-                <td>@Html.TextAreaFor(m => m.Superiority, new { @class = "editor", @rows = "10", @Value = Model.Superiority })
+                <td>@Html.TextAreaFor(m => m.Superiority, new { @class = "editor", @rows = "10", @Value = Model.Superiority, style = "width:790px" })
                 </td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.RepaymentType, "还款方式")
                 </td>
-                <td>@Html.TextAreaFor(m => m.RepaymentType, new { @class = "editor", @rows = "10", @Value = Model.RepaymentType })
+                <td>@Html.TextAreaFor(m => m.RepaymentType, new { @class = "editor", @rows = "10", @Value = Model.RepaymentType, style = "width:790px" })
                 </td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.AppCondition, "申请条件")
                 </td>
-                <td>@Html.TextAreaFor(m => m.AppCondition, new { @class = "editor", @rows = "10", @Value = Model.AppCondition })
+                <td>@Html.TextAreaFor(m => m.AppCondition, new { @class = "editor", @rows = "10", @Value = Model.AppCondition, style = "width:790px" })
                 </td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Process, "办理流程")
                 </td>
-                <td>@Html.TextAreaFor(m => m.Process, new { @class = "editor", @rows = "10", @Value = Model.Process })
+                <td>@Html.TextAreaFor(m => m.Process, new { @class = "editor", @rows = "10", @Value = Model.Process, style = "width:790px" })
                 </td>
             </tr>
         </table>

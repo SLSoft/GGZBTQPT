@@ -68,19 +68,19 @@
     <form id="pagerForm" method="post" action="@Url.Action("RZQuery")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
-    <input type="text" name="condition1" value="@ViewBag.condition1"  />
-    <input type="text" name="condition2" value="@ViewBag.condition2"  />
-    <input type="text" name="condition3" value="@ViewBag.condition3"  />
-    <input type="text" name="condition4" value="@ViewBag.condition4"  />
+    <input type="hidden" name="condition1" value="@ViewBag.condition1"  />
+    <input type="hidden" name="condition2" value="@ViewBag.condition2"  />
+    <input type="hidden" name="condition3" value="@ViewBag.condition3"  />
+    <input type="hidden" name="condition4" value="@ViewBag.condition4"  />
     <input type="hidden" name="context" value="@ViewBag.context"  />
     <input type="hidden" name="keys"  value="@ViewBag.keys"  />
     </form>
     <form onsubmit="return navTabSearch(this);" action="@Url.Action("RZQuery")" method="post">
     <div class="searchBar">
-                <input type="text" id="condition1" name="condition1" value="@ViewBag.condition1"  />
-                <input type="text" id="condition2" name="condition2" value="@ViewBag.condition2"  />
-                <input type="text" id="condition3" name="condition3" value="@ViewBag.condition3"  />
-                <input type="text" id="condition4" name="condition4" value="@ViewBag.condition4"  />
+                <input type="hidden" id="condition1" name="condition1" value="@ViewBag.condition1"  />
+                <input type="hidden" id="condition2" name="condition2" value="@ViewBag.condition2"  />
+                <input type="hidden" id="condition3" name="condition3" value="@ViewBag.condition3"  />
+                <input type="hidden" id="condition4" name="condition4" value="@ViewBag.condition4"  />
                 <input type="hidden" id="context" name="context" value="@ViewBag.context"  />
                 <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item form-tb">
                     <tr>

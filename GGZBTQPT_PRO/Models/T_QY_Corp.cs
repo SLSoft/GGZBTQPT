@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GGZBTQPT_PRO.Models
 {
@@ -39,7 +40,8 @@ namespace GGZBTQPT_PRO.Models
 
         }
 
-        public int ID { get; set; } 
+        public int ID { get; set; }
+        [Required(ErrorMessage = "企业名称不能为空")]
         public string CorpName { get; set; }
         public string CorpCode { get; set; }
         public Nullable<System.DateTime> RegTime { get; set; }

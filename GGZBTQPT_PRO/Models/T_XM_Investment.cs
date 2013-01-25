@@ -50,7 +50,7 @@ namespace GGZBTQPT_PRO.Models
 
         }
         public int ID { get; set; }
-        [Required(ErrorMessage = "必须填写项目名称")]
+        [Required(ErrorMessage = "项目名称不能为空")]
         public string ItemName { get; set; }
         public string Province { get; set; }
         public string City { get; set; }
