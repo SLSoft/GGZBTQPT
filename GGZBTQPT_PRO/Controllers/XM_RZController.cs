@@ -344,12 +344,24 @@ namespace GGZBTQPT_PRO.Controllers
             string select_itemtype = "";
             string select_industry = "";
             string select_Financial = "";
+            string select_itemstage = "";
             if (ViewBag.keys != null && ViewBag.keys.ToString().Trim() != "")
                 keys = ViewBag.keys.ToString();
             if (ViewBag.condition1 != null && ViewBag.condition1.ToString().Trim() != "")
                 select_itemtype = ViewBag.condition1.ToString().Substring(1);
             if (ViewBag.condition2 != null && ViewBag.condition2.ToString().Trim() != "")
                 select_industry = ViewBag.condition2.ToString().Substring(1);
+            if (ViewBag.condition3 != null && ViewBag.condition3.ToString().Trim() != "")
+            {
+                string[] temp = ViewBag.condition3.ToString().Substring(1).Split(',');
+                select_itemstage += " and (";
+                foreach (string str in temp)
+                {
+                    select_itemstage += " ItemStage = '" + str + "' or";
+                }
+                select_itemstage = select_itemstage.Substring(0, select_itemstage.Length - 3);
+                select_itemstage += ")";
+            }
             if (ViewBag.condition4 != null && ViewBag.condition4.ToString().Trim() != "")
             {
                 string[] temp = ViewBag.condition4.ToString().Substring(1).Split(',');
@@ -362,12 +374,13 @@ namespace GGZBTQPT_PRO.Controllers
                 select_Financial += ")";
             }
             string order = "ID";
-            System.Data.SqlClient.SqlParameter[] selparms = new System.Data.SqlClient.SqlParameter[5];
+            System.Data.SqlClient.SqlParameter[] selparms = new System.Data.SqlClient.SqlParameter[6];
             selparms[0] = new System.Data.SqlClient.SqlParameter("@keys", keys);
             selparms[1] = new System.Data.SqlClient.SqlParameter("@ItemType", select_itemtype);
             selparms[2] = new System.Data.SqlClient.SqlParameter("@Industry", select_industry);
-            selparms[3] = new System.Data.SqlClient.SqlParameter("@FinancSum", select_Financial);
-            selparms[4] = new System.Data.SqlClient.SqlParameter("@Order", order);
+            selparms[3] = new System.Data.SqlClient.SqlParameter("@ItemStage", select_itemstage);
+            selparms[4] = new System.Data.SqlClient.SqlParameter("@FinancSum", select_Financial);
+            selparms[5] = new System.Data.SqlClient.SqlParameter("@Order", order);
             System.Data.SqlClient.SqlParameter[] selparms_new = new System.Data.SqlClient.SqlParameter[selparms.Length];
 
             for (int i = 0, j = selparms.Length; i < j; i++)
@@ -375,10 +388,10 @@ namespace GGZBTQPT_PRO.Controllers
                 selparms_new[i] = (System.Data.SqlClient.SqlParameter)((ICloneable)selparms[i]).Clone();
             }
 
-            IList<T_XM_Financing> financials = (from p in db.T_XM_Financing.SqlQuery("exec dbo.P_GetRZXMByCondition @keys,@ItemType,@Industry,@FinancSum,@Order", selparms) select p).ToList().OrderByDescending(s => s.SubmitTime)
+            IList<T_XM_Financing> financials = (from p in db.T_XM_Financing.SqlQuery("exec dbo.P_GetRZXMByCondition @keys,@ItemType,@Industry,@ItemStage,@FinancSum,@Order", selparms) select p).ToList().OrderByDescending(s => s.SubmitTime)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
-            ViewBag.recordCount = (from p in db.T_XM_Financing.SqlQuery("exec dbo.P_GetRZXMByCondition @keys,@ItemType,@Industry,@FinancSum,@Order", selparms_new) select p).Count();
+            ViewBag.recordCount = (from p in db.T_XM_Financing.SqlQuery("exec dbo.P_GetRZXMByCondition @keys,@ItemType,@Industry,@ItemStage,@FinancSum,@Order", selparms_new) select p).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             if (financials.Count == 0)

@@ -43,6 +43,13 @@
         i++;
     }
 }
+@helper GenerateInvestmentStage()
+{
+    foreach (var item in ViewData["InvestmentStage"] as SelectList)
+    {
+        @:<td><input type="checkbox" name="cbInvestmentStage" value="@item.Value" /><span>@item.Text</span></td>
+    }
+}
 <script type="text/javascript">
     $(function () {
         GetPlant();
@@ -124,6 +131,10 @@
                 </td>
             </tr>
             <tr>
+                <td>@Html.LabelFor(model => model.InvestmentNature, "投资性质")</td>
+                <td colspan="3">@Html.DropDownList("InvestmentNature")</td>
+            </tr>
+            <tr>
                 <td style="width: 140px">@Html.LabelFor(model => model.Investment, "可投资金额")
                 </td>
                 <td style="width:240px">@Html.EditorFor(model => model.Investment)（万元）
@@ -168,6 +179,13 @@
                         </tr>
                     </table>
                 </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.InvestmentStage, "投资阶段")</td>
+                <td colspan="3"><table width="800px">
+                    <tr>
+                    @GenerateInvestmentStage()
+                    </tr></table></td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.TeamworkType, "合作方式")
