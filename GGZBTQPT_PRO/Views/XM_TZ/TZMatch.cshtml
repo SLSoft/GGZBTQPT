@@ -54,7 +54,7 @@
             最高投资额度(万元)
         </th>
         <th>
-            提交时间
+            有效日期
         </th>
         <th>
             操作
@@ -74,7 +74,7 @@
                     @Html.DisplayFor(modelItem => item.Investment)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SubmitTime)
+                    @Html.DisplayFor(modelItem => item.ValidDate)
                 </td>
                 <td>
                     <a href="@Url.Action("TZMatchResult", "XM_TZ", new { id = item.ID })" target="navtab" title="匹配项目">交易分析</a>|

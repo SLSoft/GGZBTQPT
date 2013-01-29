@@ -30,7 +30,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         {
             List<T_PTF_DicTreeDetail> Area = db.T_PTF_DicTreeDetail.Where(p => (p.DicType == "34" && p.Depth == 1)).ToList();
 
-            ViewData["Province"] = new SelectList(Area, "ID", "Name", select);
+            ViewData["Province"] = new SelectList(Area, "Code", "Name", select);
         }
         public void BindStage(object select = null)
         {

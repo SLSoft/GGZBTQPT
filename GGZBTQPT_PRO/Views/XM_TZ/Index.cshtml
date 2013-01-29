@@ -44,10 +44,13 @@
       <thead>
         <tr>
             <th>
-                项目名称
+                意向名称
             </th>
             <th>
-                所属行业
+                投资金额（万元）
+            </th>
+            <th>
+                发布会员
             </th>
             <th>
                 有效日期
@@ -62,7 +65,10 @@
             @Html.DisplayFor(modelItem => item.ItemName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IndustryName)
+            @Html.DisplayFor(modelItem => item.Investment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MemberName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ValidDate)

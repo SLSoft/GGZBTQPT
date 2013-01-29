@@ -56,6 +56,7 @@ namespace GGZBTQPT_PRO.Models
         public string City { get; set; }
         public string Region { get; set; }
         public Nullable<int> Industry { get; set; }
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public Nullable<System.DateTime> ValidDate { get; set; }
         public string Keys { get; set; }
         public string Description { get; set; }

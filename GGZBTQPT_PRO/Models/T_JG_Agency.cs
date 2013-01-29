@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace GGZBTQPT_PRO.Models
@@ -61,7 +64,19 @@ namespace GGZBTQPT_PRO.Models
                     return "";
             }
         }
-
+        //À˘ Ù«¯”Ú
+        public string AreaName
+        {
+            get
+            {
+                GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                List<T_PTF_DicTreeDetail> dic = db.T_PTF_DicTreeDetail.Where(d => (d.DicType == "34" && d.Code == this.Province)).ToList();
+                if (dic.Count > 0)
+                    return dic[0].Name;
+                else
+                    return "";
+            }
+        }
         public virtual ICollection<T_JG_Linkman> Linkmans { get; set; }
     }
 }
