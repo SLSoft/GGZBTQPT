@@ -59,6 +59,7 @@ namespace GGZBTQPT_PRO.Models
         [DisplayFormat(DataFormatString = "{0:d}")]
         public Nullable<System.DateTime> ValidDate { get; set; }
         public string Keys { get; set; }
+        [AllowHtml]
         public string Description { get; set; }
         public string Linkman { get; set; }
         public string Position { get; set; }

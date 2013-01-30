@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace GGZBTQPT_PRO.Models
@@ -45,10 +48,14 @@ namespace GGZBTQPT_PRO.Models
         public Nullable<int> FinancingLimit { get; set; }
         public Nullable<double> InterestRate { get; set; }
         public string CustomerType { get; set; }
+        [AllowHtml]
         public string Superiority { get; set; }
+        [AllowHtml]
         public string RepaymentType { get; set; }
+        [AllowHtml]
         public string AppCondition { get; set; }
         public string Linkman { get; set; }
+        [AllowHtml]
         public string Position { get; set; }
         public string Phone { get; set; }
         public string Mobile { get; set; }

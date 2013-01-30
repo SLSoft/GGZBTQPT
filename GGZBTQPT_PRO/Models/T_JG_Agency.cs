@@ -42,7 +42,9 @@ namespace GGZBTQPT_PRO.Models
         public string City { get; set; }
         public string Region { get; set; }
         public string Phone { get; set; }
+        [AllowHtml]
         public string Services { get; set; }
+        [AllowHtml]
         public string Remark { get; set; }
         public Boolean IsValid { get; set; }
         public int OP { get; set; }

@@ -74,6 +74,7 @@ namespace GGZBTQPT_PRO.Models
         [DisplayFormat(DataFormatString = "{0:d}")]
         public Nullable<System.DateTime> ValidDate { get; set; }
         public string Keys { get; set; }
+        [AllowHtml]
         public string ItemContent { get; set; }
         public Nullable<int> ItemType { get; set; }
         public Nullable<decimal> FinancSum { get; set; }

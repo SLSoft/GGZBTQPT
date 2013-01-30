@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace GGZBTQPT_PRO.Models
@@ -57,6 +60,7 @@ namespace GGZBTQPT_PRO.Models
         public string Website { get; set; }
         public byte[] Logo { get; set; }
         public string Range { get; set; }
+        [AllowHtml]
         public string Remark { get; set; }
         public string Linkman { get; set; }
         public string Position { get; set; }
