@@ -349,6 +349,8 @@ namespace GGZBTQPT_PRO.Controllers
         public ActionResult GenerateImage(int width, int height, string action_name)
         {
             Bitmap m_Bitmap = WebSiteThumbnail.GetWebSiteThumbnail("http://" + HttpContext.Request.ServerVariables["HTTP_HOST"] + Url.Action(action_name), width, height, width, height);
+            //Bitmap m_Bitmap = WebSiteThumbnail.GetWebSiteThumbnail("http://ovcstf.com/PTTEST/ZC_MemberLog/PrintViewWithContinuance", width, height, width, height);
+
             MemoryStream ms = new MemoryStream();
             m_Bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);//JPG、GIF、PNG等均可
             byte[] buff = ms.ToArray();

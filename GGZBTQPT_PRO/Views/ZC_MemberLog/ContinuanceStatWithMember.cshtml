@@ -42,7 +42,11 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $.getJSON("@Url.Action("ContinuanceStatWithMemberData", "ZC_MemberLog")", function(data){
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("ContinuanceStatWithMemberData", "ZC_MemberLog")", 
+            async: false,
+            success: function(data){
         
             var statData = [];
             var ticks = [];
@@ -72,6 +76,6 @@
                         }
                     }
                 });
-        });
+        }});
     });
 </script>
