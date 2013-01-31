@@ -34,9 +34,9 @@
     </div>
     </form>
 </div>
-<div class="pageContent">
+<div class="pageContent" style="padding-top:1px; border-top:1px #B8D0D6 solid;">
 
-    <div layouth="88" id="divList">
+    <div layouth="91" id="divList">
         <table  class="list" width="100%" asc="asc" desc="desc">
             <thead>
             <tr>
@@ -54,6 +54,9 @@
                 </th>
                 <th>
                     创建时间
+                </th>
+                <th>
+                    更新时间
                 </th>
             </tr>
             </thead>
@@ -73,7 +76,10 @@
                     @Html.ActionLink(item.FileName == null ? "文件下载" : item.FileName, "DownLoadFile", new { id = item.ID })
                 </td>
                 <td>
-                    @String.Format("{0:g}", item.CreatedTime)
+                    @item.CreatedTime
+                </td>
+                <td>
+                    @item.UpdateTime
                 </td>
             </tr>
             }

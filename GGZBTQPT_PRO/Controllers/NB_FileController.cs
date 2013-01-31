@@ -8,6 +8,7 @@ using System.IO;
 using GGZBTQPT_PRO.Enums;
 using GGZBTQPT_PRO.ViewModels;
 using System.Data;
+using System.Configuration;
 
 namespace GGZBTQPT_PRO.Controllers
 {
@@ -25,7 +26,7 @@ namespace GGZBTQPT_PRO.Controllers
             T_ZC_User current_user = CurrentUser();
 
             IList<T_NB_File> list = db.T_NB_File.Where(p =>p.SendUserId == current_user.ID && p.Title.Contains(keywords) && p.IsValid == true && p.IsShare == false)
-                                                            .OrderBy(s => s.ID)
+                                                            .OrderByDescending(s => s.UpdateTime)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
             ViewBag.recordCount = db.T_NB_File.Where(p => p.Title.Contains(keywords) && p.IsValid == true && p.IsShare == false).Count();
@@ -44,7 +45,7 @@ namespace GGZBTQPT_PRO.Controllers
             T_ZC_User current_user = CurrentUser();
 
             IList<T_NB_File> list = current_user.ReceiveFiles.Where(p => p.Title.Contains(keywords) && p.IsValid == true && p.IsShare == false)
-                                                            .OrderByDescending(s => s.ID)
+                                                            .OrderByDescending(s => s.UpdateTime)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
 
@@ -62,7 +63,7 @@ namespace GGZBTQPT_PRO.Controllers
             keywords = keywords == null ? "" : keywords;
 
             IList<T_NB_File> list = db.T_NB_File.Where(p => p.Title.Contains(keywords) && p.IsValid == true && p.IsShare == false)
-                                                            .OrderBy(s => s.ID)
+                                                            .OrderByDescending(s => s.UpdateTime)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
             ViewBag.recordCount = db.T_NB_File.Where(p => p.Title.Contains(keywords) && p.IsValid == true && p.IsShare == false).Count();
@@ -88,6 +89,7 @@ namespace GGZBTQPT_PRO.Controllers
                 if (ModelState.IsValid)
                 {
                     t_nb_file.CreatedTime = DateTime.Now;
+                    t_nb_file.UpdateTime = DateTime.Now;
                     t_nb_file.SendUserId = CurrentUser().ID;
 
                     if (Session["NbFile"] != null && Session["NbFile"].ToString() != "")
@@ -150,7 +152,7 @@ namespace GGZBTQPT_PRO.Controllers
                 {
                     T_NB_File t_nb_file = db.T_NB_File.Find(id);
                     t_nb_file.Title = collection["Title"];
-                    t_nb_file.CreatedTime = DateTime.Now;
+                    t_nb_file.UpdateTime = DateTime.Now;
 
                     if (Session["NbFile"] != null && Session["NbFile"].ToString() != "")
                     {
@@ -347,9 +349,10 @@ namespace GGZBTQPT_PRO.Controllers
             var filePath = "";
             if (nb_file.FileUrl != null)
             {
-                filePath = nb_file.FileUrl;
+                string locaUrl = ConfigurationSettings.AppSettings["Url"];
+                filePath = locaUrl + nb_file.FileUrl;
             }
-            
+
             return File(filePath, "application/msword", nb_file.FileName != null ? nb_file.FileName : nb_file.Title);
         }
         #endregion
@@ -362,7 +365,7 @@ namespace GGZBTQPT_PRO.Controllers
             T_ZC_User current_user = CurrentUser();
 
             IList<T_NB_File> list = db.T_NB_File.Where(p => p.Title.Contains(keywords) && p.IsValid == true && p.IsShare == true)
-                                                            .OrderByDescending(s => s.CreatedTime)
+                                                            .OrderByDescending(s => s.UpdateTime)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
             ViewBag.recordCount = db.T_NB_File.Where(p => p.Title.Contains(keywords) && p.IsValid == true && p.IsShare == true).Count();

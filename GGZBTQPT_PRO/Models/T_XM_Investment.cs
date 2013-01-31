@@ -84,7 +84,9 @@ namespace GGZBTQPT_PRO.Models
         public Nullable<System.DateTime> PublicTime { get; set; }
         public Nullable<bool> IsValid { get; set; }
         public int OP { get; set; }
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public Nullable<System.DateTime> CreateTime { get; set; }
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public Nullable<System.DateTime> UpdateTime { get; set; }
         public byte[] Pic { get; set; }
         public int Clicks { get; set; }
@@ -205,7 +207,10 @@ namespace GGZBTQPT_PRO.Models
             get
             {
                 GGZBTQPTDBContext db = new GGZBTQPTDBContext();
-                return db.T_HY_Member.Find(this.MemberID).LoginName;
+                if (db.T_HY_Member.Find(this.MemberID) != null)
+                    return db.T_HY_Member.Find(this.MemberID).MemberName;
+                else
+                    return "";
             }
         }
     }
