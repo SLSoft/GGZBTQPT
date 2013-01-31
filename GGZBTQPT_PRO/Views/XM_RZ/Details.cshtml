@@ -7,12 +7,12 @@
 <link href="@Url.Content("~/Content/css/Style.css")" rel="stylesheet" type="text/css" />
 <div class="pageFormContent" layouth="30">
 
-<p class="title_detail">@Html.DisplayFor(model => model.ItemName)</p>
-
-<fieldset style="width:90%; margin-left:20px; margin-top:20px;">
-    <legend>融资信息</legend>
-    
-        <table class="tb-detail">
+<div class="title_detail">融资信息</div>
+        <table class="tb-detail" cellpadding="0" cellspacing="0">
+            <tr>
+                <td width="100px">项目名称</td>
+                <td>@Html.DisplayFor(model => model.ItemName)</td>
+            </tr>
             <tr>
                 <td width="100px">项目类别</td>
                 <td>@Html.DisplayFor(model => model.ItemText)</td>
@@ -53,7 +53,7 @@
             </tr>
             <tr>
                 <td>融资期限</td>
-                <td>@Html.DisplayFor(model => model.FinancCycle)</td>
+                <td>@Html.DisplayFor(model => model.FinancCycle)（月）</td>
             </tr>
             <tr>
                 <td>项目总投资</td>
@@ -143,10 +143,8 @@
             </tr>
         }
         </table>
-</fieldset>
 
-<fieldset style="width:90%; margin-left:20px; margin-top:20px;">
-    <legend>联系方式</legend>
+<div class="title_detail">联系方式</div>
         <table class="tb-detail">
             <tr>
                 <td width="100px;">联系人</td>
@@ -177,5 +175,4 @@
                 <td>@Html.DisplayFor(model => model.Address)</td>
             </tr>
         </table>
-</fieldset>
 </div>

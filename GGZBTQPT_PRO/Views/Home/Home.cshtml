@@ -9,17 +9,17 @@
         <table class="list" width="100%" asc="asc" desc="desc">
             <thead>
                 <tr>
-                    <th>
+                    <th style="width:60%">
                         项目名称
                     </th>
                     <th>
-                        项目类别
+                        融资额度（万元）
                     </th>
                     <th>
-                        所属行业
+                        发布会员
                     </th>
                     <th>
-                        有效日期
+                        提交时间
                     </th>
                 </tr>
             </thead>
@@ -31,13 +31,13 @@
                             <a href="@Url.Action("Details", "XM_RZ", new { id = investment.ID })"  target="navTab" rel="investment_content" title="投资项目信息" fresh="true">@Html.DisplayFor(modelItem => investment.ItemName)</a>
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => investment.ItemText)
+                            @Html.DisplayFor(modelItem => investment.Amount)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => investment.IndustryName)
+                            @Html.DisplayFor(modelItem => investment.MemberName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => investment.ValidDate)
+                            @Html.DisplayFor(modelItem => investment.CreateTime)
                         </td>
                     </tr>
                 }
@@ -53,14 +53,17 @@
         <table class="list" width="100%" asc="asc" desc="desc">
             <thead>
                 <tr>
-                    <th>
+                    <th style="width:60%">
                         意向名称
+                    </th>
+                    <th>
+                        投资金额（万元）
                     </th>
                     <th>
                         发布会员
                     </th>
                     <th>
-                        有效日期
+                        提交时间
                     </th>
                 </tr>
             </thead>
@@ -72,10 +75,13 @@
                             <a href="@Url.Action("Details", "XM_TZ", new { id = financial.ID })"  target="navTab" rel="financial_content" title="融资项目信息" fresh="true">@Html.DisplayFor(modelItem => financial.ItemName)</a>
                         </td>
                         <td>
+                            @Html.DisplayFor(modelItem => financial.Investment)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => financial.MemberName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => financial.ValidDate)
+                            @Html.DisplayFor(modelItem => financial.CreateTime)
                         </td>
                     </tr>
                 }

@@ -7,10 +7,8 @@
 
 <link href="@Url.Content("~/Content/css/Style.css")" rel="stylesheet" type="text/css" />
 <div class="pageFormContent" layouth="30">
-<p class="title_detail">@Html.DisplayFor(model => model.ItemName)</p>
 
-<fieldset style="width:90%; margin-left:20px; margin-top:20px;">
-    <legend>基本情况</legend>  
+<div class="title_detail">意向信息</div>
         <table class="tb-detail">
             <tr>
                 <td width="100px">投资意向标题：</td>
@@ -49,10 +47,7 @@
                 <td>@Html.Raw(Model.Description)</td>
             </tr>
         </table>
-
-</fieldset>
-<fieldset style="width:90%; margin-left:20px; margin-top:20px;">
-    <legend>联系方式</legend>  
+<div class="title_detail">联系方式</div>
     <table class="tb-detail">
             <tr>
                 <td width="100px;">联系人</td>
@@ -79,5 +74,4 @@
                 <td>@Html.DisplayFor(model => model.QQ)</td>
             </tr>
         </table>
-</fieldset>
 </div>

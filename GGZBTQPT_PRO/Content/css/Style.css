@@ -6,14 +6,25 @@
 
 .tb-detail
 {
-    width:90%;
-    border-spacing:5px;
+    width: 90%;
+    border: 1px solid #ddd;
+    border-collapse:collapse;
+    margin:10px 20px;
 }
+.tb-detail td
+{
+    border:1px solid #ddd;
+    padding:5px;
+    }
 
 .title_detail
 {
     font-size: 12pt;
     font-weight: bold;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #eee;
+    padding:5px;
 }
 .report_tb
 {
