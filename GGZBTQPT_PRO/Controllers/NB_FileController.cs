@@ -8,6 +8,7 @@ using System.IO;
 using GGZBTQPT_PRO.Enums;
 using GGZBTQPT_PRO.ViewModels;
 using System.Data;
+using System.Configuration;
 
 namespace GGZBTQPT_PRO.Controllers
 {
@@ -348,9 +349,10 @@ namespace GGZBTQPT_PRO.Controllers
             var filePath = "";
             if (nb_file.FileUrl != null)
             {
-                filePath = nb_file.FileUrl;
+                string locaUrl = ConfigurationSettings.AppSettings["Url"];
+                filePath = locaUrl + nb_file.FileUrl;
             }
-            
+
             return File(filePath, "application/msword", nb_file.FileName != null ? nb_file.FileName : nb_file.Title);
         }
         #endregion
