@@ -24,9 +24,11 @@ namespace GGZBTQPT_PRO.Models
         public string Title { get; set; }//标题
 
         public byte[] File { get; set; }//文件
+        public string FileUrl { get; set; }
+        public string FileName { get; set; }
         public Boolean IsValid { get; set; }
         public DateTime CreatedTime { get; set; }
-        public DateTime UpdatedTime { get; set; } 
+        public Boolean IsShare { get; set; }
 
         public virtual T_ZC_User SendUser { get; set; }
         public virtual ICollection<T_ZC_User> ReceiveUsers { get; set; }//收件人(多个用户)

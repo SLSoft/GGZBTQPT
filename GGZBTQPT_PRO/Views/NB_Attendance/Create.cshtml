@@ -2,18 +2,23 @@
 @{
     Layout = null;
 }
+<script type="text/javascript">
+    $.validator.unobtrusive.parse(document);
+</script>
 
 <div class="pageContent">
     @using (Html.BeginForm("Create", "NB_Attendance", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
     {
+        @Html.ValidationSummary(true)
         <div class="pageFormContent" layouth="56">
             <p>
                 @Html.LabelFor(model => model.UserId, "人员")
                 @Html.DropDownList("UserId","---请选择---")
             </p>
             <p>
-                @Html.LabelFor(model => model.WorkTime,"日期")
-                <input type="text" name="WorkTime" class="date" value="@ViewBag.WorkTime" style="width:100px" />
+                @Html.LabelFor(model => model.WorkTime, "日期")
+                @Html.TextBoxFor(model => model.WorkTime, new { style = "width:100px", @class = "date", @Value = string.Format("{0:yyyy-MM-dd}", ViewBag.WorkTime) })
+                @Html.ValidationMessageFor(model => model.WorkTime)
             </p>
             <p>
                 @Html.LabelFor(model => model.State,"状态")

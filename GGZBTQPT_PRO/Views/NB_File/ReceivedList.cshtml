@@ -50,13 +50,10 @@
                     标题
                 </th>
                 <th>
-                    文件名
+                    文件下载
                 </th>
                 <th>
                     创建时间
-                </th>
-                <th>
-                    修改时间
                 </th>
             </tr>
             </thead>
@@ -73,13 +70,10 @@
                     @item.Title
                 </td>
                 <td>
-                    @Html.ActionLink("文件下载", "DownLoadFile", new { id = item.ID })
+                    @Html.ActionLink(item.FileName == null ? "文件下载" : item.FileName, "DownLoadFile", new { id = item.ID })
                 </td>
                 <td>
                     @String.Format("{0:g}", item.CreatedTime)
-                </td>
-                <td>
-                    @String.Format("{0:g}", item.UpdatedTime)
                 </td>
             </tr>
             }

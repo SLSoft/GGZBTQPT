@@ -5,14 +5,14 @@
 }
 
 <div class="pageHeader">
-    <form id="pagerForm" method="post" action="@Url.Action("FileList")">
+    <form id="pagerForm" method="post" action="@Url.Action("FileShare")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
     <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />
     @*<input type="hidden" name="orderField" value="${param.orderField}" />
         <input type="hidden" name="orderDirection" value="${param.orderDirection}" />*@
     </form>
-    <form onsubmit="return navTabSearch(this);" action="@Url.Action("FileList")"
+    <form onsubmit="return navTabSearch(this);" action="@Url.Action("FileShare")"
     method="post">
     <div class="searchBar">
         <ul class="searchContent">
@@ -39,7 +39,18 @@
     </form>
 </div>
 <div class="pageContent">
-    <div layouth="88" id="divList">
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a class="add" href="@Url.Action("create", "NB_File", new { UpType = 2})" rel="create" target="dialog" width="400"
+                height="300" title="添加新的文件" mask="true"><span>添加</span></a></li>
+            <li><a class="edit" href="@Url.Action("edit", "NB_File", new { id = "{mid}", UpType = 2})" rel="edit" target="dialog" width="400"
+                height="300" title="编辑文件信息" mask="true" warn="请选择一条文件数据"><span>编辑</span></a></li>
+            <li><a class="delete" href="@Url.Action("delete", "NB_File", new { id = "{mid}" })" rel="delete" target="ajaxTodo"
+                title="确定要删除吗？" warn="请选择一条文件数据"><span>删除</span></a></li>
+            <li class="line">line</li>
+        </ul>
+    </div>
+    <div layouth="116" id="divList">
         <table  class="list" width="100%" asc="asc" desc="desc">
             <thead>
             <tr>
@@ -47,7 +58,7 @@
                     <input type="checkbox" group="ids" class="checkboxCtrl">
                 </th>
                 <th>
-                    发送用户
+                    共享用户
                 </th>
                 <th>
                     标题
@@ -55,9 +66,7 @@
                 <th>
                     文件下载
                 </th>
-                <th>
-                    接收用户
-                </th>
+               
                 <th>
                     创建时间
                 </th>
@@ -76,14 +85,10 @@
                     @item.Title
                 </td>
                 <td>
-                    @Html.ActionLink(item.FileName == null ? "文件下载" : item.FileName, "DownLoadFile", new { id = item.ID })
+                    
+                     @Html.ActionLink(item.FileName, "DownFile", new { id = item.ID })
                 </td>
-                <td>
-                   @foreach (var user in item.ReceiveUsers)
-                   {
-                       <span style="margin-right:10px;">@user.UserName</span>
-                   }
-                </td>
+                
                 <td>
                     @String.Format("{0:g}", item.CreatedTime)
                 </td>
