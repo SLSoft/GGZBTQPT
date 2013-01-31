@@ -19,7 +19,9 @@ namespace GGZBTQPT_PRO.Models
         public int ID { get; set; }
         [Required(ErrorMessage = "必须选择用户")]
         public int UserId { get; set; }
+        [Required(ErrorMessage = "必须选择状态")]
         public int State { get; set; }//状态
+        [Required(ErrorMessage = "必须选择日期")]
         public DateTime WorkTime { get; set; }
         public string RecordUser { get; set; }
         public DateTime RecordTime { get; set; }

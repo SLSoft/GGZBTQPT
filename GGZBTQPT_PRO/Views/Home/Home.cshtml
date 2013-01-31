@@ -100,11 +100,11 @@
                     <th>
                         文件名
                     </th>
-                    <th>
+                     <th>
                         创建时间
                     </th>
                     <th>
-                        修改时间
+                        下载
                     </th>
                 </tr>
             </thead>
@@ -119,13 +119,13 @@
                             @item.Title
                         </td>
                         <td>
-                            @Html.ActionLink("文件下载", "DownLoadFile", new { id = item.ID })
+                            @item.FileName
                         </td>
                         <td>
                             @String.Format("{0:g}", item.CreatedTime)
                         </td>
                         <td>
-                            @String.Format("{0:g}", item.UpdatedTime)
+                            @Html.ActionLink("文件下载", "DownLoadFile", new { id = item.ID })
                         </td>
                     </tr>
                 }
@@ -156,18 +156,6 @@
                     <th>
                         参与人员
                     </th>
-                    <th>
-                        记录人
-                    </th>
-                    <th>
-                        记录状态
-                    </th>
-                    <th>
-                        选择用户
-                    </th>
-                    <th>
-                        会议记录
-                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -191,25 +179,6 @@
                             {
                                 <span style="margin-right: 10px;">@user.UserName</span>
                             }
-                        </td>
-                        <td>
-                            @item.RecordUser
-                        </td>
-                        <td>
-                            @if (item.IsRecord)
-                            {
-                                <span>已记录</span>
-                            }
-                            else
-                            {
-                                <span>未记录</span>
-                            }
-                        </td>
-                        <td>
-                            @Html.ActionLink("参与人员", "SelectUser", "NB_Meeting", new { id = item.ID }, new { target = "dialog", mask = "true" })
-                        </td>
-                        <td>
-                            @Html.ActionLink(@item.IsRecord ? "修改" : "记录", "RecordEdit", "NB_Meeting", new { id = item.ID }, new { target = "dialog", mask = "true", width = "500", height = "350" })
                         </td>
                     </tr>
                 }

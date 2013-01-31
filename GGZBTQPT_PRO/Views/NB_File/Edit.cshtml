@@ -8,7 +8,7 @@
 </script>
 
 <div id="FormContainer" class="pageContent">
-    @using (Html.BeginForm("Edit", "NB_File", FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
+    @using (Html.BeginForm("Edit", "NB_File", new { UpType = @ViewBag.UpType }, FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
     {
         @Html.ValidationSummary(true)
         <div class="pageFormContent" layouth="56">

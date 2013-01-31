@@ -24,11 +24,11 @@ namespace GGZBTQPT_PRO.Controllers
 
             T_ZC_User current_user = CurrentUser();
 
-            IList<T_NB_File> list = db.T_NB_File.Where(p =>p.SendUserId == current_user.ID && p.Title.Contains(keywords) && p.IsValid == true)
+            IList<T_NB_File> list = db.T_NB_File.Where(p =>p.SendUserId == current_user.ID && p.Title.Contains(keywords) && p.IsValid == true && p.IsShare == false)
                                                             .OrderBy(s => s.ID)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
-            ViewBag.recordCount = db.T_NB_File.Where(p => p.Title.Contains(keywords) && p.IsValid == true).Count();
+            ViewBag.recordCount = db.T_NB_File.Where(p => p.Title.Contains(keywords) && p.IsValid == true && p.IsShare == false).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
@@ -43,12 +43,12 @@ namespace GGZBTQPT_PRO.Controllers
 
             T_ZC_User current_user = CurrentUser();
 
-            IList<T_NB_File> list = current_user.ReceiveFiles.Where(p => p.Title.Contains(keywords) && p.IsValid == true)
+            IList<T_NB_File> list = current_user.ReceiveFiles.Where(p => p.Title.Contains(keywords) && p.IsValid == true && p.IsShare == false)
                                                             .OrderByDescending(s => s.ID)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
 
-            ViewBag.recordCount = current_user.ReceiveFiles.Where(p => p.Title.Contains(keywords) && p.IsValid == true).Count();
+            ViewBag.recordCount = current_user.ReceiveFiles.Where(p => p.Title.Contains(keywords) && p.IsValid == true && p.IsShare == false).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
@@ -61,11 +61,11 @@ namespace GGZBTQPT_PRO.Controllers
         {
             keywords = keywords == null ? "" : keywords;
 
-            IList<T_NB_File> list = db.T_NB_File.Where(p=> p.Title.Contains(keywords) && p.IsValid == true)
+            IList<T_NB_File> list = db.T_NB_File.Where(p => p.Title.Contains(keywords) && p.IsValid == true && p.IsShare == false)
                                                             .OrderBy(s => s.ID)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
-            ViewBag.recordCount = db.T_NB_File.Where(p => p.Title.Contains(keywords) && p.IsValid == true).Count();
+            ViewBag.recordCount = db.T_NB_File.Where(p => p.Title.Contains(keywords) && p.IsValid == true && p.IsShare == false).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
@@ -74,20 +74,20 @@ namespace GGZBTQPT_PRO.Controllers
         #endregion
 
         #region 新增
-        public ActionResult Create()
+        public ActionResult Create(int UpType)
         {
+            ViewBag.UpType = UpType;
             return View();
         }
 
         [HttpPost, ActionName("Create")]
-        public ActionResult Create(T_NB_File t_nb_file)
+        public ActionResult Create(T_NB_File t_nb_file, int UpType)
         {
             if (Request.IsAjaxRequest())
             {
                 if (ModelState.IsValid)
                 {
                     t_nb_file.CreatedTime = DateTime.Now;
-                    t_nb_file.UpdatedTime = DateTime.Now;
                     t_nb_file.SendUserId = CurrentUser().ID;
 
                     if (Session["NbFile"] != null && Session["NbFile"].ToString() != "")
@@ -96,8 +96,18 @@ namespace GGZBTQPT_PRO.Controllers
                         //存入文件
                         if (stream.Length > 0)
                         {
-                            t_nb_file.File = new byte[stream.Length];
-                            stream.Read(t_nb_file.File, 0, t_nb_file.File.Length);
+                            if (UpType == 1)
+                            {
+                                t_nb_file.File = new byte[stream.Length];
+                                stream.Read(t_nb_file.File, 0, t_nb_file.File.Length);
+                            }
+                            else
+                            {
+                                t_nb_file.FileUrl = UpLoadFile(stream);
+                                t_nb_file.IsShare = true;
+                            }
+
+                            t_nb_file.FileName = Session["FileName"].ToString();
                         }
                     }
                     else
@@ -124,14 +134,15 @@ namespace GGZBTQPT_PRO.Controllers
         #endregion
 
         #region 编辑
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, int UpType)
         {
             T_NB_File t_nb_file = db.T_NB_File.Find(id);
+            ViewBag.UpType = UpType;
             return View(t_nb_file);
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, FormCollection collection, int UpType)
         {
             if (Request.IsAjaxRequest())
             {
@@ -139,7 +150,7 @@ namespace GGZBTQPT_PRO.Controllers
                 {
                     T_NB_File t_nb_file = db.T_NB_File.Find(id);
                     t_nb_file.Title = collection["Title"];
-                    t_nb_file.UpdatedTime = DateTime.Now;
+                    t_nb_file.CreatedTime = DateTime.Now;
 
                     if (Session["NbFile"] != null && Session["NbFile"].ToString() != "")
                     {
@@ -147,8 +158,17 @@ namespace GGZBTQPT_PRO.Controllers
                         //存入文件
                         if (stream.Length > 0)
                         {
-                            t_nb_file.File = new byte[stream.Length];
-                            stream.Read(t_nb_file.File, 0, t_nb_file.File.Length);
+                            if (UpType == 1)
+                            {
+                                t_nb_file.File = new byte[stream.Length];
+                                stream.Read(t_nb_file.File, 0, t_nb_file.File.Length);
+                            }
+                            else
+                            {
+                                t_nb_file.FileUrl = UpLoadFile(stream);
+                            }
+
+                            t_nb_file.FileName = Session["FileName"].ToString();
                         }
                     }
                     db.Entry(t_nb_file).State = EntityState.Modified;
@@ -255,21 +275,58 @@ namespace GGZBTQPT_PRO.Controllers
 
         #region 文件上传 下载
         [HttpPost]
-        public ActionResult TemporariedFile()
+        public ActionResult TemporariedFile(string qqfile)
         {
             try
             {
                 Stream stream = Request.Files.Count > 0
                                         ? Request.Files[0].InputStream
                                         : Request.InputStream;
-
+                
                 Session["NbFile"] = stream;
+                Session["FileName"] = qqfile;
                 return Json(new { success = "上传成功!" });
             }
             catch
             {
                 return Json(new { error = "上传失败!" });
             }
+        }
+
+        public string UpLoadFile(Stream stream)
+        {
+            BinaryReader br = new BinaryReader(stream);
+            FileStream fs;
+
+            var saveFilePath = string.Format("/UploadFile/{0}/", System.DateTime.Now.ToString("yyyyMM"));
+            var localFilePath = System.Web.HttpContext.Current.Server.MapPath("~") + saveFilePath;
+            if (!Directory.Exists(localFilePath))
+                Directory.CreateDirectory(localFilePath);
+
+            string filename = System.DateTime.Now.Year.ToString() +
+                                System.DateTime.Now.Month.ToString() +
+                                System.DateTime.Now.Day.ToString() +
+                                System.DateTime.Now.Hour.ToString() +
+                                System.DateTime.Now.Minute.ToString() +
+                                System.DateTime.Now.Millisecond.ToString();
+
+            var name = Session["FileName"].ToString();
+            int j = name.LastIndexOf(".");
+            string file_ext = name.Substring(j, name.Length - j);
+
+            Random rand = new Random();
+            filename = filename + rand.Next(1000) + file_ext;
+
+            fs = System.IO.File.Create(string.Format("{0}/{1}", localFilePath, filename));
+
+            var file = new byte[stream.Length];
+            int length = file.Length;
+            fs.Write(br.ReadBytes(length), 0, length);
+
+            br.Close();
+            fs.Close();
+
+            return saveFilePath + filename;
         }
 
         public ActionResult DownLoadFile(int id)
@@ -280,7 +337,40 @@ namespace GGZBTQPT_PRO.Controllers
                 file = nb_file.File;
             else
                 file = new byte[1];
-            return File(file, "application/msword",nb_file.Title);
+
+            return File(file, "application/msword", nb_file.FileName != null ? nb_file.FileName : nb_file.Title);
+        }
+
+        public ActionResult DownFile(int id)
+        {
+            var nb_file = db.T_NB_File.Find(id);
+            var filePath = "";
+            if (nb_file.FileUrl != null)
+            {
+                filePath = nb_file.FileUrl;
+            }
+            
+            return File(filePath, "application/msword", nb_file.FileName != null ? nb_file.FileName : nb_file.Title);
+        }
+        #endregion
+
+        #region 文件共享
+        public ActionResult FileShare(string keywords, int pageNum = 1, int numPerPage = 15)
+        {
+            keywords = keywords == null ? "" : keywords;
+
+            T_ZC_User current_user = CurrentUser();
+
+            IList<T_NB_File> list = db.T_NB_File.Where(p => p.Title.Contains(keywords) && p.IsValid == true && p.IsShare == true)
+                                                            .OrderByDescending(s => s.CreatedTime)
+                                                            .Skip(numPerPage * (pageNum - 1))
+                                                            .Take(numPerPage).ToList();
+            ViewBag.recordCount = db.T_NB_File.Where(p => p.Title.Contains(keywords) && p.IsValid == true && p.IsShare == true).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+            ViewBag.keywords = keywords;
+
+            return View(list);
         }
         #endregion
 
