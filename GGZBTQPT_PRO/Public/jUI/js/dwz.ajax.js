@@ -118,6 +118,7 @@ function navTabAjaxDone(json){
 		if (json.navTabId){ //把指定navTab页面标记为需要“重新载入”。注意navTabId不能是当前navTab页面的
 			navTab.reloadFlag(json.navTabId);
 		} else { //重新载入当前navTab页面
+
 			var $pagerForm = $("#pagerForm", navTab.getCurrentPanel());
 			var args = $pagerForm.size()>0 ? $pagerForm.serializeArray() : {}
 			navTabPageBreak(args, json.rel);
@@ -149,9 +150,10 @@ function navTabAjaxDone(json){
  * form提交后返回json数据结构,json格式和navTabAjaxDone一致
  */
 function dialogAjaxDone(json){
-	DWZ.ajaxDone(json);
-	if (json.statusCode == DWZ.statusCode.ok){
-		if (json.navTabId){
+    DWZ.ajaxDone(json);
+    if (json.statusCode == DWZ.statusCode.ok) {
+	    if (json.navTabId) {
+	        console.log(json.navTabId);
 			navTab.reload(json.forwardUrl, {navTabId: json.navTabId});
 		} else if (json.rel) {
 			var $pagerForm = $("#pagerForm", navTab.getCurrentPanel());
@@ -159,7 +161,10 @@ function dialogAjaxDone(json){
 			navTabPageBreak(args, json.rel);
 		}
 		if ("closeCurrent" == json.callbackType) {
-			$.pdialog.closeCurrent();
+		    $.pdialog.closeCurrent();
+		    if (!json.rel) {
+		        navTab.reload();
+		    }
 		}
 	}
 }
@@ -240,6 +245,7 @@ function dwzPageBreak(options){
 		var $box = $parent.find("#" + op.rel);
 		var form = _getPagerForm($box, op.data);
 		if (form) {
+		    console.log($box.attr("id"));
 			$box.ajaxUrl({
 				type:"POST", url:$(form).attr("action"), data: $(form).serializeArray(), callback:function(){
 					$box.find("[layoutH]").layoutH();

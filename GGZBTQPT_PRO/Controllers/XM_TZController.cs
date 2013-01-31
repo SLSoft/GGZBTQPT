@@ -94,6 +94,7 @@ namespace GGZBTQPT_PRO.Controllers
         // POST: /XM_TZ/Create
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Create(T_XM_Investment t_xm_investment, FormCollection collection)
         {
             if (ModelState.IsValid)
@@ -157,6 +158,7 @@ namespace GGZBTQPT_PRO.Controllers
         // POST: /XM_TZ/Edit/5
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Edit(T_XM_Investment t_xm_investment, FormCollection collection)
         {
             if (ModelState.IsValid)
