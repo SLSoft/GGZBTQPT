@@ -4,7 +4,6 @@
     Layout = null;
 }
 
-
 <div class="pageHeader">
     <form id="pagerForm" method="post" action="@Url.Action("Query")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
@@ -39,8 +38,8 @@
     </div>
     </form>
 </div>
-<div class="pageContent">
-    <div layouth="88" id="divList">
+<div class="pageContent" style="padding-top:1px; border-top:1px #B8D0D6 solid;">
+    <div layouth="91" id="divList">
         <table  class="list" width="100%" asc="asc" desc="desc">
         <thead>
         <tr>

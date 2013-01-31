@@ -70,6 +70,9 @@
                     创建时间
                 </th>
                 <th>
+                    更新时间
+                </th>
+                <th>
                     操作
                 </th>
             </tr>
@@ -93,7 +96,10 @@
                    }
                 </td>
                 <td>
-                    @String.Format("{0:g}", item.CreatedTime)
+                    @item.CreatedTime
+                </td>
+                <td>
+                    @item.UpdateTime
                 </td>
                 <td>
                     @Html.ActionLink("发送到用户", "SelectUser", "NB_File", new { id=item.ID}, new { target = "dialog", mask = "true"})

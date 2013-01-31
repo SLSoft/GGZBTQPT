@@ -66,9 +66,11 @@
                 <th>
                     文件下载
                 </th>
-               
                 <th>
                     创建时间
+                </th>
+                <th>
+                    更新时间
                 </th>
             </tr>
             </thead>
@@ -88,9 +90,11 @@
                     
                      @Html.ActionLink(item.FileName, "DownFile", new { id = item.ID })
                 </td>
-                
                 <td>
-                    @String.Format("{0:g}", item.CreatedTime)
+                    @item.CreatedTime
+                </td>
+                <td>
+                    @item.UpdateTime
                 </td>
             </tr>
             }

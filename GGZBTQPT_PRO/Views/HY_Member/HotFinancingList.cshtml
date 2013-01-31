@@ -80,7 +80,7 @@
                 {
                     <tr  target="mid" rel=@item.ID>
                         <td>
-                            @item.ItemName
+                            @Html.DisplayFor(modelItem => item.ItemName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.ItemText)
@@ -91,15 +91,17 @@
                         <td>
                             @String.Format("{0:F}", item.FinancSum)
                         </td>
-                        <td>@item.Member.MemberName
-                        </td>
-                        <td>@item.Member.TypeName
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Member.MemberName)
                         </td>
                         <td>
-                            @item.CreateTime
+                            @Html.DisplayFor(modelItem => item.Member.TypeName)
                         </td>
                         <td>
-                            @item.Clicks
+                            @Html.DisplayFor(modelItem => item.CreateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Clicks)
                         </td>
                     </tr>
                 }

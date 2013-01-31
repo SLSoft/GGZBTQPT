@@ -51,7 +51,7 @@
                     会议主题
                 </th>
                 <th>
-                    会议时间(小时)
+                    会议时间
                 </th>
                 <th>
                     预定地址
@@ -60,7 +60,7 @@
                     参与人数
                 </th>
                 <th>
-                    会议用时
+                    会议用时(小时)
                 </th>
                 <th>
                     状态
@@ -101,7 +101,7 @@
                    @item.StateName
                 </td>
                 <td>
-                    @String.Format("{0:g}", item.CreatedTime)
+                    @item.CreatedTime
                 </td>
                  <td>
                     <a href="@Url.Action("Audit", "NB_Meeting", new { id = item.ID,state = 1})" rel="Audit" target="dialog" width="400" 
