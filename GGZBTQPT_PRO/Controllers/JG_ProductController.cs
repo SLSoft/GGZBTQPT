@@ -7,11 +7,30 @@ using System.Web;
 using System.Web.Mvc;
 using GGZBTQPT_PRO.Models;
 using GGZBTQPT_PRO.ViewModels;
+using System.Drawing;
+using System.Threading;
+using System.IO;
+using GGZBTQPT_PRO.Util;
 
 namespace GGZBTQPT_PRO.Controllers
 {
-    public class JG_ProductController : BaseController
+    public class JG_ProductController : Controller
     {
+        public GGZBTQPT_PRO.Models.GGZBTQPTDBContext db = new GGZBTQPT_PRO.Models.GGZBTQPTDBContext();
+
+        //"statusCode":"返回的状态值，200--success 300--fail 301--timeout",
+        //"message":"提示信息",
+        //"navTabId":"定navTab页面标记为需要“重新载入”。注意navTabId不能是当前navTab页面的",
+        //"rel":"指定ID",该ID用于指定回调后,需要局部刷新的页面元素ID
+        //"callbackType":"closeCurrent或forward", 关闭当前页面/转发到其他页面
+        //"forwardUrl":"跳转的URL，callbackType是forward时使用"
+        //"confirmMsg":"需要确定的信息"
+        public JsonResult ReturnJson(bool _IfSuccess, string _message, string _navTabId, string _rel, bool _IfColse, string _forwardUrl)//批量删除会自动刷新所在的navTab。 
+        {
+            string _statusCode = _IfSuccess ? "200" : "300";
+            string _callbackType = _IfColse ? "closeCurrent" : null;
+            return Json(new { statusCode = _statusCode, message = _message, navTabId = _navTabId, rel = _rel, callbackType = _callbackType, forwardUrl = _forwardUrl }, "text/html", JsonRequestBehavior.AllowGet);
+        }
         //private GGZBTQPTDBContext db = new GGZBTQPTDBContext();
 
         //
@@ -303,7 +322,7 @@ namespace GGZBTQPT_PRO.Controllers
             var cp = db.T_JG_Product.Where(p => (p.IsValid == true && p.PublicStatus == "2")).ToList();
             ViewBag.CPCount = cp.Count();
 
-            return View();
+            return PartialView();
         }
 
         #region 机构登记产品数量统计
@@ -344,6 +363,24 @@ namespace GGZBTQPT_PRO.Controllers
                 db.SaveChanges();
             }
             return Json(new { }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GenerateImage(int width, int height, string action_name)
+        {
+            Bitmap m_Bitmap = WebSiteThumbnail.GetWebSiteThumbnail("http://" + HttpContext.Request.ServerVariables["HTTP_HOST"] + Url.Action(action_name), width, height, width, height);
+
+            MemoryStream ms = new MemoryStream();
+            m_Bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);//JPG、GIF、PNG等均可
+            byte[] buff = ms.ToArray();
+
+            return File(buff, "image/jpeg");
+        }
+
+        public ActionResult PrintProductReport()
+        {
+            var cp = db.T_JG_Product.Where(p => (p.IsValid == true && p.PublicStatus == "2")).ToList();
+            ViewBag.CPCount = cp.Count();
+            return PartialView();
         }
     }
 }
