@@ -48,12 +48,20 @@
                     @Html.ActionLink(_model.ProductName, "Details", "Product",new {id = _model.ID},null)<span class="pub-time pull-right">@_model.CreateTime</span></h4>
                 @*摘要*@
                 <p class="summary">
-                    @Html.Raw((_model.Superiority.Length > 200 ? _model.Superiority.Substring(0, 200) + "..." : _model.Superiority))
+                    @if (_model.ShowText.Length > 200)
+                    {
+                    <span>@_model.ShowText.Substring(0, 200)...</span>
+                    }
+                    else
+                    {
+                    <span>@_model.ShowText</span>
+                    }
                 </p>
                 @*附属信息*@
                 <div class="recommend-info">
                    <span class="amount text-error">贷款额度：@_model.FinancingAmount 万元</span>  
-                   <span class="published-member pull-right">发布人：<a href="#">@_model.Member.MemberName</a> <em class="favored"> @if (@_model.MemberID != @ViewBag.CurrentMember) { @GenerateAttentionLink(@AttentionedMembers, @_model.MemberID.ToString(), @_model.Member.Type)}</em></span>
+                   <span class="published-member pull-right">发布人：<a href="#">@_model.Member.MemberName</a> <em class="favored"> @if (@_model.MemberID != @ViewBag.CurrentMember)
+                                                                                                                                { @GenerateAttentionLink(@AttentionedMembers, @_model.MemberID.ToString(), @_model.Member.Type)}</em></span>
                 </div>
             </div>
         </div>

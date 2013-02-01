@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
+using GGZBTQPT_PRO.Util;
 
 namespace GGZBTQPT_PRO.Models
 {
@@ -80,5 +81,21 @@ namespace GGZBTQPT_PRO.Models
             }
         }
         public virtual ICollection<T_JG_Linkman> Linkmans { get; set; }
+
+        public string ShowServicesText
+        {
+            get
+            {
+                return StringHelper.checkStr(this.Services);
+            }
+        }
+
+        public string ShowRemarkText
+        {
+            get
+            {
+                return StringHelper.checkStr(this.Remark);
+            }
+        }
     }
 }

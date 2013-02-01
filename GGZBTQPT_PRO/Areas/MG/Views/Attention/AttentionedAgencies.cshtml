@@ -23,18 +23,32 @@
                         <label>
                             机构类型：<span>@_model.Agency.AgencyTypeName</span></label>
                         <label>
-                            所在城市：<span>@_model.Agency.City</span></label>
+                            工商注册地：<span>@_model.Agency.AreaName</span></label>
                         <label>
-                            注册资金：<span>@_model.Agency.RegCapital</span></label>
+                            注册资金：<span>@_model.Agency.RegCapital （万元）</span></label>
                         <label>
                             机构介绍:</label>
                         <p>
-                            @Html.Raw((_model.Agency.Remark.Length > 200 ? _model.Agency.Remark.Substring(0, 200) + "..." : _model.Agency.Remark))
+                            @if (_model.Agency.ShowRemarkText.Length > 200)
+                            {
+                            <span>@_model.Agency.ShowRemarkText.Substring(0, 200)...</span>
+                            }
+                            else
+                            {
+                            <span>@_model.Agency.ShowRemarkText</span>
+                            }
                         </p>
                         <label>
                             服务介绍:</label>
                         <p>
-                            @Html.Raw((_model.Agency.Services.Length > 200 ? _model.Agency.Services.Substring(0, 200) + "..." : _model.Agency.Services))
+                            @if (_model.Agency.ShowServicesText.Length > 200)
+                            {
+                            <span>@_model.Agency.ShowServicesText.Substring(0, 200)...</span>
+                            }
+                            else
+                            {
+                            <span>@_model.Agency.ShowServicesText</span>
+                            }
                         </p>
                     </div>
                 </div>

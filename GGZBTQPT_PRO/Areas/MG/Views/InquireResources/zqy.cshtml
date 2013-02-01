@@ -103,13 +103,13 @@
                         <tr>
                             <td colspan="3">
                                 <span class="ts-l-item-desc">企业简介:
-                                @if (_model.Remark.Length > 200)
+                                @if (_model.ShowText.Length > 200)
                                 {
-                                <span>@_model.Remark.Substring(0, 200)...</span>
+                                <span>@_model.ShowText.Substring(0, 200)...</span>
                                 }
                                 else
                                 {
-                                <span>@_model.Remark.Substring(0, _model.Remark.Length)</span>
+                                <span>@_model.ShowText</span>
                                 }
                                 </span>
                             </td>

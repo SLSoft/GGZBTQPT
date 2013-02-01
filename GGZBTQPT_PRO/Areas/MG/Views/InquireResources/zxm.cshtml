@@ -207,13 +207,13 @@
                                 <tr>
                                     <td colspan="3">
                                         <span class="ts-l-item-desc">
-                                            @if (_model.ItemContent.Length > 200)
+                                            @if (_model.ShowText.Length > 200)
                                             {
-                                                <span>@_model.ItemContent.Substring(0, 200)...</span>
+                                                <span>@_model.ShowText.Substring(0, 200)...</span>
                                             }
                                             else
                                             {
-                                                <span>@_model.ItemContent.Substring(0, _model.ItemContent.Length)</span>
+                                                <span>@_model.ShowText</span>
                                             }
                                             <a target="_blank" href="@yy">【查看详情】</a></span>
                                     </td>

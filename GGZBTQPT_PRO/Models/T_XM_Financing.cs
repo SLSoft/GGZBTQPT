@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
+using GGZBTQPT_PRO.Util;
 
 namespace GGZBTQPT_PRO.Models
 {
@@ -295,6 +296,13 @@ namespace GGZBTQPT_PRO.Models
             get
             {
                 return this.TransferType == 1 ? "整体" : "部分";
+            }
+        }
+        public string ShowText
+        {
+            get
+            {
+                return StringHelper.checkStr(this.ItemContent);
             }
         }
     }

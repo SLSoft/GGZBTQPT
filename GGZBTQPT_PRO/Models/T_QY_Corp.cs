@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
+using GGZBTQPT_PRO.Util;
 
 namespace GGZBTQPT_PRO.Models
 {
@@ -104,6 +105,12 @@ namespace GGZBTQPT_PRO.Models
         public virtual ICollection<T_QY_Financial> Financials { get; set; }
         public virtual ICollection<T_QY_Product> Products { get; set; }
 
-
+        public string ShowText
+        {
+            get
+            {
+                return StringHelper.checkStr(this.Remark);
+            }
+        }
     }
 }

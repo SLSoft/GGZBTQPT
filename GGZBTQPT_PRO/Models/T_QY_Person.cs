@@ -80,6 +80,18 @@ namespace GGZBTQPT_PRO.Models
             }
         }
 
-
+        public string EduName
+        {
+            get
+            {
+                if (this.Education != null)
+                {
+                    GGZBTQPTDBContext db = new GGZBTQPTDBContext();
+                    return db.T_PTF_DicDetail.Find(this.Education).Name;
+                }
+                else
+                    return "";
+            }
+        }
     }
 }

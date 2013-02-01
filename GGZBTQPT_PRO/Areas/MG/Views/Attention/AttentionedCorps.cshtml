@@ -35,13 +35,20 @@
                         <label>
                             企业机构代码：<span>@_model.Corp.CorpCode</span></label>
                         <label>
-                            注册资金：<span>@_model.Corp.RegCapital</span></label>
+                            注册资金：<span>@_model.Corp.RegCapital （万元）</span></label>
                         <label>
                             企业网站：<span>@_model.Corp.Website</span></label>
                         <label>
                             企业描述:</label>
                         <p>
-                            @Html.Raw((_model.Corp.Remark.Length > 200 ? _model.Corp.Remark.Substring(0, 200) + "..." : _model.Corp.Remark))
+                            @if (_model.Corp.ShowText.Length > 200)
+                            {
+                            <span>@_model.Corp.ShowText.Substring(0, 200)...</span>
+                            }
+                            else
+                            {
+                            <span>@_model.Corp.ShowText</span>
+                            }
                         </p>
                     </p>
                     @*                <p>

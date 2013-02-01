@@ -93,17 +93,16 @@ input,span {font:12px/24px verdana;vertical-align:middle;}
     @foreach (var _model in Model)
     {
         <div class="recommend-content ">
-            <h4>
-                <a href="#">@_model.ItemName</a></h4>
+            <h4>@Html.ActionLink(_model.ItemName, "Details", "Financial", new { id = _model.ID }, null)<span class="pub-time pull-right">@_model.CreateTime.Value.ToString("yyyy年MM月dd日")</span></h4>
             @*摘要*@
             <p class="summary">
-                @if (_model.ItemContent.Length > 300)
+                @if (_model.ShowText.Length > 200)
                 {
-                    <span>@_model.ItemContent.Substring(0, 300)...</span>
+                    <span>@_model.ShowText.Substring(0, 200)...</span>
                 }
                 else
                 {
-                    <span>@_model.ItemContent.Substring(0, _model.ItemContent.Length)</span>
+                    <span>@_model.ShowText</span>
                 }
             </p>
             @*附属信息*@

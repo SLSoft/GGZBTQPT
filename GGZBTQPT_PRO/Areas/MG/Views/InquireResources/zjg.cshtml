@@ -71,14 +71,15 @@
                         </tr>
                         <tr>
                             <td colspan="3">
-                                <span class="ts-l-item-desc">机构简介:@if (_model.Remark.Length > 200)
-                                                                  {
-                                    <span>@_model.Remark.Substring(0, 200)...</span>
-                                                                  }
-                                                                  else
-                                                                  {
-                                    <span>@_model.Remark.Substring(0, _model.Remark.Length)</span>
-                                                                  }
+                                <span class="ts-l-item-desc">机构简介:
+                                @if (_model.ShowRemarkText.Length > 200)
+                                {
+                                    <span>@_model.ShowRemarkText.Substring(0, 200)...</span>
+                                }
+                                else
+                                {
+                                    <span>@_model.ShowRemarkText</span>
+                                }
                                 </span>
                             </td>
                         </tr>

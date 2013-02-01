@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
+using GGZBTQPT_PRO.Util;
 
 namespace GGZBTQPT_PRO.Models
 {
@@ -91,6 +92,12 @@ namespace GGZBTQPT_PRO.Models
 
 
         public virtual ICollection<T_HY_Favorite> Favoites { get; set; }
-
+        public string ShowText
+        {
+            get
+            {
+                return StringHelper.checkStr(this.Superiority);
+            }
+        }
     }
 }

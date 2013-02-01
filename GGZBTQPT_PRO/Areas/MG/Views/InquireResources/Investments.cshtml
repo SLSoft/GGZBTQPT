@@ -118,10 +118,17 @@ input,span {font:12px/24px verdana;vertical-align:middle;}
             @*投资意向信息*@
             <div class="published-content ">
                 <h4>
-                   @Html.ActionLink(_model.ItemName, "Edit", "Investment", new { id = _model.ID }, null)<span class="pub-time pull-right">@_model.CreateTime.Value.ToString("yyyy年MM月dd日")</span></h4>
+                   @Html.ActionLink(_model.ItemName, "Details", "Investment", new { id = _model.ID }, null)<span class="pub-time pull-right">@_model.CreateTime.Value.ToString("yyyy年MM月dd日")</span></h4>
                 @*摘要*@
                 <p class="summary">
-                    <span>@Html.Raw((_model.Description.Length > 200 ? _model.Description.Substring(0, 200) + "..." : _model.Description))</span>
+                    @if (_model.ShowText.Length > 200)
+                    {
+                        <span>@_model.ShowText.Substring(0, 200)...</span>
+                    }
+                    else
+                    {
+                        <span>@_model.ShowText</span>
+                    }
                 </p>
                 @*附属信息*@
                 <div class="published-info">
