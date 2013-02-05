@@ -25,7 +25,18 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
             ViewData["Industry"] = new SelectList(Industry, "ID", "Name", select);
         }
+        public void BindIndustry2(object select = null)
+        {
+            List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
 
+            ViewData["Industry2"] = new SelectList(Industry, "ID", "Name", select);
+        }
+        public void BindIndustry3(object select = null)
+        {
+            List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
+
+            ViewData["Industry3"] = new SelectList(Industry, "ID", "Name", select);
+        }
         public void BindArea(object select = null)
         {
             List<T_PTF_DicTreeDetail> Area = db.T_PTF_DicTreeDetail.Where(p => (p.DicType == "34" && p.Depth == 1)).ToList();
@@ -51,7 +62,8 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             BindArea(t_qy_corp.Province);
             BindIndustry(t_qy_corp.Industry);
             BindProperty(t_qy_corp.Property);
-
+            BindIndustry2(t_qy_corp.Industry2);
+            BindIndustry3(t_qy_corp.Industry3);
             return PartialView(t_qy_corp);
         }
 

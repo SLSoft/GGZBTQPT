@@ -41,6 +41,8 @@ namespace GGZBTQPT_PRO.Models
             CreateTime = DateTime.Now;
             UpdateTime = DateTime.Now;
             Address = " ";
+            Industry2 = 0;
+            Industry3 = 0;
 
         }
 
@@ -76,6 +78,8 @@ namespace GGZBTQPT_PRO.Models
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
         public string Address { get; set; }
+        public Nullable<int> Industry2 { get; set; }
+        public Nullable<int> Industry3 { get; set; }
 
         public int MemberID { get; set; }
 

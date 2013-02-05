@@ -51,6 +51,18 @@ namespace GGZBTQPT_PRO.Controllers
 
             ViewData["Industry"] = new SelectList(Industry, "ID", "Name", select);
         }
+        public void BindIndustry2(object select = null)
+        {
+            List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
+
+            ViewData["Industry2"] = new SelectList(Industry, "ID", "Name", select);
+        }
+        public void BindIndustry3(object select = null)
+        {
+            List<T_PTF_DicDetail> Industry = db.T_PTF_DicDetail.Where(p => (p.DicType == "XM01")).ToList();
+
+            ViewData["Industry3"] = new SelectList(Industry, "ID", "Name", select);
+        }
 
         public void BindArea(object select = null)
         {
@@ -73,6 +85,8 @@ namespace GGZBTQPT_PRO.Controllers
             BindArea();
             BindIndustry();
             BindProperty();
+            BindIndustry2();
+            BindIndustry3();
             ViewBag.MemberID = new SelectList(db.T_HY_Member, "ID", "LoginName");
             var t_qy_corp = new T_QY_Corp();
             return View(t_qy_corp);
@@ -158,7 +172,8 @@ namespace GGZBTQPT_PRO.Controllers
             BindArea(t_qy_corp.Province);
             BindIndustry(t_qy_corp.Industry);
             BindProperty(t_qy_corp.Property);
-            
+            BindIndustry2(t_qy_corp.Industry2);
+            BindIndustry3(t_qy_corp.Industry3);
             ViewBag.MemberID = new SelectList(db.T_HY_Member, "ID", "LoginName", t_qy_corp.MemberID);
             return View(t_qy_corp);
         }
@@ -329,7 +344,7 @@ namespace GGZBTQPT_PRO.Controllers
                 {
                     temp[i] = Convert.ToInt32(collection["txtIndustry"].Split(',')[i]);
                 }
-                t_qy_corp = t_qy_corp.Where(c => temp.Contains((int)c.Industry));
+                t_qy_corp = t_qy_corp.Where(c => temp.Contains((int)c.Industry) || temp.Contains((int)c.Industry2) || temp.Contains((int)c.Industry3));
             }
             IList<GGZBTQPT_PRO.Models.T_QY_Corp> list = t_qy_corp.OrderByDescending(s => s.CreateTime)
                                                         .Skip(numPerPage * (pageNum - 1))

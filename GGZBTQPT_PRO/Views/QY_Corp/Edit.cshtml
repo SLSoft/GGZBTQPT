@@ -152,11 +152,23 @@
                 <tr>
                     <td>@Html.LabelFor(model => model.Industry, "所属行业")
                     </td>
-                    <td>@Html.DropDownList("Industry")
+                    <td colspan="3">
+                        <table>
+                            <tr>
+                                <td style="width:60px">行业一：</td>
+                                <td style="width:120px">@Html.DropDownList("Industry")</td>
+                                <td style="width:60px">行业二：</td>
+                                <td style="width:120px">@Html.DropDownList("Industry2","请选择")</td>
+                                <td style="width:60px">行业三：</td>
+                                <td>@Html.DropDownList("Industry3", "请选择")</td>
+                            </tr>
+                        </table>
                     </td>
+                </tr>
+                <tr>
                     <td>@Html.LabelFor(model => model.Stage, "发展阶段")
                     </td>
-                    <td>@Html.DropDownList("Stage")
+                    <td colspan="3">@Html.DropDownList("Stage")
                     </td>
                 </tr>
                 <tr>

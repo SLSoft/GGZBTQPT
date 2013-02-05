@@ -140,9 +140,26 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Industry, "所属行业")</td>
-                <td>@Html.DropDownList("Industry")</td>
+                <td colspan="3">
+                    <table>
+                        <tr>
+                            <td style="width:150px">行业一（主营行业）：</td>
+                            <td>@Html.DropDownList("Industry")</td>
+                        </tr>
+                        <tr>
+                            <td>行业二（可选）：</td>
+                            <td>@Html.DropDownList("Industry2", "请选择")</td>
+                        </tr>
+                        <tr>
+                            <td>行业三（可选）：</td>
+                            <td>@Html.DropDownList("Industry3", "请选择")</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
                 <td>@Html.LabelFor(model => model.Stage, "发展阶段")</td>
-                <td>@Html.DropDownList("Stage")</td>
+                <td colspan="3">@Html.DropDownList("Stage")</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.LegalPerson, "法人")</td>
