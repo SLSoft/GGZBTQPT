@@ -9,10 +9,11 @@
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
     <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />
+    <input type="hidden" name="parentId" value="@ViewData["parentId"]"  />
     @*<input type="hidden" name="orderField" value="${param.orderField}" />
         <input type="hidden" name="orderDirection" value="${param.orderDirection}" />*@
     </form>
-    <form onsubmit="return divSearch(this,'FolderInfoBox');" action="@Url.Action("FolderList")"
+    <form onsubmit="return divSearch(this,'FolderInfoBox');" action="@Url.Action("FolderList",new { parentId = ViewBag.parentId })"
     method="post">
     <div class="searchBar">
         <ul class="searchContent">
@@ -97,7 +98,7 @@
     <div class="panelBar">
         <div class="pages">
             <span>每页显示</span>
-            <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value,pageNum:1})">
+            <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value,pageNum:1},'FolderInfoBox')">
                 @{  
                     int[] nums = new int[] { 15, 25, 50, 100, 200 };
                     foreach (var num in nums)
@@ -114,7 +115,7 @@
             </select>
             <span>条，共 @ViewData["recordCount"] 条</span>
         </div>
-        <div class="pagination" targettype="navTab" totalcount="@ViewData["recordCount"]" numperpage="@ViewData["numPerPage"]" pagenumshown="10"  
+        <div rel="FolderInfoBox" class="pagination" targettype="navTab" totalcount="@ViewData["recordCount"]" numperpage="@ViewData["numPerPage"]" pagenumshown="10"  
                currentpage="@ViewData["pageNum"]">
         </div>
     </div>
