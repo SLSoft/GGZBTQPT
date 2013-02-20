@@ -12,7 +12,7 @@
     @*<input type="hidden" name="orderField" value="${param.orderField}" />
         <input type="hidden" name="orderDirection" value="${param.orderDirection}" />*@
     </form>
-    <form onsubmit="return navTabSearch(this);" action="@Url.Action("FileList")"
+    <form onsubmit="return navTabSearch(this);" rel="pagerForm"  action="@Url.Action("FileList")"
     method="post">
     <div class="searchBar">
         <ul class="searchContent">
@@ -120,7 +120,7 @@
             </select>
             <span>条，共 @ViewData["recordCount"] 条</span>
         </div>
-        <div class="pagination" targettype="navTab" totalcount="@ViewData["recordCount"]" numperpage="@ViewData["numPerPage"]" pagenumshown="10"  
+        <div rel="FileInfoBox" class="pagination" targettype="navTab" totalcount="@ViewData["recordCount"]" numperpage="@ViewData["numPerPage"]" pagenumshown="10"  
                currentpage="@ViewData["pageNum"]">
         </div>
     </div>

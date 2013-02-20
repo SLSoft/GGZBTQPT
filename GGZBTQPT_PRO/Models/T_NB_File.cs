@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GGZBTQPT_PRO.Models
 {
@@ -20,7 +21,7 @@ namespace GGZBTQPT_PRO.Models
         public int ID { get; set; }
         public int SendUserId { get; set; } //发送人
 
-        [Required(ErrorMessage = "必须填标题")]
+        [Required(ErrorMessage = "此项必须填写")]
         public string Title { get; set; }//标题
 
         public byte[] File { get; set; }//文件
@@ -30,10 +31,10 @@ namespace GGZBTQPT_PRO.Models
         public DateTime CreatedTime { get; set; }
         public Boolean IsShare { get; set; }
         public DateTime UpdateTime { get; set; }
+        public Boolean IsFolder { get; set; }
+        public int ParentID { get; set; }
 
         public virtual T_ZC_User SendUser { get; set; }
         public virtual ICollection<T_ZC_User> ReceiveUsers { get; set; }//收件人(多个用户)
-
-
     }
 }

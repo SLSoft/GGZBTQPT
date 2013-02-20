@@ -9,6 +9,10 @@ using GGZBTQPT_PRO.Enums;
 using GGZBTQPT_PRO.ViewModels;
 using System.Data;
 using System.Configuration;
+using System.Text;
+using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
+using System.Web.UI;
 
 namespace GGZBTQPT_PRO.Controllers
 {
@@ -25,7 +29,7 @@ namespace GGZBTQPT_PRO.Controllers
 
             T_ZC_User current_user = CurrentUser();
 
-            IList<T_NB_File> list = db.T_NB_File.Where(p =>p.SendUserId == current_user.ID && p.Title.Contains(keywords) && p.IsValid == true && p.IsShare == false)
+            IList<T_NB_File> list = db.T_NB_File.Where(p =>p.SendUserId == current_user.ID && p.Title.Contains(keywords) && p.IsValid == true && p.IsShare == false && p.IsFolder == false)
                                                             .OrderByDescending(s => s.UpdateTime)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
@@ -44,7 +48,7 @@ namespace GGZBTQPT_PRO.Controllers
 
             T_ZC_User current_user = CurrentUser();
 
-            IList<T_NB_File> list = current_user.ReceiveFiles.Where(p => p.Title.Contains(keywords) && p.IsValid == true && p.IsShare == false)
+            IList<T_NB_File> list = current_user.ReceiveFiles.Where(p => p.Title.Contains(keywords) && p.IsValid == true && p.IsShare == false && p.IsFolder == false)
                                                             .OrderByDescending(s => s.UpdateTime)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
@@ -62,7 +66,7 @@ namespace GGZBTQPT_PRO.Controllers
         {
             keywords = keywords == null ? "" : keywords;
 
-            IList<T_NB_File> list = db.T_NB_File.Where(p => p.Title.Contains(keywords) && p.IsValid == true && p.IsShare == false)
+            IList<T_NB_File> list = db.T_NB_File.Where(p => p.Title.Contains(keywords) && p.IsValid == true && p.IsShare == false && p.IsFolder == false)
                                                             .OrderByDescending(s => s.UpdateTime)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
@@ -75,14 +79,15 @@ namespace GGZBTQPT_PRO.Controllers
         #endregion
 
         #region 新增
-        public ActionResult Create(int UpType)
+        public ActionResult Create(int UpType,int parentId)
         {
             ViewBag.UpType = UpType;
+            ViewBag.parentId = parentId;
             return View();
         }
 
         [HttpPost, ActionName("Create")]
-        public ActionResult Create(T_NB_File t_nb_file, int UpType)
+        public ActionResult Create(T_NB_File t_nb_file, int UpType,int parentId)
         {
             if (Request.IsAjaxRequest())
             {
@@ -91,6 +96,7 @@ namespace GGZBTQPT_PRO.Controllers
                     t_nb_file.CreatedTime = DateTime.Now;
                     t_nb_file.UpdateTime = DateTime.Now;
                     t_nb_file.SendUserId = CurrentUser().ID;
+                    t_nb_file.ParentID = parentId;
 
                     if (Session["NbFile"] != null && Session["NbFile"].ToString() != "")
                     {
@@ -105,6 +111,10 @@ namespace GGZBTQPT_PRO.Controllers
                             }
                             else
                             {
+                                if (parentId == 0)
+                                {
+                                    return ReturnJson(false, "请选择有效的文件夹", "", "", false, "");
+                                }
                                 t_nb_file.FileUrl = UpLoadFile(stream);
                                 t_nb_file.IsShare = true;
                             }
@@ -213,7 +223,7 @@ namespace GGZBTQPT_PRO.Controllers
         {
             ZC_RoleController zc_role = new ZC_RoleController();
 
-            //查询接收改文件的用户
+            //查询接收文件的用户
             string selected_users = zc_role.GenerateStringFromList(db.T_NB_File.Find(id).ReceiveUsers.Where(p => p.IsValid == true).ToList());
             ViewBag.selected_users = selected_users;
 
@@ -345,36 +355,178 @@ namespace GGZBTQPT_PRO.Controllers
 
         public ActionResult DownFile(int id)
         {
-            var nb_file = db.T_NB_File.Find(id);
-            var filePath = "";
-            if (nb_file.FileUrl != null)
-            {
-                string locaUrl = ConfigurationSettings.AppSettings["Url"];
-                filePath = locaUrl + nb_file.FileUrl;
-            }
+            ZC_RoleController zc_role = new ZC_RoleController();
 
-            return File(filePath, "application/msword", nb_file.FileName != null ? nb_file.FileName : nb_file.Title);
+            string selected_users = zc_role.GenerateStringFromList(db.T_NB_File.Find(id).ReceiveUsers.Where(p => p.IsValid == true).ToList());
+            if (selected_users.IndexOf(CurrentUser().ID.ToString()) > 0)
+            {
+                var nb_file = db.T_NB_File.Find(id);
+                var filePath = "";
+                if (nb_file.FileUrl != null)
+                {
+                    string locaUrl = ConfigurationSettings.AppSettings["Url"];
+                    filePath = locaUrl + nb_file.FileUrl;
+                }
+
+                return File(filePath, "application/msword", nb_file.FileName != null ? nb_file.FileName : nb_file.Title);
+            }
+            else
+            {
+                return ReturnJson(false, "无权限下载", "", "FileInfoBox", false, "");
+            }
         }
         #endregion
 
         #region 文件共享
-        public ActionResult FileShare(string keywords, int pageNum = 1, int numPerPage = 15)
+        public ActionResult ShareIndex()
+        {
+            return View();
+        }
+
+        public ActionResult FileTree()
+        {
+            var folder = new VM_Folder();
+            folder.ParentFolder = db.T_NB_File.Where(p => p.IsValid == true && p.IsFolder == true && p.ParentID == 0).ToList();
+            folder.Folder = db.T_NB_File.Where(p => p.IsValid == true && p.ParentID != 0).ToList(); ;
+
+            return View(folder);
+        }
+
+        public ActionResult FileShare(string keywords,int parentId, int pageNum = 1, int numPerPage = 15)
         {
             keywords = keywords == null ? "" : keywords;
 
             T_ZC_User current_user = CurrentUser();
 
-            IList<T_NB_File> list = db.T_NB_File.Where(p => p.Title.Contains(keywords) && p.IsValid == true && p.IsShare == true)
+            IList<T_NB_File> list = db.T_NB_File.Where(p => p.Title.Contains(keywords) && p.ParentID == parentId && p.IsValid == true && p.IsShare == true)
                                                             .OrderByDescending(s => s.UpdateTime)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
-            ViewBag.recordCount = db.T_NB_File.Where(p => p.Title.Contains(keywords) && p.IsValid == true && p.IsShare == true).Count();
+            ViewBag.recordCount = db.T_NB_File.Where(p => p.Title.Contains(keywords) && p.ParentID == parentId && p.IsValid == true && p.IsShare == true).Count();
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
+            ViewBag.parentId = parentId;
 
             return View(list);
         }
+        #endregion
+
+        #region 文件夹管理
+        public ActionResult FolderTree()
+        {
+            var folder = new VM_Folder();
+            folder.ParentFolder = db.T_NB_File.Where(p => p.IsValid == true && p.IsFolder == true && p.ParentID == 0).ToList();
+            folder.Folder = db.T_NB_File.Where(p => p.IsValid == true && p.IsFolder == true).ToList(); ;
+
+            return View(folder);
+        }
+
+        public ActionResult FolderIndex()
+        {
+            return View();
+        }
+
+        public ActionResult FolderList(string keywords, int parentId, int pageNum = 1, int numPerPage = 15)
+        {
+            keywords = keywords == null ? "" : keywords;
+
+            IList<T_NB_File> list = db.T_NB_File.Where(p => p.Title.Contains(keywords) && p.ParentID == parentId && p.IsValid == true && p.IsFolder == true)
+                                                            .OrderBy(s => s.ID)
+                                                            .Skip(numPerPage * (pageNum - 1))
+                                                            .Take(numPerPage).ToList();
+            ViewBag.recordCount = db.T_NB_File.Where(p => p.Title.Contains(keywords) && p.ParentID == parentId && p.IsValid == true && p.IsFolder == true).Count();
+            ViewBag.numPerPage = numPerPage;
+            ViewBag.pageNum = pageNum;
+            ViewBag.keywords = keywords;
+            ViewBag.parentId = parentId;
+
+            return View(list);
+        }
+
+        public ActionResult FolderCreate(int parentId)
+        {
+            ViewBag.parentId = parentId;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult FolderCreate(int parentId, FormCollection collection)
+        {
+            if (Request.IsAjaxRequest())
+            {
+                if (ModelState.IsValid)
+                {
+                    T_NB_File t_nb_file = new T_NB_File();
+                    t_nb_file.CreatedTime = DateTime.Now;
+                    t_nb_file.UpdateTime = DateTime.Now;
+                    t_nb_file.SendUserId = CurrentUser().ID;
+                    t_nb_file.Title = collection["Title"].ToString();
+                    t_nb_file.IsFolder = true;
+                    t_nb_file.ParentID = parentId;
+
+                    db.T_NB_File.Add(t_nb_file);
+
+                    int result = db.SaveChanges();
+                    if (result > 0)
+                    {
+                        return ReturnJson(true, "操作成功", "", "", true, "");
+                    }
+                    else
+                    {
+                        return ReturnJson(false, "操作失败", "", "", false, "");
+                    }
+                }
+            }
+            return Json(new { });
+        }
+
+        public ActionResult FolderEdit(int id)
+        {
+            T_NB_File t_nb_file = db.T_NB_File.Find(id);
+            return View(t_nb_file);
+        }
+
+        [HttpPost]
+        public ActionResult FolderEdit(int id, FormCollection collection)
+        {
+            if (Request.IsAjaxRequest())
+            {
+                if (ModelState.IsValid)
+                {
+                    T_NB_File t_nb_file = db.T_NB_File.Find(id);
+                    t_nb_file.Title = collection["Title"].ToString();
+                    t_nb_file.UpdateTime = DateTime.Now;
+                    t_nb_file.SendUserId = CurrentUser().ID;
+
+                    db.Entry(t_nb_file).State = EntityState.Modified;
+                    int result = db.SaveChanges();
+                    if (result >= 0)
+                        return ReturnJson(true, "操作成功", "FolderInfoBox", "", true, "FolderList");
+                    else
+                        return ReturnJson(false, "操作失败", "", "", false, "");
+                }
+            }
+            return Json("");
+        }
+
+        [HttpPost]
+        public ActionResult FolderDelete(int id)
+        {
+            if (Request.IsAjaxRequest())
+            {
+                T_NB_File t_nb_file = db.T_NB_File.Find(id);
+                t_nb_file.IsValid = false;
+                db.Entry(t_nb_file).State = EntityState.Modified;
+                int result = db.SaveChanges();
+                if (result > 0)
+                    return ReturnJson(true, "操作成功", "FolderInfoBox", "", true, "FolderList");
+                else
+                    return ReturnJson(false, "操作失败", "", "", false, "");
+            }
+            return Json("");
+        }
+
         #endregion
 
         protected override void Dispose(bool disposing)

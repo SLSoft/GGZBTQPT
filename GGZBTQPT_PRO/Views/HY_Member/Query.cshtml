@@ -59,6 +59,9 @@
                 创建时间
             </th>
             <th>
+                更新时间
+            </th>
+            <th>
                 项目数
             </th>
             <th>
@@ -83,43 +86,46 @@
                 @Html.DisplayFor(modelItem => item.Member.CellPhone)
             </td>
             <td>
-                @item.Member.TypeName
+                @Html.DisplayFor(modelItem => item.Member.TypeName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Member.CreatedAt)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.UpdatedAt)
+            </td>
             @if (@item.FinancingCount > 0)
             {
             <td>
-                @Html.ActionLink(@item.FinancingCount.ToString(), "FinancingList", "HY_Member", new { memberId = item.Member.ID }, new { target = "dialog", mask = "true",title="项目详情",width = "550", height = "350" })
+                @Html.ActionLink(item.FinancingCount.ToString(), "FinancingList", "HY_Member", new { memberId = item.Member.ID }, new { target = "dialog", mask = "true",title="项目详情",width = "550", height = "350" })
             </td>
             }
             else
             {
-                <td>@item.FinancingCount</td>
+                <td>@Html.DisplayFor(modelItem => item.FinancingCount)</td>
             }
             @if (@item.InvestmentCount > 0)
             {
                 <td>
-                    @Html.ActionLink(@item.InvestmentCount.ToString(), "InvestmentList", "HY_Member", new { memberId = item.Member.ID }, new { target = "dialog", mask = "true", title = "意向详情", width = "550", height = "350" })
+                    @Html.ActionLink(item.InvestmentCount.ToString(), "InvestmentList", "HY_Member", new { memberId = item.Member.ID }, new { target = "dialog", mask = "true", title = "意向详情", width = "550", height = "350" })
                 </td>
             }
             else
             {
             <td>
-                @item.InvestmentCount
+                @Html.DisplayFor(modelItem => item.InvestmentCount)
             </td>
             }
             @if (@item.ProductCount > 0)
             {
                 <td>
-                    @Html.ActionLink(@item.ProductCount.ToString(), "ProductList", "HY_Member", new { memberId = item.Member.ID }, new { target = "dialog", mask = "true", title = "产品详情", width = "550", height = "350" })
+                    @Html.ActionLink(item.ProductCount.ToString(), "ProductList", "HY_Member", new { memberId = item.Member.ID }, new { target = "dialog", mask = "true", title = "产品详情", width = "550", height = "350" })
                 </td>
             }
             else
             {
             <td>
-                @item.ProductCount
+                @Html.DisplayFor(modelItem => item.ProductCount)
             </td>
             }
         </tr>

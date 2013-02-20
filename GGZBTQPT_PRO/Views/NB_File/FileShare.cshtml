@@ -4,7 +4,7 @@
     Layout = null;
 }
 
-<div class="pageHeader">
+<div class="pageHeader" style="border-left: 1px #B8D0D6 solid; border-right: 1px #B8D0D6 solid; border-top:1px #B8D0D6 solid;">
     <form id="pagerForm" method="post" action="@Url.Action("FileShare")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
@@ -38,10 +38,10 @@
     </div>
     </form>
 </div>
-<div class="pageContent">
+<div class="pageContent" style="border-left: 1px #B8D0D6 solid; border-right: 1px #B8D0D6 solid">
     <div class="panelBar">
         <ul class="toolBar">
-            <li><a class="add" href="@Url.Action("create", "NB_File", new { UpType = 2})" rel="create" target="dialog" width="400"
+            <li><a class="add" href="@Url.Action("create", "NB_File", new { UpType = 2,parentId = ViewBag.parentId})" rel="create" target="dialog" width="400"
                 height="300" title="添加新的文件" mask="true"><span>添加</span></a></li>
             <li><a class="edit" href="@Url.Action("edit", "NB_File", new { id = "{mid}", UpType = 2})" rel="edit" target="dialog" width="400"
                 height="300" title="编辑文件信息" mask="true" warn="请选择一条文件数据"><span>编辑</span></a></li>
@@ -50,7 +50,7 @@
             <li class="line">line</li>
         </ul>
     </div>
-    <div layouth="116" id="divList">
+    <div layouth="121" id="divList">
         <table  class="list" width="100%" asc="asc" desc="desc">
             <thead>
             <tr>

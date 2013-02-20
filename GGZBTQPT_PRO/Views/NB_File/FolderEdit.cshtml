@@ -1,0 +1,42 @@
+﻿@model GGZBTQPT_PRO.Models.T_NB_File
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+    $.validator.unobtrusive.parse(document);
+</script>
+
+<div id="FormContainer" class="pageContent">
+    @using (Html.BeginForm("FolderEdit", "NB_File", new { id=Model.ID}, FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
+    {
+        @Html.ValidationSummary(true)
+        <div class="pageFormContent" layouth="60">
+            <p>
+                @Html.LabelFor(model => model.Title, "文件夹名称")
+                @Html.EditorFor(model => model.Title)
+                @Html.ValidationMessageFor(model => model.Title)
+            </p>
+        </div>
+
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">
+                                保存</button></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close">
+                                取消</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    }
+</div>

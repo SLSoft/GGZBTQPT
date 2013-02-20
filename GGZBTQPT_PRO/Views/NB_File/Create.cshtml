@@ -6,7 +6,7 @@
     $.validator.unobtrusive.parse(document);
 </script>
 <div class="pageContent">
-    @using (Html.BeginForm("Create", "NB_File", new { UpType = @ViewBag.UpType }, FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
+    @using (Html.BeginForm("Create", "NB_File", new { UpType = ViewBag.UpType ,parentId = ViewBag.parentId}, FormMethod.Post, new { onsubmit = "return validateCallback(this,dialogAjaxDone)", @class = "pageForm" }))
     {
         @Html.ValidationSummary(true)
 

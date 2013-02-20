@@ -1,0 +1,54 @@
+﻿@model GGZBTQPT_PRO.ViewModels.VM_Folder
+@{
+    Layout = null;
+}
+
+@helper GenerateFolder(string selected_Folders, GGZBTQPT_PRO.Models.T_NB_File file)
+{
+    if (selected_Folders.IndexOf(file.ID.ToString()) >= 0)
+    { 
+        @Html.ActionLink(file.Title, "FileShare", "NB_File", new { parentId = @file.ID }, new { target = "ajax", @checked = "true", rel = "FileInfoBox" })
+    }
+    else
+    { 
+        if (file.IsFolder)
+        {
+            @Html.ActionLink(file.Title, "FileShare", "NB_File", new { parentId = @file.ID }, new { target = "ajax", rel = "FileInfoBox" })
+        }
+        else
+        {
+            <a>@file.FileName</a>
+        }
+    }    
+}
+
+@helper GenerateFolders(IEnumerable<GGZBTQPT_PRO.Models.T_NB_File> files)
+    {    
+        foreach (var file in files)
+        {   
+        <ul>
+            <li>
+                @GenerateFolder(file.ParentID.ToString(), file)
+                @if (Model.Folder.Where(m => m.ParentID == @file.ID).Count() > 0)
+                { 
+                    @GenerateFolders(Model.Folder.Where(m => m.ParentID == @file.ID).ToList())
+                }
+            </li>
+        </ul>
+        }        
+}
+
+<ul class="tree treeFolder select-tree">
+    <li>
+        @Html.ActionLink("文件夹管理列表", "FileShare", "NB_File", new { parentId = 0 }, new { target = "ajax", rel = "FileInfoBox" })
+        <ul >
+            @foreach (var parent in Model.ParentFolder)
+            { 
+                <li>
+                    @Html.ActionLink(parent.Title, "FileShare", "NB_File", new { parentId = parent.ID }, new { target = "ajax", rel = "FileInfoBox" })
+                    @GenerateFolders(Model.Folder.Where(m => (m.ParentID == @parent.ID)))
+                </li> 
+            }
+        </ul>
+    </li>
+</ul>

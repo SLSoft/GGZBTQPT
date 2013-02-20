@@ -29,7 +29,7 @@ namespace GGZBTQPT_PRO.Controllers
             keywords = keywords == null ? "" : keywords;
 
             IList<GGZBTQPT_PRO.Models.T_HY_Member> list = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords) && p.IsValid == true && p.IsVerified == true)
-                                                            .OrderBy(s => s.ID)
+                                                            .OrderByDescending(s => s.UpdatedAt)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
 
@@ -174,7 +174,7 @@ namespace GGZBTQPT_PRO.Controllers
             keywords = keywords == null ? "" : keywords;
 
             IList<GGZBTQPT_PRO.Models.T_HY_Member> list = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords) && p.IsValid == true && p.State == 0)
-                                                            .OrderBy(s => s.ID)
+                                                            .OrderByDescending(s => s.ID)
                                                             .Skip(numPerPage * (pageNum - 1))
                                                             .Take(numPerPage).ToList();
 
@@ -208,7 +208,7 @@ namespace GGZBTQPT_PRO.Controllers
             }
             tqCount = tq.Count();
 
-            IList<T_HY_Member> list = tq.OrderBy(s => s.ID)
+            IList<T_HY_Member> list = tq.OrderByDescending(s => s.ID)
                                                        .Skip(numPerPage * (pageNum - 1))
                                                        .Take(numPerPage).ToList();
             ViewBag.recordCount = tqCount;
@@ -366,7 +366,7 @@ namespace GGZBTQPT_PRO.Controllers
                 tq = tq.Where(p => p.Type == type);
             }
             tqCount = tq.Count();
-            tq = tq.OrderBy(s => s.ID).Skip(numPerPage * (pageNum - 1)).Take(numPerPage);
+            tq = tq.OrderByDescending(s => s.UpdatedAt).Skip(numPerPage * (pageNum - 1)).Take(numPerPage);
 
             IList<VM_MemberRelease> list = tq.Select(w => new VM_MemberRelease
                                                     {

@@ -131,5 +131,11 @@ namespace GGZBTQPT_PRO.ViewModels
         public int Count { get; set; }
         public decimal Sum { get; set; }
     }
+
+    public class VM_Folder
+    {
+        public ICollection<T_NB_File> ParentFolder { get; set; }
+        public ICollection<T_NB_File> Folder { get; set; }
+    }
 }
 
