@@ -11,7 +11,6 @@ using GGZBTQPT_PRO.Areas.MG.Filter;
 
 namespace GGZBTQPT_PRO.Areas.MG.Controllers
 {
-    [MemberFilter()]
     public class InquireResourcesController : BaseController
     {
 
