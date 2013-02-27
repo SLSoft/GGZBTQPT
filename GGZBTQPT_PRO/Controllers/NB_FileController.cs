@@ -353,11 +353,11 @@ namespace GGZBTQPT_PRO.Controllers
             return File(file, "application/msword", nb_file.FileName != null ? nb_file.FileName : nb_file.Title);
         }
 
-        public ActionResult DownFile(int id)
+        public ActionResult DownFile(int id,int parentId)
         {
             ZC_RoleController zc_role = new ZC_RoleController();
 
-            string selected_users = zc_role.GenerateStringFromList(db.T_NB_File.Find(id).ReceiveUsers.Where(p => p.IsValid == true).ToList());
+            string selected_users = zc_role.GenerateStringFromList(db.T_NB_File.Find(parentId).ReceiveUsers.Where(p => p.IsValid == true).ToList());
             if (selected_users.IndexOf(CurrentUser().ID.ToString()) > 0)
             {
                 var nb_file = db.T_NB_File.Find(id);

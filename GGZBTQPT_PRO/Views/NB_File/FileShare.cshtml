@@ -89,7 +89,7 @@
                 </td>
                 <td>
                     
-                     @Html.ActionLink(item.FileName, "DownFile", new { id = item.ID })
+                     @Html.ActionLink(item.FileName, "DownFile", new { id = item.ID, parentId=item.ParentID })
                 </td>
                 <td>
                     @item.CreatedTime
