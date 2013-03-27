@@ -1,25 +1,24 @@
-﻿@model Webdiyer.WebControls.Mvc.PagedList<GGZBTQPT_PRO.Models.T_JG_Product>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+@model Webdiyer.WebControls.Mvc.PagedList<GGZBTQPT_PRO.Models.T_JG_Product>
 @{
     Layout = null;
 }
 <script src="@Url.Content("~/Public/bootstrap/js/jquery.1.7.2.js")" type="text/javascript"></script>
-<link href="@Url.Content("~/Areas/MG/Content/css/wscss/news_css.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Areas/MG/Content/css/wscss/style.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Areas/MG/Content/css/wscss/qy.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Areas/MG/Content/css/wscss/query.css")" rel="stylesheet" type="text/css" />
 @helper GenerateCustomerType()
     {
         foreach (var item in ViewData["CustomerType"] as SelectList)
         {
-    <li>
-        <input type="checkbox" name="cbCustomerType" value="@item.Value" /><span>@item.Text</span></li>
+    <em>
+        <input type="checkbox" name="cbCustomerType" value="@item.Value" /><span class="tbs">@item.Text</span></em>
         }
 }
 @helper GenerateAgency()
     {
         foreach (var item in ViewData["AgencyList"] as SelectList)
         {
-    <li>
-        <input type="checkbox" name="cbAgency" value="@item.Value" /><span>@item.Text</span></li>
+    <em>
+        <input type="checkbox" name="cbAgency" value="@item.Value" /><span class="tbs">@item.Text</span></em>
         }
 }
 <script type="text/javascript">
@@ -67,193 +66,81 @@
 </script>
 @using (Html.BeginForm())
 {
-    <div class="article730">
-        <div class="ts">
-            <div class="p_mid">
-                <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item form-tb">
-                    <tr>
-                        <td width="91">
-                            已经选择：
-                        </td>
-                        <td><div id="message" name="mes" style="color:Red;">@ViewBag.context</div></td>
-                    </tr>
-                </table>
-                <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item form-tb">
-                    <tr>
-                        <td width="91">
-                            按贷款类型：
-                        </td>
-                        <td width="637" colspan="7">
-                            <div class="newsbox">
-                                <ul class="newslist _qy">
-                                    @GenerateCustomerType()
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item form-tb">
-                    <tr>
-                        <td width="91">
-                            按贷款期限：
-                        </td>
-                        <td width="637" colspan="7">
-                            <div class="newsbox">
-                                <ul class="newslist _qy">
-                                    <li>
-                                        <input type="checkbox" name="cbLimit" value="<3" title="3个月" /><span>3个月</span></li>
-                                    <li>
-                                        <input type="checkbox" name="cbLimit" value="<6" title="6个月" /><span>6个月</span></li>
-                                    <li>
-                                        <input type="checkbox" name="cbLimit" value="<12" title="1年" /><span>1年</span></li>
-                                    <li>
-                                        <input type="checkbox" name="cbLimit" value="<24" title="2年" /><span>2年</span></li>
-                                    <li>
-                                        <input type="checkbox" name="cbLimit" value="<36" title="3年" /><span>3年</span></li>
-                                    <li>
-                                        <input type="checkbox" name="cbLimit" value=">36" title="3年以上" /><span>3年以上</span></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                    <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item form-tb">
-                    <tr>
-                        <td width="91">
-                            按贷款机构：
-                        </td>
-                        <td width="637" colspan="7">
-                            <div class="newsbox">
-                                <ul class="newslist _qy">
-                                    @GenerateAgency()
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    </table>
-                    <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item form-tb">
-                        <tr>
-                            <td width="91">
-                                按资金范围：
-                            </td>
-                            <td width="637" colspan="7">
-                                <div class="newsbox">
-                                    <ul class="newslist _qy">
-                                        <li>
-                                            <input type="checkbox" name="cbFinancial" value="<10" title="1-10万" /><span>1-10万</span></li>
-                                        <li>
-                                            <input type="checkbox" name="cbFinancial" value="between 10 and 100" title="10-100万" /><span>10-100万</span></li>
-                                        <li>
-                                            <input type="checkbox" name="cbFinancial" value="between 100 and 500" title="100-500万" /><span>100-500万</span></li>
-                                        <li>
-                                            <input type="checkbox" name="cbFinancial" value="between 500 and 1000" title="500-1000万" /><span>500-1000万</span></li>
-                                        <li>
-                                            <input type="checkbox" name="cbFinancial" value="between 1000 and 5000" title="1000-5000万" /><span>1000-5000万</span></li>
-                                        <li>
-                                            <input type="checkbox" name="cbFinancial" value="between 5000 and 10000" title="5000万-1亿" /><span>5000万-1亿</span></li><br />
-                                        <li>
-                                            <input type="checkbox" name="cbFinancial" value=">10000" title="大于1亿" /><span>大于1亿</span></li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                    <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item form-tb">
-                    <tr>
-                        <td width="91"><label>
-                            按产品名称：</label></td>
-                        <td  align="left"><input type="text" name="keys"  />（输入产品名称关键字）
-                        </td>
-                        </tr>
-                    </table>
-                    <table width="728">
-                    <tr>
-                            <td align="right"><input type="submit" name="button" value="搜  索" class="btn_query" /></td>
-                        </tr>
-                    </table>
-                <div class="ts-con">
-                    <h3 class="ts-con-t">
-                        <a href="#" class="first"><span class="_text">所有信息</span></a>
-                        
-                    </h3>
-                    <div class="ts-con-btn">
-                        <span class="btn1">
-                            <div class="icon">
-                            </div>
-                            <span class="_text">默认排序</span></span> <span class="btn1">
-                                <div class="icon">
-                                </div>
-                                <span class="_text">回应数</span></span> <span class="btn1">
-                                    <div class="icon">
-                                    </div>
-                                    <span class="_text">评论数</span></span> <span class="btn1">
-                                        <div class="icon">
-                                        </div>
-                                        <span class="_text">收藏数</span></span> <span class="btn1">
-                                            <div class="icon">
-                                            </div>
-                                            <span class="_text">点击数</span></span> <span class="lnum"><span class="_text">显示数量：</span> <a href="#">20</a><a href="#">30</a><a href="#">40</a> </span><span class="lselect"></span>
-                    </div>
-                    <div class="ts-list">
-                        @foreach (var _model in Model)
-                        {
-                            var yy = "http://www.ovcstf.com/Default_760_" + _model.ID + ",1.html";
-                            <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item content-tb">
-                                <tr>
-                                    <td colspan="2" align="left" class="tq-up-num">
-                                        <a target="_blank" href="@yy" class="itemtitle">@_model.ProductName</a>
-                                    </td>
-                                    <td align="left">
-                                        登记时间：@_model.CreateTime.Value.ToString("yyyy-MM-dd")
-                                    </td>
-                                    <td width="130" rowspan="4">
-                                        <div class="ts-l-item-r">
-                                            <p class="_addfocusbtn">
-                                                <a href="#">在线申请</a></p>
-                                            <p class="_focusnum">
-                                                <em class="_num"></em>
-                                            </p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="_label">所属机构：</span>@_model.AgencyName
-                                    </td>
-                                    <td>
-                                        <span class="_label">最高融资额度：</span>@_model.FinancingAmount
-                                    </td>
-                                    <td>&nbsp;
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3">
-                                        <span class="ts-l-item-desc">产品优势:
-                                        @if (_model.ShowText.Length > 200)
-                                        {
-                                        <span>@_model.ShowText.Substring(0, 200)...</span>
-                                        }
-                                        else
-                                        {
-                                        <span>@_model.ShowText</span>
-                                        }
-                                            <a target="_blank" href="@yy">【查看详情】</a></span>
-                                    </td>
-                                </tr>
-                            </table>
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="news_left">
+    <div class="news_nav"></div>
+  <div class="pm page_pl10"> <a href="#" class="current">搜索条件</a> </div>
+  <div class="page_xm">
+    <div class="ts-item">
+        <dl>
+        <dt>已经选择：</dt>
+        <dd>
+            <div id="message" name="mes" style="color:Red; width:90%;float:left">@ViewBag.context</div>&nbsp;
+        </dd>
+        <dt>按贷款类型：</dt>
+        <dd>@GenerateCustomerType()</dd>
+        <dt>按贷款期限：</dt>
+        <dd>
+            <em>
+                <input type="checkbox" name="cbLimit" value="<=36" title="3年" /><span class="tbs">3年以下</span></em>
+            <em>
+                <input type="checkbox" name="cbLimit" value=">36" title="3年以上" /><span class="tbs">3年以上</span></em>
+        </dd>
+        <dt>按贷款机构：</dt>
+        <dd>@GenerateAgency()</dd>
+        <dt>按资金范围：</dt>
+        <dd>
+            <em>
+                <input type="checkbox" name="cbFinancial" value="<=500" title="1-500万" /><span class="tbs">1-500万</span></em>
+            <em>
+                <input type="checkbox" name="cbFinancial" value="between 500 and 10000" title="500-1000万" /><span class="tbs">500-1亿</span></em>
+            <em>
+                <input type="checkbox" name="cbFinancial" value=">10000" title="大于1亿" /><span class="tbs">大于1亿</span></em>
+        </dd>
+        <dt>按产品名称：</dt>
+        <dd>
+            <input type="text" name="keys"  />（输入产品名称关键字）
+            <input type="submit" name="button" value="" class="ts_buttom" />
+        </dd>
+        </dl>
     </div>
-    if (ViewBag.Message != null)
+  </div>
+  <div class="pm page_pl10"> <a href="#" class="current">搜索信息</a> </div>
+  <div class="page_xm">
+    <div class="ts-list">
+      <div class="ts-l-item"></div>
+    </div>
+    <div class="fs-content">
+    @if (ViewBag.Message != null)
     {
         <span style="font-weight:bold; font-size:large;">@ViewBag.Message</span>
     }
-    <div id="pager">
+       @foreach (var _model in Model)
+       {
+           var yy = "http://www.ovcstf.com/Default_760_" + _model.ID + ",1.html";
+           <ul class="fs-c-list">
+            <li>
+              <h3><span class="dot">■</span><a target="_blank" href="@yy" class="itemtitle">@_model.ProductName</a><em>&nbsp;登记时间：@_model.CreateTime.Value.ToString("yyyy-MM-dd")</em> </h3>
+              <div class="fs-c-c">
+              <span class="_label">所属机构：</span>@_model.AgencyName
+              <br />
+                @if (_model.ShowText.Length > 200)
+                {
+                <span>@_model.ShowText.Substring(0, 200)...</span>
+                }
+                else
+                {
+                <span>@_model.ShowText</span>
+                }
+                <a target="_blank" href="@yy">【查看详情】</a></div>
+            </li>
+          </ul>
+       }
+    </div>
+  </div>
+  <div id="pager">
     @Html.AjaxPager(Model, new PagerOptions { PageIndexParameterName = "id", ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }, new AjaxOptions { HttpMethod = "POST" })
     </div>
+</div>
     <div style="display:none">
                 <input id="condition1" type="text" name="condition1" style="width:600px" value="@ViewBag.condition1" />
                 <input id="condition2" type="text" name="condition2" style="width:600px" value="@ViewBag.condition2" />
@@ -262,12 +149,5 @@
                 <input id="context" type="text" name="context" value="@ViewBag.context" /></div>
 }
 
-<script type="text/javascript">
-    function notice(data) {
-        $("#recommend li.active a").click();
-        $.Member.notice(data);
-    }
-    $.Member.replaceBlankForMVCPager();
-    $.Member.rounded();
-</script>
+
 

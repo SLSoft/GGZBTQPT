@@ -1,0 +1,230 @@
+﻿html, body {
+	margin:0;
+	padding:0;
+}
+body {
+	font:12px/25px "微软雅黑";
+	color:#333;
+	word-break:break-all;
+}
+div, span, ul, li, dl, dd, dt, h1, h2, h3, h4, h5, h6, img, form, legend, fieldset, input, button, label, table, thead, tbody, th, tr, td, b, p, select, em {
+	margin:0;
+	padding:0;
+}
+ul, li {
+	list-style:none;
+}
+img {
+	display:block;
+}
+.clear {
+	clear:both;
+	height:0;
+	line-height:0;
+	font-size:0;
+	overflow:hidden;
+}
+.icon {
+	position:absolute;
+	width:16px;
+	height:16px;
+}
+a {
+	color:#333;
+	text-decoration:none;
+}
+a:hover {
+	color:#f60;
+	text-decoration: none;
+}
+a.more {
+	float:right;
+	display:inline;
+	font-size:12px;
+	font-weight:normal;
+}
+.news_left {
+	width:750px;
+	height:100%;
+	float:left;
+	margin-right:17px;
+	border-right:1px dashed #ccc;
+}
+.news_nav {
+	height:1px;
+	border-bottom:0px solid #ccc;
+	padding-left:20px;
+	text-align:left;
+	line-height:1px;
+	font-size:13px;
+}
+.pm {
+	border-bottom:1px solid #38a2db;
+	background-color:#f1f1f1;
+	clear:both;
+	text-align:left;
+}
+.pm a {
+	padding:5px 10px;
+	background-color:#f1f1f1;
+	border-right:2px solid #fff;
+	position:relative;
+}
+.pm a.current {
+	background:#fff;
+	position:relative;
+	top:0;
+	top:1px\9;
+	border:1px solid #38a2db;
+	border-bottom:1px solid #fff;
+}
+.pm a.current:before {
+	content:"";
+	height:1px;
+	background-color:#38a2db;
+	position:absolute;
+	top:-4px;
+	left:-1px;
+	width:100%;
+	border:1px solid #38a2db;
+}
+.pm a.current:hover {
+	color:#000;
+}
+.page_pl10 {
+	padding-left:10px;
+	text-align:left;
+}
+.page_xm {
+	padding:20px;
+}
+.ts-item{
+	text-align:left;
+	padding-left:10px;
+	padding-right:10px;
+	line-height:22px;
+}
+.ts-item span{
+	width:80px;
+	padding-left:10px;
+	font-weight:bold;
+	color:#000;
+	float:left;
+}
+.ts-item span.tbs{
+	width:120px;
+	padding-left:10px;
+	font-weight:normal;
+	color:#000;
+	float:none;
+}
+.ts-item dt
+{
+    float:left;
+    margin:0 auto;
+    padding:0 auto;
+	font-weight:bold;
+}
+.ts-item dd
+{
+    margin:0 auto;
+    padding:0 auto;
+	padding-left:90px;
+	border-bottom:1px solid #ccc;
+}
+.ts-item dd em
+{
+	font-style:normal;
+	display:inline-block;
+	width:120px;
+	cursor:pointer;
+}
+.ts-item dd em input{
+	font-style:normal;
+	display:inline-block;
+	cursor:pointer;
+	padding-right:3px;
+	}
+.ts_type{
+width:180px;
+height:20px;
+border:1px solid #ccc;
+margin:5px 0px;
+}
+.ts_buttom{
+width:88px;
+height:26px;
+background:url(../images/ss_buttom.png) no-repeat 0px -0px;
+padding-top:8px;
+border:0;
+cursor:pointer;
+}
+.ts-item dd em:hover{
+	color:#f60;
+	text-decoration: none;
+}
+.fs-content {
+	margin:10px;
+}
+.fs-c-list {
+	margin:10px 0px;
+	font-size:13px;
+}
+.fs-c-list li {
+	border-bottom:1px dashed #ccc;
+	padding:5px 0;
+	text-align:left;
+}
+.fs-c-list li em {
+	font-style:normal;
+	font-size:12px;
+	font-weight:500;
+	color:#999;
+}
+.fs-c-list li h3 span.dot {
+	font-size:8px;
+	color:#004079;
+	margin-right:5px;
+}
+.fs-c-list li h3 a {
+	color:#004079;
+	font-size:11pt;
+	margin-top:5px;
+}
+.fs-c-c {
+	margin-left:12px;
+	margin-right:5px;
+	font-size:10pt;
+	margin-bottom:10px;
+	line-height:24px;
+}
+.co_gz {
+	float:right;
+	width:82px;
+	margin-right:10px;
+	margin-left:15px;
+	overflow:hidden;
+	padding:2px;
+	text-align:center;
+}
+._num {
+	color: #FF0000;
+}
+#pager ul li
+{
+    margin-left:10px;
+    float:left;
+    }
+.active
+{
+    font-weight: bold;
+}
+.fs-c-c p._addfocusbtn{
+	background-color:#38a2db;
+	height:22px;
+	color:#FFFFFF;
+	font-size:14px;
+	padding:5px;
+	width:80px;
+	margin:0 auto;
+}

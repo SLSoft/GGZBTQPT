@@ -40,7 +40,7 @@
       </thead>
       <tbody>
         @foreach (var item in Model) {
-            <tr>
+            <tr target="mid" rel=@item.ID>
                 <td>
                     @Html.DisplayFor(modelItem => item.ItemName)
                 </td>

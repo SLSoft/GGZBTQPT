@@ -352,7 +352,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 select_Financial = select_Financial.Substring(0, select_Financial.Length - 3);
                 select_Financial += ")";
             }
-            string order = "ID";
+            string order = "CreateTime desc";
             System.Data.SqlClient.SqlParameter[] selparms = new System.Data.SqlClient.SqlParameter[6];
             selparms[0] = new System.Data.SqlClient.SqlParameter("@keys", keys);
             selparms[1] = new System.Data.SqlClient.SqlParameter("@ItemType", select_itemtype);
@@ -582,22 +582,26 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         /// </summary>
         /// <param name="collection"></param>
         /// <returns></returns>
-        public ActionResult zjg(int id = 1)
+        public ActionResult zjg(int AgencyType, int id = 1)
         {
-            BindAgencyType();
-            var agencylist = db.T_JG_Agency.Where(p => p.IsValid == true).OrderBy(p => p.CreateTime).ToPagedList(id, 5);
-
+            BindAgencyType(AgencyType);
+            var agencys = db.T_JG_Agency.Where(p => p.IsValid == true);
+            if (AgencyType != 0)
+            {
+                agencys = agencys.Where(p => p.AgencyType == AgencyType);
+            }
+            var agencylist = agencys.OrderBy(p => p.CreateTime).ToPagedList(id, 5);
             return View(agencylist);
         }
 
         [HttpPost]
         public ActionResult zjg(FormCollection collection, int id = 1)
         {
-            BindAgencyType();
+            
             string agencyname = collection["agencyname"] == null ? "" : collection["agencyname"];
             int agencytype = collection["AgencyType"] == null || collection["AgencyType"] == "" ? 0 : Convert.ToInt32(collection["AgencyType"]);
-
-
+            BindAgencyType(agencytype);
+            ViewData["agencyname"] = agencyname;
             var t_jg_agency = db.T_JG_Agency.Where(c => c.IsValid == true && c.AgencyName.Contains(agencyname));
             if (agencytype != 0)
             {
@@ -621,11 +625,21 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
             ViewData["Industry"] = new SelectList(Industry, "ID", "Name", select);
         }
+        public void BindRegKey(object select = null)
+        {
+            List<SelectListItem> selkey = new List<SelectListItem>
+          {
+              new SelectListItem { Text = "大于", Value = "1" },
+              new SelectListItem  { Text = "小于", Value = "0" }
+            };
 
+            ViewData["RegKey"] = new SelectList(selkey, "Value", "Text", select);
+        }
         public ActionResult zqy(int id = 1)
         {
             BindProperty();
             BindIndustry();
+            BindRegKey();
             var corplist = db.T_QY_Corp.Where(p => p.IsValid == true).OrderBy(p => p.CreateTime).ToPagedList(id, 5);
 
             return View(corplist);
@@ -644,7 +658,11 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             string property = collection["cbProperty"] == null ? "" : collection["cbProperty"];
             decimal regcapital = collection["regcapital"] == null || collection["regcapital"] == "" ? 0 : Convert.ToDecimal(collection["regcapital"]);
             string industry = collection["cbIndustry"] == null ? "" : collection["cbIndustry"];
-
+            ViewData["corpname"] = corpname;
+            ViewData["selproperty"] = property;
+            ViewData["regcapital"] = regcapital;
+            ViewData["selindustry"] = industry;
+            BindRegKey(collection["regkey"]);
             var t_qy_corp = db.T_QY_Corp.Where(c => c.IsValid == true && c.CorpName.Contains(corpname));
             if (property != "")
             {

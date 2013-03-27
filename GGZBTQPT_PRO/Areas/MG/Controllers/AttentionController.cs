@@ -42,7 +42,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             try
             {
                 IList<VM_AttentionedAgency> attentions = member.Attentions.Where(a => a.AttentionedMemberType == 3)
-                                    .Join(db.T_JG_Agency, a => a.AttentionedMemberID, p => p.MemberID,
+                                    .Join(db.T_JG_Agency.Where(a=>a.IsValid==true).DefaultIfEmpty(), a => a.AttentionedMemberID, p => p.MemberID,
                                     (a, g) => new VM_AttentionedAgency { Agency = new T_JG_Agency {AgencyName = g.AgencyName, Address = g.Address, Phone = g.Phone,
                                                                 Services = g.Services, Linkmans = g.Linkmans, RegTime = g.RegTime  }, Member = db.T_HY_Member.Find(g.MemberID) })
                                     .ToList();
@@ -68,7 +68,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             try
             {
                 IList<VM_AttentionedCorp> corps = member.Attentions.Where(a => a.AttentionedMemberType == 2)
-                                .Join(db.T_QY_Corp, a => a.AttentionedMemberID, p => p.MemberID,
+                                .Join(db.T_QY_Corp.Where(a => a.IsValid == true).DefaultIfEmpty(), a => a.AttentionedMemberID, p => p.MemberID,
                                     (a, c) => new  VM_AttentionedCorp { Corp = new T_QY_Corp {CorpName = c.CorpName, Mobile = c.Mobile, Email = c.Email, Fax = c.Fax,
                                                               Linkman = c.Linkman, Phone = c.Phone, QQ = c.QQ, Website = c.Website,
                                                               City = c.City, CorpCode = c.CorpCode, RegTime = c.RegTime }, Member = db.T_HY_Member.Find(c.MemberID) })
@@ -97,7 +97,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 //var attentions = member.Attentions.Where(a => a.AttentionType == 1 || a.AttentionType == 2).ToList(); 
 
                 IList<VM_AttentionedPerson> persons = member.Attentions.Where(a => a.AttentionedMemberType == 1)
-                                .Join( db.T_QY_Person, a => a.AttentionedMemberID, p => p.MemberID, 
+                                .Join(db.T_QY_Person.Where(a => a.IsValid == true).DefaultIfEmpty(), a => a.AttentionedMemberID, p => p.MemberID, 
                                         (a,p) => new VM_AttentionedPerson { Person = new T_QY_Person{ MemberID = p.MemberID, Name = p.Name, Mobile = p.Mobile, Email = p.Email, College = p.College, 
                                                                    Phone = p.Phone, WorkExperience = p.WorkExperience, Education = p.Education, Specialty = p.Specialty, CreateTime = p.CreateTime }, Member = db.T_HY_Member.Find(p.MemberID) })
                                 .ToList();

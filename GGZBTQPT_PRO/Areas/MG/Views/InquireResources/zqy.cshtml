@@ -1,135 +1,104 @@
-﻿@model Webdiyer.WebControls.Mvc.PagedList<GGZBTQPT_PRO.Models.T_QY_Corp>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+@model Webdiyer.WebControls.Mvc.PagedList<GGZBTQPT_PRO.Models.T_QY_Corp>
 @{
     Layout = null;
 }
-<link href="@Url.Content("~/Areas/MG/Content/css/wscss/news_css.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Areas/MG/Content/css/wscss/style.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Areas/MG/Content/css/wscss/qy.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Public/bootstrap/js/jquery.1.7.2.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Areas/MG/Content/css/wscss/query.css")" rel="stylesheet" type="text/css" />
 
 @helper GenerateProperty()
     {
         foreach (var item in ViewData["Property"] as SelectList)
         {
-            <li><input type="checkbox" name="cbProperty" value="@item.Value" /><span>@item.Text</span></li>
+            <em><input type="checkbox" name="cbProperty" value="@item.Value" /><span class="tbs">@item.Text</span></em>
         }
 }
 @helper GenerateIndustry()
     {
         foreach (var item in ViewData["Industry"] as SelectList)
         {
-            <li><input type="checkbox" name="cbIndustry" value="@item.Value" /><span>@item.Text</span></li>
+            <em><input type="checkbox" name="cbIndustry" value="@item.Value" /><span class="tbs">@item.Text</span></em>
         }
 }
 
 @using (Html.BeginForm())
 {
-<div class="article730">
-    <div class="ts">
-        <div class="p_mid">
-                <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item form-tb">
-                <tr>
-                    <td width="91" colspan="2">
-                        <strong>查询条件</strong>
-                    </td>
-                </tr>
-                </table>
-                <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item form-tb">
-                    <tr>
-                        <td width="90px;">企业名称：</td>
-                        <td><input type="text" name="corpname" value="@ViewData["corpname"]" style="width:300px"/></td>
-                    </tr>
-                </table>
-                <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item form-tb">
-                    <tr>
-                        <td width="90px;">企业性质：</td>
-                        <td><ul class="newslist _qy">@GenerateProperty()</ul></td>
-                    </tr>
-                </table>
-                <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item form-tb">
-                    <tr>
-                        <td width="90px;">行业类别：</td>
-                        <td><ul class="newslist _qy">
-                            @GenerateIndustry()
-                        </ul></td>
-                    </tr>
-                </table>
-                <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item form-tb">
-                    <tr>
-                        <td width="90px;">注册资本：</td>
-                        <td><select name="regkey"><option value="1">大于</option><option value="0">小于</option></select>
+    <div class="news_left">
+    <div class="news_nav"></div>
+  <div class="pm page_pl10"> <a href="#" class="current">搜索条件</a> </div>
+  <div class="page_xm">
+    <div class="ts-item">
+        <dl>
+        <dt>企业名称：</dt>
+        <dd>
+            &nbsp;<input type="text" name="corpname" value="@ViewData["corpname"]" style="width:300px"/>
+        </dd>
+        <dt>企业性质：</dt>
+        <dd>@GenerateProperty()</dd>
+        <dt>行业类别：</dt>
+        <dd>
+            @GenerateIndustry()
+        </dd>
+        <dt>注册资本：</dt>
+        <dd>
+            &nbsp;@Html.DropDownList("RegKey", "请选择")   
                         <input type="text" name="regcapital" value="@ViewData["regcapital"]" />万元
-                        </td>
-                    </tr>
-                </table>
-                <table width="728">
-                <tr>
-                        <td align="right"><input type="submit" name="button" value="搜  索" class="btn_query" /></td>
-                    </tr>
-                </table>
-                <div class="ts-con">
-                <h3 class="ts-con-t">
-                        <a href="#" class="first"><span class="_text">所有信息</span></a>
-                        
-                    </h3>
-            <div class="ts-list">
-                @foreach (var _model in Model)
-                {
-                    var yy = "http://www.ovcstf.com/Default_756_" + _model.MemberID + ",1.html";
-                    <table width="728" border="0" align="center" cellpadding="0" cellspacing="0" class="ts-l-item content-tb">
-                        <tr>
-                            <td colspan="2" align="left" class="tq-up-num">
-                                <a target="_blank" href="@yy" class="itemtitle">@_model.CorpName</a>
-                            </td>
-                            <td  align="left">
-                            </td>
-                            <td width="130" rowspan="4">
-                                <div class="ts-l-item-r">
-                                    <p class="_addfocusbtn">
-                                        <a target="_blank" href="@yy">查看详情</a></p>
-                                    <p class="_focusnum">
-                                        <em class="_num"></em>
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="200px" cospan="2">
-                                <span class="_label">企业性质：</span>@_model.PropertyName
-                            </td>
-                            <td >
-                                &nbsp;
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-                                <span class="ts-l-item-desc">企业简介:
-                                @if (_model.ShowText.Length > 200)
-                                {
-                                <span>@_model.ShowText.Substring(0, 200)...</span>
-                                }
-                                else
-                                {
-                                <span>@_model.ShowText</span>
-                                }
-                                </span>
-                            </td>
-                        </tr>
-                    </table>
-                }
-            </div>
-            </div>
-        </div>
+        </dd>
+        <dd>
+            <input type="submit" name="button" value="" class="ts_buttom" />
+        </dd>
+        </dl>
     </div>
-</div>
-}
-<div id="pager">
+  </div>
+  <div class="pm page_pl10"> <a href="#" class="current">搜索信息</a> </div>
+  <div class="page_xm">
+    <div class="ts-list">
+      <div class="ts-l-item"></div>
+    </div>
+    <div class="fs-content">
+    @if (ViewBag.Message != null)
+    {
+        <span style="font-weight:bold; font-size:large;">@ViewBag.Message</span>
+    }
+       @foreach (var _model in Model)
+       {
+           var yy = "http://www.ovcstf.com/Default_756_" + _model.MemberID + ",1.html";
+           <ul class="fs-c-list">
+            <li>
+              <h3><span class="dot">■</span><a target="_blank" href="@yy" class="itemtitle">@_model.CorpName</a><em>&nbsp;登记时间：@_model.CreateTime.Value.ToString("yyyy-MM-dd")</em> </h3>
+              <div class="fs-c-c">
+              <span class="_label">企业性质：</span>@_model.PropertyName
+              <br />
+                @if (_model.ShowText.Length > 200)
+                {
+                <span>@_model.ShowText.Substring(0, 200)...</span>
+                }
+                else
+                {
+                <span>@_model.ShowText</span>
+                }
+                <a target="_blank" href="@yy">【查看详情】</a></div>
+            </li>
+          </ul>
+       }
+    </div>
+  </div>
+  <div id="pager">
     @Html.AjaxPager(Model, new PagerOptions { PageIndexParameterName = "id", ContainerTagName = "ul", CurrentPagerItemWrapperFormatString = "<li class='active'><a href='#'>{0}</a></li>", PagerItemWrapperFormatString = "<li>{0}</li>" }, new AjaxOptions { HttpMethod = "Post" })
 </div>
+</div>
+    <div style="display:none">
+                <input id="selproperty" type="text" name="selproperty" value="@ViewData["selproperty"]" />
+                <input id="selindustry" type="text" name="selindustry" value="@ViewData["selindustry"]" />
+                <input id="selregkey" type="text" name="selregkey" value="@ViewData["selregkey"]" />
+                </div>
+}
 <script type="text/javascript">
-    function notice(data) {
-        $("#recommend li.active a").click();
-        $.Member.notice(data);
-    }
-    $.Member.replaceBlankForMVCPager();
-    $.Member.rounded();
+    $(document).ready(function () {
+        var filter = $("#selproperty").val() + "," + $("#selindustry").val();
+        var list = filter.split(",");
+        $("input[type=checkbox]").each(function () {
+            $(this).attr("checked", $.inArray(this.value, list) > -1);
+        });
+    });
 </script>

@@ -55,7 +55,7 @@ namespace GGZBTQPT_PRO.Controllers
         }
         public void BindAgency(object select = null)
         {
-            List<T_JG_Agency> AgencyList = db.T_JG_Agency.ToList();
+            List<T_JG_Agency> AgencyList = db.T_JG_Agency.Where(a=>a.AgencyType==2119).ToList();
             ViewData["AgencyList"] = new SelectList(AgencyList, "ID", "AgencyName", select);
         }
         //

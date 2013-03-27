@@ -65,13 +65,14 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 db.T_HY_Member.Add(member);
                 db.SaveChanges();
 
-                Logging("注册了会员,登录名：" + member.LoginName, (int)OperateTypes.Create, (int)GenerateSystem.Authority); 
-                Mail.SendEmail(member.Email, "欢迎您注册光谷资本特区会员！", Welcome(member.LoginName, member.Password));
-                BusinessService.SendMessageFromManage(member,"感谢您注册光谷资本特区，我们将在24小时内对您的资料进行审核！", "欢迎您注册光谷资本特区");
-
+               
                 //根据用户类型，往不同的业务用户数据表中初始化信息
                 InitMemberDetail(member.Type, member.ID); 
                 Session["MemberID"] = member.ID;
+
+                Logging("注册了会员,登录名：" + member.LoginName, (int)OperateTypes.Create, (int)GenerateSystem.Authority);
+                Mail.SendEmail(member.Email, "欢迎您注册光谷资本特区会员！", Welcome(member.LoginName, member.Password));
+                BusinessService.SendMessageFromManage(member, "感谢您注册光谷资本特区，我们将在24小时内对您的资料进行审核！", "欢迎您注册光谷资本特区");
 
                 if(Session["RedirectUrl"] != null && Session["RedirectUrl"].ToString() != "")
                 {

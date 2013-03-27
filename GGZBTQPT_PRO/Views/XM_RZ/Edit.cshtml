@@ -73,10 +73,14 @@
                 </td>
             </tr>
             <tr>
-                <td style="width: 140px">@Html.LabelFor(model => model.ItemName, "项目名称")
+                <td style="width:140px">@Html.LabelFor(model => model.ItemName, "项目名称")
                 </td>
                 <td>@Html.TextBoxFor(model => model.ItemName, new { style = "width:780px" })
                 </td>
+            </tr>
+            <tr>
+                <td style="width:140px">@Html.LabelFor(model => model.Owner, "所属单位")</td>
+                <td>@Html.TextBoxFor(model => model.Owner, new { style = "width:780px" })</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Province, "所属区域")

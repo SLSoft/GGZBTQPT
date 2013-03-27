@@ -75,8 +75,8 @@ namespace GGZBTQPT_PRO.Controllers
 
             information_collect.Files = user.ReceiveFiles.Count() > 5 ? user.ReceiveFiles.Take(5).ToList() : user.ReceiveFiles;
             information_collect.Meetings = db.T_NB_Meeting.OrderBy(m => m.AuditTime).Count() > 5  ? db.T_NB_Meeting.OrderBy(m => m.AuditTime).Take(5).ToList() : db.T_NB_Meeting.OrderBy(m => m.AuditTime).ToList();
-            information_collect.Financials = db.T_XM_Financing.OrderByDescending(f => f.CreateTime).Count() > 5 ? db.T_XM_Financing.OrderByDescending(f => f.CreateTime).Take(5).ToList() : db.T_XM_Financing.OrderByDescending(f => f.CreateTime).ToList();
-            information_collect.Investments = db.T_XM_Investment.OrderByDescending(f => f.CreateTime).Count() > 5 ? db.T_XM_Investment.OrderByDescending(f => f.CreateTime).Take(5).ToList() : db.T_XM_Investment.OrderByDescending(f => f.CreateTime).ToList();
+            information_collect.Financials = db.T_XM_Financing.Where(p => p.IsValid == true).OrderByDescending(f => f.CreateTime).Count() > 5 ? db.T_XM_Financing.Where(p => p.IsValid == true).OrderByDescending(f => f.CreateTime).Take(5).ToList() : db.T_XM_Financing.Where(p => p.IsValid == true).OrderByDescending(f => f.CreateTime).ToList();
+            information_collect.Investments = db.T_XM_Investment.Where(p => p.IsValid == true).OrderByDescending(f => f.CreateTime).Count() > 5 ? db.T_XM_Investment.Where(p => p.IsValid == true).OrderByDescending(f => f.CreateTime).Take(5).ToList() : db.T_XM_Investment.Where(p => p.IsValid == true).OrderByDescending(f => f.CreateTime).ToList();
 
 
             return View(information_collect);

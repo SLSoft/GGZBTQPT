@@ -36,23 +36,39 @@
             </tr>
             <tr>
                 <td>融资金额</td>
-                <td>@Html.DisplayFor(model => model.FinancSum)</td>
+                <td>@if(Model.FinancSum > 0)
+                    {
+                        @Html.DisplayFor(model => model.FinancSum) @:万元
+                                                                   }</td>
                 <td>融资方式</td>
                 <td colspan="3">@Html.DisplayFor(model => model.FinancTypeText)</td>
             </tr>
             <tr>
                 <td width="90px">融资期限</td>
-                <td width="120px">@Html.DisplayFor(model => model.FinancCycle)</td>
+                <td width="120px">
+                @if(Model.FinancCycle > 0)
+                {
+                    @Html.DisplayFor(model => model.FinancCycle) @:月 
+                }</td>
                 <td width="90px">项目总投资</td>
-                <td width="120px">@Html.DisplayFor(model => model.TotalInvestment)</td>
+                <td width="120px">@if (Model.TotalInvestment > 0)
+                                  {
+                                      @Html.DisplayFor(model => model.TotalInvestment) @:万元 
+                                      }</td>
                 <td width="90px">预计回报率</td>
-                <td>@Html.DisplayFor(model => model.ReturnRatio)</td>
+                <td>@if (Model.ReturnRatio > 0)
+                    {
+                        @Html.DisplayFor(model => model.ReturnRatio) @:%/年
+                        }</td>
             </tr>
             <tr>
                 <td>项目阶段</td>
                 <td>@Html.DisplayFor(model => model.ItemStageText)</td>
                 <td>项目评估价值</td>
-                <td>@Html.DisplayFor(model => model.ItemValue)</td>
+                <td>@if (Model.ItemValue > 0)
+                    {
+                        @Html.DisplayFor(model => model.ItemValue) @:万元
+                     }</td>
                 <td>担保说明</td>
                 <td>@Html.DisplayFor(model => model.Assure)</td>
             </tr>

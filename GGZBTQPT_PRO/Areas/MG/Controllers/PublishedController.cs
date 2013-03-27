@@ -39,7 +39,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             
             try
             {
-                PagedList<T_XM_Financing> finacials = db.T_XM_Financing.OrderByDescending(f => f.CreateTime).Where(f => f.MemberID == member.ID && f.IsValid == true).ToPagedList(id, 5);
+                PagedList<T_XM_Financing> finacials = db.T_XM_Financing.Where(p => p.PublicStatus == "2" && p.IsValid == true).OrderByDescending(f => f.CreateTime).Where(f => f.MemberID == member.ID && f.IsValid == true).ToPagedList(id, 5);
                 return PartialView(finacials);
             }
             catch
@@ -61,7 +61,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             
             try
             {
-                PagedList<T_XM_Investment> investments = db.T_XM_Investment.OrderByDescending(f => f.CreateTime).Where(f => f.MemberID == member.ID && f.IsValid == true).ToPagedList(id, 5);
+                PagedList<T_XM_Investment> investments = db.T_XM_Investment.Where(p => p.PublicStatus == "2" && p.IsValid == true).OrderByDescending(f => f.CreateTime).Where(f => f.MemberID == member.ID && f.IsValid == true).ToPagedList(id, 5);
                 return PartialView(investments);
             }
             catch
@@ -82,7 +82,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
            
             try
             {
-                PagedList<T_JG_Product> products = db.T_JG_Product.OrderByDescending(p => p.CreateTime).Where( p => p.MemberID == member.ID && p.IsValid == true ).ToPagedList(id, 5);
+                PagedList<T_JG_Product> products = db.T_JG_Product.Where(p => p.PublicStatus == "2" && p.IsValid == true).OrderByDescending(p => p.CreateTime).Where(p => p.MemberID == member.ID && p.IsValid == true).ToPagedList(id, 5);
                 return PartialView(products);
             }
             catch

@@ -202,7 +202,7 @@ span.unattentioned {
 
 #signup {
   background: url(../images/register-2.png) no-repeat bottom right;
-  filter: alpha(opacity=50); }
+  filter:Alpha(Opacity=50); }
   #signup .editor-label {
     margin: 0px;
     padding: 0px;

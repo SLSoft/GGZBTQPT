@@ -40,6 +40,12 @@
                 </td>
             </tr>
             <tr>
+                <td>@Html.LabelFor(model => model.WebSite, "网站地址")
+                </td>
+                <td>@Html.TextBoxFor(model => model.WebSite, new { style = "width:300px" })
+                </td>
+            </tr>
+            <tr>
                 <td>@Html.LabelFor(model => model.RegCapital, "注册资本")
                 </td>
                 <td>@Html.EditorFor(model => model.RegCapital)（万元）

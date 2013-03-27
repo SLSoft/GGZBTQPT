@@ -39,6 +39,10 @@
                 <td>@Html.EditorFor(model => model.Address)</td>
             </tr>
             <tr>
+                <td>@Html.LabelFor(model => model.WebSite, "网站地址")</td>
+                <td>@Html.EditorFor(model => model.WebSite)</td>
+            </tr>
+            <tr>
                 <td>@Html.LabelFor(model => model.RegCapital, "注册资本")</td>
                 <td>@Html.EditorFor(model => model.RegCapital)（万元）</td>
             </tr>

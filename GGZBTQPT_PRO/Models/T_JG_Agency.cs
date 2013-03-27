@@ -30,6 +30,7 @@ namespace GGZBTQPT_PRO.Models
             IsIn = true;
             Pic = new byte[0];
             SubName = " ";
+            WebSite = " ";
         }
 
         public int ID { get; set; }
@@ -55,6 +56,7 @@ namespace GGZBTQPT_PRO.Models
         public byte[] Pic { get; set; }
         public int MemberID { get; set; }
         public string SubName { get; set; }
+        public string WebSite { get; set; }
 
         public string AgencyTypeName
         {

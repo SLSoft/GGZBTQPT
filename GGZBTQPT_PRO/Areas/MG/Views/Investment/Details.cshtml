@@ -33,9 +33,17 @@
             </tr>
             <tr>
                 <td width="120px">可投资金额</td>
-                <td width="180px">@Html.DisplayFor(model => model.Investment)万元</td>
+                <td width="180px">
+                    @if (Model.Investment > 0)
+                    {
+                        @Html.DisplayFor(model => model.Investment) @:万元
+                    }</td>
                 <td width="90px">投资期限</td>
-                <td>@Html.DisplayFor(model => model.InvestmentPeriod)月</td>
+                <td>
+                    @if (Model.InvestmentPeriod != null && Model.InvestmentPeriod.Trim() != "")
+                    {
+                        @Html.DisplayFor(model => model.InvestmentPeriod) @:月
+                    }</td>
             </tr>
             <tr>
                 <td>意向行业</td>

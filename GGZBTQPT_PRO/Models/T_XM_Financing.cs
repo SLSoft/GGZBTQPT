@@ -43,7 +43,7 @@ namespace GGZBTQPT_PRO.Models
             ReturnCycle = 0;
             OtherItemFinancSum = 0;
             OtherItemFinancCycle = 0;
-            PublicStatus = " ";
+            PublicStatus = "1";
             SubmitTime = DateTime.MaxValue;
             PublicTime = DateTime.MaxValue;
             Linkman = " ";
@@ -62,6 +62,7 @@ namespace GGZBTQPT_PRO.Models
             Pic = new Byte[0]; 
             MemberID = 9999;
             Clicks = 0;
+            Owner = " ";
         }
 
         
@@ -120,6 +121,7 @@ namespace GGZBTQPT_PRO.Models
         public Nullable<System.DateTime> UpdateTime { get; set; }
         public byte[] Pic { get; set; }
         public int Clicks { get; set; }
+        public string Owner { get; set; }
 
         public int MemberID { get; set; } 
         public virtual T_HY_Member Member { get; set; }

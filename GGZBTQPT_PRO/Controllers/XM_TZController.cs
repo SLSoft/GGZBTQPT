@@ -111,10 +111,10 @@ namespace GGZBTQPT_PRO.Controllers
                 string checkedcbInvestmentStage = (collection["cbInvestmentStage"] + ",").Replace("false,", "");
                 if (checkedcbInvestmentStage.Length > 1)
                     checkedcbInvestmentStage = checkedcbInvestmentStage.Remove(checkedcbInvestmentStage.Length - 1);
-                t_xm_investment.AimIndustry = checkedIndustry;
-                t_xm_investment.AjmArea = checkedProvince;
-                t_xm_investment.TeamworkType = checkedcbTeamWorkType;
-                t_xm_investment.InvestmentStage = checkedcbInvestmentStage;
+                t_xm_investment.AimIndustry = checkedIndustry == "," ? "" : checkedIndustry;
+                t_xm_investment.AjmArea = checkedProvince == "," ? "" : checkedProvince;
+                t_xm_investment.TeamworkType = checkedcbTeamWorkType == "," ? "" : checkedcbTeamWorkType;
+                t_xm_investment.InvestmentStage = checkedcbInvestmentStage == "," ? "" : checkedcbInvestmentStage;
                 t_xm_investment.City = collection["ddlCity"];
                 t_xm_investment.Description = t_xm_investment.Description == null ? "" : t_xm_investment.Description;
                 t_xm_investment.IsValid = true;
@@ -176,10 +176,10 @@ namespace GGZBTQPT_PRO.Controllers
                 if (checkedcbInvestmentStage.Length > 1)
                     checkedcbInvestmentStage = checkedcbInvestmentStage.Remove(checkedcbInvestmentStage.Length - 1);
                 db.Entry(t_xm_investment).State = EntityState.Modified;
-                t_xm_investment.AimIndustry = checkedIndustry;
-                t_xm_investment.AjmArea = checkedProvince;
-                t_xm_investment.TeamworkType = checkedcbTeamWorkType;
-                t_xm_investment.InvestmentStage = checkedcbInvestmentStage;
+                t_xm_investment.AimIndustry = checkedIndustry == "," ? "" : checkedIndustry;
+                t_xm_investment.AjmArea = checkedProvince == "," ? "" : checkedProvince;
+                t_xm_investment.TeamworkType = checkedcbTeamWorkType == "," ? "" : checkedcbTeamWorkType;
+                t_xm_investment.InvestmentStage = checkedcbInvestmentStage == "," ? "" : checkedcbInvestmentStage;
                 t_xm_investment.City = collection["ddlCity"];
                 t_xm_investment.Description = t_xm_investment.Description == null ? "" : t_xm_investment.Description;
                 t_xm_investment.UpdateTime = DateTime.Now;

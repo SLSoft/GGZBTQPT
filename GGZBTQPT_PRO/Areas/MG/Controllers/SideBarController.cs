@@ -22,26 +22,26 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         }
 
         public ActionResult TheLastestFinancials()
-        { 
-            var finacials = db.T_XM_Financing.OrderByDescending(f => f.CreateTime).Take(4).ToList();
+        {
+            var finacials = db.T_XM_Financing.Where(p => p.PublicStatus == "2" && p.IsValid == true).OrderByDescending(f => f.CreateTime).Take(4).ToList();
             return PartialView(finacials); 
         }
 
         public ActionResult TheLastestInvestments()
-        { 
-            var investments = db.T_XM_Investment.OrderByDescending(i => i.CreateTime).Take(4).ToList();
+        {
+            var investments = db.T_XM_Investment.Where(p => p.PublicStatus == "2" && p.IsValid == true).OrderByDescending(i => i.CreateTime).Take(4).ToList();
             return PartialView(investments); 
         }
 
         public ActionResult TheLastestProducts()
         {
-            var products = db.T_JG_Product.OrderByDescending(p => p.CreateTime).Take(4).ToList();
+            var products = db.T_JG_Product.Where(p => p.PublicStatus == "2" && p.IsValid == true).OrderByDescending(p => p.CreateTime).Take(4).ToList();
             return PartialView(products);
         }
 
         public ActionResult TheLastestAgencies()
         {
-            var agencies = db.T_JG_Agency.OrderByDescending(p => p.CreateTime).Take(4).ToList();
+            var agencies = db.T_JG_Agency.Where(p => p.IsValid == true).OrderByDescending(p => p.CreateTime).Take(4).ToList();
             return PartialView(agencies);
         } 
     }

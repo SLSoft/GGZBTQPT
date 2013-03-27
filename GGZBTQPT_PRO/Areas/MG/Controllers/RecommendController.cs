@@ -39,7 +39,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 //*********根据用户收藏的的内容和关注的人员进行特殊推荐*****************//
                 //目前需要完成根据项目的收藏数进行排序，以下的投资和产品同
 
-                PagedList<T_XM_Financing> finacials = db.T_XM_Financing.OrderByDescending(f => f.CreateTime).ToPagedList(id,5);
+                PagedList<T_XM_Financing> finacials = db.T_XM_Financing.Where(f=> f.PublicStatus == "2" && f.IsValid == true).OrderByDescending(f => f.CreateTime).ToPagedList(id,5);
                 ViewBag.FavoredFinacials = FavoredItems(1);
                 ViewBag.AttentionedMembers = AttentionedMembers();
                 ViewBag.CurrentMember = member.ID;
@@ -63,7 +63,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
     
             try
             {
-                PagedList<T_XM_Investment> investments = db.T_XM_Investment.OrderByDescending(f => f.CreateTime).ToPagedList(id, 5);
+                PagedList<T_XM_Investment> investments = db.T_XM_Investment.Where(f => f.PublicStatus == "2" && f.IsValid == true).OrderByDescending(f => f.CreateTime).ToPagedList(id, 5);
                 ViewBag.FavoredInvestments = FavoredItems(2);
                 ViewBag.AttentionedMembers = AttentionedMembers();
                 ViewBag.CurrentMember = member.ID;
@@ -87,7 +87,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
            
             try
             {
-                PagedList<T_JG_Product> products = db.T_JG_Product.OrderByDescending(p => p.CreateTime).ToPagedList(id, 5);
+                PagedList<T_JG_Product> products = db.T_JG_Product.Where(p => p.PublicStatus == "2" && p.IsValid == true).OrderByDescending(p => p.CreateTime).ToPagedList(id, 5);
                 ViewBag.FavoredProducts = FavoredItems(3);
                 ViewBag.AttentionedMembers = AttentionedMembers();
                 ViewBag.CurrentMember = member.ID;
@@ -111,7 +111,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
          
             try
             {
-                PagedList<T_JG_Agency> Agencies = db.T_JG_Agency.OrderByDescending(a => a.CreateTime).ToPagedList(id, 5); 
+                PagedList<T_JG_Agency> Agencies = db.T_JG_Agency.Where(a=>a.IsValid == true).OrderByDescending(a => a.CreateTime).ToPagedList(id, 5); 
                 ViewBag.AttentionedMembers = AttentionedMembers();//金融机构只有关注，而没有收藏
                 ViewBag.CurrentMember = member.ID;
                 return PartialView(Agencies);

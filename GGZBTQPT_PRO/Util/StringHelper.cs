@@ -30,6 +30,7 @@ namespace GGZBTQPT_PRO.Util
             html = html.Replace(" ", "");
             html = html.Replace("</strong>", "");
             html = html.Replace("<strong>", "");
+            html = html.Replace("&nbsp;", "");
             return html;
         }
     }

@@ -119,13 +119,14 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 string checkedTransactionMode = (collection["TransactionMode"] + ",").Replace("false,", "");
                 if (checkedTransactionMode.Length > 1)
                     checkedTransactionMode = checkedTransactionMode.Remove(checkedTransactionMode.Length - 1);
-                t_xm_financing.TransactionMode = checkedTransactionMode;
+                t_xm_financing.TransactionMode = checkedTransactionMode == "," ? "" : checkedTransactionMode;
                 t_xm_financing.City = collection["ddlCity"];
                 t_xm_financing.ItemContent = t_xm_financing.ItemContent == null ? "" : t_xm_financing.ItemContent;
                 t_xm_financing.IsValid = true;
                 t_xm_financing.OP = 0;
                 t_xm_financing.CreateTime = DateTime.Now;
                 t_xm_financing.UpdateTime = DateTime.Now;
+                t_xm_financing.SubmitTime = DateTime.Now;
                 t_xm_financing.MemberID = CurrentMember().ID;
                 db.T_XM_Financing.Add(t_xm_financing);
                 db.SaveChanges();
@@ -180,7 +181,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 string checkedTransactionMode = (collection["TransactionMode"] + ",").Replace("false,", "");
                 if (checkedTransactionMode.Length > 1)
                     checkedTransactionMode = checkedTransactionMode.Remove(checkedTransactionMode.Length - 1);
-                t_xm_financing.TransactionMode = checkedTransactionMode;
+                t_xm_financing.TransactionMode = checkedTransactionMode == "," ? "" : checkedTransactionMode;
                 t_xm_financing.City = collection["ddlCity"];
                 t_xm_financing.ItemContent = t_xm_financing.ItemContent == null ? "" : t_xm_financing.ItemContent;
                 t_xm_financing.UpdateTime = DateTime.Now;
@@ -247,6 +248,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         {
             T_XM_Financing t_xm_financing = db.T_XM_Financing.Find(id);
             t_xm_financing.PublicStatus = state;
+            t_xm_financing.PublicTime = DateTime.Now;
             db.SaveChanges();
             return RedirectToAction("RZCheckList");
         }

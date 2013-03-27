@@ -38,7 +38,7 @@ namespace GGZBTQPT_PRO.Models
             PartnerRequirements = " ";
             InvestmentNature = 0;
             InvestmentStage = " ";
-            PublicStatus = " ";
+            PublicStatus = "1";
             SubmitTime = DateTime.MaxValue;
             PublicTime = DateTime.MaxValue;
             IsValid = true;
@@ -48,7 +48,7 @@ namespace GGZBTQPT_PRO.Models
             Pic = new Byte[0];
             MemberID = 9999;
             Clicks = 0;
-
+            Owner = " ";
         }
         public int ID { get; set; }
         [Required(ErrorMessage = "项目名称不能为空")]
@@ -91,6 +91,7 @@ namespace GGZBTQPT_PRO.Models
         public Nullable<System.DateTime> UpdateTime { get; set; }
         public byte[] Pic { get; set; }
         public int Clicks { get; set; }
+        public string Owner { get; set; }
 
         public int MemberID { get; set; }
         public virtual T_HY_Member Member { get; set; }

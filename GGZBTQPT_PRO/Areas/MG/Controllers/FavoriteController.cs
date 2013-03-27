@@ -41,7 +41,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             try
             {
                 IList<T_XM_Financing> financials = member.Favorites.Where(a => a.FavoriteType == 1)
-                                .Join(db.T_XM_Financing.DefaultIfEmpty(), a => a.FinancialID, p => p.ID, 
+                                .Join(db.T_XM_Financing.Where(p => p.PublicStatus == "2" && p.IsValid == true).DefaultIfEmpty(), a => a.FinancialID, p => p.ID, 
                                     (a, p) => new T_XM_Financing {  
                                         ItemName = p.ItemName, Investment = p.Investment, 
                                         TotalInvestment = p.TotalInvestment, 
@@ -71,7 +71,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             try
             {
                 IList<T_XM_Investment> investments = member.Favorites.Where(a => a.FavoriteType == 2)
-                                .Join(db.T_XM_Investment, a => a.InvestmentID, p => p.ID,
+                                .Join(db.T_XM_Investment.Where(p => p.PublicStatus == "2" && p.IsValid == true).DefaultIfEmpty(), a => a.InvestmentID, p => p.ID,
                                     (a, p) => new T_XM_Investment { 
                                         ItemName = p.ItemName, Investment = p.Investment, Description = p.Description,
                                         StartInvestment = p.StartInvestment, Favoites = p.Favoites, ID = p.ID, Member = p.Member,
@@ -102,7 +102,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             try
             {
                 IList<T_JG_Product> products = member.Favorites.Where(a => a.FavoriteType == 3)
-                                .Join(db.T_JG_Product, a => a.ProductID, p => p.ID,
+                                .Join(db.T_JG_Product.Where(p => p.PublicStatus == "2" && p.IsValid == true).DefaultIfEmpty(), a => a.ProductID, p => p.ID,
                                     (a, p) => new T_JG_Product { 
                                         ProductName = p.ProductName, RepaymentType = p.RepaymentType,
                                         Favoites = p.Favoites, ID = p.ID, Member = p.Member,

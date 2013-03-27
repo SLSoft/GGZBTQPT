@@ -130,6 +130,10 @@
                 <td>@Html.TextBoxFor(model => model.ItemName, new { style = "width:780px" })</td>
             </tr>
             <tr>
+                <td style="width:80px">@Html.LabelFor(model => model.Owner, "所属单位")</td>
+                <td>@Html.TextBoxFor(model => model.Owner, new { style = "width:780px" })</td>
+            </tr>
+            <tr>
                 <td>@Html.LabelFor(model => model.Province, "所属区域")</td>
                 <td>@Html.DropDownList("Province")<select id="ddlCity" name="ddlCity"><option value="请选择"></option></select></td>
             </tr>

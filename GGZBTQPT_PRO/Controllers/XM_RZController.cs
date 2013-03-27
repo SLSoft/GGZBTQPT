@@ -118,7 +118,7 @@ namespace GGZBTQPT_PRO.Controllers
                 string checkedTransactionMode = (collection["TransactionMode"] + ",").Replace("false,", "");
                 if (checkedTransactionMode.Length > 1)
                     checkedTransactionMode = checkedTransactionMode.Remove(checkedTransactionMode.Length - 1);
-                t_xm_financing.TransactionMode = checkedTransactionMode;
+                t_xm_financing.TransactionMode = checkedTransactionMode == "," ? "" : checkedTransactionMode;
                 t_xm_financing.City = collection["ddlCity"];
                 t_xm_financing.ItemContent = t_xm_financing.ItemContent == null ? "" : t_xm_financing.ItemContent;
                 t_xm_financing.IsValid = true;
@@ -172,7 +172,7 @@ namespace GGZBTQPT_PRO.Controllers
                 string checkedTransactionMode = (collection["TransactionMode"] + ",").Replace("false,", "");
                 if (checkedTransactionMode.Length > 1)
                     checkedTransactionMode = checkedTransactionMode.Remove(checkedTransactionMode.Length - 1);
-                t_xm_financing.TransactionMode = checkedTransactionMode;
+                t_xm_financing.TransactionMode = checkedTransactionMode == "," ? "" : checkedTransactionMode;
                 t_xm_financing.City = collection["ddlCity"];
                 t_xm_financing.ItemContent = t_xm_financing.ItemContent == null ? "" : t_xm_financing.ItemContent;
                 t_xm_financing.UpdateTime = DateTime.Now;
