@@ -6,16 +6,16 @@
 }
 @helper GenerateTransactionMode()
     {
-    var i = 0;
-    foreach (var item in ViewData["TransactionMode"] as SelectList)
-    {
-        if (i % 6 == 0)
+        var i = 0;
+        foreach (var item in ViewData["TransactionMode"] as SelectList)
         {
+            if (i % 6 == 0)
+            {
             <br />
-        }
+            }
         <input type="checkbox" name="TransactionMode" value="@item.Value" /><span>@item.Text</span>
-        i++;
-    }
+                                                                             i++;
+        }
 }
 <script type="text/javascript">
     $(function () {
@@ -214,8 +214,8 @@
             </tr>
             <tr>
                 <td style="width:140px">@Html.LabelFor(model => model.OtherItemFinancSum, "融资金额")</td>
-                <td style="width:240px">@Html.EditorFor(model => model.OtherItemFinancSum)万元</td>
-                <td style="width:140px">@Html.LabelFor(model => model.OtherItemFinancSum, "融资期限")</td>
+                <td style="width:240px">@Html.EditorFor(model => model.OtherItemFinancSum) 万元</td>
+                <td style="width:140px">@Html.LabelFor(model => model.OtherItemFinancSum, "融资期限") 月</td>
                 <td>@Html.EditorFor(model => model.OtherItemFinancSum)</td>
             </tr>
         </table>

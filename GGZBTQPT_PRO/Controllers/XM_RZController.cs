@@ -272,14 +272,14 @@ namespace GGZBTQPT_PRO.Controllers
 
             if (db.SaveChanges() > 0)
                 if(state == "2")
-                    return ReturnJson(true, "审核成功", "","RZCheckList", false, "");
+                    return ReturnJson(true, "审核成功", "","", false, "");
                 else
-                    return ReturnJson(true, "撤销审核成功", "", "RZCheckList", false, "");
+                    return ReturnJson(true, "撤销审核成功", "", "", false, "");
             else
                 if (state == "2")
                     return ReturnJson(false, "审核失败", "", "", false, "");
                 else
-                    return ReturnJson(true, "撤销审核失败", "", "RZCheckList", false, "");
+                    return ReturnJson(false, "撤销审核失败", "", "", false, "");
         }
 
         //helper

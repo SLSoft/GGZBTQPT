@@ -73,10 +73,24 @@
                 @Html.DisplayFor(modelItem => item.AgencyName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FinancingAmount)
+                @if (item.FinancingAmount > 0)
+                {
+                    @Html.DisplayFor(modelItem => item.FinancingAmount)
+                }
+                else
+                {
+                    @:-
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FinancingLimit)
+                @if (item.FinancingLimit > 0)
+                {
+                    @Html.DisplayFor(modelItem => item.FinancingLimit)
+                }
+                else
+                {
+                    @:-
+                }
             </td>
             <td>
                 @Html.ActionLink("审核通过", "CPCheck", "JG_Product", new { id = @item.ID, state = "2" }, new { title = "您确定审核吗？", rel = "CPUnCheckList", target = "ajaxTodo" })

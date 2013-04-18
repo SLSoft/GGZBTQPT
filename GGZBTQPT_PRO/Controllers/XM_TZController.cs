@@ -285,7 +285,7 @@ namespace GGZBTQPT_PRO.Controllers
             t_xm_investment.UpdateTime = DateTime.Now;
 
             if (db.SaveChanges() > 0)
-                return ReturnJson(true, "审核成功", "", "TZCheckList", false, "");
+                return ReturnJson(true, "审核成功", "", "", false, "");
             else
                 return ReturnJson(false, "审核失败", "", "", false, "");
         }
@@ -299,7 +299,7 @@ namespace GGZBTQPT_PRO.Controllers
             t_xm_investment.UpdateTime = DateTime.Now;
 
             if (db.SaveChanges() > 0)
-                return ReturnJson(true, "撤销审核成功", "", "TZCheckList_Pass", false, "");
+                return ReturnJson(true, "撤销审核成功", "", "", false, "");
             else
                 return ReturnJson(false, "撤销审核失败", "", "", false, "");
         }

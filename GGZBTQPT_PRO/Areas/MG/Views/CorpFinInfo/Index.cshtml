@@ -1,0 +1,56 @@
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_QY_RZXQ>
+
+@{
+    Layout = null;
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            企业名称
+        </th>
+        <th>
+            所属园区
+        </th>
+        <th>
+            联系人
+        </th>
+        <th>
+            联系电话
+        </th>
+        <th>
+            电子邮箱
+        </th>
+        <th>
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CorpName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Park)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Linkman)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+            @Html.ActionLink("编辑", "Edit", new { id=item.ID }) |
+            </td>
+        </tr>
+    }
+
+</table>

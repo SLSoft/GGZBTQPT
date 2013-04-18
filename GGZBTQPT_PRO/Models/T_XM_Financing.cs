@@ -193,13 +193,13 @@ namespace GGZBTQPT_PRO.Models
                 switch (this.ItemType)
                 {
                     case 1:
-                        return FinancSum.ToString();
+                        return FinancSum > 0 ? FinancSum.ToString() : "-";
                     case 2:
-                        return TransferPrice.ToString();
+                        return TransferPrice > 0 ? TransferPrice.ToString() : "-";
                     case 3:
-                        return Investment.ToString();
+                        return Investment > 0 ? Investment.ToString() : "-";
                     case 9:
-                        return OtherItemFinancSum.ToString();
+                        return OtherItemFinancSum > 0 ? OtherItemFinancSum.ToString() : "-";
                 }
                 return "²»ÏÞ";
             }

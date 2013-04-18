@@ -46,6 +46,8 @@ namespace GGZBTQPT_PRO.Models
         public DbSet<T_NB_File> T_NB_File { get; set; }
         public DbSet<T_NB_Meeting> T_NB_Meeting { get; set; }
         public DbSet<T_NB_Attendance> T_NB_Attendance { get; set; }
+
+        public DbSet<T_QY_RZXQ> T_QY_RZXQ { get; set; }
         
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

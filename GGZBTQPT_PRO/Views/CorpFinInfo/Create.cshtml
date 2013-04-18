@@ -1,0 +1,789 @@
+﻿@model GGZBTQPT_PRO.Models.T_QY_RZXQ
+
+@{
+    Layout = null;
+}
+<style>
+<!--
+body{ background:#fff;}
+.applyfrom{ line-height:18px; margin-top:20px}
+.applyfrom caption{ line-height:30px;}
+.applyfrom td{ padding:4px 0;}
+.applyfrom h5{ margin:0; padding:0; font-size:14px; background:#efefef; line-height:25px; padding-left:5px;}
+.applyfrom em{ color:#ff0000; font-style:normal; padding-right:5px; font-size:12px;}
+.applyinfo{ margin-bottom:15px;}
+.frombro td{ padding-right:8px;}
+.frombro input{ width:65px; }
+.fromline input{ width:65px; border:none; border-bottom:1px solid #666;}
+.fromline td{ padding-right:8px;}
+.mess{color:#0000ff; font-weight:bold; font-size:11pt}
+
+-->
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <table width="800" border="0" align="center" cellpadding="0" cellspacing="0" class="applyfrom">
+        <caption>
+            <font size="3"><b>光谷资本金融服务平台融资需求表</b></font></caption>
+        <tr>
+            <td>
+                <h5>
+                    一、基本信息</h5>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="applyinfo">
+                    <tr>
+                        <td>
+                            <em>*</em>企业名称</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.CorpName, new { style = "width:230px" })
+                            <em>（请填全称）</em><br /><span class="mess">@Html.ValidationMessageFor(model => model.CorpName)</span></td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            <em>*</em>所属园区</td>
+                        <td>
+                            @Html.DropDownList("Park")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="12%">
+                            <em>*</em>联系人</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.Linkman, new { style = "width:230px" })
+                            <br /><span class="mess">@Html.ValidationMessageFor(model => model.Linkman)</span>
+                            </td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            <em>*</em>职务</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.Duty, new { style = "width:230px" })
+                            <br /><span class="mess">@Html.ValidationMessageFor(model => model.Duty)</span>
+                            </td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            <em>*</em>电话</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.Phone, new { style = "width:230px" })
+                            <br /><span class="mess">@Html.ValidationMessageFor(model => model.Phone)</span>
+                        </td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            <em>*</em>手机</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.Mobile, new { style = "width:230px" })
+                            <br /><span class="mess">@Html.ValidationMessageFor(model => model.Mobile)</span>
+                        </td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            <em>*</em>电子邮件</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.Email, new { style = "width:230px" })
+                            <br /><span class="mess">@Html.ValidationMessageFor(model => model.Email)</span>
+                        </td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                                <em>*</em>所有制性质
+                        </td>
+                        <td>
+                            <select name="ddlProperty" id="ddlProperty">
+                            <option value="国有企业">国有企业</option>
+                            <option value="集体企业">集体企业</option>
+                            <option value="有限责任公司">股份合作企业</option>
+                            <option value="股份有限公司">联营企业</option>
+                            <option value="私营企业">有限责任公司</option>
+                            <option value="中外合资企业">股份有限公司</option>
+                            <option value="外商投资企业">私营企业</option>
+                            <option value="外商投资企业">其他</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            <em>*</em>法人代表</td>
+                        <td>
+                            <em>
+                                @Html.TextBoxFor(model => model.LegalPerson, new { style = "width:230px" })
+                                （实际控制人）</em>
+                                <br /><span class="mess">@Html.ValidationMessageFor(model => model.LegalPerson)</span></td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            <em>*</em>成立时间</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.RegTime, new { style = "width:95px" })
+                            <br /><span class="mess">@Html.ValidationMessageFor(model => model.RegTime)</span>
+                            </td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            员工人数</td>
+                        <td>
+                            <em>
+                                @Html.TextBoxFor(model => model.Employees, new { style = "width:230px" })
+                            </em>
+                        </td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            <em>*</em>行业领域</td>
+                        <td>
+                            @Html.RadioButtonFor(Model => Model.Industry, "IT行业", new { @id = "raIndustry0", @name = "raIndustry" })IT行业
+                            @Html.RadioButtonFor(Model => Model.Industry, "能源行业", new { @id = "raIndustry1", @name = "raIndustry" })能源行业
+                            @Html.RadioButtonFor(Model => Model.Industry, "互联网络", new { @id = "raIndustry2", @name = "raIndustry" })互联网络
+                            @Html.RadioButtonFor(Model => Model.Industry, "金融行业", new { @id = "raIndustry2", @name = "raIndustry" })金融行业
+                            @Html.RadioButtonFor(Model => Model.Industry, "投资行业", new { @id = "raIndustry2", @name = "raIndustry" })投资行业
+                            @Html.RadioButtonFor(Model => Model.Industry, "物流行业", new { @id = "raIndustry2", @name = "raIndustry" })物流行业
+                            @Html.RadioButtonFor(Model => Model.Industry, "汽车行业", new { @id = "raIndustry2", @name = "raIndustry" })汽车行业
+                            @Html.RadioButtonFor(Model => Model.Industry, "旅游行业", new { @id = "raIndustry2", @name = "raIndustry" })旅游行业
+                            @Html.RadioButtonFor(Model => Model.Industry, "制造行业", new { @id = "raIndustry2", @name = "raIndustry" })制造行业
+                            @Html.RadioButtonFor(Model => Model.Industry, "医疗健康", new { @id = "raIndustry2", @name = "raIndustry" })医疗健康
+                            @Html.RadioButtonFor(Model => Model.Industry, "化学工业", new { @id = "raIndustry2", @name = "raIndustry" })化学工业
+                            @Html.RadioButtonFor(Model => Model.Industry, "研究咨询", new { @id = "raIndustry2", @name = "raIndustry" })研究咨询
+                            @Html.RadioButtonFor(Model => Model.Industry, "教育行业", new { @id = "raIndustry2", @name = "raIndustry" })教育行业
+                            @Html.RadioButtonFor(Model => Model.Industry, "传媒娱乐", new { @id = "raIndustry2", @name = "raIndustry" })传媒娱乐
+                            @Html.RadioButtonFor(Model => Model.Industry, "农林牧渔", new { @id = "raIndustry2", @name = "raIndustry" })农林牧渔
+                            @Html.RadioButtonFor(Model => Model.Industry, "房地产业", new { @id = "raIndustry2", @name = "raIndustry" })房地产业
+                            @Html.RadioButtonFor(Model => Model.Industry, "电信及增值", new { @id = "raIndustry2", @name = "raIndustry" })电信及增值
+                            @Html.RadioButtonFor(Model => Model.Industry, "食品饮料", new { @id = "raIndustry2", @name = "raIndustry" })食品饮料
+                            @Html.RadioButtonFor(Model => Model.Industry, "家居建材", new { @id = "raIndustry2", @name = "raIndustry" })家居建材
+                            @Html.RadioButtonFor(Model => Model.Industry, "连锁经营", new { @id = "raIndustry2", @name = "raIndustry" })连锁经营
+                            @Html.RadioButtonFor(Model => Model.Industry, "政府机关", new { @id = "raIndustry2", @name = "raIndustry" })政府机关
+                            @Html.RadioButtonFor(Model => Model.Industry, "光电子", new { @id = "raIndustry2", @name = "raIndustry" })光电子
+                            @Html.RadioButtonFor(Model => Model.Industry, "文化创意产业", new { @id = "raIndustry2", @name = "raIndustry" })文化创意产业
+                            @Html.RadioButtonFor(Model => Model.Industry, "生物医药", new { @id = "raIndustry2", @name = "raIndustry" })生物医药
+                            @Html.RadioButtonFor(Model => Model.Industry, "其他", new { @id = "raIndustry2", @name = "raIndustry" })其他
+                            <code class="fromline">
+                                        <input name="txtIndustry" type="text" maxlength="50" id="txtIndustry" style="width: 186px" /></code>
+
+                        </td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            <em>*</em>核心技术或主要产品</td>
+                        <td>
+                            <em>
+                                @Html.TextAreaFor(model => model.Products, new { rows = "5", style = "width:400px" })
+                            </em><em>(列明核心技术或几项主要产品名称）</em>
+                            <br /><span class="mess">@Html.ValidationMessageFor(model => model.Products)</span>
+                        </td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            主要客户</td>
+                        <td>
+                            <em>
+                                @Html.TextAreaFor(model => model.Customers, new { rows = "5", style = "width:400px" })
+                            </em><em>(列明几家主要客户名称）</em></td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            竞争对手</td>
+                        <td>
+                            <em>
+                                @Html.TextAreaFor(model => model.Competitor, new { rows = "5", style = "width:400px" })
+                            </em><em>(列明几家主要竞争对手名称）</em></td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            <em>*</em> 注册资本
+                            <br />
+                            （万元）
+                        </td>
+                        <td>
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr class="tb0b">
+                                    <td>
+                                        @Html.TextBoxFor(model => model.RegCapital, new { style = "width:130px" })<br /><span class="mess">@Html.ValidationMessageFor(model => model.RegCapital)</span>
+                                        <br /><em>(金额及币种)</em></td>
+                                    <td>
+                                        <em>*</em>实际到位金额（万元）</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.ActualCapital, new { style = "width:130px" })<br /><span class="mess">@Html.ValidationMessageFor(model => model.ActualCapital)</span>
+                                        <br /><em>(金额及币种)</em></td>
+                                    <td>
+                                        无形资产出资数额及占注册资本的比例
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.CapitalRatio, new { style = "width:130px" })</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            <em>*</em>股权结构</td>
+                        <td>
+                            <em>
+                                 @Html.TextAreaFor(model => model.StockRight, new { rows = "5", style = "width:400px" })
+                                （列明股东名称及持股比例）</em></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h5>
+                    二、财务状况</h5>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="applyinfo">
+                    <tr>
+                        <td width="12%">
+                            <em>*</em>主要财务数据<br />
+                            （万元）</td>
+                        <td>
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="frombro">
+                                <tr>
+                                    <td>
+                                        年份
+                                    </td>
+                                    <td>
+                                        <em>*</em>总资产
+                                    </td>
+                                    <td>
+                                        <em>*</em>净资产
+                                    </td>
+                                    <td>
+                                        <em>*</em>主营业务收入<br />
+                                    </td>
+                                    <td>
+                                        <em>*</em>净利润
+                                    </td>
+                                    <td>
+                                        <em>*</em>资金周转率</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        2011年</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.TotalAssets1, new { style = "width:100px" })
+                                        </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.NetAssets1, new { style = "width:100px" })
+                                        </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.BusinessIncome1, new { style = "width:100px" })
+                                        </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.NetProfit1, new { style = "width:100px" })
+                                        </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.TurnoverRate1, new { style = "width:100px" })
+                                        </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        2012年</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.TotalAssets2, new { style = "width:100px" })
+                                        </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.NetAssets2, new { style = "width:100px" })
+                                        </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.BusinessIncome2, new { style = "width:100px" })
+                                        </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.NetProfit2, new { style = "width:100px" })
+                                        </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.TurnoverRate2, new { style = "width:100px" })
+                                        </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h5>
+                    三、融资经历</h5>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="applyinfo">
+                    <tr>
+                        <td width="12%">
+                            现有银行贷款情况</td>
+                        <td>
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="frombro">
+                                <tr>
+                                    <td>
+                                        贷款余额
+                                    </td>
+                                    <td>
+                                        贷款银行
+                                    </td>
+                                    <td>
+                                        起止日期
+                                    </td>
+                                    <td>
+                                        年利率
+                                    </td>
+                                    <td>
+                                        担保方式
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        1.
+                                        @Html.TextBoxFor(model => model.b_num1, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.b_bank1, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.b_date1, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.b_rate1, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.b_way1, new { style = "width:100px" })</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        2.
+                                        @Html.TextBoxFor(model => model.b_num2, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.b_bank2, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.b_date2, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.b_rate2, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.b_way2, new { style = "width:100px" })</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        3.
+                                        @Html.TextBoxFor(model => model.b_num3, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.b_bank3, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.b_date3, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.b_rate3, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.b_way3, new { style = "width:100px" })</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        4.
+                                        @Html.TextBoxFor(model => model.b_num4, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.b_bank4, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.b_date4, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.b_rate4, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.b_way4, new { style = "width:100px" })</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        5.
+                                        @Html.TextBoxFor(model => model.b_num5, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.b_bank5, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.b_date5, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.b_rate5, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.b_way5, new { style = "width:100px" })</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="applyinfo">
+                    <tr>
+                        <td width="12%">
+                            现有创投机构投资情况</td>
+                        <td>
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="frombro">
+                                <tr>
+                                    <td>
+                                        投资金额
+                                    </td>
+                                    <td width="260">
+                                        投资机构
+                                    </td>
+                                    <td>
+                                        投资日期
+                                    </td>
+                                    <td>
+                                        投资轮次</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        1.
+                                        @Html.TextBoxFor(model => model.t_nun1, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.t_agency1, new { style = "width:200px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.t_date1, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.t_round1, new { style = "width:100px" })</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        2.
+                                        @Html.TextBoxFor(model => model.t_nun2, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.t_agency2, new { style = "width:200px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.t_date2, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.t_round2, new { style = "width:100px" })</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        3.
+                                        @Html.TextBoxFor(model => model.t_nun3, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.t_agency3, new { style = "width:200px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.t_date3, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.t_round3, new { style = "width:100px" })</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        4.
+                                        @Html.TextBoxFor(model => model.t_nun4, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.t_agency4, new { style = "width:200px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.t_date4, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.t_round4, new { style = "width:100px" })</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        5.
+                                        @Html.TextBoxFor(model => model.t_nun5, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.t_agency5, new { style = "width:200px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.t_date5, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.t_round5, new { style = "width:100px" })</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="applyinfo">
+                    <tr>
+                        <td width="12%">
+                            现有担保机构担保情况</td>
+                        <td>
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="frombro">
+                                <tr>
+                                    <td>
+                                        担保金额
+                                    </td>
+                                    <td>
+                                        担保机构
+                                    </td>
+                                    <td>
+                                        担保期限
+                                    </td>
+                                    <td>
+                                        担保方式</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        1.
+                                        @Html.TextBoxFor(model => model.d_nun1, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.d_agency1, new { style = "width:150px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.d_date1, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.d_way1, new { style = "width:150px" })</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        2.
+                                        @Html.TextBoxFor(model => model.d_nun2, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.d_agency2, new { style = "width:150px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.d_date2, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.d_way2, new { style = "width:150px" })</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        3.
+                                        @Html.TextBoxFor(model => model.d_nun3, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.d_agency3, new { style = "width:150px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.d_date3, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.d_way3, new { style = "width:150px" })</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        4.
+                                        @Html.TextBoxFor(model => model.d_nun4, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.d_agency4, new { style = "width:150px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.d_date4, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.d_way4, new { style = "width:150px" })</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        5.
+                                        @Html.TextBoxFor(model => model.d_nun5, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.d_agency5, new { style = "width:150px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.d_date5, new { style = "width:100px" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.d_way5, new { style = "width:150px" })</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h5>
+                    四、核心团队</h5>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="applyinfo">
+                    <tr>
+                        <td>
+                            <em>*</em>姓名</td>
+                        <td>
+                            <em>*</em>职位</td>
+                        <td>
+                            <em>*</em>性别</td>
+                        <td>
+                            <em>*</em>年龄<br />
+                        </td>
+                        <td width="210">
+                            <em>*</em>教育背景
+                        </td>
+                        <td>
+                            <em>*</em>主要工作经历
+                        </td>
+                    </tr>
+                    <tr class="frombro">
+                        <td>
+                            @Html.TextBoxFor(model => model.team_name1, new { style = "width:70px" })</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.team_duty1, new { style = "width:70px" })</td>
+                        <td>
+                            <select name="team_sex1" id="team_sex1">
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                            </select>
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.team_age1, new { style = "width:70px" })
+                            </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.team_edu1, new { style = "width:180px" })
+                            </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.team_work1, new { style = "width:180px" })
+                            </td>
+                    </tr>
+                    <tr class="frombro">
+                        <td>
+                            @Html.TextBoxFor(model => model.team_name2, new { style = "width:70px" })</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.team_duty2, new { style = "width:70px" })</td>
+                        <td>
+                            <select name="team_sex2" id="team_sex2">
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                            </select>
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.team_age2, new { style = "width:70px" })
+                            </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.team_edu2, new { style = "width:180px" })
+                            </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.team_work2, new { style = "width:180px" })
+                            </td>
+                    </tr>
+                    <tr class="frombro">
+                        <td>
+                            @Html.TextBoxFor(model => model.team_name3, new { style = "width:70px" })</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.team_duty3, new { style = "width:70px" })</td>
+                        <td>
+                            <select name="team_sex3" id="team_sex3">
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                            </select>
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.team_age3, new { style = "width:70px" })
+                            </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.team_edu3, new { style = "width:180px" })
+                            </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.team_work3, new { style = "width:180px" })
+                            </td>
+                    </tr>
+                    <tr class="frombro">
+                        <td>
+                            @Html.TextBoxFor(model => model.team_name4, new { style = "width:70px" })</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.team_duty4, new { style = "width:70px" })</td>
+                        <td>
+                            <select name="team_sex4" id="team_sex4">
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                            </select>
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.team_age4, new { style = "width:70px" })
+                            </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.team_edu4, new { style = "width:180px" })
+                            </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.team_work4, new { style = "width:180px" })
+                            </td>
+                    </tr>
+                    <tr class="frombro">
+                        <td>
+                            @Html.TextBoxFor(model => model.team_name5, new { style = "width:70px" })</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.team_duty5, new { style = "width:70px" })</td>
+                        <td>
+                            <select name="team_sex5" id="team_sex5">
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                            </select>
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.team_age5, new { style = "width:70px" })
+                            </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.team_edu5, new { style = "width:180px" })
+                            </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.team_work5, new { style = "width:180px" })
+                            </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h5>
+                    五、融资意向</h5>
+                <table border="0" cellspacing="0" cellpadding="0" align="left" width="100%" class="applyinfo">
+                    <tr>
+                        <td>
+                            <em>*</em>融资方式及金额</td>
+                        <td>
+                            <em>
+                                @Html.TextAreaFor(model => model.Financing, new { rows = "5", style = "width:400px" })<span class="mess">@Html.ValidationMessageFor(model => model.Financing)</span>
+                                <br />
+                                （简要说明需要股权融资、债权融资、组合融资或其它意向，以及融资金额）</em></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            希望融资到位的时间</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.FinancingDate, new { style = "width:100px" })</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>*</em>可承受的最高融资成本</td>
+                        <td>
+                            @Html.TextAreaFor(model => model.FinancingCost, new { rows = "5", style = "width:400px" })<span class="mess">@Html.ValidationMessageFor(model => model.FinancingCost)</span>
+                            <br />
+                            <em>（债权类融资填费用比率，即成本/融资额的比率；股权类融资填投资机构最高可获得的股份）</em></td>
+                    </tr>
+                    <tr class="fromline">
+                        <td>
+                            可提供的担保方式</td>
+                        <td>
+                            <input name="Guarantee1" type="checkbox" id="Guarantee1" value="checkbox" style="width: 15px; border: none;" />
+                            第三方保证 &nbsp; &nbsp; 保证人：
+                            @Html.TextBoxFor(model => model.GuaranteeDetail1, new { style = "width:70px" })
+                            <br />
+                            <input name="Guarantee2" type="checkbox" id="Guarantee2" value="checkbox" style="width: 15px; border: none;" />
+                            抵押 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 抵押物（包括不动产和动产）：
+                            @Html.TextBoxFor(model => model.GuaranteeDetail2, new { style = "width:70px" })
+                            <br />
+                            <input name="Guarantee3" type="checkbox" id="Guarantee3" value="checkbox" style="width: 15px; border: none;" />
+                            质押 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 质押物（包括动产和权利）：
+                            @Html.TextBoxFor(model => model.GuaranteeDetail3, new { style = "width:70px" })
+                            <br />
+                            <input name="Guarantee4" type="checkbox" id="Guarantee4" value="checkbox" style="width: 15px; border: none;" />
+                            其他
+                            @Html.TextBoxFor(model => model.GuaranteeDetail4, new { style = "width:70px" })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h5>
+                    六、企业竞争力</h5>
+                <table border="0" cellspacing="0" cellpadding="0" align="left" width="100%" class="applyinfo">
+                    <tr>
+                        <td width="130">
+                            知识产权情况</td>
+                        <td>
+                            @Html.TextAreaFor(model => model.Intellectual, new { rows = "5", style = "width:400px" })
+                            <br />
+                            <em>（发明、实用新型、外观设计、软件著作权等各类知识产权获得的数量及核心知识产权名称）</em></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>*</em>经营模式和盈利模式</td>
+                        <td>
+                            @Html.TextAreaFor(model => model.Management, new { rows = "5", style = "width:400px" })<span class="mess">@Html.ValidationMessageFor(model => model.Management)</span>
+                            <br />
+                            <em>（简要说明企业如何做业务、如何盈利）
+                                </em></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            企业核心竞争力</td>
+                        <td>
+                            @Html.TextAreaFor(model => model.Competitive, new { rows = "5", style = "width:400px" })
+                            <br />
+                            <em>（简要说明企业核心竞争力情况）</em></td>
+                    </tr>
+                        <tr>
+                        <td>
+                            <em>*</em>所获荣誉</td>
+                        <td>
+                            @Html.TextAreaFor(model => model.Honour, new { rows = "5", style = "width:400px" })<span class="mess">@Html.ValidationMessageFor(model => model.Honour)</span>
+                            <br />
+                            <em>（简要说明企业所获各级政府部门、行业内的荣誉或称号）</em></td>
+                    </tr>
+                </table>
+                <div style="padding-top: 15px; clear: both">
+                    <em>注：表中标*号的项为必填项，其他为选填项，企业可酌情填写。希望企业能够尽量填写全部完整信息，这将有利于投融资机构初步判断分析企业情况，增加融资成功机会。</em></div>
+            </td>
+        </tr>
+    </table>
+    <table width="100%">
+            <tr>
+                <td height="50" align="center">
+                    <input type="submit" name="Button2" value="提 交" id="Button2" /></td>
+            </tr>
+        </table>
+}

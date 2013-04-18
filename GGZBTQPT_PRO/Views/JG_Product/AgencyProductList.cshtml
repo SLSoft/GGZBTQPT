@@ -37,11 +37,25 @@
             @Html.DisplayFor(modelItem => item.AgencyName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FinancingAmount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FinancingLimit)
-        </td>
+                @if (item.FinancingAmount > 0)
+                {
+                    @Html.DisplayFor(modelItem => item.FinancingAmount)
+                }
+                else
+                {
+                    @:-
+                }
+            </td>
+            <td>
+                @if (item.FinancingLimit > 0)
+                {
+                    @Html.DisplayFor(modelItem => item.FinancingLimit)
+                }
+                else
+                {
+                    @:-
+                }
+            </td>
        </tr>
         }
       </tbody>

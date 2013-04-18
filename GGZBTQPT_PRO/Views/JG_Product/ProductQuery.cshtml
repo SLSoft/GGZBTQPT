@@ -85,10 +85,24 @@
                 @Html.DisplayFor(modelItem => item.AgencyName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FinancingAmount)
+                @if (item.FinancingAmount > 0)
+                {
+                    @Html.DisplayFor(modelItem => item.FinancingAmount)
+                }
+                else
+                {
+                    @:-
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FinancingLimit)
+                @if (item.FinancingLimit > 0)
+                {
+                    @Html.DisplayFor(modelItem => item.FinancingLimit)
+                }
+                else
+                {
+                    @:-
+                }
             </td>
            </tr>
         }
