@@ -133,4 +133,15 @@ namespace GGZBTQPT_PRO.Enums
         [Display(Name = "管理级别")] 
         Manage
     }
+
+    //会员状态
+    public enum Member_States : int
+    {
+        [Display(Name = "通过")]
+        通过 = 1,
+        [Display(Name = "待审核")]
+        待审核 = 0,
+        [Display(Name = "驳回")]
+        驳回 = 2
+    }
 }

@@ -8,11 +8,10 @@
     <form id="pagerForm" method="post" action="@Url.Action("UnVerified")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
-    <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />
     @*<input type="hidden" name="orderField" value="${param.orderField}" />
         <input type="hidden" name="orderDirection" value="${param.orderDirection}" />*@
     </form>
-    <form onsubmit="return navTabSearch(this);" action="@Url.Action("UnVerified")"
+    <form onsubmit="return navTabSearch(this);" rel="pagerForm" action="@Url.Action("UnVerified")"
     method="post">
     <div class="searchBar">
         <ul class="searchContent">
@@ -20,6 +19,11 @@
                 <label>
                     会员用户名：</label>
                 <input type="text" name="keywords" value="@ViewData["keywords"]" />
+            </li>
+            <li>
+                <label>
+                    会员类型：</label>
+                    @Html.DropDownList("type", "---请选择---")
             </li>
         </ul>
         <div class="subBar">
@@ -52,25 +56,16 @@
                         <input type="checkbox" group="ids" class="checkboxCtrl">
                     </th>
                     <th>
-                        登录名
-                    </th>
-                    <th>
                         用户名
-                    </th>
-                    <th>
-                        手机
-                    </th>
-                    <th>
-                        邮箱
                     </th>
                     <th>
                         用户类型
                     </th>
                     <th>
-                        创建时间
+                        手机
                     </th>
                     <th>
-                        更新时间
+                        创建时间
                     </th>
                     <th>
                         查看详情
@@ -88,25 +83,16 @@
                             <input type="checkbox" name="ids" value="@item.ID"/>
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.LoginName)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.MemberName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CellPhone)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.TypeName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.CreatedAt)
+                            @Html.DisplayFor(modelItem => item.CellPhone)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.UpdatedAt)
+                            @Html.DisplayFor(modelItem => item.CreatedAt)
                         </td>
                         <td>
                             @Html.ActionLink("详细信息", "VerifyDetails", "HY_Member", new { memberId = @item.ID, memberType = @item.Type }, new { target = "navTab"})

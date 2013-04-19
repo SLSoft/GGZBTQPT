@@ -61,7 +61,7 @@ namespace GGZBTQPT_PRO.ViewModels
         public int ID { get; set; }
 
         [Required(ErrorMessage = "必须填写昵称")]
-        [Display(Name = "昵称")]
+        [Display(Name = "用户名")]
         public string MemberName { get; set; }
 
         [Required(ErrorMessage = "必须填写手机号码")]

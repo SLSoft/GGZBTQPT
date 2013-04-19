@@ -44,9 +44,6 @@
         <thead>
         <tr>
             <th>
-                登录名
-            </th>
-            <th>
                 用户名
             </th>
             <th>
@@ -57,9 +54,6 @@
             </th>
             <th>
                 创建时间
-            </th>
-            <th>
-                更新时间
             </th>
             <th>
                 项目数
@@ -77,9 +71,6 @@
         {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Member.LoginName)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Member.MemberName)
             </td>
             <td>
@@ -90,9 +81,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Member.CreatedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Member.UpdatedAt)
             </td>
             @if (@item.FinancingCount > 0)
             {

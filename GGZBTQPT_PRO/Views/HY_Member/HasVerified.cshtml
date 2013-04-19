@@ -13,12 +13,17 @@
     method="post">
     <div class="searchBar">
         <ul class="searchContent">
-            <li>
+            <li style="width:240px;">
                 <label>
                     会员用户名：</label>
                 <input type="text" name="keywords" value="@ViewData["keywords"]" />
             </li>
-            <li>
+            <li style="width:240px;">
+                <label>
+                    会员类型：</label>
+                    @Html.DropDownList("type", "---请选择---")
+            </li>
+            <li style="width:240px;">
                 <label>
                     会员状态：</label>
                 @Html.DropDownList("state", "---请选择---")
@@ -44,32 +49,20 @@
         <table class="list" width="100%" asc="asc" desc="desc">
             <thead>
                 <tr>
-                    <th width="40">
-                        序号
-                    </th>
-                    <th>
-                        登录名
-                    </th>
                     <th>
                         用户名
                     </th>
                     <th>
-                        手机
-                    </th>
-                    <th>
-                        邮箱
-                    </th>
-                    <th>
                         用户类型
+                    </th>
+                    <th>
+                        手机
                     </th>
                     <th>
                         状态
                     </th>
                     <th>
                         创建时间
-                    </th>
-                    <th>
-                        更新时间
                     </th>
                     <th>
                         查看详细
@@ -84,31 +77,19 @@
                 {
                     <tr target="mid" rel=@item.ID>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.LoginName)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.MemberName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.CellPhone)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.TypeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CellPhone)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.StateName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.CreatedAt)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UpdatedAt)
                         </td>
                         <td>
                             @Html.ActionLink("详细信息", "VerifyDetails", "HY_Member", new { memberId = @item.ID, memberType = @item.Type }, new {max="true",target = "dialog",mask="true" })

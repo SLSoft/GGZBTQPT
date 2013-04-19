@@ -8,19 +8,28 @@
     <form id="pagerForm" method="post" action="@Url.Action("Index")">
     <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
     <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />
-    <input type="hidden" name="keywords" value="@ViewData["keywords"]"  />
     @*<input type="hidden" name="orderField" value="${param.orderField}" />
         <input type="hidden" name="orderDirection" value="${param.orderDirection}" />*@
     </form>
-    <form onsubmit="return navTabSearch(this);" action="@Url.Action("Index")"
+    <form onsubmit="return navTabSearch(this);" rel="pagerForm" action="@Url.Action("Index")"
     method="post">
     <div class="searchBar">
         <ul class="searchContent">
-            <li>
+            <li style="width:240px;">
                 <label>
                     会员用户名：</label>
                 <input type="text" name="keywords" value="@ViewData["keywords"]" />
             </li>
+            <li style="width:240px;">
+                <label>
+                    会员类型：</label>
+                    @Html.DropDownList("type", "---请选择---")
+            </li>
+            <li style="width:240px;">
+                <label>
+                    会员状态：</label>
+                    @Html.DropDownList("state")
+            </li> 
         </ul>
         <div class="subBar">
             <ul>
@@ -59,10 +68,10 @@
                         <input type="checkbox" group="ids" class="checkboxCtrl">
                     </th>
                     <th>
-                        登录名
+                        用户名
                     </th>
                     <th>
-                        用户名
+                        用户类型
                     </th>
                     <th>
                         手机
@@ -71,13 +80,7 @@
                         邮箱
                     </th>
                     <th>
-                        用户类型
-                    </th>
-                    <th>
                         创建时间
-                    </th>
-                    <th>
-                        更新时间
                     </th>
                 </tr>
             </thead>
@@ -89,10 +92,10 @@
                             <input name="ids" type="checkbox" value="@item.ID" />
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.LoginName)
+                            @Html.DisplayFor(modelItem => item.MemberName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.MemberName)
+                            @Html.DisplayFor(modelItem => item.TypeName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.CellPhone)
@@ -101,13 +104,7 @@
                             @Html.DisplayFor(modelItem => item.Email)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.TypeName)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.CreatedAt)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UpdatedAt)
                         </td>
                     </tr>
                 }

@@ -67,7 +67,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
                
                 //根据用户类型，往不同的业务用户数据表中初始化信息
-                InitMemberDetail(member.Type, member.ID); 
+                InitMemberDetail(member.Type, member.ID,member.MemberName); 
                 Session["MemberID"] = member.ID;
 
                 Logging("注册了会员,登录名：" + member.LoginName, (int)OperateTypes.Create, (int)GenerateSystem.Authority);
@@ -401,28 +401,29 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         * 包括企业、创业者、机构等
         */
         #region MemberDetailInit 
-        public bool InitMemberDetail(int type, int member_id)
+        public bool InitMemberDetail(int type, int member_id,string member_name)
         {
             bool result = false;
             switch(type)
             {
                 case 1:
-                    result =  InitPerson(member_id);
+                    result = InitPerson(member_id, member_name);
                 break;
                 case 2:
-                    result =  InitCorp(member_id);
+                result = InitCorp(member_id, member_name);
                 break;
                 case 3:
-                    result = InitAgency(member_id);
+                result = InitAgency(member_id, member_name);
                 break;
             }
             return result;
         }
 
-        public bool InitCorp(int member_id)
+        public bool InitCorp(int member_id, string member_name)
         {
             T_QY_Corp corp = new T_QY_Corp();
             corp.MemberID = member_id;
+            corp.CorpName = member_name;
             db.T_QY_Corp.Add(corp);
 
             if (db.SaveChanges() > 0)
@@ -432,10 +433,11 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             return false;
         }
 
-        public bool InitPerson(int member_id)
+        public bool InitPerson(int member_id,string member_name)
         {
             T_QY_Person person = new T_QY_Person();
             person.MemberID = member_id;
+            person.Name = member_name;
             db.T_QY_Person.Add(person);
 
             if (db.SaveChanges() > 0)
@@ -445,10 +447,11 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             return false;
         }
 
-        public bool InitAgency(int member_id)
+        public bool InitAgency(int member_id,string member_name)
         {
             T_JG_Agency agency = new T_JG_Agency();
             agency.MemberID = member_id;
+            agency.AgencyName = member_name;
             db.T_JG_Agency.Add(agency);
 
             if (db.SaveChanges() > 0)

@@ -24,19 +24,31 @@ namespace GGZBTQPT_PRO.Controllers
         /// <param name="numPerPage">每页显示多少条</param>
         /// <param name="keywords">搜索关键字</param>
         /// <returns></returns>
-        public ActionResult Index(string keywords, int pageNum = 1, int numPerPage = 15)
+        public ActionResult Index(string keywords, int type = -1, int state = 1, int pageNum = 1, int numPerPage = 15)
         {
             keywords = keywords == null ? "" : keywords;
 
-            IList<GGZBTQPT_PRO.Models.T_HY_Member> list = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords) && p.IsValid == true && p.IsVerified == true)
-                                                            .OrderByDescending(s => s.UpdatedAt)
-                                                            .Skip(numPerPage * (pageNum - 1))
-                                                            .Take(numPerPage).ToList();
+            var tqCount = 0;
+            var tq = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords) && p.IsValid == true);
+            if (type != -1)
+            {
+                tq = tq.Where(p => p.Type == type);
+            }
+            if (state != -1)
+            {
+                tq = tq.Where(p => p.State == state);
+            }
+            tqCount = tq.Count();
 
-            ViewBag.recordCount = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords) && p.IsValid == true && p.IsVerified == true).Count();
+            IList<T_HY_Member> list = tq.OrderByDescending(s => s.CreatedAt)
+                                                        .Skip(numPerPage * (pageNum - 1))
+                                                        .Take(numPerPage).ToList();
+            ViewBag.recordCount = tqCount;
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
+            ViewBag.type = GetMemberType();
+            ViewBag.state = GetMember_State();
 
             return View(list);
         } 
@@ -71,7 +83,7 @@ namespace GGZBTQPT_PRO.Controllers
                     int result = db.SaveChanges();
 
                     MemberController m = new MemberController();
-                    bool boo = m.InitMemberDetail(member.Type, member.ID); 
+                    bool boo = m.InitMemberDetail(member.Type, member.ID,member.MemberName); 
 
                     if (result > 0 && boo == true)
                         return ReturnJson(true, "操作成功", "", "", true, "");
@@ -169,19 +181,24 @@ namespace GGZBTQPT_PRO.Controllers
         /// <param name="pageNum"></param>
         /// <param name="numPerPage"></param>
         /// <returns></returns>
-        public ActionResult UnVerified(string keywords, int pageNum = 1, int numPerPage = 15)
+        public ActionResult UnVerified(string keywords, int type = -1, int pageNum = 1, int numPerPage = 15)
         {
             keywords = keywords == null ? "" : keywords;
 
-            IList<GGZBTQPT_PRO.Models.T_HY_Member> list = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords) && p.IsValid == true && p.State == 0)
-                                                            .OrderByDescending(s => s.ID)
-                                                            .Skip(numPerPage * (pageNum - 1))
-                                                            .Take(numPerPage).ToList();
+            var tqCount = 0;
+            var tq = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords) && p.IsValid == true && p.State == 0);
+            if (type != -1)
+            {
+                tq = tq.Where(p => p.Type == type);
+            }
+            tqCount = tq.Count();
+            IList<GGZBTQPT_PRO.Models.T_HY_Member> list = tq.OrderByDescending(s => s.CreatedAt).Skip(numPerPage * (pageNum - 1)).Take(numPerPage).ToList();
 
-            ViewBag.recordCount = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords) && p.IsValid == true && p.State==0).Count();
+            ViewBag.recordCount = tqCount;
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
+            ViewBag.type = GetMemberType();
 
             return View(list);
         }
@@ -193,11 +210,15 @@ namespace GGZBTQPT_PRO.Controllers
         /// <param name="pageNum"></param>
         /// <param name="numPerPage"></param>
         /// <returns></returns>
-        public ActionResult HasVerified(string keywords, int state = -1, int pageNum = 1, int numPerPage = 15)
+        public ActionResult HasVerified(string keywords, int type = -1, int state = -1, int pageNum = 1, int numPerPage = 15)
         {
             keywords = keywords == null ? "" : keywords;
             var tqCount = 0;
             var tq = db.T_HY_Member.Where(p => p.MemberName.Contains(keywords)).Where(p => p.IsValid == true);
+            if (type != -1)
+            {
+                tq = tq.Where(p => p.Type == type);
+            }
             if (state == -1)
             {
                 tq = tq.Where(p=>p.State != 0);
@@ -208,13 +229,14 @@ namespace GGZBTQPT_PRO.Controllers
             }
             tqCount = tq.Count();
 
-            IList<T_HY_Member> list = tq.OrderByDescending(s => s.ID)
+            IList<T_HY_Member> list = tq.OrderByDescending(s => s.CreatedAt)
                                                        .Skip(numPerPage * (pageNum - 1))
                                                        .Take(numPerPage).ToList();
             ViewBag.recordCount = tqCount;
             ViewBag.numPerPage = numPerPage;
             ViewBag.pageNum = pageNum;
             ViewBag.keywords = keywords;
+            ViewBag.type = GetMemberType();
             ViewBag.state = GetMemberState();
 
             return View(list);
@@ -345,6 +367,14 @@ namespace GGZBTQPT_PRO.Controllers
             SelectList list = new SelectList(States, "ID", "Name");
             return list;
         }
+
+        public SelectList GetMember_State()
+        {
+            var States = from Member_States mstate in Enum.GetValues(typeof(Member_States))
+                         select new { ID = (int)mstate, Name = mstate.ToString() };
+            SelectList list = new SelectList(States, "ID", "Name",1);
+            return list;
+        }
         #endregion
 
         #region 会员查询
@@ -366,7 +396,7 @@ namespace GGZBTQPT_PRO.Controllers
                 tq = tq.Where(p => p.Type == type);
             }
             tqCount = tq.Count();
-            tq = tq.OrderByDescending(s => s.UpdatedAt).Skip(numPerPage * (pageNum - 1)).Take(numPerPage);
+            tq = tq.OrderByDescending(s => s.CreatedAt).Skip(numPerPage * (pageNum - 1)).Take(numPerPage);
 
             IList<VM_MemberRelease> list = tq.Select(w => new VM_MemberRelease
                                                     {

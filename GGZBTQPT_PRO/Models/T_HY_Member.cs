@@ -35,8 +35,8 @@ namespace GGZBTQPT_PRO.Models
         [Remote("CheckCellPhone", "HY_Member", ErrorMessage = "该手机已经被使用了，请尝试更改!")]
         public string CellPhone { get; set; }
 
-        [Required(ErrorMessage = "必须填写昵称")]
-        [Display(Name = "昵称")]
+        [Required(ErrorMessage = "必须填写用户名")]
+        [Display(Name = "用户名")]
         public string MemberName { get; set; }//默认是登录名，用户可以修改 
 
         [Display(Name = "邮箱")]
