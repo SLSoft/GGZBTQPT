@@ -83,7 +83,7 @@ namespace GGZBTQPT_PRO.Controllers
                     int result = db.SaveChanges();
 
                     MemberController m = new MemberController();
-                    bool boo = m.InitMemberDetail(member.Type, member.ID,member.MemberName); 
+                    bool boo = m.InitMemberDetail(member.Type, member.ID,member.MemberName);
 
                     if (result > 0 && boo == true)
                         return ReturnJson(true, "操作成功", "", "", true, "");
@@ -153,13 +153,93 @@ namespace GGZBTQPT_PRO.Controllers
                 T_HY_Member t_hy_member = db.T_HY_Member.Find(id);
                 t_hy_member.IsValid = false;
                 int result = db.SaveChanges();
-                if (result > 0)
+
+                bool boo = DeleteMember(t_hy_member.Type, id);
+                if (result > 0 && boo == true)
                     return ReturnJson(true, "操作成功", "", "", false, "");
                 else
                     return ReturnJson(false, "操作失败", "", "", false, "");
             }
             return Json(new { });
         }
+
+        #region DeleteMember
+        public bool DeleteMember(int type, int member_id)
+        {
+            bool result = false;
+            switch (type)
+            {
+                case 1:
+                    result = DelPerson(member_id);
+                    break;
+                case 2:
+                    result = DelCorp(member_id);
+                    break;
+                case 3:
+                    result = DelAgency(member_id);
+                    break;
+            }
+            return result;
+        }
+
+        public bool DelCorp(int member_id)
+        {
+            try
+            {
+                T_QY_Corp t_qy_corp = db.T_QY_Corp.Where(p=> p.MemberID == member_id).FirstOrDefault();
+                t_qy_corp.IsValid = false;
+                
+                if (db.SaveChanges() > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool DelPerson(int member_id)
+        {
+            try
+            {
+                T_QY_Person t_qy_person = db.T_QY_Person.Where(p => p.MemberID == member_id).FirstOrDefault();
+                t_qy_person.IsValid = false;
+
+                if (db.SaveChanges() > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool DelAgency(int member_id)
+        {
+            try
+            {
+                T_JG_Agency t_jg_agency = db.T_JG_Agency.Where(p => p.MemberID == member_id).FirstOrDefault();
+                t_jg_agency.IsValid = false;
+
+                if (db.SaveChanges() > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        #endregion
 
         //----------------验证-----------------//
         public JsonResult CheckLoginName(string loginname)

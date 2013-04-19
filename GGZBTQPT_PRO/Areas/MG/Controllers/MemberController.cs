@@ -408,57 +408,78 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             {
                 case 1:
                     result = InitPerson(member_id, member_name);
-                break;
+                    break;
                 case 2:
-                result = InitCorp(member_id, member_name);
-                break;
+                    result = InitCorp(member_id, member_name);
+                    break;
                 case 3:
-                result = InitAgency(member_id, member_name);
-                break;
+                    result = InitAgency(member_id, member_name);
+                    break;
             }
             return result;
         }
 
         public bool InitCorp(int member_id, string member_name)
         {
-            T_QY_Corp corp = new T_QY_Corp();
-            corp.MemberID = member_id;
-            corp.CorpName = member_name;
-            db.T_QY_Corp.Add(corp);
-
-            if (db.SaveChanges() > 0)
+            try
             {
-                return true;
+                T_QY_Corp corp = new T_QY_Corp();
+                corp.MemberID = member_id;
+                corp.CorpName = member_name;
+                db.T_QY_Corp.Add(corp);
+
+                if (db.SaveChanges() > 0)
+                {
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch
+            {
+                return false;
+            }
         }
 
         public bool InitPerson(int member_id,string member_name)
         {
-            T_QY_Person person = new T_QY_Person();
-            person.MemberID = member_id;
-            person.Name = member_name;
-            db.T_QY_Person.Add(person);
-
-            if (db.SaveChanges() > 0)
+            try
             {
-                return true;
+                T_QY_Person person = new T_QY_Person();
+                person.MemberID = member_id;
+                person.Name = member_name;
+                db.T_QY_Person.Add(person);
+
+                if (db.SaveChanges() > 0)
+                {
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch
+            {
+                return false;
+            }
         }
 
         public bool InitAgency(int member_id,string member_name)
         {
-            T_JG_Agency agency = new T_JG_Agency();
-            agency.MemberID = member_id;
-            agency.AgencyName = member_name;
-            db.T_JG_Agency.Add(agency);
-
-            if (db.SaveChanges() > 0)
+            try
             {
-                return true;
+                T_JG_Agency agency = new T_JG_Agency();
+                agency.MemberID = member_id;
+                agency.AgencyName = member_name;
+                db.T_JG_Agency.Add(agency);
+
+                if (db.SaveChanges() > 0)
+                {
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch
+            {
+                return false;
+            }
         }
 
         public int FindIDForDetail(int member_type)
