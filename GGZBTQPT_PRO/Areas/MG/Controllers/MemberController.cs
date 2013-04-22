@@ -48,6 +48,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
 
             if (ModelState.IsValid)
             {
+                
                 //if( !VerifyCode(Request["verify"].ToString(),t_hy_member.CellPhone) )
                 //{
                 //    ViewData["error"] = "验证码校验失败，请核对后重试!";
@@ -80,7 +81,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                 }
                 return RedirectToAction("Index","Home");  
             }
-
+            
             return View(vm_signup);
         }
         #endregion
@@ -358,6 +359,16 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         {
             var current_member_membername = CurrentMember().MemberName;
             return Json(db.T_HY_Member.Any(m => m.MemberName == receivemembername && m.MemberName != current_member_membername), JsonRequestBehavior.AllowGet);
+        }
+        //后台表单验证
+        public bool CheckState(VM_SignUp vm_signup)
+        {
+            bool result = true;
+            if (vm_signup.CellPhone.Trim() == "" || vm_signup.Email.Trim() == "")
+                result = false;
+            else
+                result = (bool)CheckLoginName(vm_signup.LoginName).Data && (bool)CheckCellPhone(vm_signup.CellPhone).Data && (bool)CheckCellPhoneForRegistered(vm_signup.CellPhone).Data && (bool)CheckMemberName(vm_signup.MemberName).Data;
+            return result;
         }
 
         public void RegisterLoginInfo()
