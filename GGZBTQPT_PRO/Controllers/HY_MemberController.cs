@@ -151,11 +151,16 @@ namespace GGZBTQPT_PRO.Controllers
             if (Request.IsAjaxRequest())
             {
                 T_HY_Member t_hy_member = db.T_HY_Member.Find(id);
-                t_hy_member.IsValid = false;
-                int result = db.SaveChanges();
+                int result = 0;
 
-                bool boo = DeleteMember(t_hy_member.Type, id);
-                if (result > 0 && boo == true)
+                bool boo = DeleteMember(t_hy_member.Type, id,t_hy_member.MemberName);
+                if (boo)
+                {
+                    t_hy_member.IsValid = false;
+                    result = db.SaveChanges();
+                }
+        
+                if (result > 0)
                     return ReturnJson(true, "操作成功", "", "", false, "");
                 else
                     return ReturnJson(false, "操作失败", "", "", false, "");
@@ -164,30 +169,34 @@ namespace GGZBTQPT_PRO.Controllers
         }
 
         #region DeleteMember
-        public bool DeleteMember(int type, int member_id)
+        public bool DeleteMember(int type, int member_id,string member_name)
         {
             bool result = false;
             switch (type)
             {
                 case 1:
-                    result = DelPerson(member_id);
+                    result = DelPerson(member_id, member_name);
                     break;
                 case 2:
-                    result = DelCorp(member_id);
+                    result = DelCorp(member_id, member_name);
                     break;
                 case 3:
-                    result = DelAgency(member_id);
+                    result = DelAgency(member_id, member_name);
                     break;
             }
             return result;
         }
 
-        public bool DelCorp(int member_id)
+        public bool DelCorp(int member_id, string member_name)
         {
             try
             {
                 T_QY_Corp t_qy_corp = db.T_QY_Corp.Where(p=> p.MemberID == member_id).FirstOrDefault();
                 t_qy_corp.IsValid = false;
+                if (string.IsNullOrEmpty(t_qy_corp.CorpName))
+                {
+                    t_qy_corp.CorpName = member_name;
+                }
                 
                 if (db.SaveChanges() > 0)
                 {
@@ -201,12 +210,17 @@ namespace GGZBTQPT_PRO.Controllers
             }
         }
 
-        public bool DelPerson(int member_id)
+        public bool DelPerson(int member_id, string member_name)
         {
             try
             {
                 T_QY_Person t_qy_person = db.T_QY_Person.Where(p => p.MemberID == member_id).FirstOrDefault();
                 t_qy_person.IsValid = false;
+
+                if (string.IsNullOrEmpty(t_qy_person.Name))
+                {
+                    t_qy_person.Name = member_name;
+                }
 
                 if (db.SaveChanges() > 0)
                 {
@@ -220,12 +234,17 @@ namespace GGZBTQPT_PRO.Controllers
             }
         }
 
-        public bool DelAgency(int member_id)
+        public bool DelAgency(int member_id, string member_name)
         {
             try
             {
                 T_JG_Agency t_jg_agency = db.T_JG_Agency.Where(p => p.MemberID == member_id).FirstOrDefault();
                 t_jg_agency.IsValid = false;
+
+                if (string.IsNullOrEmpty(t_jg_agency.AgencyName))
+                {
+                    t_jg_agency.AgencyName = member_name;
+                }
 
                 if (db.SaveChanges() > 0)
                 {
