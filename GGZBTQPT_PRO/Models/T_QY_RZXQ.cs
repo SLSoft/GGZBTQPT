@@ -47,7 +47,7 @@ namespace GGZBTQPT_PRO.Models
         public string Competitor { get; set; }//竞争对手
         [Required(ErrorMessage = "注册资本不能为空")]
         public string RegCapital { get; set; }//注册资本
-        [Required(ErrorMessage = "实际到位金额不能为空")]
+        //[Required(ErrorMessage = "实际到位金额不能为空")]
         public string ActualCapital { get; set; }//实际到位金额
         public string CapitalRatio { get; set; }//无形资产出资数额及占注册资本的比例
         public string StockRight { get; set; }//股权结构
@@ -173,7 +173,7 @@ namespace GGZBTQPT_PRO.Models
         [Required(ErrorMessage = "融资方式及金额不能为空")]
         public string Financing { get; set; }//融资方式及金额
         public string FinancingDate { get; set; }//希望融资到位的时间
-        [Required(ErrorMessage = "可承受的最高融资成本不能为空")]
+        //[Required(ErrorMessage = "可承受的最高融资成本不能为空")]
         public string FinancingCost { get; set; }//可承受的最高融资成本
         public string Guarantee1 { get; set; }//第三方保证
         public string GuaranteeDetail1 { get; set; }//保证人
@@ -187,15 +187,21 @@ namespace GGZBTQPT_PRO.Models
 
         #region 企业竞争力
         public string Intellectual { get; set; }//知识产权情况
-        [Required(ErrorMessage = "经营模式和盈利模式不能为空")]
+        //[Required(ErrorMessage = "经营模式和盈利模式不能为空")]
         public string Management { get; set; }//经营模式和盈利模式
         public string Competitive { get; set; }//企业核心竞争力
-        [Required(ErrorMessage = "所获荣誉不能为空")]
+        //[Required(ErrorMessage = "所获荣誉不能为空")]
         public string Honour { get; set; }//所获荣誉
         #endregion
 
         public bool IsValid { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.DateTime UpdateTime { get; set; }
+
+        //2013-5-9新增
+        public string RegArea { get; set; }//其他内容
+        public string FinancExperience{ get; set; }//是否有融资经历
+        public string AllowAssure { get; set; }//是否愿意担保公司介入
+        public string OtherIndustry { get; set; }//其他行业领域
     }
 }

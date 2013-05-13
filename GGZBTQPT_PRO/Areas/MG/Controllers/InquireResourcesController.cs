@@ -501,7 +501,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             ViewData["AgencyList"] = new SelectList(AgencyList, "ID", "SubName");
             List<T_PTF_DicDetail> CustomerType = db.T_PTF_DicDetail.Where(p => (p.DicType == "JG02")).ToList();
             ViewData["CustomerType"] = new SelectList(CustomerType, "ID", "Name");
-            var products = db.T_JG_Product.Where(p => (p.IsValid == true && p.PublicStatus=="2")).OrderBy(p => p.CreateTime).ToPagedList(id, 5);
+            var products = db.T_JG_Product.Where(p => (p.IsValid == true && p.PublicStatus == "2")).OrderByDescending(p => p.CreateTime).ToPagedList(id, 5);
             return View(products);
         }
         [HttpPost]

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_QY_RZXQ>
+﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_QY_TZXQ>
 
 @{
     Layout = null;
@@ -13,9 +13,9 @@
 <div class="pageContent">
   <div class="panelBar">
     <ul class="toolBar">
-      <li><a class="add" href="@Url.Action("simplecreate", "CorpFinInfo")" rel="create" target="dialog" title="添加融资需求" external="true" mask="true" max="true"><span>添加</span></a></li>
-      <li><a class="edit" href="@Url.Action("simpleedit", "CorpFinInfo", new { id = "{mid}" })" rel="edit" target="dialog" title="编辑融资需求" external="true" mask="true" warn="请选择一条信息数据" max="true"><span>修改</span></a></li>
-      <li><a class="delete" href="@Url.Action("delete", "CorpFinInfo", new { id = "{mid}" })" rel="delete" target="ajaxTodo" title="确定要删除吗？"  warn="请选择一条信息数据"><span>删除</span></a></li>
+      <li><a class="add" href="@Url.Action("create", "CorpInvInfo")" rel="create" target="dialog" title="添加投资需求" external="true" mask="true" max="true"><span>添加</span></a></li>
+      <li><a class="edit" href="@Url.Action("edit", "CorpInvInfo", new { id = "{mid}" })" rel="edit" target="dialog" title="编辑投资需求" external="true" mask="true" warn="请选择一条信息数据" max="true"><span>修改</span></a></li>
+      <li><a class="delete" href="@Url.Action("delete", "CorpInvInfo", new { id = "{mid}" })" rel="delete" target="ajaxTodo" title="确定要删除吗？"  warn="请选择一条信息数据"><span>删除</span></a></li>
     </ul>
   </div>
   <div layouth="66">
@@ -23,10 +23,10 @@
       <thead>
         <tr>
             <th>
-                企业名称
+                机构名称
             </th>
             <th>
-                所属区域
+                机构性质
             </th>
             <th>
                 联系人
@@ -44,10 +44,10 @@
         {
             <tr target="mid" rel=@item.ID>
             <td>
-                @Html.DisplayFor(modelItem => item.CorpName)
+                @Html.DisplayFor(modelItem => item.AgencyName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RegArea)
+                @Html.DisplayFor(modelItem => item.AgencyNature)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Linkman)

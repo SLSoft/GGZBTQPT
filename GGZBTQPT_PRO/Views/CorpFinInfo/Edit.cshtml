@@ -25,7 +25,7 @@ body{ background:#fff;}
 <script type="text/javascript">
     $(document).ready(function () {
         $("#ddlPark").attr("value", '@ViewData["park"]');
-        $("#ddlProperty").attr("value", '@ViewData["property"]');
+//        $("#ddlProperty").attr("value", '@ViewData["property"]');
         $("#team_sex1").attr("value", '@ViewData["team_sex1"]');
         $("#team_sex2").attr("value", '@ViewData["team_sex2"]');
         $("#team_sex3").attr("value", '@ViewData["team_sex3"]');
@@ -107,16 +107,7 @@ body{ background:#fff;}
                                 <em>*</em>所有制性质
                         </td>
                         <td>
-                            <select name="ddlProperty" id="ddlProperty">
-                            <option value="国有企业">国有企业</option>
-                            <option value="集体企业">集体企业</option>
-                            <option value="有限责任公司">股份合作企业</option>
-                            <option value="股份有限公司">联营企业</option>
-                            <option value="私营企业">有限责任公司</option>
-                            <option value="中外合资企业">股份有限公司</option>
-                            <option value="外商投资企业">私营企业</option>
-                            <option value="外商投资企业">其他</option>
-                            </select>
+                            @Html.DropDownList("Property")
                         </td>
                     </tr>
                     <tr class="tb0b">

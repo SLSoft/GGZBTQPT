@@ -1,0 +1,281 @@
+﻿@model GGZBTQPT_PRO.Models.T_QY_RZXQ
+
+@{
+    Layout = null;
+}
+<style>
+<!--
+body{ background:#fff;}
+.applyfrom{ line-height:18px; margin-top:20px}
+.applyfrom caption{ line-height:30px;}
+.applyfrom td{ padding:4px 0;}
+.applyfrom h5{ margin:0; padding:0; font-size:14px; background:#efefef; line-height:25px; padding-left:5px;}
+.applyfrom em{ color:#ff0000; font-style:normal; padding-right:5px; font-size:12px;}
+.applyinfo{ margin-bottom:15px;}
+.frombro td{ padding-right:8px;}
+.frombro input{ width:65px; }
+.fromline input{ width:65px; border:none; border-bottom:1px solid #666;}
+.fromline td{ padding-right:8px;}
+.mess{color:#0000ff; font-weight:bold; font-size:11pt}
+
+-->
+</style>
+<div class="pageContent">
+@using (Html.BeginForm("SimpleEdit", "CorpFinInfo", FormMethod.Post, new { onsubmit = "return iframeCallback(this,dialogAjaxDone);", @class = "pageForm required-validate", enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.IsValid)
+    @Html.HiddenFor(model => model.CreateTime)
+    @Html.HiddenFor(model => model.UpdateTime)
+    <div class="pageFormContent" layouth="60">
+    <table width="800" border="0" align="center" cellpadding="0" cellspacing="0" class="applyfrom">
+        <tr>
+            <td>
+                <h5>
+                    一、基本信息</h5>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="applyinfo">
+                    <tr>
+                        <td width="20%">
+                            <em>*</em>企业名称</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.CorpName, new { style = "width:230px" })
+                            <em>（请填全称）</em><br /><span class="mess">@Html.ValidationMessageFor(model => model.CorpName)</span></td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            <em>*</em>所属区域</td>
+                        <td>
+                            @Html.DropDownList("RegArea")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="12%">
+                            <em>*</em>联系人</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.Linkman, new { style = "width:230px" })
+                            <br /><span class="mess">@Html.ValidationMessageFor(model => model.Linkman)</span>
+                            </td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            <em>*</em>职务</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.Duty, new { style = "width:230px" })
+                            <br /><span class="mess">@Html.ValidationMessageFor(model => model.Duty)</span>
+                            </td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            <em>*</em>电话</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.Phone, new { style = "width:230px" })
+                            <br /><span class="mess">@Html.ValidationMessageFor(model => model.Phone)</span>
+                        </td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            <em>*</em>手机</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.Mobile, new { style = "width:230px" })
+                            <br /><span class="mess">@Html.ValidationMessageFor(model => model.Mobile)</span>
+                        </td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            <em>*</em>电子邮件</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.Email, new { style = "width:230px" })
+                            <br /><span class="mess">@Html.ValidationMessageFor(model => model.Email)</span>
+                        </td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                                <em>*</em>所有制性质
+                        </td>
+                        <td>
+                            @Html.DropDownList("Property")
+                        </td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            <em>*</em>法人代表</td>
+                        <td>
+                            <em>
+                                @Html.TextBoxFor(model => model.LegalPerson, new { style = "width:230px" })
+                                （实际控制人）</em>
+                                <br /><span class="mess">@Html.ValidationMessageFor(model => model.LegalPerson)</span></td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            <em>*</em>成立时间</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.RegTime, new { style = "width:95px" })
+                            <br /><span class="mess">@Html.ValidationMessageFor(model => model.RegTime)</span>
+                            </td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            <em>*</em>行业领域</td>
+                        <td>
+                            @Html.RadioButtonFor(Model => Model.Industry, "IT行业", new { @id = "raIndustry0", @name = "raIndustry" })IT行业
+                            @Html.RadioButtonFor(Model => Model.Industry, "能源行业", new { @id = "raIndustry1", @name = "raIndustry" })能源行业
+                            @Html.RadioButtonFor(Model => Model.Industry, "互联网络", new { @id = "raIndustry2", @name = "raIndustry" })互联网络
+                            @Html.RadioButtonFor(Model => Model.Industry, "金融行业", new { @id = "raIndustry2", @name = "raIndustry" })金融行业
+                            @Html.RadioButtonFor(Model => Model.Industry, "投资行业", new { @id = "raIndustry2", @name = "raIndustry" })投资行业
+                            @Html.RadioButtonFor(Model => Model.Industry, "物流行业", new { @id = "raIndustry2", @name = "raIndustry" })物流行业
+                            @Html.RadioButtonFor(Model => Model.Industry, "汽车行业", new { @id = "raIndustry2", @name = "raIndustry" })汽车行业
+                            @Html.RadioButtonFor(Model => Model.Industry, "旅游行业", new { @id = "raIndustry2", @name = "raIndustry" })旅游行业
+                            @Html.RadioButtonFor(Model => Model.Industry, "制造行业", new { @id = "raIndustry2", @name = "raIndustry" })制造行业
+                            @Html.RadioButtonFor(Model => Model.Industry, "医疗健康", new { @id = "raIndustry2", @name = "raIndustry" })医疗健康
+                            @Html.RadioButtonFor(Model => Model.Industry, "化学工业", new { @id = "raIndustry2", @name = "raIndustry" })化学工业
+                            @Html.RadioButtonFor(Model => Model.Industry, "研究咨询", new { @id = "raIndustry2", @name = "raIndustry" })研究咨询
+                            @Html.RadioButtonFor(Model => Model.Industry, "教育行业", new { @id = "raIndustry2", @name = "raIndustry" })教育行业
+                            @Html.RadioButtonFor(Model => Model.Industry, "传媒娱乐", new { @id = "raIndustry2", @name = "raIndustry" })传媒娱乐
+                            @Html.RadioButtonFor(Model => Model.Industry, "农林牧渔", new { @id = "raIndustry2", @name = "raIndustry" })农林牧渔
+                            @Html.RadioButtonFor(Model => Model.Industry, "房地产业", new { @id = "raIndustry2", @name = "raIndustry" })房地产业
+                            @Html.RadioButtonFor(Model => Model.Industry, "电信及增值", new { @id = "raIndustry2", @name = "raIndustry" })电信及增值
+                            @Html.RadioButtonFor(Model => Model.Industry, "食品饮料", new { @id = "raIndustry2", @name = "raIndustry" })食品饮料
+                            @Html.RadioButtonFor(Model => Model.Industry, "家居建材", new { @id = "raIndustry2", @name = "raIndustry" })家居建材
+                            @Html.RadioButtonFor(Model => Model.Industry, "连锁经营", new { @id = "raIndustry2", @name = "raIndustry" })连锁经营
+                            @Html.RadioButtonFor(Model => Model.Industry, "政府机关", new { @id = "raIndustry2", @name = "raIndustry" })政府机关
+                            @Html.RadioButtonFor(Model => Model.Industry, "光电子", new { @id = "raIndustry2", @name = "raIndustry" })光电子
+                            @Html.RadioButtonFor(Model => Model.Industry, "文化创意产业", new { @id = "raIndustry2", @name = "raIndustry" })文化创意产业
+                            @Html.RadioButtonFor(Model => Model.Industry, "生物医药", new { @id = "raIndustry2", @name = "raIndustry" })生物医药
+                            @Html.RadioButtonFor(Model => Model.Industry, "其他", new { @id = "raIndustry2", @name = "raIndustry" })其他
+                            <code class="fromline">
+                                        @Html.TextBoxFor(model => model.OtherIndustry, new { style = "width:180px" })</code>
+
+                        </td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            <em>*</em>核心技术或主要产品</td>
+                        <td>
+                            <em>
+                                @Html.TextAreaFor(model => model.Products, new { rows = "5", style = "width:400px" })
+                            </em><em>(列明核心技术或几项主要产品名称）</em>
+                            <br /><span class="mess">@Html.ValidationMessageFor(model => model.Products)</span>
+                        </td>
+                    </tr>
+                    <tr class="tb0b">
+                        <td>
+                            <em>*</em> 注册资本（万元）
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.RegCapital, new { style = "width:130px" })<span class="mess">@Html.ValidationMessageFor(model => model.RegCapital)</span><em>(金额及币种)</em>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h5>
+                    二、融资经历</h5>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="applyinfo">
+                    <tr>
+                        <td width="20%">
+                            是否有过融资经历</td>
+                        <td>
+                            @Html.RadioButtonFor(model => model.FinancExperience, "是", new { @id = "radio2", @name = "FinancExperience" })是
+                            @Html.RadioButtonFor(model => model.FinancExperience, "否", new { @id = "radio1", @name = "FinancExperience" })否
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="20%">
+                            是否愿意担保公司介入</td>
+                        <td>
+                            @Html.RadioButtonFor(model => model.AllowAssure, "是", new { @id = "radio2", @name = "AllowAssure" })是
+                            @Html.RadioButtonFor(model => model.AllowAssure, "否", new { @id = "radio1", @name = "AllowAssure" })否
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h5>
+                    三、融资意向</h5>
+                <table border="0" cellspacing="0" cellpadding="0" align="left" width="100%" class="applyinfo">
+                    <tr>
+                        <td>
+                            <em>*</em>融资方式及金额</td>
+                        <td>
+                            <em>
+                                @Html.TextAreaFor(model => model.Financing, new { rows = "5", style = "width:400px" })<span class="mess">@Html.ValidationMessageFor(model => model.Financing)</span>
+                                <br />
+                                （简要说明需要股权融资、债权融资、组合融资或其它意向，以及融资金额）</em></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            希望融资到位的时间</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.FinancingDate, new { style = "width:100px" })</td>
+                    </tr>
+                    <tr class="fromline">
+                        <td width="20%">
+                            可提供的担保方式</td>
+                        <td>
+                            @if (ViewData["Guarantee1"] != "")
+                            {
+                            <input name="Guarantee1" type="checkbox" id="Guarantee1" value="checkbox" checked="checked" style="width: 15px; border: none;" />}
+                            else
+                            {
+                            <input name="Guarantee1" type="checkbox" id="Guarantee1" value="checkbox" style="width: 15px; border: none;" />}
+                            第三方保证 &nbsp; &nbsp; 保证人：
+                            @Html.TextBoxFor(model => model.GuaranteeDetail1, new { style = "width:70px;float:none" })
+                            <br />
+                            @if (ViewData["Guarantee2"] != "")
+                            {
+                            <input name="Guarantee2" type="checkbox" id="Guarantee2" value="checkbox" checked="checked" style="width: 15px; border: none;" />}
+                            else
+                            {
+                            <input name="Guarantee2" type="checkbox" id="Guarantee2" value="checkbox" style="width: 15px; border: none;" />}
+                            抵押 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 抵押物（包括不动产和动产）：
+                            @Html.TextBoxFor(model => model.GuaranteeDetail2, new { style = "width:70px;float:none" })
+                            <br />
+                            @if (ViewData["Guarantee3"] != "")
+                            {
+                            <input name="Guarantee3" type="checkbox" id="Guarantee3" value="checkbox" checked="checked" style="width: 15px; border: none;" />}
+                            else
+                            {
+                            <input name="Guarantee3" type="checkbox" id="Guarantee3" value="checkbox" style="width: 15px; border: none;" />}
+                            质押 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 质押物（包括动产和权利）：
+                            @Html.TextBoxFor(model => model.GuaranteeDetail3, new { style = "width:70px;float:none" })
+                            <br />
+                            @if (ViewData["Guarantee4"] != "")
+                            {
+                            <input name="Guarantee4" type="checkbox" id="Guarantee4" value="checkbox" checked="checked" style="width: 15px; border: none;" />}
+                            else
+                            {
+                            <input name="Guarantee4" type="checkbox" id="Guarantee4" value="checkbox" style="width: 15px; border: none;" />}
+                            其他
+                            @Html.TextBoxFor(model => model.GuaranteeDetail4, new { style = "width:70px;float:none" })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    </div>
+    <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit" value="保存设置">
+                                保存设置</button></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close" value="取消">
+                                取消</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+}
+</div>

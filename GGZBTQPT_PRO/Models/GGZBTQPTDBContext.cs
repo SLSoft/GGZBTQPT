@@ -48,7 +48,7 @@ namespace GGZBTQPT_PRO.Models
         public DbSet<T_NB_Attendance> T_NB_Attendance { get; set; }
 
         public DbSet<T_QY_RZXQ> T_QY_RZXQ { get; set; }
-        
+        public DbSet<T_QY_TZXQ> T_QY_TZXQ { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

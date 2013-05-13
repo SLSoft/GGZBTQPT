@@ -1,0 +1,181 @@
+﻿@model GGZBTQPT_PRO.Models.T_QY_TZXQ
+
+@{
+    Layout = null;
+}
+@helper GenerateIndustry(string selected_Industry)
+    {
+        var i = 0;
+        foreach (var item in ViewData["AttIndustry"] as SelectList)
+        {
+            if (i % 6 == 0 && i != 0)
+            {
+            @:</tr><tr>
+        }
+            if (selected_Industry != null && selected_Industry.IndexOf(@item.Value) >= 0)
+            {
+                @:<td><input type="checkbox" name="cbAttIndustry" value="@item.Value" checked="checked" /><span>@item.Text</span></td>
+            }
+            else
+            {
+                @:<td><input type="checkbox" name="cbAttIndustry" value="@item.Value" /><span>@item.Text</span></td>
+        }
+            i++;
+        }
+}
+
+<script type="text/javascript">
+    $.validator.unobtrusive.parse(document);
+    $(function () {
+        var sel_nature = $("#AgencyNature").val();
+        var sel_corptype = $("#AttCorpType").val();
+        $("input[type=checkbox]").each(function () {
+            if (sel_nature.indexOf($(this).val()) >= 0 || sel_corptype.indexOf($(this).val()) >= 0) {
+                $(this).attr("checked",true);
+            }
+        });
+    });
+</script>
+<div class="pageContent">
+@using (Html.BeginForm("Edit", "CorpInvInfo", FormMethod.Post, new { onsubmit = "return iframeCallback(this,dialogAjaxDone);", @class = "pageForm required-validate", enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.AgencyNature)
+    @Html.HiddenFor(model => model.AttCorpType)
+    @Html.HiddenFor(model => model.IsValid)
+    @Html.HiddenFor(model => model.CreateTime)
+    @Html.HiddenFor(model => model.UpdateTime)
+    <div class="pageFormContent" layouth="60">
+    <table style="width: 100%; border-spacing:3px;">
+        <tr>
+            <td style="width:120px">机构名称
+            </td>
+            <td>@Html.TextBoxFor(model => model.AgencyName, new { style = "width:300px" })
+            </td>
+        </tr>
+        <tr>
+            <td>机构性质
+            </td>
+            <td>
+                <table width="880px">
+                    <tr>
+                        <td width="150px"><input type="checkbox" name="cbAgencyNature" value="私募" /><span>私募（境内、境外）</span></td>
+                        <td width="150px"><input type="checkbox" name="cbAgencyNature" value="创投" /><span>创投（境内、境外）</span></td>
+                        <td width="150px"><input type="checkbox" name="cbAgencyNature" value="投行" /><span>投行（境内、境外）</span></td>
+                        <td width="120px"><input type="checkbox" name="cbAgencyNature" value="国有商业银行" /><span>国有商业银行</span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="cbAgencyNature" value="地方商业银行" /><span>地方商业银行</span></td>
+                        <td><input type="checkbox" name="cbAgencyNature" value="券商" /><span>券商</span></td>
+                        <td><input type="checkbox" name="cbAgencyNature" value="基金" /><span>基金（境内、境外）</span></td>
+                        <td><input type="checkbox" name="cbAgencyNature" value="国内产业基金" /><span>国内产业基金</span></td>
+                        <td><div style="float:left"><input type="checkbox" name="cbAgencyNature" value="其他" /><span>其他</span></div><div style="float:left">@Html.TextBoxFor(model => model.OtherNature, new { style = "width:130px" })</div></td>
+                    </tr>
+                </table>   
+            </td>
+        </tr>
+        <tr>
+            <td>机构地址
+            </td>
+            <td>@Html.TextBoxFor(model => model.Address, new { style = "width:300px" })
+            </td>
+        </tr>
+        <tr>
+            <td>联系人
+            </td>
+            <td>@Html.TextBoxFor(model => model.Linkman, new { style = "width:130px" })
+            </td>
+        </tr>
+        <tr>
+            <td>职务
+            </td>
+            <td>@Html.TextBoxFor(model => model.Duty, new { style = "width:130px" })
+            </td>
+        </tr>
+        <tr>
+            <td>联系电话
+            </td>
+            <td>@Html.TextBoxFor(model => model.Phone, new { style = "width:130px" })
+            </td>
+        </tr>
+        <tr>
+            <td>Email
+            </td>
+            <td>@Html.TextBoxFor(model => model.Email, new { style = "width:130px" })
+            </td>
+        </tr>
+        <tr>
+            <td>过往投资总额
+            </td>
+            <td>@Html.TextBoxFor(model => model.TotalInvestment, new { style = "width:100px" })（万元）
+            </td>
+        </tr>
+        <tr>
+            <td>年均投项目数量
+            </td>
+            <td>@Html.TextBoxFor(model => model.InvItemNum, new { style = "width:100px" })
+            </td>
+        </tr>
+        <tr>
+            <td>最关注的领域
+            </td>
+            <td>
+                <table width="800px">
+                    <tr>
+                        @GenerateIndustry(Model.AttIndustry)
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>关注企业类型
+            </td>
+            <td>
+                <table width="500px">
+                    <tr>
+                        <td><input type="checkbox" name="cbAttCorpType" value="前沿技术研发型" /><span>前沿技术研发型</span></td>
+                        <td><input type="checkbox" name="cbAttCorpType" value="快速增长型" /><span>快速增长型</span></td>
+                        <td><input type="checkbox" name="cbAttCorpType" value="上市准备型" /><span>上市准备型</span></td>
+                        <td><input type="checkbox" name="cbAttCorpType" value="其他" /><span>其他</span></td>
+                        <td>@Html.TextBoxFor(model => model.OtherCorpType, new { style = "width:130px" })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>一般投资额度
+            </td>
+            <td>@Html.TextBoxFor(model => model.Amount, new { style = "width:100px" })（万元）
+            </td>
+        </tr>
+        <tr>
+            <td>期望回报率
+            </td>
+            <td>@Html.TextBoxFor(model => model.RateOfReturn, new { style = "width:100px" })（%/年）
+            </td>
+        </tr>
+    </table>
+    </div>
+    <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit" value="保存">
+                                保存</button></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close" value="取消">
+                                取消</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+}
+</div>
