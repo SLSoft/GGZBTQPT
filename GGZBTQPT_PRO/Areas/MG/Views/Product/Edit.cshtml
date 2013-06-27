@@ -1,8 +1,14 @@
 ﻿@model GGZBTQPT_PRO.Models.T_JG_Product
 
-@{
-    ViewBag.Title = "Edit";
-}
+@section custom_css{
+    <link href="@Url.Content("~/Areas/MG/Content/css/member.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Areas/MG/Content/themes/base/jquery.ui.all.css")" rel="stylesheet" type="text/css" />
+}       
+<script src="@Url.Content("~/Public/UEditor/editor_config.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Public/UEditor/editor_all.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery-ui-timepicker-addon.js")" type="text/javascript"></script>
+
 @helper GeneratePersonType()
 {
     foreach (var item in ViewBag.CustomerType)
@@ -31,26 +37,20 @@
     @Html.HiddenFor(model => model.Pic)
     @Html.HiddenFor(model => model.MemberID)
     <div layouth="20">
-        <table style="width: 100%" class="list">
+        <table style="width: 100%">
             <tr>
                 <td>@Html.LabelFor(model => model.ProductName, "产品名称")
                 </td>
-                <td>@Html.EditorFor(model => model.ProductName)
+                <td>@Html.TextBoxFor(model => model.ProductName, new { style = "width:95%" })
                 </td>
             </tr>
-            <tr>
+            <tr style="display:none">
                 <td>@Html.LabelFor(model => model.Pic, "产品图片")
                 </td>
                 <td>
                     <input type="file" name="file1" />
                     <div>
                         <img id="logo_preview" src='@Url.Action("ShowPic", "Product", new { product_id = Model.ID })'  alt="@Model.ProductName" /></div>
-                </td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.AgencyID, "所属机构")
-                </td>
-                <td>@Html.DropDownList("AgencyList")
                 </td>
             </tr>
             <tr>
@@ -80,29 +80,29 @@
             <tr>
                 <td>@Html.LabelFor(model => model.Superiority, "产品优势")
                 </td>
-                <td>@Html.TextAreaFor(model => model.Superiority, new { rows = "5", cols = "60" })
+                <td>@Html.TextAreaFor(model => model.Superiority, new { rows = "5", style = "width:95%" })
                 </td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.RepaymentType, "还款方式")
                 </td>
-                <td>@Html.TextAreaFor(model => model.RepaymentType, new { rows = "5", cols = "60" })
+                <td>@Html.TextAreaFor(model => model.RepaymentType, new { rows = "5", style = "width:95%" })
                 </td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.AppCondition, "申请条件")
                 </td>
-                <td>@Html.TextAreaFor(model => model.AppCondition, new { rows = "5", cols = "60" })
+                <td>@Html.TextAreaFor(model => model.AppCondition, new { rows = "5", style = "width:95%" })
                 </td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Process, "办理流程")
                 </td>
-                <td>@Html.TextAreaFor(model => model.Process, new { rows = "5", cols = "60" })
+                <td>@Html.TextAreaFor(model => model.Process, new { rows = "5", style = "width:95%" })
                 </td>
             </tr>
         </table>
-        <table style="width: 100%" class="list">
+        <table style="width: 100%">
             <tr>
                 <td style="width: 80px">@Html.LabelFor(model => model.Linkman, "联系人")
                 </td>
@@ -135,7 +135,8 @@
             </tr>
         </table>
         <p>
-            <input type="submit" value="保存" />
+        <button class="btn btn-primary" type="submit">
+            <i class="icon-ok icon-white"></i>保存</button>
         </p>
     </div>
 }

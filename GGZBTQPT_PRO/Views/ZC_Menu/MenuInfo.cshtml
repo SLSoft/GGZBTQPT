@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<GGZBTQPT_PRO.Models.T_ZC_Menu>
+@{
+    Layout = null;
+}
 <form id="pagerForm" method="post" action="@Url.Action("MenuInfo")">
 <input type="hidden" name="pageNum" value="@ViewData["pageNum"]" />
 <input type="hidden" name="numPerPage" value="@ViewData["numPerPage"]"  />

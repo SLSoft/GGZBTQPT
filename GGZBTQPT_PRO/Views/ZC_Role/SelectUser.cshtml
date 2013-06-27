@@ -5,7 +5,7 @@
 
 @helper GenerateUser(string selected_users, GGZBTQPT_PRO.Models.T_ZC_User user)
 {
-    if(selected_users.IndexOf(user.ID.ToString()) >= 0)
+    if (selected_users.IndexOf('|' + user.ID.ToString() + '|') >= 0)
     { 
         <li><a tname="@user.UserName" tvalue="@user.ID" checked=true >@user.UserName</a></li>  
     }

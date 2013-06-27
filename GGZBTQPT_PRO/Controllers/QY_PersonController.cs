@@ -91,6 +91,10 @@ namespace GGZBTQPT_PRO.Controllers
         [HttpPost]
         public ActionResult Create(T_QY_Person t_qy_person)
         {
+            if ((bool)CheckPersonName(t_qy_person.Name).Data)
+            {
+                return ReturnJson(false, "该姓名已经存在", "", "", false, "");
+            }
             if (ModelState.IsValid)
             {
                 t_qy_person.MemberID = Convert.ToInt32(Session["MemberID"] == null ? 0 : Session["MemberID"]);
@@ -271,5 +275,10 @@ namespace GGZBTQPT_PRO.Controllers
             return Json(new { statData = dic }, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
+        public JsonResult CheckPersonName(string personname)
+        {
+            return Json(db.T_QY_Person.Any(m => m.Name.Trim() == personname.Trim()), JsonRequestBehavior.AllowGet);
+        }
     }
 }

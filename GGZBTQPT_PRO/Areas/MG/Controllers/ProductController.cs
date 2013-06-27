@@ -41,7 +41,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             }
             if (notice_type == "success")
             {
-                ViewData["notice"] = "投资项目发布成功，可进入我的发布中查阅！";
+                ViewData["notice"] = "金融产品发布成功，可进入我的发布中查阅！";
             }
 
             BindCustomerType();
@@ -63,7 +63,7 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
                     string strType = collection.GetValue("checkboxType").AttemptedValue;
                     t_jg_product.CustomerType = strType;
                 }
-                t_jg_product.AgencyID = Convert.ToInt32(collection["AgencyList"]);
+                t_jg_product.AgencyID = GetAgencyIDbyMemberID((int)Session["MemberID"]);
                 t_jg_product.IsValid = true;
                 t_jg_product.OP = 0;
                 t_jg_product.CreateTime = DateTime.Now;
@@ -95,6 +95,13 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             return View(t_jg_product);
         }
 
+        private int GetAgencyIDbyMemberID(int memberid)
+        {
+            var AgencyList = db.T_JG_Agency.Where(a => a.MemberID == memberid);
+            if (AgencyList.Count() > 0)
+                return AgencyList.First().ID;
+            return 0;
+        }
         //
         // GET: /JG_Product/Edit/5
 
@@ -112,7 +119,6 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             }
 
             T_JG_Product t_jg_product = db.T_JG_Product.Find(id);
-            BindAgency(t_jg_product.AgencyID);
             BindCustomerType();
             return View(t_jg_product);
         }
@@ -126,7 +132,6 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(t_jg_product).State = EntityState.Modified;
-                t_jg_product.AgencyID = Convert.ToInt32(collection["AgencyList"]);
                 t_jg_product.CustomerType = collection["checkboxType"];
                 t_jg_product.UpdateTime = DateTime.Now;
 
@@ -157,7 +162,12 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
         //helper
         public FileContentResult ShowPic(int product_id)
         {
-            return File(db.T_JG_Product.Find(product_id).Pic, "image/jpeg");
+            byte[] pic;
+            if (db.T_JG_Product.Find(product_id).Pic != null)
+                pic = db.T_JG_Product.Find(product_id).Pic;
+            else
+                pic = new byte[1];
+            return File(pic, "image/jpeg");
         }
 
         protected override void Dispose(bool disposing)

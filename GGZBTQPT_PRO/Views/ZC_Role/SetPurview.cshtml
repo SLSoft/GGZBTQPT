@@ -5,7 +5,7 @@
 
 @helper GenerateMenu(string selected_menus, GGZBTQPT_PRO.Models.T_ZC_Menu menu)
 {
-    if (selected_menus.IndexOf(menu.ID.ToString()) >= 0)
+    if (selected_menus.IndexOf('|'+menu.ID.ToString()+'|') >= 0)
     { 
        <a tname="@menu.Name" tvalue="@menu.ID" checked=true >@menu.Name</a>
     }
@@ -67,7 +67,7 @@
         $("#select_menu").click(function () {
             var result = "";
 
-            $(".select-tree .checked input[type='checkbox']").each(function () {
+            $(".select-tree .checked input[type='checkbox'],.select-tree .indeterminate input[type='checkbox']").each(function () {
                 var value = $(this).attr("value");
                 if (value != "" && value != "on") {
                     result += value + ",";

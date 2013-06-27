@@ -1,0 +1,126 @@
+﻿@model GGZBTQPT_PRO.Models.T_QY_RZXQ
+
+@{
+    Layout = null;
+}
+<style type="text/css">
+    .tb {width:100%; border:solid 1px #d0d0d0; border-collapse:collapse; }
+    .tb td {padding:5px 5px;}
+</style>
+<div class="pageContent"> 
+  <div layouth="0">
+<table border="1px" cellpadding="0" cellspacing="0" class="tb">
+    <tr>
+        <td style="width:120px">企业名称
+        </td>
+        <td>@Html.DisplayFor(model => model.CorpName)
+        </td>
+    </tr>
+    <tr>
+        <td>所属区域
+        </td>
+        <td>@Html.DisplayFor(model => model.RegArea)
+        </td>
+    </tr>
+    <tr>
+        <td>联系人
+        </td>
+        <td>@Html.DisplayFor(model => model.Linkman)
+        </td>
+    </tr>
+    <tr>
+        <td>职务
+        </td>
+        <td>@Html.DisplayFor(model => model.Duty)
+        </td>
+    </tr>
+    <tr>
+        <td>电话
+        </td>
+        <td>@Html.DisplayFor(model => model.Phone)
+        </td>
+    </tr>
+    <tr>
+        <td>手机
+        </td>
+        <td>@Html.DisplayFor(model => model.Mobile)
+        </td>
+    </tr>
+    <tr>
+        <td>电子邮件
+        </td>
+        <td>@Html.DisplayFor(model => model.Email)
+        </td>
+    </tr>
+    <tr>
+        <td>所有制性质
+        </td>
+        <td>@Html.DisplayFor(model => model.Property)
+        </td>
+    </tr>
+    <tr>
+        <td>法人代表
+        </td>
+        <td>@Html.DisplayFor(model => model.LegalPerson)
+        </td>
+    </tr>
+    <tr>
+        <td>成立时间
+        </td>
+        <td>@Html.DisplayFor(model => model.RegTime)
+        </td>
+    </tr>
+    <tr>
+        <td>行业领域
+        </td>
+        <td>@Html.DisplayFor(model => model.Industry)@Html.DisplayFor(model => model.OtherIndustry)
+        </td>
+    </tr>
+    <tr>
+        <td>核心技术或主要产品
+        </td>
+        <td>@Html.DisplayFor(model => model.Products)
+        </td>
+    </tr>
+    <tr>
+        <td>注册资本
+        </td>
+        <td>@Html.DisplayFor(model => model.RegCapital) （万元）
+        </td>
+    </tr>
+    <tr>
+        <td>是否有过融资经历
+        </td>
+        <td>@Html.DisplayFor(model => model.FinancExperience)
+        </td>
+    </tr>
+    <tr>
+        <td>是否愿意担保公司介入
+        </td>
+        <td>@Html.DisplayFor(model => model.AllowAssure)
+        </td>
+    </tr>
+    <tr>
+        <td>融资方式及金额
+        </td>
+        <td>@Html.DisplayFor(model => model.Financing) （万元）
+        </td>
+    </tr>
+    <tr>
+        <td>希望融资到位的时间
+        </td>
+        <td>@Html.DisplayFor(model => model.FinancingDate)
+        </td>
+    </tr>
+    <tr>
+        <td>可提供的担保方式
+        </td>
+        <td>@Html.DisplayFor(model => model.Guarantee1)  @if(Model.Guarantee1.Length>0){<span>&nbsp;&nbsp;&nbsp;保证人</span> @Html.DisplayFor(model => model.GuaranteeDetail1)}<br />
+        @Html.DisplayFor(model => model.Guarantee2)  @if(Model.Guarantee2.Length>0){ <span>&nbsp;&nbsp;&nbsp;抵押物</span> @Html.DisplayFor(model => model.GuaranteeDetail2)}<br />
+        @Html.DisplayFor(model => model.Guarantee3)  @if(Model.Guarantee3.Length>0){<span>&nbsp;&nbsp;&nbsp;质押物</span> @Html.DisplayFor(model => model.GuaranteeDetail3)}<br />
+        @Html.DisplayFor(model => model.Guarantee4)  @if(Model.Guarantee4.Length>0){@Html.DisplayFor(model => model.GuaranteeDetail4)}
+        </td>
+    </tr>
+</table>
+</div>
+</div>

@@ -48,6 +48,7 @@ namespace GGZBTQPT_PRO.Models
 
         public int ID { get; set; }
         [Required(ErrorMessage = "企业名称不能为空")]
+        //[Remote("CheckCorpName", "QY_Corp", ErrorMessage = "该企业已经存在")]
         public string CorpName { get; set; }
         public string CorpCode { get; set; }
         public Nullable<System.DateTime> RegTime { get; set; }

@@ -178,22 +178,28 @@ namespace GGZBTQPT_PRO.Areas.MG.Controllers
             BindArea();
             BindIndustry();
             BindProperty();
-            if (ModelState.IsValid)
+            if (collection["VCode"] == Session["ValidateCode"].ToString())
             {
-                t_qy_rzxq.Property = collection["ddlProperty"];
-                if (t_qy_rzxq.Industry == "其他")
-                    t_qy_rzxq.Industry = collection["txtIndustry"];
-                t_qy_rzxq.Guarantee1 = collection["Guarantee1"] == null ? "" : "第三方保证";
-                t_qy_rzxq.Guarantee2 = collection["Guarantee2"] == null ? "" : "抵押";
-                t_qy_rzxq.Guarantee3 = collection["Guarantee3"] == null ? "" : "质押";
-                t_qy_rzxq.Guarantee4 = collection["Guarantee4"] == null ? "" : "其他";
-                t_qy_rzxq.IsValid = true;
-                t_qy_rzxq.CreateTime = DateTime.Now;
-                db.T_QY_RZXQ.Add(t_qy_rzxq);
-                db.SaveChanges();
-                Response.Write("<script>alert('您的信息已提交成功!');</script>");
+                if (ModelState.IsValid)
+                {
+                    t_qy_rzxq.Property = collection["ddlProperty"];
+                    if (t_qy_rzxq.Industry == "其他")
+                        t_qy_rzxq.Industry = collection["txtIndustry"];
+                    t_qy_rzxq.Guarantee1 = collection["Guarantee1"] == null ? "" : "第三方保证";
+                    t_qy_rzxq.Guarantee2 = collection["Guarantee2"] == null ? "" : "抵押";
+                    t_qy_rzxq.Guarantee3 = collection["Guarantee3"] == null ? "" : "质押";
+                    t_qy_rzxq.Guarantee4 = collection["Guarantee4"] == null ? "" : "其他";
+                    t_qy_rzxq.IsValid = true;
+                    t_qy_rzxq.CreateTime = DateTime.Now;
+                    db.T_QY_RZXQ.Add(t_qy_rzxq);
+                    db.SaveChanges();
+                    Response.Write("<script>alert('您的信息已提交成功!');</script>");
+                }
             }
-
+            else
+            {
+                Response.Write("<script>alert('验证码错误，请重新输入!');</script>");
+            }
             return View(t_qy_rzxq);
         }
 

@@ -22,6 +22,12 @@ namespace GGZBTQPT_PRO.Controllers
             {
                 return RedirectToAction("Login");
             }
+            //取所有有权限的系统集合
+            List<int> system_rights = GetSystemRightFromCurrentUser(current_user.Roles);
+            var system_links = db.T_ZC_System.OrderBy(s => s.ID)
+                                 .Where(s => (s.IsValid == true && system_rights.Contains(s.ID)))
+                                 .ToList();
+            ViewBag.FirstSysID = system_links.Count >0 ? system_links[0].ID : 3;
             return View(current_user);
         }
 
@@ -44,7 +50,7 @@ namespace GGZBTQPT_PRO.Controllers
             return PartialView(system_links);
         }
 
-        public ActionResult SystemMenus(int id = 1)
+        public ActionResult SystemMenus(int id)
         { 
             var current_user = CurrentUser();
             var system = db.T_ZC_System.Find(id);

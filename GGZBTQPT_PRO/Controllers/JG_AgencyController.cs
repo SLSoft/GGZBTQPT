@@ -62,8 +62,12 @@ namespace GGZBTQPT_PRO.Controllers
             ViewBag.MemberID = new SelectList(db.T_HY_Member, "ID", "LoginName");
             var t_jg_agency = new T_JG_Agency();
             return View(t_jg_agency);
-        } 
+        }
 
+        public JsonResult CheckAgencyName(string agencyname)
+        {
+            return Json(db.T_JG_Agency.Any(m => m.AgencyName.Trim() == agencyname.Trim()), JsonRequestBehavior.AllowGet);
+        }
         //
         // POST: /JG_Agency/Create
 
@@ -71,6 +75,10 @@ namespace GGZBTQPT_PRO.Controllers
         [ValidateInput(false)]
         public ActionResult Create(T_JG_Agency t_jg_agency)
         {
+            if ((bool)CheckAgencyName(t_jg_agency.AgencyName).Data)
+            {
+                return ReturnJson(false, "该机构已经存在", "", "", false, "");
+            }
             if (ModelState.IsValid)
             {
                 t_jg_agency.Services = t_jg_agency.Services == null ? "" : t_jg_agency.Services;

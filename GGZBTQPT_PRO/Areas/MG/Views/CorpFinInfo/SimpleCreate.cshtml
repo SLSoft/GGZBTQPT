@@ -3,6 +3,7 @@
 @{
     Layout = null;
 }
+<script src="@Url.Content("~/Public/bootstrap/js/jquery.1.7.2.js")")" type="text/javascript"></script>
 <style>
 <!--
 body{ background:#fff;}
@@ -243,6 +244,46 @@ body{ background:#fff;}
                         </td>
                     </tr>
                 </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="ValidateCodeSpan">
+
+                     请输入验证码：@Html.TextBox("VCode")
+
+                     <img id="valiCode" style="cursor: pointer;" src="/MG/Validate/GetValidateCode" alt="看不清？请点我" />
+
+                     @Html.Hidden("ValidateCode")
+                     <script type="text/javascript">
+
+                         $(function () {
+
+                             //首次加载
+
+                             $("#valiCode").attr("src", "/MG/Validate/GetValidateCode?time=" + (new Date()).getTime());
+
+                             $.get("/MG/Validate/GetCurrentValidateCode", function (data) {
+
+                                 $("#ValidateCode").val(data);
+                             });
+                             //单击验证码事件
+
+                             $("#valiCode").bind("click", function () {
+
+                                 this.src = "/MG/Validate/GetValidateCode?time=" + (new Date()).getTime();
+
+                                 $.get("/MG/Validate/GetCurrentValidateCode", function (data) {
+
+                                     $("#ValidateCode").val(data);
+                                 });
+                             });
+
+                         });
+
+                     </script>
+
+                 </div>
             </td>
         </tr>
     </table>

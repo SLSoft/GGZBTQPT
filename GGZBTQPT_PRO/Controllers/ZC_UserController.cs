@@ -27,7 +27,8 @@ namespace GGZBTQPT_PRO.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.DepartmentID = new SelectList(db.T_ZC_Department, "ID", "Name");
+            List<T_ZC_Department> Department = db.T_ZC_Department.Where(p => p.IsValid == true).ToList();
+            ViewBag.DepartmentID = new SelectList(Department, "ID", "Name");
             return View();
         } 
 
@@ -57,7 +58,8 @@ namespace GGZBTQPT_PRO.Controllers
         public ActionResult Edit(int id)
         {
             T_ZC_User t_zc_user = db.T_ZC_User.Find(id);
-            ViewBag.DepartmentID = new SelectList(db.T_ZC_Department, "ID", "Name", t_zc_user.DepartmentID);
+            List<T_ZC_Department> Department = db.T_ZC_Department.Where(p => p.IsValid == true).ToList();
+            ViewBag.DepartmentID = new SelectList(Department, "ID", "Name", t_zc_user.DepartmentID);
             return View(t_zc_user);
         }
 

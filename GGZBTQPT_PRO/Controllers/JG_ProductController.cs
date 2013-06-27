@@ -76,8 +76,12 @@ namespace GGZBTQPT_PRO.Controllers
             BindAgency();
             var t_jg_product = new T_JG_Product();
             return View(t_jg_product);
-        } 
+        }
 
+        public JsonResult CheckProductName(string productname)
+        {
+            return Json(db.T_JG_Product.Any(m => m.ProductName.Trim() == productname.Trim()), JsonRequestBehavior.AllowGet);
+        }
         //
         // POST: /JG_Product/Create
 
@@ -85,6 +89,10 @@ namespace GGZBTQPT_PRO.Controllers
         [ValidateInput(false)]
         public ActionResult Create(T_JG_Product t_jg_product, FormCollection collection)
         {
+            if ((bool)CheckProductName(t_jg_product.ProductName).Data)
+            {
+                return ReturnJson(false, "该产品已经存在", "", "", false, "");
+            }
             if (ModelState.IsValid)
             {
                 if (collection.GetValue("checkboxType") != null)

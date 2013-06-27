@@ -143,7 +143,7 @@ namespace GGZBTQPT_PRO.Controllers
 
         public string GenerateStringFromList(ICollection<T_ZC_User> users)
         {
-            string select_users = "";
+            string select_users = "|";
             foreach (T_ZC_User user in users)
             {
                 select_users += user.ID + "|";
@@ -197,7 +197,7 @@ namespace GGZBTQPT_PRO.Controllers
 
         public string GenerateStringFromMenus(ICollection<T_ZC_Menu> menus)
         {
-            string select_menus = "";
+            string select_menus = "|";
             foreach (T_ZC_Menu menu in menus)
             {
                 select_menus += menu.ID + "|";

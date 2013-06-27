@@ -245,7 +245,6 @@ function dwzPageBreak(options){
 		var $box = $parent.find("#" + op.rel);
 		var form = _getPagerForm($box, op.data);
 		if (form) {
-		    console.log($box.attr("id"));
 			$box.ajaxUrl({
 				type:"POST", url:$(form).attr("action"), data: $(form).serializeArray(), callback:function(){
 					$box.find("[layoutH]").layoutH();

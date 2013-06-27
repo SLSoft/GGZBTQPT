@@ -126,7 +126,7 @@ namespace GGZBTQPT_PRO.Controllers
         public ActionResult Delete(int id)
         {
             T_QY_TZXQ t_qy_tzxq = db.T_QY_TZXQ.Find(id);
-            return View(t_qy_tzxq);
+            return PartialView(t_qy_tzxq);
         }
 
         //

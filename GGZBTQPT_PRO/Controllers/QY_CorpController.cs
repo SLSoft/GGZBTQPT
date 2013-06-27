@@ -99,6 +99,10 @@ namespace GGZBTQPT_PRO.Controllers
         [ValidateInput(false)]
         public ActionResult Create(T_QY_Corp t_qy_corp, FormCollection collection)
         {
+            if ((bool)CheckCorpName(t_qy_corp.CorpName).Data)
+            {
+                return ReturnJson(false, "该企业已经存在", "", "", false, "");
+            }
             if (ModelState.IsValid)
             {
                 t_qy_corp.Remark = t_qy_corp.Remark == null ? "" : t_qy_corp.Remark;
@@ -422,5 +426,10 @@ namespace GGZBTQPT_PRO.Controllers
             return Json(new { statData = dic }, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
+        public JsonResult CheckCorpName(string corpname)
+        {
+            return Json(db.T_QY_Corp.Any(m => m.CorpName.Trim() == corpname.Trim()), JsonRequestBehavior.AllowGet);
+        }
     }
 }
